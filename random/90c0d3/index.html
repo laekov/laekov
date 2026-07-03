@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Chrome book 初体验 | The Site of laekov</title>
+<meta name="keywords" content="brainhole">
+<meta name="description" content="不久之前听说可能要出去背锅, 然而自从 macbook 死亡之后就一直在用实验室的台式机/宿舍买的新的游戏本. 都不太适合背着去干活, 于是考虑买一台轻薄的工作笔记本.
+看了一些 ryzen 4 代的轻薄本, 比如 x13, 战x, 灵耀14, 什么的. 然而因为贵所以买不起没买. 后来某天逛闲鱼的时候发现了 chromebook 很便宜, 于是一番研究之后买了个二手 hp g1 chromebook, 1k 块不到.
+转身围观一下这台本子，深灰色金属壳还挺高端。最厚的地方只有 12mm，几乎满足了我对薄本的所有想象，但是拿在手里挺沉，可能是压扁了的重型本。 cpu 是六代 m5 skx, 四个物理核默认只开了两个，8 GB mem &#43; 32 GB ssd, 多开几个 chrome 窗口应该都挺好的。最惊人的是居配了一块 3200x1800 的屏幕，观感很不错。 然而还是有一些问题的。屏幕边框宽到跑马车，毕竟是便宜本，键盘键程短到手指疼，只能轻轻打字。触摸板比较小，而且可能由于前任主人用得比较多，所以油油的，而且有点松。考虑之后买个触摸板膜。接口方面带了一个 usb a 两个 usb c包括充电，还有耳机口。考虑到现在 typec 的本子到处飞，转接头很普遍，这也还ok。这个 cpu 最高支持到 4k 屏幕，想要外接显示器也没有问题，赞。
+软件方面自然是 chrome os，费了一番力来搞开开发者模式用 crounton 装了一个 debian, 和搞上 play store. 比较无语的是 play store 并不用 chrome os 里面设置的 socks5 代理，于是只好临时搞了一个二层的有隧道的网关，才成功搞开了 play store, 然后立即在里面下了一个 android 版本的 ss, 然后用它就能给 android app 供应网络了。">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/random/90c0d3/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="Chrome book 初体验" />
+<meta property="og:description" content="不久之前听说可能要出去背锅, 然而自从 macbook 死亡之后就一直在用实验室的台式机/宿舍买的新的游戏本. 都不太适合背着去干活, 于是考虑买一台轻薄的工作笔记本.
+看了一些 ryzen 4 代的轻薄本, 比如 x13, 战x, 灵耀14, 什么的. 然而因为贵所以买不起没买. 后来某天逛闲鱼的时候发现了 chromebook 很便宜, 于是一番研究之后买了个二手 hp g1 chromebook, 1k 块不到.
+转身围观一下这台本子，深灰色金属壳还挺高端。最厚的地方只有 12mm，几乎满足了我对薄本的所有想象，但是拿在手里挺沉，可能是压扁了的重型本。 cpu 是六代 m5 skx, 四个物理核默认只开了两个，8 GB mem &#43; 32 GB ssd, 多开几个 chrome 窗口应该都挺好的。最惊人的是居配了一块 3200x1800 的屏幕，观感很不错。 然而还是有一些问题的。屏幕边框宽到跑马车，毕竟是便宜本，键盘键程短到手指疼，只能轻轻打字。触摸板比较小，而且可能由于前任主人用得比较多，所以油油的，而且有点松。考虑之后买个触摸板膜。接口方面带了一个 usb a 两个 usb c包括充电，还有耳机口。考虑到现在 typec 的本子到处飞，转接头很普遍，这也还ok。这个 cpu 最高支持到 4k 屏幕，想要外接显示器也没有问题，赞。
+软件方面自然是 chrome os，费了一番力来搞开开发者模式用 crounton 装了一个 debian, 和搞上 play store. 比较无语的是 play store 并不用 chrome os 里面设置的 socks5 代理，于是只好临时搞了一个二层的有隧道的网关，才成功搞开了 play store, 然后立即在里面下了一个 android 版本的 ss, 然后用它就能给 android app 供应网络了。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/random/90c0d3/" /><meta property="article:section" content="random" />
+<meta property="article:published_time" content="2021-01-07T09:17:05+00:00" />
+<meta property="article:modified_time" content="2021-01-07T09:17:05+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Chrome book 初体验"/>
+<meta name="twitter:description" content="不久之前听说可能要出去背锅, 然而自从 macbook 死亡之后就一直在用实验室的台式机/宿舍买的新的游戏本. 都不太适合背着去干活, 于是考虑买一台轻薄的工作笔记本.
+看了一些 ryzen 4 代的轻薄本, 比如 x13, 战x, 灵耀14, 什么的. 然而因为贵所以买不起没买. 后来某天逛闲鱼的时候发现了 chromebook 很便宜, 于是一番研究之后买了个二手 hp g1 chromebook, 1k 块不到.
+转身围观一下这台本子，深灰色金属壳还挺高端。最厚的地方只有 12mm，几乎满足了我对薄本的所有想象，但是拿在手里挺沉，可能是压扁了的重型本。 cpu 是六代 m5 skx, 四个物理核默认只开了两个，8 GB mem &#43; 32 GB ssd, 多开几个 chrome 窗口应该都挺好的。最惊人的是居配了一块 3200x1800 的屏幕，观感很不错。 然而还是有一些问题的。屏幕边框宽到跑马车，毕竟是便宜本，键盘键程短到手指疼，只能轻轻打字。触摸板比较小，而且可能由于前任主人用得比较多，所以油油的，而且有点松。考虑之后买个触摸板膜。接口方面带了一个 usb a 两个 usb c包括充电，还有耳机口。考虑到现在 typec 的本子到处飞，转接头很普遍，这也还ok。这个 cpu 最高支持到 4k 屏幕，想要外接显示器也没有问题，赞。
+软件方面自然是 chrome os，费了一番力来搞开开发者模式用 crounton 装了一个 debian, 和搞上 play store. 比较无语的是 play store 并不用 chrome os 里面设置的 socks5 代理，于是只好临时搞了一个二层的有隧道的网关，才成功搞开了 play store, 然后立即在里面下了一个 android 版本的 ss, 然后用它就能给 android app 供应网络了。"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Randoms",
+      "item": "/random/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Chrome book 初体验",
+      "item": "/random/90c0d3/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Chrome book 初体验",
+  "name": "Chrome book 初体验",
+  "description": "不久之前听说可能要出去背锅, 然而自从 macbook 死亡之后就一直在用实验室的台式机/宿舍买的新的游戏本. 都不太适合背着去干活, 于是考虑买一台轻薄的工作笔记本.\n看了一些 ryzen 4 代的轻薄本, 比如 x13, 战x, 灵耀14, 什么的. 然而因为贵所以买不起没买. 后来某天逛闲鱼的时候发现了 chromebook 很便宜, 于是一番研究之后买了个二手 hp g1 chromebook, 1k 块不到.\n转身围观一下这台本子，深灰色金属壳还挺高端。最厚的地方只有 12mm，几乎满足了我对薄本的所有想象，但是拿在手里挺沉，可能是压扁了的重型本。 cpu 是六代 m5 skx, 四个物理核默认只开了两个，8 GB mem + 32 GB ssd, 多开几个 chrome 窗口应该都挺好的。最惊人的是居配了一块 3200x1800 的屏幕，观感很不错。 然而还是有一些问题的。屏幕边框宽到跑马车，毕竟是便宜本，键盘键程短到手指疼，只能轻轻打字。触摸板比较小，而且可能由于前任主人用得比较多，所以油油的，而且有点松。考虑之后买个触摸板膜。接口方面带了一个 usb a 两个 usb c包括充电，还有耳机口。考虑到现在 typec 的本子到处飞，转接头很普遍，这也还ok。这个 cpu 最高支持到 4k 屏幕，想要外接显示器也没有问题，赞。\n软件方面自然是 chrome os，费了一番力来搞开开发者模式用 crounton 装了一个 debian, 和搞上 play store. 比较无语的是 play store 并不用 chrome os 里面设置的 socks5 代理，于是只好临时搞了一个二层的有隧道的网关，才成功搞开了 play store, 然后立即在里面下了一个 android 版本的 ss, 然后用它就能给 android app 供应网络了。",
+  "keywords": [
+    "brainhole"
+  ],
+  "articleBody": "不久之前听说可能要出去背锅, 然而自从 macbook 死亡之后就一直在用实验室的台式机/宿舍买的新的游戏本. 都不太适合背着去干活, 于是考虑买一台轻薄的工作笔记本.\n看了一些 ryzen 4 代的轻薄本, 比如 x13, 战x, 灵耀14, 什么的. 然而因为贵所以买不起没买. 后来某天逛闲鱼的时候发现了 chromebook 很便宜, 于是一番研究之后买了个二手 hp g1 chromebook, 1k 块不到.\n转身围观一下这台本子，深灰色金属壳还挺高端。最厚的地方只有 12mm，几乎满足了我对薄本的所有想象，但是拿在手里挺沉，可能是压扁了的重型本。 cpu 是六代 m5 skx, 四个物理核默认只开了两个，8 GB mem + 32 GB ssd, 多开几个 chrome 窗口应该都挺好的。最惊人的是居配了一块 3200x1800 的屏幕，观感很不错。 然而还是有一些问题的。屏幕边框宽到跑马车，毕竟是便宜本，键盘键程短到手指疼，只能轻轻打字。触摸板比较小，而且可能由于前任主人用得比较多，所以油油的，而且有点松。考虑之后买个触摸板膜。接口方面带了一个 usb a 两个 usb c包括充电，还有耳机口。考虑到现在 typec 的本子到处飞，转接头很普遍，这也还ok。这个 cpu 最高支持到 4k 屏幕，想要外接显示器也没有问题，赞。\n软件方面自然是 chrome os，费了一番力来搞开开发者模式用 crounton 装了一个 debian, 和搞上 play store. 比较无语的是 play store 并不用 chrome os 里面设置的 socks5 代理，于是只好临时搞了一个二层的有隧道的网关，才成功搞开了 play store, 然后立即在里面下了一个 android 版本的 ss, 然后用它就能给 android app 供应网络了。\n然后发现微信和腾讯会议都 not available in play store, 听说要开 native bridge, 于是开始研究咋用一个叫 aroc 的仓库来给 chrome os 带的 android 搞 root, 发现脚本有各种问题，会把整个 android 子系统都给搞坏，甚至还 chrome os recovery 了好几次。感到悲伤。 后来打开了小米商场，发现直接下 apk 就能安装？？？？？\n然而微信和腾讯会议对 x86 android 的支持真是垃圾，根本登不进去。腾讯会议加入会议死机，共享屏幕死机。强调一遍：腾讯公司是开源软件在中国发展的最大阻碍。\n然而 zoom 的国产版本瞩目用起来就毫无障碍，telegram 和 mendeley 也运行得很好。\n原生软件方面主要就是一个巨大的 chrome, 甚至在可以在 chrome 里使用一个还不错的 crosh 当 terminal emulator, 按一下全屏键之后就没有快捷键冲突问题了， ssh 到服务器上就像一个普通的本子一样，好评。 电池方面这个本子不太行。没有完整测过续航，系统的剩余估计在 2h-8h 之间波动，估计 os 上省电还是做了不少工作的，但是 m5 这个 cpu 对于 chromebook 的设计可能还是太强了一点。\n（未完待续）\n",
+  "wordCount" : "145",
+  "inLanguage": "en",
+  "datePublished": "2021-01-07T09:17:05Z",
+  "dateModified": "2021-01-07T09:17:05Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/random/90c0d3/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/random/">Randoms</a></div>
+    <h1 class="post-title">
+      Chrome book 初体验
+    </h1>
+    <div class="post-meta"><span title='2021-01-07 09:17:05 +0000 UTC'>January 7, 2021</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>不久之前听说可能要出去背锅, 然而自从 macbook 死亡之后就一直在用实验室的台式机/宿舍买的新的游戏本. 都不太适合背着去干活, 于是考虑买一台轻薄的工作笔记本.</p>
+<p>看了一些 ryzen 4 代的轻薄本, 比如 x13, 战x, 灵耀14, 什么的. 然而因为贵所以买不起没买. 后来某天逛闲鱼的时候发现了 chromebook 很便宜, 于是一番研究之后买了个二手 hp g1 chromebook, 1k 块不到.</p>
+<p>转身围观一下这台本子，深灰色金属壳还挺高端。最厚的地方只有 12mm，几乎满足了我对薄本的所有想象，但是拿在手里挺沉，可能是压扁了的重型本。 cpu 是六代 m5 skx, 四个物理核默认只开了两个，8 GB mem + 32 GB ssd, 多开几个 chrome 窗口应该都挺好的。最惊人的是居配了一块 3200x1800 的屏幕，观感很不错。
+然而还是有一些问题的。屏幕边框宽到跑马车，毕竟是便宜本，键盘键程短到手指疼，只能轻轻打字。触摸板比较小，而且可能由于前任主人用得比较多，所以油油的，而且有点松。考虑之后买个触摸板膜。接口方面带了一个 usb a 两个 usb c包括充电，还有耳机口。考虑到现在 typec 的本子到处飞，转接头很普遍，这也还ok。这个 cpu 最高支持到 4k 屏幕，想要外接显示器也没有问题，赞。</p>
+<p>软件方面自然是 chrome os，费了一番力来搞开开发者模式用 crounton 装了一个 debian, 和搞上 play store. 比较无语的是 play store 并不用 chrome os 里面设置的 socks5 代理，于是只好临时搞了一个二层的有隧道的网关，才成功搞开了 play store, 然后立即在里面下了一个 android 版本的 ss, 然后用它就能给 android app 供应网络了。</p>
+<p>然后发现微信和腾讯会议都 not available in play store, 听说要开 native bridge, 于是开始研究咋用一个叫 aroc 的仓库来给 chrome os 带的 android 搞 root, 发现脚本有各种问题，会把整个 android 子系统都给搞坏，甚至还 chrome os recovery 了好几次。感到悲伤。
+后来打开了小米商场，发现直接下 apk 就能安装？？？？？</p>
+<p>然而微信和腾讯会议对 x86 android 的支持真是垃圾，根本登不进去。腾讯会议加入会议死机，共享屏幕死机。强调一遍：腾讯公司是开源软件在中国发展的最大阻碍。</p>
+<p>然而 zoom 的国产版本瞩目用起来就毫无障碍，telegram 和 mendeley 也运行得很好。</p>
+<p>原生软件方面主要就是一个巨大的 chrome, 甚至在可以在 chrome 里使用一个还不错的 crosh 当 terminal emulator, 按一下全屏键之后就没有快捷键冲突问题了， ssh 到服务器上就像一个普通的本子一样，好评。
+电池方面这个本子不太行。没有完整测过续航，系统的剩余估计在 2h-8h 之间波动，估计 os 上省电还是做了不少工作的，但是 m5 这个 cpu 对于 chromebook 的设计可能还是太强了一点。</p>
+<p>（未完待续）</p>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/brainhole/">brainhole</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/technical/2f6dcb/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>HiDPI on XFCE4, Chromebook</span>
+  </a>
+  <a class="next" href="/technical/3b42dc/">
+    <span class="title">Next »</span>
+    <br>
+    <span>在 ThinRouter 上开发网络（原理课）硬件测试仪软件部分的记录和一些经验</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

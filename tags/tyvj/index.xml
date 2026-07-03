@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>tyvj on The Site of laekov</title>
+    <link>/tags/tyvj/</link>
+    <description>Recent content in tyvj on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Wed, 17 Jun 2015 20:55:30 +0000</lastBuildDate><atom:link href="/tags/tyvj/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>bzoj3451 tyvj1953 Normal</title>
+      <link>/oi/dbimport_194/</link>
+      <pubDate>Wed, 17 Jun 2015 20:55:30 +0000</pubDate>
+      
+      <guid>/oi/dbimport_194/</guid>
+      <description>mhy大爷多久之前开的坑啊ovo
+这题的思路比较神.点分+fft.两个点会产生的贡献是1/(dist + 1).于是要知道长度为多少的链有多少条.
+利用树分可以将∑深度降到O(n*log n)的级别.原因很明显啊.
+然后就用fft来求就好喽.反正是double也懒得用数论了.然后找了wyf的程序随便就拍出一组末位不等,也没用long double.居然能过太神奇了.
+总复杂度O(n*log2n).然后莫名其妙就拿了rank1好开心啊.</description>
+    </item>
+    
+    <item>
+      <title>tyvj1996 工作分配2</title>
+      <link>/oi/lofterimport_147/</link>
+      <pubDate>Wed, 15 Oct 2014 12:00:49 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_147/</guid>
+      <description>沦落到写tyvj的题解了。不过看在这题之前只有7人过的份上就写一下好了。
+式子是容斥，比较好想。answer = sigma((-1)^i * m^(n-i)&amp;nbsp;* C(m, i))&amp;nbsp;(0 &amp;lt;= i &amp;lt;= m)
+m^(n-i)这一块用快速幂就好了。
+然后对于前一题因为m很小所以用m^2把组合数弄出来就行了。但是这里m^2就T到明天去了。
+观察
+C(m, i)&amp;nbsp;= m!/(i!&amp;nbsp;*&amp;nbsp;(m-i)!)&amp;nbsp;
+=&amp;gt; C(m, i - 1)&amp;nbsp;= m!&amp;nbsp;/&amp;nbsp;((i-1)!&amp;nbsp;*&amp;nbsp;(m-i+1)!)&amp;nbsp;
+=&amp;gt; C(m, i)&amp;nbsp;= C(m, i - 1)&amp;nbsp;/ i *&amp;nbsp;(m&amp;nbsp;- i + 1)
+这样递推用逆元来做就是O(m * lgm)的时间了。
+然后这题就这样了。代码很短。
+#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;memory.h&amp;gt;
+using namespace std;
+#define _l (long long int)
+typedef long long qw;
+const int maxm = 1000009;
+const int mod = 1e9 + 7;
+int cm[maxm];</description>
+    </item>
+    
+  </channel>
+</rss>

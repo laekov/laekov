@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>BZOJ3821 玄学 | The Site of laekov</title>
+<meta name="keywords" content="bzoj, data\xa0structure, oi">
+<meta name="description" content="zhx&#43;主席出的题，恐怖至极。
+写此题需要极高的常数优化技巧&#43;耐心。
+本地跑到50s才在bzoj上压80s跑过。
+其实思路就是拿线段树套AVL把询问的时间复杂度优化到O(logn)。
+然后首先用treap会t爽&#43;mle爽。
+然后avl需要各种常数优化。
+然后要在xxxxx地方优化。
+加上zhx牌读入优化&#43;块状内存&#43;抄std的AVL&#43;.....终于在81s过了。
+orz比我快一倍的wangyisong神犇。
+#include &lt;cstdio&gt;
+#include &lt;cstdlib&gt;
+#include &lt;cctype&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+const int BUF_SIZE = 300;
+char buf[BUF_SIZE],&nbsp;*buf_s = buf,&nbsp;*buf_t = buf &#43; 1;
+#define PTR_NEXT()&nbsp;\
+{&nbsp;\
+buf_s &#43;&#43;;&nbsp;\
+if (buf_s&nbsp;== buf_t)&nbsp;\
+{&nbsp;\
+buf_s = buf;&nbsp;\
+buf_t = buf &#43; fread(buf, 1, BUF_SIZE, stdin);&nbsp;\
+}&nbsp;\
+}
+#define readInt(_n_)&nbsp;\
+{&nbsp;\
+while (*buf_s&nbsp;!=&nbsp;&#39;-&#39;&nbsp;&amp;&amp;&nbsp;!isdigit(*buf_s))&nbsp;\
+PTR_NEXT();&nbsp;\
+bool register _nega_ = false;&nbsp;\
+if (*buf_s&nbsp;==&nbsp;&#39;-&#39;)&nbsp;\">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/lofterimport_024/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="BZOJ3821 玄学" />
+<meta property="og:description" content="zhx&#43;主席出的题，恐怖至极。
+写此题需要极高的常数优化技巧&#43;耐心。
+本地跑到50s才在bzoj上压80s跑过。
+其实思路就是拿线段树套AVL把询问的时间复杂度优化到O(logn)。
+然后首先用treap会t爽&#43;mle爽。
+然后avl需要各种常数优化。
+然后要在xxxxx地方优化。
+加上zhx牌读入优化&#43;块状内存&#43;抄std的AVL&#43;.....终于在81s过了。
+orz比我快一倍的wangyisong神犇。
+#include &lt;cstdio&gt;
+#include &lt;cstdlib&gt;
+#include &lt;cctype&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+const int BUF_SIZE = 300;
+char buf[BUF_SIZE],&nbsp;*buf_s = buf,&nbsp;*buf_t = buf &#43; 1;
+#define PTR_NEXT()&nbsp;\
+{&nbsp;\
+buf_s &#43;&#43;;&nbsp;\
+if (buf_s&nbsp;== buf_t)&nbsp;\
+{&nbsp;\
+buf_s = buf;&nbsp;\
+buf_t = buf &#43; fread(buf, 1, BUF_SIZE, stdin);&nbsp;\
+}&nbsp;\
+}
+#define readInt(_n_)&nbsp;\
+{&nbsp;\
+while (*buf_s&nbsp;!=&nbsp;&#39;-&#39;&nbsp;&amp;&amp;&nbsp;!isdigit(*buf_s))&nbsp;\
+PTR_NEXT();&nbsp;\
+bool register _nega_ = false;&nbsp;\
+if (*buf_s&nbsp;==&nbsp;&#39;-&#39;)&nbsp;\" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/lofterimport_024/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2014-12-26T21:32:24+00:00" />
+<meta property="article:modified_time" content="2014-12-26T21:32:24+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BZOJ3821 玄学"/>
+<meta name="twitter:description" content="zhx&#43;主席出的题，恐怖至极。
+写此题需要极高的常数优化技巧&#43;耐心。
+本地跑到50s才在bzoj上压80s跑过。
+其实思路就是拿线段树套AVL把询问的时间复杂度优化到O(logn)。
+然后首先用treap会t爽&#43;mle爽。
+然后avl需要各种常数优化。
+然后要在xxxxx地方优化。
+加上zhx牌读入优化&#43;块状内存&#43;抄std的AVL&#43;.....终于在81s过了。
+orz比我快一倍的wangyisong神犇。
+#include &lt;cstdio&gt;
+#include &lt;cstdlib&gt;
+#include &lt;cctype&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+const int BUF_SIZE = 300;
+char buf[BUF_SIZE],&nbsp;*buf_s = buf,&nbsp;*buf_t = buf &#43; 1;
+#define PTR_NEXT()&nbsp;\
+{&nbsp;\
+buf_s &#43;&#43;;&nbsp;\
+if (buf_s&nbsp;== buf_t)&nbsp;\
+{&nbsp;\
+buf_s = buf;&nbsp;\
+buf_t = buf &#43; fread(buf, 1, BUF_SIZE, stdin);&nbsp;\
+}&nbsp;\
+}
+#define readInt(_n_)&nbsp;\
+{&nbsp;\
+while (*buf_s&nbsp;!=&nbsp;&#39;-&#39;&nbsp;&amp;&amp;&nbsp;!isdigit(*buf_s))&nbsp;\
+PTR_NEXT();&nbsp;\
+bool register _nega_ = false;&nbsp;\
+if (*buf_s&nbsp;==&nbsp;&#39;-&#39;)&nbsp;\"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "BZOJ3821 玄学",
+      "item": "/oi/lofterimport_024/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BZOJ3821 玄学",
+  "name": "BZOJ3821 玄学",
+  "description": "zhx+主席出的题，恐怖至极。\n写此题需要极高的常数优化技巧+耐心。\n本地跑到50s才在bzoj上压80s跑过。\n其实思路就是拿线段树套AVL把询问的时间复杂度优化到O(logn)。\n然后首先用treap会t爽+mle爽。\n然后avl需要各种常数优化。\n然后要在xxxxx地方优化。\n加上zhx牌读入优化+块状内存+抄std的AVL+.....终于在81s过了。\norz比我快一倍的wangyisong神犇。\n#include \u0026lt;cstdio\u0026gt;\n#include \u0026lt;cstdlib\u0026gt;\n#include \u0026lt;cctype\u0026gt;\n#include \u0026lt;cstring\u0026gt;\n#include \u0026lt;algorithm\u0026gt;\nusing namespace std;\nconst int BUF_SIZE = 300;\nchar buf[BUF_SIZE],\u0026nbsp;*buf_s = buf,\u0026nbsp;*buf_t = buf + 1;\n#define PTR_NEXT()\u0026nbsp;\\\n{\u0026nbsp;\\\nbuf_s ++;\u0026nbsp;\\\nif (buf_s\u0026nbsp;== buf_t)\u0026nbsp;\\\n{\u0026nbsp;\\\nbuf_s = buf;\u0026nbsp;\\\nbuf_t = buf + fread(buf, 1, BUF_SIZE, stdin);\u0026nbsp;\\\n}\u0026nbsp;\\\n}\n#define readInt(_n_)\u0026nbsp;\\\n{\u0026nbsp;\\\nwhile (*buf_s\u0026nbsp;!=\u0026nbsp;'-'\u0026nbsp;\u0026amp;\u0026amp;\u0026nbsp;!isdigit(*buf_s))\u0026nbsp;\\\nPTR_NEXT();\u0026nbsp;\\\nbool register _nega_ = false;\u0026nbsp;\\\nif (*buf_s\u0026nbsp;==\u0026nbsp;'-')\u0026nbsp;\\",
+  "keywords": [
+    "bzoj", "data\\xa0structure", "oi"
+  ],
+  "articleBody": "zhx+主席出的题，恐怖至极。\n写此题需要极高的常数优化技巧+耐心。\n本地跑到50s才在bzoj上压80s跑过。\n其实思路就是拿线段树套AVL把询问的时间复杂度优化到O(logn)。\n然后首先用treap会t爽+mle爽。\n然后avl需要各种常数优化。\n然后要在xxxxx地方优化。\n加上zhx牌读入优化+块状内存+抄std的AVL+.....终于在81s过了。\norz比我快一倍的wangyisong神犇。\n#include #include #include #include #include using namespace std;\nconst int BUF_SIZE = 300;\nchar buf[BUF_SIZE], *buf_s = buf, *buf_t = buf + 1;\n#define PTR_NEXT() \\\n{ \\\nbuf_s ++; \\\nif (buf_s == buf_t) \\\n{ \\\nbuf_s = buf; \\\nbuf_t = buf + fread(buf, 1, BUF_SIZE, stdin); \\\n} \\\n}\n#define readInt(_n_) \\\n{ \\\nwhile (*buf_s != '-' \u0026\u0026 !isdigit(*buf_s)) \\\nPTR_NEXT(); \\\nbool register _nega_ = false; \\\nif (*buf_s == '-') \\\n{ \\\n_nega_ = true; \\\nPTR_NEXT(); \\\n} \\\nint register _x_ = 0; \\\nwhile (isdigit(*buf_s)) \\\n{ \\\n_x_ = _x_ * 10 + *buf_s - '0'; \\\nPTR_NEXT(); \\\n} \\\nif (_nega_) \\\n_x_ = -_x_; \\\n(_n_) = (_x_); \\\n}\n#define _l (long long int)\nint mod, rsd;\nstruct oper {\nint k, b;\ninline oper() {\n}\ninline oper(int k0, int b0) {\nk = k0, b = b0;\n}\ninline int ans(int x) {\nreturn (_l x * k + b) % mod;\n}\n};\ninline oper moper(const oper\u0026 x, const oper\u0026 y) {\nreturn oper(_l x. k * y. k % mod, (_l x. b * y. k + y. b) % mod);\n}\nstruct node {\nint l, r, v, h;\noper d;\nnode *ls, *rs;\ninline void set(int k, int b, int n) {\nd. k = k;\nd. b = b;\nl = n;\nr = n;\nv = n;\nh = 1;\nls = 0;\nrs = 0;\n}\ninline void copy(node* u) {\nv = u-\u003e v;\nd = u-\u003e d;\nh = u-\u003e h;\n}\ninline void update() {\nd = oper(1, 0);\nh = 1;\nif (ls) {\nl = ls-\u003e l;\nd = moper(ls-\u003e d, d);\nh = ls-\u003e h + 1;\n}\nelse\nl = v;\nif (rs) {\nr = rs-\u003e r;\nd = moper(d, rs-\u003e d);\nif (rs-\u003e h + 1 \u003e h)\nh = rs-\u003e h;\n}\nelse\nr = v;\n}\n};\nstruct seg {\nint l, r;\nnode *d;\nseg *ls, *rs;\n};\nconst int maxn = 100009;\nconst int bsz = 888888;\nconst int balc = 5;\nnode *nodep;\nint tnd = 0;\nseg *sp, *rt;\nint qua, n, m, lans, seq[maxn];\ninline node* newNode() {\nif (tnd)\nreturn -- tnd, ++ nodep;\nelse\nreturn nodep = new node[(tnd = bsz) + 1];\n}\ninline node* ptNew(node* p, node* q) {\nnode* r = newNode();\nr-\u003e d = moper(p-\u003e d, q-\u003e d);\nr-\u003e l = p-\u003e l;\nr-\u003e r = q-\u003e r;\nr-\u003e ls = p;\nr-\u003e rs = q;\nr-\u003e h = max(p-\u003e h, q-\u003e h) + 1;\nreturn r;\n}\n#define hof(_p_) ((_p_)?(_p_-\u003eh):0)\n#define lson(_p_) ((_p_)?(_p_-\u003els):0)\n#define rson(_p_) ((_p_)?(_p_-\u003ers):0)\ninline node* ptMerge(node* p, node* q) {\nif (!p)\nreturn q;\nelse if (!q)\nreturn p;\nelse if (p-\u003e h \u003c= q-\u003e h + balc \u0026\u0026 q-\u003e h \u003c= p-\u003e h + balc)\nreturn ptNew(p, q);\nelse if (p-\u003e h \u003e q-\u003e h) {\nnode* r = p-\u003e rs;\nif (hof(r) \u003c= hof(p-\u003e ls))\nreturn ptNew(p-\u003e ls, ptMerge(r, q));\nelse\nreturn ptNew(ptNew(p-\u003e ls, lson(r)), ptMerge(rson(r), q));\n}\nelse {\nnode* r = q-\u003e ls;\nif (hof(r) \u003c= hof(q-\u003e rs))\nreturn ptNew(ptMerge(p, r), q-\u003e rs);\nelse\nreturn ptNew(ptMerge(p, lson(r)), ptNew(rson(r), q-\u003e rs));\n}\n}\nint ql, qr;\ninline oper ptQry(node* p) {\nif (!p)\nreturn oper(1, 0);\nelse if (ql \u003e p-\u003e r || qr \u003c p-\u003e l)\nreturn oper(1, 0);\nelse if (ql \u003c= p-\u003e l \u0026\u0026 qr \u003e= p-\u003e r)\nreturn p-\u003e d;\nelse {\noper s(1, 0);\nif (p-\u003e ls \u0026\u0026 ql \u003c= p-\u003e ls-\u003e r)\ns = ptQry(p-\u003e ls);\nif (p-\u003e rs \u0026\u0026 qr \u003e= p-\u003e rs-\u003e l)\ns = moper(s, ptQry(p-\u003e rs));\nreturn s;\n}\n}\n#define mid(p) ((p-\u003el+p-\u003er)\u003e\u003e1)\ninline seg* sgtBuild(int l, int r) {\nseg* p = sp ++;\np-\u003e l = l;\np-\u003e r = r;\np-\u003e d = 0;\nif (l + 1 \u003c r) {\np-\u003e ls = sgtBuild(l, mid(p));\np-\u003e rs = sgtBuild(mid(p), r);\n}\nreturn p;\n}\ninline void pushDown(seg* p) {\np-\u003e ls-\u003e d = ptMerge(p-\u003e ls-\u003e d, p-\u003e d);\np-\u003e rs-\u003e d = ptMerge(p-\u003e rs-\u003e d, p-\u003e d);\np-\u003e d = 0;\n}\ninline void sgtChg(seg* p, int l, int r, node* x) {\nif (p-\u003e l == l \u0026\u0026 p-\u003e r == r) {\np-\u003e d = ptMerge(p-\u003e d, x);\n}\nelse {\nif (p-\u003e d)\npushDown(p);\nif (r \u003c= mid(p))\nsgtChg(p-\u003e ls, l, r, x);\nelse if (l \u003e= mid(p))\nsgtChg(p-\u003e rs, l, r, x);\nelse {\nsgtChg(p-\u003e ls, l, mid(p), x);\nsgtChg(p-\u003e rs, mid(p), r, x);\n}\n}\n}\noper sgtQry(seg* p, int p0) {\noper s(1, 0);\nwhile (p-\u003e l + 1 \u003c p-\u003e r) {\ns = moper(ptQry(p-\u003e d), s);\nif (p0 \u003c mid(p))\np = p-\u003e ls;\nelse\np = p-\u003e rs;\n}\nreturn moper(ptQry(p-\u003e d), s);\n}\ninline void writeInt(int x) {\nstatic char a[13];\nchar* i;\nfor (i = a; x; x /= 10, ++ i)\n*i = x % 10 + 48;\nif (i == a)\nputs(\"0\");\nelse {\nfor (-- i; i \u003e= a; -- i)\nputchar(*i);\nputchar(10);\n}\n}\nint main() {\n#ifndef ONLINE_JUDGE\nfreopen(\"in.txt\", \"r\", stdin);\n#endif\nreadInt(qua);\nqua \u0026= 1;\nreadInt(n);\nreadInt(mod);\nfor (int i = 1; i \u003c= n; ++ i)\nreadInt(seq[i]);\nreadInt(m);\nlans = 0;\nsp = new seg[n * 3];\nrt = sgtBuild(1, n + 1);\nfor (int i = 1, j = 0; i \u003c= m; ++ i) {\nint opt, a, b, l, r;\nreadInt(opt);\nreadInt(l);\nreadInt(r);\nif (qua) {\nl ^= lans;\nr ^= lans;\n}\nif (opt == 1) {\nreadInt(a);\nreadInt(b);\nnode* x = newNode();\nx-\u003e set(a, b, ++ j);\nsgtChg(rt, l, r + 1, x);\n}\nelse {\nreadInt(a);\nif (qua)\na ^= lans;\nql = l;\nqr = r;\nlans = sgtQry(rt, a). ans(seq[a]);\n//writeInt(lans);\nprintf(\"%d\\n\", lans);\n}\n}\n}\n",
+  "wordCount" : "897",
+  "inLanguage": "en",
+  "datePublished": "2014-12-26T21:32:24Z",
+  "dateModified": "2014-12-26T21:32:24Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/lofterimport_024/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      BZOJ3821 玄学
+    </h1>
+    <div class="post-meta"><span title='2014-12-26 21:32:24 +0000 UTC'>December 26, 2014</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>zhx+主席出的题，恐怖至极。</p> 
+<p><br /></p> 
+<p>写此题需要极高的常数优化技巧+耐心。</p> 
+<p><br /></p> 
+<p>本地跑到50s才在bzoj上压80s跑过。</p> 
+<p><br /></p> 
+<p>其实思路就是拿线段树套AVL把询问的时间复杂度优化到O(logn)。</p> 
+<p><br /></p> 
+<p>然后首先用treap会t爽+mle爽。</p> 
+<p><br /></p> 
+<p>然后avl需要各种常数优化。</p> 
+<p><br /></p> 
+<p>然后要在xxxxx地方优化。</p> 
+<p><br /></p> 
+<p>加上zhx牌读入优化+块状内存+抄std的AVL+.....终于在81s过了。</p> 
+<p><br /></p> 
+<p>orz比我快一倍的wangyisong神犇。</p> 
+<p><br /></p> 
+<p>#include &lt;cstdio&gt;</p> 
+<p>#include &lt;cstdlib&gt;</p> 
+<p>#include &lt;cctype&gt;</p> 
+<p>#include &lt;cstring&gt;</p> 
+<p>#include &lt;algorithm&gt;</p> 
+<p><br /></p> 
+<p>using namespace std;</p> 
+<p><br /></p> 
+<p>const int BUF_SIZE = 300;</p> 
+<p>char buf[BUF_SIZE],&nbsp;*buf_s = buf,&nbsp;*buf_t = buf + 1;</p> 
+<p>#define PTR_NEXT()&nbsp;\</p> 
+<p>{&nbsp;\</p> 
+<p>buf_s ++;&nbsp;\</p> 
+<p>if (buf_s&nbsp;== buf_t)&nbsp;\</p> 
+<p>{&nbsp;\</p> 
+<p>buf_s = buf;&nbsp;\</p> 
+<p>buf_t = buf + fread(buf, 1, BUF_SIZE, stdin);&nbsp;\</p> 
+<p>}&nbsp;\</p> 
+<p>}</p> 
+<p>#define readInt(_n_)&nbsp;\</p> 
+<p>{&nbsp;\</p> 
+<p>while (*buf_s&nbsp;!=&nbsp;'-'&nbsp;&amp;&amp;&nbsp;!isdigit(*buf_s))&nbsp;\</p> 
+<p>PTR_NEXT();&nbsp;\</p> 
+<p>bool register _nega_ = false;&nbsp;\</p> 
+<p>if (*buf_s&nbsp;==&nbsp;'-')&nbsp;\</p> 
+<p>{&nbsp;\</p> 
+<p>_nega_ = true;&nbsp;\</p> 
+<p>PTR_NEXT();&nbsp;\</p> 
+<p>}&nbsp;\</p> 
+<p>int register _x_ = 0;&nbsp;\</p> 
+<p>while (isdigit(*buf_s))&nbsp;\</p> 
+<p>{&nbsp;\</p> 
+<p>_x_ = _x_ * 10 +&nbsp;*buf_s&nbsp;-&nbsp;'0';&nbsp;\</p> 
+<p>PTR_NEXT();&nbsp;\</p> 
+<p>}&nbsp;\</p> 
+<p>if (_nega_)&nbsp;\</p> 
+<p>_x_ =&nbsp;-_x_;&nbsp;\</p> 
+<p>(_n_)&nbsp;=&nbsp;(_x_);&nbsp;\</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>#define _l (long long int)</p> 
+<p><br /></p> 
+<p>int mod, rsd;</p> 
+<p><br /></p> 
+<p>struct oper {</p> 
+<p>int k, b;</p> 
+<p>inline oper()&nbsp;{</p> 
+<p>}</p> 
+<p>inline oper(int k0, int b0)&nbsp;{</p> 
+<p>k = k0, b = b0;</p> 
+<p>}</p> 
+<p>inline int ans(int x)&nbsp;{</p> 
+<p>return (_l x * k + b)&nbsp;% mod;</p> 
+<p>}</p> 
+<p>};</p> 
+<p>inline oper moper(const oper&amp; x, const oper&amp; y)&nbsp;{</p> 
+<p>return oper(_l x. k * y. k % mod,&nbsp;(_l x. b * y. k + y. b)&nbsp;% mod);</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>struct node {</p> 
+<p>int l, r, v, h;</p> 
+<p>oper d;</p> 
+<p>node *ls,&nbsp;*rs;</p> 
+<p>inline void set(int k, int b, int n)&nbsp;{</p> 
+<p>d. k = k;</p> 
+<p>d. b = b;</p> 
+<p>l = n;</p> 
+<p>r = n;</p> 
+<p>v = n;</p> 
+<p>h = 1;</p> 
+<p>ls = 0;</p> 
+<p>rs = 0;</p> 
+<p>}</p> 
+<p>inline void copy(node* u)&nbsp;{</p> 
+<p>v = u-&gt; v;</p> 
+<p>d = u-&gt; d;</p> 
+<p>h = u-&gt; h;</p> 
+<p>}</p> 
+<p>inline void update()&nbsp;{</p> 
+<p>d = oper(1, 0);</p> 
+<p>h = 1;</p> 
+<p>if (ls)&nbsp;{</p> 
+<p>l = ls-&gt; l;</p> 
+<p>d = moper(ls-&gt; d, d);</p> 
+<p>h = ls-&gt; h + 1;</p> 
+<p>}</p> 
+<p>else</p> 
+<p>l = v;</p> 
+<p>if (rs)&nbsp;{</p> 
+<p>r = rs-&gt; r;</p> 
+<p>d = moper(d, rs-&gt; d);</p> 
+<p>if (rs-&gt; h + 1 &gt; h)</p> 
+<p>h = rs-&gt; h;</p> 
+<p>}</p> 
+<p>else</p> 
+<p>r = v;</p> 
+<p>}</p> 
+<p>};</p> 
+<p>struct seg {</p> 
+<p>int l, r;</p> 
+<p>node *d;</p> 
+<p>seg *ls,&nbsp;*rs;</p> 
+<p>};</p> 
+<p><br /></p> 
+<p>const int maxn = 100009;</p> 
+<p>const int bsz = 888888;</p> 
+<p>const int balc = 5;</p> 
+<p><br /></p> 
+<p>node *nodep;</p> 
+<p>int tnd = 0;</p> 
+<p>seg *sp,&nbsp;*rt;</p> 
+<p>int qua, n, m, lans, seq[maxn];</p> 
+<p><br /></p> 
+<p>inline node* newNode()&nbsp;{</p> 
+<p>if (tnd)</p> 
+<p>return -- tnd,&nbsp;++ nodep;</p> 
+<p>else</p> 
+<p>return nodep = new node[(tnd = bsz)&nbsp;+ 1];</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>inline node* ptNew(node* p, node* q)&nbsp;{</p> 
+<p>node* r = newNode();</p> 
+<p>r-&gt; d = moper(p-&gt; d, q-&gt; d);</p> 
+<p>r-&gt; l = p-&gt; l;</p> 
+<p>r-&gt; r = q-&gt; r;</p> 
+<p>r-&gt; ls = p;</p> 
+<p>r-&gt; rs = q;</p> 
+<p>r-&gt; h = max(p-&gt; h, q-&gt; h)&nbsp;+ 1;</p> 
+<p>return r;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>#define hof(_p_)&nbsp;((_p_)?(_p_-&gt;h):0)</p> 
+<p>#define lson(_p_)&nbsp;((_p_)?(_p_-&gt;ls):0)</p> 
+<p>#define rson(_p_)&nbsp;((_p_)?(_p_-&gt;rs):0)</p> 
+<p><br /></p> 
+<p>inline node* ptMerge(node* p, node* q)&nbsp;{</p> 
+<p>if (!p)</p> 
+<p>return q;</p> 
+<p>else if (!q)</p> 
+<p>return p;</p> 
+<p>else if (p-&gt; h &lt;= q-&gt; h + balc &amp;&amp; q-&gt; h &lt;= p-&gt; h + balc)</p> 
+<p>return ptNew(p, q);</p> 
+<p>else if (p-&gt; h &gt; q-&gt; h)&nbsp;{</p> 
+<p>node* r = p-&gt; rs;</p> 
+<p>if (hof(r)&nbsp;&lt;= hof(p-&gt; ls))</p> 
+<p>return ptNew(p-&gt; ls, ptMerge(r, q));</p> 
+<p>else</p> 
+<p>return ptNew(ptNew(p-&gt; ls, lson(r)), ptMerge(rson(r), q));</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>node* r = q-&gt; ls;</p> 
+<p>if (hof(r)&nbsp;&lt;= hof(q-&gt; rs))</p> 
+<p>return ptNew(ptMerge(p, r), q-&gt; rs);</p> 
+<p>else</p> 
+<p>return ptNew(ptMerge(p, lson(r)), ptNew(rson(r), q-&gt; rs));</p> 
+<p>}</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int ql, qr;</p> 
+<p>inline oper ptQry(node* p)&nbsp;{</p> 
+<p>if (!p)</p> 
+<p>return oper(1, 0);</p> 
+<p>else if (ql&nbsp;&gt; p-&gt; r || qr &lt; p-&gt; l)</p> 
+<p>return oper(1, 0);</p> 
+<p>else if (ql&nbsp;&lt;= p-&gt; l &amp;&amp; qr &gt;= p-&gt; r)</p> 
+<p>return p-&gt; d;</p> 
+<p>else {</p> 
+<p>oper s(1, 0);</p> 
+<p>if (p-&gt; ls &amp;&amp; ql &lt;= p-&gt; ls-&gt; r)</p> 
+<p>s = ptQry(p-&gt; ls);</p> 
+<p>if (p-&gt; rs &amp;&amp; qr &gt;= p-&gt; rs-&gt; l)</p> 
+<p>s = moper(s, ptQry(p-&gt; rs));</p> 
+<p>return s;</p> 
+<p>}</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>#define mid(p)&nbsp;((p-&gt;l+p-&gt;r)&gt;&gt;1)</p> 
+<p><br /></p> 
+<p>inline seg* sgtBuild(int l, int r)&nbsp;{</p> 
+<p>seg* p = sp ++;</p> 
+<p>p-&gt; l = l;</p> 
+<p>p-&gt; r = r;</p> 
+<p>p-&gt; d = 0;</p> 
+<p>if (l&nbsp;+ 1 &lt; r)&nbsp;{</p> 
+<p>p-&gt; ls = sgtBuild(l, mid(p));</p> 
+<p>p-&gt; rs = sgtBuild(mid(p), r);</p> 
+<p>}</p> 
+<p>return p;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>inline void pushDown(seg* p)&nbsp;{</p> 
+<p>p-&gt; ls-&gt; d = ptMerge(p-&gt; ls-&gt; d, p-&gt; d);</p> 
+<p>p-&gt; rs-&gt; d = ptMerge(p-&gt; rs-&gt; d, p-&gt; d);</p> 
+<p>p-&gt; d = 0;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>inline void sgtChg(seg* p, int l, int r, node* x)&nbsp;{</p> 
+<p>if (p-&gt; l == l &amp;&amp; p-&gt; r == r)&nbsp;{</p> 
+<p>p-&gt; d = ptMerge(p-&gt; d, x);</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>if (p-&gt; d)</p> 
+<p>pushDown(p);</p> 
+<p>if (r&nbsp;&lt;= mid(p))</p> 
+<p>sgtChg(p-&gt; ls, l, r, x);</p> 
+<p>else if (l&nbsp;&gt;= mid(p))</p> 
+<p>sgtChg(p-&gt; rs, l, r, x);</p> 
+<p>else {</p> 
+<p>sgtChg(p-&gt; ls, l, mid(p), x);</p> 
+<p>sgtChg(p-&gt; rs, mid(p), r, x);</p> 
+<p>}</p> 
+<p>}</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>oper sgtQry(seg* p, int p0)&nbsp;{</p> 
+<p>oper s(1, 0);</p> 
+<p>while (p-&gt; l + 1 &lt; p-&gt; r)&nbsp;{</p> 
+<p>s = moper(ptQry(p-&gt; d), s);</p> 
+<p>if (p0&nbsp;&lt; mid(p))</p> 
+<p>p = p-&gt; ls;</p> 
+<p>else</p> 
+<p>p = p-&gt; rs;</p> 
+<p>}</p> 
+<p>return moper(ptQry(p-&gt; d), s);</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>inline void writeInt(int x)&nbsp;{</p> 
+<p>static char a[13];</p> 
+<p>char* i;</p> 
+<p>for (i&nbsp;= a; x; x /= 10,&nbsp;++ i)</p> 
+<p>*i = x % 10 + 48;</p> 
+<p>if (i&nbsp;== a)</p> 
+<p>puts(&quot;0&quot;);</p> 
+<p>else {</p> 
+<p>for (-- i; i &gt;= a;&nbsp;-- i)</p> 
+<p>putchar(*i);</p> 
+<p>putchar(10);</p> 
+<p>}</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int main()&nbsp;{</p> 
+<p>#ifndef ONLINE_JUDGE</p> 
+<p>freopen(&quot;in.txt&quot;,&nbsp;&quot;r&quot;, stdin);</p> 
+<p>#endif</p> 
+<p><br /></p> 
+<p>readInt(qua);</p> 
+<p>qua &amp;= 1;</p> 
+<p>readInt(n);</p> 
+<p>readInt(mod);</p> 
+<p>for (int i = 1; i &lt;= n;&nbsp;++ i)</p> 
+<p>readInt(seq[i]);</p> 
+<p>readInt(m);</p> 
+<p>lans = 0;</p> 
+<p>sp = new seg[n * 3];</p> 
+<p>rt = sgtBuild(1, n + 1);</p> 
+<p>for (int i = 1, j = 0; i &lt;= m;&nbsp;++ i)&nbsp;{</p> 
+<p>int opt, a, b, l, r;</p> 
+<p>readInt(opt);</p> 
+<p>readInt(l);</p> 
+<p>readInt(r);</p> 
+<p>if (qua)&nbsp;{</p> 
+<p>l ^= lans;</p> 
+<p>r ^= lans;</p> 
+<p>}</p> 
+<p>if (opt&nbsp;== 1)&nbsp;{</p> 
+<p>readInt(a);</p> 
+<p>readInt(b);</p> 
+<p>node* x = newNode();</p> 
+<p>x-&gt; set(a, b,&nbsp;++ j);</p> 
+<p>sgtChg(rt, l, r + 1, x);</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>readInt(a);</p> 
+<p>if (qua)</p> 
+<p>a ^= lans;</p> 
+<p>ql = l;</p> 
+<p>qr = r;</p> 
+<p>lans = sgtQry(rt, a). ans(seq[a]);</p> 
+<p>//writeInt(lans);</p> 
+<p>printf(&quot;%d\n&quot;, lans);</p> 
+<p>}</p> 
+<p>}</p> 
+<p>}</p> 
+<p><br /></p>
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/bzoj/">bzoj</a></li>
+      <li><a href="/tags/data%5Cxa0structure/">data\xa0structure</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/lofterimport_023/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>BZOJ1171 大sz的游戏</span>
+  </a>
+  <a class="next" href="/oi/lofterimport_025/">
+    <span class="title">Next »</span>
+    <br>
+    <span>BZOJ2738 矩阵乘法</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

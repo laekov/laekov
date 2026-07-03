@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>tcd on The Site of laekov</title>
+    <link>/tags/tcd/</link>
+    <description>Recent content in tcd on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Sat, 07 Mar 2015 13:39:41 +0000</lastBuildDate><atom:link href="/tags/tcd/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>BZOJ2402 陶陶的难题II</title>
+      <link>/oi/i11rimport_009/</link>
+      <pubDate>Sat, 07 Mar 2015 13:39:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_009/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; orz mhy。看mhy的刷题记录成为了我成天的刷题方向了。&amp;lt;/p&amp;gt; &amp;nbsp;
+其实最初也没有想清楚。然后看了一眼mhy写的题解写了凸壳，秒懂。
+&amp;nbsp;
+二分一个答案，设它是ans。如果ans≥realAns的话，那么就会存在yi-ans*xi+qj-ans*pj≥0。然后i和j就分开了。于是变成了求一条路径上yi-ans*xi的最大值。把xi看作k，把yi看作b，就变成半平面交了。于是开归并式线段树把凸壳给记录下来就好了。然后复杂度大约是单次询问O(lg3(n))的？链剖后每棵树单独建树，然后复杂度我就不会算了TT。
+&amp;nbsp;
+于是就硬着头皮写了，然后发现跑得还挺快。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cmath&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+const int maxn = 30009; const int maxl = 15; const int max_buf = maxn * maxl * 2; const double eps = 1e-6; const double finf = 1e10;
+int ibuf_arr[max_buf], *ibuf(ibuf_arr); double fbuf_arr[max_buf], *fbuf(fbuf_arr);
+struct edge { int t; edge *next; };
+struct line { double k, b; inline double xCross(const line&amp;amp; a) { return (a.</description>
+    </item>
+    
+    <item>
+      <title>BZOJ1180 [CROATIAN2009]OTOCI &amp;amp; BZOJ2843 极地旅行社</title>
+      <link>/oi/i11rimport_035/</link>
+      <pubDate>Tue, 24 Feb 2015 20:58:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_035/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 难得的水水的双倍题。&amp;lt;/p&amp;gt; &amp;nbsp;
+看上去是想考lct然后忘强制在线了么？那就直接预处理出形态然后链剖呗。当然我还没有达到mhy这种认为lct比tcd好写的水平。
+&amp;nbsp;
+中间还把修改写挂了一次，然后1180的询问数是2843的3倍又re了一次。晕。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+struct edge { int t; edge *next; }; struct seg { int l, r, s[2]; seg *ls, *rs; }; struct query { char o; int a, b, s; };
+const int maxn = 30009; const int maxm = 300009;
+int n, m, r[maxn], d[maxn], v[maxn], u[maxn]; int fa[maxn], sz[maxn], tc, fc[maxn], ch[maxn], cl[maxn]; int qret[2]; seg slst[maxn &amp;lt;&amp;lt; 2], *sp(slst), *rt[maxn]; edge elst[maxn &amp;lt;&amp;lt; 1], *ep(elst), *head[maxn]; query q[maxm];</description>
+    </item>
+    
+    <item>
+      <title>BZOJ2157 旅游</title>
+      <link>/oi/i11rimport_037/</link>
+      <pubDate>Tue, 24 Feb 2015 10:10:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_037/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 去找水题于是找到这么一道恶心的代码题。其实应该可以用函数指针来优化一下代码量，不过懒得了。虽然复制粘贴导致调试了老半天。&amp;lt;/p&amp;gt; &amp;nbsp;
+水水的链剖+线段树。然后tag打一打就好了。
+&amp;nbsp;
+最近是装备了高超的开坑技巧啊。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+struct seg { int l, r, s, a, b, rv; seg *ls, *rs; inline void update() { if (l + 1 &amp;lt; r) { s = ls-&amp;gt; s + rs-&amp;gt; s; a = min(ls-&amp;gt; a, rs-&amp;gt; a); b = max(ls-&amp;gt; b, rs-&amp;gt; b); if (rv) { s = -s; swap(a, b); a = -a; b = -b; } } else a = b = s; } inline void chgTag() { s = -s; swap(a, b); a = -a; b = -b; rv ^= 1; } inline void downTag() { if (rv) { rv = 0; if (l + 1 &amp;lt; r) { ls-&amp;gt; chgTag(); rs-&amp;gt; chgTag(); } } } }; struct edge { int t, v; edge *next; };</description>
+    </item>
+    
+  </channel>
+</rss>

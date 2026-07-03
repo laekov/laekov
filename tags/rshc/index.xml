@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>rshc on The Site of laekov</title>
+    <link>/tags/rshc/</link>
+    <description>Recent content in rshc on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Mon, 21 Dec 2015 17:32:29 +0000</lastBuildDate><atom:link href="/tags/rshc/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ovoo solution</title>
+      <link>/oi/dbimport_270/</link>
+      <pubDate>Mon, 21 Dec 2015 17:32:29 +0000</pubDate>
+      
+      <guid>/oi/dbimport_270/</guid>
+      <description>一点闲话 感觉这题好弱啊.应该有一堆神犇能秒吧.
+取模是为了避免输出long long的问题.不知道有没有人中间就取模了2333.
+这题的idea源于wc2015的k小割.考场上写了良久最后mle.
+于是我决定这题既不卡空间也不卡时间.
+是不是感觉我的题比ioi和zyf的题都良心啊hhh
+测试点1-6 这六个点的权值和非常小.于是可以树形dp.用fi,j表示以i为根的子树中权值和为j的方案总数.于是可以dp一下就得到答案.
+测试点7-8 接下来的点都是大数据了,然而还是有一些部分分.
+比如这个.
+没有题的一条链情况比这个题更简单了吧ovo
+测试点9-10 这是最简单的菊花图ovo似乎就是k小割的弱化版啊.做法比较多喽.
+介绍一个叫做学姐二分的方法.二分一个答案,然后强行dfs方案.如果总方案数大于k就直接结束.这样是可以保证复杂度的TAT
+测试点11-12 一条链变成两条链了.一样的二分答案然后枚举一边二分另一边嘛.
+剩下的测试点 这些点没办法用奇怪的方法了吧?有人用奇怪方法黑过去的和我说一声ovo
+考虑当前如果已选的某个点集S,我们也把它叫做一个状态.
+S可以向S中任意点的没有在S中的儿子扩展.设扩展后的状态叫S&amp;rsquo;.(它可能有很多个)
+不难想到,已知前k小的状态S1 .. Sk后,第k+1小的状态一定是S&amp;rsquo;1 .. S&amp;rsquo;k中权值和最小的一个.
+于是我们就是要维护当前所有状态的可扩展的状态.
+对于每一个状态,用一个可持久化堆来记录它能扩展到的所有点,然后取其中最小的一个加上它本身的权值和扔进外层的堆里.
+那么每次外层堆里的最小值就是第k+1小的状态.
+那么找到k+1小状态后,就要将这条边从原状态中删除.然后对于新扩展出来的状态,把新扩展出来的原树上的点的所有儿子也扔到这个状态的堆里就好了.注意有的点的度数会很大,所以每个点的儿子本身就要用可合并堆来存.
+然后直接找下去直到扩展出第k小的状态就行了.
+以上所有操作的时间复杂度都是O(log(n))的,所以总复杂度是O(k*log(n))的.
+另一种思路 上面提到过的&amp;quot;学姐二分&amp;quot;也可以应用到这里.因为我也没写过所以不作重点介绍了.大家可以自行思考一下.
+劼司机的思路 (苣蒻的出题人并不能理解这种做法,你可以去找劼司机本人讨论ovo)
+就是把树画到平面上。。
+然后建个对偶图
+对偶图里每条边的边权为他子树里边权和
+也就是。。
+在对偶图里走过一条边，等于把这条边下面的子树砍掉。。
+然后就没了。。。
+吉利就是这么虐人的！
+松爷好强!</description>
+    </item>
+    
+  </channel>
+</rss>

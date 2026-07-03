@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>binary\xa0search on The Site of laekov</title>
+    <link>/tags/binary%5Cxa0search/</link>
+    <description>Recent content in binary\xa0search on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Fri, 26 Dec 2014 17:45:06 +0000</lastBuildDate><atom:link href="/tags/binary%5Cxa0search/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>BZOJ2738 矩阵乘法</title>
+      <link>/oi/lofterimport_025/</link>
+      <pubDate>Fri, 26 Dec 2014 17:45:06 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_025/</guid>
+      <description>全局二分的经典题。
+最初试图用持久化线段树和分块，然后欢快地tle+mle了。看到jason_yu和mhy过了，只能说自己的常数优化还不过关啊。
+第一次写这种二分。就是把所有东西扔进来快速排序，顺便考虑每个询问应该被扔到哪边。然后加树状数组来统计就好了。
+代码巨丑。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cctype&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+struct query {
+int x1, y1, x2, y2, k, n;
+};
+int _d_;
+#define readInt(_x_)&amp;nbsp;{&amp;nbsp;\
+int&amp;amp; _s_ = _x_;&amp;nbsp;\
+while (!isdigit(_d_&amp;nbsp;= getchar()));&amp;nbsp;\
+_s_ = 0;&amp;nbsp;\
+while ((_s_&amp;nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));&amp;nbsp;\
+}
+const int maxn = 509;
+const int maxq = 310009;
+int n, m, t, maxa, a[maxn][maxn], b[maxn][maxn], ttm;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>bzoj2896.cc | The Site of laekov</title>
+<meta name="keywords" content="code">
+<meta name="description" content="#include #include #include #include using namespace std;
+typedef pair &lt;int, int&gt; epr; typedef set erbt;
+struct seg { int s, z, l, r; seg *ls, *rs; }; struct edge { int t; edge *next; }; struct oper { int t, u, v, s; };
+const int maxn = 30009; const int maxq = 40009; const int maxe = 100009;
+int n, m, q, r[maxn]; int fa[maxn], d[maxn], sz[maxn], tc, fc[maxn], ch[maxn], cl[maxn]; seg sbuf_arr[maxn &laquo; 2], *sbuf(sbuf_arr), *rt[maxn]; oper o[maxq]; erbt re; edge ebuf_arr[maxn &laquo; 1], *ebuf(ebuf_arr), *head[maxn];">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/code/dbimport_168/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="bzoj2896.cc" />
+<meta property="og:description" content="#include #include #include #include using namespace std;
+typedef pair &lt;int, int&gt; epr; typedef set erbt;
+struct seg { int s, z, l, r; seg *ls, *rs; }; struct edge { int t; edge *next; }; struct oper { int t, u, v, s; };
+const int maxn = 30009; const int maxq = 40009; const int maxe = 100009;
+int n, m, q, r[maxn]; int fa[maxn], d[maxn], sz[maxn], tc, fc[maxn], ch[maxn], cl[maxn]; seg sbuf_arr[maxn &laquo; 2], *sbuf(sbuf_arr), *rt[maxn]; oper o[maxq]; erbt re; edge ebuf_arr[maxn &laquo; 1], *ebuf(ebuf_arr), *head[maxn];" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/code/dbimport_168/" /><meta property="article:section" content="code" />
+<meta property="article:published_time" content="2015-04-05T14:15:48+00:00" />
+<meta property="article:modified_time" content="2015-04-05T14:15:48+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="bzoj2896.cc"/>
+<meta name="twitter:description" content="#include #include #include #include using namespace std;
+typedef pair &lt;int, int&gt; epr; typedef set erbt;
+struct seg { int s, z, l, r; seg *ls, *rs; }; struct edge { int t; edge *next; }; struct oper { int t, u, v, s; };
+const int maxn = 30009; const int maxq = 40009; const int maxe = 100009;
+int n, m, q, r[maxn]; int fa[maxn], d[maxn], sz[maxn], tc, fc[maxn], ch[maxn], cl[maxn]; seg sbuf_arr[maxn &laquo; 2], *sbuf(sbuf_arr), *rt[maxn]; oper o[maxq]; erbt re; edge ebuf_arr[maxn &laquo; 1], *ebuf(ebuf_arr), *head[maxn];"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Codes",
+      "item": "/code/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "bzoj2896.cc",
+      "item": "/code/dbimport_168/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "bzoj2896.cc",
+  "name": "bzoj2896.cc",
+  "description": "#include #include #include #include using namespace std;\ntypedef pair \u0026lt;int, int\u0026gt; epr; typedef set erbt;\nstruct seg { int s, z, l, r; seg *ls, *rs; }; struct edge { int t; edge *next; }; struct oper { int t, u, v, s; };\nconst int maxn = 30009; const int maxq = 40009; const int maxe = 100009;\nint n, m, q, r[maxn]; int fa[maxn], d[maxn], sz[maxn], tc, fc[maxn], ch[maxn], cl[maxn]; seg sbuf_arr[maxn \u0026laquo; 2], *sbuf(sbuf_arr), *rt[maxn]; oper o[maxq]; erbt re; edge ebuf_arr[maxn \u0026laquo; 1], *ebuf(ebuf_arr), *head[maxn];",
+  "keywords": [
+    "code"
+  ],
+  "articleBody": "#include #include #include #include using namespace std;\ntypedef pair epr; typedef set erbt;\nstruct seg { int s, z, l, r; seg *ls, *rs; }; struct edge { int t; edge *next; }; struct oper { int t, u, v, s; };\nconst int maxn = 30009; const int maxq = 40009; const int maxe = 100009;\nint n, m, q, r[maxn]; int fa[maxn], d[maxn], sz[maxn], tc, fc[maxn], ch[maxn], cl[maxn]; seg sbuf_arr[maxn « 2], *sbuf(sbuf_arr), *rt[maxn]; oper o[maxq]; erbt re; edge ebuf_arr[maxn « 1], *ebuf(ebuf_arr), *head[maxn];\n#define midp(p) ((p-\u003el+p-\u003er)»1) inline seg* sgtBuild(int l, int r) { seg p(sbuf ++); p-\u003e l = l, p-\u003e r = r; p-\u003e s = r - l; p-\u003e z = 0; if (l + 1 \u003c r) { p-\u003e ls = sgtBuild(l, midp(p)); p-\u003e rs = sgtBuild(midp(p), r); } return p; } inline void sgtChg(seg p, int l, int r) { if (p-\u003e l == l \u0026\u0026 p-\u003e r == r) p-\u003e z = 1, p-\u003e s = 0; else if (p-\u003e z) return; else { if (r \u003c= midp(p)) sgtChg(p-\u003e ls, l, r); else if (l \u003e= midp(p)) sgtChg(p-\u003e rs, l, r); else sgtChg(p-\u003e ls, l, midp(p)), sgtChg(p-\u003e rs, midp(p), r); p-\u003e s = p-\u003e ls-\u003e s + p-\u003e rs-\u003e s; } } inline int sgtQry(seg* p, int l, int r) { if (p-\u003e l == l \u0026\u0026 p-\u003e r == r) return p-\u003e s; else if (p-\u003e z) return 0; else if (r \u003c= midp(p)) return sgtQry(p-\u003e ls, l, r); else if (l \u003e= midp(p)) return sgtQry(p-\u003e rs, l, r); else return sgtQry(p-\u003e ls, l, midp(p)) + sgtQry(p-\u003e rs, midp(p), r); }\n#define cpos(x) (d[x]-d[ch[fc[x]]]) void ersBridge(int u, int v) { while (fc[u] ^ fc[v]) if (d[ch[fc[u]]] \u003e d[ch[fc[v]]]) { sgtChg(rt[fc[u]], 0, cpos(u) + 1); u = fa[ch[fc[u]]]; } else { sgtChg(rt[fc[v]], 0, cpos(v) + 1); v = fa[ch[fc[v]]]; } if (d[u] \u003c d[v]) sgtChg(rt[fc[u]], cpos(u) + 1, cpos(v) + 1); else if (d[v] \u003c d[u]) sgtChg(rt[fc[v]], cpos(v) + 1, cpos(u) + 1); }\nint getRoot(int x) { register int p, q; for (p = r[x]; p ^ r[p]; p = r[p]); for (; x ^ p; q = r[x], r[x] = p, x = q); return x; }\ninline void addEdge(int u, int v) { ebuf-\u003e t = v; ebuf-\u003e next = head[u]; head[u] = ebuf ++; }\nvoid buildTree() { for (int i = 1; i \u003c= n; ++ i) r[i] = i; static epr rme[maxe]; int tre(0); for (erbt :: iterator i = re. begin(); i != re. end(); ++ i) { int u(i-\u003e first), v(i-\u003e second); if (getRoot(u) != getRoot(v)) { addEdge(u, v); addEdge(v, u); r[getRoot(u)] = getRoot(v); } else rme[tre ++] = i; } static int q[maxn]; int hd(0), tl(1); memset(d, 0, sizeof(d)); d[q[0] = 1] = 1; while (hd \u003c tl) { int p(q[hd ++]); for (edge e = head[p]; e; e = e-\u003e next) if (!d[e-\u003e t]) { fa[e-\u003e t] = p; d[e-\u003e t] = d[p] + 1; q[tl ++] = e-\u003e t; } } tc = 0; for (int i = tl - 1; i \u003e= 0; – i) { int p(q[i]), z(-1); sz[p] = 1; for (edge* e = head[p]; e; e = e-\u003e next) if (e-\u003e t != fa[p]) { sz[p] += sz[e-\u003e t]; if (z == -1 || sz[e-\u003e t] \u003e sz[z]) z = e-\u003e t; } if (z == -1) cl[fc[p] = ++ tc] = 1; else ++ cl[fc[p] = fc[z]]; ch[fc[p]] = p; } for (int i = 1; i \u003c= tc; ++ i) rt[i] = sgtBuild(0, cl[i]); for (int i = 0; i \u003c tre; ++ i) ersBridge(rme[i]. first, rme[i]. second); }\nint main() { #ifndef ONLINE_JUDGE freopen(\".in\", “r”, stdin); #endif\nscanf(\"%d%d\", \u0026n, \u0026m); for (int i = 0; i \u003c m; ++ i) { int u, v; scanf(\"%d%d\", \u0026u, \u0026v); if (u \u003e v) swap(u, v); re. insert(epr(u, v)); } for (q = 0; 1; ++ q) { int opt; scanf(\"%d\", \u0026opt); if (opt == -1) break; o[q]. t = opt; scanf(\"%d%d\", \u0026o[q]. u, \u0026o[q]. v); if (o[q]. u \u003e o[q]. v) swap(o[q]. u, o[q]. v); if (opt == 0) re. erase(epr(o[q]. u, o[q]. v)); } buildTree(); for (int i = q - 1; i \u003e= 0; -- i) if (o[i]. t == 0) { ersBridge(o[i]. u, o[i]. v); } else if (o[i]. t == 1) { o[i]. s = 0; int u(o[i]. u), v(o[i]. v); while (fc[u] ^ fc[v]) if (d[ch[fc[u]]] \u003e d[ch[fc[v]]]) { o[i]. s += sgtQry(rt[fc[u]], 0, cpos(u) + 1); u = fa[ch[fc[u]]]; } else { o[i]. s += sgtQry(rt[fc[v]], 0, cpos(v) + 1); v = fa[ch[fc[v]]]; } if (d[u] \u003c d[v]) o[i]. s += sgtQry(rt[fc[u]], cpos(u) + 1, cpos(v) + 1); else if (d[v] \u003c d[u]) o[i]. s += sgtQry(rt[fc[v]], cpos(v) + 1, cpos(u) + 1); } for (int i = 0; i \u003c q; ++ i) if (o[i]. t == 1) printf(\"%d\\n\", o[i]. s); }\n",
+  "wordCount" : "815",
+  "inLanguage": "en",
+  "datePublished": "2015-04-05T14:15:48Z",
+  "dateModified": "2015-04-05T14:15:48Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/code/dbimport_168/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/code/">Codes</a></div>
+    <h1 class="post-title">
+      bzoj2896.cc
+    </h1>
+    <div class="post-meta"><span title='2015-04-05 14:15:48 +0000 UTC'>April 5, 2015</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>#include <cstdio>
+#include <cstring>
+#include <algorithm>
+#include <set></p>
+<p>using namespace std;</p>
+<p>typedef pair &lt;int, int&gt; epr;
+typedef set <epr> erbt;</p>
+<p>struct seg {
+int s, z, l, r;
+seg *ls, *rs;
+};
+struct edge {
+int t;
+edge *next;
+};
+struct oper {
+int t, u, v, s;
+};</p>
+<p>const int maxn = 30009;
+const int maxq = 40009;
+const int maxe = 100009;</p>
+<p>int n, m, q, r[maxn];
+int fa[maxn], d[maxn], sz[maxn], tc, fc[maxn], ch[maxn], cl[maxn];
+seg sbuf_arr[maxn &laquo; 2], *sbuf(sbuf_arr), *rt[maxn];
+oper o[maxq];
+erbt re;
+edge ebuf_arr[maxn &laquo; 1], *ebuf(ebuf_arr), *head[maxn];</p>
+<p>#define midp(<em>p</em>) ((<em>p</em>-&gt;l+<em>p</em>-&gt;r)&raquo;1)
+inline seg* sgtBuild(int l, int r) {
+seg <em>p(sbuf ++);
+p-&gt; l = l, p-&gt; r = r;
+p-&gt; s = r - l;
+p-&gt; z = 0;
+if (l + 1 &lt; r) {
+p-&gt; ls = sgtBuild(l, midp(p));
+p-&gt; rs = sgtBuild(midp(p), r);
+}
+return p;
+}
+inline void sgtChg(seg</em> p, int l, int r) {
+if (p-&gt; l == l &amp;&amp; p-&gt; r == r)
+p-&gt; z = 1, p-&gt; s = 0;
+else if (p-&gt; z)
+return;
+else {
+if (r &lt;= midp(p))
+sgtChg(p-&gt; ls, l, r);
+else if (l &gt;= midp(p))
+sgtChg(p-&gt; rs, l, r);
+else
+sgtChg(p-&gt; ls, l, midp(p)), sgtChg(p-&gt; rs, midp(p), r);
+p-&gt; s = p-&gt; ls-&gt; s + p-&gt; rs-&gt; s;
+}
+}
+inline int sgtQry(seg* p, int l, int r) {
+if (p-&gt; l == l &amp;&amp; p-&gt; r == r)
+return p-&gt; s;
+else if (p-&gt; z)
+return 0;
+else if (r &lt;= midp(p))
+return sgtQry(p-&gt; ls, l, r);
+else if (l &gt;= midp(p))
+return sgtQry(p-&gt; rs, l, r);
+else
+return sgtQry(p-&gt; ls, l, midp(p)) + sgtQry(p-&gt; rs, midp(p), r);
+}</p>
+<p>#define cpos(<em>x</em>) (d[<em>x</em>]-d[ch[fc[<em>x</em>]]])
+void ersBridge(int u, int v) {
+while (fc[u] ^ fc[v])
+if (d[ch[fc[u]]] &gt; d[ch[fc[v]]]) {
+sgtChg(rt[fc[u]], 0, cpos(u) + 1);
+u = fa[ch[fc[u]]];
+}
+else {
+sgtChg(rt[fc[v]], 0, cpos(v) + 1);
+v = fa[ch[fc[v]]];
+}
+if (d[u] &lt; d[v])
+sgtChg(rt[fc[u]], cpos(u) + 1, cpos(v) + 1);
+else if (d[v] &lt; d[u])
+sgtChg(rt[fc[v]], cpos(v) + 1, cpos(u) + 1);
+}</p>
+<p>int getRoot(int x) {
+register int p, q;
+for (p = r[x]; p ^ r[p]; p = r[p]);
+for (; x ^ p; q = r[x], r[x] = p, x = q);
+return x;
+}</p>
+<p>inline void addEdge(int u, int v) {
+ebuf-&gt; t = v;
+ebuf-&gt; next = head[u];
+head[u] = ebuf ++;
+}</p>
+<p>void buildTree() {
+for (int i = 1; i &lt;= n; ++ i)
+r[i] = i;
+static epr rme[maxe];
+int tre(0);
+for (erbt :: iterator i = re. begin(); i != re. end(); ++ i) {
+int u(i-&gt; first), v(i-&gt; second);
+if (getRoot(u) != getRoot(v)) {
+addEdge(u, v);
+addEdge(v, u);
+r[getRoot(u)] = getRoot(v);
+}
+else
+rme[tre ++] = <em>i;
+}
+static int q[maxn];
+int hd(0), tl(1);
+memset(d, 0, sizeof(d));
+d[q[0] = 1] = 1;
+while (hd &lt; tl) {
+int p(q[hd ++]);
+for (edge</em> e = head[p]; e; e = e-&gt; next)
+if (!d[e-&gt; t]) {
+fa[e-&gt; t] = p;
+d[e-&gt; t] = d[p] + 1;
+q[tl ++] = e-&gt; t;
+}
+}
+tc = 0;
+for (int i = tl - 1; i &gt;= 0; &ndash; i) {
+int p(q[i]), z(-1);
+sz[p] = 1;
+for (edge* e = head[p]; e; e = e-&gt; next)
+if (e-&gt; t != fa[p]) {
+sz[p] += sz[e-&gt; t];
+if (z == -1 || sz[e-&gt; t] &gt; sz[z])
+z = e-&gt; t;
+}
+if (z == -1)
+cl[fc[p] = ++ tc] = 1;
+else
+++ cl[fc[p] = fc[z]];
+ch[fc[p]] = p;
+}
+for (int i = 1; i &lt;= tc; ++ i)
+rt[i] = sgtBuild(0, cl[i]);
+for (int i = 0; i &lt; tre; ++ i)
+ersBridge(rme[i]. first, rme[i]. second);
+}</p>
+<p>int main() {
+#ifndef ONLINE_JUDGE
+freopen(&quot;.in&quot;, &ldquo;r&rdquo;, stdin);
+#endif</p>
+<pre><code>scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
+for (int i = 0; i &lt; m; ++ i) {
+	int u, v;
+	scanf(&quot;%d%d&quot;, &amp;u, &amp;v);
+	if (u &gt; v) 
+		swap(u, v);
+	re. insert(epr(u, v));
+}
+for (q = 0; 1; ++ q) {
+	int opt;
+	scanf(&quot;%d&quot;, &amp;opt);
+	if (opt == -1)
+		break;
+	o[q]. t = opt;
+	scanf(&quot;%d%d&quot;, &amp;o[q]. u, &amp;o[q]. v);
+	if (o[q]. u &gt; o[q]. v)
+		swap(o[q]. u, o[q]. v);
+	if (opt == 0)
+		re. erase(epr(o[q]. u, o[q]. v));
+}
+buildTree();
+for (int i = q - 1; i &gt;= 0; -- i)
+	if (o[i]. t == 0) {
+		ersBridge(o[i]. u, o[i]. v);
+	}
+	else if (o[i]. t == 1) {
+		o[i]. s = 0;
+		int u(o[i]. u), v(o[i]. v);
+		while (fc[u] ^ fc[v])
+			if (d[ch[fc[u]]] &gt; d[ch[fc[v]]]) {
+				o[i]. s += sgtQry(rt[fc[u]], 0, cpos(u) + 1);
+				u = fa[ch[fc[u]]];
+			}
+			else {
+				o[i]. s += sgtQry(rt[fc[v]], 0, cpos(v) + 1);
+				v = fa[ch[fc[v]]];
+			}
+		if (d[u] &lt; d[v])
+			o[i]. s += sgtQry(rt[fc[u]], cpos(u) + 1, cpos(v) + 1);
+		else if (d[v] &lt; d[u])
+			o[i]. s += sgtQry(rt[fc[v]], cpos(v) + 1, cpos(u) + 1);
+	}
+for (int i = 0; i &lt; q; ++ i)
+	if (o[i]. t == 1)
+		printf(&quot;%d\n&quot;, o[i]. s);
+</code></pre>
+<p>}</p>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/code/">code</a></li>
+    </ul>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

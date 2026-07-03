@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>BZOJ3786 星系探索 | The Site of laekov</title>
+<meta name="keywords" content="bzoj, data\xa0structure, oi">
+<meta name="description" content="前两天还在YY动态DFS序呢，这就冒了一个出来。
+动态DFS序的郁闷之处在于不好维护dfs序上的end。而把反括号建出来正好能解决这个问题。
+然后就splay写得飞慢不知道怎么回事。
+用两个栈就可以迭代做出括号序列，自己YY出来的给自己赞一个。
+然后是目前最长的代码和倒数第二慢的时间。
+#include &lt;cstdio&gt;
+#include &lt;cctype&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+int _d_;
+#define readInt(_x_)&nbsp;{&nbsp;\
+int &amp;_s_&nbsp;= _x_;&nbsp;\
+while (!isdigit(_d_&nbsp;= getchar()));&nbsp;\
+_s_ = 0;&nbsp;\
+while ((_s_&nbsp;= _s_ * 10 &#43; _d_ - 48), isdigit(_d_ = getchar()));&nbsp;\
+}
+#define readOpt(_x_)&nbsp;{&nbsp;\
+while (!isupper(_d_&nbsp;= getchar()));&nbsp;\
+_x_ = _d_;&nbsp;\
+}
+typedef long long qw;
+#ifdef WIN32
+#define lld &quot;%I64d&quot;
+#else
+#define lld &quot;%lld&quot;
+#endif
+struct edge {
+int t;">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/lofterimport_053/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="BZOJ3786 星系探索" />
+<meta property="og:description" content="前两天还在YY动态DFS序呢，这就冒了一个出来。
+动态DFS序的郁闷之处在于不好维护dfs序上的end。而把反括号建出来正好能解决这个问题。
+然后就splay写得飞慢不知道怎么回事。
+用两个栈就可以迭代做出括号序列，自己YY出来的给自己赞一个。
+然后是目前最长的代码和倒数第二慢的时间。
+#include &lt;cstdio&gt;
+#include &lt;cctype&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+int _d_;
+#define readInt(_x_)&nbsp;{&nbsp;\
+int &amp;_s_&nbsp;= _x_;&nbsp;\
+while (!isdigit(_d_&nbsp;= getchar()));&nbsp;\
+_s_ = 0;&nbsp;\
+while ((_s_&nbsp;= _s_ * 10 &#43; _d_ - 48), isdigit(_d_ = getchar()));&nbsp;\
+}
+#define readOpt(_x_)&nbsp;{&nbsp;\
+while (!isupper(_d_&nbsp;= getchar()));&nbsp;\
+_x_ = _d_;&nbsp;\
+}
+typedef long long qw;
+#ifdef WIN32
+#define lld &quot;%I64d&quot;
+#else
+#define lld &quot;%lld&quot;
+#endif
+struct edge {
+int t;" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/lofterimport_053/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2014-12-02T17:16:23+00:00" />
+<meta property="article:modified_time" content="2014-12-02T17:16:23+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BZOJ3786 星系探索"/>
+<meta name="twitter:description" content="前两天还在YY动态DFS序呢，这就冒了一个出来。
+动态DFS序的郁闷之处在于不好维护dfs序上的end。而把反括号建出来正好能解决这个问题。
+然后就splay写得飞慢不知道怎么回事。
+用两个栈就可以迭代做出括号序列，自己YY出来的给自己赞一个。
+然后是目前最长的代码和倒数第二慢的时间。
+#include &lt;cstdio&gt;
+#include &lt;cctype&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+int _d_;
+#define readInt(_x_)&nbsp;{&nbsp;\
+int &amp;_s_&nbsp;= _x_;&nbsp;\
+while (!isdigit(_d_&nbsp;= getchar()));&nbsp;\
+_s_ = 0;&nbsp;\
+while ((_s_&nbsp;= _s_ * 10 &#43; _d_ - 48), isdigit(_d_ = getchar()));&nbsp;\
+}
+#define readOpt(_x_)&nbsp;{&nbsp;\
+while (!isupper(_d_&nbsp;= getchar()));&nbsp;\
+_x_ = _d_;&nbsp;\
+}
+typedef long long qw;
+#ifdef WIN32
+#define lld &quot;%I64d&quot;
+#else
+#define lld &quot;%lld&quot;
+#endif
+struct edge {
+int t;"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "BZOJ3786 星系探索",
+      "item": "/oi/lofterimport_053/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BZOJ3786 星系探索",
+  "name": "BZOJ3786 星系探索",
+  "description": "前两天还在YY动态DFS序呢，这就冒了一个出来。\n动态DFS序的郁闷之处在于不好维护dfs序上的end。而把反括号建出来正好能解决这个问题。\n然后就splay写得飞慢不知道怎么回事。\n用两个栈就可以迭代做出括号序列，自己YY出来的给自己赞一个。\n然后是目前最长的代码和倒数第二慢的时间。\n#include \u0026lt;cstdio\u0026gt;\n#include \u0026lt;cctype\u0026gt;\n#include \u0026lt;cstring\u0026gt;\n#include \u0026lt;algorithm\u0026gt;\nusing namespace std;\nint _d_;\n#define readInt(_x_)\u0026nbsp;{\u0026nbsp;\\\nint \u0026amp;_s_\u0026nbsp;= _x_;\u0026nbsp;\\\nwhile (!isdigit(_d_\u0026nbsp;= getchar()));\u0026nbsp;\\\n_s_ = 0;\u0026nbsp;\\\nwhile ((_s_\u0026nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\u0026nbsp;\\\n}\n#define readOpt(_x_)\u0026nbsp;{\u0026nbsp;\\\nwhile (!isupper(_d_\u0026nbsp;= getchar()));\u0026nbsp;\\\n_x_ = _d_;\u0026nbsp;\\\n}\ntypedef long long qw;\n#ifdef WIN32\n#define lld \u0026quot;%I64d\u0026quot;\n#else\n#define lld \u0026quot;%lld\u0026quot;\n#endif\nstruct edge {\nint t;",
+  "keywords": [
+    "bzoj", "data\\xa0structure", "oi"
+  ],
+  "articleBody": "前两天还在YY动态DFS序呢，这就冒了一个出来。\n动态DFS序的郁闷之处在于不好维护dfs序上的end。而把反括号建出来正好能解决这个问题。\n然后就splay写得飞慢不知道怎么回事。\n用两个栈就可以迭代做出括号序列，自己YY出来的给自己赞一个。\n然后是目前最长的代码和倒数第二慢的时间。\n#include #include #include #include using namespace std;\nint _d_;\n#define readInt(_x_) { \\\nint \u0026_s_ = _x_; \\\nwhile (!isdigit(_d_ = getchar())); \\\n_s_ = 0; \\\nwhile ((_s_ = _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar())); \\\n}\n#define readOpt(_x_) { \\\nwhile (!isupper(_d_ = getchar())); \\\n_x_ = _d_; \\\n}\ntypedef long long qw;\n#ifdef WIN32\n#define lld \"%I64d\"\n#else\n#define lld \"%lld\"\n#endif\nstruct edge {\nint t;\nedge *next;\n};\nstruct splay_node {\nint ls, rs, pt, sz, x;\nqw v, a, s;\n};\nconst int maxn = 200009;\nint n, m, w[maxn];\nint fa[maxn], dfb[maxn], dfe[maxn], dfo[maxn];\nedge *ep, *head[maxn];\nvoid dfsBuild() {\nstatic int sa[maxn], sb[maxn];\nint ta = 1, tb = 0, dfn = 0;\nsa[ta] = 1;\nmemset(dfb, 0, sizeof(dfb));\nwhile (ta) {\nint p = sa[ta --];\nwhile (tb \u0026\u0026 sb[tb] != fa[p])\ndfe[sb[tb --]] = ++ dfn;\nsb[++ tb] = p;\ndfb[p] = ++ dfn;\nfor (edge* e = head[p]; e; e = e-\u003e next)\nsa[++ ta] = e-\u003e t;\n}\nwhile (tb)\ndfe[sb[tb --]] = ++ dfn;\nfor (int i = 1; i \u003c= n; ++ i)\ndfo[dfb[i]] = i, dfo[dfe[i]] = -i;\n}\n#define lRot(_q_) { \\\nint _p_ = t[_q_]. pt, _a_ = t[_p_]. pt; \\\nif (_a_) { \\\nif (_p_ == t[_a_]. ls) \\\nt[_a_]. ls = _q_; \\\nelse \\\nt[_a_]. rs = _q_; \\\n} \\\nif (t[_q_]. rs) \\\nt[t[_q_]. rs]. pt = _p_; \\\nt[_p_]. ls = t[_q_]. rs; \\\nt[_q_]. rs = _p_; \\\nt[_q_]. pt = _a_; \\\nt[_p_]. pt = _q_; \\\nupdate(_p_); \\\nupdate(_q_); \\\n}\n#define rRot(_q_) { \\\nint _p_ = t[_q_]. pt, _a_ = t[_p_]. pt; \\\nif (_a_) { \\\nif (_p_ == t[_a_]. ls) \\\nt[_a_]. ls = _q_; \\\nelse \\\nt[_a_]. rs = _q_; \\\n} \\\nif (t[_q_]. ls) \\\nt[t[_q_]. ls]. pt = _p_; \\\nt[_p_]. rs = t[_q_]. ls; \\\nt[_q_]. ls = _p_; \\\nt[_q_]. pt = _a_; \\\nt[_p_]. pt = _q_; \\\nupdate(_p_); \\\nupdate(_q_); \\\n}\n#define update(_p_) { \\\nt[_p_]. sz = t[t[_p_]. ls]. sz + t[t[_p_]. rs]. sz + t[_p_]. x; \\\nt[_p_]. s = t[t[_p_]. ls]. s + t[t[_p_]. rs]. s + t[_p_]. v + t[_p_]. a * t[_p_]. sz; \\\n}\n#define pushDown(_p_) { \\\nif (t[_p_]. a) { \\\nif (t[_p_]. ls) { \\\nt[t[_p_]. ls]. a += t[_p_]. a; \\\nupdate(t[_p_]. ls); \\\n} \\\nif (t[_p_]. rs) { \\\nt[t[_p_]. rs]. a += t[_p_]. a; \\\nupdate(t[_p_]. rs); \\\n} \\\nif (t[_p_]. x \u003e 0) \\\nt[_p_]. v += t[_p_]. a; \\\nelse \\\nt[_p_]. v -= t[_p_]. a; \\\nt[_p_]. a = 0; \\\n} \\\n}\nstruct splay_tree {\nsplay_node t[maxn];\nint cr, n;\nsplay_tree() {\nt[0]. sz = 0;\nt[0]. s = 0;\n}\nvoid dpath(int p) {\nstatic int stc[maxn];\nint tst = 1;\nstc[1] = p;\nfor (; t[stc[tst]]. pt; ++ tst)\nstc[tst + 1] = t[stc[tst]]. pt;\nfor (; tst; -- tst)\npushDown(stc[tst]);\n}\nvoid splay(int q) {\ndpath(q);\nwhile (t[q]. pt) {\nint p = t[q]. pt, a = t[p]. pt;\nif (!a || !t[a]. pt) {\nif (q == t[p]. ls) {\nlRot(q);\n}\nelse {\nrRot(q);\n}\n}\nelse {\nif (p == t[a]. ls) {\nif (q == t[p]. ls) {\nlRot(p);\nlRot(q);\n}\nelse {\nrRot(q);\nlRot(q);\n}\n}\nelse {\nif (q == t[p]. rs) {\nrRot(p);\nrRot(q);\n}\nelse {\nlRot(q);\nrRot(q);\n}\n}\n}\n}\ncr = q;\n}\ninline int build(int l, int r, int pt = 0) {\nif (l \u003e= r)\nreturn 0;\nint p = (l + r) \u003e\u003e 1;\nt[p]. pt = pt;\nt[p]. v = ((dfo[p] \u003e 0) ? w[dfo[p]] : -w[-dfo[p]]);\nt[p]. x = ((dfo[p] \u003e 0) ? 1 : -1);\nt[p]. a = 0;\nt[p]. ls = build(l, p, p);\nt[p]. rs = build(p + 1, r, p);\nupdate(p);\nif (!pt)\ncr = p, n = r;\nreturn p;\n}\nint tmax(int p) {\nwhile (t[p]. rs)\np = t[p]. rs;\nreturn p;\n}\nint tmin(int p) {\nwhile (t[p]. ls)\np = t[p]. ls;\nreturn p;\n}\nint getRange(int l, int r) {\nif (l == 1 \u0026\u0026 r == n)\nreturn cr;\nelse if (l == 1) {\nsplay(r);\nint x = tmin(t[r]. rs);\nsplay(x);\nreturn t[x]. ls;\n}\nelse if (r == n) {\nsplay(l);\nint x = tmax(t[l]. ls);\nsplay(x);\nreturn t[x]. rs;\n}\nelse {\nsplay(l);\nint x = tmax(t[l]. ls);\nsplay(r);\nint y = tmin(t[r]. rs);\nsplay(x);\nsplay(y);\nreturn t[x]. rs;\n}\n}\ninline qw getSum(int q) {\ndpath(q);\nreturn t[q]. s;\n}\ninline void add(int q, int v) {\nt[q]. a += v;\nupdate(q);\nsplay(q);\n}\nvoid cut(int q) {\nint p = t[q]. pt;\ndpath(q);\nif (q == t[p]. ls)\nt[p]. ls = 0;\nelse t[p]. rs = 0;\nt[q]. pt = 0;\nupdate(p);\nsplay(p);\n}\nvoid link(int q, int p) {\nsplay(p);\nif (t[p]. rs) {\nint x = tmin(t[p]. rs);\nsplay(x);\n}\ndpath(p);\nt[p]. rs = q;\nt[q]. pt = p;\nupdate(p);\nsplay(q);\n}\n};\nsplay_tree t;\nint main() {\n#ifndef ONLINE_JUDGE\nfreopen(\"in.txt\", \"r\", stdin);\n#endif\nreadInt(n);\nmemset(head, 0, sizeof(head));\nep = new edge[n];\nfor (int i = 2; i \u003c= n; ++ i) {\nreadInt(fa[i]);\nep-\u003e t = i;\nep-\u003e next = head[fa[i]];\nhead[fa[i]] = ep ++;\n}\nfor (int i = 1; i \u003c= n; ++ i)\nreadInt(w[i]);\ndfsBuild();\nt. build(1, n * 2);\nreadInt(m);\nwhile (m --) {\nchar opt;\nint x, y;\nreadOpt(opt);\nif (opt == 'Q') {\nreadInt(x);\ny = t. getRange(1, dfb[x]);\nprintf(lld \"\\n\", t. getSum(y));\n}\nelse if (opt == 'C') {\nreadInt(x);\nreadInt(y);\nint a = t. getRange(dfb[x], dfe[x]);\nt. cut(a);\nt. link(a, dfb[y]);\n}\nelse if (opt == 'F') {\nreadInt(x);\nreadInt(y);\nint a = t. getRange(dfb[x], dfe[x]);\nt. add(a, y);\n}\n}\n}\n",
+  "wordCount" : "838",
+  "inLanguage": "en",
+  "datePublished": "2014-12-02T17:16:23Z",
+  "dateModified": "2014-12-02T17:16:23Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/lofterimport_053/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      BZOJ3786 星系探索
+    </h1>
+    <div class="post-meta"><span title='2014-12-02 17:16:23 +0000 UTC'>December 2, 2014</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>前两天还在YY动态DFS序呢，这就冒了一个出来。</p> 
+<p><br /></p> 
+<p>动态DFS序的郁闷之处在于不好维护dfs序上的end。而把反括号建出来正好能解决这个问题。</p> 
+<p><br /></p> 
+<p>然后就splay写得飞慢不知道怎么回事。</p> 
+<p><br /></p> 
+<p>用两个栈就可以迭代做出括号序列，自己YY出来的给自己赞一个。</p> 
+<p><br /></p> 
+<p>然后是目前最长的代码和倒数第二慢的时间。</p> 
+<p>#include &lt;cstdio&gt;</p> 
+<p>#include &lt;cctype&gt;</p> 
+<p>#include &lt;cstring&gt;</p> 
+<p>#include &lt;algorithm&gt;</p> 
+<p><br /></p> 
+<p>using namespace std;</p> 
+<p><br /></p> 
+<p>int _d_;</p> 
+<p>#define readInt(_x_)&nbsp;{&nbsp;\</p> 
+<p>int &amp;_s_&nbsp;= _x_;&nbsp;\</p> 
+<p>while (!isdigit(_d_&nbsp;= getchar()));&nbsp;\</p> 
+<p>_s_ = 0;&nbsp;\</p> 
+<p>while ((_s_&nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));&nbsp;\</p> 
+<p>}</p> 
+<p>#define readOpt(_x_)&nbsp;{&nbsp;\</p> 
+<p>while (!isupper(_d_&nbsp;= getchar()));&nbsp;\</p> 
+<p>_x_ = _d_;&nbsp;\</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>typedef long long qw;</p> 
+<p><br /></p> 
+<p>#ifdef WIN32</p> 
+<p>#define lld &quot;%I64d&quot;</p> 
+<p>#else</p> 
+<p>#define lld &quot;%lld&quot;</p> 
+<p>#endif</p> 
+<p><br /></p> 
+<p>struct edge {</p> 
+<p>int t;</p> 
+<p>edge *next;</p> 
+<p>};</p> 
+<p>struct splay_node {</p> 
+<p>int ls, rs, pt, sz, x;</p> 
+<p>qw v, a, s;</p> 
+<p>};</p> 
+<p><br /></p> 
+<p>const int maxn = 200009;</p> 
+<p><br /></p> 
+<p>int n, m, w[maxn];</p> 
+<p>int fa[maxn], dfb[maxn], dfe[maxn], dfo[maxn];</p> 
+<p>edge *ep,&nbsp;*head[maxn];</p> 
+<p><br /></p> 
+<p>void dfsBuild()&nbsp;{</p> 
+<p>static int sa[maxn], sb[maxn];</p> 
+<p>int ta = 1, tb = 0, dfn = 0;</p> 
+<p>sa[ta]&nbsp;= 1;</p> 
+<p>memset(dfb, 0, sizeof(dfb));</p> 
+<p>while (ta)&nbsp;{</p> 
+<p>int p = sa[ta --];</p> 
+<p>while (tb&nbsp;&amp;&amp; sb[tb]&nbsp;!= fa[p])</p> 
+<p>dfe[sb[tb --]]&nbsp;=&nbsp;++ dfn;</p> 
+<p>sb[++ tb]&nbsp;= p;</p> 
+<p>dfb[p]&nbsp;=&nbsp;++ dfn;</p> 
+<p>for (edge* e = head[p]; e; e = e-&gt; next)</p> 
+<p>sa[++ ta]&nbsp;= e-&gt; t;</p> 
+<p>}</p> 
+<p>while (tb)</p> 
+<p>dfe[sb[tb --]]&nbsp;=&nbsp;++ dfn;</p> 
+<p>for (int i = 1; i &lt;= n;&nbsp;++ i)</p> 
+<p>dfo[dfb[i]]&nbsp;= i, dfo[dfe[i]]&nbsp;=&nbsp;-i;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>#define lRot(_q_)&nbsp;{&nbsp;\</p> 
+<p>int _p_ = t[_q_]. pt, _a_ = t[_p_]. pt;&nbsp;\</p> 
+<p>if (_a_)&nbsp;{&nbsp;\</p> 
+<p>if (_p_&nbsp;== t[_a_]. ls)&nbsp;\</p> 
+<p>t[_a_]. ls = _q_;&nbsp;\</p> 
+<p>else \</p> 
+<p>t[_a_]. rs = _q_;&nbsp;\</p> 
+<p>}&nbsp;\</p> 
+<p>if (t[_q_]. rs)&nbsp;\</p> 
+<p>t[t[_q_]. rs]. pt = _p_;&nbsp;\</p> 
+<p>t[_p_]. ls = t[_q_]. rs;&nbsp;\</p> 
+<p>t[_q_]. rs = _p_;&nbsp;\</p> 
+<p>t[_q_]. pt = _a_;&nbsp;\</p> 
+<p>t[_p_]. pt = _q_;&nbsp;\</p> 
+<p>update(_p_);&nbsp;\</p> 
+<p>update(_q_);&nbsp;\</p> 
+<p>}</p> 
+<p>#define rRot(_q_)&nbsp;{&nbsp;\</p> 
+<p>int _p_ = t[_q_]. pt, _a_ = t[_p_]. pt;&nbsp;\</p> 
+<p>if (_a_)&nbsp;{&nbsp;\</p> 
+<p>if (_p_&nbsp;== t[_a_]. ls)&nbsp;\</p> 
+<p>t[_a_]. ls = _q_;&nbsp;\</p> 
+<p>else \</p> 
+<p>t[_a_]. rs = _q_;&nbsp;\</p> 
+<p>}&nbsp;\</p> 
+<p>if (t[_q_]. ls)&nbsp;\</p> 
+<p>t[t[_q_]. ls]. pt = _p_;&nbsp;\</p> 
+<p>t[_p_]. rs = t[_q_]. ls;&nbsp;\</p> 
+<p>t[_q_]. ls = _p_;&nbsp;\</p> 
+<p>t[_q_]. pt = _a_;&nbsp;\</p> 
+<p>t[_p_]. pt = _q_;&nbsp;\</p> 
+<p>update(_p_);&nbsp;\</p> 
+<p>update(_q_);&nbsp;\</p> 
+<p>}</p> 
+<p>#define update(_p_)&nbsp;{&nbsp;\</p> 
+<p>t[_p_]. sz = t[t[_p_]. ls]. sz + t[t[_p_]. rs]. sz + t[_p_]. x;&nbsp;\</p> 
+<p>t[_p_]. s = t[t[_p_]. ls]. s + t[t[_p_]. rs]. s + t[_p_]. v + t[_p_]. a * t[_p_]. sz;&nbsp;\</p> 
+<p>}</p> 
+<p>#define pushDown(_p_)&nbsp;{&nbsp;\</p> 
+<p>if (t[_p_]. a)&nbsp;{&nbsp;\</p> 
+<p>if (t[_p_]. ls)&nbsp;{&nbsp;\</p> 
+<p>t[t[_p_]. ls]. a += t[_p_]. a;&nbsp;\</p> 
+<p>update(t[_p_]. ls);&nbsp;\</p> 
+<p>}&nbsp;\</p> 
+<p>if (t[_p_]. rs)&nbsp;{&nbsp;\</p> 
+<p>t[t[_p_]. rs]. a += t[_p_]. a;&nbsp;\</p> 
+<p>update(t[_p_]. rs);&nbsp;\</p> 
+<p>}&nbsp;\</p> 
+<p>if (t[_p_]. x &gt; 0)&nbsp;\</p> 
+<p>t[_p_]. v += t[_p_]. a;&nbsp;\</p> 
+<p>else \</p> 
+<p>t[_p_]. v -= t[_p_]. a;&nbsp;\</p> 
+<p>t[_p_]. a = 0;&nbsp;\</p> 
+<p>}&nbsp;\</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>struct splay_tree {</p> 
+<p>splay_node t[maxn];</p> 
+<p>int cr, n;</p> 
+<p>splay_tree()&nbsp;{</p> 
+<p>t[0]. sz = 0;</p> 
+<p>t[0]. s = 0;</p> 
+<p>}</p> 
+<p>void dpath(int p)&nbsp;{</p> 
+<p>static int stc[maxn];</p> 
+<p>int tst = 1;</p> 
+<p>stc[1]&nbsp;= p;</p> 
+<p>for (; t[stc[tst]]. pt;&nbsp;++ tst)</p> 
+<p>stc[tst + 1]&nbsp;= t[stc[tst]]. pt;</p> 
+<p>for (; tst;&nbsp;-- tst)</p> 
+<p>pushDown(stc[tst]);</p> 
+<p>}</p> 
+<p>void splay(int q)&nbsp;{</p> 
+<p>dpath(q);</p> 
+<p>while (t[q]. pt)&nbsp;{</p> 
+<p>int p = t[q]. pt, a = t[p]. pt;</p> 
+<p>if (!a&nbsp;||&nbsp;!t[a]. pt)&nbsp;{</p> 
+<p>if (q&nbsp;== t[p]. ls)&nbsp;{</p> 
+<p>lRot(q);</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>rRot(q);</p> 
+<p>}</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>if (p&nbsp;== t[a]. ls)&nbsp;{</p> 
+<p>if (q&nbsp;== t[p]. ls)&nbsp;{</p> 
+<p>lRot(p);</p> 
+<p>lRot(q);</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>rRot(q);</p> 
+<p>lRot(q);</p> 
+<p>}</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>if (q&nbsp;== t[p]. rs)&nbsp;{</p> 
+<p>rRot(p);</p> 
+<p>rRot(q);</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>lRot(q);</p> 
+<p>rRot(q);</p> 
+<p>}</p> 
+<p>}</p> 
+<p>}</p> 
+<p>}</p> 
+<p>cr = q;</p> 
+<p>}</p> 
+<p>inline int build(int l, int r, int pt = 0)&nbsp;{</p> 
+<p>if (l&nbsp;&gt;= r)</p> 
+<p>return 0;</p> 
+<p>int p =&nbsp;(l&nbsp;+ r)&nbsp;&gt;&gt; 1;</p> 
+<p>t[p]. pt = pt;</p> 
+<p>t[p]. v =&nbsp;((dfo[p]&nbsp;&gt; 0)&nbsp;? w[dfo[p]]&nbsp;:&nbsp;-w[-dfo[p]]);</p> 
+<p>t[p]. x =&nbsp;((dfo[p]&nbsp;&gt; 0)&nbsp;? 1 :&nbsp;-1);</p> 
+<p>t[p]. a = 0;</p> 
+<p>t[p]. ls = build(l, p, p);</p> 
+<p>t[p]. rs = build(p + 1, r, p);</p> 
+<p>update(p);</p> 
+<p>if (!pt)</p> 
+<p>cr = p, n = r;</p> 
+<p>return p;</p> 
+<p>}</p> 
+<p>int tmax(int p)&nbsp;{</p> 
+<p>while (t[p]. rs)</p> 
+<p>p = t[p]. rs;</p> 
+<p>return p;</p> 
+<p>}</p> 
+<p>int tmin(int p)&nbsp;{</p> 
+<p>while (t[p]. ls)</p> 
+<p>p = t[p]. ls;</p> 
+<p>return p;</p> 
+<p>}</p> 
+<p>int getRange(int l, int r)&nbsp;{</p> 
+<p>if (l&nbsp;== 1 &amp;&amp; r == n)</p> 
+<p>return cr;</p> 
+<p>else if (l&nbsp;== 1)&nbsp;{</p> 
+<p>splay(r);</p> 
+<p>int x = tmin(t[r]. rs);</p> 
+<p>splay(x);</p> 
+<p>return t[x]. ls;</p> 
+<p>}</p> 
+<p>else if (r&nbsp;== n)&nbsp;{</p> 
+<p>splay(l);</p> 
+<p>int x = tmax(t[l]. ls);</p> 
+<p>splay(x);</p> 
+<p>return t[x]. rs;</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>splay(l);</p> 
+<p>int x = tmax(t[l]. ls);</p> 
+<p>splay(r);</p> 
+<p>int y = tmin(t[r]. rs);</p> 
+<p>splay(x);</p> 
+<p>splay(y);</p> 
+<p>return t[x]. rs;</p> 
+<p>}</p> 
+<p>}</p> 
+<p>inline qw getSum(int q)&nbsp;{</p> 
+<p>dpath(q);</p> 
+<p>return t[q]. s;</p> 
+<p>}</p> 
+<p>inline void add(int q, int v)&nbsp;{</p> 
+<p>t[q]. a += v;</p> 
+<p>update(q);</p> 
+<p>splay(q);</p> 
+<p>}</p> 
+<p>void cut(int q)&nbsp;{</p> 
+<p>int p = t[q]. pt;</p> 
+<p>dpath(q);</p> 
+<p>if (q&nbsp;== t[p]. ls)</p> 
+<p>t[p]. ls = 0;</p> 
+<p>else </p> 
+<p>t[p]. rs = 0;</p> 
+<p>t[q]. pt = 0;</p> 
+<p>update(p);</p> 
+<p>splay(p);</p> 
+<p>}</p> 
+<p>void link(int q, int p)&nbsp;{</p> 
+<p>splay(p);</p> 
+<p>if (t[p]. rs)&nbsp;{</p> 
+<p>int x = tmin(t[p]. rs);</p> 
+<p>splay(x);</p> 
+<p>}</p> 
+<p>dpath(p);</p> 
+<p>t[p]. rs = q;</p> 
+<p>t[q]. pt = p;</p> 
+<p>update(p);</p> 
+<p>splay(q);</p> 
+<p>}</p> 
+<p>};</p> 
+<p><br /></p> 
+<p>splay_tree t;</p> 
+<p><br /></p> 
+<p>int main()&nbsp;{</p> 
+<p>#ifndef ONLINE_JUDGE</p> 
+<p>freopen(&quot;in.txt&quot;,&nbsp;&quot;r&quot;, stdin);</p> 
+<p>#endif</p> 
+<p><br /></p> 
+<p>readInt(n);</p> 
+<p>memset(head, 0, sizeof(head));</p> 
+<p>ep = new edge[n];</p> 
+<p>for (int i = 2; i &lt;= n;&nbsp;++ i)&nbsp;{</p> 
+<p>readInt(fa[i]);</p> 
+<p>ep-&gt; t = i;</p> 
+<p>ep-&gt; next = head[fa[i]];</p> 
+<p>head[fa[i]]&nbsp;= ep ++;</p> 
+<p>}</p> 
+<p>for (int i = 1; i &lt;= n;&nbsp;++ i)</p> 
+<p>readInt(w[i]);</p> 
+<p>dfsBuild();</p> 
+<p>t. build(1, n * 2);</p> 
+<p>readInt(m);</p> 
+<p>while (m&nbsp;--)&nbsp;{</p> 
+<p>char opt;</p> 
+<p>int x, y;</p> 
+<p>readOpt(opt);</p> 
+<p>if (opt&nbsp;==&nbsp;'Q')&nbsp;{</p> 
+<p>readInt(x);</p> 
+<p>y = t. getRange(1, dfb[x]);</p> 
+<p>printf(lld &quot;\n&quot;, t. getSum(y));</p> 
+<p>}</p> 
+<p>else if (opt&nbsp;==&nbsp;'C')&nbsp;{</p> 
+<p>readInt(x);</p> 
+<p>readInt(y);</p> 
+<p>int a = t. getRange(dfb[x], dfe[x]);</p> 
+<p>t. cut(a);</p> 
+<p>t. link(a, dfb[y]);</p> 
+<p>}</p> 
+<p>else if (opt&nbsp;==&nbsp;'F')&nbsp;{</p> 
+<p>readInt(x);</p> 
+<p>readInt(y);</p> 
+<p>int a = t. getRange(dfb[x], dfe[x]);</p> 
+<p>t. add(a, y);</p> 
+<p>}</p> 
+<p>}</p> 
+<p>}</p> 
+<p><br /></p>
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/bzoj/">bzoj</a></li>
+      <li><a href="/tags/data%5Cxa0structure/">data\xa0structure</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/lofterimport_046/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>BZOJ1037 生日聚会</span>
+  </a>
+  <a class="next" href="/oi/lofterimport_055/">
+    <span class="title">Next »</span>
+    <br>
+    <span>BZOJ2154 Crash的数字表格</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

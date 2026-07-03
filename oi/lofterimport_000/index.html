@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>BZOJ2693 jzptab | The Site of laekov</title>
+<meta name="keywords" content="bzoj, math, oi">
+<meta name="description" content="多组询问，硬根号。yy了一下午，在去80MSWC的时候的病历上打了若干草稿，最后硬yy出来了。
+其实拿LaTeX来当公式编辑器蛮好的。
+然后d(a)函数可以线性筛，讨论一下是不是倍数就行了。
+发现数论真的好神奇。
+lofter的html源码好讨厌啊。
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+&nbsp;
+using namespace std;
+&nbsp;
+#define _l (long long int)
+&nbsp;
+const int maxn = 10000009;
+const int maxq = 10009;
+const int mod = 1e8 &#43; 9;
+&nbsp;
+int pn[maxn], tp, d[maxn];
+bool pr[maxn];
+int q, m[maxq], n[maxq], t;
+&nbsp;
+#define incm(_a_,_b_)&nbsp;{&nbsp;\
+&nbsp;&nbsp;&nbsp; _a_&#43;=_b_;&nbsp;\
+&nbsp;&nbsp;&nbsp; if (_a_&gt;=mod||_a_&lt;=-mod)&nbsp;\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _a_%=mod;&nbsp;\
+&nbsp;&nbsp;&nbsp; if (_a_&lt;0)&nbsp;\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _a_&#43;=mod;&nbsp;\
+}
+&nbsp;
+void pre(int n)&nbsp;{">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/lofterimport_000/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="BZOJ2693 jzptab" />
+<meta property="og:description" content="多组询问，硬根号。yy了一下午，在去80MSWC的时候的病历上打了若干草稿，最后硬yy出来了。
+其实拿LaTeX来当公式编辑器蛮好的。
+然后d(a)函数可以线性筛，讨论一下是不是倍数就行了。
+发现数论真的好神奇。
+lofter的html源码好讨厌啊。
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+&nbsp;
+using namespace std;
+&nbsp;
+#define _l (long long int)
+&nbsp;
+const int maxn = 10000009;
+const int maxq = 10009;
+const int mod = 1e8 &#43; 9;
+&nbsp;
+int pn[maxn], tp, d[maxn];
+bool pr[maxn];
+int q, m[maxq], n[maxq], t;
+&nbsp;
+#define incm(_a_,_b_)&nbsp;{&nbsp;\
+&nbsp;&nbsp;&nbsp; _a_&#43;=_b_;&nbsp;\
+&nbsp;&nbsp;&nbsp; if (_a_&gt;=mod||_a_&lt;=-mod)&nbsp;\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _a_%=mod;&nbsp;\
+&nbsp;&nbsp;&nbsp; if (_a_&lt;0)&nbsp;\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _a_&#43;=mod;&nbsp;\
+}
+&nbsp;
+void pre(int n)&nbsp;{" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/lofterimport_000/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2015-01-17T18:36:19+00:00" />
+<meta property="article:modified_time" content="2015-01-17T18:36:19+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BZOJ2693 jzptab"/>
+<meta name="twitter:description" content="多组询问，硬根号。yy了一下午，在去80MSWC的时候的病历上打了若干草稿，最后硬yy出来了。
+其实拿LaTeX来当公式编辑器蛮好的。
+然后d(a)函数可以线性筛，讨论一下是不是倍数就行了。
+发现数论真的好神奇。
+lofter的html源码好讨厌啊。
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+&nbsp;
+using namespace std;
+&nbsp;
+#define _l (long long int)
+&nbsp;
+const int maxn = 10000009;
+const int maxq = 10009;
+const int mod = 1e8 &#43; 9;
+&nbsp;
+int pn[maxn], tp, d[maxn];
+bool pr[maxn];
+int q, m[maxq], n[maxq], t;
+&nbsp;
+#define incm(_a_,_b_)&nbsp;{&nbsp;\
+&nbsp;&nbsp;&nbsp; _a_&#43;=_b_;&nbsp;\
+&nbsp;&nbsp;&nbsp; if (_a_&gt;=mod||_a_&lt;=-mod)&nbsp;\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _a_%=mod;&nbsp;\
+&nbsp;&nbsp;&nbsp; if (_a_&lt;0)&nbsp;\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _a_&#43;=mod;&nbsp;\
+}
+&nbsp;
+void pre(int n)&nbsp;{"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "BZOJ2693 jzptab",
+      "item": "/oi/lofterimport_000/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BZOJ2693 jzptab",
+  "name": "BZOJ2693 jzptab",
+  "description": "多组询问，硬根号。yy了一下午，在去80MSWC的时候的病历上打了若干草稿，最后硬yy出来了。\n其实拿LaTeX来当公式编辑器蛮好的。\n然后d(a)函数可以线性筛，讨论一下是不是倍数就行了。\n发现数论真的好神奇。\nlofter的html源码好讨厌啊。\n#include \u0026lt;cstdio\u0026gt;\n#include \u0026lt;cstring\u0026gt;\n#include \u0026lt;algorithm\u0026gt;\n\u0026nbsp;\nusing namespace std;\n\u0026nbsp;\n#define _l (long long int)\n\u0026nbsp;\nconst int maxn = 10000009;\nconst int maxq = 10009;\nconst int mod = 1e8 + 9;\n\u0026nbsp;\nint pn[maxn], tp, d[maxn];\nbool pr[maxn];\nint q, m[maxq], n[maxq], t;\n\u0026nbsp;\n#define incm(_a_,_b_)\u0026nbsp;{\u0026nbsp;\\\n\u0026nbsp;\u0026nbsp;\u0026nbsp; _a_+=_b_;\u0026nbsp;\\\n\u0026nbsp;\u0026nbsp;\u0026nbsp; if (_a_\u0026gt;=mod||_a_\u0026lt;=-mod)\u0026nbsp;\\\n\u0026nbsp;\u0026nbsp;\u0026nbsp;\u0026nbsp;\u0026nbsp;\u0026nbsp;\u0026nbsp; _a_%=mod;\u0026nbsp;\\\n\u0026nbsp;\u0026nbsp;\u0026nbsp; if (_a_\u0026lt;0)\u0026nbsp;\\\n\u0026nbsp;\u0026nbsp;\u0026nbsp;\u0026nbsp;\u0026nbsp;\u0026nbsp;\u0026nbsp; _a_+=mod;\u0026nbsp;\\\n}\n\u0026nbsp;\nvoid pre(int n)\u0026nbsp;{",
+  "keywords": [
+    "bzoj", "math", "oi"
+  ],
+  "articleBody": "多组询问，硬根号。yy了一下午，在去80MSWC的时候的病历上打了若干草稿，最后硬yy出来了。\n其实拿LaTeX来当公式编辑器蛮好的。\n然后d(a)函数可以线性筛，讨论一下是不是倍数就行了。\n发现数论真的好神奇。\nlofter的html源码好讨厌啊。\n#include #include #include using namespace std;\n#define _l (long long int)\nconst int maxn = 10000009;\nconst int maxq = 10009;\nconst int mod = 1e8 + 9;\nint pn[maxn], tp, d[maxn];\nbool pr[maxn];\nint q, m[maxq], n[maxq], t;\n#define incm(_a_,_b_) { \\\n_a_+=_b_; \\\nif (_a_\u003e=mod||_a_\u003c=-mod) \\\n_a_%=mod; \\\nif (_a_\u003c0) \\\n_a_+=mod; \\\n}\nvoid pre(int n) {\nmemset(pr, 0, sizeof(pr));\ntp = 0;\nd[0] = 0;\nd[1] = 1;\nfor (int i = 2; i \u003c= n; ++ i) {\nif (!pr[i]) {\npn[tp ++] = i; d[i] = (i - _l i * i) % mod;\nif (d[i] \u003c 0)\nd[i] += mod;\n}\nfor (int j = 0; j \u003c tp \u0026\u0026 i * pn[j] \u003c= n; ++ j) {\npr[i * pn[j]] = 1;\nif (i % pn[j]) {\nd[i * pn[j]] = _l d[i] * d[pn[j]] % mod;\n}\nelse {\nd[i * pn[j]] = _l d[i] * pn[j] % mod;\nbreak;\n}\n}\n}\nfor (int i = 2; i \u003c= n; ++ i)\nincm(d[i], d[i - 1]);\n}\ninline int sumr(const int\u0026 x) {\nreturn (((_l x + 1) * x) \u003e\u003e 1) % mod;\n}\nint sov(int m, int n) {\nint ans(0);\nfor (int i = 1, j; i \u003c= n; i = j + 1) {\nj = min(m / (m / i), n / (n / i));\nincm(ans, (_l d[j] - d[i - 1]) * sumr(m / i) % mod * sumr(n / i) % mod);\n}\nreturn ans;\n}\nint main() {\n#ifndef ONLINE_JUDGE\nfreopen(\"in.txt\", \"r\", stdin);\n#endif\nscanf(\"%d\", \u0026q);\nt = 0;\nfor (int i = 0; i \u003c q; ++ i) {\nscanf(\"%d%d\", m + i, n + i);\nif (m[i] \u003c n[i])\nswap(m[i], n[i]);\nif (t \u003c m[i])\nt = m[i];\n}\npre(t);\nfor (int i = 0; i \u003c q; ++ i)\nprintf(\"%d\\n\", sov(m[i], n[i]));\n}\nHistorical Comments Unknown friend at 2015-01-18T13:17:23 这版面好醚……你用latex做的吗\nUnknown friend at 2015-01-18T13:27:06 是的。毕竟是排版神器\n",
+  "wordCount" : "331",
+  "inLanguage": "en",
+  "datePublished": "2015-01-17T18:36:19Z",
+  "dateModified": "2015-01-17T18:36:19Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/lofterimport_000/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      BZOJ2693 jzptab
+    </h1>
+    <div class="post-meta"><span title='2015-01-17 18:36:19 +0000 UTC'>January 17, 2015</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#historical-comments" aria-label="Historical Comments">Historical Comments</a><ul>
+                        <ul>
+                        
+                <li>
+                    <a href="#unknown-friend-at-2015-01-18t131723" aria-label="Unknown friend at 2015-01-18T13:17:23">Unknown friend at 2015-01-18T13:17:23</a></li>
+                <li>
+                    <a href="#unknown-friend-at-2015-01-18t132706" aria-label="Unknown friend at 2015-01-18T13:27:06">Unknown friend at 2015-01-18T13:27:06</a>
+                </li>
+            </ul>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p>多组询问，硬根号。yy了一下午，在去80MSWC的时候的病历上打了若干草稿，最后硬yy出来了。</p> 
+<p><br /></p> 
+<p>其实拿LaTeX来当公式编辑器蛮好的。</p> 
+<p><img src="http://imglf1.ph.126.net/SMrEwNNBINnxGYRV4Q2ncQ==/6630894042861292324.jpg"  smallsrc="http://imglf1.ph.126.net/5bTvy0szdKUSUWPANxYf_A==/6630430048954366102.jpg"  /><br /><br /></p> 
+<p><br /></p> 
+<p>然后d(a)函数可以线性筛，讨论一下是不是倍数就行了。</p> 
+<p><br /></p> 
+<p>发现数论真的好神奇。</p> 
+<p><br /></p> 
+<p>lofter的html源码好讨厌啊。</p> 
+<p><br /></p> 
+<p>#include &lt;cstdio&gt;<br />#include &lt;cstring&gt;<br />#include &lt;algorithm&gt;<br />&nbsp;<br />using namespace std;<br />&nbsp;<br />#define _l (long long int)<br />&nbsp;<br />const int maxn = 10000009;<br />const int maxq = 10009;<br />const int mod = 1e8 + 9;<br />&nbsp;<br />int pn[maxn], tp, d[maxn];<br />bool pr[maxn];<br />int q, m[maxq], n[maxq], t;<br />&nbsp;<br />#define incm(_a_,_b_)&nbsp;{&nbsp;\<br />&nbsp;&nbsp;&nbsp; _a_+=_b_;&nbsp;\<br />&nbsp;&nbsp;&nbsp; if (_a_&gt;=mod||_a_&lt;=-mod)&nbsp;\<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _a_%=mod;&nbsp;\<br />&nbsp;&nbsp;&nbsp; if (_a_&lt;0)&nbsp;\<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _a_+=mod;&nbsp;\<br />}<br />&nbsp;<br />void pre(int n)&nbsp;{<br />&nbsp;&nbsp;&nbsp; memset(pr, 0, sizeof(pr));<br />&nbsp;&nbsp;&nbsp; tp = 0;<br />&nbsp;&nbsp;&nbsp; d[0]&nbsp;= 0;<br />&nbsp;&nbsp;&nbsp; d[1]&nbsp;= 1;<br />&nbsp;&nbsp;&nbsp; for (int i = 2; i &lt;= n;&nbsp;++ i)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!pr[i])&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pn[tp ++]&nbsp;= i;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; d[i]&nbsp;=&nbsp;(i - _l i * i)&nbsp;% mod;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (d[i]&nbsp;&lt; 0)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; d[i]&nbsp;+= mod;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (int j = 0; j &lt; tp &amp;&amp; i * pn[j]&nbsp;&lt;= n;&nbsp;++ j)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr[i * pn[j]]&nbsp;= 1;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (i&nbsp;% pn[j])&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; d[i * pn[j]]&nbsp;= _l d[i]&nbsp;* d[pn[j]]&nbsp;% mod;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; d[i * pn[j]]&nbsp;= _l d[i]&nbsp;* pn[j]&nbsp;% mod;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp; for (int i = 2; i &lt;= n;&nbsp;++ i)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; incm(d[i], d[i - 1]);<br />}<br />&nbsp;<br />inline int sumr(const int&amp; x)&nbsp;{<br />&nbsp;&nbsp;&nbsp; return (((_l x + 1)&nbsp;* x)&nbsp;&gt;&gt; 1)&nbsp;% mod;<br />}<br />&nbsp;<br />int sov(int m, int n)&nbsp;{<br />&nbsp;&nbsp;&nbsp; int ans(0);<br />&nbsp;&nbsp;&nbsp; for (int i = 1, j; i &lt;= n; i = j + 1)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; j = min(m /&nbsp;(m&nbsp;/ i), n /&nbsp;(n&nbsp;/ i));<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; incm(ans,&nbsp;(_l d[j]&nbsp;- d[i - 1])&nbsp;* sumr(m / i)&nbsp;% mod * sumr(n / i)&nbsp;% mod);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp; return ans;<br />}<br />&nbsp;<br />int main()&nbsp;{<br />#ifndef ONLINE_JUDGE<br />&nbsp;&nbsp;&nbsp; freopen(&quot;in.txt&quot;,&nbsp;&quot;r&quot;, stdin);<br />#endif<br />&nbsp;<br />&nbsp;&nbsp;&nbsp; scanf(&quot;%d&quot;,&nbsp;&amp;q);<br />&nbsp;&nbsp;&nbsp; t = 0;<br />&nbsp;&nbsp;&nbsp; for (int i = 0; i &lt; q;&nbsp;++ i)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; scanf(&quot;%d%d&quot;, m + i, n + i);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (m[i]&nbsp;&lt; n[i])<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; swap(m[i], n[i]);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (t&nbsp;&lt; m[i])<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; t = m[i];<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp; pre(t);<br />&nbsp;&nbsp;&nbsp; for (int i = 0; i &lt; q;&nbsp;++ i)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf(&quot;%d\n&quot;, sov(m[i], n[i]));<br />}<br /></p>
+<hr/>
+<h3 id="historical-comments">Historical Comments<a hidden class="anchor" aria-hidden="true" href="#historical-comments">#</a></h3>
+<h5 id="unknown-friend-at-2015-01-18t131723">Unknown friend at 2015-01-18T13:17:23<a hidden class="anchor" aria-hidden="true" href="#unknown-friend-at-2015-01-18t131723">#</a></h5>
+<p>这版面好醚……你用latex做的吗</p>
+<h5 id="unknown-friend-at-2015-01-18t132706">Unknown friend at 2015-01-18T13:27:06<a hidden class="anchor" aria-hidden="true" href="#unknown-friend-at-2015-01-18t132706">#</a></h5>
+<p>是的。毕竟是排版神器</p>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/bzoj/">bzoj</a></li>
+      <li><a href="/tags/math/">math</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/i11rimport_082/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>BZOJ3314 [Usaco2013 Nov]Crowded Cows</span>
+  </a>
+  <a class="next" href="/oi/lofterimport_001/">
+    <span class="title">Next »</span>
+    <br>
+    <span>BZOJ2709 [Violet 1]迷宫花园</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

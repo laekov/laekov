@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>tg on The Site of laekov</title>
+    <link>/tags/tg/</link>
+    <description>Recent content in tg on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Sat, 27 Jun 2015 21:39:47 +0000</lastBuildDate><atom:link href="/tags/tg/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>bzoj4134 ljw和lzr的hack比赛</title>
+      <link>/oi/dbimport_246/</link>
+      <pubDate>Sat, 27 Jun 2015 21:39:47 +0000</pubDate>
+      
+      <guid>/oi/dbimport_246/</guid>
+      <description>之前感觉是sg函数.不过不会.在wulala神犇的指点下找来题解看了一下.太神辣.自己肯定想不出来&amp;hellip;
+设以点u为根的子树的局面的sg值为sgu.设以u为根的子树中先手先hack掉v后的sg函数为gu,v.
+那么gu,v = f[v] xor ∑ fu到v路径上所有点的非主干儿子.
+然后fu = mex{gu,v}
+这个转移得转移是O(n2)的样子吧.
+然后发现某棵子树的g其实每次都是异或了一个相同的值.而且会合并.
+咦可以用trie来优化一下.打下标记啥的.然后根据主席的论文这个东西是O(log n)的?虽然感觉复杂度证明没有说清楚啊ovoovo
+然后就在trie树标记上卡了好久啊火冒三丈ing</description>
+    </item>
+    
+  </channel>
+</rss>

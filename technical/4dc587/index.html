@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Rule-based Regular Routing Method | The Site of laekov</title>
+<meta name="keywords" content="developing">
+<meta name="description" content="Upd: 代码来了 https://github.com/laekov/rbrrm
+来 mark 一下我的 oop 组队大作业中窝肝的部分.
+姚氏大作业果然有趣.
+大概问题是这样的.
+现在一个 pcb 上面有 (n*n) 的元件矩阵(忽略元件面积). 然后你要布线让每个元件都单独连着一条通往边界的电线, 我们管它叫这个点的 escape 路线. (最边上的就直接算作逃出去了)
+然后电线只能横竖沿着格线走. 显然直接走是走不出去的. 所以你要找一个最小的 ( w ), 把原来的每行每列的中间都插上(w)条格线, 然后找一个总长最小 (或者如果你有其它的 feature 的话可以是尽量小) 的方案.
+官方的的范围是 ( 80 ), 然后我算出来的 (80) 对应的 (w) 是 (23). 这个范围直接二分建图跑网络流已经非常吃力了. (或者直说要跑几天才跑得出来).
+一个比较小的例子如图.
+这个问题的标题叫作_rule based regular routing path_, 也就是说有某种直接用规则布线就可以了?
+然后窝的第一个想法是神贪心, 然而在和大树讨论了很久之后也没有找到一种能让我们两个觉得靠谱且简洁优美的贪心.
+然后窝就在想网络流是否有救. 在和 czr 讨论了一阵以及 czr 帮窝去 ieee 找了几篇 paper (btw, 校内网可以免费直接下 ieee 的论文不能更赞) 后发现了这么一个结论. 对于每个 ( w*w ) 的格子, 它的承载上限 (也就是说穿过这个格子的线的条数) 是 ( w ).">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/technical/4dc587/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="Rule-based Regular Routing Method" />
+<meta property="og:description" content="Upd: 代码来了 https://github.com/laekov/rbrrm
+来 mark 一下我的 oop 组队大作业中窝肝的部分.
+姚氏大作业果然有趣.
+大概问题是这样的.
+现在一个 pcb 上面有 (n*n) 的元件矩阵(忽略元件面积). 然后你要布线让每个元件都单独连着一条通往边界的电线, 我们管它叫这个点的 escape 路线. (最边上的就直接算作逃出去了)
+然后电线只能横竖沿着格线走. 显然直接走是走不出去的. 所以你要找一个最小的 ( w ), 把原来的每行每列的中间都插上(w)条格线, 然后找一个总长最小 (或者如果你有其它的 feature 的话可以是尽量小) 的方案.
+官方的的范围是 ( 80 ), 然后我算出来的 (80) 对应的 (w) 是 (23). 这个范围直接二分建图跑网络流已经非常吃力了. (或者直说要跑几天才跑得出来).
+一个比较小的例子如图.
+这个问题的标题叫作_rule based regular routing path_, 也就是说有某种直接用规则布线就可以了?
+然后窝的第一个想法是神贪心, 然而在和大树讨论了很久之后也没有找到一种能让我们两个觉得靠谱且简洁优美的贪心.
+然后窝就在想网络流是否有救. 在和 czr 讨论了一阵以及 czr 帮窝去 ieee 找了几篇 paper (btw, 校内网可以免费直接下 ieee 的论文不能更赞) 后发现了这么一个结论. 对于每个 ( w*w ) 的格子, 它的承载上限 (也就是说穿过这个格子的线的条数) 是 ( w )." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/technical/4dc587/" /><meta property="article:section" content="technical" />
+<meta property="article:published_time" content="2017-06-11T20:35:19+00:00" />
+<meta property="article:modified_time" content="2017-06-11T20:35:19+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Rule-based Regular Routing Method"/>
+<meta name="twitter:description" content="Upd: 代码来了 https://github.com/laekov/rbrrm
+来 mark 一下我的 oop 组队大作业中窝肝的部分.
+姚氏大作业果然有趣.
+大概问题是这样的.
+现在一个 pcb 上面有 (n*n) 的元件矩阵(忽略元件面积). 然后你要布线让每个元件都单独连着一条通往边界的电线, 我们管它叫这个点的 escape 路线. (最边上的就直接算作逃出去了)
+然后电线只能横竖沿着格线走. 显然直接走是走不出去的. 所以你要找一个最小的 ( w ), 把原来的每行每列的中间都插上(w)条格线, 然后找一个总长最小 (或者如果你有其它的 feature 的话可以是尽量小) 的方案.
+官方的的范围是 ( 80 ), 然后我算出来的 (80) 对应的 (w) 是 (23). 这个范围直接二分建图跑网络流已经非常吃力了. (或者直说要跑几天才跑得出来).
+一个比较小的例子如图.
+这个问题的标题叫作_rule based regular routing path_, 也就是说有某种直接用规则布线就可以了?
+然后窝的第一个想法是神贪心, 然而在和大树讨论了很久之后也没有找到一种能让我们两个觉得靠谱且简洁优美的贪心.
+然后窝就在想网络流是否有救. 在和 czr 讨论了一阵以及 czr 帮窝去 ieee 找了几篇 paper (btw, 校内网可以免费直接下 ieee 的论文不能更赞) 后发现了这么一个结论. 对于每个 ( w*w ) 的格子, 它的承载上限 (也就是说穿过这个格子的线的条数) 是 ( w )."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Technicals",
+      "item": "/technical/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Rule-based Regular Routing Method",
+      "item": "/technical/4dc587/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Rule-based Regular Routing Method",
+  "name": "Rule-based Regular Routing Method",
+  "description": "Upd: 代码来了 https://github.com/laekov/rbrrm\n来 mark 一下我的 oop 组队大作业中窝肝的部分.\n姚氏大作业果然有趣.\n大概问题是这样的.\n现在一个 pcb 上面有 (n*n) 的元件矩阵(忽略元件面积). 然后你要布线让每个元件都单独连着一条通往边界的电线, 我们管它叫这个点的 escape 路线. (最边上的就直接算作逃出去了)\n然后电线只能横竖沿着格线走. 显然直接走是走不出去的. 所以你要找一个最小的 ( w ), 把原来的每行每列的中间都插上(w)条格线, 然后找一个总长最小 (或者如果你有其它的 feature 的话可以是尽量小) 的方案.\n官方的的范围是 ( 80 ), 然后我算出来的 (80) 对应的 (w) 是 (23). 这个范围直接二分建图跑网络流已经非常吃力了. (或者直说要跑几天才跑得出来).\n一个比较小的例子如图.\n这个问题的标题叫作_rule based regular routing path_, 也就是说有某种直接用规则布线就可以了?\n然后窝的第一个想法是神贪心, 然而在和大树讨论了很久之后也没有找到一种能让我们两个觉得靠谱且简洁优美的贪心.\n然后窝就在想网络流是否有救. 在和 czr 讨论了一阵以及 czr 帮窝去 ieee 找了几篇 paper (btw, 校内网可以免费直接下 ieee 的论文不能更赞) 后发现了这么一个结论. 对于每个 ( w*w ) 的格子, 它的承载上限 (也就是说穿过这个格子的线的条数) 是 ( w ).",
+  "keywords": [
+    "developing"
+  ],
+  "articleBody": "Upd: 代码来了 https://github.com/laekov/rbrrm\n来 mark 一下我的 oop 组队大作业中窝肝的部分.\n姚氏大作业果然有趣.\n大概问题是这样的.\n现在一个 pcb 上面有 (n*n) 的元件矩阵(忽略元件面积). 然后你要布线让每个元件都单独连着一条通往边界的电线, 我们管它叫这个点的 escape 路线. (最边上的就直接算作逃出去了)\n然后电线只能横竖沿着格线走. 显然直接走是走不出去的. 所以你要找一个最小的 ( w ), 把原来的每行每列的中间都插上(w)条格线, 然后找一个总长最小 (或者如果你有其它的 feature 的话可以是尽量小) 的方案.\n官方的的范围是 ( 80 ), 然后我算出来的 (80) 对应的 (w) 是 (23). 这个范围直接二分建图跑网络流已经非常吃力了. (或者直说要跑几天才跑得出来).\n一个比较小的例子如图.\n这个问题的标题叫作_rule based regular routing path_, 也就是说有某种直接用规则布线就可以了?\n然后窝的第一个想法是神贪心, 然而在和大树讨论了很久之后也没有找到一种能让我们两个觉得靠谱且简洁优美的贪心.\n然后窝就在想网络流是否有救. 在和 czr 讨论了一阵以及 czr 帮窝去 ieee 找了几篇 paper (btw, 校内网可以免费直接下 ieee 的论文不能更赞) 后发现了这么一个结论. 对于每个 ( w*w ) 的格子, 它的承载上限 (也就是说穿过这个格子的线的条数) 是 ( w ).\n而且没毛病的话没有线会从这个格子的某条边进来又出去. 如果有的话那么这条边的另外一边也应该是同样的情况. 这时两边都有进有出了, 怎么办? 那当然是选择消圈啦. 消掉圈之后不会对解产生影响.\n大概每个格子都会长成这个样子.\n其中只有四周的红点是有电子原件的, 而紫色的点是新建的 ( w * w ) 的格子的边界.\n然后下一个问题是相邻的格子怎么连起来呢? 如果跑出 ( w ) 之后直接搜的话可能能搜出比较短的路, 但是感觉巨麻烦, 而且不一定能满足所有点都能逃出去.\n于是窝找到了一个比较_rule based_ 的方法. 就是上面那张图.\n对于每个格子, 我们已经知道从每条边进来 / 出去多少个线头了. 于是我们约定对这个格子的边界顺时针走. 从正方形的四个顶点开始连续地给线头. 而它的上下左右的四个格子就逆时针, 然后上下左右的上下左右再顺时针, 就像一个国际象棋的棋盘一样, 黑格子顺, 白格子逆这样. 这个方案是肯定可以保证(w)根线头都接上的.\n然后每个格子里再暴跑一个网络流不就好了嘛? 然后就有了下面这玩意.\n那个突出来的玩意是什么鬼!?\n然后发现 dinic 在退流的时候会留下一些环流. 于是输出方案的时候要记得重新 BFS 一遍.\n下一个问题是这些顶点. 它们好像既不属于边也不属于点. 它们怎么进来图里啊 qwq.\n显然它必需要上下左右走, 于是会走到一条边上, 然后从这条边拐进每个格子. 所以直接把它向它的上下左右的边连个线就好喽?\n然后就出现了下面这一幕.\n它它它, 断了!?\n这个 (w=4)的格子确实满足入和出都不超过四个. 但是它居然不能成功地布线!?\n那天晚上hja的内心是绝望的.\n这个问题就出在左下那个元件, 因为它多占用了这条边的第一个位置, 但是在上面这个格子并不知道这条信息, 所以它还天真地认为任意 (w) 个线头都能完美地通过它. 然而它已经被别了.\nhja一度十分绝望. 然后hja发现一个奇妙的性质. 出现上面的情况仅当这个点的接入点是从某个顶点开始的一串线头的第一个. 因为它会导致这个格子里后面的线头都依次向中间移动一格, 从而导致移不出去.\n那么强行让每个顶点连出去的线都是最后一个可不可以呢? 因为上面那个奇怪的接线方式 (顺逆时针交替), 不难发现每个格子要么是上下的起点, 要么是左右的起点, 所以总有一个方向是一串线的尾巴的方向. 那么让这个点只能从这个方向进格子就可以了?\n实验了一下发现是可以的. 想了一下道理是这样的. 考虑一个顶点( (0, 0) )要进到( (1, 1) ). 不管它走( (1, 0) )还是( (0, 1) ), 另外一个格子都是废掉的. 所以只从上下 / 左右中的一个方向进格子是完全不影响答案的.\n所以就成功地找到了一种合法且(w)最小的布线方案.\n然而这种方案好像巨浪费.\n拿张 (80)的图感受一下 .\n还有 (120)的. (可能会导致设备卡)\n因为那个旋转式的布线, 导致在比较稀疏的地方会有类似方便面一样拐来拐去的东西, 然后长度巨长.\n但是比较密集的地方就没有问题.\n所以它到底有多浪费?\n用费用流跑到(26)就再也跑不动了. 然后结果大概是这样的.\n(发现之前统计的时候统计错了)\nn\trule\tbest\tratio 2\t3\t3\t100.000% 3\t12\t12\t100.000% 4\t29\t29\t100.000% 5\t58\t56\t103.571% 6\t162\t131\t123.664% 7\t248\t208\t119.231% 8\t362\t322\t112.422% 9\t718\t560\t128.214% 10\t955\t779\t122.593% 11\t1259\t1076\t117.007% 12\t2096\t1621\t129.303% 13\t2591\t2100\t123.381% 14\t3244\t2737\t118.524% 15\t3980\t3552\t112.050% 16\t5813\t4672\t124.422% 17\t6912\t5824\t118.681% 18\t8198\t7237\t113.279% 19\t11294\t9112\t123.946% 20\t13160\t11009\t119.539% 21\t15271\t13244\t115.305% 22\t17682\t15857\t111.509% 23\t22788\t19048\t119.635% 24\t25967\t22394\t115.955% 25\t29563\t26224\t112.733% (n)大了之后会导致图片没法输出. (100k分辨率的图片画面太美)\n所以窝造了一个不显示细节而是以颜色深度表示线的密度的输出方式.\n然后花了四十分钟跑了一个(200200)的东西, 顺便制造了2.3GB的边输出文件, 总共有大概(1.1310^8)的长度.\n效果如图.\n大概窝就能做这些了. 其实可以再造一个能缩放的图形界面, 动态加载细节的.\n不过懒得做了.\n大概就这样了吧.\n大概也是有个千行代码的.\n窝好菜啊qwq.\n等ddl过了再把代码放出来.\n队友: 于是泥就是造了个壁纸生成嚣嘛.\n放送一张2k的壁纸. 价值2h.\n",
+  "wordCount" : "315",
+  "inLanguage": "en",
+  "datePublished": "2017-06-11T20:35:19Z",
+  "dateModified": "2017-06-11T20:35:19Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/technical/4dc587/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/technical/">Technicals</a></div>
+    <h1 class="post-title">
+      Rule-based Regular Routing Method
+    </h1>
+    <div class="post-meta"><span title='2017-06-11 20:35:19 +0000 UTC'>June 11, 2017</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>Upd: 代码来了 <a href="https://github.com/laekov/rbrrm">https://github.com/laekov/rbrrm</a></p>
+<style> img { max-width: 50%; max-width: 512px; } </style>
+<p>来 mark 一下我的 oop 组队大作业中窝肝的部分.</p>
+<p>姚氏大作业果然有趣.</p>
+<p>大概问题是这样的.</p>
+<p>现在一个 pcb 上面有 (n*n) 的元件矩阵(忽略元件面积). 然后你要布线让每个元件都单独连着一条通往边界的电线, 我们管它叫这个点的 escape 路线. (最边上的就直接算作逃出去了)</p>
+<p>然后电线只能横竖沿着格线走. 显然直接走是走不出去的. 所以你要找一个最小的 ( w ), 把原来的每行每列的中间都插上(w)条格线, 然后找一个总长最小 (或者如果你有其它的 feature 的话可以是尽量小) 的方案.</p>
+<p>官方的的范围是 ( 80 ), 然后我算出来的 (80) 对应的 (w) 是 (23). 这个范围直接二分建图跑网络流已经非常吃力了. (或者直说要跑几天才跑得出来).</p>
+<p>一个比较小的例子如图.</p>
+<p><img loading="lazy" src="/l/out4.png" alt="out4"  />
+</p>
+<p>这个问题的标题叫作_rule based regular routing path_, 也就是说有某种直接用规则布线就可以了?</p>
+<p>然后窝的第一个想法是神贪心, 然而在和大树讨论了很久之后也没有找到一种能让我们两个觉得靠谱且简洁优美的贪心.</p>
+<p>然后窝就在想网络流是否有救. 在和 czr 讨论了一阵以及 czr 帮窝去 ieee 找了几篇 paper (btw, 校内网可以免费直接下 ieee 的论文不能更赞) 后发现了这么一个结论. 对于每个 ( w*w ) 的格子, 它的承载上限 (也就是说穿过这个格子的线的条数) 是 ( w ).</p>
+<p>而且没毛病的话没有线会从这个格子的某条边进来又出去. 如果有的话那么这条边的另外一边也应该是同样的情况. 这时两边都有进有出了, 怎么办? 那当然是选择消圈啦. 消掉圈之后不会对解产生影响.</p>
+<p>大概每个格子都会长成这个样子.</p>
+<p><img loading="lazy" src="/l/gridout.png" alt="gridout"  />
+</p>
+<p>其中只有四周的红点是有电子原件的, 而紫色的点是新建的 ( w * w ) 的格子的边界.</p>
+<p>然后下一个问题是相邻的格子怎么连起来呢? 如果跑出 ( w ) 之后直接搜的话可能能搜出比较短的路, 但是感觉巨麻烦, 而且不一定能满足所有点都能逃出去.</p>
+<p>于是窝找到了一个比较_rule based_ 的方法. 就是上面那张图.</p>
+<p>对于每个格子, 我们已经知道从每条边进来 / 出去多少个线头了. 于是我们约定对这个格子的边界顺时针走. 从正方形的四个顶点开始连续地给线头. 而它的上下左右的四个格子就逆时针, 然后上下左右的上下左右再顺时针, 就像一个国际象棋的棋盘一样, 黑格子顺, 白格子逆这样. 这个方案是肯定可以保证(w)根线头都接上的.</p>
+<p>然后每个格子里再暴跑一个网络流不就好了嘛? 然后就有了下面这玩意.</p>
+<p><img loading="lazy" src="/l/gridoutb.png" alt="gridoutb"  />
+</p>
+<p>那个突出来的玩意是什么鬼!?</p>
+<p>然后发现 dinic 在退流的时候会留下一些环流. 于是输出方案的时候要记得重新 BFS 一遍.</p>
+<p>下一个问题是这些顶点. 它们好像既不属于边也不属于点. 它们怎么进来图里啊 qwq.</p>
+<p>显然它必需要上下左右走, 于是会走到一条边上, 然后从这条边拐进每个格子. 所以直接把它向它的上下左右的边连个线就好喽?</p>
+<p>然后就出现了下面这一幕.</p>
+<p><img loading="lazy" src="/l/broken.png" alt="broken"  />
+</p>
+<p>它它它, 断了!?</p>
+<p>这个 (w=4)的格子确实满足入和出都不超过四个. 但是它居然不能成功地布线!?</p>
+<p>那天晚上hja的内心是绝望的.</p>
+<p>这个问题就出在左下那个元件, 因为它多占用了这条边的第一个位置, 但是在上面这个格子并不知道这条信息, 所以它还天真地认为任意 (w) 个线头都能完美地通过它. 然而它已经被别了.</p>
+<p>hja一度十分绝望. 然后hja发现一个奇妙的性质. 出现上面的情况仅当这个点的接入点是从某个顶点开始的一串线头的第一个. 因为它会导致这个格子里后面的线头都依次向中间移动一格, 从而导致移不出去.</p>
+<p>那么强行让每个顶点连出去的线都是最后一个可不可以呢? 因为上面那个奇怪的接线方式 (顺逆时针交替), 不难发现每个格子要么是上下的起点, 要么是左右的起点, 所以总有一个方向是一串线的尾巴的方向. 那么让这个点只能从这个方向进格子就可以了?</p>
+<p>实验了一下发现是可以的. 想了一下道理是这样的. 考虑一个顶点( (0, 0) )要进到( (1, 1) ). 不管它走( (1, 0) )还是( (0, 1) ), 另外一个格子都是废掉的. 所以只从上下 / 左右中的一个方向进格子是完全不影响答案的.</p>
+<p>所以就成功地找到了一种合法且(w)最小的布线方案.</p>
+<p>然而这种方案好像巨浪费.</p>
+<p>拿张 (80)的图感受一下 .</p>
+<p><img loading="lazy" src="/l/out80.png" alt="out80.png"  />
+</p>
+<p>还有 (120)的. (可能会导致设备卡)</p>
+<p><img loading="lazy" src="/l/out120.png" alt="out120.png"  />
+</p>
+<p>因为那个旋转式的布线, 导致在比较稀疏的地方会有类似方便面一样拐来拐去的东西, 然后长度巨长.</p>
+<p>但是比较密集的地方就没有问题.</p>
+<p>所以它到底有多浪费?</p>
+<p>用费用流跑到(26)就再也跑不动了. 然后结果大概是这样的.</p>
+<p>(发现之前统计的时候统计错了)</p>
+<pre tabindex="0"><code>n	rule	best	ratio
+2	3	3	100.000%
+3	12	12	100.000%
+4	29	29	100.000%
+5	58	56	103.571%
+6	162	131	123.664%
+7	248	208	119.231%
+8	362	322	112.422%
+9	718	560	128.214%
+10	955	779	122.593%
+11	1259	1076	117.007%
+12	2096	1621	129.303%
+13	2591	2100	123.381%
+14	3244	2737	118.524%
+15	3980	3552	112.050%
+16	5813	4672	124.422%
+17	6912	5824	118.681%
+18	8198	7237	113.279%
+19	11294	9112	123.946%
+20	13160	11009	119.539%
+21	15271	13244	115.305%
+22	17682	15857	111.509%
+23	22788	19048	119.635%
+24	25967	22394	115.955%
+25	29563	26224	112.733%
+</code></pre><p>(n)大了之后会导致图片没法输出. (100k分辨率的图片画面太美)</p>
+<p>所以窝造了一个不显示细节而是以颜色深度表示线的密度的输出方式.</p>
+<p>然后花了四十分钟跑了一个(200<em>200)的东西, 顺便制造了2.3GB的边输出文件, 总共有大概(1.13</em>10^8)的长度.</p>
+<p>效果如图.</p>
+<p><img loading="lazy" src="/l/b200.png" alt="b200"  />
+</p>
+<p>大概窝就能做这些了. 其实可以再造一个能缩放的图形界面, 动态加载细节的.</p>
+<p>不过懒得做了.</p>
+<p>大概就这样了吧.</p>
+<p>大概也是有个千行代码的.</p>
+<p>窝好菜啊qwq.</p>
+<p>等ddl过了再把代码放出来.</p>
+<p>队友: 于是泥就是造了个壁纸生成嚣嘛.</p>
+<p>放送一张2k的壁纸. 价值2h.</p>
+<p><img loading="lazy" src="/l/b320180.png" alt=""  />
+</p>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/developing/">developing</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/random/98b42d/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>World is Strange</span>
+  </a>
+  <a class="next" href="/random/ea4d1d/">
+    <span class="title">Next »</span>
+    <br>
+    <span>关于戴森球和黑暗森林假设</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

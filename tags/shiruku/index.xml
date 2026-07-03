@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>shiruku on The Site of laekov</title>
+    <link>/tags/shiruku/</link>
+    <description>Recent content in shiruku on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Sun, 28 Feb 2016 10:41:28 +0000</lastBuildDate><atom:link href="/tags/shiruku/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>shiruku.点赞</title>
+      <link>/technical/07f888/</link>
+      <pubDate>Sun, 28 Feb 2016 10:41:28 +0000</pubDate>
+      
+      <guid>/technical/07f888/</guid>
+      <description>造出了一个功能叫点赞qwq.
+想起上周和czr讨论点赞到底应不应该重新从后端获取数据.ovo
+然而这一部分的前端写得好丑啊. 然而后端水平进步了的感觉好开心. (虽然还是丑)
+主要是前端动态渲染的方式会让js各种回调于是很讨厌. 而且$.post的异步在这种时候确实会造成麻烦.
+jquery里面一个element被clone之后要先加到document里才能再修饰它的属性, 不然会有奇怪的事情OvO.
+噢对laekov为了好玩允许一个人点0xf个赞. 为什么点赞只能点一个呢? 反正后端都写成这样了就多允许几个好了&amp;hellip;(其实可以调成0xff或者0x3f3f3f3f什么的23333)
+另外也受到了知乎的一些启发. 评论什么的东西其实都可以加这么一个玩意, 反正都写出了通用的接口, 只是多几个接入而已. 感觉这种通用性的思路很有价值.</description>
+    </item>
+    
+    <item>
+      <title>shiruku.第三方登陆</title>
+      <link>/technical/74c136/</link>
+      <pubDate>Sun, 21 Feb 2016 17:32:39 +0000</pubDate>
+      
+      <guid>/technical/74c136/</guid>
+      <description>听说造了登陆之后就没人愿意来评论了. 于是窝决定去造个第三方登陆.
+于是花了一晚上造出了oauth组件. (其实有sdk的啊摔)
+于是有了github登陆. 其实还有企鹅啥的. 然而企鹅就是强行降低网站的逼格这怎么行呢. (其实是企鹅强行要求sdk懒得搞了)
+oauth的登陆简单过程是酱的(有点三次握手的感觉)
+网站要去第三方申请一个application. 然后会得到client_id和client_secret. 然后把登陆的链接接到指定的页面去, 用get把client_id和泥要哪些数据传过去.
+网站会和用户交流人生(登陆). 然后会用get方式调用callback, 这个是在注册application的时候指定的. callback的get参数里有一种东西叫code. 这东西要用.
+用code来换access_token. 把code和client_id和client_secret一起当post参数传给第三方指定的第二个url. 如果没错会返回access_token, 这玩意是真正用来换数据的.
+用access_token再去第三方提供的第三个url来get用户的数据, 比如avatar_url什么的.
+那这和登陆有啥关系呢? 在第3步的时候如果泥得到了正确的access_token, 泥就可以认为用户正确登陆辣~
+然后就发生了一件鬼蓄的事情: 窝在去和github换数据的时候, 莫名其妙地就被403了. 大概就是酱(get为粟)
+function getData($url){ $opts = array(\&#39;http\&#39; =&amp;gt; array( \&#39;method\&#39; =&amp;gt; \&#39;GET\&#39; ) ); $context = stream_context_create($opts); $result = file_get_contents($url, false, $context); return $result; } 赶紧google了一下发现github会按照心情拒绝php发送的请求.
+于是窝假装窝不是php而是善良可爱的少年就好了啊2333.于是强行骗人.
+function getData($url){ $opts = array(\&#39;http\&#39; =&amp;gt; array( \&#39;method\&#39; =&amp;gt; \&#39;GET\&#39;, \&amp;quot;header\&amp;quot; =&amp;gt; \&amp;quot;User-Agent: Mozilla\&amp;quot; ) ); $context = stream_context_create($opts); $result = file_get_contents($url, false, $context); return $result; } 假装窝叫Mozilla.</description>
+    </item>
+    
+    <item>
+      <title>shiruku.缓存</title>
+      <link>/technical/8059ec/</link>
+      <pubDate>Sat, 20 Feb 2016 16:48:56 +0000</pubDate>
+      
+      <guid>/technical/8059ec/</guid>
+      <description>之前版本找list都是去硬盘里枚举一遍文件. 本地我有ssd速度还行. 传到服务器上就慢暴了. 因为有导入之前的博文加起来也有几百篇. 枚举一遍就要开将近1k个文件. 这里O(1000)和oi里的概念完全不一样啊ovo几乎就是要几秒的意思了.
+然后没有发现php怎么把东西常驻内存里. 于是灵机一动拿单个文件来存常用的数据. 然后就叫它伪缓存好了.
+按照时间和需要对缓存进行更新, 每次查询所有东西的list只需要开一个文件. 果然就快多了好感动23333.</description>
+    </item>
+    
+    <item>
+      <title>Initial Commit</title>
+      <link>/technical/19bc97/</link>
+      <pubDate>Sat, 20 Feb 2016 09:50:36 +0000</pubDate>
+      
+      <guid>/technical/19bc97/</guid>
+      <description>努力淦了几个月php, 终于在寒假结束前搞上线了. 开心.
+之前写的东西实在太丑不能忍了所以造了个新的. 但是又舍不得万网的免费空间. 其实还有很多东西没写. 页面底部有github链接跪求star.
+第三方登陆还没时间做. 私戳laekov得邀请码.
+以及laekov真的很认真的做了UI. 虽然最后的结局是laekov在报复社会. 事实上laekov不具有造出好看的页面的能力ovo
+于是可以愉快地log down一些其它的东西了好开心w. 虽然适配服务器有些周折ovo
+于是挺晚了呢&amp;hellip;明天再接着写ovo
+接着写
+原来的博客主要是写题解啊. 构架的时候就没想过要搞其它飞机. 于是后来就啥都干不了了. 想加个版块都挺痛苦.
+另外前端后端的代码夹杂在一起不开心.
+要api化(向czr学习). 以及把事情扔给前端做. (于是现在加载速度感人)
+强行把php当nodejs用是什么样一种体验? @我自己ovoovo
+反正每月10G的流量总用不完&amp;hellip;所以就加图好了. 然而丑哭了qwq怪我喽. (找一个做美工的妹子当女朋友是laekov的人生追求23333)</description>
+    </item>
+    
+  </channel>
+</rss>

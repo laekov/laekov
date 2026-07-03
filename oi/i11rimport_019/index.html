@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>BZOJ1079 [SCOI2008]着色方案 | The Site of laekov</title>
+<meta name="keywords" content="bzoj, dp, oi">
+<meta name="description" content="&lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt; 看上去比较不可做的DP。好像别人写的记搜跑得飞快。&lt;/p&gt; &nbsp;
+我看我是写最小表示写上瘾了。
+&nbsp;
+压一下状态，有点像今天第二题。算每种值的有多少。然后直接跑。
+&nbsp;
+感觉废状态比较多啊，跑得好慢。另外用memset清空高维数组会比较快。
+&nbsp;
+#include &lt;cstdio&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+const int mod = 1e9 &#43; 7; const int maxn = 17; const int maxst = 16009;
+#define mbit(a,b) ((a)&lt;&lt;((b)&lt;&lt;2)) #define gbit(a,b) (((a)&gt;&gt;((b)&lt;&lt;2))&amp;0xf) #define _l (long long int)
+int m, c[maxn], n, mt, tots, slst[maxst]; int f[2][7][maxst];
+void dfsState(int t, int l, int v) { if (l == mt &#43; 1) { slst[tots &#43;&#43;] = v | t; } else { for (int i = 0; i &lt;= t; &#43;&#43; i) dfsState(t - i, l &#43; 1, v | mbit(i, l)); } }">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/i11rimport_019/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="BZOJ1079 [SCOI2008]着色方案" />
+<meta property="og:description" content="&lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt; 看上去比较不可做的DP。好像别人写的记搜跑得飞快。&lt;/p&gt; &nbsp;
+我看我是写最小表示写上瘾了。
+&nbsp;
+压一下状态，有点像今天第二题。算每种值的有多少。然后直接跑。
+&nbsp;
+感觉废状态比较多啊，跑得好慢。另外用memset清空高维数组会比较快。
+&nbsp;
+#include &lt;cstdio&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+const int mod = 1e9 &#43; 7; const int maxn = 17; const int maxst = 16009;
+#define mbit(a,b) ((a)&lt;&lt;((b)&lt;&lt;2)) #define gbit(a,b) (((a)&gt;&gt;((b)&lt;&lt;2))&amp;0xf) #define _l (long long int)
+int m, c[maxn], n, mt, tots, slst[maxst]; int f[2][7][maxst];
+void dfsState(int t, int l, int v) { if (l == mt &#43; 1) { slst[tots &#43;&#43;] = v | t; } else { for (int i = 0; i &lt;= t; &#43;&#43; i) dfsState(t - i, l &#43; 1, v | mbit(i, l)); } }" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/i11rimport_019/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2015-03-02T21:31:41+00:00" />
+<meta property="article:modified_time" content="2015-03-02T21:31:41+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BZOJ1079 [SCOI2008]着色方案"/>
+<meta name="twitter:description" content="&lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt; 看上去比较不可做的DP。好像别人写的记搜跑得飞快。&lt;/p&gt; &nbsp;
+我看我是写最小表示写上瘾了。
+&nbsp;
+压一下状态，有点像今天第二题。算每种值的有多少。然后直接跑。
+&nbsp;
+感觉废状态比较多啊，跑得好慢。另外用memset清空高维数组会比较快。
+&nbsp;
+#include &lt;cstdio&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+const int mod = 1e9 &#43; 7; const int maxn = 17; const int maxst = 16009;
+#define mbit(a,b) ((a)&lt;&lt;((b)&lt;&lt;2)) #define gbit(a,b) (((a)&gt;&gt;((b)&lt;&lt;2))&amp;0xf) #define _l (long long int)
+int m, c[maxn], n, mt, tots, slst[maxst]; int f[2][7][maxst];
+void dfsState(int t, int l, int v) { if (l == mt &#43; 1) { slst[tots &#43;&#43;] = v | t; } else { for (int i = 0; i &lt;= t; &#43;&#43; i) dfsState(t - i, l &#43; 1, v | mbit(i, l)); } }"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "BZOJ1079 [SCOI2008]着色方案",
+      "item": "/oi/i11rimport_019/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BZOJ1079 [SCOI2008]着色方案",
+  "name": "BZOJ1079 [SCOI2008]着色方案",
+  "description": "\u0026lt;div class=\u0026quot;post_brief\u0026quot;\u0026gt;\u0026lt;p\u0026gt; 看上去比较不可做的DP。好像别人写的记搜跑得飞快。\u0026lt;/p\u0026gt; \u0026nbsp;\n我看我是写最小表示写上瘾了。\n\u0026nbsp;\n压一下状态，有点像今天第二题。算每种值的有多少。然后直接跑。\n\u0026nbsp;\n感觉废状态比较多啊，跑得好慢。另外用memset清空高维数组会比较快。\n\u0026nbsp;\n#include \u0026lt;cstdio\u0026gt; #include \u0026lt;cstring\u0026gt; #include \u0026lt;algorithm\u0026gt; using namespace std;\nconst int mod = 1e9 + 7; const int maxn = 17; const int maxst = 16009;\n#define mbit(a,b) ((a)\u0026lt;\u0026lt;((b)\u0026lt;\u0026lt;2)) #define gbit(a,b) (((a)\u0026gt;\u0026gt;((b)\u0026lt;\u0026lt;2))\u0026amp;0xf) #define _l (long long int)\nint m, c[maxn], n, mt, tots, slst[maxst]; int f[2][7][maxst];\nvoid dfsState(int t, int l, int v) { if (l == mt + 1) { slst[tots ++] = v | t; } else { for (int i = 0; i \u0026lt;= t; ++ i) dfsState(t - i, l + 1, v | mbit(i, l)); } }",
+  "keywords": [
+    "bzoj", "dp", "oi"
+  ],
+  "articleBody": "\t看上去比较不可做的DP。好像别人写的记搜跑得飞快。\n我看我是写最小表示写上瘾了。\n压一下状态，有点像今天第二题。算每种值的有多少。然后直接跑。\n感觉废状态比较多啊，跑得好慢。另外用memset清空高维数组会比较快。\n#include #include #include using namespace std;\nconst int mod = 1e9 + 7; const int maxn = 17; const int maxst = 16009;\n#define mbit(a,b) ((a)\u003c\u003c((b)\u003c\u003c2)) #define gbit(a,b) (((a)\u003e\u003e((b)\u003c\u003c2))\u00260xf) #define _l (long long int)\nint m, c[maxn], n, mt, tots, slst[maxst]; int f[2][7][maxst];\nvoid dfsState(int t, int l, int v) { if (l == mt + 1) { slst[tots ++] = v | t; } else { for (int i = 0; i \u003c= t; ++ i) dfsState(t - i, l + 1, v | mbit(i, l)); } }\ninline int fState(int x) { return lower_bound(slst, slst + tots, x) - slst; }\ninline void incm(int\u0026 a, int b) { a += b; if (a \u003e= mod) a -= mod; }\n#define clearFCur() { for (int i = 1; i \u003c= mt; ++ i) for (int j = 0; j \u003c tots; ++ j) f[cur][i][j] = 0; }\nint dp() { int cur(0), prv(1); int sb(0); for (int i = 0; i \u003c= mt; ++ i) sb |= mbit(c[i], i); memset(f, 0, sizeof(f)); for (int i = 1; i \u003c= mt; ++ i) if (gbit(sb, i) \u003e 0) f[cur][i - 1][fState(sb - mbit(1, i) + mbit(1, i - 1))] = gbit(sb, i); for (int ti = 1; ti \u003c n; ++ ti) { swap(cur, prv); //\tclearFCur(); memset(f[cur], 0, sizeof(f[cur])); for (int i = 0; i \u003c= mt; ++ i) for (int j = 0; j \u003c tots; ++ j) if (f[prv][i][j]) { int s(slst[j]), c; for (int k = 1; k \u003c= mt; ++ k) if ((c = gbit(s, k) - (k == i))) incm(f[cur][k - 1][fState(s - mbit(1, k) + mbit(1, k - 1))], _l f[prv][i][j] * c % mod); } } return f[cur][0][fState(m)]; }\nint main() { #ifndef ONLINE_JUDGE freopen(“in.txt”, “r”, stdin); #endif\nscanf(\"%d\", \u0026amp;m); memset(c, 0, sizeof(c)); mt = 0; n = 0; for (int i = 0; i \u0026lt; m; ++ i) { int tmp; scanf(\"%d\", \u0026amp;tmp); n += tmp; ++ c[tmp]; if (tmp \u0026gt; mt) mt = tmp; } tots = 0; dfsState(m, 1, 0); sort(slst, slst + tots); printf(\"%d\\n\", dp()); }\n",
+  "wordCount" : "361",
+  "inLanguage": "en",
+  "datePublished": "2015-03-02T21:31:41Z",
+  "dateModified": "2015-03-02T21:31:41Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/i11rimport_019/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      BZOJ1079 [SCOI2008]着色方案
+    </h1>
+    <div class="post-meta"><span title='2015-03-02 21:31:41 +0000 UTC'>March 2, 2015</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><pre><code>			    &lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt;
+看上去比较不可做的DP。好像别人写的记搜跑得飞快。&lt;/p&gt;
+</code></pre>
+<p>
+	&nbsp;</p>
+<p>
+	我看我是写最小表示写上瘾了。</p>
+<p>
+	&nbsp;</p>
+<p>
+	压一下状态，有点像今天第二题。算每种值的有多少。然后直接跑。</p>
+<p>
+	&nbsp;</p>
+<p>
+	感觉废状态比较多啊，跑得好慢。另外用memset清空高维数组会比较快。</p>
+<p>
+	&nbsp;</p>
+<pre class="bcode">#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+<p>using namespace std;</p>
+<p>const int mod = 1e9 + 7;
+const int maxn = 17;
+const int maxst = 16009;</p>
+<p>#define mbit(<em>a</em>,<em>b</em>) ((<em>a</em>)&lt;&lt;((<em>b</em>)&lt;&lt;2))
+#define gbit(<em>a</em>,<em>b</em>) (((<em>a</em>)&gt;&gt;((<em>b</em>)&lt;&lt;2))&amp;0xf)
+#define _l (long long int)</p>
+<p>int m, c[maxn], n, mt, tots, slst[maxst];
+int f[2][7][maxst];</p>
+<p>void dfsState(int t, int l, int v) {
+if (l == mt + 1) {
+slst[tots ++] = v | t;
+}
+else {
+for (int i = 0; i &lt;= t; ++ i)
+dfsState(t - i, l + 1, v | mbit(i, l));
+}
+}</p>
+<p>inline int fState(int x) {
+return lower_bound(slst, slst + tots, x) - slst;
+}</p>
+<p>inline void incm(int&amp; a, int b) {
+a += b;
+if (a &gt;= mod)
+a -= mod;
+}</p>
+<p>#define clearFCur() { <br>
+for (int i = 1; i &lt;= mt; ++ i) <br>
+for (int j = 0; j &lt; tots; ++ j) <br>
+f[cur][i][j] = 0; <br>
+}</p>
+<p>int dp() {
+int cur(0), prv(1);
+int sb(0);
+for (int i = 0; i &lt;= mt; ++ i)
+sb |= mbit(c[i], i);
+memset(f, 0, sizeof(f));
+for (int i = 1; i &lt;= mt; ++ i)
+if (gbit(sb, i) &gt; 0)
+f[cur][i - 1][fState(sb - mbit(1, i) + mbit(1, i - 1))] = gbit(sb, i);
+for (int ti = 1; ti &lt; n; ++ ti) {
+swap(cur, prv);
+//		clearFCur();
+memset(f[cur], 0, sizeof(f[cur]));
+for (int i = 0; i &lt;= mt; ++ i)
+for (int j = 0; j &lt; tots; ++ j)
+if (f[prv][i][j]) {
+int s(slst[j]), c;
+for (int k = 1; k &lt;= mt; ++ k)
+if ((c = gbit(s, k) - (k == i)))
+incm(f[cur][k - 1][fState(s - mbit(1, k) + mbit(1, k - 1))], _l f[prv][i][j] * c % mod);
+}
+}
+return f[cur][0][fState(m)];
+}</p>
+<p>int main() {
+#ifndef ONLINE_JUDGE
+freopen(&ldquo;in.txt&rdquo;, &ldquo;r&rdquo;, stdin);
+#endif</p>
+<pre><code>scanf(&quot;%d&quot;, &amp;amp;m);
+memset(c, 0, sizeof(c));
+mt = 0;
+n = 0;
+for (int i = 0; i &amp;lt; m; ++ i) {
+	int tmp;
+	scanf(&quot;%d&quot;, &amp;amp;tmp);
+	n += tmp;
+	++ c[tmp];
+	if (tmp &amp;gt; mt)
+		mt = tmp;
+}
+tots = 0;
+dfsState(m, 1, 0);
+sort(slst, slst + tots);
+printf(&quot;%d\n&quot;, dp());
+</code></pre>
+<p>}</p>
+<p></pre></p>
+</div>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/bzoj/">bzoj</a></li>
+      <li><a href="/tags/dp/">dp</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/i11rimport_017/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>BZOJ3242 [Noi2013]快餐店</span>
+  </a>
+  <a class="next" href="/oi/i11rimport_021/">
+    <span class="title">Next »</span>
+    <br>
+    <span>BZOJ2770 YY的Treap</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

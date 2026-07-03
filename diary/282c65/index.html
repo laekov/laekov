@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>20160802 | The Site of laekov</title>
+<meta name="keywords" content="summary, diary">
+<meta name="description" content="玄妙的一天.
+第一次正经参加MU.
+上午睡啊睡. 然后雨好大还忘了家里有吃的, 跑出去湿身淋得焦湿.
+于是就错过了抢水题fb的机会&gt;_&lt;.
+yjq: 03比较好写啊.
+hja: 我来.
+几分钟后.
+hja: 卧槽wa了. 卧槽看错题了.
+yjq: 辣鸡hja滚一边去.
+hja: TAT我去搞辣鸡dp题1011.
+几分钟后.
+hja: 过掉了1011. 这个1012看上去很清真啊. 不就是容斥一下嘛. 刚才浪费的树状数组代码也可以用上辣.
+几分钟后.
+hja: 过掉了1012. 这个1005似乎是个回文串的题? 作为讲字符串的老师尊严何在? 撸!
+十几分钟后.
+hja: 过掉了1005. interesting. 然而被抢走了fb. 这个1002的数据范围怎么那么小? 很像是暴力嘛.
+mhy: 资瓷啊. 搞暴力啊.
+十几分钟后.
+hja: 果然暴力走next树就艹掉了这题.
+hja: 这个1008很清真啊. 也就是一个dfs序&#43;主席树&#43;dfs乱搞? 你们有谁要接这个锅啊?
+yjq: 艹了半天1010这题有毒.
+lxl: 别用主席树. 我这有高效平衡树.
+十几分钟后.
+hja: 还没人接锅? 那我自己背好了.
+几十分钟后.
+hja: 多年不写ds手生了. wtf? 居然tle了?
+lxl: 主席树肯定会火暴. 你可以试试写对顶堆合并? 我这有高效平衡树你要不要.
+hja: 我去写个对顶左偏树算了.
+几十分钟后.
+hja: 差点忘了怎么写了. WTF!">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/diary/282c65/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="20160802" />
+<meta property="og:description" content="玄妙的一天.
+第一次正经参加MU.
+上午睡啊睡. 然后雨好大还忘了家里有吃的, 跑出去湿身淋得焦湿.
+于是就错过了抢水题fb的机会&gt;_&lt;.
+yjq: 03比较好写啊.
+hja: 我来.
+几分钟后.
+hja: 卧槽wa了. 卧槽看错题了.
+yjq: 辣鸡hja滚一边去.
+hja: TAT我去搞辣鸡dp题1011.
+几分钟后.
+hja: 过掉了1011. 这个1012看上去很清真啊. 不就是容斥一下嘛. 刚才浪费的树状数组代码也可以用上辣.
+几分钟后.
+hja: 过掉了1012. 这个1005似乎是个回文串的题? 作为讲字符串的老师尊严何在? 撸!
+十几分钟后.
+hja: 过掉了1005. interesting. 然而被抢走了fb. 这个1002的数据范围怎么那么小? 很像是暴力嘛.
+mhy: 资瓷啊. 搞暴力啊.
+十几分钟后.
+hja: 果然暴力走next树就艹掉了这题.
+hja: 这个1008很清真啊. 也就是一个dfs序&#43;主席树&#43;dfs乱搞? 你们有谁要接这个锅啊?
+yjq: 艹了半天1010这题有毒.
+lxl: 别用主席树. 我这有高效平衡树.
+十几分钟后.
+hja: 还没人接锅? 那我自己背好了.
+几十分钟后.
+hja: 多年不写ds手生了. wtf? 居然tle了?
+lxl: 主席树肯定会火暴. 你可以试试写对顶堆合并? 我这有高效平衡树你要不要.
+hja: 我去写个对顶左偏树算了.
+几十分钟后.
+hja: 差点忘了怎么写了. WTF!" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/diary/282c65/" /><meta property="article:section" content="diary" />
+<meta property="article:published_time" content="2016-08-02T23:01:25+00:00" />
+<meta property="article:modified_time" content="2016-08-02T23:01:25+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="20160802"/>
+<meta name="twitter:description" content="玄妙的一天.
+第一次正经参加MU.
+上午睡啊睡. 然后雨好大还忘了家里有吃的, 跑出去湿身淋得焦湿.
+于是就错过了抢水题fb的机会&gt;_&lt;.
+yjq: 03比较好写啊.
+hja: 我来.
+几分钟后.
+hja: 卧槽wa了. 卧槽看错题了.
+yjq: 辣鸡hja滚一边去.
+hja: TAT我去搞辣鸡dp题1011.
+几分钟后.
+hja: 过掉了1011. 这个1012看上去很清真啊. 不就是容斥一下嘛. 刚才浪费的树状数组代码也可以用上辣.
+几分钟后.
+hja: 过掉了1012. 这个1005似乎是个回文串的题? 作为讲字符串的老师尊严何在? 撸!
+十几分钟后.
+hja: 过掉了1005. interesting. 然而被抢走了fb. 这个1002的数据范围怎么那么小? 很像是暴力嘛.
+mhy: 资瓷啊. 搞暴力啊.
+十几分钟后.
+hja: 果然暴力走next树就艹掉了这题.
+hja: 这个1008很清真啊. 也就是一个dfs序&#43;主席树&#43;dfs乱搞? 你们有谁要接这个锅啊?
+yjq: 艹了半天1010这题有毒.
+lxl: 别用主席树. 我这有高效平衡树.
+十几分钟后.
+hja: 还没人接锅? 那我自己背好了.
+几十分钟后.
+hja: 多年不写ds手生了. wtf? 居然tle了?
+lxl: 主席树肯定会火暴. 你可以试试写对顶堆合并? 我这有高效平衡树你要不要.
+hja: 我去写个对顶左偏树算了.
+几十分钟后.
+hja: 差点忘了怎么写了. WTF!"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Diaries",
+      "item": "/diary/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "20160802",
+      "item": "/diary/282c65/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "20160802",
+  "name": "20160802",
+  "description": "玄妙的一天.\n第一次正经参加MU.\n上午睡啊睡. 然后雨好大还忘了家里有吃的, 跑出去湿身淋得焦湿.\n于是就错过了抢水题fb的机会\u0026gt;_\u0026lt;.\nyjq: 03比较好写啊.\nhja: 我来.\n几分钟后.\nhja: 卧槽wa了. 卧槽看错题了.\nyjq: 辣鸡hja滚一边去.\nhja: TAT我去搞辣鸡dp题1011.\n几分钟后.\nhja: 过掉了1011. 这个1012看上去很清真啊. 不就是容斥一下嘛. 刚才浪费的树状数组代码也可以用上辣.\n几分钟后.\nhja: 过掉了1012. 这个1005似乎是个回文串的题? 作为讲字符串的老师尊严何在? 撸!\n十几分钟后.\nhja: 过掉了1005. interesting. 然而被抢走了fb. 这个1002的数据范围怎么那么小? 很像是暴力嘛.\nmhy: 资瓷啊. 搞暴力啊.\n十几分钟后.\nhja: 果然暴力走next树就艹掉了这题.\nhja: 这个1008很清真啊. 也就是一个dfs序+主席树+dfs乱搞? 你们有谁要接这个锅啊?\nyjq: 艹了半天1010这题有毒.\nlxl: 别用主席树. 我这有高效平衡树.\n十几分钟后.\nhja: 还没人接锅? 那我自己背好了.\n几十分钟后.\nhja: 多年不写ds手生了. wtf? 居然tle了?\nlxl: 主席树肯定会火暴. 你可以试试写对顶堆合并? 我这有高效平衡树你要不要.\nhja: 我去写个对顶左偏树算了.\n几十分钟后.\nhja: 差点忘了怎么写了. WTF!",
+  "keywords": [
+    "summary", "diary"
+  ],
+  "articleBody": "玄妙的一天.\n第一次正经参加MU.\n上午睡啊睡. 然后雨好大还忘了家里有吃的, 跑出去湿身淋得焦湿.\n于是就错过了抢水题fb的机会\u003e_\u003c.\nyjq: 03比较好写啊.\nhja: 我来.\n几分钟后.\nhja: 卧槽wa了. 卧槽看错题了.\nyjq: 辣鸡hja滚一边去.\nhja: TAT我去搞辣鸡dp题1011.\n几分钟后.\nhja: 过掉了1011. 这个1012看上去很清真啊. 不就是容斥一下嘛. 刚才浪费的树状数组代码也可以用上辣.\n几分钟后.\nhja: 过掉了1012. 这个1005似乎是个回文串的题? 作为讲字符串的老师尊严何在? 撸!\n十几分钟后.\nhja: 过掉了1005. interesting. 然而被抢走了fb. 这个1002的数据范围怎么那么小? 很像是暴力嘛.\nmhy: 资瓷啊. 搞暴力啊.\n十几分钟后.\nhja: 果然暴力走next树就艹掉了这题.\nhja: 这个1008很清真啊. 也就是一个dfs序+主席树+dfs乱搞? 你们有谁要接这个锅啊?\nyjq: 艹了半天1010这题有毒.\nlxl: 别用主席树. 我这有高效平衡树.\n十几分钟后.\nhja: 还没人接锅? 那我自己背好了.\n几十分钟后.\nhja: 多年不写ds手生了. wtf? 居然tle了?\nlxl: 主席树肯定会火暴. 你可以试试写对顶堆合并? 我这有高效平衡树你要不要.\nhja: 我去写个对顶左偏树算了.\n几十分钟后.\nhja: 差点忘了怎么写了. WTF!!!? 怎么WA了?\nhja: 拍了一发发现真有毒. 这对顶堆能合并个ball啊.\nhja: 重新检查主席树. 发现psgtKth()这个玩意太慢了. 把几个变量搬到外面似乎就变快了诶. 交.\nhja: 怎么又wa了. WTWTFFF!!!!! 居然是r=md写成了r=md-1. 真是完蛋.\n然后就弃疗了.\n比赛结束前几十分钟.\nhja: yjq的1004写丑tle了. 毛毛你去用叉积换atan2.\nmhy: 吼啊吼啊.\n晚上hja点开代码, 发现mhy默默地加了个O2.\n然而…\n还是tle.\n于是今日输出.\nzhx=0, mhy=1, yjq=2, hja=5.\nzhx太强辣. 于是最后rank13. 听说大家都是几十个人开黑啊. 666.\n然后晚上从yjq那里听说了一些大新闻.\n上海的王队长, 比laekov高到不知道哪里去了. orz.\n恭喜啦2333.\n已经从被虐变成祝贺了. 233333.\n说好的科目三呢qaq.\n所以我还是太年轻啦.\n",
+  "wordCount" : "114",
+  "inLanguage": "en",
+  "datePublished": "2016-08-02T23:01:25Z",
+  "dateModified": "2016-08-02T23:01:25Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/diary/282c65/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/diary/">Diaries</a></div>
+    <h1 class="post-title">
+      20160802
+    </h1>
+    <div class="post-meta"><span title='2016-08-02 23:01:25 +0000 UTC'>August 2, 2016</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>玄妙的一天.</p>
+<p>第一次正经参加MU.</p>
+<p>上午睡啊睡. 然后雨好大还忘了家里有吃的, 跑出去湿身淋得焦湿.</p>
+<p>于是就错过了抢水题fb的机会&gt;_&lt;.</p>
+<p>yjq: 03比较好写啊.</p>
+<p>hja: 我来.</p>
+<p>几分钟后.</p>
+<p>hja: 卧槽wa了. 卧槽看错题了.</p>
+<p>yjq: 辣鸡hja滚一边去.</p>
+<p>hja: TAT我去搞辣鸡dp题1011.</p>
+<p>几分钟后.</p>
+<p>hja: 过掉了1011. 这个1012看上去很清真啊. 不就是容斥一下嘛. 刚才浪费的树状数组代码也可以用上辣.</p>
+<p>几分钟后.</p>
+<p>hja: 过掉了1012. 这个1005似乎是个回文串的题? 作为讲字符串的老师尊严何在? 撸!</p>
+<p>十几分钟后.</p>
+<p>hja: 过掉了1005. interesting. 然而被抢走了fb. 这个1002的数据范围怎么那么小? 很像是暴力嘛.</p>
+<p>mhy: 资瓷啊. 搞暴力啊.</p>
+<p>十几分钟后.</p>
+<p>hja: 果然暴力走next树就艹掉了这题.</p>
+<p>hja: 这个1008很清真啊. 也就是一个dfs序+主席树+dfs乱搞? 你们有谁要接这个锅啊?</p>
+<p>yjq: 艹了半天1010这题有毒.</p>
+<p>lxl: 别用主席树. 我这有高效平衡树.</p>
+<p>十几分钟后.</p>
+<p>hja: 还没人接锅? 那我自己背好了.</p>
+<p>几十分钟后.</p>
+<p>hja: 多年不写ds手生了. wtf? 居然tle了?</p>
+<p>lxl: 主席树肯定会火暴. 你可以试试写对顶堆合并? 我这有高效平衡树你要不要.</p>
+<p>hja: 我去写个对顶左偏树算了.</p>
+<p>几十分钟后.</p>
+<p>hja: 差点忘了怎么写了. WTF!!!? 怎么WA了?</p>
+<p>hja: 拍了一发发现真有毒. 这对顶堆能合并个ball啊.</p>
+<p>hja: 重新检查主席树. 发现psgtKth()这个玩意太慢了. 把几个变量搬到外面似乎就变快了诶. 交.</p>
+<p>hja: 怎么又wa了. WTWTFFF!!!!! 居然是<code>r=md</code>写成了<code>r=md-1</code>. 真是完蛋.</p>
+<p>然后就弃疗了.</p>
+<p>比赛结束前几十分钟.</p>
+<p>hja: yjq的1004写丑tle了. 毛毛你去用叉积换atan2.</p>
+<p>mhy: 吼啊吼啊.</p>
+<p>晚上hja点开代码, 发现mhy默默地加了个<code>O2</code>.</p>
+<p>然而&hellip;</p>
+<p>还是tle.</p>
+<p>于是今日输出.</p>
+<p><code>zhx=0, mhy=1, yjq=2, hja=5.</code></p>
+<p>zhx太强辣. 于是最后rank13. 听说大家都是几十个人开黑啊. 666.</p>
+<p>然后晚上从yjq那里听说了一些大新闻.</p>
+<p>上海的王队长, 比laekov高到不知道哪里去了. orz.</p>
+<p>恭喜啦2333.</p>
+<p>已经从被虐变成祝贺了. 233333.</p>
+<p>说好的科目三呢qaq.</p>
+<p>所以我还是太年轻啦.</p>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/summary/">summary</a></li>
+      <li><a href="/tags/diary/">diary</a></li>
+    </ul>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

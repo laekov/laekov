@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>burnside on The Site of laekov</title>
+    <link>/tags/burnside/</link>
+    <description>Recent content in burnside on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Wed, 04 Feb 2015 17:46:41 +0000</lastBuildDate><atom:link href="/tags/burnside/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>BZOJ1815 [Shoi2006]color 有色图</title>
+      <link>/oi/i11rimport_057/</link>
+      <pubDate>Wed, 04 Feb 2015 17:46:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_057/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 一道burnside，做了几次之后感觉比较经典了。然后发现网上居然没有题解。&amp;lt;/p&amp;gt; &amp;nbsp;
+枚举正整数拆分，既每个质换的长度。然后枚举gcd算每类置换的贡献。再用错排公式来算每类置换的数量。然后求和。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+#define _l (long long int)
+const int maxn = 63;
+int n, m, mod, ans, g[maxn][maxn]; int sq[maxn], tq, fac[maxn], finv[maxn], vinv[maxn];
+int modPow(int a, int x) { int s(1); for (; x; x &amp;gt;&amp;gt;= 1, a = _l a * a % mod) if (x &amp;amp; 1) s = _l s * a % mod; return s; }</description>
+    </item>
+    
+    <item>
+      <title>POJ2154 Color</title>
+      <link>/oi/i11rimport_064/</link>
+      <pubDate>Sat, 31 Jan 2015 23:18:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_064/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 首先是burnside，对于旋转x下都要当作一个置换，所以总共有n个。然后第i个的不动点数量等于n&amp;lt;sup&amp;gt;gcd(n,i)&amp;lt;/sup&amp;gt;，然后统计一下个数是phi(gcd(n,i))个。&amp;lt;/p&amp;gt; &amp;nbsp;
+然后发现要用奇奇怪怪的东西来求phi。我用的方法是分解质因数然后DFS，跑得飞快。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+#define _l (long long int)
+const int maxn = 50009;
+int n, mod; int tp, pn[maxn], phi[maxn]; bool pr[maxn];
+void pre() { memset(pr, 0, sizeof(pr)); tp = 0; phi[1] = 1; for (int i = 2; i &amp;lt; maxn; ++ i) { if (!pr[i]) { pn[tp ++] = i; phi[i] = i - 1; } for (int j = 0; j &amp;lt; tp &amp;amp;&amp;amp; i * pn[j] &amp;lt; maxn; ++ j) { pr[i * pn[j]] = 1; if (i % pn[j] == 0) { phi[i * pn[j]] = phi[i] * pn[j]; break; } else phi[i * pn[j]] = phi[i] * phi[pn[j]]; } } }</description>
+    </item>
+    
+  </channel>
+</rss>

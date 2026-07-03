@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>使用 Shortcuts 让 linux desktop 与 iOS 间获得 airdrop 般的体验 | The Site of laekov</title>
+<meta name="keywords" content="developing">
+<meta name="description" content="laekov 在研究如何用手机远程开关家里的台灯的时候发现了 ios 里 shortcuts 这个神奇而好用(功能上) 的东西. 于是寻思着可以用 shortcut 解决手机/iPad 和 linux 桌面机之间文件和文字传输的问题, 于是进行了一些尝试.
+为什么要上 AirDrop 因为它香啊. 可以在不同设备之间快速地传输文件.
+比起开个微信传 / slack 传 / telegram 传这种还要让数据去地球另一端绕一圈的传数据方法, airdrop 它不用开聊天软件, 而且速度更快.
+但是 AirDrop 的局限在于只能在 apple 设备之间使用. 对于桌面工作环境, laekov 还是更喜欢 linux (debian) &#43; KDE, 用起来更爽一些. 所以每次在 desktop 和手机之间传输消息就成了一件非常麻烦的事.
+如果是台式机, 不同的台式机, 台式机和笔记本, laekov 惯用 scp 进行文件传输. 但是 ios 下不存在一个好用没广告不收钱的 scp 软件. 但是 shotcuts 支持 run script over ssh, 就可以解决这个问题了.
+Run script over ssh Shortcuts 提供的非常好的一项功能叫 run script over ssh.">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/technical/dc0e8e/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="使用 Shortcuts 让 linux desktop 与 iOS 间获得 airdrop 般的体验" />
+<meta property="og:description" content="laekov 在研究如何用手机远程开关家里的台灯的时候发现了 ios 里 shortcuts 这个神奇而好用(功能上) 的东西. 于是寻思着可以用 shortcut 解决手机/iPad 和 linux 桌面机之间文件和文字传输的问题, 于是进行了一些尝试.
+为什么要上 AirDrop 因为它香啊. 可以在不同设备之间快速地传输文件.
+比起开个微信传 / slack 传 / telegram 传这种还要让数据去地球另一端绕一圈的传数据方法, airdrop 它不用开聊天软件, 而且速度更快.
+但是 AirDrop 的局限在于只能在 apple 设备之间使用. 对于桌面工作环境, laekov 还是更喜欢 linux (debian) &#43; KDE, 用起来更爽一些. 所以每次在 desktop 和手机之间传输消息就成了一件非常麻烦的事.
+如果是台式机, 不同的台式机, 台式机和笔记本, laekov 惯用 scp 进行文件传输. 但是 ios 下不存在一个好用没广告不收钱的 scp 软件. 但是 shotcuts 支持 run script over ssh, 就可以解决这个问题了.
+Run script over ssh Shortcuts 提供的非常好的一项功能叫 run script over ssh." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/technical/dc0e8e/" /><meta property="article:section" content="technical" />
+<meta property="article:published_time" content="2020-07-09T13:26:28+00:00" />
+<meta property="article:modified_time" content="2020-07-09T13:26:28+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="使用 Shortcuts 让 linux desktop 与 iOS 间获得 airdrop 般的体验"/>
+<meta name="twitter:description" content="laekov 在研究如何用手机远程开关家里的台灯的时候发现了 ios 里 shortcuts 这个神奇而好用(功能上) 的东西. 于是寻思着可以用 shortcut 解决手机/iPad 和 linux 桌面机之间文件和文字传输的问题, 于是进行了一些尝试.
+为什么要上 AirDrop 因为它香啊. 可以在不同设备之间快速地传输文件.
+比起开个微信传 / slack 传 / telegram 传这种还要让数据去地球另一端绕一圈的传数据方法, airdrop 它不用开聊天软件, 而且速度更快.
+但是 AirDrop 的局限在于只能在 apple 设备之间使用. 对于桌面工作环境, laekov 还是更喜欢 linux (debian) &#43; KDE, 用起来更爽一些. 所以每次在 desktop 和手机之间传输消息就成了一件非常麻烦的事.
+如果是台式机, 不同的台式机, 台式机和笔记本, laekov 惯用 scp 进行文件传输. 但是 ios 下不存在一个好用没广告不收钱的 scp 软件. 但是 shotcuts 支持 run script over ssh, 就可以解决这个问题了.
+Run script over ssh Shortcuts 提供的非常好的一项功能叫 run script over ssh."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Technicals",
+      "item": "/technical/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "使用 Shortcuts 让 linux desktop 与 iOS 间获得 airdrop 般的体验",
+      "item": "/technical/dc0e8e/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "使用 Shortcuts 让 linux desktop 与 iOS 间获得 airdrop 般的体验",
+  "name": "使用 Shortcuts 让 linux desktop 与 iOS 间获得 airdrop 般的体验",
+  "description": "laekov 在研究如何用手机远程开关家里的台灯的时候发现了 ios 里 shortcuts 这个神奇而好用(功能上) 的东西. 于是寻思着可以用 shortcut 解决手机/iPad 和 linux 桌面机之间文件和文字传输的问题, 于是进行了一些尝试.\n为什么要上 AirDrop 因为它香啊. 可以在不同设备之间快速地传输文件.\n比起开个微信传 / slack 传 / telegram 传这种还要让数据去地球另一端绕一圈的传数据方法, airdrop 它不用开聊天软件, 而且速度更快.\n但是 AirDrop 的局限在于只能在 apple 设备之间使用. 对于桌面工作环境, laekov 还是更喜欢 linux (debian) + KDE, 用起来更爽一些. 所以每次在 desktop 和手机之间传输消息就成了一件非常麻烦的事.\n如果是台式机, 不同的台式机, 台式机和笔记本, laekov 惯用 scp 进行文件传输. 但是 ios 下不存在一个好用没广告不收钱的 scp 软件. 但是 shotcuts 支持 run script over ssh, 就可以解决这个问题了.\nRun script over ssh Shortcuts 提供的非常好的一项功能叫 run script over ssh.",
+  "keywords": [
+    "developing"
+  ],
+  "articleBody": "laekov 在研究如何用手机远程开关家里的台灯的时候发现了 ios 里 shortcuts 这个神奇而好用(功能上) 的东西. 于是寻思着可以用 shortcut 解决手机/iPad 和 linux 桌面机之间文件和文字传输的问题, 于是进行了一些尝试.\n为什么要上 AirDrop 因为它香啊. 可以在不同设备之间快速地传输文件.\n比起开个微信传 / slack 传 / telegram 传这种还要让数据去地球另一端绕一圈的传数据方法, airdrop 它不用开聊天软件, 而且速度更快.\n但是 AirDrop 的局限在于只能在 apple 设备之间使用. 对于桌面工作环境, laekov 还是更喜欢 linux (debian) + KDE, 用起来更爽一些. 所以每次在 desktop 和手机之间传输消息就成了一件非常麻烦的事.\n如果是台式机, 不同的台式机, 台式机和笔记本, laekov 惯用 scp 进行文件传输. 但是 ios 下不存在一个好用没广告不收钱的 scp 软件. 但是 shotcuts 支持 run script over ssh, 就可以解决这个问题了.\nRun script over ssh Shortcuts 提供的非常好的一项功能叫 run script over ssh. 这理论上只要有一台能 sshd 的主机, 就能干任何事.\n当然一个问题是如果要和自己的 host p2p 地共享文件, 那就必需要知道 host 的 ip. 对于我自家的 wifi 热点, 直接改 dhcpd 的配置来获取不变的 ip 就可以了. 但是如果是在外面, 情况会变得比较麻烦. 如果电脑根本就没网咋办? 也许可以先拷到 cloud 上? 但是这样又违背了直接传输的初衷. 所以如果要买非苹果的笔记本移动起来用的话, 还是会比直接 airdrop 要麻烦一些.\n因为 shortcut 定位是自己用的小程序, 所以直接把 ip 和用户名密码固定写好就可以了.\n比较迷惑的是 “输入”. 其实这里的 “输入” 一项意思就是 stdin.\nmobile to host shortcut 可以作为一个分享选项出现在 ios 的分享列表里, 并把分享的东西作为输入文件. 这就非常好办了.\n先把输入文件的内容 base64 encode 起来.\n然后使用 run script over ssh, 把刚刚 encode 好的东西 base64 -di 写到想要的位置就可以了.\n对于 handsoff, 也就是共享剪贴板, 因为文字没有 “share” 这个选项, 只能 copy, 所以要手工再加一项 share clipboard, 和之前原理一样, 只是输入变成了剪贴板.\nhost to mobile 目前只实现了文字(链接)从剪贴板拷到手机. 使用的是 X11 的 xclip -o, 可以直接把剪贴板上的东西拷过来.\n传文件的麻烦之处在于还要选择在哪个应用里打开? laekov 思考了一下目前暂时没有把文件从电脑传到手机本地存储这样的需求, 所以就还没做. 做起来应该也不麻烦.\n性能 这种把 ssh 当 scp, 从局域网走一遍的做法当然是比 wifi direct 的 airdrop 要慢的. 而且 shortcut 使用的 ssh 客户端自带几秒的延迟, 并不是很快. 但是相比之前使用 im 软件传输的方法, 从理论和实践上都是更快的.\nSummary 使用 ios shortcut 里提供的 run script over ssh 可以实现局域网内的很多操作, 包括本来属于苹果独占生态的 airdrop 和 handsoff, 也可以部分地被替代. 非常令人开心.\n于是 laekov 觉得下一台随身笔记本电脑买个 ryzen 本也不错? 但是还是想等 arm 的 macbook. ovo.\nHistorical Comments laekov at 2021-08-26T10:18:28 这个 summary 是一个 flag. 一年多之后, laekov 依然既没有买 ryzen 的办公本, 也没有买 arm 的 macbook. ovo\n",
+  "wordCount" : "235",
+  "inLanguage": "en",
+  "datePublished": "2020-07-09T13:26:28Z",
+  "dateModified": "2020-07-09T13:26:28Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/technical/dc0e8e/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/technical/">Technicals</a></div>
+    <h1 class="post-title">
+      使用 Shortcuts 让 linux desktop 与 iOS 间获得 airdrop 般的体验
+    </h1>
+    <div class="post-meta"><span title='2020-07-09 13:26:28 +0000 UTC'>July 9, 2020</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e4%b8%ba%e4%bb%80%e4%b9%88%e8%a6%81%e4%b8%8a-airdrop" aria-label="为什么要上 AirDrop">为什么要上 AirDrop</a></li>
+                <li>
+                    <a href="#run-script-over-ssh" aria-label="Run script over ssh">Run script over ssh</a></li>
+                <li>
+                    <a href="#mobile-to-host" aria-label="mobile to host">mobile to host</a></li>
+                <li>
+                    <a href="#host-to-mobile" aria-label="host to mobile">host to mobile</a></li>
+                <li>
+                    <a href="#%e6%80%a7%e8%83%bd" aria-label="性能">性能</a></li>
+                <li>
+                    <a href="#summary" aria-label="Summary">Summary</a></li>
+                <li>
+                    <a href="#historical-comments" aria-label="Historical Comments">Historical Comments</a><ul>
+                        <ul>
+                        
+                <li>
+                    <a href="#laekovhttpsgithubcomlaekov-at-2021-08-26t101828" aria-label="laekov at 2021-08-26T10:18:28"><a href="https://github.com/laekov">laekov</a> at 2021-08-26T10:18:28</a>
+                </li>
+            </ul>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p>laekov 在研究如何用手机远程开关家里的台灯的时候发现了 ios 里 shortcuts 这个神奇而好用(功能上) 的东西. 于是寻思着可以用 shortcut 解决手机/iPad 和 linux 桌面机之间文件和文字传输的问题, 于是进行了一些尝试.</p>
+<h3 id="为什么要上-airdrop">为什么要上 AirDrop<a hidden class="anchor" aria-hidden="true" href="#为什么要上-airdrop">#</a></h3>
+<p>因为它香啊. 可以在不同设备之间快速地传输文件.</p>
+<p>比起开个微信传 / slack 传 / telegram 传这种还要让数据去地球另一端绕一圈的传数据方法, airdrop 它不用开聊天软件, 而且速度更快.</p>
+<p>但是 AirDrop 的局限在于只能在 apple 设备之间使用. 对于桌面工作环境, laekov 还是更喜欢 linux (debian) + KDE, 用起来更爽一些. 所以每次在 desktop 和手机之间传输消息就成了一件非常麻烦的事.</p>
+<p>如果是台式机, 不同的台式机, 台式机和笔记本, laekov 惯用 scp 进行文件传输. 但是 ios 下不存在一个好用没广告不收钱的 scp 软件. 但是 shotcuts 支持 run script over ssh, 就可以解决这个问题了.</p>
+<h3 id="run-script-over-ssh">Run script over ssh<a hidden class="anchor" aria-hidden="true" href="#run-script-over-ssh">#</a></h3>
+<p>Shortcuts 提供的非常好的一项功能叫 run script over ssh. 这理论上只要有一台能 sshd 的主机, 就能干任何事.</p>
+<p>当然一个问题是如果要和自己的 host p2p 地共享文件, 那就必需要知道 host 的 ip. 对于我自家的 wifi 热点, 直接改 dhcpd 的配置来获取不变的 ip 就可以了. 但是如果是在外面, 情况会变得比较麻烦. 如果电脑根本就没网咋办? 也许可以先拷到 cloud 上? 但是这样又违背了直接传输的初衷. 所以如果要买非苹果的笔记本移动起来用的话, 还是会比直接 airdrop 要麻烦一些.</p>
+<p>因为 shortcut 定位是自己用的小程序, 所以直接把 ip 和用户名密码固定写好就可以了.</p>
+<p>比较迷惑的是 &ldquo;输入&rdquo;. 其实这里的 &ldquo;输入&rdquo; 一项意思就是 stdin.</p>
+<h3 id="mobile-to-host">mobile to host<a hidden class="anchor" aria-hidden="true" href="#mobile-to-host">#</a></h3>
+<p>shortcut 可以作为一个分享选项出现在 ios 的分享列表里, 并把分享的东西作为输入文件. 这就非常好办了.</p>
+<p>先把输入文件的内容 base64 encode 起来.</p>
+<p>然后使用 run script over ssh, 把刚刚 encode 好的东西 <code>base64 -di</code> 写到想要的位置就可以了.</p>
+<p>对于 handsoff, 也就是共享剪贴板, 因为文字没有 &ldquo;share&rdquo; 这个选项, 只能 copy, 所以要手工再加一项 share clipboard, 和之前原理一样, 只是输入变成了剪贴板.</p>
+<h3 id="host-to-mobile">host to mobile<a hidden class="anchor" aria-hidden="true" href="#host-to-mobile">#</a></h3>
+<p>目前只实现了文字(链接)从剪贴板拷到手机. 使用的是 X11 的 <code>xclip -o</code>, 可以直接把剪贴板上的东西拷过来.</p>
+<p>传文件的麻烦之处在于还要选择在哪个应用里打开? laekov 思考了一下目前暂时没有把文件从电脑传到手机本地存储这样的需求, 所以就还没做. 做起来应该也不麻烦.</p>
+<h3 id="性能">性能<a hidden class="anchor" aria-hidden="true" href="#性能">#</a></h3>
+<p>这种把 ssh 当 scp, 从局域网走一遍的做法当然是比 wifi direct 的 airdrop 要慢的. 而且 shortcut 使用的 ssh 客户端自带几秒的延迟, 并不是很快. 但是相比之前使用 im 软件传输的方法, 从理论和实践上都是更快的.</p>
+<h3 id="summary">Summary<a hidden class="anchor" aria-hidden="true" href="#summary">#</a></h3>
+<p>使用 ios shortcut 里提供的 run script over ssh 可以实现局域网内的很多操作, 包括本来属于苹果独占生态的 airdrop 和 handsoff, 也可以部分地被替代. 非常令人开心.</p>
+<p>于是 laekov 觉得下一台随身笔记本电脑买个 ryzen 本也不错? 但是还是想等 arm 的 macbook. ovo.</p>
+<hr/>
+<h3 id="historical-comments">Historical Comments<a hidden class="anchor" aria-hidden="true" href="#historical-comments">#</a></h3>
+<h5 id="laekovhttpsgithubcomlaekov-at-2021-08-26t101828"><a href="https://github.com/laekov">laekov</a> at 2021-08-26T10:18:28<a hidden class="anchor" aria-hidden="true" href="#laekovhttpsgithubcomlaekov-at-2021-08-26t101828">#</a></h5>
+<p>这个 summary 是一个 flag. 一年多之后, laekov 依然既没有买 ryzen 的办公本, 也没有买 arm 的 macbook. ovo</p>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/developing/">developing</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/post/7990d5/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>JAX Reading Log</span>
+  </a>
+  <a class="next" href="/random/2897dc/">
+    <span class="title">Next »</span>
+    <br>
+    <span>一篇理论上存在的本科毕业留念长文</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

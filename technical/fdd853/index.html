@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>人智作业展示, 手把手教写拼音输入法 | The Site of laekov</title>
+<meta name="keywords" content="homework, developing">
+<meta name="description" content="这篇讲义都是五笔打的
+laekov 2018.04.12
+Overview 作业要求 写一个拼音输入法, 一行一行地读拼音, 输出对应的汉语句子
+84: 两小时就能写完
+给出的数据 GBK编码的拼音-&gt;汉字对应表 新浪新闻一年的文章 评分 基础2字模型 扩展3字模型 四字, 双词, 三词&hellip; 需要写什么东西 拼音 2 汉字的 map 快速查找某个字/词词频的 map 估值函数和 infer 的算法 训练数据处理 最常用的16位编码是utf-8, 但是 Python 默认是 ASCII 的
+所以在程序第一行写上
+# -*- coding:utf-8 -*- Py 内部的 u&#39;一个字符串&#39; 可以用来表示 unicode 格式的字符串. 但是好像用不到.
+创建 pinyin to 汉字的 map 读 GBK 文件的最简单的方法 with open(&#39;somefile.txt&#39;, &#39;r&#39;, encoding = &#39;gbk&#39;) as f: for (lineno, content) in enumerate(f): dealWithALine(content) content 的格式 wo 窝 我 握 渥 (五笔党词穷了) python 自带分割 py2ch_map = {} def dealWithALine(c): d = c.">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/technical/fdd853/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="人智作业展示, 手把手教写拼音输入法" />
+<meta property="og:description" content="这篇讲义都是五笔打的
+laekov 2018.04.12
+Overview 作业要求 写一个拼音输入法, 一行一行地读拼音, 输出对应的汉语句子
+84: 两小时就能写完
+给出的数据 GBK编码的拼音-&gt;汉字对应表 新浪新闻一年的文章 评分 基础2字模型 扩展3字模型 四字, 双词, 三词&hellip; 需要写什么东西 拼音 2 汉字的 map 快速查找某个字/词词频的 map 估值函数和 infer 的算法 训练数据处理 最常用的16位编码是utf-8, 但是 Python 默认是 ASCII 的
+所以在程序第一行写上
+# -*- coding:utf-8 -*- Py 内部的 u&#39;一个字符串&#39; 可以用来表示 unicode 格式的字符串. 但是好像用不到.
+创建 pinyin to 汉字的 map 读 GBK 文件的最简单的方法 with open(&#39;somefile.txt&#39;, &#39;r&#39;, encoding = &#39;gbk&#39;) as f: for (lineno, content) in enumerate(f): dealWithALine(content) content 的格式 wo 窝 我 握 渥 (五笔党词穷了) python 自带分割 py2ch_map = {} def dealWithALine(c): d = c." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/technical/fdd853/" /><meta property="article:section" content="technical" />
+<meta property="article:published_time" content="2018-04-14T20:59:25+00:00" />
+<meta property="article:modified_time" content="2018-04-14T20:59:25+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="人智作业展示, 手把手教写拼音输入法"/>
+<meta name="twitter:description" content="这篇讲义都是五笔打的
+laekov 2018.04.12
+Overview 作业要求 写一个拼音输入法, 一行一行地读拼音, 输出对应的汉语句子
+84: 两小时就能写完
+给出的数据 GBK编码的拼音-&gt;汉字对应表 新浪新闻一年的文章 评分 基础2字模型 扩展3字模型 四字, 双词, 三词&hellip; 需要写什么东西 拼音 2 汉字的 map 快速查找某个字/词词频的 map 估值函数和 infer 的算法 训练数据处理 最常用的16位编码是utf-8, 但是 Python 默认是 ASCII 的
+所以在程序第一行写上
+# -*- coding:utf-8 -*- Py 内部的 u&#39;一个字符串&#39; 可以用来表示 unicode 格式的字符串. 但是好像用不到.
+创建 pinyin to 汉字的 map 读 GBK 文件的最简单的方法 with open(&#39;somefile.txt&#39;, &#39;r&#39;, encoding = &#39;gbk&#39;) as f: for (lineno, content) in enumerate(f): dealWithALine(content) content 的格式 wo 窝 我 握 渥 (五笔党词穷了) python 自带分割 py2ch_map = {} def dealWithALine(c): d = c."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Technicals",
+      "item": "/technical/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "人智作业展示, 手把手教写拼音输入法",
+      "item": "/technical/fdd853/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "人智作业展示, 手把手教写拼音输入法",
+  "name": "人智作业展示, 手把手教写拼音输入法",
+  "description": "这篇讲义都是五笔打的\nlaekov 2018.04.12\nOverview 作业要求 写一个拼音输入法, 一行一行地读拼音, 输出对应的汉语句子\n84: 两小时就能写完\n给出的数据 GBK编码的拼音-\u0026gt;汉字对应表 新浪新闻一年的文章 评分 基础2字模型 扩展3字模型 四字, 双词, 三词\u0026hellip; 需要写什么东西 拼音 2 汉字的 map 快速查找某个字/词词频的 map 估值函数和 infer 的算法 训练数据处理 最常用的16位编码是utf-8, 但是 Python 默认是 ASCII 的\n所以在程序第一行写上\n# -*- coding:utf-8 -*- Py 内部的 u'一个字符串' 可以用来表示 unicode 格式的字符串. 但是好像用不到.\n创建 pinyin to 汉字的 map 读 GBK 文件的最简单的方法 with open(\u0026#39;somefile.txt\u0026#39;, \u0026#39;r\u0026#39;, encoding = \u0026#39;gbk\u0026#39;) as f: for (lineno, content) in enumerate(f): dealWithALine(content) content 的格式 wo 窝 我 握 渥 (五笔党词穷了) python 自带分割 py2ch_map = {} def dealWithALine(c): d = c.",
+  "keywords": [
+    "homework", "developing"
+  ],
+  "articleBody": " 这篇讲义都是五笔打的\nlaekov 2018.04.12\nOverview 作业要求 写一个拼音输入法, 一行一行地读拼音, 输出对应的汉语句子\n84: 两小时就能写完\n给出的数据 GBK编码的拼音-\u003e汉字对应表 新浪新闻一年的文章 评分 基础2字模型 扩展3字模型 四字, 双词, 三词… 需要写什么东西 拼音 2 汉字的 map 快速查找某个字/词词频的 map 估值函数和 infer 的算法 训练数据处理 最常用的16位编码是utf-8, 但是 Python 默认是 ASCII 的\n所以在程序第一行写上\n# -*- coding:utf-8 -*- Py 内部的 u'一个字符串' 可以用来表示 unicode 格式的字符串. 但是好像用不到.\n创建 pinyin to 汉字的 map 读 GBK 文件的最简单的方法 with open('somefile.txt', 'r', encoding = 'gbk') as f: for (lineno, content) in enumerate(f): dealWithALine(content) content 的格式 wo 窝 我 握 渥 (五笔党词穷了) python 自带分割 py2ch_map = {} def dealWithALine(c): d = c.split() py2ch_map[d[0]] = d 把 map 存进文件 python 带了一个叫 pickle 的库 (很原生, 也很原生地慢)\njson 也可以\nnumpy 也有 dump 的功能\nimport pickle with open('some.pickle', 'rb') as f: data = pickle.load(f) with open('some.pickle', 'wb') as f: pickle.dump(data, f) 记得用 b 二进制模式\n创建词频表 有 gbk 也有 utf-8, 直接用 utf-8\n每行的格式大概长这样\n{\"html\": \"原标题：被困36天重见天日昨晚，第一名被困矿工通过救生吊带被成功救出。经过36天艰难救援，山东平邑“12·25”石膏矿坍塌事故中又有4名被困矿工获救。去年12月25日，山东省平邑县玉荣商贸有限公司石膏矿发生坍塌，当时共有29名作业人员被困井下。事故发生后，救援人员先后成功打通4个小口径保命孔，通过2号孔和7号孔发现4名被困矿工幸存者并与其取得联系，先后为他们输送充足的食物、保暖内衣、照明工具等物资。截至昨日，共有15名井下被困矿工获救，其他14名井下被困矿工，1人已确认遇难，13人仍然失联。新华社记者 郭绪雷 摄详见A14·中国\", \"time\": \"2016-01-30 03:20\", \"title\": \"被困36天重见天日\", \"url\": \"http://news.sina.com.cn/o/2016-01-30/doc-ifxnzanm3825052.shtml\"} 是个 json, 其中 title 和 html 可以作为语料.\npython 处理 json import json def dealWithALine(l): data = json.loads(l) dealAsMaterial(data['html']) dealAsMaterial(data['title']) 分割语料 数字, 标点之类的东西要去掉\n使用正则表达式. (参形式语言与自动机课)\nimport re def dealAsMaterial(l): pieces = re.split(r' |,|\\.|\\d', l) # 还有很多请自己补充 for i in pieces: addToMap(i) 单双字扔进词频表 freq_map = {} def addToMap(l): global freq_map for i in range(len(l)): w = l[i] if not w in freq_map: freq_map[w] = 1 else: freq_map[w] += 1 w = l[i : i + 2] if not w in freq_map: freq_map[w] = 1 else: freq_map[w] += 1 Infer 算法 概率模型 设有一个串$\\overline{ab}$\n事件$A$表示$a$出现\n事件$B$表示$b$出现\n则有条件概率公式, 也有人叫马尔可夫概率链\n$$P(B|A) = \\frac{P(AB)}{P(A)}=\\frac{freq_map[\\overline{ab}]}{freq_map[a]}$$\n这个概率表示了前一个字是$a$时后一个字是$b$的概率\n设答案是$S=\\overline{a_1a_2\\dots a_n}$\n假设估值函数为\n$$Val(s) = \\sum_{i=1}^{n-1}P(a_{i+1}|a_i)$$\n找最好的答案就是要最大化上面这个式子\n这里你需要实现一个求条件概率的代码\ndef getLinkValue(a, b): rat1 = freq_dict[a + b] / freq_dict[a] rat2 = freq_dict[b] return smooth(rat1, rat2) 平滑化自己想办法实现就好\n动态规划 动态规划是显然的做法\n设$F_{i,j}$表示第$i$个字是$j$时$\\overline{a_1a_2\\dots a_i}$的最大价值\n易得到状态转移方程\n$$F_{i,j} = \\max_{k\\in D_{i-1}}{{F_{i-1}{k} + \\frac{freq_map[\\overline{kj}]}{freq_map[k]} }} $$\n代码实现\nf = [ {} ] * (n + 1) f[0][''] = { 'val': 0 } for i in range(1, n + 1): for j in py[a[i]]: f[i][j] = { 'val': 0, 'from': 0 } for k in f[i - 1]: if f[i - 1][k]['val'] + getLinkValue(k, j) \u003e f[i][j]['val']: f[i][j]['val'] = f[i - 1][k]['val'] + getLinkValue(k, j) f[i][j]['from'] = k\t记录from后就逆向查找即可获得答案\n讨论内容 如何提高性能和提高精准度\n优化上述DP的性能 对于每个$i$, 跑完一轮后只留值最高的$k$个\n优化精准度 高端的估值函数 三词模型 引入新的学习数据 ",
+  "wordCount" : "352",
+  "inLanguage": "en",
+  "datePublished": "2018-04-14T20:59:25Z",
+  "dateModified": "2018-04-14T20:59:25Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/technical/fdd853/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/technical/">Technicals</a></div>
+    <h1 class="post-title">
+      人智作业展示, 手把手教写拼音输入法
+    </h1>
+    <div class="post-meta"><span title='2018-04-14 20:59:25 +0000 UTC'>April 14, 2018</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#overview" aria-label="Overview">Overview</a><ul>
+                        
+                <li>
+                    <a href="#%e4%bd%9c%e4%b8%9a%e8%a6%81%e6%b1%82" aria-label="作业要求">作业要求</a></li>
+                <li>
+                    <a href="#%e7%bb%99%e5%87%ba%e7%9a%84%e6%95%b0%e6%8d%ae" aria-label="给出的数据">给出的数据</a></li>
+                <li>
+                    <a href="#%e8%af%84%e5%88%86" aria-label="评分">评分</a></li>
+                <li>
+                    <a href="#%e9%9c%80%e8%a6%81%e5%86%99%e4%bb%80%e4%b9%88%e4%b8%9c%e8%a5%bf" aria-label="需要写什么东西">需要写什么东西</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e8%ae%ad%e7%bb%83%e6%95%b0%e6%8d%ae%e5%a4%84%e7%90%86" aria-label="训练数据处理">训练数据处理</a><ul>
+                        
+                <li>
+                    <a href="#%e5%88%9b%e5%bb%ba-pinyin-to-%e6%b1%89%e5%ad%97%e7%9a%84-map" aria-label="创建 pinyin to 汉字的 map">创建 pinyin to 汉字的 map</a><ul>
+                        
+                <li>
+                    <a href="#%e8%af%bb-gbk-%e6%96%87%e4%bb%b6%e7%9a%84%e6%9c%80%e7%ae%80%e5%8d%95%e7%9a%84%e6%96%b9%e6%b3%95" aria-label="读 GBK 文件的最简单的方法">读 GBK 文件的最简单的方法</a></li>
+                <li>
+                    <a href="#content-%e7%9a%84%e6%a0%bc%e5%bc%8f" aria-label="content 的格式">content 的格式</a></li>
+                <li>
+                    <a href="#python-%e8%87%aa%e5%b8%a6%e5%88%86%e5%89%b2" aria-label="python 自带分割">python 自带分割</a></li>
+                <li>
+                    <a href="#%e6%8a%8a-map-%e5%ad%98%e8%bf%9b%e6%96%87%e4%bb%b6" aria-label="把 map 存进文件">把 map 存进文件</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e5%88%9b%e5%bb%ba%e8%af%8d%e9%a2%91%e8%a1%a8" aria-label="创建词频表">创建词频表</a><ul>
+                        
+                <li>
+                    <a href="#python-%e5%a4%84%e7%90%86-json" aria-label="python 处理 json">python 处理 json</a></li>
+                <li>
+                    <a href="#%e5%88%86%e5%89%b2%e8%af%ad%e6%96%99" aria-label="分割语料">分割语料</a></li>
+                <li>
+                    <a href="#%e5%8d%95%e5%8f%8c%e5%ad%97%e6%89%94%e8%bf%9b%e8%af%8d%e9%a2%91%e8%a1%a8" aria-label="单双字扔进词频表">单双字扔进词频表</a></li></ul>
+                </li></ul>
+                </li>
+                <li>
+                    <a href="#infer-%e7%ae%97%e6%b3%95" aria-label="Infer 算法">Infer 算法</a><ul>
+                        
+                <li>
+                    <a href="#%e6%a6%82%e7%8e%87%e6%a8%a1%e5%9e%8b" aria-label="概率模型">概率模型</a></li>
+                <li>
+                    <a href="#%e5%8a%a8%e6%80%81%e8%a7%84%e5%88%92" aria-label="动态规划">动态规划</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e8%ae%a8%e8%ae%ba%e5%86%85%e5%ae%b9" aria-label="讨论内容">讨论内容</a><ul>
+                        
+                <li>
+                    <a href="#%e4%bc%98%e5%8c%96%e4%b8%8a%e8%bf%b0dp%e7%9a%84%e6%80%a7%e8%83%bd" aria-label="优化上述DP的性能">优化上述DP的性能</a></li>
+                <li>
+                    <a href="#%e4%bc%98%e5%8c%96%e7%b2%be%e5%87%86%e5%ba%a6" aria-label="优化精准度">优化精准度</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><blockquote>
+<p>这篇讲义都是五笔打的</p>
+</blockquote>
+<p>laekov 2018.04.12</p>
+<h2 id="overview">Overview<a hidden class="anchor" aria-hidden="true" href="#overview">#</a></h2>
+<h3 id="作业要求">作业要求<a hidden class="anchor" aria-hidden="true" href="#作业要求">#</a></h3>
+<p>写一个拼音输入法, 一行一行地读拼音, 输出对应的汉语句子</p>
+<blockquote>
+<p>84: 两小时就能写完</p>
+</blockquote>
+<h3 id="给出的数据">给出的数据<a hidden class="anchor" aria-hidden="true" href="#给出的数据">#</a></h3>
+<ul>
+<li>GBK编码的拼音-&gt;汉字对应表</li>
+<li>新浪新闻一年的文章</li>
+</ul>
+<h3 id="评分">评分<a hidden class="anchor" aria-hidden="true" href="#评分">#</a></h3>
+<ul>
+<li>基础2字模型</li>
+<li>扩展3字模型</li>
+<li>四字, 双词, 三词&hellip;</li>
+</ul>
+<h3 id="需要写什么东西">需要写什么东西<a hidden class="anchor" aria-hidden="true" href="#需要写什么东西">#</a></h3>
+<ul>
+<li>拼音 2 汉字的 map</li>
+<li>快速查找某个字/词词频的 map</li>
+<li>估值函数和 infer 的算法</li>
+</ul>
+<h2 id="训练数据处理">训练数据处理<a hidden class="anchor" aria-hidden="true" href="#训练数据处理">#</a></h2>
+<p>最常用的16位编码是<code>utf-8</code>, 但是 Python 默认是 ASCII 的</p>
+<p>所以在程序第一行写上</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># -*- coding:utf-8 -*-</span>
+</span></span></code></pre></div><p>Py 内部的 <code>u'一个字符串'</code> 可以用来表示 unicode 格式的字符串. 但是好像用不到.</p>
+<h3 id="创建-pinyin-to-汉字的-map">创建 pinyin to 汉字的 map<a hidden class="anchor" aria-hidden="true" href="#创建-pinyin-to-汉字的-map">#</a></h3>
+<h4 id="读-gbk-文件的最简单的方法">读 GBK 文件的最简单的方法<a hidden class="anchor" aria-hidden="true" href="#读-gbk-文件的最简单的方法">#</a></h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;somefile.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span> <span class="o">=</span> <span class="s1">&#39;gbk&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="n">lineno</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">dealWithALine</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+</span></span></code></pre></div><h4 id="content-的格式">content 的格式<a hidden class="anchor" aria-hidden="true" href="#content-的格式">#</a></h4>
+<pre tabindex="0"><code>wo 窝 我 握 渥 (五笔党词穷了)
+</code></pre><h4 id="python-自带分割">python 自带分割<a hidden class="anchor" aria-hidden="true" href="#python-自带分割">#</a></h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">py2ch_map</span> <span class="o">=</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">dealWithALine</span><span class="p">(</span><span class="n">c</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">	<span class="n">d</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="n">py2ch_map</span><span class="p">[</span><span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">d</span>
+</span></span></code></pre></div><h4 id="把-map-存进文件">把 map 存进文件<a hidden class="anchor" aria-hidden="true" href="#把-map-存进文件">#</a></h4>
+<p>python 带了一个叫 <code>pickle</code> 的库 (很原生, 也很原生地慢)</p>
+<p><code>json</code> 也可以</p>
+<p><code>numpy</code> 也有 <code>dump</code> 的功能</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pickle</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;some.pickle&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">data</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl"><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;some.pickle&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+</span></span></code></pre></div><p>记得用 <code>b</code> 二进制模式</p>
+<h3 id="创建词频表">创建词频表<a hidden class="anchor" aria-hidden="true" href="#创建词频表">#</a></h3>
+<p>有 gbk 也有 utf-8, 直接用 utf-8</p>
+<p>每行的格式大概长这样</p>
+<pre tabindex="0"><code>{&#34;html&#34;: &#34;原标题：被困36天重见天日昨晚，第一名被困矿工通过救生吊带被成功救出。经过36天艰难救援，山东平邑“12·25”石膏矿坍塌事故中又有4名被困矿工获救。去年12月25日，山东省平邑县玉荣商贸有限公司石膏矿发生坍塌，当时共有29名作业人员被困井下。事故发生后，救援人员先后成功打通4个小口径保命孔，通过2号孔和7号孔发现4名被困矿工幸存者并与其取得联系，先后为他们输送充足的食物、保暖内衣、照明工具等物资。截至昨日，共有15名井下被困矿工获救，其他14名井下被困矿工，1人已确认遇难，13人仍然失联。新华社记者 郭绪雷 摄详见A14·中国&#34;, &#34;time&#34;: &#34;2016-01-30 03:20&#34;, 
+&#34;title&#34;: &#34;被困36天重见天日&#34;, 
+&#34;url&#34;: &#34;http://news.sina.com.cn/o/2016-01-30/doc-ifxnzanm3825052.shtml&#34;}
+</code></pre><p>是个 <code>json</code>, 其中 <code>title</code> 和 <code>html</code> 可以作为语料.</p>
+<h4 id="python-处理-json">python 处理 json<a hidden class="anchor" aria-hidden="true" href="#python-处理-json">#</a></h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">json</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">dealWithALine</span><span class="p">(</span><span class="n">l</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">	<span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">dealAsMaterial</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;html&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">	<span class="n">dealAsMaterial</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">])</span>
+</span></span></code></pre></div><h4 id="分割语料">分割语料<a hidden class="anchor" aria-hidden="true" href="#分割语料">#</a></h4>
+<p>数字, 标点之类的东西要去掉</p>
+<p>使用正则表达式. (参形式语言与自动机课)</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">re</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">dealAsMaterial</span><span class="p">(</span><span class="n">l</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">	<span class="n">pieces</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39; |,|\.|\d&#39;</span><span class="p">,</span> <span class="n">l</span><span class="p">)</span> <span class="c1"># 还有很多请自己补充</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">pieces</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="n">addToMap</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</span></span></code></pre></div><h4 id="单双字扔进词频表">单双字扔进词频表<a hidden class="anchor" aria-hidden="true" href="#单双字扔进词频表">#</a></h4>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">freq_map</span> <span class="o">=</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">addToMap</span><span class="p">(</span><span class="n">l</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">	<span class="k">global</span> <span class="n">freq_map</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">l</span><span class="p">)):</span>
+</span></span><span class="line"><span class="cl">		<span class="n">w</span> <span class="o">=</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="ow">not</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">freq_map</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="n">freq_map</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">		<span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="n">freq_map</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">		<span class="n">w</span> <span class="o">=</span> <span class="n">l</span><span class="p">[</span><span class="n">i</span> <span class="p">:</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">2</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="ow">not</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">freq_map</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="n">freq_map</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">		<span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="n">freq_map</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span></code></pre></div><h2 id="infer-算法">Infer 算法<a hidden class="anchor" aria-hidden="true" href="#infer-算法">#</a></h2>
+<h3 id="概率模型">概率模型<a hidden class="anchor" aria-hidden="true" href="#概率模型">#</a></h3>
+<p>设有一个串$\overline{ab}$</p>
+<p>事件$A$表示$a$出现</p>
+<p>事件$B$表示$b$出现</p>
+<p>则有条件概率公式, 也有人叫马尔可夫概率链</p>
+<p>$$P(B|A) = \frac{P(AB)}{P(A)}=\frac{freq_map[\overline{ab}]}{freq_map[a]}$$</p>
+<p>这个概率表示了前一个字是$a$时后一个字是$b$的概率</p>
+<p>设答案是$S=\overline{a_1a_2\dots a_n}$</p>
+<p>假设估值函数为</p>
+<p>$$Val(s) = \sum_{i=1}^{n-1}P(a_{i+1}|a_i)$$</p>
+<p>找最好的答案就是要最大化上面这个式子</p>
+<p>这里你需要实现一个求条件概率的代码</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">getLinkValue</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">	<span class="n">rat1</span> <span class="o">=</span> <span class="n">freq_dict</span><span class="p">[</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">]</span> <span class="o">/</span> <span class="n">freq_dict</span><span class="p">[</span><span class="n">a</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">	<span class="n">rat2</span> <span class="o">=</span> <span class="n">freq_dict</span><span class="p">[</span><span class="n">b</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">smooth</span><span class="p">(</span><span class="n">rat1</span><span class="p">,</span> <span class="n">rat2</span><span class="p">)</span>
+</span></span></code></pre></div><p>平滑化自己想办法实现就好</p>
+<h3 id="动态规划">动态规划<a hidden class="anchor" aria-hidden="true" href="#动态规划">#</a></h3>
+<p>动态规划是显然的做法</p>
+<p>设$F_{i,j}$表示第$i$个字是$j$时$\overline{a_1a_2\dots a_i}$的最大价值</p>
+<p>易得到状态转移方程</p>
+<p>$$F_{i,j} = \max_{k\in D_{i-1}}{{F_{i-1}{k} + \frac{freq_map[\overline{kj}]}{freq_map[k]} }} $$</p>
+<p>代码实现</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">f</span> <span class="o">=</span> <span class="p">[</span> <span class="p">{}</span> <span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;&lt;start&gt;&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;val&#39;</span><span class="p">:</span> <span class="mi">0</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">py</span><span class="p">[</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]]:</span>
+</span></span><span class="line"><span class="cl">		<span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;val&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;from&#39;</span><span class="p">:</span> <span class="mi">0</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">f</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="n">f</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">k</span><span class="p">][</span><span class="s1">&#39;val&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">getLinkValue</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">][</span><span class="s1">&#39;val&#39;</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl">				<span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">][</span><span class="s1">&#39;val&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">k</span><span class="p">][</span><span class="s1">&#39;val&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">getLinkValue</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">				<span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">][</span><span class="s1">&#39;from&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">k</span>			
+</span></span></code></pre></div><p>记录<code>from</code>后就逆向查找即可获得答案</p>
+<h2 id="讨论内容">讨论内容<a hidden class="anchor" aria-hidden="true" href="#讨论内容">#</a></h2>
+<p>如何提高性能和提高精准度</p>
+<h3 id="优化上述dp的性能">优化上述DP的性能<a hidden class="anchor" aria-hidden="true" href="#优化上述dp的性能">#</a></h3>
+<p>对于每个$i$, 跑完一轮后只留值最高的$k$个</p>
+<h3 id="优化精准度">优化精准度<a hidden class="anchor" aria-hidden="true" href="#优化精准度">#</a></h3>
+<ul>
+<li>高端的估值函数</li>
+<li>三词模型</li>
+<li>引入新的学习数据</li>
+</ul>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/homework/">homework</a></li>
+      <li><a href="/tags/developing/">developing</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/random/d81ca0/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>波的传输实验波形</span>
+  </a>
+  <a class="next" href="/technical/4aba20/">
+    <span class="title">Next »</span>
+    <br>
+    <span>Lagrange插值, 三次样条插值和最小二乘拟合</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

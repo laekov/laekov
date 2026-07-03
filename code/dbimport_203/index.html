@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>bzoj3611.cc | The Site of laekov</title>
+<meta name="keywords" content="code">
+<meta name="description" content="#include #include #include #include using namespace std;
+const int buf_len = 4567; char buf[buf_len], *bufb(buf), *bufe(bufb &#43; 1); #define readBuf() { if (&#43;&#43; bufb == bufe) bufe = (bufb = buf) &#43; fread(buf, 1, sizeof(buf), stdin); } #define readInt(x) { register int s(0); do { readBuf(); } while (!isdigit(*bufb)); do { s = s * 10 &#43; *bufb - 48; readBuf(); } while (isdigit(*bufb)); x = s; }
+typedef long long dint; #ifdef WIN32 #define lld &ldquo;%I64d&rdquo; #else #define lld &ldquo;%lld&rdquo; #endif #define _l (long long int)">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/code/dbimport_203/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="bzoj3611.cc" />
+<meta property="og:description" content="#include #include #include #include using namespace std;
+const int buf_len = 4567; char buf[buf_len], *bufb(buf), *bufe(bufb &#43; 1); #define readBuf() { if (&#43;&#43; bufb == bufe) bufe = (bufb = buf) &#43; fread(buf, 1, sizeof(buf), stdin); } #define readInt(x) { register int s(0); do { readBuf(); } while (!isdigit(*bufb)); do { s = s * 10 &#43; *bufb - 48; readBuf(); } while (isdigit(*bufb)); x = s; }
+typedef long long dint; #ifdef WIN32 #define lld &ldquo;%I64d&rdquo; #else #define lld &ldquo;%lld&rdquo; #endif #define _l (long long int)" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/code/dbimport_203/" /><meta property="article:section" content="code" />
+<meta property="article:published_time" content="2015-04-06T11:17:58+00:00" />
+<meta property="article:modified_time" content="2015-04-06T11:17:58+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="bzoj3611.cc"/>
+<meta name="twitter:description" content="#include #include #include #include using namespace std;
+const int buf_len = 4567; char buf[buf_len], *bufb(buf), *bufe(bufb &#43; 1); #define readBuf() { if (&#43;&#43; bufb == bufe) bufe = (bufb = buf) &#43; fread(buf, 1, sizeof(buf), stdin); } #define readInt(x) { register int s(0); do { readBuf(); } while (!isdigit(*bufb)); do { s = s * 10 &#43; *bufb - 48; readBuf(); } while (isdigit(*bufb)); x = s; }
+typedef long long dint; #ifdef WIN32 #define lld &ldquo;%I64d&rdquo; #else #define lld &ldquo;%lld&rdquo; #endif #define _l (long long int)"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Codes",
+      "item": "/code/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "bzoj3611.cc",
+      "item": "/code/dbimport_203/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "bzoj3611.cc",
+  "name": "bzoj3611.cc",
+  "description": "#include #include #include #include using namespace std;\nconst int buf_len = 4567; char buf[buf_len], *bufb(buf), *bufe(bufb + 1); #define readBuf() { if (++ bufb == bufe) bufe = (bufb = buf) + fread(buf, 1, sizeof(buf), stdin); } #define readInt(x) { register int s(0); do { readBuf(); } while (!isdigit(*bufb)); do { s = s * 10 + *bufb - 48; readBuf(); } while (isdigit(*bufb)); x = s; }\ntypedef long long dint; #ifdef WIN32 #define lld \u0026ldquo;%I64d\u0026rdquo; #else #define lld \u0026ldquo;%lld\u0026rdquo; #endif #define _l (long long int)",
+  "keywords": [
+    "code"
+  ],
+  "articleBody": "#include #include #include #include using namespace std;\nconst int buf_len = 4567; char buf[buf_len], *bufb(buf), *bufe(bufb + 1); #define readBuf() { if (++ bufb == bufe) bufe = (bufb = buf) + fread(buf, 1, sizeof(buf), stdin); } #define readInt(x) { register int s(0); do { readBuf(); } while (!isdigit(*bufb)); do { s = s * 10 + *bufb - 48; readBuf(); } while (isdigit(*bufb)); x = s; }\ntypedef long long dint; #ifdef WIN32 #define lld “%I64d” #else #define lld “%lld” #endif #define _l (long long int)\nstruct edge { int t, v; edge *next; };\nconst int maxn = 1000009; const int maxl = 25; const int inf = 0x3f3f3f3f;\nnamespace rtree { int n, d[maxn], ut[maxn][maxl]; int dfo[maxn], dfb[maxn]; edge ebuf_arr[maxn « 1], *ebuf(ebuf_arr), *head[maxn];\ninline void addEdge(int u, int v) { ebuf-\u003e t = v; ebuf-\u003e next = head[u]; head[u] = ebuf ++; } void init() { readInt(n); memset(head, 0, sizeof(head)); for (int i = 1; i \u003c n; ++ i) { int u, v; readInt(u); readInt(v); addEdge(u, v); addEdge(v, u); } static int stc[maxn]; int tst(1), dfn(0); memset(d, 0, sizeof(d)); d[stc[1] = 1] = 1; while (tst) { int p(stc[tst --]); dfo[dfb[p] = ++ dfn] = p; for (int i = 1; i \u003c maxl; ++ i) ut[p][i] = ut[ut[p][i - 1]][i - 1]; for (edge* e = head[p]; e; e = e-\u003e next) if (!d[e-\u003e t]) { d[e-\u003e t] = d[p] + 1; ut[e-\u003e t][0] = p; stc[++ tst] = e-\u003e t; } } } int LCA(int u, int v) { if (d[u] \u003c d[v]) swap(u, v); for (int i = maxl - 1; i \u003e= 0; -- i) if (d[ut[u][i]] \u003e= d[v]) u = ut[u][i]; if (u == v) return u; for (int i = maxl - 1; i \u003e= 0; -- i) if (ut[u][i] != ut[v][i]) { u = ut[u][i]; v = ut[v][i]; } return ut[u][0]; } inline bool cmpDfn(const int\u0026 a, const int\u0026 b) { return dfb[a] \u003c dfb[b]; } inline int dis(int u, int v) { return d[u] - d[v]; } };\nnamespace ftree { int n, q[maxn], stc[maxn], tst; int tiq(0), ciq[maxn] = {0}; int sz[maxn], f[maxn][3], g[maxn][3], dfo[maxn]; int sf, sg; dint tot; edge ebuf_arr[maxn « 1], *ebuf, *head[maxn];\ninline void addEdge(int u, int v, int w) { ebuf-\u003e t = v; ebuf-\u003e v = w; ebuf-\u003e next = head[u]; head[u] = ebuf ++; } void DP() { int dfn(0); tot = 0; stc[tst = 1] = 1; sf = inf, sg = -inf; tot = 0; while (tst) { int p(stc[tst --]); dfo[++ dfn] = p; for (edge* e = head[p]; e; e = e-\u003e next) stc[++ tst] = e-\u003e t; } for (int i = dfn; i; -- i) { int p(dfo[i]); sz[p] = (ciq[p] == tiq); f[p][0] = f[p][1] = -1; g[p][0] = g[p][1] = -1; if (ciq[p] == tiq) f[p][0] = g[p][0] = 0; for (edge* e = head[p]; e; e = e-\u003e next) { tot += _l e-\u003e v * sz[e-\u003e t] * (n - sz[e-\u003e t]); sz[p] += sz[e-\u003e t]; int vn(f[e-\u003e t][0] + e-\u003e v); if (f[p][0] == -1 || vn \u003c f[p][0]) { f[p][1] = f[p][0]; f[p][0] = vn; } else if (f[p][1] == -1 || vn \u003c f[p][1]) f[p][1] = vn; if (f[p][1] \u003e -1) sf = min(sf, f[p][0] + f[p][1]); vn = g[e-\u003e t][0] + e-\u003e v; if (g[p][0] == -1 || vn \u003e g[p][0]) { g[p][1] = g[p][0]; g[p][0] = vn; } else if (g[p][1] == -1 || vn \u003e g[p][1]) g[p][1] = vn; if (g[p][1] \u003e -1) sg = max(sg, g[p][0] + g[p][1]); } } f[1][2] = g[1][2] = -1; for (int i = 1; i \u003c= dfn; ++ i) { int p(dfo[i]); if (f[p][2] \u003e -1) sf = min(sf, f[p][0] + f[p][2]); if (g[p][2] \u003e -1) sg = max(sg, g[p][0] + g[p][2]); for (edge* e = head[p]; e; e = e-\u003e next) { int vn; if (f[e-\u003e t][0] + e-\u003e v == f[p][0]) vn = f[p][1]; else vn = f[p][0]; if (vn == -1 || f[p][2] \u003c vn) vn = f[p][2]; if (vn \u003e -1) vn += e-\u003e v; f[e-\u003e t][2] = vn; if (g[e-\u003e t][0] + e-\u003e v == g[p][0]) vn = g[p][1]; else vn = g[p][0]; if (vn == -1 || g[p][2] \u003e vn) vn = g[p][2]; if (vn \u003e -1) vn += e-\u003e v; g[e-\u003e t][2] = vn; } } printf(lld \" %d %d\\n\", tot, sf, sg); } void sov() { readInt(n); ++ tiq; for (int i = 0; i \u003c n; ++ i) { readInt(q[i]); ciq[q[i]] = tiq; } sort(q, q + n, rtree :: cmpDfn); tst = 1; head[stc[tst] = 1] = 0; ebuf = ebuf_arr; for (int i = 0; i \u003c n; ++ i) { int p(q[i]), a(rtree :: LCA(p, stc[tst])); if (a == stc[tst]) { if (p != stc[tst]) { head[p] = 0; stc[++ tst] = p; } } else { while (rtree :: d[stc[tst - 1]] \u003e= rtree :: d[a]) { addEdge(stc[tst - 1], stc[tst], rtree :: dis(stc[tst], stc[tst - 1])); -- tst; } if (a != stc[tst]) { head[a] = 0; addEdge(a, stc[tst], rtree :: dis(stc[tst], a)); stc[tst] = a; } head[p] = 0; stc[++ tst] = p; } } while (tst \u003e 1) { addEdge(stc[tst - 1], stc[tst], rtree :: dis(stc[tst], stc[tst - 1])); -- tst; } DP(); } };\nint main() { #ifndef ONLINE_JUDGE freopen(\".in\", “r”, stdin); #endif\nrtree :: init(); int q; readInt(q); while (q --) ftree :: sov(); }\n",
+  "wordCount" : "907",
+  "inLanguage": "en",
+  "datePublished": "2015-04-06T11:17:58Z",
+  "dateModified": "2015-04-06T11:17:58Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/code/dbimport_203/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/code/">Codes</a></div>
+    <h1 class="post-title">
+      bzoj3611.cc
+    </h1>
+    <div class="post-meta"><span title='2015-04-06 11:17:58 +0000 UTC'>April 6, 2015</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>#include <cstdio>
+#include <cctype>
+#include <cstring>
+#include <algorithm></p>
+<p>using namespace std;</p>
+<p>const int buf_len = 4567;
+char buf[buf_len], *bufb(buf), *bufe(bufb + 1);
+#define readBuf() { <br>
+if (++ bufb == bufe) <br>
+bufe = (bufb = buf) + fread(buf, 1, sizeof(buf), stdin); <br>
+}
+#define readInt(<em>x</em>) { <br>
+register int <em>s</em>(0); <br>
+do { <br>
+readBuf(); <br>
+} while (!isdigit(*bufb)); <br>
+do { <br>
+<em>s</em> = <em>s</em> * 10 + *bufb - 48; <br>
+readBuf(); <br>
+} while (isdigit(*bufb)); <br>
+<em>x</em> = <em>s</em>; <br>
+}</p>
+<p>typedef long long dint;
+#ifdef WIN32
+#define lld &ldquo;%I64d&rdquo;
+#else
+#define lld &ldquo;%lld&rdquo;
+#endif
+#define _l (long long int)</p>
+<p>struct edge {
+int t, v;
+edge *next;
+};</p>
+<p>const int maxn = 1000009;
+const int maxl = 25;
+const int inf = 0x3f3f3f3f;</p>
+<p>namespace rtree {
+int n, d[maxn], ut[maxn][maxl];
+int dfo[maxn], dfb[maxn];
+edge ebuf_arr[maxn &laquo; 1], *ebuf(ebuf_arr), *head[maxn];</p>
+<pre><code>inline void addEdge(int u, int v) {
+	ebuf-&gt; t = v;
+	ebuf-&gt; next = head[u];
+	head[u] = ebuf ++;
+}
+void init() {
+	readInt(n);
+	memset(head, 0, sizeof(head));
+	for (int i = 1; i &lt; n; ++ i) {
+		int u, v;
+		readInt(u);
+		readInt(v);
+		addEdge(u, v);
+		addEdge(v, u);
+	}
+	static int stc[maxn];
+	int tst(1), dfn(0);
+	memset(d, 0, sizeof(d));
+	d[stc[1] = 1] = 1;
+	while (tst) {
+		int p(stc[tst --]);
+		dfo[dfb[p] = ++ dfn] = p;
+		for (int i = 1; i &lt; maxl; ++ i)
+			ut[p][i] = ut[ut[p][i - 1]][i - 1];
+		for (edge* e = head[p]; e; e = e-&gt; next)
+			if (!d[e-&gt; t]) {
+				d[e-&gt; t] = d[p] + 1;
+				ut[e-&gt; t][0] = p;
+				stc[++ tst] = e-&gt; t;
+			}
+	}
+}
+int LCA(int u, int v) {
+	if (d[u] &lt; d[v])
+		swap(u, v);
+	for (int i = maxl - 1; i &gt;= 0; -- i)
+		if (d[ut[u][i]] &gt;= d[v])
+			u = ut[u][i];
+	if (u == v)
+		return u;
+	for (int i = maxl - 1; i &gt;= 0; -- i)
+		if (ut[u][i] != ut[v][i]) {
+			u = ut[u][i];
+			v = ut[v][i];
+		}
+	return ut[u][0];
+}
+inline bool cmpDfn(const int&amp; a, const int&amp; b) {
+	return dfb[a] &lt; dfb[b];
+}
+inline int dis(int u, int v) {
+	return d[u] - d[v];
+}
+</code></pre>
+<p>};</p>
+<p>namespace ftree {
+int n, q[maxn], stc[maxn], tst;
+int tiq(0), ciq[maxn] = {0};
+int sz[maxn], f[maxn][3], g[maxn][3], dfo[maxn];
+int sf, sg;
+dint tot;
+edge ebuf_arr[maxn &laquo; 1], *ebuf, *head[maxn];</p>
+<pre><code>inline void addEdge(int u, int v, int w) {
+	ebuf-&gt; t = v;
+	ebuf-&gt; v = w;
+	ebuf-&gt; next = head[u];
+	head[u] = ebuf ++;
+}
+void DP() {
+	int dfn(0);
+	tot = 0;
+	stc[tst = 1] = 1;
+	sf = inf, sg = -inf;
+	tot = 0;
+	while (tst) {
+		int p(stc[tst --]);
+		dfo[++ dfn] = p;
+		for (edge* e = head[p]; e; e = e-&gt; next)
+			stc[++ tst] = e-&gt; t;
+	}
+	for (int i = dfn; i; -- i) {
+		int p(dfo[i]);
+		sz[p] = (ciq[p] == tiq);
+		f[p][0] = f[p][1] = -1;
+		g[p][0] = g[p][1] = -1;
+		if (ciq[p] == tiq)
+			f[p][0] = g[p][0] = 0;
+		for (edge* e = head[p]; e; e = e-&gt; next) {
+			tot += _l e-&gt; v * sz[e-&gt; t] * (n - sz[e-&gt; t]);
+			sz[p] += sz[e-&gt; t];
+			int vn(f[e-&gt; t][0] + e-&gt; v);
+			if (f[p][0] == -1 || vn &lt; f[p][0]) {
+				f[p][1] = f[p][0];
+				f[p][0] = vn;
+			}
+			else if (f[p][1] == -1 || vn &lt; f[p][1])
+				f[p][1] = vn;
+			if (f[p][1] &gt; -1)
+				sf = min(sf, f[p][0] + f[p][1]);
+			vn = g[e-&gt; t][0] + e-&gt; v;
+			if (g[p][0] == -1 || vn &gt; g[p][0]) {
+				g[p][1] = g[p][0];
+				g[p][0] = vn;
+			}
+			else if (g[p][1] == -1 || vn &gt; g[p][1])
+				g[p][1] = vn;
+			if (g[p][1] &gt; -1)
+				sg = max(sg, g[p][0] + g[p][1]);
+		}
+	}
+	f[1][2] = g[1][2] = -1;
+	for (int i = 1; i &lt;= dfn; ++ i) {
+		int p(dfo[i]);
+		if (f[p][2] &gt; -1)
+			sf = min(sf, f[p][0] + f[p][2]);
+		if (g[p][2] &gt; -1)
+			sg = max(sg, g[p][0] + g[p][2]);
+		for (edge* e = head[p]; e; e = e-&gt; next) {
+			int vn;
+			if (f[e-&gt; t][0] + e-&gt; v == f[p][0])
+				vn = f[p][1];
+			else
+				vn = f[p][0];
+			if (vn == -1 || f[p][2] &lt; vn)
+				vn = f[p][2];
+			if (vn &gt; -1)
+				vn += e-&gt; v;
+			f[e-&gt; t][2] = vn;
+			if (g[e-&gt; t][0] + e-&gt; v == g[p][0])
+				vn = g[p][1];
+			else
+				vn = g[p][0];
+			if (vn == -1 || g[p][2] &gt; vn)
+				vn = g[p][2];
+			if (vn &gt; -1)
+				vn += e-&gt; v;
+			g[e-&gt; t][2] = vn;
+		}
+	}
+	printf(lld &quot; %d %d\n&quot;, tot, sf, sg);
+}
+
+void sov() {
+	readInt(n);
+	++ tiq;
+	for (int i = 0; i &lt; n; ++ i) {
+		readInt(q[i]);
+		ciq[q[i]] = tiq;
+	}
+	sort(q, q + n, rtree :: cmpDfn);
+	tst = 1;
+	head[stc[tst] = 1] = 0;
+	ebuf = ebuf_arr;
+	for (int i = 0; i &lt; n; ++ i) {
+		int p(q[i]), a(rtree :: LCA(p, stc[tst]));
+		if (a == stc[tst]) {
+			if (p != stc[tst]) {
+				head[p] = 0;
+				stc[++ tst] = p;
+			}
+		}
+		else {
+			while (rtree :: d[stc[tst - 1]] &gt;= rtree :: d[a]) {
+				addEdge(stc[tst - 1], stc[tst], rtree :: dis(stc[tst], stc[tst - 1]));
+				-- tst;
+			}
+			if (a != stc[tst]) {
+				head[a] = 0;
+				addEdge(a, stc[tst], rtree :: dis(stc[tst], a));
+				stc[tst] = a;
+			}
+			head[p] = 0;
+			stc[++ tst] = p;
+		}
+	}
+	while (tst &gt; 1) {
+		addEdge(stc[tst - 1], stc[tst], rtree :: dis(stc[tst], stc[tst - 1]));
+		-- tst;
+	}
+	DP();
+}
+</code></pre>
+<p>};</p>
+<p>int main() {
+#ifndef ONLINE_JUDGE
+freopen(&quot;.in&quot;, &ldquo;r&rdquo;, stdin);
+#endif</p>
+<pre><code>rtree :: init();
+int q;
+readInt(q);
+while (q --)
+	ftree :: sov();
+</code></pre>
+<p>}</p>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/code/">code</a></li>
+    </ul>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

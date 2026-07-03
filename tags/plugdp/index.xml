@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>plugDP on The Site of laekov</title>
+    <link>/tags/plugdp/</link>
+    <description>Recent content in plugDP on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Sat, 07 Mar 2015 17:02:41 +0000</lastBuildDate><atom:link href="/tags/plugdp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>BZOJ1814 Ural 1519 Formula 1</title>
+      <link>/oi/i11rimport_008/</link>
+      <pubDate>Sat, 07 Mar 2015 17:02:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_008/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 插头dp的练手题么。虽然之前还没写过哈密顿回路的题。&amp;lt;/p&amp;gt; &amp;nbsp;
+学习了一下广义括号法。发现状态数比之前记连通性的方法要少。仔细想想发现，两个连通的插头的顺序有关。不能存在1212这种东西。所以连通性的方法记了很多废状态。那把连通性方法改进一下会不会变得更快呢？可以研究一下。我觉得应该是等效了吧。
+&amp;nbsp;
+今天的debug时间明显缩短了。虽然还是debug了老半天。然后怎么代码还是那么长。想起我每次都觉得把东西挤到一起看起来很不雅观，于是去写一堆找转移的函数。晕。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+typedef long long dint; #ifdef WIN32 #define lld &amp;ldquo;%I64d&amp;rdquo; #else #define lld &amp;ldquo;%lld&amp;rdquo; #endif #define _l (long long int)
+const int maxn = 15; const int maxst = 50009;
+#define mbit(x,y) ((x)&amp;lt;&amp;lt;((y)&amp;lt;&amp;lt;1)) #define gbit(x,y) (((x)&amp;gt;&amp;gt;((y)&amp;lt;&amp;lt;1))&amp;amp;3) #define cbit(x,y) ((x)&amp;amp;(~(3&amp;lt;&amp;lt;((y)&amp;lt;&amp;lt;1))))
+int n, m, tots, slst[maxst]; bool mp[maxn][maxn]; dint f[2][maxst];
+void dfsState(int l, int c, int z) { if (l == m + 1) { if (!</description>
+    </item>
+    
+    <item>
+      <title>BZOJ2704 旅游</title>
+      <link>/oi/i11rimport_011/</link>
+      <pubDate>Fri, 06 Mar 2015 14:02:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_011/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 居然网上都没有找到程序来和我拍。好吧其实它是一道权限题而且过的人也不多。&amp;lt;/p&amp;gt; &amp;nbsp;
+其实就是裸的插头DP。本来想学一下广义括号的然后被状态数吓到了于是只好还是写最小表示。连通性。
+&amp;nbsp;
+然后我发现最小表示连通性很容易写挂。而在findstate的时候检查一下是个不错的办法。至少这道题靠这个就可以直接debug出来问题了。
+&amp;nbsp;
+比上次写插头要好许多了。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+typedef long long dint; #define _l (long long int) #define mbit(x,y) ((_l x)&amp;lt;&amp;lt;((y)&amp;lt;&amp;lt;2)) #define gbit(x,y) (((x)&amp;gt;&amp;gt;((y)&amp;lt;&amp;lt;2))&amp;amp;0xf)
+const int maxn = 13; const int maxst = 570009;
+dint slst[maxst]; int n, m, v[maxn][maxn], tots, f[2][maxst], cnt[17]; bool av[2][maxst];
+void dfsState(int l, int tot, dint z) { if (l == m) { for (int i = 1; i &amp;lt;= tot; ++ i) if (cnt[i] !</description>
+    </item>
+    
+    <item>
+      <title>BZOJ1187 [HNOI2007]神奇游乐园</title>
+      <link>/oi/i11rimport_023/</link>
+      <pubDate>Sun, 01 Mar 2015 23:22:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_023/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 我的第二道插头DP。差不多纠结了一天。&amp;lt;/p&amp;gt; &amp;nbsp;
+这道题网上的题解都讲的好简略啊。最后还得自己yy。没有用括号序列法让我觉得自己比较厉害。
+&amp;nbsp;
+考虑轮廓线上的m个格子，有3种情况：没有插头，有且只能往一边走，有且要往两边走。对于第二种，要用最多3个不同的值来记录连通性。还要有两个不同的值来表示第一种情况和第三种情况。我比较懒，所以直接用一个八进制数去表示，然后每次二分找编号。
+&amp;nbsp;
+考虑转移，分一堆情况进行讨论。默认从左上朝右下走。
+&amp;nbsp;
+首先是要走当前格子的情况。
+&amp;nbsp;
+如果左边和上面都有插头，那么看它们是否连通。如果不连通则把它们连通，如果已经连通，看是否还有其它插头。没有就更新答案，否则忽略。
+&amp;nbsp;
+如果只有左边有插头，再分类。如果它是第二种，那么这个格子可以新建一个第三种插头，或者把左边格子的插头接过来。如果它是第三种那么它必需把左边格子接过来。
+&amp;nbsp;
+如果只有上面有插头，那么必需把上面的插头接上来。
+&amp;nbsp;
+如果左边和上面都没有插头，那么可以新建一个第三种插头。
+&amp;nbsp;
+然后如果不走这个格子的话，要求上面没有插头，且左边不是第三种插头。
+&amp;nbsp;
+按mhy的话说，插头dp就是写起来很麻烦。的确。不过写出来也还是挺高兴的。
+&amp;nbsp;
+然后代码丑到不能看了。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+const int maxn = 109; const int maxm = 9; const int maxst = 50009; const int inf = 0x3f3f3f3f;
+#define pow8(x) (1&amp;lt;&amp;lt;(x)&amp;lt;&amp;lt;(x)&amp;lt;&amp;lt;(x)) #define mbit(x,y) ((x)&amp;lt;&amp;lt;(y)&amp;lt;&amp;lt;(y)&amp;lt;&amp;lt;(y)) #define gbit(x,y) (((x)&amp;gt;&amp;gt;(y)&amp;gt;&amp;gt;(y)&amp;gt;&amp;gt;(y))&amp;amp;7)
+int f[2][maxst], n, m, a[maxn][maxm], ans; int slst[maxst], tots;</description>
+    </item>
+    
+    <item>
+      <title>BZOJ2331 [SCOI2011]地板</title>
+      <link>/oi/i11rimport_042/</link>
+      <pubDate>Fri, 20 Feb 2015 17:20:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_042/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 插头DP的基础题。想插头DP都是将军没走的时候给我讲的了，距今有大半年了吧。mhy已经写了无数道了，我才开始写。唉，还是效率太低。&amp;lt;/p&amp;gt; &amp;nbsp;
+插头DP的意思是把已经处理的部分的轮廓线上对后面状态有影响的东西状压下来，然后挨着处理每个格子的状态（比如方向，或者这里的地板怎么铺之类的）。
+&amp;nbsp;
+具体到这道题来说，考虑一个相邻格子之前的边，那么它可能没有连接两个相同的磁砖，有可能连接了两个还没有拐过弯的磁砖，有可能连接了两个已经拐过弯的磁砖，一共是3种情况，所以用一个三进制数把它压下来。然后直接一路转移过去就行了。要注意的是每行都处理完了之后要把最边上的那一条从右移动到左，所以还需要把所有的状态都改一下。
+&amp;nbsp;
+今天效率比较低，心不在焉，然后在最后一个转移的地方wa了大半天。插头DP的调试也比较麻烦。所以我还是naive。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+const int maxn = 13; const int maxa = 109; const int maxs = 200009; const int mod = 20110520;
+bool mp[maxa][maxa]; int n, m, a[maxn], b[maxn], f[2][maxs];
+#define fc f[cur] #define fp f[prv] #define doNothing ; inline void mInc(int&amp;amp; a, int b) { a += b; if (a &amp;gt;= mod) a %= mod; }</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>BZOJ2816 [ZJOI2012]网络 | The Site of laekov</title>
+<meta name="keywords" content="bzoj, ds, oi">
+<meta name="description" content="&lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt; 听说是水水的splay，果然是。&lt;/p&gt; &nbsp;
+乍一看要用lct，然后因为度数只有2，所以肯定是一条链。然后就直接用splay来维护。然后因为少写了句splay(v)导致多调了至少一节课的时间。我没救了。
+#include &lt;cstdio&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; #include &lt;map&gt; using namespace std;
+#define upmax(a,b) { if (a &lt; b) a = b; }
+struct splay_node { int vl, vm, rv; splay_node *pt, *ls, *rs; inline void update() { vm = vl; if (ls) upmax(vm, ls-&gt; vm); if (rs) upmax(vm, rs-&gt; vm); } inline void fix() { if (rv) { swap(ls, rs); if (ls) ls-&gt; rv ^= 1; if (rs) rs-&gt; rv ^= 1; rv = 0; } } };">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/i11rimport_072/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="BZOJ2816 [ZJOI2012]网络" />
+<meta property="og:description" content="&lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt; 听说是水水的splay，果然是。&lt;/p&gt; &nbsp;
+乍一看要用lct，然后因为度数只有2，所以肯定是一条链。然后就直接用splay来维护。然后因为少写了句splay(v)导致多调了至少一节课的时间。我没救了。
+#include &lt;cstdio&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; #include &lt;map&gt; using namespace std;
+#define upmax(a,b) { if (a &lt; b) a = b; }
+struct splay_node { int vl, vm, rv; splay_node *pt, *ls, *rs; inline void update() { vm = vl; if (ls) upmax(vm, ls-&gt; vm); if (rs) upmax(vm, rs-&gt; vm); } inline void fix() { if (rv) { swap(ls, rs); if (ls) ls-&gt; rv ^= 1; if (rs) rs-&gt; rv ^= 1; rv = 0; } } };" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/i11rimport_072/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2015-01-27T20:51:41+00:00" />
+<meta property="article:modified_time" content="2015-01-27T20:51:41+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BZOJ2816 [ZJOI2012]网络"/>
+<meta name="twitter:description" content="&lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt; 听说是水水的splay，果然是。&lt;/p&gt; &nbsp;
+乍一看要用lct，然后因为度数只有2，所以肯定是一条链。然后就直接用splay来维护。然后因为少写了句splay(v)导致多调了至少一节课的时间。我没救了。
+#include &lt;cstdio&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; #include &lt;map&gt; using namespace std;
+#define upmax(a,b) { if (a &lt; b) a = b; }
+struct splay_node { int vl, vm, rv; splay_node *pt, *ls, *rs; inline void update() { vm = vl; if (ls) upmax(vm, ls-&gt; vm); if (rs) upmax(vm, rs-&gt; vm); } inline void fix() { if (rv) { swap(ls, rs); if (ls) ls-&gt; rv ^= 1; if (rs) rs-&gt; rv ^= 1; rv = 0; } } };"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "BZOJ2816 [ZJOI2012]网络",
+      "item": "/oi/i11rimport_072/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BZOJ2816 [ZJOI2012]网络",
+  "name": "BZOJ2816 [ZJOI2012]网络",
+  "description": "\u0026lt;div class=\u0026quot;post_brief\u0026quot;\u0026gt;\u0026lt;p\u0026gt; 听说是水水的splay，果然是。\u0026lt;/p\u0026gt; \u0026nbsp;\n乍一看要用lct，然后因为度数只有2，所以肯定是一条链。然后就直接用splay来维护。然后因为少写了句splay(v)导致多调了至少一节课的时间。我没救了。\n#include \u0026lt;cstdio\u0026gt; #include \u0026lt;cstring\u0026gt; #include \u0026lt;algorithm\u0026gt; #include \u0026lt;map\u0026gt; using namespace std;\n#define upmax(a,b) { if (a \u0026lt; b) a = b; }\nstruct splay_node { int vl, vm, rv; splay_node *pt, *ls, *rs; inline void update() { vm = vl; if (ls) upmax(vm, ls-\u0026gt; vm); if (rs) upmax(vm, rs-\u0026gt; vm); } inline void fix() { if (rv) { swap(ls, rs); if (ls) ls-\u0026gt; rv ^= 1; if (rs) rs-\u0026gt; rv ^= 1; rv = 0; } } };",
+  "keywords": [
+    "bzoj", "ds", "oi"
+  ],
+  "articleBody": "\t听说是水水的splay，果然是。\n乍一看要用lct，然后因为度数只有2，所以肯定是一条链。然后就直接用splay来维护。然后因为少写了句splay(v)导致多调了至少一节课的时间。我没救了。\n#include #include #include #include using namespace std;\n#define upmax(a,b) { if (a \u003c b) a = b; }\nstruct splay_node { int vl, vm, rv; splay_node *pt, *ls, *rs; inline void update() { vm = vl; if (ls) upmax(vm, ls-\u003e vm); if (rs) upmax(vm, rs-\u003e vm); } inline void fix() { if (rv) { swap(ls, rs); if (ls) ls-\u003e rv ^= 1; if (rs) rs-\u003e rv ^= 1; rv = 0; } } };\ntypedef pair edge; typedef pair mpr; typedef map emap;\nconst int maxn = 200009; const int maxc = 13;\n#define nid(p,c) ((p)+(c)*n) #define eid(e) ((e)+eb)\nsplay_node slst[maxn], *sr[maxn]; int v[maxn], n, m, c, q, eb, nc[maxn][maxc], ce[maxn]; emap el;\ninline void rot(splay_node* q) { splay_node *p(q-\u003e pt), *a(p-\u003e pt); if (a) { if (p == a-\u003e ls) a-\u003e ls = q; else a-\u003e rs = q; } p-\u003e pt = q; q-\u003e pt = a; if (q == p-\u003e ls) { if (q-\u003e rs) q-\u003e rs-\u003e pt = p; p-\u003e ls = q-\u003e rs; q-\u003e rs = p; } else { if (q-\u003e ls) q-\u003e ls-\u003e pt = p; p-\u003e rs = q-\u003e ls; q-\u003e ls = p; } p-\u003e update(); q-\u003e update(); }\nvoid splay(splay_node* q) { static splay_node* stc[maxn]; int tst(1); stc[tst] = q; for (splay_node* p = q; p-\u003e pt; p = p-\u003e pt) stc[++ tst] = p-\u003e pt; for (; tst; – tst) stc[tst]-\u003e fix(); while (q-\u003e pt) { splay_node *p(q-\u003e pt); if (!p-\u003e pt || !p-\u003e pt-\u003e pt) rot(q); else { if ((q == p-\u003e ls) == (p == p-\u003e pt-\u003e ls)) { rot(p); rot(q); } else { rot(q); rot(q); } } } }\nsplay_node* expose(splay_node* p) { splay(p); while (p) { p-\u003e fix(); if (p-\u003e ls) p = p-\u003e ls; else break; } return p; }\nvoid link(int e0, int u0, int v0) { splay_node *e(sr[e0]), *u(sr[u0]), *v(sr[v0]); splay(u); if (u-\u003e fix(), u-\u003e rs) u-\u003e rv ^= 1; splay(v); if (v-\u003e fix(), v-\u003e ls) v-\u003e rv ^= 1; e-\u003e rv = 0; e-\u003e ls = u; u-\u003e pt = e; e-\u003e rs = v; v-\u003e pt = e; e-\u003e update(); }\nvoid cut(int e0) { splay_node* e(sr[e0]); splay(e); e-\u003e fix(); if (e-\u003e ls) { e-\u003e ls-\u003e pt = 0; e-\u003e ls = 0; } if (e-\u003e rs) { e-\u003e rs-\u003e pt = 0; e-\u003e rs = 0; } e-\u003e update(); }\nint query(int u0, int v0) { splay_node *u(sr[u0]), *v(sr[v0]); if (expose(u) != expose(v)) return -1; if (u == v) return u-\u003e vl; int ans(max(u-\u003e vl, v-\u003e vl)); splay(u); splay(v); if (u == v-\u003e ls) { if (u-\u003e rs) upmax(ans, u-\u003e rs-\u003e vm); } else if (u == v-\u003e rs) { if (u-\u003e ls) upmax(ans, u-\u003e ls-\u003e vm); } return ans; }\nint main() { scanf(\"%d%d%d%d\", \u0026n, \u0026m, \u0026c, \u0026q); eb = n * c; for (int i = 1; i \u003c= eb + m; ++ i) sr[i] = slst + i; for (int i = 1; i \u003c= n; ++ i) { scanf(\"%d\", v + i); for (int j = 0; j \u003c c; ++ j) { splay_node* p(sr[nid(i, j)]); p-\u003e vl = p-\u003e vm = v[i]; } } for (int i = 1; i \u003c= m; ++ i) { splay_node* p(sr[eid(i)]); p-\u003e vl = p-\u003e vm = 0; int u, v, w; scanf(\"%d%d%d\", \u0026u, \u0026v, \u0026w); link(eid(i), nid(u, w), nid(v, w)); ce[i] = w; ++ nc[u][w]; ++ nc[v][w]; if (u \u003e v) swap(u, v); el. insert(mpr(edge(u, v), i)); } while (q –) { int opt, u, v, w; scanf(\"%d\", \u0026opt); if (opt == 0) { scanf(\"%d%d\", \u0026u, \u0026v); for (int i = 0; i \u003c c; ++ i) { splay_node* p(sr[nid(u, i)]); p-\u003e vl = v; p-\u003e update(); splay(p); } } else if (opt == 1) { scanf(\"%d%d%d\", \u0026u, \u0026v, \u0026w); if (u \u003e v) swap(u, v); emap :: iterator it = el. find(edge(u, v)); if (it == el. end()) puts(“No such edge.”); else if (w == ce[it-\u003e second]) puts(“Success.”); else if (nc[u][w] \u003e 1 || nc[v][w] \u003e 1) puts(“Error 1.”); else if (expose(sr[nid(u, w)]) == expose(sr[nid(v, w)])) puts(“Error 2.”); else { int e(it-\u003e second); – nc[u][ce[e]]; – nc[v][ce[e]]; cut(eid(e)); ce[e] = w; ++ nc[u][ce[e]]; ++ nc[v][ce[e]]; link(eid(e), nid(u, w), nid(v, w)); puts(“Success.”); } } else { scanf(\"%d%d%d\", \u0026w, \u0026u, \u0026v); printf(\"%d\\n\", query(nid(u, w), nid(v, w))); } } } ",
+  "wordCount" : "726",
+  "inLanguage": "en",
+  "datePublished": "2015-01-27T20:51:41Z",
+  "dateModified": "2015-01-27T20:51:41Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/i11rimport_072/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      BZOJ2816 [ZJOI2012]网络
+    </h1>
+    <div class="post-meta"><span title='2015-01-27 20:51:41 +0000 UTC'>January 27, 2015</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><pre><code>			    &lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt;
+听说是水水的splay，果然是。&lt;/p&gt;
+</code></pre>
+<p>
+	&nbsp;</p>
+<p>
+	乍一看要用lct，然后因为度数只有2，所以肯定是一条链。然后就直接用splay来维护。然后因为少写了句splay(v)导致多调了至少一节课的时间。我没救了。</p>
+<pre class="bcode">#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+#include &lt;map&gt;
+<p>using namespace std;</p>
+<p>#define upmax(<em>a</em>,<em>b</em>) { <br>
+if (<em>a</em> &lt; <em>b</em>) <br>
+<em>a</em> = <em>b</em>; <br>
+}</p>
+<p>struct splay_node {
+int vl, vm, rv;
+splay_node *pt, *ls, *rs;
+inline void update() {
+vm = vl;
+if (ls)
+upmax(vm, ls-&gt; vm);
+if (rs)
+upmax(vm, rs-&gt; vm);
+}
+inline void fix() {
+if (rv) {
+swap(ls, rs);
+if (ls)
+ls-&gt; rv ^= 1;
+if (rs)
+rs-&gt; rv ^= 1;
+rv = 0;
+}
+}
+};</p>
+<p>typedef pair &lt;int, int&gt; edge;
+typedef pair &lt;edge, int&gt; mpr;
+typedef map &lt;edge, int&gt; emap;</p>
+<p>const int maxn = 200009;
+const int maxc = 13;</p>
+<p>#define nid(<em>p</em>,<em>c</em>) ((<em>p</em>)+(<em>c</em>)*n)
+#define eid(<em>e</em>) ((<em>e</em>)+eb)</p>
+<p>splay_node slst[maxn], *sr[maxn];
+int v[maxn], n, m, c, q, eb, nc[maxn][maxc], ce[maxn];
+emap el;</p>
+<p>inline void rot(splay_node* q) {
+splay_node *p(q-&gt; pt), *a(p-&gt; pt);
+if (a) {
+if (p == a-&gt; ls)
+a-&gt; ls = q;
+else
+a-&gt; rs = q;
+}
+p-&gt; pt = q;
+q-&gt; pt = a;
+if (q == p-&gt; ls) {
+if (q-&gt; rs)
+q-&gt; rs-&gt; pt = p;
+p-&gt; ls = q-&gt; rs;
+q-&gt; rs = p;
+}
+else {
+if (q-&gt; ls)
+q-&gt; ls-&gt; pt = p;
+p-&gt; rs = q-&gt; ls;
+q-&gt; ls = p;
+}
+p-&gt; update();
+q-&gt; update();
+}</p>
+<p>void splay(splay_node* q) {
+static splay_node* stc[maxn];
+int tst(1);
+stc[tst] = q;
+for (splay_node* p = q; p-&gt; pt; p = p-&gt; pt)
+stc[++ tst] = p-&gt; pt;
+for (; tst; &ndash; tst)
+stc[tst]-&gt; fix();
+while (q-&gt; pt) {
+splay_node *p(q-&gt; pt);
+if (!p-&gt; pt || !p-&gt; pt-&gt; pt)
+rot(q);
+else {
+if ((q == p-&gt; ls) == (p == p-&gt; pt-&gt; ls)) {
+rot(p);
+rot(q);
+}
+else {
+rot(q);
+rot(q);
+}
+}
+}
+}</p>
+<p>splay_node* expose(splay_node* p) {
+splay(p);
+while (p) {
+p-&gt; fix();
+if (p-&gt; ls)
+p = p-&gt; ls;
+else
+break;
+}
+return p;
+}</p>
+<p>void link(int e0, int u0, int v0) {
+splay_node *e(sr[e0]), *u(sr[u0]), *v(sr[v0]);
+splay(u);
+if (u-&gt; fix(), u-&gt; rs)
+u-&gt; rv ^= 1;
+splay(v);
+if (v-&gt; fix(), v-&gt; ls)
+v-&gt; rv ^= 1;
+e-&gt; rv = 0;
+e-&gt; ls = u;
+u-&gt; pt = e;
+e-&gt; rs = v;
+v-&gt; pt = e;
+e-&gt; update();
+}</p>
+<p>void cut(int e0) {
+splay_node* e(sr[e0]);
+splay(e);
+e-&gt; fix();
+if (e-&gt; ls) {
+e-&gt; ls-&gt; pt = 0;
+e-&gt; ls = 0;
+}
+if (e-&gt; rs) {
+e-&gt; rs-&gt; pt = 0;
+e-&gt; rs = 0;
+}
+e-&gt; update();
+}</p>
+<p>int query(int u0, int v0) {
+splay_node *u(sr[u0]), *v(sr[v0]);
+if (expose(u) != expose(v))
+return -1;
+if (u == v)
+return u-&gt; vl;
+int ans(max(u-&gt; vl, v-&gt; vl));
+splay(u);
+splay(v);
+if (u == v-&gt; ls) {
+if (u-&gt; rs)
+upmax(ans, u-&gt; rs-&gt; vm);
+}
+else if (u == v-&gt; rs) {
+if (u-&gt; ls)
+upmax(ans, u-&gt; ls-&gt; vm);
+}
+return ans;
+}</p>
+<p>int main() {
+scanf(&quot;%d%d%d%d&quot;, &amp;n, &amp;m, &amp;c, &amp;q);
+eb = n * c;
+for (int i = 1; i &lt;= eb + m; ++ i)
+sr[i] = slst + i;
+for (int i = 1; i &lt;= n; ++ i) {
+scanf(&quot;%d&quot;, v + i);
+for (int j = 0; j &lt; c; ++ j) {
+splay_node* p(sr[nid(i, j)]);
+p-&gt; vl = p-&gt; vm = v[i];
+}
+}
+for (int i = 1; i &lt;= m; ++ i) {
+splay_node* p(sr[eid(i)]);
+p-&gt; vl = p-&gt; vm = 0;
+int u, v, w;
+scanf(&quot;%d%d%d&quot;, &amp;u, &amp;v, &amp;w);
+link(eid(i), nid(u, w), nid(v, w));
+ce[i] = w;
+++ nc[u][w];
+++ nc[v][w];
+if (u &gt; v)
+swap(u, v);
+el. insert(mpr(edge(u, v), i));
+}
+while (q &ndash;) {
+int opt, u, v, w;
+scanf(&quot;%d&quot;, &amp;opt);
+if (opt == 0) {
+scanf(&quot;%d%d&quot;, &amp;u, &amp;v);
+for (int i = 0; i &lt; c; ++ i) {
+splay_node* p(sr[nid(u, i)]);
+p-&gt; vl = v;
+p-&gt; update();
+splay(p);
+}
+}
+else if (opt == 1) {
+scanf(&quot;%d%d%d&quot;, &amp;u, &amp;v, &amp;w);
+if (u &gt; v)
+swap(u, v);
+emap :: iterator it = el. find(edge(u, v));
+if (it == el. end())
+puts(&ldquo;No such edge.&rdquo;);
+else if (w == ce[it-&gt; second])
+puts(&ldquo;Success.&rdquo;);
+else if (nc[u][w] &gt; 1 || nc[v][w] &gt; 1)
+puts(&ldquo;Error 1.&rdquo;);
+else if (expose(sr[nid(u, w)]) == expose(sr[nid(v, w)]))
+puts(&ldquo;Error 2.&rdquo;);
+else {
+int e(it-&gt; second);
+&ndash; nc[u][ce[e]];
+&ndash; nc[v][ce[e]];
+cut(eid(e));
+ce[e] = w;
+++ nc[u][ce[e]];
+++ nc[v][ce[e]];
+link(eid(e), nid(u, w), nid(v, w));
+puts(&ldquo;Success.&rdquo;);
+}
+}
+else {
+scanf(&quot;%d%d%d&quot;, &amp;w, &amp;u, &amp;v);
+printf(&quot;%d\n&quot;, query(nid(u, w), nid(v, w)));
+}
+}
+}
+</pre></p>
+</div>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/bzoj/">bzoj</a></li>
+      <li><a href="/tags/ds/">ds</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/i11rimport_071/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>BZOJ1502 [NOI2005]月下柠檬树</span>
+  </a>
+  <a class="next" href="/oi/i11rimport_073/">
+    <span class="title">Next »</span>
+    <br>
+    <span>BZOJ3870 Our happy ending</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

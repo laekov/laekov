@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>BZOJ2709 [Violet 1]迷宫花园 | The Site of laekov</title>
+<meta name="keywords" content="bzoj, graph, oi">
+<meta name="description" content="水水的二分&#43;最短路么？
+然后读入坑死了检查了好久的最短路。
+没救了。
+然后发现我好像进前100了，小小地开心一下。
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+typedef pair &lt;double, int&gt; dpr;
+struct edge {
+int v, t;
+edge *next;
+};
+#define nid(_x_,_y_)&nbsp;((_x_-1)*m&#43;(_y_))
+const int maxn = 10009;
+const int maxa = 109;
+const int maxe = 80009;
+const int mov[4][2]&nbsp;=&nbsp;{{1, 0},&nbsp;{-1, 0},&nbsp;{0, 1},&nbsp;{0,&nbsp;-1}};
+const double eps = 1e-8;
+int n, m, st, te, c[maxn];
+char mp[maxa][maxa];
+double d[maxn], tg;
+edge *head[maxn],&nbsp;*ep, elst[maxe];
+dpr hp[maxe];">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/lofterimport_001/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="BZOJ2709 [Violet 1]迷宫花园" />
+<meta property="og:description" content="水水的二分&#43;最短路么？
+然后读入坑死了检查了好久的最短路。
+没救了。
+然后发现我好像进前100了，小小地开心一下。
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+typedef pair &lt;double, int&gt; dpr;
+struct edge {
+int v, t;
+edge *next;
+};
+#define nid(_x_,_y_)&nbsp;((_x_-1)*m&#43;(_y_))
+const int maxn = 10009;
+const int maxa = 109;
+const int maxe = 80009;
+const int mov[4][2]&nbsp;=&nbsp;{{1, 0},&nbsp;{-1, 0},&nbsp;{0, 1},&nbsp;{0,&nbsp;-1}};
+const double eps = 1e-8;
+int n, m, st, te, c[maxn];
+char mp[maxa][maxa];
+double d[maxn], tg;
+edge *head[maxn],&nbsp;*ep, elst[maxe];
+dpr hp[maxe];" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/lofterimport_001/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2015-01-17T12:17:59+00:00" />
+<meta property="article:modified_time" content="2015-01-17T12:17:59+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BZOJ2709 [Violet 1]迷宫花园"/>
+<meta name="twitter:description" content="水水的二分&#43;最短路么？
+然后读入坑死了检查了好久的最短路。
+没救了。
+然后发现我好像进前100了，小小地开心一下。
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+typedef pair &lt;double, int&gt; dpr;
+struct edge {
+int v, t;
+edge *next;
+};
+#define nid(_x_,_y_)&nbsp;((_x_-1)*m&#43;(_y_))
+const int maxn = 10009;
+const int maxa = 109;
+const int maxe = 80009;
+const int mov[4][2]&nbsp;=&nbsp;{{1, 0},&nbsp;{-1, 0},&nbsp;{0, 1},&nbsp;{0,&nbsp;-1}};
+const double eps = 1e-8;
+int n, m, st, te, c[maxn];
+char mp[maxa][maxa];
+double d[maxn], tg;
+edge *head[maxn],&nbsp;*ep, elst[maxe];
+dpr hp[maxe];"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "BZOJ2709 [Violet 1]迷宫花园",
+      "item": "/oi/lofterimport_001/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BZOJ2709 [Violet 1]迷宫花园",
+  "name": "BZOJ2709 [Violet 1]迷宫花园",
+  "description": "水水的二分+最短路么？\n然后读入坑死了检查了好久的最短路。\n没救了。\n然后发现我好像进前100了，小小地开心一下。\n#include \u0026lt;cstdio\u0026gt;\n#include \u0026lt;cstring\u0026gt;\n#include \u0026lt;algorithm\u0026gt;\nusing namespace std;\ntypedef pair \u0026lt;double, int\u0026gt; dpr;\nstruct edge {\nint v, t;\nedge *next;\n};\n#define nid(_x_,_y_)\u0026nbsp;((_x_-1)*m+(_y_))\nconst int maxn = 10009;\nconst int maxa = 109;\nconst int maxe = 80009;\nconst int mov[4][2]\u0026nbsp;=\u0026nbsp;{{1, 0},\u0026nbsp;{-1, 0},\u0026nbsp;{0, 1},\u0026nbsp;{0,\u0026nbsp;-1}};\nconst double eps = 1e-8;\nint n, m, st, te, c[maxn];\nchar mp[maxa][maxa];\ndouble d[maxn], tg;\nedge *head[maxn],\u0026nbsp;*ep, elst[maxe];\ndpr hp[maxe];",
+  "keywords": [
+    "bzoj", "graph", "oi"
+  ],
+  "articleBody": "水水的二分+最短路么？\n然后读入坑死了检查了好久的最短路。\n没救了。\n然后发现我好像进前100了，小小地开心一下。\n#include #include #include using namespace std;\ntypedef pair dpr;\nstruct edge {\nint v, t;\nedge *next;\n};\n#define nid(_x_,_y_) ((_x_-1)*m+(_y_))\nconst int maxn = 10009;\nconst int maxa = 109;\nconst int maxe = 80009;\nconst int mov[4][2] = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};\nconst double eps = 1e-8;\nint n, m, st, te, c[maxn];\nchar mp[maxa][maxa];\ndouble d[maxn], tg;\nedge *head[maxn], *ep, elst[maxe];\ndpr hp[maxe];\ninline void addEdge(int u, int v, int w) {\nep-\u003e t = v;\nep-\u003e v = w;\nep-\u003e next = head[u];\nhead[u] = ep ++;\n}\ndouble dijkstra(double d0) {\nint th(1);\nhp[0] = dpr(0, st);\nd[st] = 0;\nmemset(c, 0, sizeof(c));\nwhile (th) {\ndpr g(hp[0]);\npop_heap(hp, hp + (th --));\nif (c[g. second] == 2)\ncontinue;\nc[g. second] = 2;\nfor (edge* e = head[g. second]; e; e = e-\u003e next)\nif (c[e-\u003e t] \u003c 2) {\ndouble v0(g. first - (e-\u003e v ? 1.0 : d0));\nif (c[e-\u003e t] == 0 || v0 \u003e d[e-\u003e t]) {\nd[e-\u003e t] = v0;\nc[e-\u003e t] = 1;\nhp[th] = dpr(v0, e-\u003e t);\npush_heap(hp, hp + (++ th));\n}\n}\n}\nreturn -d[te];\n}\ndouble sov() {\nscanf(\"%lf%d%d\", \u0026tg, \u0026n, \u0026m);\nwhile (getchar() != 10);\nfor (int i = 1; i \u003c= n; ++ i) {\nfgets(mp[i] + 1, sizeof(char) * maxa, stdin);\nfor (int j = 1; j \u003c= m; ++ j) {\nint d(mp[i][j]);\nif (d == 'S')\nst = nid(i, j), mp[i][j] = 32;\nelse if (d == 'E')\nte = nid(i, j), mp[i][j] = 32;\n}\n}\nmemset(head, 0, sizeof(head));\nep = elst;\nfor (int i = 1; i \u003c= n; ++ i)\nfor (int j = 1; j \u003c= m; ++ j)\nif (mp[i][j] == 32)\nfor (int mi = 0; mi \u003c 4; ++ mi) {\nint x(i + mov[mi][0]), y(j + mov[mi][1]);\nif (x \u003e 0 \u0026\u0026 x \u003c= n \u0026\u0026 y \u003e 0 \u0026\u0026 y \u003c= m \u0026\u0026 mp[x][y] == 32)\naddEdge(nid(i, j), nid(x, y), (mi \u0026 2));\n}\ndouble l(0), r(10.0);\nwhile (l + eps \u003c r) {\ndouble mid((l + r) / 2.0);\nif (dijkstra(mid) \u003c tg)\nl = mid + eps;\nelse\nr = mid;\n}\nreturn l;\n}\nint main() {\n#ifndef ONLINE_JUDGE\nfreopen(\"in.txt\", \"r\", stdin);\n#endif\nint t;\nscanf(\"%d\", \u0026t);\nwhile (t --)\nprintf(\"%.5lf\\n\", sov());\n}\n",
+  "wordCount" : "338",
+  "inLanguage": "en",
+  "datePublished": "2015-01-17T12:17:59Z",
+  "dateModified": "2015-01-17T12:17:59Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/lofterimport_001/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      BZOJ2709 [Violet 1]迷宫花园
+    </h1>
+    <div class="post-meta"><span title='2015-01-17 12:17:59 +0000 UTC'>January 17, 2015</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>水水的二分+最短路么？</p> 
+<p><br /></p> 
+<p>然后读入坑死了检查了好久的最短路。</p> 
+<p><br /></p> 
+<p>没救了。</p> 
+<p><br /></p> 
+<p>然后发现我好像进前100了，小小地开心一下。</p> 
+<p><br /></p> 
+<p>#include &lt;cstdio&gt;</p> 
+<p>#include &lt;cstring&gt;</p> 
+<p>#include &lt;algorithm&gt;</p> 
+<p><br /></p> 
+<p>using namespace std;</p> 
+<p><br /></p> 
+<p>typedef pair &lt;double, int&gt; dpr;</p> 
+<p><br /></p> 
+<p>struct edge {</p> 
+<p>int v, t;</p> 
+<p>edge *next;</p> 
+<p>};</p> 
+<p><br /></p> 
+<p>#define nid(_x_,_y_)&nbsp;((_x_-1)*m+(_y_))</p> 
+<p><br /></p> 
+<p>const int maxn = 10009;</p> 
+<p>const int maxa = 109;</p> 
+<p>const int maxe = 80009;</p> 
+<p>const int mov[4][2]&nbsp;=&nbsp;{{1, 0},&nbsp;{-1, 0},&nbsp;{0, 1},&nbsp;{0,&nbsp;-1}};</p> 
+<p>const double eps = 1e-8;</p> 
+<p><br /></p> 
+<p>int n, m, st, te, c[maxn];</p> 
+<p>char mp[maxa][maxa];</p> 
+<p>double d[maxn], tg;</p> 
+<p>edge *head[maxn],&nbsp;*ep, elst[maxe];</p> 
+<p>dpr hp[maxe];</p> 
+<p><br /></p> 
+<p>inline void addEdge(int u, int v, int w)&nbsp;{</p> 
+<p>ep-&gt; t = v;</p> 
+<p>ep-&gt; v = w;</p> 
+<p>ep-&gt; next = head[u];</p> 
+<p>head[u]&nbsp;= ep ++;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>double dijkstra(double d0)&nbsp;{</p> 
+<p>int th(1);</p> 
+<p>hp[0]&nbsp;= dpr(0, st);</p> 
+<p>d[st]&nbsp;= 0;</p> 
+<p>memset(c, 0, sizeof(c));</p> 
+<p>while (th)&nbsp;{</p> 
+<p>dpr g(hp[0]);</p> 
+<p>pop_heap(hp, hp +&nbsp;(th&nbsp;--));</p> 
+<p>if (c[g. second]&nbsp;== 2)</p> 
+<p>continue;</p> 
+<p>c[g. second]&nbsp;= 2;</p> 
+<p>for (edge* e = head[g. second]; e; e = e-&gt; next)</p> 
+<p>if (c[e-&gt; t]&nbsp;&lt; 2)&nbsp;{</p> 
+<p>double v0(g. first -&nbsp;(e-&gt; v ? 1.0 : d0));</p> 
+<p>if (c[e-&gt; t]&nbsp;== 0 || v0 &gt; d[e-&gt; t])&nbsp;{</p> 
+<p>d[e-&gt; t]&nbsp;= v0;</p> 
+<p>c[e-&gt; t]&nbsp;= 1;</p> 
+<p>hp[th]&nbsp;= dpr(v0, e-&gt; t);</p> 
+<p>push_heap(hp, hp +&nbsp;(++ th));</p> 
+<p>}</p> 
+<p>}</p> 
+<p>}</p> 
+<p>return -d[te];</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>double sov()&nbsp;{</p> 
+<p>scanf(&quot;%lf%d%d&quot;,&nbsp;&amp;tg,&nbsp;&amp;n,&nbsp;&amp;m);</p> 
+<p>while (getchar()&nbsp;!= 10);</p> 
+<p>for (int i = 1; i &lt;= n;&nbsp;++ i)&nbsp;{</p> 
+<p>fgets(mp[i]&nbsp;+ 1, sizeof(char)&nbsp;* maxa, stdin);</p> 
+<p>for (int j = 1; j &lt;= m;&nbsp;++ j)&nbsp;{</p> 
+<p>int d(mp[i][j]);</p> 
+<p>if (d&nbsp;==&nbsp;'S')</p> 
+<p>st = nid(i, j), mp[i][j]&nbsp;= 32;</p> 
+<p>else if (d&nbsp;==&nbsp;'E')</p> 
+<p>te = nid(i, j), mp[i][j]&nbsp;= 32;</p> 
+<p>}</p> 
+<p>}</p> 
+<p>memset(head, 0, sizeof(head));</p> 
+<p>ep = elst;</p> 
+<p>for (int i = 1; i &lt;= n;&nbsp;++ i)</p> 
+<p>for (int j = 1; j &lt;= m;&nbsp;++ j)</p> 
+<p>if (mp[i][j]&nbsp;== 32)</p> 
+<p>for (int mi = 0; mi &lt; 4;&nbsp;++ mi)&nbsp;{</p> 
+<p>int x(i + mov[mi][0]), y(j + mov[mi][1]);</p> 
+<p>if (x&nbsp;&gt; 0 &amp;&amp; x &lt;= n &amp;&amp; y &gt; 0 &amp;&amp; y &lt;= m &amp;&amp; mp[x][y]&nbsp;== 32)</p> 
+<p>addEdge(nid(i, j), nid(x, y),&nbsp;(mi &amp; 2));</p> 
+<p>}</p> 
+<p>double l(0), r(10.0);</p> 
+<p>while (l&nbsp;+ eps &lt; r)&nbsp;{</p> 
+<p>double mid((l + r)&nbsp;/ 2.0);</p> 
+<p>if (dijkstra(mid)&nbsp;&lt; tg)</p> 
+<p>l = mid + eps;</p> 
+<p>else</p> 
+<p>r = mid;</p> 
+<p>}</p> 
+<p>return l;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int main()&nbsp;{</p> 
+<p>#ifndef ONLINE_JUDGE</p> 
+<p>freopen(&quot;in.txt&quot;,&nbsp;&quot;r&quot;, stdin);</p> 
+<p>#endif</p> 
+<p><br /></p> 
+<p>int t;</p> 
+<p>scanf(&quot;%d&quot;,&nbsp;&amp;t);</p> 
+<p>while (t&nbsp;--)</p> 
+<p>printf(&quot;%.5lf\n&quot;, sov());</p> 
+<p>}</p> 
+<p><br /></p>
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/bzoj/">bzoj</a></li>
+      <li><a href="/tags/graph/">graph</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/lofterimport_000/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>BZOJ2693 jzptab</span>
+  </a>
+  <a class="next" href="/oi/lofterimport_002/">
+    <span class="title">Next »</span>
+    <br>
+    <span>BZOJ1273 [BeiJingWc2008]序列</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

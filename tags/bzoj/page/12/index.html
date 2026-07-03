@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>bzoj | The Site of laekov</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/tags/bzoj/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="/tags/bzoj/index.xml">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="bzoj" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="/tags/bzoj/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="bzoj"/>
+<meta name="twitter:description" content=""/>
+
+</head>
+
+<body class="list" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+<header class="page-header"><div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/tags/">Tags</a></div>
+  <h1>
+    bzoj
+    <a href="/tags/bzoj/index.xml" title="RSS" aria-label="RSS">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" height="23">
+        <path d="M4 11a9 9 0 0 1 9 9" />
+        <path d="M4 4a16 16 0 0 1 16 16" />
+        <circle cx="5" cy="19" r="1" />
+      </svg>
+    </a>
+  </h1>
+</header>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>BZOJ3251 树上三角形
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>&lt;div class=&#34;post_brief&#34;&gt;&lt;p&gt; 原来在win下也有敲回车的bug。开心。&lt;/p&gt;  
+这题坑啊。暴力还是很好想的，如果个数超过几十个的话就肯定有解了。比较坑的是两边之和大于第三边，边权231-1然后加起来就超过int的范围了。连WA若干次再见。
+ 
+#include &lt;cstdio&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+struct edge { int t; edge *next; };
+const int maxn = 100009; const int maxc = 88;
+int n, m, v[maxn], d[maxn], fa[maxn], c[maxc]; edge *head[maxn], elst[maxn &lt;&lt; 1], *ep(elst);
+void bfs() { static int q[maxn]; int hd(0), tl(1); q[0] = 1; memset(d, 0, sizeof(d)); d[1] = 1; while (hd &lt; tl) { int p(q[hd &#43;&#43;]); for (edge* e = head[p]; e; e = e-&gt; next) if (!...</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-01-26 23:00:41 +0000 UTC'>January 26, 2015</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to BZOJ3251 树上三角形" href="/oi/i11rimport_075/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>BZOJ2419 电阻
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>&lt;div class=&#34;post_brief&#34;&gt;&lt;p&gt; 记得这是高一的时候ty同学和我说的东西了。然后现在才解决，可以打败上帝造题的七分钟，荣登解决时间最长的题目了。&lt;/p&gt;  
+其实也就是一个高斯消元，用电势来列方程。不过高斯消元写得不熟，平时有空都写ds的题去了。以后不能再这样了。
+ 
+用自己的代码高亮脚本了，虽然还不完善不过还是很开心的。
+ 
+#include &lt;cstdio&gt; #include &lt;cstring&gt; #include &lt;cmath&gt; #include &lt;cstdlib&gt; #include &lt;algorithm&gt; using namespace std;
+const int maxn = 109; const double inf = 1e100; const double eps = 1e-8;
+double x[maxn], a[maxn][maxn], b[maxn][maxn]; int n, m, perm[maxn];
+int main() { #ifndef ONLINE_JUDGE freopen(“in.txt”, “r”, stdin); #endif
+srand(19970911); while (scanf(&#34;%d%d&#34;, &amp;amp;n, &amp;amp;m) != EOF) { for (int i = 1; i &amp;lt;= n; &#43;&#43; i) perm[i] = i; if (n &amp;gt; 2) random_shuffle(perm &#43; 2, perm &#43; n); for (int i = 1; i &amp;lt;= n; &#43;&#43; i) for (int j = 1; j &amp;lt;= n; &#43;&#43; j) if (i == j) a[i][j] = 0; else a[i][j] = inf; while (m --) { int u, v; double p; scanf(&#34;%d%d%lf&#34;, &amp;amp;u, &amp;amp;v, &amp;amp;p); u = perm[u]; v = perm[v]; if (u == v) continue; a[u][v] = 1....</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-01-25 21:33:41 +0000 UTC'>January 25, 2015</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to BZOJ2419 电阻" href="/oi/i11rimport_078/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>BZOJ3136 [Baltic2013]brunhilda
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>&lt;div class=&#34;post_brief&#34;&gt;&lt;p&gt; 决心写一道usaco之外的题，于是就挑中了这道。&lt;/p&gt;  
+为啥这编辑器有BUG，每次按回车要向下跳？
+ 
+发现可以预处理DP。f_i表示第i个数被砍完需要最少多少刀。对于每一个i，设p_i是它的质因子里最大的一个在给定集合里的，那么它可以转移到(i&#43;1,i&#43;p_i)这个范围。然后f_i显然不减，所以用单调队列之类的玩意。
+ 
+然后卡着时间限制过了。不知道前面那些秒跑的人是怎么搞的。
+ 
+#include &lt;cstdio&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+const int maxn = 10000009; const int maxm = 100009;
+int k[maxn], f[maxn], n, m, q, p[maxm], v[maxm];
+void pre(int n) { sort(p, p &#43; m); memset(k, 0, sizeof(k)); for (int i = 0; i &lt; m; &#43;&#43; i) if (!i || p[i] != p[i - 1]) for (int j = 0; j &lt;= n; j &#43;= p[i]) k[j] = p[i];...</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-01-23 21:32:41 +0000 UTC'>January 23, 2015</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to BZOJ3136 [Baltic2013]brunhilda" href="/oi/i11rimport_080/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>BZOJ3314 [Usaco2013 Nov]Crowded Cows
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>&lt;div class=&#34;post_brief&#34;&gt;&lt;p&gt; 又搬blog。发现这里可以自定义css之后就果断了。&lt;/p&gt;  
+写道水题试试。set的应用。然后还写丑WA了两次，我没救了。
+ 
+代码高亮是坏了吗？不要吓我。
+ 
+决定直接用oj7的代码版了，没有高亮就算了。
+#include &lt;cstdio&gt; #include &lt;algorithm&gt; #include &lt;set&gt; using namespace std;
+typedef multiset &lt;int&gt; rb_tree; typedef rb_tree :: iterator rb_node; typedef pair &lt;int, int&gt; cow;
+const int maxn = 50009;
+int n, d, x[maxn], a[maxn], r[maxn]; cow c[maxn]; rb_tree t;
+int main() { #ifndef ONLINE_JUDGE freopen(“in.txt”, “r”, stdin); #endif
+scanf(&#34;%d%d&#34;, &amp;amp;n, &amp;amp;d); for (int i = 1; i &amp;lt;= n; &#43;&#43; i) { scanf(&#34;%d%d&#34;, x &#43; i, a &#43; i); c[i] = cow(x[i], a[i]); r[i] = 0; } sort(c &#43; 1, c &#43; n &#43; 1); for (int i = 1; i &amp;lt;= n; &#43;&#43; i) { x[i] = c[i]....</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-01-23 10:51:41 +0000 UTC'>January 23, 2015</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to BZOJ3314 [Usaco2013 Nov]Crowded Cows" href="/oi/i11rimport_082/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>BZOJ2693 jzptab
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>多组询问，硬根号。yy了一下午，在去80MSWC的时候的病历上打了若干草稿，最后硬yy出来了。
+其实拿LaTeX来当公式编辑器蛮好的。
+然后d(a)函数可以线性筛，讨论一下是不是倍数就行了。
+发现数论真的好神奇。
+lofter的html源码好讨厌啊。
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+ 
+using namespace std;
+ 
+#define _l (long long int)
+ 
+const int maxn = 10000009;
+const int maxq = 10009;
+const int mod = 1e8 &#43; 9;
+ 
+int pn[maxn], tp, d[maxn];
+bool pr[maxn];
+int q, m[maxq], n[maxq], t;
+ 
+#define incm(_a_,_b_) { \
+    _a_&#43;=_b_; \
+    if (_a_&gt;=mod||_a_&lt;=-mod) \
+        _a_%=mod; \
+    if (_a_&lt;0) \
+        _a_&#43;=mod; \
+}
+ 
+void pre(int n) {...</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-01-17 18:36:19 +0000 UTC'>January 17, 2015</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to BZOJ2693 jzptab" href="/oi/lofterimport_000/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>BZOJ2709 [Violet 1]迷宫花园
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>水水的二分&#43;最短路么？
+然后读入坑死了检查了好久的最短路。
+没救了。
+然后发现我好像进前100了，小小地开心一下。
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+typedef pair &lt;double, int&gt; dpr;
+struct edge {
+int v, t;
+edge *next;
+};
+#define nid(_x_,_y_) ((_x_-1)*m&#43;(_y_))
+const int maxn = 10009;
+const int maxa = 109;
+const int maxe = 80009;
+const int mov[4][2] = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+const double eps = 1e-8;
+int n, m, st, te, c[maxn];
+char mp[maxa][maxa];
+double d[maxn], tg;
+edge *head[maxn], *ep, elst[maxe];
+dpr hp[maxe];...</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-01-17 12:17:59 +0000 UTC'>January 17, 2015</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to BZOJ2709 [Violet 1]迷宫花园" href="/oi/lofterimport_001/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>BZOJ1273 [BeiJingWc2008]序列
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>逃掉数学考试。感觉解几纯粹不给人希望。
+这题还是比较有意思。做法是把每位分开预处当总共加了多少的时候这一位上是1的数字有多少个。然后每一层是线性的。询问是O(1)的。
+然后发现自己的代码能力已经没救了。
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#define pow2(x) (1&lt;&lt;(x))
+typedef long long dint;
+#ifdef WIN32
+#define lld &#34;%I64d&#34;
+#else
+#define lld &#34;%lld&#34;
+#endif
+const int maxn = 100009;
+const int maxl = 16;
+const int maxv = pow2(maxl) - 1;
+int n, m, c[maxv &#43; 3], *t[maxl], b;
+dint s;
+void pre() {
+for (int i = 0; i &lt; maxl; &#43;&#43; i) {
+int len(pow2(i));
+t[i] = new int[(len &lt;&lt; 1) &#43; 3];
+t[i][0] = 0;
+for (int j = 0; j &lt;= maxv; &#43;&#43; j)...</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-01-16 17:13:02 +0000 UTC'>January 16, 2015</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to BZOJ1273 [BeiJingWc2008]序列" href="/oi/lofterimport_002/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>BZOJ2393 Cirno的完美算数教室
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>充分证明我已经学傻了。把ONLINE_JUDGE打成ONLINE_JUGE还WA了若干次。然后开了个10^10的数组直接CE还想了好久是怎么回事。
+10^10大概会TLE，真正的数据大概只有10^9。
+做法比较简单直接容斥&#43;剪枝，反正凑起来的几个数不会很多。
+#ifndef ONLINE_JUGE
+#include &lt;cstdio&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+typedef long long dint;
+#ifdef WIN32
+#define lld &#34;%I64d&#34;
+#else
+#define lld &#34;%lld&#34;
+#endif
+const int maxa = 2048;
+const dint maxn = 10000000000LL;
+//const dint maxn = 100000LL;
+int e, t;
+dint l, r, s, a[maxa], ans;
+bool g[maxa];
+void pre() {
+t = 0;
+for (int l = 1; l &lt;= 10; &#43;&#43; l)
+for (int j = 0; j &lt; (1 &lt;&lt; l); &#43;&#43; j) {...</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-01-11 11:12:49 +0000 UTC'>January 11, 2015</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to BZOJ2393 Cirno的完美算数教室" href="/oi/lofterimport_004/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>BZOJ2813 奇妙的Fibonacci
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>的确比较奇妙。
+有一个奇妙的玩意是fib[gcd(i, j)] == gcd(fib[i], fib[j])。(fib[1] = fib[2] = 1)
+然后就比较可搞了。
+线性筛处理每个数的因子个数和因子和。开一点变量然后推一下就出来了。
+然后要注意fib[2]也可以整除所有奇数，包括1。表示在这上面坑了2次提交。
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+#define _l (long long int)
+const int maxn = 10000009;
+const int mod = 1000000007;
+int tp, pn[maxn], sa[maxn], sb[maxn], b[maxn], c[maxn];
+bool pr[maxn];
+void pre(int n) {
+memset(pr, 0, sizeof(pr));
+tp = 0;
+sa[1] = 1;
+sb[1] = 1;
+b[1] = 1;
+c[1] = 0;
+for (int i = 2; i &lt;= n; &#43;&#43; i) {
+if (!...</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-01-08 20:46:03 +0000 UTC'>January 8, 2015</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to BZOJ2813 奇妙的Fibonacci" href="/oi/lofterimport_005/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>BZOJ3522 [Poi2014]Hotel
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>水水的dp。拿pascal玩玩边表。然后莫名其妙地发现在main上先是ce然后全wa。下到数据一测就过了，交bzoj还是过了。不开心。
+必定是一个中间点然后连三条出去。所以直接枚举中间点然后bfs就好了。相当于每条边被转移了两次所以还是O(n^2)的。最初想错了想成三方了把自己吓了一跳。
+pascal啊。
+type
+edge = ^edger;
+edger = record
+t: longint;
+next: edge;
+end;
+const
+maxn = 5009;
+//ONLINE_JUDGE = false;
+ONLINE_JUDGE = true;
+var
+n, i, j, u, v: longint;
+ans: int64;
+d, cd, sd, td: array [0 .. maxn] of longint;
+head: array [0 .. maxn] of edge;
+ei: edge;
+procedure addEdge(u, v: longint);
+var
+ep: edge;
+begin
+new(ep);
+ep^. t := v;
+ep^. next := head[u];
+head[u] := ep;
+end;...</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-01-08 19:14:45 +0000 UTC'>January 8, 2015</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to BZOJ3522 [Poi2014]Hotel" href="/oi/lofterimport_006/"></a>
+</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="prev" href="/tags/bzoj/page/11/">
+      «&nbsp;Prev&nbsp;
+    </a>
+    <a class="next" href="/tags/bzoj/page/13/">Next&nbsp;&nbsp;»
+    </a>
+  </nav>
+</footer>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

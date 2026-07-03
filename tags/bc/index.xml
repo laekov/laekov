@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>bc on The Site of laekov</title>
+    <link>/tags/bc/</link>
+    <description>Recent content in bc on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Mon, 16 Mar 2015 22:35:14 +0000</lastBuildDate><atom:link href="/tags/bc/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>hdu5189 zhx&#39;s tree</title>
+      <link>/oi/dbimport_252/</link>
+      <pubDate>Mon, 16 Mar 2015 22:35:14 +0000</pubDate>
+      
+      <guid>/oi/dbimport_252/</guid>
+      <description>自己出的题还要写题解。
+就是化成可以二分的形式，然后发现是找凸壳上x=x0的时候的最大值的和，看它是否大于0。
+于是就写呗。据说很难写。我觉得写起来还行啊。
+其实主要是为了测试系统用的。</description>
+    </item>
+    
+    <item>
+      <title>20150314 BC33</title>
+      <link>/diary/i11rimport_000/</link>
+      <pubDate>Fri, 13 Mar 2015 22:34:41 +0000</pubDate>
+      
+      <guid>/diary/i11rimport_000/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 这回我是出题人。第一次出给这么多人做。&amp;lt;/p&amp;gt; &amp;nbsp;
+好像是一个很有意思的故事。我猜看到的人会喷死我。不过反正已经身败名裂了。大概我能作为bc史上最逗逼的出题人被记录下来了。
+&amp;nbsp;
+还是记下来这个悲伤的故事吧。也许未来某天还可以愉快地回忆一下。
+&amp;nbsp;
+要从去年12月强行退役开始说。当时觉得生活太无聊了于是yy了四道题去找bestcoder。当时的四道题分别是高精加，现在的第三题数据弱化版，一道灭绝树的裸题，一道动态dfs序。然后审了一下说我题太难了。于是把灭绝树扔了把第三题换成第二题，把第二题改成单峰序列这个坑题。然后听说可以出数据了。
+退役的日子，时间也不多，于是拖到wc之前才在宾馆里把数据出出来了。发过去了。然后让我等一个月。
+&amp;nbsp;
+于是就等到开学了。周二晚上快睡觉的时候，qq上发来消息说，“下周用你的题”。于是我就被拉进了一个验题组。
+&amp;nbsp;
+有人对我说：1001高精，即使b进制也可以强行用java水的。于是开始郁闷了。因为早上要考试所以比他们都睡得早，当然比平时睡得晚很多。比较开心的是某君说了一句“高中生的数据结构都好强”。
+&amp;nbsp;
+第二天早上起来，发现他们说1004在bzoj上有原题，我还是它的弱化版。那题我都没仔细看完过题啊- -b。不开心了。那既然是原题就得换。于是与某队友一起yy良久出了一道d。后来事实证明这是个悲剧。下午把题给验题组看，说是可以。于是去写std，造数据，不亦乐乎。最后发现std因为复杂度太高，所以得把数据出弱，会不会给暴力？不管嘛。扔hdoj服务器上好像还挺快的样子。然后就因为精度误差对拍出各种错。好郁闷。然后想起还有一套给高一的题？熬夜把数据造了。
+&amp;nbsp;
+第三天早上起来，看到有人说第三题数据范围可以加到30，用分两半的方法。想想的确可以。于是就去写了个分两半的东西。然后悲伤地发现已经搞忘之前的datamaker的参数是怎么设计的了。于是随便传了几个参数进去，发现能造出无解的数据。那就这样呗。然后发现第一题可以改一改让高精板废掉。于是就去改了呗。然后晚上的时候第三题又挑出bug了。用c++能过，而用g++怎么都是wa。去找了个cena的g++之后发现还真wa了。然后觉得大概那个方法是错的吧。于是先把数据范围改回16好喽。又是十二点。
+&amp;nbsp;
+第四天早上考试脑子都不清醒了。犯了一堆逗逼错自坑110分。感觉不太好。下午的时候看到有人批斗了我的1003，原来是我排序的关键字搞错了。又改回来吧。然后又有人提醒我1004可以用分数。赶紧改。晚上感觉好累。去跑了3000之后好了一些。
+&amp;nbsp;
+第五天也就是今天了。怎么感觉像是审判一样。早上很晚才起。然后就发现有人又告诉我1004的精度还是不够。然后提出可以换他的1004。决定任性一把，自立deadline。最后提出的解决方案是提高std的精度，同时把数据范围从1e6降到1e3。拍了上万组之后觉得无误了。虽然最后还是徒劳。
+&amp;nbsp;
+下午的时候传来消息说给高一出的数据里三道有两道有问题。不是个好兆头啊。
+&amp;nbsp;
+晚上比赛前怎么觉得比做题还紧张。从开始到等来第一个submission的五分钟感觉是我人生中最慢的五分钟了。
+&amp;nbsp;
+还好1001有人过了。然后1002有人过了。至少这两个题是没有事了。（其实有）然后发现1003怎么前几次都在wa？看看怎么都写的dfs！？然后居然有dfs就过了。郁闷ing。
+&amp;nbsp;
+然后另一项工作是答疑。有人说我中文第二题到底是两个都要满足还是只满足一个？根本没看想了一想说只要满足一个。我想成只要是峰或者谷就行了。然后还顺便发了一发通知。几分钟过后才意识过来发错了赶紧改。据说这一下坑了很多人。
+&amp;nbsp;
+然后就渐渐有人过题了。感觉1003数据给水了啊。好像还真是水。看来没有成功理解当时写的datamaker。
+&amp;nbsp;
+直到结束也没有人交最后一题。虽然听zhx说有人在写。
+&amp;nbsp;
+然后，code time结束。hack开始。然后服务器就崩了。之后的20多分钟没有成功打开网站。看到不同的群里吐槽颇多。
+&amp;nbsp;
+然后再打开网页的时候已经完了。好像很惨的样子。
+&amp;nbsp;
+然后有人开始说数据水了。第二题只有一组1 1，没有成功卡掉忘减1的人。第三题what鬼，暴力随便过。
+&amp;nbsp;
+好吧是疏忽了。
+&amp;nbsp;
+所以就身败名裂了呗。
+&amp;nbsp;
+估计当初想骗些出题费也是无望了。
+&amp;nbsp;
+估计不久之后出去的时候还会被狂吐槽。
+&amp;nbsp;
+所以说毕竟我还是太弱了。还是好好刷题去吧。不要天天想着骗钱。</description>
+    </item>
+    
+    <item>
+      <title>20150228 bc31</title>
+      <link>/diary/i11rimport_028/</link>
+      <pubDate>Fri, 27 Feb 2015 22:40:41 +0000</pubDate>
+      
+      <guid>/diary/i11rimport_028/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 又是愉快的一天两场。&amp;lt;/p&amp;gt; &amp;nbsp;
+早上是高三众出了一套据称是NOIP模拟题的玩意。感觉比较坑，不过还是可做。
+&amp;nbsp;
+第一题是个简单的思考题，除了高精以外没啥恶心的地方。但是当时觉得有点麻烦，想对了方向但是没有继续想下去。当然一个重要的原因是第二题和第三题比较吸引人。
+&amp;nbsp;
+第二题是个灭绝树的比较裸的题。这玩意比较简单不过比较偏。这种考点就是要严防的。建树还比较简单。问题是求一堆链的并比较麻烦。当然我直接上链剖了反正最近写得比较多，半个小时就搞定了整道题。然后也可以不用链剖用DFS序的，不过我觉得可能我思考和调试的时间会比直接无脑码链剖的时间还要长。
+&amp;nbsp;
+第三题是去年冬令营前模拟的时候考过的原题吧，大概日期是20140122？印象比较深的原因是时空穿梭有这个部分分不过那题我还是暴0了。一年过去了，于是我决定硬推mobius，然后推了若干页草稿纸，中间还经历了一次重启之后最终还是推出来了。中间重启的原因还是对mobius反演不够熟悉。不过感觉经过上次在80ms的学习之后，自己的数论水平还是有些进步吧。至少现在看到mobius不会昏了。
+&amp;nbsp;
+于是考试的时候第一题30暴力+100+100。没写丑东西还是比较欣慰的。
+&amp;nbsp;
+下午各种事情没有刷题没有改题没有写总结。
+&amp;nbsp;
+晚上7点17分想起有BC。
+&amp;nbsp;
+a题小学生题水。
+&amp;nbsp;
+b题中学生题数位DP水。然后写了半天。久了不写手生。怎么感觉说这句话说了整整一个寒假了。
+&amp;nbsp;
+c题不是当年SCOI那个题的升级版吗？然后naive了一次因为如果有车把两行隔开的话两个王就不会产生影响了。然后发现要先处理出所有大小方块的王的放法数，然后枚举一下n的正整数拆分，还要用在xj学到的枚举排列去重的方法。细节各种麻烦。写之交之过pt之玩之fst之，错因未知。
+&amp;nbsp;
+d题不会。题解都那么长一定是神题。
+&amp;nbsp;
+然后去写上午的第一题，然后脑洞大开写了个java，然后去补bzoj，然后写总结。事情好多TT
+&amp;nbsp;
+所以我还是太年轻了啊。</description>
+    </item>
+    
+    <item>
+      <title>HDU5173 GTY&#39;s game II</title>
+      <link>/oi/i11rimport_054/</link>
+      <pubDate>Fri, 06 Feb 2015 23:10:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_054/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; bc的题。今天bc又挂了。这题没有写完，然后b题fst了。伤心啊。&amp;lt;/p&amp;gt; &amp;nbsp;
+其实思路比较简单。直接链剖dfs序上把所有区间找出来swap就好了。不过代码实现起来还是比较麻烦的，很容易绕晕。加上smt久了没写手生了，于是就调了一晚上。唉，我还是太年轻了。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstdlib&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+struct node { int v, s, sz, w, rv; node ls, rs; inline void update() { sz = 1; s = v; if (ls) { sz += ls-&amp;gt; sz; s += ls-&amp;gt; s; } if (rs) { sz += rs-&amp;gt; sz; s += rs-&amp;gt; s; } } inline void fix() { if (rv) { swap(ls, rs); if (ls) ls-&amp;gt; rv ^= 1; if (rs) rs-&amp;gt; rv ^= 1; rv = 0; } } }; typedef pair &amp;lt;node, node&amp;gt; npr;</description>
+    </item>
+    
+  </channel>
+</rss>

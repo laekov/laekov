@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>verilog on The Site of laekov</title>
+    <link>/tags/verilog/</link>
+    <description>Recent content in verilog on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Tue, 12 Jun 2018 14:00:36 +0000</lastBuildDate><atom:link href="/tags/verilog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CaPiano 基于 FPGA 和摄像头的现实增强钢琴</title>
+      <link>/technical/7acc1f/</link>
+      <pubDate>Tue, 12 Jun 2018 14:00:36 +0000</pubDate>
+      
+      <guid>/technical/7acc1f/</guid>
+      <description>Queue 了一篇 CaPiano. 上午展示完. 人智课生产力低下. 把它 Dequeue 了罢.
+这个项目的最初设想是造一个识别指尖的算法, 然后用它来弹钢琴并发出声音. 还有一个完全没有开动的二期工程是把它变成一个音游 / 录音机.
+蓝图是美好的, 实现是丑陋的.
+摄像头 过去一个半月的主要工作就是和这个 OV7670 (AL422B) 的摄像头做斗争. AL422B 是一个 DRAM 的 FIFO 队列, 通过巧妙地接 7670 和 422 的管脚可以实现把 422 作为 7670 的一个输出缓冲. 422 本来是用于简化这件事的. 在国外大学的 PA 文档里也是这么说的. 然而 422 这个东西最大的毛病就是没有 dataready 这个信号, 所以根本没法成功探索出什么时候可以读. 挣扎了很久之后我选择买了一个不带 422 的 7670.
+7670 通过 SCCB 协议来进行配置, 有一些寄存器. 主要有用的是控制彩色的 12 和控制输出格式的 40. 本来想要 RGB565 加 QVGA 爽歪歪. 然而我的配置模块跑出来结果完全不对, 最后发现根本没设起. 降频到手工时钟都没有办法正常工作. 于是只好放弃, 使用默认的 YUV + VGA.</description>
+    </item>
+    
+  </channel>
+</rss>

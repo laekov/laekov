@@ -1,0 +1,1131 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>summary on The Site of laekov</title>
+    <link>/tags/summary/</link>
+    <description>Recent content in summary on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Mon, 14 Nov 2016 10:22:27 +0000</lastBuildDate><atom:link href="/tags/summary/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>20161113 ICPC Qingdao</title>
+      <link>/diary/3ed1b2/</link>
+      <pubDate>Mon, 14 Nov 2016 10:22:27 +0000</pubDate>
+      
+      <guid>/diary/3ed1b2/</guid>
+      <description>补mark.
+去青岛欢度周末然而没吃到任何海鲜差评.
+想带点纪念品回来然而一直没机会. 最后只有在高铁站里乱逛感觉东西不行于是啥都没买qwq.
+所以说好的acm旅游呢.
+头天试机的时候感觉自己状态好差, 仔细分析发现是头天晚上在火车上没洗澡所致.
+而且现在头发的长度已经有点不能忍了啊. 又开始纠结要不要去剪头发了.
+试机晚上和zhx去打台球. zhx一直在跳球真是有毒qaq. 然而我的台球水平还是竦么菜.
+睡前看板发现这都是些smg啊qaq. 为什么你们的板子大括号要换行啊qaq. 果然以后还是得自己备板.
+考试日起来感觉满血满状态复活.
+打vimrc的时候手僵.
+听说有些区的pc方在开场的时候挂了半小时. 还好我们运气不错, 只有榜挂了.
+上来zhx先切掉了a.
+然后觉得c可以推一推然后发现这个微分方程我还没学啊喂.
+于是我就去写b的魔方了. 魔方这玩意真是有毒好么.
+然后发现zhx和mhy还在推c还是f来着. 然后我发现g是个裸裸的费用流于是去写. 好久不写这玩意都手生了. 然后强行看错题意乘二. 第一次是直接把概率加起来了. 第二次是把有向边看成了无向边还yy了一个蛮麻烦的建图方法.
+然后zhx终于把c给淦出来了. 结果方程凑一下就出来了, 式子炒鸡简单.
+然后我和mhy都想到d题只算轮数较少的情况就行了. 然后zhx就写挂了过不到样例.
+于是我就去开k的kd-tree做法.
+过了一会zhx发现他sb了, 改了一下就过了还喊了一句 &amp;ldquo;woc&amp;rdquo;, 技惊四座.
+然后我就把kd-tree给debug了一下也过了.
+然后就发现没题可做了. 我把m转化成平面上放点, 区间改点区间查询. 想用二维线段树感觉标记不好维护. zhx写一半弃疗了.
+然后我们看了一下h插头懒得写, f大模拟懒得写, i式子太复杂不知道是啥鬼, l想了半天没有思路.
+zhx和我又想了想可以用象限四分树. zhx写了半天. 然后我灵机一动为什么不直接用kd-tree艹过去呢. 然后半粘半写的搞了一份.
+zhx和mhy则开始想j. 然后zhx搞了一个乱七八糟的dfs.
+然后我的m开始tle, zhx的j开始wa.
+这时候已经封榜了. 我对着我打印的代码找bug, zhx和mhy用gdb debug.
+然后我发现我的m写得太匆忙好多细节都没想清楚. 最后写了个data generator拍了一下, 发现因为忘剪标记所以死循环了. 然后就wa了. 然后再改个brute force出来拍了一下发现还是标记没打对. 然后最后终于在还有9分钟的时候a掉了. 后来发现还是first blood.</description>
+    </item>
+    
+    <item>
+      <title>20160805</title>
+      <link>/diary/ac19c2/</link>
+      <pubDate>Fri, 05 Aug 2016 01:38:50 +0000</pubDate>
+      
+      <guid>/diary/ac19c2/</guid>
+      <description>大半夜的.
+要是我写完开始system test了我就等它完.
+上午在银行排了很久的队. 然后就给夏令营的小朋友们出了个造排队机的奇怪的题目. 听说讨论得很诡异.
+下午打了奇奇怪怪的多校. 只输出了一个题然后就开始爆炸qaq.
+晚上还是耐不住去打了cf.
+打开aoao那个号想把friends copy过来. 才发现已经没有什么friends了.
+就像acm组队一样. 总像是在等什么, 然而什么都没有.
+然而cf这种游戏已经不适合我这种看错题还交了好多好多遍的老年人了.
+数据结构题也是想了好久, 比赛最后才生死时速. 没拍过感觉药丸.
+明天早上还要去学科目三. 真是药丸.
+所以我真是一只辣鸡呢.</description>
+    </item>
+    
+    <item>
+      <title>20160802</title>
+      <link>/diary/282c65/</link>
+      <pubDate>Tue, 02 Aug 2016 23:01:25 +0000</pubDate>
+      
+      <guid>/diary/282c65/</guid>
+      <description>玄妙的一天.
+第一次正经参加MU.
+上午睡啊睡. 然后雨好大还忘了家里有吃的, 跑出去湿身淋得焦湿.
+于是就错过了抢水题fb的机会&amp;gt;_&amp;lt;.
+yjq: 03比较好写啊.
+hja: 我来.
+几分钟后.
+hja: 卧槽wa了. 卧槽看错题了.
+yjq: 辣鸡hja滚一边去.
+hja: TAT我去搞辣鸡dp题1011.
+几分钟后.
+hja: 过掉了1011. 这个1012看上去很清真啊. 不就是容斥一下嘛. 刚才浪费的树状数组代码也可以用上辣.
+几分钟后.
+hja: 过掉了1012. 这个1005似乎是个回文串的题? 作为讲字符串的老师尊严何在? 撸!
+十几分钟后.
+hja: 过掉了1005. interesting. 然而被抢走了fb. 这个1002的数据范围怎么那么小? 很像是暴力嘛.
+mhy: 资瓷啊. 搞暴力啊.
+十几分钟后.
+hja: 果然暴力走next树就艹掉了这题.
+hja: 这个1008很清真啊. 也就是一个dfs序+主席树+dfs乱搞? 你们有谁要接这个锅啊?
+yjq: 艹了半天1010这题有毒.
+lxl: 别用主席树. 我这有高效平衡树.
+十几分钟后.
+hja: 还没人接锅? 那我自己背好了.
+几十分钟后.
+hja: 多年不写ds手生了. wtf? 居然tle了?
+lxl: 主席树肯定会火暴. 你可以试试写对顶堆合并? 我这有高效平衡树你要不要.
+hja: 我去写个对顶左偏树算了.
+几十分钟后.
+hja: 差点忘了怎么写了. WTF!</description>
+    </item>
+    
+    <item>
+      <title>20150713</title>
+      <link>/diary/dbimport_055/</link>
+      <pubDate>Tue, 14 Jul 2015 13:03:05 +0000</pubDate>
+      
+      <guid>/diary/dbimport_055/</guid>
+      <description>last training day before noi. 闻到了退役的味道.
+第一题只想到kd-tree doing big die.想到可以持久化一维来降低复杂度不过炸了.
+第二题居然mle了ovo看来size和自己写的judge都不靠谱.arbiter才是王道.
+答案提交题ovoovoovo好神啊想了一堆东西.不过太不切实际了ovo
+所以窝还是太弱辣!准备退役啦!</description>
+    </item>
+    
+    <item>
+      <title>20150712</title>
+      <link>/diary/dbimport_054/</link>
+      <pubDate>Sun, 12 Jul 2015 20:20:58 +0000</pubDate>
+      
+      <guid>/diary/dbimport_054/</guid>
+      <description>咦今天712了.离noi还有2天ovo浪浪浪.
+听说今天题会比较难?
+第一题矩阵水过.似乎省选的时候qian qiao有讲过.
+第二题容斥套容斥ovo出题人怎么想的ovoovo然后被卡常是smg.
+第三题是pa原题啊.然而不会.下来看发现只有jcvb一个人过了那玩啥啊.然后网络流水过了40分还被卡了一个点的常woc然后就被水过去了ovo数据出丑了.
+然后晚上去打台球发现自己已经毁了ovoovo
+我太弱啦.</description>
+    </item>
+    
+    <item>
+      <title>20150708</title>
+      <link>/diary/dbimport_052/</link>
+      <pubDate>Wed, 08 Jul 2015 20:06:38 +0000</pubDate>
+      
+      <guid>/diary/dbimport_052/</guid>
+      <description>最后一天在学校训练了呢.也许再也没有机会回机房了.好开心ovo(咦画风没对)
+上午考试一副把noi的rp都用完的节奏.然后看到mhy达叶两小时ak走人整个人都吓傻了.
+第一题不会不过打表水过.
+第二题用了两次判别式其实没那么复杂.
+第三题原题ovoovoovo
+下午的时候又是颁奖ovoovo想起了去年发给我的风扇.一年过去了.感慨ing
+然后oj7也完成使命了.唉,虽然写得要多丑有多丑不过还是凑合过了将近一年ovoovo
+然后才成都没四天又走了ovoovo这回是真正踏上不归路了.The fork.
+唉我还是太弱了.</description>
+    </item>
+    
+    <item>
+      <title>20150705</title>
+      <link>/diary/dbimport_050/</link>
+      <pubDate>Sun, 05 Jul 2015 18:42:04 +0000</pubDate>
+      
+      <guid>/diary/dbimport_050/</guid>
+      <description>在黄花机场写最后一篇总结.
+最近两天考得都很逗.虽然昨天晚上强行解烧,不过今天早上显然没好全于是2小时写完代码开始颓.感觉好对不起人民啊.
+第一题不是和昨天晚上bc的b题很像么.三元环的数目是O(m1.5)的.于是随便思考了一个感觉不太会错的算法就交了.然后居然能过.然后居然把1和2看反了扔掉60分.我没救了.
+第二题错误的三分居然能拿80.然而,O2直接全输出0是什么情况啊.不知道喽.
+第三题正好复习一下manacher.正解肯定当时想不出来ovo我太弱了.
+身体各种不资瓷啊.据说是流感?好吓人.
+于是再总结一下这回在外面待的10天吧.
+考试来讲看上去还不错,不过问题其实比较大.常常把朴素算法或者正解写错.然后很多题也想不到正解.然而正解其实不难.noi的时候需要注意的是把该写好的东西写好,检查对.要不就亏了.
+然后听讲的效率还是蛮低啊.感觉上高中之后这一直是个很困扰我的问题.当然做笔记是个好办法不过有时候如果听不下去了也要及时止损.
+还有这回和czr还有rause两位大爷交流得比较多.感觉人家上海人就是会玩!在数学和思维这两方面的确和别人有差距.然后别人家的学校和cdqz,唉.可能也是因为人家经济发达所以教育资源比较充足吧.我们这个西部贫困小山村的井底之蛙学校,没救没救.
+还有yyy.感谢妳能在我最感觉坚持不下去的时候及时给我希望和动力.我不会辜负妳的.
+嗯,我还是太弱了.noi要加油.</description>
+    </item>
+    
+    <item>
+      <title>20150703</title>
+      <link>/diary/dbimport_049/</link>
+      <pubDate>Sat, 04 Jul 2015 10:18:39 +0000</pubDate>
+      
+      <guid>/diary/dbimport_049/</guid>
+      <description>昨天晚上太晕都没写总结ovo
+yjq问我考得好有啥奖励,于是我就发烧了TAT
+昨天考试题感觉还能看啊,然后就gg.
+第一题原来直接for也能50然而我自作多情写了个边界判断还写丑了TT
+第二题的不会.
+第三题想了想数据应该是随机的就直接硬上了居然过了好开心ovo然而好久没写lct了心里略虚.
+所以我还是太弱了.noi挂定了.</description>
+    </item>
+    
+    <item>
+      <title>20150701</title>
+      <link>/diary/dbimport_048/</link>
+      <pubDate>Wed, 01 Jul 2015 19:02:19 +0000</pubDate>
+      
+      <guid>/diary/dbimport_048/</guid>
+      <description>终于阴天了好开心.在成都都是盼着晴天的ovo
+上午似乎是镇海众的考试ovo感觉他们好强啊ovo于是两道高精ovo
+第一题其实不想写了不过反正第二题直接写了fft所以就粘过来了.感觉分治乘的思路还是比较好想的就是fft卡卡常数而已Ovo
+第二题嗯啊好像没啥.高精开根写过啊虽然都快两年了.
+第三题只会写朴素30分还把输出的顺序给搞反了ovoovo真是**.然后居然是道论文题.思路就是把一个不靠谱的复杂度证明成只含有一个n的式子.感觉好神.如果Noi考场上遇到这种题的话还是只求不把输出格式搞错QwQ
+其实第三题本来可以多想一想的,不过上午把很多时间花在研究emacs上了所以就没有认真研究ovo感觉emacs这个东西和vim完全是两种风格不过都挺厉害.
+下午难得听了一回课虽然过一会就发呆去了ovoovo
+所以我还是太年轻了.</description>
+    </item>
+    
+    <item>
+      <title>20150628</title>
+      <link>/diary/dbimport_047/</link>
+      <pubDate>Sun, 28 Jun 2015 21:09:41 +0000</pubDate>
+      
+      <guid>/diary/dbimport_047/</guid>
+      <description>今天是一个很特别的日子,嗯.虽然,其实也没发生什么.
+上午考试Ovo杜教题ovo
+第一题思考了一下给出了关于flag概率的结论.但是比较纠结是不是对的,于是抱着弃疗的心态写了50分的高消就没管了.其实如果仔细观察一下方程说不定都能发现是怎么回事的.
+于是把时间花第二题上了.一直在想能不能数据结构硬刚.然后结局是正解是贪心TT感觉自己不会再爱了.虽然最后靠乱搞多拿10分不过并没啥用.
+第三题比较正常地想到了60分的dp.不过感觉再往下想是件非常麻烦的事情于是就放弃了.
+于是睡了很久ovo不能怪题太强,只能怪自己太懒ovo
+果然最近是懒癌发作了ovo真伤心.
+试图学学emacs不过比较无果.
+晚上居然花了将近3个小时去看一个mc的贴,怎么就把时间花在这种地方了TT
+所以我还是太年轻了.看来noi是要跪了.</description>
+    </item>
+    
+    <item>
+      <title>20150627</title>
+      <link>/diary/dbimport_046/</link>
+      <pubDate>Sat, 27 Jun 2015 21:53:27 +0000</pubDate>
+      
+      <guid>/diary/dbimport_046/</guid>
+      <description>镇海题&amp;hellip;考试的时候内心的绝望ovo
+第一题只想到了朴素的做法.完全没想到网络流那边去.没想到启发了半天骗来80还是挺开心的.但是居然花了那么多时间在debug上比较郁闷.
+第二题最初根本没有思路啊.最后1小时的时候突然发现,咦,基环内向树?那直接判断在不在一个连通块里就行了吧?整体二分+并查集?写写写.40分钟的时候,写完辣,咦过不到样例?maya哪是内向树是外向树.应该是判祖先关系啊.然后?整体二分+ett?去noi吧半小时肯定写不完.后来听说其实根本不用整体二分啊&amp;hellip;所以可以搞成静态的啊&amp;hellip;撞死ing&amp;hellip;听上去也不难写嘛&amp;hellip;更奇妙的是居然我那个错误的内向树写法交上去60&amp;hellip;
+剩下的时间都在想第三题了&amp;hellip;然后发现一个式子似乎可以推一推构造答案?咦似乎能过?然后证明&amp;hellip;我想的和标解根本不是一个东西&amp;hellip;(咦今天为啥那么喜欢打\dots)转化成基环树(又是基环树wtf)的做法好神奇好开心.
+于是因为奇怪的数据我就不小心拿了rank1整个人都是虚的ovo
+下午讲题好快于是留了几乎2个小时来颓,然后只过了1个题好无语.
+晚上更颓更无语ovoovo
+毕竟我还是太年轻了.这个样子怎么考noi啊不开心TT</description>
+    </item>
+    
+    <item>
+      <title>20150626</title>
+      <link>/diary/dbimport_045/</link>
+      <pubDate>Fri, 26 Jun 2015 19:44:20 +0000</pubDate>
+      
+      <guid>/diary/dbimport_045/</guid>
+      <description>hn集训day1&amp;hellip;感觉炎热的天气要把我的智商烧焦了&amp;hellip;所有题都没想到啊ovovo
+早上考试&amp;hellip;第一题根本没想到高消那边去.于是直接欺负随机数据居然就过了ovovoovo
+第二题嘛&amp;hellip;昨天在飞机上还在思考vfk的论文来着.但是还没吃透所以就gg了.然后也没有想到变换之后可以直接找根.
+第三题比较ovo想到的启发式合并的思路几乎是对的.然而sbt里插入的时候没有给当前点的size++导致了一场悲剧.撞死的心都有了&amp;hellip;然后当时的我居然还傻傻地以为是做法的复杂度没算对于是就弃疗了ovovo
+所以我还是太弱了然后跪ak爷mhy&amp;hellip;
+下午听讲似乎没啥事&amp;hellip;中午看sdfz几个同学在研究4399的flash版cf.只想说黑得漂亮啊.然而空间站这图重力调回去之后就不好玩了啊&amp;hellip;
+然后下午讲题也就那样呗ovoovo感觉还比较能听&amp;hellip;
+晚上发现一个人在房间里会更颓啊ovovo
+所以我还是太年轻了.</description>
+    </item>
+    
+    <item>
+      <title>20150614 sccpc2015</title>
+      <link>/diary/dbimport_040/</link>
+      <pubDate>Sun, 14 Jun 2015 16:02:14 +0000</pubDate>
+      
+      <guid>/diary/dbimport_040/</guid>
+      <description>今天是中考day2ovoo今天是sccpc&amp;hellip;ovoovo&amp;hellip;
+比赛过程可以概括为前三小时狂刷一度rank1然后开始卡题后两小时零输出惨烈牺牲ovoovo
+还是自己太弱了没想清楚一些事情于是ovoovo
+a题水.
+b题和&amp;quot;无敌异或&amp;quot;有些像.于是搞之.虽然反应过来有点慢.
+c题usaco原题ovoovo
+d题竟然误以为是菊花&amp;hellip;最后才反应过来.改对了程序然而dfs强行套bitset作die中&amp;hellip;
+e题是啥?哦似乎是水水的推公式.
+f题两遍lis.
+g题果然是最小割然而我和mhy都没有想到正确的建图.ovoovo
+h题根本没时间想.
+i题写了个高端dijkstra于是被卡tle.mhy认为可以直接用堆于是wa.然后听到正解眼泪流下来ovoovo
+j题无脑&amp;hellip;
+想去年都过了7题去年最后延时怒过一题.比去年还差啊伐开心ovoovo
+所以我还是太弱了.</description>
+    </item>
+    
+    <item>
+      <title>20150610</title>
+      <link>/diary/dbimport_039/</link>
+      <pubDate>Wed, 10 Jun 2015 21:26:36 +0000</pubDate>
+      
+      <guid>/diary/dbimport_039/</guid>
+      <description>考了一下今年jsoi的某试.感觉整个人都是晕的.
+第一题某三氧化萌在省选前正好和我说过.还记得我花了整个吃晚饭的时间去想终于想出了怎么证明.翻了一下qq聊天记录秒之ovoovo.
+第二题之前省选集训的时候做过!?翻了一下正好是4月10号无疑.依稀记得当时我用了二分+线段树,比正解多一个log,一直以为是卡常数,后来才知道正解是单调队列.(5s的题要跑9s是什么心态)
+于是狠狠地想了一会,然后发现可以分三种情况讨论,每种情况都可以用单调队列解决.其中两种还能通过翻转合并代码.于是开心ovo.感觉这题主要是在玩不等式和函数单调性.
+第三题无脑可持久化trie打打就过了ovoovo
+为啥bzoj上没这套题啊ovoovo
+2个多小时ak然后去404被高三某学长虐狗.
+下午颓颓颓,晚上颓颓颓.
+于是我还是太弱了.</description>
+    </item>
+    
+    <item>
+      <title>20150515</title>
+      <link>/diary/dbimport_035/</link>
+      <pubDate>Fri, 15 May 2015 21:00:32 +0000</pubDate>
+      
+      <guid>/diary/dbimport_035/</guid>
+      <description>毫无违和感的一天.
+第一题只会40分的O(n2)级别的东西.正解没看懂.
+第二题想着想着就差点睡着.正解感觉比较神奇.自己还没有把sam吃透啊.
+第三题好神ovo
+下午总结交流感觉好像还是有好多之前想到的东西忘讲了ovo还忘卡时了ovo每次上台都会紧张,得多练.
+所以窝还是太弱辣.</description>
+    </item>
+    
+    <item>
+      <title>20150513</title>
+      <link>/diary/dbimport_034/</link>
+      <pubDate>Wed, 13 May 2015 17:40:22 +0000</pubDate>
+      
+      <guid>/diary/dbimport_034/</guid>
+      <description>比较无语的一场考试.感觉题不太能做啊.
+第一题,啊,平面图!根本不会!想了想能不能反演发现好像没有意义,感觉xyz大爷当年讲过啊.于是只好朴素拿40分走人.然后发现别人居然都没有拿到40分ovo
+第二题我觉得任何时候都不能赌博啊然后还是hobo厉害地发现了问题所在.本来也没有认真想,都去颓提答去了.
+提答题感觉还挺好玩.先写个模拟器人工玩过了123,然后发现后面的点都有特点啊.有的是矩形最短路,有的是树形dp啥的.不过,我,都,不,想,写,了.于是写了个随便乱走的东西骗个1分2分的.懒癌晚期TT
+后来还差点把spj配错结果差点以为我自己几乎ac.吓死了.其实只有35分TT
+然后ioi好强啊.
+所以我还是太弱了.</description>
+    </item>
+    
+    <item>
+      <title>20150511 summary for 北京多合一</title>
+      <link>/diary/dbimport_033/</link>
+      <pubDate>Mon, 11 May 2015 22:37:33 +0000</pubDate>
+      
+      <guid>/diary/dbimport_033/</guid>
+      <description>去了一趟帝都,算起来大概打了4场比赛.
+ctsc听说是世界上最难的oi比赛.虽然我至少有2题写出了正确的代码,然后又因为奇奇怪怪的原因把分扔掉了.本来以为自己考得稀撇然而还是拿到了au.说明在这样的比赛里稳定才是关键.当然像hobo那样玩心跳翻盘也是不错的,虽然我觉得这样风险很大.也教会我要相信自己相信出题人,不要老是怀疑人生.
+apio相对开心很多.吉司机怒虐全场2小时ak把我惊呆了.然后我也就做了2.75小时而已.感觉今年题简单加上多次提交帮了大忙.虽然心虚不过最后还是拿到了au.
+然后因为apio提前出来了所以还做了bop复赛,虽然感觉整个那个下午都很颓废.做了比较水的题然后就放弃了.然后还有个题强行set被卡常数了TT
+然后就是pku校赛了,事实证明在acm中找一个正确的团队和写好自己的题同样重要.虽然是一支从未磨合过的队伍,但是感觉还是很好吖.然后也结交了两个很厉害的朋友.
+感觉上面的东西在之前的博客里都说过了.所以就自行翻阅吧.
+出来也认识了很多各地的神犇,从以前只是oj上的一个id变成了现实中活生生的人.每个人都有自己的个性,让我感觉世界一下充实了不少,也找到了自己的差距和努力的方向.顺便也为未来规划了一些互相帮助共同进步的计(hu)划(ce).
+嗯很开心啦,虽然我还是很弱.</description>
+    </item>
+    
+    <item>
+      <title>20150504 ctsc2015 day1</title>
+      <link>/diary/dbimport_029/</link>
+      <pubDate>Mon, 04 May 2015 23:09:09 +0000</pubDate>
+      
+      <guid>/diary/dbimport_029/</guid>
+      <description>ctsc day1.早上起来的时候发现太阳都晒屁股了然后才想起这是在帝都.
+如果按照时间顺序的话早上是高三的成人礼,虽然我是晚上才知道的.不得不感叹时间过得好快,依稀记得去年zhx穿西服的样子,然后现在他已经这么神了.(说得好像他当年不神一样)
+早上考试比较虐心吧.第一题知道可以用dijkstra来优化最短路然后再怎么dp一下,不过觉得第二题更可写于是去写第二题了.然后就错误投资了.
+第二题我写的可持久化kdtree.过掉此题的吉丽也是这么写的,可惜我把题意理解错啦.不然是能ac的.悲伤ing.最后一直觉得是我的kdtree写得有问题所以才过不了样例的.当然kdtree是可以被卡的,不过出题组没有想到kdtree的做法好开心hhhh然后正解也比较神不过还比较好理解.zhx的ds题风格.
+第三题比较神啦.花神讲了一堆东西我也没太懂不过觉得相当厉害啊.
+然后反正就比较虐啦.感觉自己太弱,只有每天写水题度日了.怎么最近总是投资ds题然后出大事啊伐开心.
+所以我还是太弱了.</description>
+    </item>
+    
+    <item>
+      <title>20150427</title>
+      <link>/diary/dbimport_026/</link>
+      <pubDate>Mon, 27 Apr 2015 15:30:59 +0000</pubDate>
+      
+      <guid>/diary/dbimport_026/</guid>
+      <description>无语的考试ovo前几天见过原题ovo
+第一题水fib数列的dp.然后还只求个位.找循环节都行啊.
+第二题无语的树形dp.之前没有看见树的条件.
+第三题算几啊.按面积排一下序然后扫描线啥的.然后mhy还有更厉害的扫描线虽然我不会.
+所以mhy好强啊.
+顺手粘一发考试的时候写的画图器ovo
+zao (zuo) fu (si) de hua tu qi	JS not supported	draw	clear	</description>
+    </item>
+    
+    <item>
+      <title>20150419 scoi diary and summary</title>
+      <link>/diary/dbimport_023/</link>
+      <pubDate>Sun, 19 Apr 2015 21:43:07 +0000</pubDate>
+      
+      <guid>/diary/dbimport_023/</guid>
+      <description>居然这么快.然后就完了.感觉好像是做了一场梦 或者玩了一场游戏ovo
+既然是diary那就先diary一下吧.
+day1早上起来在拥挤的餐厅里吃了面包加面包然后走去考试.
+然后就开考了.第一题好神不会.第二题好水选敲.第三题想了想就是半平面交啊敲敲敲.然后发现第一题似乎取值是连续的?那就随便打个dinic乱二分一下吧.然后就完了估分200应该过2和3.
+然后下午看分居然220.居然过了1和2然后3tle.居然被高一的虐.然后进去申诉居然连数据都不给那玩ball.于是要数据顺便被某负责人怒斥.然后下午果断去看电影.速7还不错.
+晚上开会感觉就是flag大会.
+然后就day2了昨天晚上好像被毒蚊子咬了,惨.看题发现第一题好神.第二题好神.第三题好水敲30分钟.然后发现第二题似乎可做然后去敲.然后发现第一题还是不会于是乱骗.考试结束前15分钟发现第二题题意看错试图改朴素未果.心痛ing
+下午看分果然只有100虽然还是进队了不过被虐惨于是心痛回家.
+diary得好水.那么再重新说一下题的做法吧ovo
+day1a把≥某个数的东西当作1来跑二分图最大匹配就可以得到最多有多少个≥这个数的选择方案然后直接二分.
+day1b是个水水的倍增.每个战士肯定传给最远的一个然后没有覆盖于是倍增一下看要多远才能盖一圈.然后这题数据好难造.
+day1c是个半平面交.可以证明任意一边和01边都会划分成一个半平面.扔一起跑半平面交就好了.然后求那个的时候可以用数据公式不过我二分所以被卡常了不开心.
+day2a似乎是树形dp反正我还没想出来.大概反正先走左先走右dp一下.因为是完全二叉树所以很多看上去不靠谱的复杂度在这里都是靠谱的.
+day2b听说是线段树.其实直接维护每个0区间的左右端点扔进set里就好了.然后黑白转换的时候分情况讨论一下.每次询问的时候先把某个点的值更新一下.然后查询左右能控制到的最远的端点.如果是连在一起的话还要再找第二近的因为有可能另一边会造成答案变小.
+day2c水水的链剖+持久化线段树.其实询问就是在某个时刻前就被感染的人在某条链上有多少.我比较懒就直接链剖了其实直接dfs序区间修改也能做还少一个log.不过反正链剖比较快嘛.
+虽然这样但是我也只过了3题而已看来我还是太弱啊.
+似乎还有总结的部分.
+最后一次省选了吧.也是唯一的一次机会.以为自己会很厉害,其实还是不厉害.也算是一种成长吧.发现自己还有很长的路要走.
+这回没有倒在ds怎么写上,而倒在了ds的题面上.也算是倒在自己最得意的地方了吧.成长总是痛苦的ovo
+dp啥的的确比较弱.不能偏科啊.
+世事无常吧.有人翻盘也有人第二天倒下了.4个a类居然没有一个人两天都发挥正常.然后女a也暴冷了.yjq差点就进队了可惜了.然后就有一些熟悉的面孔退役了.
+反正就是各种奇怪的事情.其实也早就知道有这一天吧.其实也早就准备好了这一天吧.至少i survived.
+于是今年省队好像更整齐了.
+所以我还是太弱了啊.</description>
+    </item>
+    
+    <item>
+      <title>20150409</title>
+      <link>/diary/dbimport_017/</link>
+      <pubDate>Thu, 09 Apr 2015 14:51:21 +0000</pubDate>
+      
+      <guid>/diary/dbimport_017/</guid>
+      <description>好奇怪的题ovo他们说难度太低ovo
+第一题原来构造这么简单.我还是只会朴素+乱随机ovo遇构造题必出事的节奏啊不爽啊.
+第二题居然是这么水的树剖.
+第三题正解居然就是朴素ovo然后我乱写了个随机化缩小范围的玩意.如果在非windows下就能过ovo然后发现是windows随机数的范围问题.当时想到了然后想物品的范围是2k肯定没有问题.卧类个擦.
+所以我还是太弱啊.马上都要省选了.怎么办啊ovo</description>
+    </item>
+    
+    <item>
+      <title>20150408</title>
+      <link>/diary/dbimport_016/</link>
+      <pubDate>Wed, 08 Apr 2015 15:17:57 +0000</pubDate>
+      
+      <guid>/diary/dbimport_016/</guid>
+      <description>成功被吊打.
+花了五个小时去写第三题.然后证明是我太弱了.
+第一题知道可以写.计划花2小时写第三题2小时写第一题的.晕啊ovo
+第二题太神了ovo
+第三题ovo正解用上了平面图的性质.然而我没有想到怎么正确地利用这个性质.于是只好去写lct+ett.其实是最后30分钟才想到ett的于是成功地没有写出来.郁闷ing
+所以我太弱啦.</description>
+    </item>
+    
+    <item>
+      <title>20150404</title>
+      <link>/diary/dbimport_014/</link>
+      <pubDate>Sat, 04 Apr 2015 22:26:58 +0000</pubDate>
+      
+      <guid>/diary/dbimport_014/</guid>
+      <description>被虐暴了.看来我还是太年轻.
+去年的uestc校赛过了3道,今年过了4道ovo虽然很挫.
+a题水水的虽然还是写错了几次还因为数据出错坑了几次.
+b题随机水过去了.
+c题最开始想错了,然后就放弃了.其实还能做.
+d题0阶aha.
+e题鹰蛋么.不过看到期望题之后就不想再想了.知道是dp,不过最后没有推对.
+f题数据结构.最初都想到点分了,但是被队友坑了去想线段树,于是就再见了.其实点分+dfs序挺好写的.浪费了诶.
+g题好神.
+h题常数优化老久水过去了.
+i题算几.队友写到结束没有成功.
+j题后缀数组构造.其实都想到一半了.然后就没有再想下去了.
+所以我还是太弱了啊怎么办啊.</description>
+    </item>
+    
+    <item>
+      <title>20150403</title>
+      <link>/diary/dbimport_013/</link>
+      <pubDate>Fri, 03 Apr 2015 12:44:27 +0000</pubDate>
+      
+      <guid>/diary/dbimport_013/</guid>
+      <description>这么早就开始写总结了ovo
+其实已经玩了一个上午了.写完是9点的事.
+感觉今天题比较顺手,于是就ak了一发ovo
+第一题似乎是做过,虽然我不记得了.水水的最小割模型.差点就忘了处理0和9的情况.幸好最后检查的时候发现了.
+第二题似乎是我当年想过的费用流建边优化啊,开心ing.于是就敲上去了.于是就过了.然后发现yjq居然写的是segtree优化dp.好强.
+第三题思考了一下,发现转移可以变成旋转45度的最长上升子序yeah.
+所以我还是太弱了.</description>
+    </item>
+    
+    <item>
+      <title>20150402</title>
+      <link>/diary/dbimport_012/</link>
+      <pubDate>Thu, 02 Apr 2015 22:43:40 +0000</pubDate>
+      
+      <guid>/diary/dbimport_012/</guid>
+      <description>上午讲数据结构ovo感觉不少东西都比较科普向.比如&amp;quot;我们来看看怎么用fft匹配01串&amp;quot;.
+然后讲的字符串题还比较能思考.后缀自动机啥的学得还是不够扎实啊.
+下午考试ovo
+第一题感觉就是数颜色搬到了树上再卡一下空间嘛.于是树状数组套sbt就上了.于是就被卡常数只有40了.就多了那么几百毫秒怎么也优化不下来啊.趴了.然后正解要利用树的特殊性来做到O(n*logn).非常ovo
+第二题shen me gui.做法差不多想到了不过还是没有勇气去写单调队列.
+第三题std写慢了吧.然后还把一堆写朴素的家伙都放过去了.严重地不爽.然后反正我分块我无压力ovo
+所以我还是太弱了啊.</description>
+    </item>
+    
+    <item>
+      <title>20150331 HDSDFZ2015集训总结</title>
+      <link>/diary/dbimport_010/</link>
+      <pubDate>Wed, 01 Apr 2015 00:24:38 +0000</pubDate>
+      
+      <guid>/diary/dbimport_010/</guid>
+      <description>在飞机上写总结ovo
+不知不觉中三月就过去了呢.这是三月最后一天的晚上了诶ovo.来的时候感觉十天会很漫长,然后不知不觉就结束了.这次出来感觉收获比较大.难度比较适中,有时候能看到原题体验一下切题的快感.也有很多时候要耗尽脑细胞去想题,然后还常常听了讲之后才aha过来.当然也有听着听着就开始刮大雾了ovo.
+考了六场试吧.有时候考得比较好,有时候也会被虐得很惨.说明我还是不够稳定的.遇到写得比较熟的东西还能写一写得一些分,有时候心情好能过两道题.但是多数时候还得靠骗分和暴力.可是已经有很长一段时间我都一直在试图追求正解,结果导致有时候骗分的技巧也比较拙劣,看上去发挥得并不好.省选的时候题是怎样的谁也说不清楚.所以最近不仅要复习和巩固各种算法,也要思考一下骗分暴力之类的东西该怎么写.
+考试的时候纪律比较不好.有时候也会受到身旁同学的影响.有时候还会因此而受到提醒,有意无意见想到更好的idea.我觉得这样不是一种好的情况.所以还是要找一个比较安静的环境.自己在考试的时候也要严格遵守纪律.不管是正式还是非正式,有人监考还是放任自流,都要安静,独立思考.
+这回讲课的同学讲得实用性也非常强.因为省选比较近,所以很多都是直接讲题,而没有再去纠结某个专题.他们也带来了一些最近比较流行的新的思路.比如cdq分治扔进线段树,再比如dp的有序与无序.还有dyf讲的积分.虽然比较实用向,但是也提醒了我有些东西是需要不停地用才能一起掌握的.一年半没碰过微积分,所以以前的基础等于白废了.不开心.
+这些天也认识了一些sdfz和山东以及其它省份的神犇.发现自己如果放到全国,也并不能算一个厉害的角色.大家学习,刷题都很拼,也很有理想有追求.所以说自己也要坚定道路,并为之不懈努力.
+不在的将近两个星期里sc省也发生了不少事,学校也发生了不少事.scoi发生了一些改变.不知道这是怎样一种信号.不过我觉得很适合今天在出租车上广播里的一句话,如果你站在浪尖上,那你就要把握好机会冲上巅峰.这是一个改变的时代.要善于把握变革.
+然后家里也考了不少题,有些题还是比较有意思的.还有一些题我感觉我还不会做.所以说我还是有路要走的.另外常在bzoj上看到idy在开坑.还有很多我都没做过的题,填坑也填得比较狼狈.所以说身边就有很多人在默默努力.如果你不前进得更快,你就会被超越.而被超越的结果就是淘汰.世界是残酷的,但是是公平的.
+怎么又扯远了.Whatever, scoi在即,退役or继续?It depends on nobody but myself. Fighting.</description>
+    </item>
+    
+    <item>
+      <title>20150316</title>
+      <link>/diary/dbimport_003/</link>
+      <pubDate>Mon, 16 Mar 2015 22:52:08 +0000</pubDate>
+      
+      <guid>/diary/dbimport_003/</guid>
+      <description>今天是正儿八经地被吊打了。
+早上看了题之后觉得好困。于是一趴就是俩小时。无语。
+第一题似乎是奇怪的数论？二次剩余？然后发现好像不是baby-step-gaint-step的题。然后就不会了。然后还错误地以为只有两个解，于是写个常数优化的暴力就交上去了。
+第二题感觉是个数位dp？依然不会。于是30分暴力。比较厉害的是有人用比较快的匹配方式拿了50分。
+第三题其实是个简单的线段树的。然后我就想复杂了。我认为用线段树下放标记是会变成O(n)单次的。于是没敢写。于是写了个分块+splay。调度到最后一分钟无果。晕。知道正解之后眼泪掉下来。
+下午讨论完就在改oj，然后就回去上班会了，也没有空继续调题。
+倒是把oj的页宽终于调对了。然后也把代码高亮搞上了。于是就移植到这来了。什么时候才能过审核啊TT。
+今天晚上要早些睡。不能再搞今天这种飞机了。</description>
+    </item>
+    
+    <item>
+      <title>20150125</title>
+      <link>/diary/i11rimport_079/</link>
+      <pubDate>Sat, 24 Jan 2015 22:24:41 +0000</pubDate>
+      
+      <guid>/diary/i11rimport_079/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 又考试了。明天就要走了。&amp;lt;/p&amp;gt; &amp;nbsp;
+早上的题大概就是告诉我，没有数据结构我就完蛋了，有数据结构我也有可能会完蛋。
+&amp;nbsp;
+第一题burnside好神，估计也不会想到。这个内容平时的确是忽视了。
+&amp;nbsp;
+第二题不是bzoj上有差不多的原题么。所以也没怎么想就敲了个LCT+主席树。然后发现常数还是比较大的。什么时候要好好研究一下怎么把splay的常数搞小。然后也还是花了好一会才写对。毕竟久了没写有点手生啊。（不是才一个多月而已么）
+&amp;nbsp;
+第三题，扩展最小圆覆盖。又明确了一下算法，之前掌握得也比较粗。然后觉得自己也不太能想到正解。毕竟是大神的题。
+&amp;nbsp;
+然后下午颓废，终于搞出了一个LaTeX的题的版，虽然还处在丑暴的阶段。然后被zhx果断扔掉了。
+&amp;nbsp;
+晚上收拾东西，又准备出发了。
+&amp;nbsp;
+估计许久敲不到青轴了。最后狠狠地敲一下。</description>
+    </item>
+    
+    <item>
+      <title>20141221 UR3 总结</title>
+      <link>/diary/lofterimport_030/</link>
+      <pubDate>Sun, 21 Dec 2014 22:34:57 +0000</pubDate>
+      
+      <guid>/diary/lofterimport_030/</guid>
+      <description>晚上比较无聊于是去uoj上玩了一玩。说好的复习会考呢？
+然后就开心地出事了。
+第一题好像直接分解质因数就行了啊。然后大质数手残打成-1了。居然给了90分。
+第二题左右应该是单调的。然后懒得写了欺负数据就用了个二分也过了。
+第三题想了想发现暴力都不可写，弃疗了。
+然后就rank4了。前面好像是主席？orz。
+毕竟我还是太年轻了。</description>
+    </item>
+    
+    <item>
+      <title>80MSWC2014 总结</title>
+      <link>/diary/lofterimport_034/</link>
+      <pubDate>Sat, 20 Dec 2014 19:30:46 +0000</pubDate>
+      
+      <guid>/diary/lofterimport_034/</guid>
+      <description>人总要走出去，才有机会领略广阔的世界。
+如果总是窝在自己的世界里，盲目地骄傲自大，终会一事无成。
+什么叫挫败。
+其实心里应该很清楚自己有多弱，但是总有那么一点侥幸，看，还有人比我更弱。
+但你没有机会在404或者三楼机房考省选或者noi。
+你要面对的，是这回见到的和没有见到的各路大神。
+哪里来的自信？
+你走在thu的校园里，感觉怎样？这只是预习，你要通过自己的奋斗才能真正拥有它。
+学到的东西，不只是用fft写字符串匹配，还有更多，更严肃认真的东西。
+埋头认真写题吧。
+Historical Comments Unknown friend at 2014-12-20T21:07:53 感觉差不多。
+Unknown friend at 2014-12-20T21:15:47 造成这种感觉的原因可能稍有区别。（人不一样？） 不过刺激是一样的。 自己越来越混乱了呢。
+Unknown friend at 2014-12-20T23:06:22 与其叫刺激，不如说加强对生存残酷性的认识。每个人都是从诞生就喜欢踩别人尸体的感觉！</description>
+    </item>
+    
+    <item>
+      <title>80MSWC diary 4 &amp;&amp; 20141217 总结</title>
+      <link>/diary/lofterimport_036/</link>
+      <pubDate>Wed, 17 Dec 2014 21:09:22 +0000</pubDate>
+      
+      <guid>/diary/lofterimport_036/</guid>
+      <description>最后一天考试了，跪。
+三道txt题。哈。俩gb加一个utf8。看来还是有人在用linux，开心。
+有道多项式开方。开始想得特别复杂，想的是dft来dft去。然后发现直接递推。出题人是在逗我玩么？
+然后图论题为啥是格点图？感觉乱七八糟图都能做。就拿tarjan缩个点跑dp就好了。然后因为是不科学的windows所以会暴栈就这么简单。
+另一题好像是图论+搜索啥的。不会。
+跪。
+然后下午wyx讲的dp感觉比插头啥的舒服多了。开心。
+毕竟我还是太年轻了。</description>
+    </item>
+    
+    <item>
+      <title>80MSWC diary 3 &amp;&amp; 20141215 总结</title>
+      <link>/diary/lofterimport_040/</link>
+      <pubDate>Mon, 15 Dec 2014 18:49:49 +0000</pubDate>
+      
+      <guid>/diary/lofterimport_040/</guid>
+      <description>今天再次naive。
+早上考试。
+第一题感觉好像似乎大概也许应该是不太难吧。但是感觉建边好麻烦，虽然最后拿map乱搞搞定了。然后就让水朝上流了，而且还没拍出来。惨。
+第二题是将军讲过的！？虽然在今天早上之前我也不会写。好吧其实我写过。然后就怎么乱搞一下分类讨论+对拍半天就过了。
+第三题没啥时间想了。一个不算难想的dp。
+下午讲coci的题。感觉好多原题。然后看到truck那题就笑了哈哈。然后发现学军的同学大概是在低调地笑。
+毕竟我太年轻了。</description>
+    </item>
+    
+    <item>
+      <title>80MSWC diary 2 &amp;&amp; 20141214 总结</title>
+      <link>/diary/lofterimport_041/</link>
+      <pubDate>Sun, 14 Dec 2014 22:10:09 +0000</pubDate>
+      
+      <guid>/diary/lofterimport_041/</guid>
+      <description>上午讲课下午考试，比较开心。
+上午讲各种数学。感觉自己数学弱暴了。然后发现自己还是有点前瞻性的，前几天居然出了两道题，都是今天的例题。
+下午考试。题目就是各种不让人看懂的节奏啊。花了俩小时终于弄懂了第二题的题意，然后写了个分块dfs序水了。然后好像把标程干掉了。开心。另外两道传统题都不怎么会做的样子。懒得写高精+还不会后缀自动机。答案提交可以滚大粗了。
+所以我太年轻了。</description>
+    </item>
+    
+    <item>
+      <title>80MSWC diary 1 &amp;&amp; 20141212 总结</title>
+      <link>/diary/lofterimport_044/</link>
+      <pubDate>Fri, 12 Dec 2014 18:46:40 +0000</pubDate>
+      
+      <guid>/diary/lofterimport_044/</guid>
+      <description>今天是双十二？虽然一直不懂这个日子有什么含义。
+在刚人工催吐也只吐出点口水的情况下终于可以坐下而不感觉难受了。
+今天一天好像唯一干了一件事就是发烧。所以首先来总结一下会什么会发烧。
+大概是昨天晚上吃了汉堡之后又吹了风，然后也许又吃了些不好的棒棒糖（现在还在我右手边），于是就光荣了。
+昨天晚上做梦梦到肚子痛，醒来发现真的肚子痛。而且这回压迫疗法的效果非常有限。然后还发现温度怎么不对！？有时很冷有时热的。撑了一会撑到起床，好像要稍微好些了。虽然80MS的早饭好像没放盐。
+然后就去考试了。肚子有点痛，去了好几次卫生间。有一回至少蹲了二十分钟，腿都麻了。回到机房瞬间想睡觉。感觉事情不妙。再过两分钟开始发冷了。好吧。
+于是早上根本不想写题。就一链剖裸题还写了俩小时。要正常情况下应该是半小时的事。剩下两道题完全没思路。写了俩暴力交了。今天弃疗了。
+中午去医院，总觉得比较坑。还抽了血。最后说是因为胃肠引起的高烧，38度呢。开了些药。回去听了两道题感觉坚持不下去了就滚回宾馆睡觉了。
+所以说到了人生地不熟的地方，更要小心，要照顾好自己。
+（怎么感觉以上都是在吐槽发烧多烦）
+今天的考试，虽然状态是一个借口，不过反正是考的不咋的。
+发现自己有偏科的迹象。遇到10^5, 10^6就很开心，不然就不会做了。
+所以前两题都不太会。
+第一题据说是fft的推广。当然以我当时的状态肯定是想不到了。
+第二题有点像去年scoi的最后一道题。当然是不会的节奏。
+第三题链剖+dfs序+持久化线段树。听mhy说过可以用seg tree区间加等差数列，就现yy了一下发现标记不用下传很愉快。不过因为状态的原因还是多花了很多时间。
+所以说学军和八十中的同学把我虐了。
+毕竟我还是太年轻了。</description>
+    </item>
+    
+    <item>
+      <title>20141208 总结</title>
+      <link>/diary/lofterimport_047/</link>
+      <pubDate>Mon, 08 Dec 2014 12:47:33 +0000</pubDate>
+      
+      <guid>/diary/lofterimport_047/</guid>
+      <description>最后一天了。感觉好开心。
+第一题居然做过，然后发现是没有修改的情况。不会。ORZ JCVB。
+第二题开始没想通。然后想了想觉得还是可做。于是用链剖+dfs序水过了。在xj题里过的第二道题。
+第三道题答案提交。看到题目就懒得做了。骗分。
+毕竟我还是太年轻了。</description>
+    </item>
+    
+    <item>
+      <title>20141207 总结</title>
+      <link>/diary/lofterimport_048/</link>
+      <pubDate>Sun, 07 Dec 2014 18:04:16 +0000</pubDate>
+      
+      <guid>/diary/lofterimport_048/</guid>
+      <description>今天大概是人品崩了。看来昨天和zhx在bc上开黑有点损人品啊orz
+第一题想对了exgcd但是re了。鬼知道怎么回事。
+第二题是啥？不会，直接暴力网络流骗分RE
+第三题还是不会。暴力枚举骗分。
+毕竟我太弱了。</description>
+    </item>
+    
+    <item>
+      <title>20141206 总结</title>
+      <link>/diary/lofterimport_049/</link>
+      <pubDate>Sat, 06 Dec 2014 12:10:13 +0000</pubDate>
+      
+      <guid>/diary/lofterimport_049/</guid>
+      <description>学军day2。
+被题虐烂orz。
+第一题看了半天想到贪心。敲sbt，对拍，正确。大数据time，然后发现超时超到哪里去了。换sgt，也没快多少。是我sgt写丑了还是sbt写快了。再yy一下，发现可以拿并查集离线O(n)找前趋和后继。写之，time之，过之。
+第二题好像知道怎么做了。但是觉得这个线段树好麻烦。弃疗。
+第三题。泥马，仙人掌同构。再见。
+然后第二题暴力写挫了。
+然后发现jason_yu过了2和3，1挂了。orz烂。
+所以我太年轻了。</description>
+    </item>
+    
+    <item>
+      <title>20141205 总结</title>
+      <link>/diary/lofterimport_050/</link>
+      <pubDate>Fri, 05 Dec 2014 15:26:17 +0000</pubDate>
+      
+      <guid>/diary/lofterimport_050/</guid>
+      <description>什么叫自信=&amp;nbsp;=
+学军的题orz。
+第一题想到了正确的算法，但是没有认为它是正确的，于是写完懒得管了，然后，就丑了。
+第二题后缀自动机神题不可做。
+第三题想了个错误的网络流。
+毕竟我过于年轻了。</description>
+    </item>
+    
+    <item>
+      <title>20141204 总结</title>
+      <link>/diary/lofterimport_051/</link>
+      <pubDate>Fri, 05 Dec 2014 09:38:21 +0000</pubDate>
+      
+      <guid>/diary/lofterimport_051/</guid>
+      <description>昨天太晕以至于忘了写总结。
+第一题神题不会做。感觉是机器模拟降次。写暴力还忘了取模。吃了30分。
+第二题树论好开心。预处树的形态然后链剖乱搞。
+第三题答提神题不可做。最后也没有成功地用c++输出空格。
+所以啊，我还是too年轻啊。</description>
+    </item>
+    
+    <item>
+      <title>20141203 总结</title>
+      <link>/diary/lofterimport_052/</link>
+      <pubDate>Wed, 03 Dec 2014 13:44:08 +0000</pubDate>
+      
+      <guid>/diary/lofterimport_052/</guid>
+      <description>再次被虐烂ORZ
+第一题昨天正好做了餐巾那题，于是用的费用流，过了。其实思想就是对于一条流既要满足当天条件，又要往下继续流的时候，就让它去终点，然后再从源给条免费的。
+第二题三次韦达定理再用等比数列求和。我毕竟是AK过数学联赛的男人哈哈。
+第三题插头DP？还不会，SRO对面的MHY。
+所以我还是太年轻了。</description>
+    </item>
+    
+    <item>
+      <title>20141202 总结</title>
+      <link>/diary/lofterimport_054/</link>
+      <pubDate>Tue, 02 Dec 2014 15:20:24 +0000</pubDate>
+      
+      <guid>/diary/lofterimport_054/</guid>
+      <description>好吧第100篇文章是一篇总结。
+可以说明我写总结的频率比较高。
+今天是昨天的day2，真wa傻了。
+早上看到有答案提交题，先写吧。然后一个半小时60分，后面的看不出来了。
+然后第一题感觉是地精部落的加强版，还是不会。
+第二题看出来了与环没有关系，其实就是一个数列任意两数xor的不同的值的个数。写了个trie树优化暴力居然90，还是比较开心。
+然后很年轻地被jason_yu吊打。</description>
+    </item>
+    
+    <item>
+      <title>20141201 总结</title>
+      <link>/diary/lofterimport_056/</link>
+      <pubDate>Mon, 01 Dec 2014 15:38:59 +0000</pubDate>
+      
+      <guid>/diary/lofterimport_056/</guid>
+      <description>集训队难度的题？
+感觉比去年同期水啊。
+难道是我变强了？
+其实还是很弱，边burnside都没搞懂。
+第一题拿约数怎么水就水过去了。正解是burnside。但是下来也没写对。
+第二题迷之DFS+DP没看懂STD。毕竟太弱。
+第三题拿KDTREE搞过去了。比较开心，学有所用。
+然后我还是很年轻的说。</description>
+    </item>
+    
+    <item>
+      <title>11月总结 &amp;&amp; 12月计划</title>
+      <link>/diary/lofterimport_057/</link>
+      <pubDate>Sun, 30 Nov 2014 17:02:59 +0000</pubDate>
+      
+      <guid>/diary/lofterimport_057/</guid>
+      <description>11月干了啥？
+先搞完了NOIP，很悲剧没有AK。然后半期考试，没上一本线。然后又颓废地刷了两个星期的数据结构题，顺便把OJ7搬到了新的服务器上然后加了些东西。
+至少今年NOIP没有出什么大事，虽然和目标有点差距。总结也写了两篇了不想再吐槽。
+然后觉得自己数据结构还是有些进步吧，有些原来觉得不太可写的树套树套树套树while(1)套树的题也敢写了，虽然常常跑得很慢。然后学会了两个新的东西CDQ和KDTREE。之前一直不太能理解，后来发现还是挺好用的。
+然后打了两场BC都不错，一场RANK1一场RANK4AK。最自豪的是两次最后一道压轴的数据结构题都被我做出来了。第一次是两棵树用不同的方法处理维护。第二次是三维的MOKIA被我用CDQ套树套树搞过了。感觉自己变强了～
+然后ZHX的出题计划还在考虑题。可能我还是太弱吧。
+12月没有大赛，但是事情不少。
+前10天陪JASON_YU准备清华集训，见识一下更高难度的题。然后有空就找点数据结构放松心情了。
+中间去北京集训。据说是省选难度的。去见一见全国的大神些。然后也许可能好像会有机会出题？这个比较开心。
+最后两个星期离会考也比较近了，计划每天至少划分2/3个单位的时间准备会考。那时候大概MHY的DP系列也比较完善了，就去看一看DP题。感觉现在除了数据结构以外其它方面我还太弱了点啊。这样下去不行啊。
+Historical Comments Unknown friend at 2015-12-25T22:28:20 感觉和您当时差不多，会考焦头烂额QwQ
+Unknown friend at 2015-12-27T10:42:23 呃给你补充点背景。去年从80中回来大概不到20号，就直接被班主任拉回教室搞文化课直到期末考完。。。
+Unknown friend at 2015-12-27T10:44:24 会考也不用太虚。毕竟难度足够低，一般还会有奇怪的福利hhh
+Unknown friend at 2015-12-27T13:35:06 我们没有可以做文科的福利呀，你们当年真是太爽啦T^T
+Unknown friend at 2015-12-27T16:34:30 不是说这个&amp;hellip;印象中,文科题还没理科题简单&amp;hellip;重点是这是四川会考ovo</description>
+    </item>
+    
+    <item>
+      <title>Bestcoder #20 题解&amp;&amp;总结</title>
+      <link>/diary/lofterimport_060/</link>
+      <pubDate>Sat, 29 Nov 2014 22:49:53 +0000</pubDate>
+      
+      <guid>/diary/lofterimport_060/</guid>
+      <description>人生第一次AK网赛。之前cf和bc总是fst。
+第一题水，比谁手速快。好像我手速也比较慢啊。
+第二题离散一下，然后直接用前缀和找最大。手速又有点慢。
+第三题树状数组优化DP，有点像SCOI2014的玉米田。然后写挫了好几次。
+第四题比较有含金量。前两天才做了cdq的mokia，于是想了一会决定用cdq套树状数组套平衡树。然后花了20分钟写30分钟把平衡树里ins的时候把点的编号改对和++size。我觉得我没有抢救的必要了。
+然后所以虽然AK但是排名还是低。上次虽然只过了两题还是RANK1，难度差距有点大啊。
+不过终于超过jason_yu了。
+看来我还是比较年轻，还要再努力啊。</description>
+    </item>
+    
+    <item>
+      <title>20141125/27 总结</title>
+      <link>/diary/lofterimport_064/</link>
+      <pubDate>Thu, 27 Nov 2014 18:37:05 +0000</pubDate>
+      
+      <guid>/diary/lofterimport_064/</guid>
+      <description>被zhx玩傻了。
+day1做得不好。
+第一题迷一般的博弈，最初用三方的dp，然后也想到了两方可以通过单调优化下来，不过一直以为t的范围有10^5，于是也懒得写了。结果t只有10。出题人不负责啊。
+第二题其实比较简单。直接暴力dp然后加个矩阵快速幂优化。但是一直没有想清楚pi(num)&amp;lt;=123是什么意思，所以就没有写。
+第三题写得最久。应该也是对的。只是，对仙人掌的定义有点误差，而已，嘛。
+然后day就挂了。
+day2自己把ak吃了。
+第一题是树形dp，比较水秒得比较快。
+第二题是图论。最初想的是多少点对(i, j)的最短路过u，然后没想清楚怎么在O(n)里找出dag上每个点能到多少个点，于是想啊想，然后发现定义错了。应该是直接dp就好了。然后就是把maxm写成maxn然后WA傻的节奏。
+第三题给高一小朋友出过弱化版。就是用各种能求的大小关系容斥一下。虽然推了一会不过还是推出来了。
+毕竟我还是太年轻了。</description>
+    </item>
+    
+    <item>
+      <title>NOIP2014 总结2</title>
+      <link>/diary/lofterimport_089/</link>
+      <pubDate>Mon, 17 Nov 2014 23:05:14 +0000</pubDate>
+      
+      <guid>/diary/lofterimport_089/</guid>
+      <description>今天正式成绩出来了，听说要写总结。
+前两天写了一次，不过感觉更像是简单题解的样子。
+考了这么多年，好像没有一次让自己满意过。总是犯一些奇奇怪怪到让自己都感觉可笑的错误，然后与目标失之交臂。这就是我对noip的最深刻的印象。尽管在不断强化的训练中学会了更多保障正确性的东西，不过最后考试的时候还是出现了各种疏漏。毕竟noip，考的是细心。虽然不管是noi还是更高档的考试中，细心都是必不可少的。今年的noi就很好地证明了这一点。
+其实考试本身并没有什么好总结的。难度摆在那里。上500也不难，想ak也不简单。今年的noi可能已经预告过了，只是我们都没有把它联想到noip上来而已。考简单了不算坏事，但也不是什么好事。如果想要存活下去，那么不论什么难度都要能应对才行。
+noip这段时间也应该算是后面长期停课的热身。有很多东西都在发生着改变。多数时间你要自己安排自己长达几个月的学习。从一天要写什么题，到一个星期要搞定什么东西，到最后要达到什么水平，都要学会自己去规划。从oi中要学会的的不仅是做题，还有很多更重要的东西。
+生活的方方面面都需要自己去平衡。文化课，锻炼等等。有时候感觉就像在走独木桥，有时候甚至脚下已经没有支撑，但是还是只有沿着既定的方向走下去。开弓没有回头箭。下面的路，我会把它走好的。
+Historical Comments Unknown friend at 2014-11-17T23:59:39 HJA体现了一名UOI队员应有的素质，实力和信心 OTZ OTZ OTZ OTZ OTZ 我的脸更痛了T_T
+Unknown friend at 2014-11-18T08:15:18 大半夜还不睡。。</description>
+    </item>
+    
+    <item>
+      <title>NOIP2014 总结1</title>
+      <link>/diary/lofterimport_098/</link>
+      <pubDate>Mon, 10 Nov 2014 20:54:16 +0000</pubDate>
+      
+      <guid>/diary/lofterimport_098/</guid>
+      <description>今天用unoffical数据测了。看到这个成绩感觉还是有点复杂。
+大概省rank10左右。扔江浙那边估计是二等奖都悬了。
+每天的前两题都还是稳住了，没有出啥事情。
+其实考试的时候拍出了一些问题，不过都改正了。
+day1第一题打表可过。要注意矩阵的左下三角和右上三角是相反的。
+day1第二题是树。考虑中间那个点加加减减就完了。最初乘暴了，幸好对拍出来了。
+出事的是bird。k=0的情况死硬了。也就是说让别人暴力过的六个点我扔了。
+这题是dp。转移的时候稍微优化一下，记下每个对xi取模之后的最小的fi-i/x就可以了。注意k=0的情况。
+day2第一题我用了二维前缀和。注意覆盖范围可以超出城市。
+day2第二题倒着一遍bfs去点然后正着一遍bfs就完了。
+day2第三题大概是不能过的，不过数据里后三个点都卡掉了自然溢出，还是有点郁闷。也许官方数据没有这么强吧。后来想出取模然后求导二分的做法，不过好像没有人提到。我也不想去写了。不过后30分还是悬之又悬啊。
+所以追逐了六年的ak之梦还是没有实现。毕竟我还太年轻。</description>
+    </item>
+    
+    <item>
+      <title>20141107 总结</title>
+      <link>/diary/lofterimport_102/</link>
+      <pubDate>Fri, 07 Nov 2014 21:07:39 +0000</pubDate>
+      
+      <guid>/diary/lofterimport_102/</guid>
+      <description>noip前的最后一天了。
+第一题也没想出来。最后分块过的。既然能分块多半能线段树。
+第二题动态规划，不过我把暴力都写丑了。没救了。
+第三题倒是个水水的hash+dp。
+一年就晃完了。明天就上场了。</description>
+    </item>
+    
+    <item>
+      <title>20141106 总结</title>
+      <link>/diary/lofterimport_103/</link>
+      <pubDate>Thu, 06 Nov 2014 14:46:48 +0000</pubDate>
+      
+      <guid>/diary/lofterimport_103/</guid>
+      <description>信心题真是不给我信心。扫雷扫了好久只赢了一盘高级。
+其实做得比较心惊胆战，不过拍了之后好像也没出啥错。
+第一题三方的枚举+dp就能过。平方的断边找直径应该也行。
+第二题简单粗暴加个堆。或者排序就行了。
+第三题顺着走贪心好像没有拍出错。
+所以呢，虽然我还是年轻，但是noip还是要加油了。</description>
+    </item>
+    
+    <item>
+      <title>20141105 总结</title>
+      <link>/diary/lofterimport_104/</link>
+      <pubDate>Wed, 05 Nov 2014 14:53:51 +0000</pubDate>
+      
+      <guid>/diary/lofterimport_104/</guid>
+      <description>严重地被打脸了。
+今天可能最后一题是比较难的吧。
+第一题直接费马小。依稀记得第一次知道这玩意是在noi2013的时候。然后竟然那么多人都不知道。不过十进制快速幂也能过的说。
+第二题是简单但是很恶心的搜索题。orz代码比我短的。
+第三题是最短路或者dp。最初想错了，把点拆少了。下午调了好一会。
+所以我就Naive地被打脸了。</description>
+    </item>
+    
+    <item>
+      <title>20141104 总结</title>
+      <link>/diary/lofterimport_105/</link>
+      <pubDate>Tue, 04 Nov 2014 14:41:46 +0000</pubDate>
+      
+      <guid>/diary/lofterimport_105/</guid>
+      <description>原来lofter会自动忽略html格式。无语。
+今天用自己写的oj来评测的。虽然有点慢，不过和Lemon测出来结果差别不大。说明至少是写成功了的。
+但是自己比较不开心。
+第一题随便贪了个心。朴素dfs只能跑n=3的数据，不过还是过了。
+第二题离散前几天高一acm的时候好像有差不多的题吧。离散一下搞定。
+第三题顿时凌乱了。想了很久觉得不靠谱然后就去写了一个朴素。然后发现是题看错了。不开心。正解未知，不过暴力可过。
+然后我就真的太年轻了。</description>
+    </item>
+    
+    <item>
+      <title>20141103 总结</title>
+      <link>/diary/lofterimport_106/</link>
+      <pubDate>Tue, 04 Nov 2014 14:38:04 +0000</pubDate>
+      
+      <guid>/diary/lofterimport_106/</guid>
+      <description>&amp;nbsp;&amp;nbsp;昨天一天都在写oj连总结都忘写了
+&amp;nbsp;&amp;nbsp;依稀记得仿佛好像AK了。
+第一题是啥？cv上原题原来也讲过。就调和级数来算算时间就完了。
+第二题好像有点坑，std被卡掉了。反正就是搜索再多加点剪枝呗。还有记忆化。
+第三题又是啥？原题，加个map就完了。
+反正太年轻了。</description>
+    </item>
+    
+    <item>
+      <title>20141102 总结</title>
+      <link>/diary/lofterimport_107/</link>
+      <pubDate>Sun, 02 Nov 2014 17:23:58 +0000</pubDate>
+      
+      <guid>/diary/lofterimport_107/</guid>
+      <description>今天t成250了。虽然三道题自测都能过。
+&amp;nbsp;
+第一题比较简单。不过我用了multiset然后它就tle了。
+&amp;nbsp;
+第二题讲过做过原题而且连高精都省了。
+&amp;nbsp;
+第三题写的dlx。其实不用这么麻烦，直接压位也能过。可是我就那么天真，还t掉了。惨不忍睹。
+&amp;nbsp;
+所以我太年轻了点。</description>
+    </item>
+    
+    <item>
+      <title>20141101</title>
+      <link>/diary/lofterimport_108/</link>
+      <pubDate>Sat, 01 Nov 2014 12:06:39 +0000</pubDate>
+      
+      <guid>/diary/lofterimport_108/</guid>
+      <description>噗一声ak它就飞掉了。
+今天考试其实难度要稍微高一点。写完所有代码大概花了两个小时。
+第一题还好。直接用单调性枚举边界。要注意一下边界的开和闭。然后分成四份算可以减少代码量。
+第二题居然是仙人掌。幸好不是动态的。做法也是用lca。不过每个仙人掌内部也要维护一下。写了200+行过掉了。虽然是第一次写。
+第三题是个dp。推了半天。拿ai做体积，最小化sigma(ai^2)。然后因为没有说平台编号一定是与高度正相关的。然后我很傻地去特判了一下ea[i]&amp;gt;eb[i]的东西，于是70分就飞走了。不高兴啊tan。noip的时候得注意认真看题。
+所以说我太过于年轻了。</description>
+    </item>
+    
+    <item>
+      <title>20141031 总结</title>
+      <link>/diary/lofterimport_109/</link>
+      <pubDate>Fri, 31 Oct 2014 12:48:22 +0000</pubDate>
+      
+      <guid>/diary/lofterimport_109/</guid>
+      <description>十月最后一场考试了。
+noip又近一步了。
+今天的题还是比较简单。
+第一题直接gcd。不过要小心long long。
+第二题有点像去年提高day1的第二题。写法也差不多。就是分开求个逆序对。
+第三题树形dp。应该也可以用点分治，虽然还要多个log好麻烦的说。
+oj第一次成功地交题，开心。不过还要继续努力。</description>
+    </item>
+    
+    <item>
+      <title>20141030 总结</title>
+      <link>/diary/lofterimport_113/</link>
+      <pubDate>Thu, 30 Oct 2014 12:57:10 +0000</pubDate>
+      
+      <guid>/diary/lofterimport_113/</guid>
+      <description>今天好像又AK了。其实就打了一个多小时的代码，后面就在对拍和玩旁边的服务器还有和emacs下五子棋啥的TT
+好像是个天津人出的，noi还没有smy考得好。tan。
+第一题倒着做并查集就好了。上个寒假就做过。拿set存边挺短的。
+第二题是树。直接用dfs序+树状数组就搞定了。std还写错了。改在线的数据好痛苦啊。
+第三题不就是tarjan求scc么。虽然很久没有写过tarjan了都快忘了不过还是一次写对了。
+所以今天是我年轻了吧。&amp;nbsp;</description>
+    </item>
+    
+    <item>
+      <title>20141029 总结</title>
+      <link>/diary/lofterimport_114/</link>
+      <pubDate>Wed, 29 Oct 2014 13:39:18 +0000</pubDate>
+      
+      <guid>/diary/lofterimport_114/</guid>
+      <description>只要你尽力了，她便不会怪罪你。
+所以今天好像AK了，虽然第三题不是正解。
+第一题水过。直接找连续的区间，相邻的判一下。
+第二题比较不好想。但是想了一会还是想到了。对于一个操作如果有等效的操作那么不算，否则答案*2。用并查集可以做到O(n)。代码也很短。
+第三题比较坑。多解的情况std没有判，所以少了20分，虽然后来改回来了。正解比较迷离。不过朴素就能过。看到题的第一反应是这题数据好难造。
+所以我依然是年轻的。&amp;nbsp;</description>
+    </item>
+    
+    <item>
+      <title>20141028 总结</title>
+      <link>/diary/lofterimport_115/</link>
+      <pubDate>Tue, 28 Oct 2014 19:16:22 +0000</pubDate>
+      
+      <guid>/diary/lofterimport_115/</guid>
+      <description>被严重地打脸了。
+今天考得再次稀烂。
+第一题输出方案的五十分没有输出答案。
+第二题想歪了。正解也比较不好懂。至少到现在没想清楚为什么是2。
+第三题明明前缀和非要写树状数组。虽然我感觉树状数组可能会比较好写。不过，naive。
+下午写了点bzoj的水题都懒得发题解了。
+&amp;nbsp;&amp;nbsp;晚上学一学html也当放松了吧。&amp;nbsp;&amp;nbsp;虽然没有成功地在这句话上加上链接。</description>
+    </item>
+    
+    <item>
+      <title>20141027 总结</title>
+      <link>/diary/lofterimport_117/</link>
+      <pubDate>Mon, 27 Oct 2014 14:14:04 +0000</pubDate>
+      
+      <guid>/diary/lofterimport_117/</guid>
+      <description>死得很惨。
+其实前两题和第三题的70分都不难。
+第一题是简单数学题。不过没有看到绝对值符号，于是光荣wa20。
+第二题数据分治的时候脑子抽了一抽，然后常数打错直接再见了。
+第三题前60分简单贪心拿到了。剩下10分懒得写了。再剩下的玩意不会啊。
+orz xyz。</description>
+    </item>
+    
+    <item>
+      <title>20141023 总结</title>
+      <link>/diary/lofterimport_119/</link>
+      <pubDate>Thu, 23 Oct 2014 21:18:39 +0000</pubDate>
+      
+      <guid>/diary/lofterimport_119/</guid>
+      <description>上午下午刷bzoj的数据结构题比较开心。虽然死了好多脑细胞。
+以为晚上的题会比较难，结果就不是一套。
+第一题扫描线裸题。数据有错。
+第二题只和对角线有关。呵呵题。
+第三题写丑了。其实一个多简单的贪心的。
+看来我是没救了。</description>
+    </item>
+    
+    <item>
+      <title>20141021 总结</title>
+      <link>/diary/lofterimport_128/</link>
+      <pubDate>Tue, 21 Oct 2014 22:51:44 +0000</pubDate>
+      
+      <guid>/diary/lofterimport_128/</guid>
+      <description>上午基本完成了任务。
+下午在bzoj上说好的图论就变成了算几。我觉得要是noip真来道算几的话肯定特别开心。
+然后因为很值得吐槽的排练就废了。最后一道题还没调出来。我的254。
+晚上考试真心naive了。晚上状态不好是实话，但是不是没考好的借口。
+第一题就是贪心，不过显然我想错了。横着放的情况有其它做法。
+第二题题意比较坑，最初都看错了。我的做法是不稳定的，然后又wa了一个点。而且用三方的正解还是不对。还在调。
+第三题比较伤心。觉得比较水所以都没写暴力对拍。然后就wa得和骗分一个分了。不开心啊。
+所以我还是太年轻了。</description>
+    </item>
+    
+    <item>
+      <title>20141020 总结</title>
+      <link>/diary/lofterimport_132/</link>
+      <pubDate>Mon, 20 Oct 2014 21:06:05 +0000</pubDate>
+      
+      <guid>/diary/lofterimport_132/</guid>
+      <description>今天大概还是完成了早上安排的任务吧。
+上午下午都在刷比较简单的数学题。再次科普了一下exgcd。这玩意快成我家黑洞了。希望看到还能推出来。
+问题是没有顾及的miller-rabin。明天还得补一补。
+下午也顺带写了点天梯。有点郁闷。有不是一点点粗心啊。刷题的时候状态不太好。晚上得早点睡。
+晚上刷的bzoj好像和数学关系不大？不管嘛，现在在bzoj上还不是能刷什么刷什么了。毕竟太弱是吧。
+去跑步的时候发现舞狮的同学也在辛苦训练。
+你永远不知道别人在黑暗里付出了多少，所以在他们放出光彩的时候才会使你感到惊奇。同样的，你为了让别人惊奇，也得付出更多。</description>
+    </item>
+    
+    <item>
+      <title>20141018</title>
+      <link>/diary/lofterimport_137/</link>
+      <pubDate>Sat, 18 Oct 2014 21:31:17 +0000</pubDate>
+      
+      <guid>/diary/lofterimport_137/</guid>
+      <description>今天整个人都不太好。
+上午下午刷cv坑了无数次，每次都是一些小错误导致调很久。虽然还是把钻石过了。大师的题好多都不会啊。还要努力。
+晚上的bc更坑了。第一题一直以为是我物死早。最后才知道是读入坑了所以才wa傻了的。不知道为啥会这样。第二题直接暴力全排列懒得写dp了然后就fst了。第三题线段树最初把题意看错了其实还是比较好写好调的。最后一题naive了其实不能二分的。呵了个大呵。
+所以我还是太过于年轻了点。在noip的时候还是要记得成熟一点。</description>
+    </item>
+    
+    <item>
+      <title>20141017 总结</title>
+      <link>/diary/lofterimport_140/</link>
+      <pubDate>Fri, 17 Oct 2014 19:52:17 +0000</pubDate>
+      
+      <guid>/diary/lofterimport_140/</guid>
+      <description>上午在考试。主要时间都拿去玩答案提交题去了。搞出7个点，但是最后一个点好像没搞对只拿了1分。然后格式错误死完。
+下午本来准备搞gss6的，然后就去打了一下午的羽毛球。
+晚上说好的文化课呢？只好先花一个半小时搞gss6了。唉。
+然后得知noip初赛考得一团糟。之前已经大概估计到结果了。虽然考了六年第一次认真考初赛。认真准备了一件事情却没有获得预计的结果。也许我还是太naive了。也许我所谓的努力和别人比起来根本不值一提吧。
+所以？做好自己。</description>
+    </item>
+    
+    <item>
+      <title>20141016 总结</title>
+      <link>/diary/lofterimport_143/</link>
+      <pubDate>Thu, 16 Oct 2014 18:00:46 +0000</pubDate>
+      
+      <guid>/diary/lofterimport_143/</guid>
+      <description>晚上要上课，怕是没有时间写总结了。
+差不多荒废了一天。
+上午写了几道tyvj。
+下午写了半道数学题然后发现有好多特殊情况不想写了。写了半道gss6然后tle了然后就玩去了。
+毕竟我还是太Naive了。这样下去是不行的。&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</description>
+    </item>
+    
+    <item>
+      <title>20141015 总结</title>
+      <link>/diary/lofterimport_145/</link>
+      <pubDate>Wed, 15 Oct 2014 20:16:04 +0000</pubDate>
+      
+      <guid>/diary/lofterimport_145/</guid>
+      <description>依稀记得上午有个计划。
+上午就搞了一道字符串，然后搞乱七八糟的题去了。
+下午给高一小朋友出了一套题。怎么时间那么快？而且好多细节都不对，强迫症的我改了一遍又一遍啊。
+体育课和yzy陪一对高三的打了打羽毛球，感觉有妹子还是挺温馨的一件事情。
+吃饭之前下象棋，轻敌了，被yzy痛虐。
+晚上把回文正方形写了，最后还是用的hash，没有用manacher，因为觉得RMQ可能会MLE，不靠谱的东西不敢写，虽然hash更不靠谱的说。
+noip又近了一天了。不好好刷题就只有刷5+3，这怎么能行呢？</description>
+    </item>
+    
+    <item>
+      <title>20141014 总结</title>
+      <link>/diary/lofterimport_149/</link>
+      <pubDate>Tue, 14 Oct 2014 22:49:47 +0000</pubDate>
+      
+      <guid>/diary/lofterimport_149/</guid>
+      <description>上午好像写了计划。
+早上在写字符串的东西。好像好多题都可以hash水。不过还是练了一下kmp和manacher。感觉这两个玩意比较常考。
+中午去电脑城荡。幸好没有花钱。
+下午把noi那道题搞定了。好像也不是特别恶心的样子。半节课写＋一节课调。我果然太年轻。然后各种做韵律操以及打球。
+晚上考试。前两道题都有点水，第三题不会做。
+第一题无解竟然是输出impossible。坑爹的出题人啊。为啥第三题就是-1?果然我还是太naive了点。解法么记搜跑得飞快。
+第二题感觉想起来不难，写起来恶心暴了。然后各种优化代码大法还是&amp;nbsp;过了嘛。
+第三题想到了是贪心，不过没有想到正确的贪心方式，所以就只有乱骗了。没想到居然还骗到了最多的分。
+总之我依然是相当的年轻的。</description>
+    </item>
+    
+  </channel>
+</rss>

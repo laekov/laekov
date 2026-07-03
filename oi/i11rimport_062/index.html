@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>BZOJ3435 [Wc2014]紫荆花之恋 | The Site of laekov</title>
+<meta name="keywords" content="DS, bzoj, oi">
+<meta name="description" content="想起去年在考场上完全没有思路不想写数据结构于是骗了30分。现在想想当初还是naive。
+&nbsp;
+这题看上去就是点分治。因为要动态加点所以要动态。然后利用替罪羊树的方法重构树上的一团东西（不能叫团，否则命名重复了）。
+&nbsp;
+本来以为要写很久，结果也没写多久。奇怪的是，把maintain展开到insert里面之后就跑得飞快了，否则过不到而且根本跑不下来9和10。又丑了郁闷。
+&nbsp;
+#include &lt;cstdio&gt; #include &lt;cctype&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+const int buf_len = 4000; const size_t buf_size = buf_len * sizeof(char); char buf[buf_len], *bufb(buf), *bufe(buf &#43; 1); #define readBuf() { if (&#43;&#43; bufb == bufe) bufe = (bufb = buf) &#43; fread(buf, 1, buf_size, stdin); } #define readInt(x) { register int s(0); do { readBuf(); } while (!isdigit(*bufb)); do { s = s * 10 &#43; *bufb - 48; readBuf(); } while (isdigit(*bufb)); x = s; }">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/i11rimport_062/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="BZOJ3435 [Wc2014]紫荆花之恋" />
+<meta property="og:description" content="想起去年在考场上完全没有思路不想写数据结构于是骗了30分。现在想想当初还是naive。
+&nbsp;
+这题看上去就是点分治。因为要动态加点所以要动态。然后利用替罪羊树的方法重构树上的一团东西（不能叫团，否则命名重复了）。
+&nbsp;
+本来以为要写很久，结果也没写多久。奇怪的是，把maintain展开到insert里面之后就跑得飞快了，否则过不到而且根本跑不下来9和10。又丑了郁闷。
+&nbsp;
+#include &lt;cstdio&gt; #include &lt;cctype&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+const int buf_len = 4000; const size_t buf_size = buf_len * sizeof(char); char buf[buf_len], *bufb(buf), *bufe(buf &#43; 1); #define readBuf() { if (&#43;&#43; bufb == bufe) bufe = (bufb = buf) &#43; fread(buf, 1, buf_size, stdin); } #define readInt(x) { register int s(0); do { readBuf(); } while (!isdigit(*bufb)); do { s = s * 10 &#43; *bufb - 48; readBuf(); } while (isdigit(*bufb)); x = s; }" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/i11rimport_062/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2015-02-01T20:07:41+00:00" />
+<meta property="article:modified_time" content="2015-02-01T20:07:41+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BZOJ3435 [Wc2014]紫荆花之恋"/>
+<meta name="twitter:description" content="想起去年在考场上完全没有思路不想写数据结构于是骗了30分。现在想想当初还是naive。
+&nbsp;
+这题看上去就是点分治。因为要动态加点所以要动态。然后利用替罪羊树的方法重构树上的一团东西（不能叫团，否则命名重复了）。
+&nbsp;
+本来以为要写很久，结果也没写多久。奇怪的是，把maintain展开到insert里面之后就跑得飞快了，否则过不到而且根本跑不下来9和10。又丑了郁闷。
+&nbsp;
+#include &lt;cstdio&gt; #include &lt;cctype&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+const int buf_len = 4000; const size_t buf_size = buf_len * sizeof(char); char buf[buf_len], *bufb(buf), *bufe(buf &#43; 1); #define readBuf() { if (&#43;&#43; bufb == bufe) bufe = (bufb = buf) &#43; fread(buf, 1, buf_size, stdin); } #define readInt(x) { register int s(0); do { readBuf(); } while (!isdigit(*bufb)); do { s = s * 10 &#43; *bufb - 48; readBuf(); } while (isdigit(*bufb)); x = s; }"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "BZOJ3435 [Wc2014]紫荆花之恋",
+      "item": "/oi/i11rimport_062/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BZOJ3435 [Wc2014]紫荆花之恋",
+  "name": "BZOJ3435 [Wc2014]紫荆花之恋",
+  "description": "想起去年在考场上完全没有思路不想写数据结构于是骗了30分。现在想想当初还是naive。\n\u0026nbsp;\n这题看上去就是点分治。因为要动态加点所以要动态。然后利用替罪羊树的方法重构树上的一团东西（不能叫团，否则命名重复了）。\n\u0026nbsp;\n本来以为要写很久，结果也没写多久。奇怪的是，把maintain展开到insert里面之后就跑得飞快了，否则过不到而且根本跑不下来9和10。又丑了郁闷。\n\u0026nbsp;\n#include \u0026lt;cstdio\u0026gt; #include \u0026lt;cctype\u0026gt; #include \u0026lt;cstring\u0026gt; #include \u0026lt;algorithm\u0026gt; using namespace std;\nconst int buf_len = 4000; const size_t buf_size = buf_len * sizeof(char); char buf[buf_len], *bufb(buf), *bufe(buf + 1); #define readBuf() { if (++ bufb == bufe) bufe = (bufb = buf) + fread(buf, 1, buf_size, stdin); } #define readInt(x) { register int s(0); do { readBuf(); } while (!isdigit(*bufb)); do { s = s * 10 + *bufb - 48; readBuf(); } while (isdigit(*bufb)); x = s; }",
+  "keywords": [
+    "DS", "bzoj", "oi"
+  ],
+  "articleBody": " 想起去年在考场上完全没有思路不想写数据结构于是骗了30分。现在想想当初还是naive。\n这题看上去就是点分治。因为要动态加点所以要动态。然后利用替罪羊树的方法重构树上的一团东西（不能叫团，否则命名重复了）。\n本来以为要写很久，结果也没写多久。奇怪的是，把maintain展开到insert里面之后就跑得飞快了，否则过不到而且根本跑不下来9和10。又丑了郁闷。\n#include #include #include #include using namespace std;\nconst int buf_len = 4000; const size_t buf_size = buf_len * sizeof(char); char buf[buf_len], *bufb(buf), *bufe(buf + 1); #define readBuf() { if (++ bufb == bufe) bufe = (bufb = buf) + fread(buf, 1, buf_size, stdin); } #define readInt(x) { register int s(0); do { readBuf(); } while (!isdigit(*bufb)); do { s = s * 10 + *bufb - 48; readBuf(); } while (isdigit(*bufb)); x = s; }\nstruct edge { int t, v; edge *next; }; struct sbt_node { int vl, sz; sbt_node *ls, *rs; };\ntypedef long long dint;\n#ifdef WIN32 #define lld “%I64d” #else #define lld “%lld” #endif #define _l (long long int)\nconst int maxn = 100009; const int fmod = 1e9; const int maxl = 19; const int maxnd = maxn * maxl * 2; const int balc = 3; const double ublim = 0.9; const int inf = 0x3f3f3f3f;\ndint lans; int n; int ath[maxn][maxl], drt[maxn], dep[maxn]; int bd[maxn], bsz[maxn], bfa[maxn], br[maxn], r[maxn]; int stsz[maxn], vis[maxn], vist; sbt_node slst[maxnd], *sstc[maxnd], **sp, *brt[maxn], *prt[maxn]; edge *head[maxn], elst[maxn \u003c\u003c 1], *ep(elst);\nvoid pre() { for (int i = 0; i \u003c maxnd; ++ i) { sstc[i] = slst + i; slst[i]. ls = slst[i]. rs = 0; } sp = sstc; vist = 0; memset(vis, 0, sizeof(vis)); }\ninline void addEdge(int u, int v, int w) { ep-\u003e t = v; ep-\u003e v = w; ep-\u003e next = head[u]; head[u] = ep ++; }\n#define szof(p) ((p)?(p-\u003esz):0) inline sbt_node* allocNode() { static sbt_node* ret; ret = (sp ++); if (ret-\u003e ls) (– sp) = ret-\u003e ls; if (ret-\u003e rs) (– sp) = ret-\u003e rs; return ret; } inline void lRot(sbt_node \u0026p) { register sbt_node q(p-\u003e ls); p-\u003e ls = q-\u003e rs; q-\u003e rs = p; q-\u003e sz = p-\u003e sz; p-\u003e sz = szof(p-\u003e ls) + szof(p-\u003e rs) + 1; p = q; } inline void rRot(sbt_node \u0026p) { register sbt_node* q(p-\u003e rs); p-\u003e rs = q-\u003e ls; q-\u003e ls = p; q-\u003e sz = p-\u003e sz; p-\u003e sz = szof(p-\u003e ls) + szof(p-\u003e rs) + 1; p = q; } inline void sbtIns(sbt_node* \u0026p, int v0) { if (!p) { p = allocNode(); p-\u003e ls = p-\u003e rs = 0; p-\u003e sz = 1; p-\u003e vl = v0; } else { ++ p-\u003e sz; if (v0 \u003c p-\u003e vl) { sbtIns(p-\u003e ls, v0); if (szof(p-\u003e ls) \u003e szof(p-\u003e rs) + balc) lRot(p); } else { sbtIns(p-\u003e rs, v0); if (szof(p-\u003e ls) + balc \u003c szof(p-\u003e rs)) rRot(p); } } } int sbtCntLower(sbt_node* p, int v0) { int s(0); while (p) if (v0 \u003c p-\u003e vl) p = p-\u003e ls; else s += szof(p-\u003e ls) + 1, p = p-\u003e rs; return s; }\nint LCA(int u, int v) { if (dep[u] \u003c dep[v]) swap(u, v); for (int i = maxl - 1; i \u003e= 0; – i) if (dep[ath[u][i]] \u003e= dep[v]) u = ath[u][i]; if (u == v) return u; for (int i = maxl - 1; i \u003e= 0; – i) if (ath[u][i] ^ ath[v][i]) { u = ath[u][i]; v = ath[v][i]; } return ath[u][0]; } inline int dist(int u, int v) { int a(LCA(u, v)); return drt[u] + drt[v] - drt[a] * 2; }\nvoid insEach(sbt_node* q, sbt_node* \u0026x, int mn) { static sbt_node* stc[maxn]; int tst(1); stc[1] = q; while (tst) { sbt_node* p(stc[tst –]); sbtIns(x, p-\u003e vl + mn); if (p-\u003e ls) stc[++ tst] = p-\u003e ls; if (p-\u003e rs) stc[++ tst] = p-\u003e rs; } } int build(int pbd, int pbr, int pbf) { static int q[maxn], fr[maxn], dst[maxn]; int hd(0), tl(1), ct(0), cs(inf); q[0] = pbr; fr[pbr] = 0; dst[pbr] = 0; while (hd \u003c tl) { int p(q[hd ++]); for (edge* e = head[p]; e; e = e-\u003e next) if (bd[e-\u003e t] == inf \u0026\u0026 e-\u003e t != fr[p]) { fr[e-\u003e t] = p; dst[e-\u003e t] = dst[p] + e-\u003e v; q[tl ++] = e-\u003e t; } } for (int ti = tl - 1, p; ti \u003e= 0; – ti) { int ms(1); p = q[ti]; stsz[p] = 1; for (edge* e = head[p]; e; e = e-\u003e next) if (bd[e-\u003e t] == inf \u0026\u0026 e-\u003e t != fr[p]) { stsz[p] += stsz[e-\u003e t]; if (ms \u003c stsz[e-\u003e t]) ms = stsz[e-\u003e t]; } if (ms \u003c tl - stsz[p]) ms = tl - stsz[p]; if (ms \u003c cs) { cs = ms; ct = p; } } for (int ti = 0, p; ti \u003c tl; ++ ti) { p = q[ti]; sbtIns(prt[ct], dst[p] - r[p]); } bd[ct] = pbd; bsz[ct] = tl; bfa[ct] = pbf; br[ct] = pbr; sbtIns(brt[ct], -r[ct]); for (edge* e = head[ct]; e; e = e-\u003e next) if (bd[e-\u003e t] == inf) { int nr(build(pbd + 1, e-\u003e t, ct)); insEach(prt[nr], brt[ct], e-\u003e v); } return ct; }\nvoid rebuild(int p0, int pbd, int pbr, int pbf) { static int q[maxn]; int hd(0), tl(1); ++ vist; vis[p0] = vist; q[0] = p0; while (hd \u003c tl) { int p(q[hd ++]); *(– sp) = brt[p]; (– sp) = prt[p]; brt[p] = 0; prt[p] = 0; for (edge e = head[p]; e; e = e-\u003e next) if (bd[e-\u003e t] \u003e pbd \u0026\u0026 vis[e-\u003e t] \u003c vist) { vis[e-\u003e t] = vist; q[tl ++] = e-\u003e t; } } for (int i = 0; i \u003c tl; ++ i) bd[q[i]] = inf; build(pbd, pbr, pbf); }\nvoid addNode(int p) { brt[p] = 0; sbtIns(brt[p], -r[p]); prt[p] = 0; sbtIns(prt[p], -r[p]); if (p == 1) { bd[p] = 1; bsz[p] = 1; bfa[p] = 0; br[p] = 1; } else { register int fa(ath[p][0]); bd[p] = bd[fa] + 1; bsz[p] = 1; bfa[p] = fa; br[p] = p; int q(fa), l(p), ubp, dt(0); double ubv(0); while (q) { ++ bsz[q]; if ((double)bsz[l] / bsz[q] \u003e ubv) { ubv = (double)bsz[l] / bsz[q]; ubp = q; } int d0(dist(p, q)); sbtIns(brt[q], d0 - r[p]); sbtIns(prt[q], dist(br[q], p) - r[p]); dt += sbtCntLower(brt[q], r[p] - d0) - sbtCntLower(prt[l], r[p] - d0 - dist(br[l], q)); l = q; q = bfa[q]; } lans += dt; if (ubv \u003e ublim) rebuild(ubp, bd[ubp], br[ubp], bfa[ubp]); } }\nint main() { #ifndef ONLINE_JUDGE freopen(“in.txt”, “r”, stdin); #endif\npre(); readInt(n); readInt(n); lans = 0; for (int i = 1; i \u0026lt;= n; ++ i) { int fa; readInt(fa); readInt(drt[i]); readInt(r[i]); if (i \u0026gt; 1) { fa ^= lans % fmod; dep[i] = dep[fa] + 1; addEdge(fa, i, drt[i]); addEdge(i, fa, drt[i]); drt[i] += drt[fa]; ath[i][0] = fa; for (int j = 1; j \u0026lt; maxl; ++ j) ath[i][j] = ath[ath[i][j - 1]][j - 1]; } else { dep[i] = 1; } addNode(i); printf(lld \"\\n\", lans); } } ",
+  "wordCount" : "1121",
+  "inLanguage": "en",
+  "datePublished": "2015-02-01T20:07:41Z",
+  "dateModified": "2015-02-01T20:07:41Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/i11rimport_062/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      BZOJ3435 [Wc2014]紫荆花之恋
+    </h1>
+    <div class="post-meta"><span title='2015-02-01 20:07:41 +0000 UTC'>February 1, 2015</span>&nbsp;·&nbsp;6 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>
+	想起去年在考场上完全没有思路不想写数据结构于是骗了30分。现在想想当初还是naive。</p>
+<p>
+	&nbsp;</p>
+<p>
+	这题看上去就是点分治。因为要动态加点所以要动态。然后利用替罪羊树的方法重构树上的一团东西（不能叫团，否则命名重复了）。</p>
+<p>
+	&nbsp;</p>
+<p>
+	本来以为要写很久，结果也没写多久。奇怪的是，把maintain展开到insert里面之后就跑得飞快了，否则过不到而且根本跑不下来9和10。又丑了郁闷。</p>
+<p>
+	&nbsp;</p>
+<pre class="bcode">#include &lt;cstdio&gt;
+#include &lt;cctype&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+<p>using namespace std;</p>
+<p>const int buf_len = 4000;
+const size_t buf_size = buf_len * sizeof(char);
+char buf[buf_len], *bufb(buf), *bufe(buf + 1);
+#define readBuf() { <br>
+if (++ bufb == bufe) <br>
+bufe = (bufb = buf) + fread(buf, 1, buf_size, stdin); <br>
+}
+#define readInt(<em>x</em>) { <br>
+register int <em>s</em>(0); <br>
+do { <br>
+readBuf(); <br>
+} while (!isdigit(*bufb)); <br>
+do { <br>
+<em>s</em> = <em>s</em> * 10 + *bufb - 48; <br>
+readBuf(); <br>
+} while (isdigit(*bufb)); <br>
+<em>x</em> = <em>s</em>; <br>
+}</p>
+<p>struct edge {
+int t, v;
+edge *next;
+};
+struct sbt_node {
+int vl, sz;
+sbt_node *ls, *rs;
+};</p>
+<p>typedef long long dint;</p>
+<p>#ifdef WIN32
+#define lld &ldquo;%I64d&rdquo;
+#else
+#define lld &ldquo;%lld&rdquo;
+#endif
+#define _l (long long int)</p>
+<p>const int maxn = 100009;
+const int fmod = 1e9;
+const int maxl = 19;
+const int maxnd = maxn * maxl * 2;
+const int balc = 3;
+const double ublim = 0.9;
+const int inf = 0x3f3f3f3f;</p>
+<p>dint lans;
+int n;
+int ath[maxn][maxl], drt[maxn], dep[maxn];
+int bd[maxn], bsz[maxn], bfa[maxn], br[maxn], r[maxn];
+int stsz[maxn], vis[maxn], vist;
+sbt_node slst[maxnd], *sstc[maxnd], **sp, *brt[maxn], *prt[maxn];
+edge *head[maxn], elst[maxn &lt;&lt; 1], *ep(elst);</p>
+<p>void pre() {
+for (int i = 0; i &lt; maxnd; ++ i) {
+sstc[i] = slst + i;
+slst[i]. ls = slst[i]. rs = 0;
+}
+sp = sstc;
+vist = 0;
+memset(vis, 0, sizeof(vis));
+}</p>
+<p>inline void addEdge(int u, int v, int w) {
+ep-&gt; t = v;
+ep-&gt; v = w;
+ep-&gt; next = head[u];
+head[u] = ep ++;
+}</p>
+<p>#define szof(<em>p</em>) ((<em>p</em>)?(<em>p</em>-&gt;sz):0)
+inline sbt_node* allocNode() {
+static sbt_node* ret;
+ret = <em>(sp ++);
+if (ret-&gt; ls)
+<em>(&ndash; sp) = ret-&gt; ls;
+if (ret-&gt; rs)
+<em>(&ndash; sp) = ret-&gt; rs;
+return ret;
+}
+inline void lRot(sbt_node</em> &amp;p) {
+register sbt_node</em> q(p-&gt; ls);
+p-&gt; ls = q-&gt; rs;
+q-&gt; rs = p;
+q-&gt; sz = p-&gt; sz;
+p-&gt; sz = szof(p-&gt; ls) + szof(p-&gt; rs) + 1;
+p = q;
+}
+inline void rRot(sbt_node</em> &amp;p) {
+register sbt_node* q(p-&gt; rs);
+p-&gt; rs = q-&gt; ls;
+q-&gt; ls = p;
+q-&gt; sz = p-&gt; sz;
+p-&gt; sz = szof(p-&gt; ls) + szof(p-&gt; rs) + 1;
+p = q;
+}
+inline void sbtIns(sbt_node* &amp;p, int v0) {
+if (!p) {
+p = allocNode();
+p-&gt; ls = p-&gt; rs = 0;
+p-&gt; sz = 1;
+p-&gt; vl = v0;
+}
+else {
+++ p-&gt; sz;
+if (v0 &lt; p-&gt; vl) {
+sbtIns(p-&gt; ls, v0);
+if (szof(p-&gt; ls) &gt; szof(p-&gt; rs) + balc)
+lRot(p);
+}
+else {
+sbtIns(p-&gt; rs, v0);
+if (szof(p-&gt; ls) + balc &lt; szof(p-&gt; rs))
+rRot(p);
+}
+}
+}
+int sbtCntLower(sbt_node* p, int v0) {
+int s(0);
+while (p)
+if (v0 &lt; p-&gt; vl)
+p = p-&gt; ls;
+else
+s += szof(p-&gt; ls) + 1, p = p-&gt; rs;
+return s;
+}</p>
+<p>int LCA(int u, int v) {
+if (dep[u] &lt; dep[v])
+swap(u, v);
+for (int i = maxl - 1; i &gt;= 0; &ndash; i)
+if (dep[ath[u][i]] &gt;= dep[v])
+u = ath[u][i];
+if (u == v)
+return u;
+for (int i = maxl - 1; i &gt;= 0; &ndash; i)
+if (ath[u][i] ^ ath[v][i]) {
+u = ath[u][i];
+v = ath[v][i];
+}
+return ath[u][0];
+}
+inline int dist(int u, int v) {
+int a(LCA(u, v));
+return drt[u] + drt[v] - drt[a] * 2;
+}</p>
+<p>void insEach(sbt_node* q, sbt_node* &amp;x, int mn) {
+static sbt_node* stc[maxn];
+int tst(1);
+stc[1] = q;
+while (tst) {
+sbt_node* p(stc[tst &ndash;]);
+sbtIns(x, p-&gt; vl + mn);
+if (p-&gt; ls)
+stc[++ tst] = p-&gt; ls;
+if (p-&gt; rs)
+stc[++ tst] = p-&gt; rs;
+}
+}
+int build(int pbd, int pbr, int pbf) {
+static int q[maxn], fr[maxn], dst[maxn];
+int hd(0), tl(1), ct(0), cs(inf);
+q[0] = pbr;
+fr[pbr] = 0;
+dst[pbr] = 0;
+while (hd &lt; tl) {
+int p(q[hd ++]);
+for (edge* e = head[p]; e; e = e-&gt; next)
+if (bd[e-&gt; t] == inf &amp;&amp; e-&gt; t != fr[p]) {
+fr[e-&gt; t] = p;
+dst[e-&gt; t] = dst[p] + e-&gt; v;
+q[tl ++] = e-&gt; t;
+}
+}
+for (int ti = tl - 1, p; ti &gt;= 0; &ndash; ti) {
+int ms(1);
+p = q[ti];
+stsz[p] = 1;
+for (edge* e = head[p]; e; e = e-&gt; next)
+if (bd[e-&gt; t] == inf &amp;&amp; e-&gt; t != fr[p]) {
+stsz[p] += stsz[e-&gt; t];
+if (ms &lt; stsz[e-&gt; t])
+ms = stsz[e-&gt; t];
+}
+if (ms &lt; tl - stsz[p])
+ms = tl - stsz[p];
+if (ms &lt; cs) {
+cs = ms;
+ct = p;
+}
+}
+for (int ti = 0, p; ti &lt; tl; ++ ti) {
+p = q[ti];
+sbtIns(prt[ct], dst[p] - r[p]);
+}
+bd[ct] = pbd;
+bsz[ct] = tl;
+bfa[ct] = pbf;
+br[ct] = pbr;
+sbtIns(brt[ct], -r[ct]);
+for (edge* e = head[ct]; e; e = e-&gt; next)
+if (bd[e-&gt; t] == inf) {
+int nr(build(pbd + 1, e-&gt; t, ct));
+insEach(prt[nr], brt[ct], e-&gt; v);
+}
+return ct;
+}</p>
+<p>void rebuild(int p0, int pbd, int pbr, int pbf) {
+static int q[maxn];
+int hd(0), tl(1);
+++ vist;
+vis[p0] = vist;
+q[0] = p0;
+while (hd &lt; tl) {
+int p(q[hd ++]);
+*(&ndash; sp) = brt[p];
+<em>(&ndash; sp) = prt[p];
+brt[p] = 0;
+prt[p] = 0;
+for (edge</em> e = head[p]; e; e = e-&gt; next)
+if (bd[e-&gt; t] &gt; pbd &amp;&amp; vis[e-&gt; t] &lt; vist) {
+vis[e-&gt; t] = vist;
+q[tl ++] = e-&gt; t;
+}
+}
+for (int i = 0; i &lt; tl; ++ i)
+bd[q[i]] = inf;
+build(pbd, pbr, pbf);
+}</p>
+<p>void addNode(int p) {
+brt[p] = 0;
+sbtIns(brt[p], -r[p]);
+prt[p] = 0;
+sbtIns(prt[p], -r[p]);
+if (p == 1) {
+bd[p] = 1;
+bsz[p] = 1;
+bfa[p] = 0;
+br[p] = 1;
+}
+else {
+register int fa(ath[p][0]);
+bd[p] = bd[fa] + 1;
+bsz[p] = 1;
+bfa[p] = fa;
+br[p] = p;
+int q(fa), l(p), ubp, dt(0);
+double ubv(0);
+while (q) {
+++ bsz[q];
+if ((double)bsz[l] / bsz[q] &gt; ubv) {
+ubv = (double)bsz[l] / bsz[q];
+ubp = q;
+}
+int d0(dist(p, q));
+sbtIns(brt[q], d0 - r[p]);
+sbtIns(prt[q], dist(br[q], p) - r[p]);
+dt += sbtCntLower(brt[q], r[p] - d0) - sbtCntLower(prt[l], r[p] - d0 - dist(br[l], q));
+l = q;
+q = bfa[q];
+}
+lans += dt;
+if (ubv &gt; ublim)
+rebuild(ubp, bd[ubp], br[ubp], bfa[ubp]);
+}
+}</p>
+<p>int main() {
+#ifndef ONLINE_JUDGE
+freopen(&ldquo;in.txt&rdquo;, &ldquo;r&rdquo;, stdin);
+#endif</p>
+<pre><code>pre();
+readInt(n);
+readInt(n);
+lans = 0;
+for (int i = 1; i &amp;lt;= n; ++ i) {
+	int fa;
+	readInt(fa);
+	readInt(drt[i]);
+	readInt(r[i]);
+	if (i &amp;gt; 1) {
+		fa ^= lans % fmod;
+		dep[i] = dep[fa] + 1;
+		addEdge(fa, i, drt[i]);
+		addEdge(i, fa, drt[i]);
+		drt[i] += drt[fa];
+		ath[i][0] = fa;
+		for (int j = 1; j &amp;lt; maxl; ++ j)
+			ath[i][j] = ath[ath[i][j - 1]][j - 1];
+	}
+	else {
+		dep[i] = 1;
+	}
+	addNode(i);
+	printf(lld &quot;\n&quot;, lans);
+}
+</code></pre>
+<p>}
+</pre></p>
+</div>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/ds/">ds</a></li>
+      <li><a href="/tags/bzoj/">bzoj</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/i11rimport_061/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>BZOJ2401 陶陶的难题I</span>
+  </a>
+  <a class="next" href="/oi/i11rimport_064/">
+    <span class="title">Next »</span>
+    <br>
+    <span>POJ2154 Color</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

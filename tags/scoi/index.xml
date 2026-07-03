@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>scoi on The Site of laekov</title>
+    <link>/tags/scoi/</link>
+    <description>Recent content in scoi on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Wed, 26 Nov 2014 16:04:09 +0000</lastBuildDate><atom:link href="/tags/scoi/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Scoi2013多项式的运算</title>
+      <link>/oi/lofterimport_065/</link>
+      <pubDate>Wed, 26 Nov 2014 16:04:09 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_065/</guid>
+      <description>平衡树维护序列的老题。之前用SMT写过，不过在bzoj上就tle了。splay大法好。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cctype&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+int _d_;
+#define readInt(_x_)&amp;nbsp;{&amp;nbsp;\
+int&amp;amp; _s_ = _x_;&amp;nbsp;\
+while (!isdigit(_d_&amp;nbsp;= getchar()));&amp;nbsp;\
+_s_ = 0;&amp;nbsp;\
+while ((_s_&amp;nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));&amp;nbsp;\
+}
+#define readStr(_s_)&amp;nbsp;{&amp;nbsp;\
+char* _i_ = _s_;&amp;nbsp;\
+while (!islower(_d_&amp;nbsp;= getchar()));&amp;nbsp;\
+while ((*(_i_&amp;nbsp;++)&amp;nbsp;= _d_), islower(_d_ = getchar()));&amp;nbsp;\
+*(_i_)&amp;nbsp;= 0;&amp;nbsp;\
+}
+#define _l (long long int)
+const int maxn = 300009;
+const int mod = 20130426;</description>
+    </item>
+    
+  </channel>
+</rss>

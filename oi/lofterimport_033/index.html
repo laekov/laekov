@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>BZOJ2565 最长双回文串 | The Site of laekov</title>
+<meta name="keywords" content="bzoj, string, oi">
+<meta name="description" content="以前觉得不会，仔细想想觉得还是挺水。
+manacher找出所有中心回文串，然后用单调队列扫一下每个位置往左最长和往右最长就行。找位置比较烦不过还是比较好写的。
+重点是写出了在windows下拿for循环对拍，虽然异常丑。
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+const int maxn = 200009;
+int n, l[maxn], q[maxn], vx[maxn], vy[maxn];
+char a[maxn];
+void manacher()&nbsp;{
+l[0]&nbsp;= 1;
+for (int i = 1, j = 0; i &lt;&nbsp;(n&nbsp;&lt;&lt; 1)&nbsp;- 1;&nbsp;&#43;&#43; i)&nbsp;{
+int r =&nbsp;((j&nbsp;&#43; 1)&nbsp;&gt;&gt; 1)&nbsp;&#43; l[j]&nbsp;- 1;
+int p = i &gt;&gt; 1, q = i - p;
+l[i]&nbsp;=&nbsp;(r &gt;= q)&nbsp;? min(r - q &#43; 1, l[(j &lt;&lt; 1)&nbsp;- i])&nbsp;: 0;">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/lofterimport_033/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="BZOJ2565 最长双回文串" />
+<meta property="og:description" content="以前觉得不会，仔细想想觉得还是挺水。
+manacher找出所有中心回文串，然后用单调队列扫一下每个位置往左最长和往右最长就行。找位置比较烦不过还是比较好写的。
+重点是写出了在windows下拿for循环对拍，虽然异常丑。
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+const int maxn = 200009;
+int n, l[maxn], q[maxn], vx[maxn], vy[maxn];
+char a[maxn];
+void manacher()&nbsp;{
+l[0]&nbsp;= 1;
+for (int i = 1, j = 0; i &lt;&nbsp;(n&nbsp;&lt;&lt; 1)&nbsp;- 1;&nbsp;&#43;&#43; i)&nbsp;{
+int r =&nbsp;((j&nbsp;&#43; 1)&nbsp;&gt;&gt; 1)&nbsp;&#43; l[j]&nbsp;- 1;
+int p = i &gt;&gt; 1, q = i - p;
+l[i]&nbsp;=&nbsp;(r &gt;= q)&nbsp;? min(r - q &#43; 1, l[(j &lt;&lt; 1)&nbsp;- i])&nbsp;: 0;" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/lofterimport_033/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2014-12-20T23:09:18+00:00" />
+<meta property="article:modified_time" content="2014-12-20T23:09:18+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BZOJ2565 最长双回文串"/>
+<meta name="twitter:description" content="以前觉得不会，仔细想想觉得还是挺水。
+manacher找出所有中心回文串，然后用单调队列扫一下每个位置往左最长和往右最长就行。找位置比较烦不过还是比较好写的。
+重点是写出了在windows下拿for循环对拍，虽然异常丑。
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+const int maxn = 200009;
+int n, l[maxn], q[maxn], vx[maxn], vy[maxn];
+char a[maxn];
+void manacher()&nbsp;{
+l[0]&nbsp;= 1;
+for (int i = 1, j = 0; i &lt;&nbsp;(n&nbsp;&lt;&lt; 1)&nbsp;- 1;&nbsp;&#43;&#43; i)&nbsp;{
+int r =&nbsp;((j&nbsp;&#43; 1)&nbsp;&gt;&gt; 1)&nbsp;&#43; l[j]&nbsp;- 1;
+int p = i &gt;&gt; 1, q = i - p;
+l[i]&nbsp;=&nbsp;(r &gt;= q)&nbsp;? min(r - q &#43; 1, l[(j &lt;&lt; 1)&nbsp;- i])&nbsp;: 0;"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "BZOJ2565 最长双回文串",
+      "item": "/oi/lofterimport_033/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BZOJ2565 最长双回文串",
+  "name": "BZOJ2565 最长双回文串",
+  "description": "以前觉得不会，仔细想想觉得还是挺水。\nmanacher找出所有中心回文串，然后用单调队列扫一下每个位置往左最长和往右最长就行。找位置比较烦不过还是比较好写的。\n重点是写出了在windows下拿for循环对拍，虽然异常丑。\n#include \u0026lt;cstdio\u0026gt;\n#include \u0026lt;cstring\u0026gt;\n#include \u0026lt;algorithm\u0026gt;\nusing namespace std;\nconst int maxn = 200009;\nint n, l[maxn], q[maxn], vx[maxn], vy[maxn];\nchar a[maxn];\nvoid manacher()\u0026nbsp;{\nl[0]\u0026nbsp;= 1;\nfor (int i = 1, j = 0; i \u0026lt;\u0026nbsp;(n\u0026nbsp;\u0026lt;\u0026lt; 1)\u0026nbsp;- 1;\u0026nbsp;++ i)\u0026nbsp;{\nint r =\u0026nbsp;((j\u0026nbsp;+ 1)\u0026nbsp;\u0026gt;\u0026gt; 1)\u0026nbsp;+ l[j]\u0026nbsp;- 1;\nint p = i \u0026gt;\u0026gt; 1, q = i - p;\nl[i]\u0026nbsp;=\u0026nbsp;(r \u0026gt;= q)\u0026nbsp;? min(r - q + 1, l[(j \u0026lt;\u0026lt; 1)\u0026nbsp;- i])\u0026nbsp;: 0;",
+  "keywords": [
+    "bzoj", "string", "oi"
+  ],
+  "articleBody": "以前觉得不会，仔细想想觉得还是挺水。\nmanacher找出所有中心回文串，然后用单调队列扫一下每个位置往左最长和往右最长就行。找位置比较烦不过还是比较好写的。\n重点是写出了在windows下拿for循环对拍，虽然异常丑。\n#include #include #include using namespace std;\nconst int maxn = 200009;\nint n, l[maxn], q[maxn], vx[maxn], vy[maxn];\nchar a[maxn];\nvoid manacher() {\nl[0] = 1;\nfor (int i = 1, j = 0; i \u003c (n \u003c\u003c 1) - 1; ++ i) {\nint r = ((j + 1) \u003e\u003e 1) + l[j] - 1;\nint p = i \u003e\u003e 1, q = i - p;\nl[i] = (r \u003e= q) ? min(r - q + 1, l[(j \u003c\u003c 1) - i]) : 0;\nwhile (p - l[i] \u003e= 0 \u0026\u0026 q + l[i] \u003c n \u0026\u0026 a[p - l[i]] == a[q + l[i]])\n++ l[i];\nif (q + l[i] - 1 \u003e r)\nj = i;\n}\n}\n#define getLeft(x) (((x)\u003e\u003e1)-l[x]+1)\n#define getRight(x) ((((x)+1)\u003e\u003e1)+l[x]-1)\nvoid dp(bool d) {\nstatic int q[maxn];\nint hd = 0, tl = 0;\nif (!d) {\nfor (int i = 0; i \u003c n; ++ i) {\nif (!tl || getRight(i \u003c\u003c 1) \u003e getRight(q[tl - 1]))\nq[tl ++] = (i \u003c\u003c 1);\nwhile (getRight(q[hd]) \u003c i)\n++ hd;\nvx[i] = (i \u003c\u003c 1) - q[hd] + 1;\nif (i \u003c n - 1 \u0026\u0026 getRight((i \u003c\u003c 1) + 1) \u003e getRight(q[tl - 1]))\nq[tl ++] = (i \u003c\u003c 1) + 1;\n}\n}\nelse {\nfor (int i = n - 1; i \u003e= 0; -- i) {\nif (!tl || getLeft(i \u003c\u003c 1) \u003c getLeft(q[tl - 1]))\nq[tl ++] = (i \u003c\u003c 1);\nwhile (getLeft(q[hd]) \u003e i)\n++ hd;\nvy[i] = q[hd] - (i \u003c\u003c 1) + 1;\nif (i \u0026\u0026 getLeft((i \u003c\u003c 1) -1) \u003c getLeft(q[tl - 1]))\nq[tl ++] = (i \u003c\u003c 1) - 1;\n}\n}\n}\nint main() {\n#ifndef ONLINE_JUDGE\nfreopen(\"in.txt\", \"r\", stdin);\n#endif\nscanf(\"%s\", a);\nn = strlen(a);\nmanacher();\ndp(0);\ndp(1);\nint ans = 2;\nfor (int i = 1; i \u003c n; ++ i)\nans = max(ans, vx[i - 1] + vy[i]);\nprintf(\"%d\\n\", ans);\n}\n",
+  "wordCount" : "257",
+  "inLanguage": "en",
+  "datePublished": "2014-12-20T23:09:18Z",
+  "dateModified": "2014-12-20T23:09:18Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/lofterimport_033/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      BZOJ2565 最长双回文串
+    </h1>
+    <div class="post-meta"><span title='2014-12-20 23:09:18 +0000 UTC'>December 20, 2014</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>以前觉得不会，仔细想想觉得还是挺水。</p> 
+<p><br /></p> 
+<p>manacher找出所有中心回文串，然后用单调队列扫一下每个位置往左最长和往右最长就行。找位置比较烦不过还是比较好写的。</p> 
+<p><br /></p> 
+<p>重点是写出了在windows下拿for循环对拍，虽然异常丑。</p> 
+<p><br /></p> 
+<p>#include &lt;cstdio&gt;</p> 
+<p>#include &lt;cstring&gt;</p> 
+<p>#include &lt;algorithm&gt;</p> 
+<p><br /></p> 
+<p>using namespace std;</p> 
+<p><br /></p> 
+<p>const int maxn = 200009;</p> 
+<p><br /></p> 
+<p>int n, l[maxn], q[maxn], vx[maxn], vy[maxn];</p> 
+<p>char a[maxn];</p> 
+<p><br /></p> 
+<p>void manacher()&nbsp;{</p> 
+<p>l[0]&nbsp;= 1;</p> 
+<p>for (int i = 1, j = 0; i &lt;&nbsp;(n&nbsp;&lt;&lt; 1)&nbsp;- 1;&nbsp;++ i)&nbsp;{</p> 
+<p>int r =&nbsp;((j&nbsp;+ 1)&nbsp;&gt;&gt; 1)&nbsp;+ l[j]&nbsp;- 1;</p> 
+<p>int p = i &gt;&gt; 1, q = i - p;</p> 
+<p>l[i]&nbsp;=&nbsp;(r &gt;= q)&nbsp;? min(r - q + 1, l[(j &lt;&lt; 1)&nbsp;- i])&nbsp;: 0;</p> 
+<p>while (p&nbsp;- l[i]&nbsp;&gt;= 0 &amp;&amp; q + l[i]&nbsp;&lt; n &amp;&amp; a[p - l[i]]&nbsp;== a[q + l[i]])</p> 
+<p>++ l[i];</p> 
+<p>if (q&nbsp;+ l[i]&nbsp;- 1 &gt; r)</p> 
+<p>j = i;</p> 
+<p>}</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>#define getLeft(x)&nbsp;(((x)&gt;&gt;1)-l[x]+1)</p> 
+<p>#define getRight(x)&nbsp;((((x)+1)&gt;&gt;1)+l[x]-1)</p> 
+<p><br /></p> 
+<p>void dp(bool d)&nbsp;{</p> 
+<p>static int q[maxn];</p> 
+<p>int hd = 0, tl = 0;</p> 
+<p>if (!d)&nbsp;{</p> 
+<p>for (int i = 0; i &lt; n;&nbsp;++ i)&nbsp;{</p> 
+<p>if (!tl&nbsp;|| getRight(i &lt;&lt; 1)&nbsp;&gt; getRight(q[tl - 1]))</p> 
+<p>q[tl ++]&nbsp;=&nbsp;(i&nbsp;&lt;&lt; 1);</p> 
+<p>while (getRight(q[hd])&nbsp;&lt; i)</p> 
+<p>++ hd;</p> 
+<p>vx[i]&nbsp;=&nbsp;(i &lt;&lt; 1)&nbsp;- q[hd]&nbsp;+ 1;</p> 
+<p>if (i&nbsp;&lt; n - 1 &amp;&amp; getRight((i &lt;&lt; 1)&nbsp;+ 1)&nbsp;&gt; getRight(q[tl - 1]))</p> 
+<p>q[tl ++]&nbsp;=&nbsp;(i&nbsp;&lt;&lt; 1)&nbsp;+ 1;</p> 
+<p>}</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>for (int i = n - 1; i &gt;= 0;&nbsp;-- i)&nbsp;{</p> 
+<p>if (!tl&nbsp;|| getLeft(i &lt;&lt; 1)&nbsp;&lt; getLeft(q[tl - 1]))</p> 
+<p>q[tl ++]&nbsp;=&nbsp;(i&nbsp;&lt;&lt; 1);</p> 
+<p>while (getLeft(q[hd])&nbsp;&gt; i)</p> 
+<p>++ hd;</p> 
+<p>vy[i]&nbsp;= q[hd]&nbsp;-&nbsp;(i &lt;&lt; 1)&nbsp;+ 1;</p> 
+<p>if (i&nbsp;&amp;&amp; getLeft((i &lt;&lt; 1)&nbsp;-1)&nbsp;&lt; getLeft(q[tl - 1]))</p> 
+<p>q[tl ++]&nbsp;=&nbsp;(i&nbsp;&lt;&lt; 1)&nbsp;- 1;</p> 
+<p>}</p> 
+<p>}</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int main()&nbsp;{</p> 
+<p>#ifndef ONLINE_JUDGE</p> 
+<p>freopen(&quot;in.txt&quot;,&nbsp;&quot;r&quot;, stdin);</p> 
+<p>#endif</p> 
+<p><br /></p> 
+<p>scanf(&quot;%s&quot;, a);</p> 
+<p>n = strlen(a);</p> 
+<p>manacher();</p> 
+<p>dp(0);</p> 
+<p>dp(1);</p> 
+<p>int ans = 2;</p> 
+<p>for (int i = 1; i &lt; n;&nbsp;++ i)</p> 
+<p>ans = max(ans, vx[i - 1]&nbsp;+ vy[i]);</p> 
+<p>printf(&quot;%d\n&quot;, ans);</p> 
+<p>}</p> 
+<p><br /></p>
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/bzoj/">bzoj</a></li>
+      <li><a href="/tags/string/">string</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/lofterimport_032/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>BZOJ3728 PA2014Final Zarowki</span>
+  </a>
+  <a class="next" href="/oi/lofterimport_035/">
+    <span class="title">Next »</span>
+    <br>
+    <span>80MSWC diary 4.1</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

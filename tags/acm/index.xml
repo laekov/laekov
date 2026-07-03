@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>acm on The Site of laekov</title>
+    <link>/tags/acm/</link>
+    <description>Recent content in acm on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Mon, 14 Nov 2016 10:22:27 +0000</lastBuildDate><atom:link href="/tags/acm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>20161113 ICPC Qingdao</title>
+      <link>/diary/3ed1b2/</link>
+      <pubDate>Mon, 14 Nov 2016 10:22:27 +0000</pubDate>
+      
+      <guid>/diary/3ed1b2/</guid>
+      <description>补mark.
+去青岛欢度周末然而没吃到任何海鲜差评.
+想带点纪念品回来然而一直没机会. 最后只有在高铁站里乱逛感觉东西不行于是啥都没买qwq.
+所以说好的acm旅游呢.
+头天试机的时候感觉自己状态好差, 仔细分析发现是头天晚上在火车上没洗澡所致.
+而且现在头发的长度已经有点不能忍了啊. 又开始纠结要不要去剪头发了.
+试机晚上和zhx去打台球. zhx一直在跳球真是有毒qaq. 然而我的台球水平还是竦么菜.
+睡前看板发现这都是些smg啊qaq. 为什么你们的板子大括号要换行啊qaq. 果然以后还是得自己备板.
+考试日起来感觉满血满状态复活.
+打vimrc的时候手僵.
+听说有些区的pc方在开场的时候挂了半小时. 还好我们运气不错, 只有榜挂了.
+上来zhx先切掉了a.
+然后觉得c可以推一推然后发现这个微分方程我还没学啊喂.
+于是我就去写b的魔方了. 魔方这玩意真是有毒好么.
+然后发现zhx和mhy还在推c还是f来着. 然后我发现g是个裸裸的费用流于是去写. 好久不写这玩意都手生了. 然后强行看错题意乘二. 第一次是直接把概率加起来了. 第二次是把有向边看成了无向边还yy了一个蛮麻烦的建图方法.
+然后zhx终于把c给淦出来了. 结果方程凑一下就出来了, 式子炒鸡简单.
+然后我和mhy都想到d题只算轮数较少的情况就行了. 然后zhx就写挂了过不到样例.
+于是我就去开k的kd-tree做法.
+过了一会zhx发现他sb了, 改了一下就过了还喊了一句 &amp;ldquo;woc&amp;rdquo;, 技惊四座.
+然后我就把kd-tree给debug了一下也过了.
+然后就发现没题可做了. 我把m转化成平面上放点, 区间改点区间查询. 想用二维线段树感觉标记不好维护. zhx写一半弃疗了.
+然后我们看了一下h插头懒得写, f大模拟懒得写, i式子太复杂不知道是啥鬼, l想了半天没有思路.
+zhx和我又想了想可以用象限四分树. zhx写了半天. 然后我灵机一动为什么不直接用kd-tree艹过去呢. 然后半粘半写的搞了一份.
+zhx和mhy则开始想j. 然后zhx搞了一个乱七八糟的dfs.
+然后我的m开始tle, zhx的j开始wa.
+这时候已经封榜了. 我对着我打印的代码找bug, zhx和mhy用gdb debug.
+然后我发现我的m写得太匆忙好多细节都没想清楚. 最后写了个data generator拍了一下, 发现因为忘剪标记所以死循环了. 然后就wa了. 然后再改个brute force出来拍了一下发现还是标记没打对. 然后最后终于在还有9分钟的时候a掉了. 后来发现还是first blood.</description>
+    </item>
+    
+  </channel>
+</rss>

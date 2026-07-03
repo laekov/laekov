@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>SCC@SC&#39;19 笔记 | The Site of laekov</title>
+<meta name="keywords" content="developing">
+<meta name="description" content="好的 scc@sc&#39;19 终于没有拿亚军
+记个流水账
+Benchmarking 好像没啥特别的.
+一个新的发现是 HPL 的功耗飘可能是因为 GPU 功耗上升而不是计算 pattern? 回头仔细看看..?
+内核的奇怪的锅 导致 idle 状态下 ssh 上一台机器就能跳 200w 的功耗 spike. 通过更新内核版本解决了该问题.
+IB 卡烧掉了??? benchmark 本来早晨很早就交了而且数也还行. 然而中午玩着玩着发现 ib 卡没了. 尝试 pci hot reenable 失败之后重启并重新跑了 benchmark. 后来发现是 ib 卡在 gpu 风道里, 而我们给没插卡的节点的 gpu 风扇拔了一半的线, 另一半还是最低速运转的, 于是把 ib 给热傻了&hellip;
+SST 人脑挖矿 &#43; 无脑跑 SST 第一个部分是给定 cpu 核心数, l1/l2 cache 的不同搭配之类的总共乘起来 5760 种选择, 让用 SST 搞出一种性能最好且不超过5000块钱的配置.
+人脑挖矿 vs 暴力. 测算发现暴力应该能跑完所有点, 于是就暴力了一下.
+听说别的队有试图人脑的&hellip;">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/technical/b1c6c4/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="SCC@SC&#39;19 笔记" />
+<meta property="og:description" content="好的 scc@sc&#39;19 终于没有拿亚军
+记个流水账
+Benchmarking 好像没啥特别的.
+一个新的发现是 HPL 的功耗飘可能是因为 GPU 功耗上升而不是计算 pattern? 回头仔细看看..?
+内核的奇怪的锅 导致 idle 状态下 ssh 上一台机器就能跳 200w 的功耗 spike. 通过更新内核版本解决了该问题.
+IB 卡烧掉了??? benchmark 本来早晨很早就交了而且数也还行. 然而中午玩着玩着发现 ib 卡没了. 尝试 pci hot reenable 失败之后重启并重新跑了 benchmark. 后来发现是 ib 卡在 gpu 风道里, 而我们给没插卡的节点的 gpu 风扇拔了一半的线, 另一半还是最低速运转的, 于是把 ib 给热傻了&hellip;
+SST 人脑挖矿 &#43; 无脑跑 SST 第一个部分是给定 cpu 核心数, l1/l2 cache 的不同搭配之类的总共乘起来 5760 种选择, 让用 SST 搞出一种性能最好且不超过5000块钱的配置.
+人脑挖矿 vs 暴力. 测算发现暴力应该能跑完所有点, 于是就暴力了一下.
+听说别的队有试图人脑的&hellip;" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/technical/b1c6c4/" /><meta property="article:section" content="technical" />
+<meta property="article:published_time" content="2019-11-23T06:05:51+00:00" />
+<meta property="article:modified_time" content="2019-11-23T06:05:51+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="SCC@SC&#39;19 笔记"/>
+<meta name="twitter:description" content="好的 scc@sc&#39;19 终于没有拿亚军
+记个流水账
+Benchmarking 好像没啥特别的.
+一个新的发现是 HPL 的功耗飘可能是因为 GPU 功耗上升而不是计算 pattern? 回头仔细看看..?
+内核的奇怪的锅 导致 idle 状态下 ssh 上一台机器就能跳 200w 的功耗 spike. 通过更新内核版本解决了该问题.
+IB 卡烧掉了??? benchmark 本来早晨很早就交了而且数也还行. 然而中午玩着玩着发现 ib 卡没了. 尝试 pci hot reenable 失败之后重启并重新跑了 benchmark. 后来发现是 ib 卡在 gpu 风道里, 而我们给没插卡的节点的 gpu 风扇拔了一半的线, 另一半还是最低速运转的, 于是把 ib 给热傻了&hellip;
+SST 人脑挖矿 &#43; 无脑跑 SST 第一个部分是给定 cpu 核心数, l1/l2 cache 的不同搭配之类的总共乘起来 5760 种选择, 让用 SST 搞出一种性能最好且不超过5000块钱的配置.
+人脑挖矿 vs 暴力. 测算发现暴力应该能跑完所有点, 于是就暴力了一下.
+听说别的队有试图人脑的&hellip;"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Technicals",
+      "item": "/technical/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "SCC@SC'19 笔记",
+      "item": "/technical/b1c6c4/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "SCC@SC'19 笔记",
+  "name": "SCC@SC\u002719 笔记",
+  "description": "好的 scc@sc'19 终于没有拿亚军\n记个流水账\nBenchmarking 好像没啥特别的.\n一个新的发现是 HPL 的功耗飘可能是因为 GPU 功耗上升而不是计算 pattern? 回头仔细看看..?\n内核的奇怪的锅 导致 idle 状态下 ssh 上一台机器就能跳 200w 的功耗 spike. 通过更新内核版本解决了该问题.\nIB 卡烧掉了??? benchmark 本来早晨很早就交了而且数也还行. 然而中午玩着玩着发现 ib 卡没了. 尝试 pci hot reenable 失败之后重启并重新跑了 benchmark. 后来发现是 ib 卡在 gpu 风道里, 而我们给没插卡的节点的 gpu 风扇拔了一半的线, 另一半还是最低速运转的, 于是把 ib 给热傻了\u0026hellip;\nSST 人脑挖矿 + 无脑跑 SST 第一个部分是给定 cpu 核心数, l1/l2 cache 的不同搭配之类的总共乘起来 5760 种选择, 让用 SST 搞出一种性能最好且不超过5000块钱的配置.\n人脑挖矿 vs 暴力. 测算发现暴力应该能跑完所有点, 于是就暴力了一下.\n听说别的队有试图人脑的\u0026hellip;",
+  "keywords": [
+    "developing"
+  ],
+  "articleBody": "好的 scc@sc'19 终于没有拿亚军\n记个流水账\nBenchmarking 好像没啥特别的.\n一个新的发现是 HPL 的功耗飘可能是因为 GPU 功耗上升而不是计算 pattern? 回头仔细看看..?\n内核的奇怪的锅 导致 idle 状态下 ssh 上一台机器就能跳 200w 的功耗 spike. 通过更新内核版本解决了该问题.\nIB 卡烧掉了??? benchmark 本来早晨很早就交了而且数也还行. 然而中午玩着玩着发现 ib 卡没了. 尝试 pci hot reenable 失败之后重启并重新跑了 benchmark. 后来发现是 ib 卡在 gpu 风道里, 而我们给没插卡的节点的 gpu 风扇拔了一半的线, 另一半还是最低速运转的, 于是把 ib 给热傻了…\nSST 人脑挖矿 + 无脑跑 SST 第一个部分是给定 cpu 核心数, l1/l2 cache 的不同搭配之类的总共乘起来 5760 种选择, 让用 SST 搞出一种性能最好且不超过5000块钱的配置.\n人脑挖矿 vs 暴力. 测算发现暴力应该能跑完所有点, 于是就暴力了一下.\n听说别的队有试图人脑的…\n另一个 case 就是无脑跑. 唯一需要动一下脑的就是把 partition 打出来看了看网络 topo, 发现是1024个路由器均匀接了16384个 mpi. 路由器用 hyperx / dragonfly 分组连接. 然后发现组娄攵总之是 32 什么的, 于是单机 32 进程跑就完事了. 两个都是稳定的 70/90 分钟一轮迭代, 总共跑 10 轮. 第一天晚上就熬夜在云上跑上了, 所以也没出啥锅就完事了.\nSlides 虽然我一直觉得 slides 没用但做一些 fancy 的 slides 还是能让 interview 加分不少的. 受到 Harry 启发用 keynote 做了一个仿 beamer 样子的模板, 看起来效果不错.\n树莓派小车 女子 忄曼 口阝可\nSummary 感谢赞助商 bitmain, intel, mellanox, nvidia. 感谢组委会. 感谢很给力的老师和队友们.\n本人就此退役啦. 祝贵队武运隆昌.\n",
+  "wordCount" : "130",
+  "inLanguage": "en",
+  "datePublished": "2019-11-23T06:05:51Z",
+  "dateModified": "2019-11-23T06:05:51Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/technical/b1c6c4/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/technical/">Technicals</a></div>
+    <h1 class="post-title">
+      SCC@SC&#39;19 笔记
+    </h1>
+    <div class="post-meta"><span title='2019-11-23 06:05:51 +0000 UTC'>November 23, 2019</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#benchmarking" aria-label="Benchmarking">Benchmarking</a></li>
+                <li>
+                    <a href="#%e5%86%85%e6%a0%b8%e7%9a%84%e5%a5%87%e6%80%aa%e7%9a%84%e9%94%85" aria-label="内核的奇怪的锅">内核的奇怪的锅</a></li>
+                <li>
+                    <a href="#ib-%e5%8d%a1%e7%83%a7%e6%8e%89%e4%ba%86" aria-label="IB 卡烧掉了???">IB 卡烧掉了???</a></li>
+                <li>
+                    <a href="#sst-%e4%ba%ba%e8%84%91%e6%8c%96%e7%9f%bf--%e6%97%a0%e8%84%91%e8%b7%91" aria-label="SST 人脑挖矿 &#43; 无脑跑">SST 人脑挖矿 + 无脑跑</a></li>
+                <li>
+                    <a href="#slides" aria-label="Slides">Slides</a></li>
+                <li>
+                    <a href="#%e6%a0%91%e8%8e%93%e6%b4%be%e5%b0%8f%e8%bd%a6" aria-label="树莓派小车">树莓派小车</a></li>
+                <li>
+                    <a href="#summary" aria-label="Summary">Summary</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p>好的 scc@sc'19 终于没有拿亚军</p>
+<p>记个流水账</p>
+<h3 id="benchmarking">Benchmarking<a hidden class="anchor" aria-hidden="true" href="#benchmarking">#</a></h3>
+<p>好像没啥特别的.</p>
+<p>一个新的发现是 HPL 的功耗飘可能是因为 GPU 功耗上升而不是计算 pattern? 回头仔细看看..?</p>
+<h3 id="内核的奇怪的锅">内核的奇怪的锅<a hidden class="anchor" aria-hidden="true" href="#内核的奇怪的锅">#</a></h3>
+<p>导致 idle 状态下 ssh 上一台机器就能跳 200w 的功耗 spike. 通过更新内核版本解决了该问题.</p>
+<h3 id="ib-卡烧掉了">IB 卡烧掉了???<a hidden class="anchor" aria-hidden="true" href="#ib-卡烧掉了">#</a></h3>
+<p>benchmark 本来早晨很早就交了而且数也还行. 然而中午玩着玩着发现 ib 卡没了. 尝试 pci hot reenable 失败之后重启并重新跑了 benchmark. 后来发现是 ib 卡在 gpu 风道里, 而我们给没插卡的节点的 gpu 风扇拔了一半的线, 另一半还是最低速运转的, 于是把 ib 给热傻了&hellip;</p>
+<h3 id="sst-人脑挖矿--无脑跑">SST 人脑挖矿 + 无脑跑<a hidden class="anchor" aria-hidden="true" href="#sst-人脑挖矿--无脑跑">#</a></h3>
+<p>SST 第一个部分是给定 cpu 核心数, l1/l2 cache 的不同搭配之类的总共乘起来 5760 种选择, 让用 SST 搞出一种性能最好且不超过5000块钱的配置.</p>
+<p>人脑挖矿 vs 暴力. 测算发现暴力应该能跑完所有点, 于是就暴力了一下.</p>
+<p>听说别的队有试图人脑的&hellip;</p>
+<p>另一个 case 就是无脑跑. 唯一需要动一下脑的就是把 partition 打出来看了看网络 topo, 发现是1024个路由器均匀接了16384个 mpi. 路由器用 hyperx / dragonfly 分组连接. 然后发现组娄攵总之是 32 什么的, 于是单机 32 进程跑就完事了. 两个都是稳定的 70/90 分钟一轮迭代, 总共跑 10 轮. 第一天晚上就熬夜在云上跑上了, 所以也没出啥锅就完事了.</p>
+<h3 id="slides">Slides<a hidden class="anchor" aria-hidden="true" href="#slides">#</a></h3>
+<p>虽然我一直觉得 slides 没用但做一些 fancy 的 slides 还是能让 interview 加分不少的. 受到 Harry 启发用 keynote 做了一个仿 beamer 样子的模板, 看起来效果不错.</p>
+<h3 id="树莓派小车">树莓派小车<a hidden class="anchor" aria-hidden="true" href="#树莓派小车">#</a></h3>
+<p>女子  忄曼    口阝可</p>
+<h3 id="summary">Summary<a hidden class="anchor" aria-hidden="true" href="#summary">#</a></h3>
+<p>感谢赞助商 bitmain, intel, mellanox, nvidia. 感谢组委会. 感谢很给力的老师和队友们.</p>
+<p>本人就此退役啦. 祝贵队武运隆昌.</p>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/developing/">developing</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/technical/1f8072/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>Minimon: A minimal surveillance system based on buildroot for RaspberryPi</span>
+  </a>
+  <a class="next" href="/technical/0ab785/">
+    <span class="title">Next »</span>
+    <br>
+    <span>Raspberry Pi 折腾记录</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

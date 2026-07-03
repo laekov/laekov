@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>BZOJ2351/2462 [BeiJing2011]Matrix | The Site of laekov</title>
+<meta name="keywords" content="bzoj, hash, oi">
+<meta name="description" content="好像要用二维AC自动机的样子！？不对，还要优化不然还会MLE！？
+naive。
+哈希水过之。
+中途某处忘强转导致调了良久。
+2462丧心病狂卡stl常数，差点写平衡树了，然后想了想二分水之。
+#include &lt;cstdio&gt;
+#include&nbsp;&lt;cstring&gt;
+#include&nbsp;&lt;set&gt;
+#include&nbsp;&lt;algorithm&gt;
+using namespace std;
+typedef long long qw;
+typedef unsigned long long uqw;
+#define _l (qw)
+const int rmod = 345379;
+const int b1 = 3;
+const int b2 = 3153131;
+const int maxn = 1009;
+int pb1[maxn];
+int n, m, x, y, q, hr[maxn][maxn], t;
+uqw hl[maxn][maxn], pb2[maxn];
+char g[maxn];
+uqw th[maxn * maxn];
+void pre()&nbsp;{
+pb1[0]&nbsp;= 1;
+pb2[0]&nbsp;= 1;">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/lofterimport_079/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="BZOJ2351/2462 [BeiJing2011]Matrix" />
+<meta property="og:description" content="好像要用二维AC自动机的样子！？不对，还要优化不然还会MLE！？
+naive。
+哈希水过之。
+中途某处忘强转导致调了良久。
+2462丧心病狂卡stl常数，差点写平衡树了，然后想了想二分水之。
+#include &lt;cstdio&gt;
+#include&nbsp;&lt;cstring&gt;
+#include&nbsp;&lt;set&gt;
+#include&nbsp;&lt;algorithm&gt;
+using namespace std;
+typedef long long qw;
+typedef unsigned long long uqw;
+#define _l (qw)
+const int rmod = 345379;
+const int b1 = 3;
+const int b2 = 3153131;
+const int maxn = 1009;
+int pb1[maxn];
+int n, m, x, y, q, hr[maxn][maxn], t;
+uqw hl[maxn][maxn], pb2[maxn];
+char g[maxn];
+uqw th[maxn * maxn];
+void pre()&nbsp;{
+pb1[0]&nbsp;= 1;
+pb2[0]&nbsp;= 1;" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/lofterimport_079/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2014-11-22T22:58:45+00:00" />
+<meta property="article:modified_time" content="2014-11-22T22:58:45+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BZOJ2351/2462 [BeiJing2011]Matrix"/>
+<meta name="twitter:description" content="好像要用二维AC自动机的样子！？不对，还要优化不然还会MLE！？
+naive。
+哈希水过之。
+中途某处忘强转导致调了良久。
+2462丧心病狂卡stl常数，差点写平衡树了，然后想了想二分水之。
+#include &lt;cstdio&gt;
+#include&nbsp;&lt;cstring&gt;
+#include&nbsp;&lt;set&gt;
+#include&nbsp;&lt;algorithm&gt;
+using namespace std;
+typedef long long qw;
+typedef unsigned long long uqw;
+#define _l (qw)
+const int rmod = 345379;
+const int b1 = 3;
+const int b2 = 3153131;
+const int maxn = 1009;
+int pb1[maxn];
+int n, m, x, y, q, hr[maxn][maxn], t;
+uqw hl[maxn][maxn], pb2[maxn];
+char g[maxn];
+uqw th[maxn * maxn];
+void pre()&nbsp;{
+pb1[0]&nbsp;= 1;
+pb2[0]&nbsp;= 1;"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "BZOJ2351/2462 [BeiJing2011]Matrix",
+      "item": "/oi/lofterimport_079/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BZOJ2351/2462 [BeiJing2011]Matrix",
+  "name": "BZOJ2351\/2462 [BeiJing2011]Matrix",
+  "description": "好像要用二维AC自动机的样子！？不对，还要优化不然还会MLE！？\nnaive。\n哈希水过之。\n中途某处忘强转导致调了良久。\n2462丧心病狂卡stl常数，差点写平衡树了，然后想了想二分水之。\n#include \u0026lt;cstdio\u0026gt;\n#include\u0026nbsp;\u0026lt;cstring\u0026gt;\n#include\u0026nbsp;\u0026lt;set\u0026gt;\n#include\u0026nbsp;\u0026lt;algorithm\u0026gt;\nusing namespace std;\ntypedef long long qw;\ntypedef unsigned long long uqw;\n#define _l (qw)\nconst int rmod = 345379;\nconst int b1 = 3;\nconst int b2 = 3153131;\nconst int maxn = 1009;\nint pb1[maxn];\nint n, m, x, y, q, hr[maxn][maxn], t;\nuqw hl[maxn][maxn], pb2[maxn];\nchar g[maxn];\nuqw th[maxn * maxn];\nvoid pre()\u0026nbsp;{\npb1[0]\u0026nbsp;= 1;\npb2[0]\u0026nbsp;= 1;",
+  "keywords": [
+    "bzoj", "hash", "oi"
+  ],
+  "articleBody": "好像要用二维AC自动机的样子！？不对，还要优化不然还会MLE！？\nnaive。\n哈希水过之。\n中途某处忘强转导致调了良久。\n2462丧心病狂卡stl常数，差点写平衡树了，然后想了想二分水之。\n#include #include #include #include using namespace std;\ntypedef long long qw;\ntypedef unsigned long long uqw;\n#define _l (qw)\nconst int rmod = 345379;\nconst int b1 = 3;\nconst int b2 = 3153131;\nconst int maxn = 1009;\nint pb1[maxn];\nint n, m, x, y, q, hr[maxn][maxn], t;\nuqw hl[maxn][maxn], pb2[maxn];\nchar g[maxn];\nuqw th[maxn * maxn];\nvoid pre() {\npb1[0] = 1;\npb2[0] = 1;\nfor (int i = 1; i \u003c maxn; ++ i) {\npb1[i] = _l pb1[i - 1] * b1 % rmod;\npb2[i] = pb2[i - 1] * b2;\n}\n}\nbool findv(uqw x) {\nint l = 0, r = t - 1;\nwhile (l \u003c r) {\nint mid = (l + r) \u003e\u003e 1;\nif (th[mid] == x)\nreturn 1;\nelse if (x \u003c th[mid])\nr = mid;\nelse\nl = mid + 1;\n}\nreturn th[l] == x;\n}\nint main() {\n#ifndef ONLINE_JUDGE\nfreopen(\"in.txt\", \"r\", stdin);\n#endif\npre();\nscanf(\"%d%d%d%d\", \u0026n, \u0026m, \u0026x, \u0026y);\nfor (int i = 1; i \u003c= n; ++ i) {\nscanf(\"%s\", g + 1);\nhr[i][0] = 0;\nfor (int j = 1; j \u003c= m; ++ j)\nhr[i][j] = (_l hr[i][j - 1] * b1 + g[j] - 48) % rmod;\nfor (int j = m; j \u003e= y; -- j)\nhr[i][j] = (_l hr[i][j] - _l hr[i][j - y] * pb1[y] % rmod + rmod) % rmod;\n}\nt = 0;\nfor (int j = y; j \u003c= m; ++ j) {\nhl[0][j] = 0;\nfor (int i = 1; i \u003c= n; ++ i)\nhl[i][j] = hl[i - 1][j] * b2 + hr[i][j];\nfor (int i = n; i \u003e= x; -- i) {\nhl[i][j] = hl[i][j] - hl[i - x][j] * pb2[x];\nth[t ++] = hl[i][j];\n}\n}\nsort(th, th + t);\nscanf(\"%d\", \u0026q);\nwhile (q --) {\nuqw hv = 0;\nfor (int i = 1; i \u003c= x; ++ i) {\nint hh = 0;\nscanf(\"%s\", g + 1);\nfor (int j = 1; j \u003c= y; ++ j)\nhh = (_l hh * b1 + g[j] - 48) % rmod;\nhv = hv * b2 + hh;\n}\nif (findv(hv))\nputs(\"1\");\nelse\nputs(\"0\");\n}\n}\n",
+  "wordCount" : "311",
+  "inLanguage": "en",
+  "datePublished": "2014-11-22T22:58:45Z",
+  "dateModified": "2014-11-22T22:58:45Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/lofterimport_079/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      BZOJ2351/2462 [BeiJing2011]Matrix
+    </h1>
+    <div class="post-meta"><span title='2014-11-22 22:58:45 +0000 UTC'>November 22, 2014</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>好像要用二维AC自动机的样子！？不对，还要优化不然还会MLE！？</p> 
+<p><br /></p> 
+<p>naive。</p> 
+<p><br /></p> 
+<p>哈希水过之。</p> 
+<p><br /></p> 
+<p>中途某处忘强转导致调了良久。</p> 
+<p><br /></p> 
+<p>2462丧心病狂卡stl常数，差点写平衡树了，然后想了想二分水之。</p> 
+<p><br /></p> 
+<p>#include &lt;cstdio&gt;</p> 
+<p>#include&nbsp;&lt;cstring&gt;</p> 
+<p>#include&nbsp;&lt;set&gt;</p> 
+<p>#include&nbsp;&lt;algorithm&gt;</p> 
+<p><br /></p> 
+<p>using namespace std;</p> 
+<p><br /></p> 
+<p>typedef long long qw;</p> 
+<p>typedef unsigned long long uqw;</p> 
+<p><br /></p> 
+<p>#define _l (qw)</p> 
+<p><br /></p> 
+<p>const int rmod = 345379;</p> 
+<p>const int b1 = 3;</p> 
+<p>const int b2 = 3153131;</p> 
+<p>const int maxn = 1009;</p> 
+<p><br /></p> 
+<p>int pb1[maxn];</p> 
+<p>int n, m, x, y, q, hr[maxn][maxn], t;</p> 
+<p>uqw hl[maxn][maxn], pb2[maxn];</p> 
+<p>char g[maxn];</p> 
+<p>uqw th[maxn * maxn];</p> 
+<p><br /></p> 
+<p>void pre()&nbsp;{</p> 
+<p>pb1[0]&nbsp;= 1;</p> 
+<p>pb2[0]&nbsp;= 1;</p> 
+<p>for (int i = 1; i &lt; maxn;&nbsp;++ i)&nbsp;{</p> 
+<p>pb1[i]&nbsp;= _l pb1[i - 1]&nbsp;* b1 % rmod;</p> 
+<p>pb2[i]&nbsp;= pb2[i - 1]&nbsp;* b2;</p> 
+<p>}</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>bool findv(uqw x)&nbsp;{</p> 
+<p>int l = 0, r = t - 1;</p> 
+<p>while (l&nbsp;&lt; r)&nbsp;{</p> 
+<p>int mid =&nbsp;(l&nbsp;+ r)&nbsp;&gt;&gt; 1;</p> 
+<p>if (th[mid]&nbsp;== x)</p> 
+<p>return 1;</p> 
+<p>else if (x&nbsp;&lt; th[mid])</p> 
+<p>r = mid;</p> 
+<p>else</p> 
+<p>l = mid + 1;</p> 
+<p>}</p> 
+<p>return th[l]&nbsp;== x;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int main()&nbsp;{</p> 
+<p>#ifndef ONLINE_JUDGE</p> 
+<p>freopen(&quot;in.txt&quot;,&nbsp;&quot;r&quot;, stdin);</p> 
+<p>#endif</p> 
+<p><br /></p> 
+<p>pre();</p> 
+<p>scanf(&quot;%d%d%d%d&quot;,&nbsp;&amp;n,&nbsp;&amp;m,&nbsp;&amp;x,&nbsp;&amp;y);</p> 
+<p>for (int i = 1; i &lt;= n;&nbsp;++ i)&nbsp;{</p> 
+<p>scanf(&quot;%s&quot;, g + 1);</p> 
+<p>hr[i][0]&nbsp;= 0;</p> 
+<p>for (int j = 1; j &lt;= m;&nbsp;++ j)</p> 
+<p>hr[i][j]&nbsp;=&nbsp;(_l hr[i][j - 1]&nbsp;* b1 + g[j]&nbsp;- 48)&nbsp;% rmod;</p> 
+<p>for (int j = m; j &gt;= y;&nbsp;-- j)</p> 
+<p>hr[i][j]&nbsp;=&nbsp;(_l hr[i][j]&nbsp;- _l hr[i][j - y]&nbsp;* pb1[y]&nbsp;% rmod + rmod)&nbsp;% rmod;</p> 
+<p>}</p> 
+<p>t = 0;</p> 
+<p>for (int j = y; j &lt;= m;&nbsp;++ j)&nbsp;{</p> 
+<p>hl[0][j]&nbsp;= 0;</p> 
+<p>for (int i = 1; i &lt;= n;&nbsp;++ i)</p> 
+<p>hl[i][j]&nbsp;= hl[i - 1][j]&nbsp;* b2 + hr[i][j];</p> 
+<p>for (int i = n; i &gt;= x;&nbsp;-- i)&nbsp;{</p> 
+<p>hl[i][j]&nbsp;= hl[i][j]&nbsp;- hl[i - x][j]&nbsp;* pb2[x];</p> 
+<p>th[t ++]&nbsp;= hl[i][j];</p> 
+<p>}</p> 
+<p>}</p> 
+<p>sort(th, th + t);</p> 
+<p>scanf(&quot;%d&quot;,&nbsp;&amp;q);</p> 
+<p>while (q&nbsp;--)&nbsp;{</p> 
+<p>uqw hv = 0;</p> 
+<p>for (int i = 1; i &lt;= x;&nbsp;++ i)&nbsp;{</p> 
+<p>int hh = 0;</p> 
+<p>scanf(&quot;%s&quot;, g + 1);</p> 
+<p>for (int j = 1; j &lt;= y;&nbsp;++ j)</p> 
+<p>hh =&nbsp;(_l hh * b1 + g[j]&nbsp;- 48)&nbsp;% rmod;</p> 
+<p>hv =&nbsp; hv * b2 + hh;</p> 
+<p>}</p> 
+<p>if (findv(hv))</p> 
+<p>puts(&quot;1&quot;);</p> 
+<p>else</p> 
+<p>puts(&quot;0&quot;);</p> 
+<p>}</p> 
+<p>}</p> 
+<p><br /></p>
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/bzoj/">bzoj</a></li>
+      <li><a href="/tags/hash/">hash</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/lofterimport_078/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>BZOJ1492 [NOI2007]货币兑换Cash</span>
+  </a>
+  <a class="next" href="/oi/lofterimport_081/">
+    <span class="title">Next »</span>
+    <br>
+    <span>BZOJ1176 [Balkan2007]Mokia</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

@@ -1,0 +1,948 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Tags on The Site of laekov</title>
+    <link>/tags/</link>
+    <description>Recent content in Tags on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Wed, 20 Aug 2025 00:00:00 +0000</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>distributed</title>
+      <link>/tags/distributed/</link>
+      <pubDate>Wed, 20 Aug 2025 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/distributed/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>DLRM</title>
+      <link>/tags/dlrm/</link>
+      <pubDate>Wed, 20 Aug 2025 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/dlrm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>research</title>
+      <link>/tags/research/</link>
+      <pubDate>Wed, 20 Aug 2025 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/research/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>developing</title>
+      <link>/tags/developing/</link>
+      <pubDate>Fri, 12 Jul 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/developing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>LLM</title>
+      <link>/tags/llm/</link>
+      <pubDate>Fri, 12 Jul 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/llm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>serving</title>
+      <link>/tags/serving/</link>
+      <pubDate>Fri, 12 Jul 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/serving/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>MoE</title>
+      <link>/tags/moe/</link>
+      <pubDate>Tue, 02 Jul 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/moe/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>pytorch</title>
+      <link>/tags/pytorch/</link>
+      <pubDate>Thu, 20 Jun 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/pytorch/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>cluster</title>
+      <link>/tags/cluster/</link>
+      <pubDate>Wed, 13 Dec 2023 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/cluster/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>op</title>
+      <link>/tags/op/</link>
+      <pubDate>Wed, 13 Dec 2023 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/op/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>brainhole</title>
+      <link>/tags/brainhole/</link>
+      <pubDate>Wed, 16 Aug 2023 23:06:26 +0000</pubDate>
+      
+      <guid>/tags/brainhole/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Undefined</title>
+      <link>/tags/undefined/</link>
+      <pubDate>Tue, 14 Mar 2023 11:29:18 +0000</pubDate>
+      
+      <guid>/tags/undefined/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>cycling</title>
+      <link>/tags/cycling/</link>
+      <pubDate>Fri, 20 May 2022 13:34:51 +0000</pubDate>
+      
+      <guid>/tags/cycling/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>mtb</title>
+      <link>/tags/mtb/</link>
+      <pubDate>Sun, 01 May 2022 19:38:08 +0000</pubDate>
+      
+      <guid>/tags/mtb/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>latex</title>
+      <link>/tags/latex/</link>
+      <pubDate>Tue, 15 Mar 2022 15:37:07 +0000</pubDate>
+      
+      <guid>/tags/latex/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>pandoc</title>
+      <link>/tags/pandoc/</link>
+      <pubDate>Tue, 15 Mar 2022 15:37:07 +0000</pubDate>
+      
+      <guid>/tags/pandoc/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>anime</title>
+      <link>/tags/anime/</link>
+      <pubDate>Tue, 04 Jan 2022 14:26:35 +0000</pubDate>
+      
+      <guid>/tags/anime/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>performance</title>
+      <link>/tags/performance/</link>
+      <pubDate>Mon, 20 Dec 2021 22:14:48 +0000</pubDate>
+      
+      <guid>/tags/performance/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>python</title>
+      <link>/tags/python/</link>
+      <pubDate>Mon, 20 Dec 2021 22:14:48 +0000</pubDate>
+      
+      <guid>/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>linux</title>
+      <link>/tags/linux/</link>
+      <pubDate>Tue, 22 Dec 2020 10:48:37 +0000</pubDate>
+      
+      <guid>/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>slides</title>
+      <link>/tags/slides/</link>
+      <pubDate>Tue, 14 Jul 2020 09:17:00 +0000</pubDate>
+      
+      <guid>/tags/slides/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>none</title>
+      <link>/tags/none/</link>
+      <pubDate>Wed, 13 May 2020 15:38:01 +0000</pubDate>
+      
+      <guid>/tags/none/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>code</title>
+      <link>/tags/code/</link>
+      <pubDate>Mon, 07 Oct 2019 09:39:11 +0000</pubDate>
+      
+      <guid>/tags/code/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>oi</title>
+      <link>/tags/oi/</link>
+      <pubDate>Tue, 13 Aug 2019 02:31:17 +0000</pubDate>
+      
+      <guid>/tags/oi/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>misc</title>
+      <link>/tags/misc/</link>
+      <pubDate>Fri, 25 Jan 2019 16:19:17 +0000</pubDate>
+      
+      <guid>/tags/misc/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>DLF</title>
+      <link>/tags/dlf/</link>
+      <pubDate>Sat, 01 Sep 2018 20:52:52 +0000</pubDate>
+      
+      <guid>/tags/dlf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>DNN</title>
+      <link>/tags/dnn/</link>
+      <pubDate>Mon, 09 Jul 2018 11:38:28 +0000</pubDate>
+      
+      <guid>/tags/dnn/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ML framework</title>
+      <link>/tags/ml-framework/</link>
+      <pubDate>Mon, 09 Jul 2018 11:38:28 +0000</pubDate>
+      
+      <guid>/tags/ml-framework/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>paper</title>
+      <link>/tags/paper/</link>
+      <pubDate>Mon, 09 Jul 2018 11:38:28 +0000</pubDate>
+      
+      <guid>/tags/paper/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>fpga</title>
+      <link>/tags/fpga/</link>
+      <pubDate>Tue, 12 Jun 2018 14:00:36 +0000</pubDate>
+      
+      <guid>/tags/fpga/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>verilog</title>
+      <link>/tags/verilog/</link>
+      <pubDate>Tue, 12 Jun 2018 14:00:36 +0000</pubDate>
+      
+      <guid>/tags/verilog/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>AI</title>
+      <link>/tags/ai/</link>
+      <pubDate>Fri, 18 May 2018 23:55:54 +0000</pubDate>
+      
+      <guid>/tags/ai/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>algorithm</title>
+      <link>/tags/algorithm/</link>
+      <pubDate>Sun, 22 Apr 2018 17:59:13 +0000</pubDate>
+      
+      <guid>/tags/algorithm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>cache</title>
+      <link>/tags/cache/</link>
+      <pubDate>Sun, 22 Apr 2018 17:59:13 +0000</pubDate>
+      
+      <guid>/tags/cache/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>homework</title>
+      <link>/tags/homework/</link>
+      <pubDate>Sun, 22 Apr 2018 17:59:13 +0000</pubDate>
+      
+      <guid>/tags/homework/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>math</title>
+      <link>/tags/math/</link>
+      <pubDate>Wed, 28 Mar 2018 10:20:59 +0000</pubDate>
+      
+      <guid>/tags/math/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>crawl</title>
+      <link>/tags/crawl/</link>
+      <pubDate>Fri, 15 Sep 2017 16:13:51 +0000</pubDate>
+      
+      <guid>/tags/crawl/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>html</title>
+      <link>/tags/html/</link>
+      <pubDate>Fri, 15 Sep 2017 16:13:51 +0000</pubDate>
+      
+      <guid>/tags/html/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>js</title>
+      <link>/tags/js/</link>
+      <pubDate>Fri, 15 Sep 2017 16:13:51 +0000</pubDate>
+      
+      <guid>/tags/js/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>diary</title>
+      <link>/tags/diary/</link>
+      <pubDate>Mon, 19 Dec 2016 23:55:26 +0000</pubDate>
+      
+      <guid>/tags/diary/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>acm</title>
+      <link>/tags/acm/</link>
+      <pubDate>Mon, 14 Nov 2016 10:22:27 +0000</pubDate>
+      
+      <guid>/tags/acm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>summary</title>
+      <link>/tags/summary/</link>
+      <pubDate>Mon, 14 Nov 2016 10:22:27 +0000</pubDate>
+      
+      <guid>/tags/summary/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>dp</title>
+      <link>/tags/dp/</link>
+      <pubDate>Sun, 07 Aug 2016 09:46:02 +0000</pubDate>
+      
+      <guid>/tags/dp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>persistence</title>
+      <link>/tags/persistence/</link>
+      <pubDate>Sun, 07 Aug 2016 09:46:02 +0000</pubDate>
+      
+      <guid>/tags/persistence/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>shiruku</title>
+      <link>/tags/shiruku/</link>
+      <pubDate>Sun, 28 Feb 2016 10:41:28 +0000</pubDate>
+      
+      <guid>/tags/shiruku/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>systemdef</title>
+      <link>/tags/systemdef/</link>
+      <pubDate>Sat, 20 Feb 2016 12:40:22 +0000</pubDate>
+      
+      <guid>/tags/systemdef/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>graph</title>
+      <link>/tags/graph/</link>
+      <pubDate>Tue, 22 Dec 2015 23:14:56 +0000</pubDate>
+      
+      <guid>/tags/graph/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ds</title>
+      <link>/tags/ds/</link>
+      <pubDate>Mon, 21 Dec 2015 17:32:29 +0000</pubDate>
+      
+      <guid>/tags/ds/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rshc</title>
+      <link>/tags/rshc/</link>
+      <pubDate>Mon, 21 Dec 2015 17:32:29 +0000</pubDate>
+      
+      <guid>/tags/rshc/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>noip</title>
+      <link>/tags/noip/</link>
+      <pubDate>Tue, 17 Nov 2015 22:34:39 +0000</pubDate>
+      
+      <guid>/tags/noip/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>noi</title>
+      <link>/tags/noi/</link>
+      <pubDate>Sun, 19 Jul 2015 13:31:05 +0000</pubDate>
+      
+      <guid>/tags/noi/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>bzoj</title>
+      <link>/tags/bzoj/</link>
+      <pubDate>Wed, 01 Jul 2015 20:50:29 +0000</pubDate>
+      
+      <guid>/tags/bzoj/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tg</title>
+      <link>/tags/tg/</link>
+      <pubDate>Sat, 27 Jun 2015 21:39:47 +0000</pubDate>
+      
+      <guid>/tags/tg/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>matrix</title>
+      <link>/tags/matrix/</link>
+      <pubDate>Tue, 23 Jun 2015 15:52:12 +0000</pubDate>
+      
+      <guid>/tags/matrix/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>liferemoved yes</title>
+      <link>/tags/liferemoved-yes/</link>
+      <pubDate>Wed, 17 Jun 2015 21:05:25 +0000</pubDate>
+      
+      <guid>/tags/liferemoved-yes/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>fft</title>
+      <link>/tags/fft/</link>
+      <pubDate>Wed, 17 Jun 2015 20:55:30 +0000</pubDate>
+      
+      <guid>/tags/fft/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tree</title>
+      <link>/tags/tree/</link>
+      <pubDate>Wed, 17 Jun 2015 20:55:30 +0000</pubDate>
+      
+      <guid>/tags/tree/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tyvj</title>
+      <link>/tags/tyvj/</link>
+      <pubDate>Wed, 17 Jun 2015 20:55:30 +0000</pubDate>
+      
+      <guid>/tags/tyvj/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>simplex</title>
+      <link>/tags/simplex/</link>
+      <pubDate>Tue, 16 Jun 2015 20:58:17 +0000</pubDate>
+      
+      <guid>/tags/simplex/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>弱省互测</title>
+      <link>/tags/%E5%BC%B1%E7%9C%81%E4%BA%92%E6%B5%8B/</link>
+      <pubDate>Thu, 11 Jun 2015 20:03:25 +0000</pubDate>
+      
+      <guid>/tags/%E5%BC%B1%E7%9C%81%E4%BA%92%E6%B5%8B/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>game</title>
+      <link>/tags/game/</link>
+      <pubDate>Thu, 11 Jun 2015 14:48:49 +0000</pubDate>
+      
+      <guid>/tags/game/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>greedy</title>
+      <link>/tags/greedy/</link>
+      <pubDate>Tue, 09 Jun 2015 21:05:32 +0000</pubDate>
+      
+      <guid>/tags/greedy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>hdu</title>
+      <link>/tags/hdu/</link>
+      <pubDate>Sun, 07 Jun 2015 21:24:11 +0000</pubDate>
+      
+      <guid>/tags/hdu/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>plan</title>
+      <link>/tags/plan/</link>
+      <pubDate>Thu, 04 Jun 2015 16:31:39 +0000</pubDate>
+      
+      <guid>/tags/plan/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>test</title>
+      <link>/tags/test/</link>
+      <pubDate>Wed, 03 Jun 2015 10:10:36 +0000</pubDate>
+      
+      <guid>/tags/test/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>geometry</title>
+      <link>/tags/geometry/</link>
+      <pubDate>Thu, 21 May 2015 16:04:54 +0000</pubDate>
+      
+      <guid>/tags/geometry/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>apio</title>
+      <link>/tags/apio/</link>
+      <pubDate>Wed, 13 May 2015 18:37:18 +0000</pubDate>
+      
+      <guid>/tags/apio/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>flow</title>
+      <link>/tags/flow/</link>
+      <pubDate>Wed, 29 Apr 2015 19:04:27 +0000</pubDate>
+      
+      <guid>/tags/flow/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>gauss</title>
+      <link>/tags/gauss/</link>
+      <pubDate>Sun, 26 Apr 2015 13:40:49 +0000</pubDate>
+      
+      <guid>/tags/gauss/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>spoj</title>
+      <link>/tags/spoj/</link>
+      <pubDate>Mon, 13 Apr 2015 20:46:02 +0000</pubDate>
+      
+      <guid>/tags/spoj/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>string</title>
+      <link>/tags/string/</link>
+      <pubDate>Fri, 10 Apr 2015 22:50:06 +0000</pubDate>
+      
+      <guid>/tags/string/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>sa</title>
+      <link>/tags/sa/</link>
+      <pubDate>Mon, 06 Apr 2015 13:51:17 +0000</pubDate>
+      
+      <guid>/tags/sa/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>sam</title>
+      <link>/tags/sam/</link>
+      <pubDate>Fri, 03 Apr 2015 10:39:33 +0000</pubDate>
+      
+      <guid>/tags/sam/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>exp</title>
+      <link>/tags/exp/</link>
+      <pubDate>Fri, 27 Mar 2015 10:26:10 +0000</pubDate>
+      
+      <guid>/tags/exp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>cdq</title>
+      <link>/tags/cdq/</link>
+      <pubDate>Fri, 20 Mar 2015 20:26:17 +0000</pubDate>
+      
+      <guid>/tags/cdq/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>gss</title>
+      <link>/tags/gss/</link>
+      <pubDate>Thu, 19 Mar 2015 22:58:43 +0000</pubDate>
+      
+      <guid>/tags/gss/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>bc</title>
+      <link>/tags/bc/</link>
+      <pubDate>Mon, 16 Mar 2015 22:35:14 +0000</pubDate>
+      
+      <guid>/tags/bc/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>life</title>
+      <link>/tags/life/</link>
+      <pubDate>Fri, 13 Mar 2015 22:34:41 +0000</pubDate>
+      
+      <guid>/tags/life/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>digitDP</title>
+      <link>/tags/digitdp/</link>
+      <pubDate>Wed, 11 Mar 2015 19:16:41 +0000</pubDate>
+      
+      <guid>/tags/digitdp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ur</title>
+      <link>/tags/ur/</link>
+      <pubDate>Sat, 07 Mar 2015 22:28:41 +0000</pubDate>
+      
+      <guid>/tags/ur/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>plugDP</title>
+      <link>/tags/plugdp/</link>
+      <pubDate>Sat, 07 Mar 2015 17:02:41 +0000</pubDate>
+      
+      <guid>/tags/plugdp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tcd</title>
+      <link>/tags/tcd/</link>
+      <pubDate>Sat, 07 Mar 2015 13:39:41 +0000</pubDate>
+      
+      <guid>/tags/tcd/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>cf</title>
+      <link>/tags/cf/</link>
+      <pubDate>Sun, 01 Mar 2015 23:29:41 +0000</pubDate>
+      
+      <guid>/tags/cf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>hiho</title>
+      <link>/tags/hiho/</link>
+      <pubDate>Sat, 28 Feb 2015 21:21:41 +0000</pubDate>
+      
+      <guid>/tags/hiho/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tpd</title>
+      <link>/tags/tpd/</link>
+      <pubDate>Wed, 25 Feb 2015 21:10:41 +0000</pubDate>
+      
+      <guid>/tags/tpd/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>expection</title>
+      <link>/tags/expection/</link>
+      <pubDate>Wed, 25 Feb 2015 20:19:41 +0000</pubDate>
+      
+      <guid>/tags/expection/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>matroid</title>
+      <link>/tags/matroid/</link>
+      <pubDate>Mon, 09 Feb 2015 21:57:41 +0000</pubDate>
+      
+      <guid>/tags/matroid/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>POJ</title>
+      <link>/tags/poj/</link>
+      <pubDate>Wed, 04 Feb 2015 21:28:41 +0000</pubDate>
+      
+      <guid>/tags/poj/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>burnside</title>
+      <link>/tags/burnside/</link>
+      <pubDate>Wed, 04 Feb 2015 17:46:41 +0000</pubDate>
+      
+      <guid>/tags/burnside/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ioi</title>
+      <link>/tags/ioi/</link>
+      <pubDate>Wed, 28 Jan 2015 18:44:41 +0000</pubDate>
+      
+      <guid>/tags/ioi/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>guess</title>
+      <link>/tags/guess/</link>
+      <pubDate>Sun, 25 Jan 2015 21:33:41 +0000</pubDate>
+      
+      <guid>/tags/guess/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>physics</title>
+      <link>/tags/physics/</link>
+      <pubDate>Sun, 25 Jan 2015 21:33:41 +0000</pubDate>
+      
+      <guid>/tags/physics/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>data\xa0structure</title>
+      <link>/tags/data%5Cxa0structure/</link>
+      <pubDate>Thu, 08 Jan 2015 11:46:07 +0000</pubDate>
+      
+      <guid>/tags/data%5Cxa0structure/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>binary\xa0search</title>
+      <link>/tags/binary%5Cxa0search/</link>
+      <pubDate>Fri, 26 Dec 2014 17:45:06 +0000</pubDate>
+      
+      <guid>/tags/binary%5Cxa0search/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>hash</title>
+      <link>/tags/hash/</link>
+      <pubDate>Wed, 17 Dec 2014 16:03:47 +0000</pubDate>
+      
+      <guid>/tags/hash/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>bestcoder</title>
+      <link>/tags/bestcoder/</link>
+      <pubDate>Sat, 29 Nov 2014 22:49:53 +0000</pubDate>
+      
+      <guid>/tags/bestcoder/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>disjoint\xa0set</title>
+      <link>/tags/disjoint%5Cxa0set/</link>
+      <pubDate>Fri, 28 Nov 2014 09:46:11 +0000</pubDate>
+      
+      <guid>/tags/disjoint%5Cxa0set/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>scoi</title>
+      <link>/tags/scoi/</link>
+      <pubDate>Wed, 26 Nov 2014 16:04:09 +0000</pubDate>
+      
+      <guid>/tags/scoi/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>digit\xa0dp</title>
+      <link>/tags/digit%5Cxa0dp/</link>
+      <pubDate>Sun, 23 Nov 2014 16:45:32 +0000</pubDate>
+      
+      <guid>/tags/digit%5Cxa0dp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>trie</title>
+      <link>/tags/trie/</link>
+      <pubDate>Sun, 23 Nov 2014 16:45:32 +0000</pubDate>
+      
+      <guid>/tags/trie/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>divide</title>
+      <link>/tags/divide/</link>
+      <pubDate>Fri, 21 Nov 2014 21:42:33 +0000</pubDate>
+      
+      <guid>/tags/divide/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>hdoj</title>
+      <link>/tags/hdoj/</link>
+      <pubDate>Mon, 17 Nov 2014 11:20:21 +0000</pubDate>
+      
+      <guid>/tags/hdoj/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>codevs</title>
+      <link>/tags/codevs/</link>
+      <pubDate>Sat, 18 Oct 2014 17:06:28 +0000</pubDate>
+      
+      <guid>/tags/codevs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tool</title>
+      <link>/tags/tool/</link>
+      <pubDate>Thu, 01 Jan 1970 08:00:00 +0000</pubDate>
+      
+      <guid>/tags/tool/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

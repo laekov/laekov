@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>mtb on The Site of laekov</title>
+    <link>/tags/mtb/</link>
+    <description>Recent content in mtb on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Sun, 01 May 2022 19:38:08 +0000</lastBuildDate><atom:link href="/tags/mtb/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Project T: 清华园山地车技术点大全</title>
+      <link>/random/f1faf5/</link>
+      <pubDate>Sun, 01 May 2022 19:38:08 +0000</pubDate>
+      
+      <guid>/random/f1faf5/</guid>
+      <description>封校无聊，何以解忧？开个新坑，骑骑山地。
+这个网站将校园内的山地技术点总结在地图上，以便从入门到进阶的不同水平爱好者进行交流，各自找到好玩的地点。
+在地图上单击鼠标右键即可记录一个你发现的地点。在管理员审核后，它将被分享给所有人。
+本站还在建设中，如果你对本项目有兴趣，欢迎来 GitHub Repo 进行开发方面的交流与讨论。
+目前计划中的功能还有：难度和描述的评论、添加图片、在线约骑、实时位置分享等等。
+本站始建于 2022 年劳动节假期封校之时。未来也考虑拓展地图范围。
+Go back to the map</description>
+    </item>
+    
+  </channel>
+</rss>

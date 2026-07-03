@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>linux on The Site of laekov</title>
+    <link>/tags/linux/</link>
+    <description>Recent content in linux on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Tue, 22 Dec 2020 10:48:37 +0000</lastBuildDate><atom:link href="/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>在 ThinRouter 上开发网络（原理课）硬件测试仪软件部分的记录和一些经验</title>
+      <link>/technical/3b42dc/</link>
+      <pubDate>Tue, 22 Dec 2020 10:48:37 +0000</pubDate>
+      
+      <guid>/technical/3b42dc/</guid>
+      <description>这个事情的 motivation 是被 harry 拉去上了一门叫 “高等计算机网络“ 的课, 而 harry 和 gyc 是本科生网络原理课的助教, 于是大作业的内容就是抱着 harry 的大腿给小朋友们做的硬件实验做一个测试平台. (harry: 你的老本行, 造 oj) 因为 laekov 的硬件水平四舍五入等于没有 (gg) 所以负责写前端.
+VUE + ChartJS = gg laekov 多年没写过前端了, 没想到 angular 都已经 gg 了. 在 &amp;ldquo;尽量轻量化, 以后烧进 flash&amp;rdquo; 的指导思想 (还有 harry 的 push) 下选择了 vue.
+功能里有一个重要的需求是画一张同学们的路由器带宽-帧大小的曲线. 要是有 matplotlib 就好了, 然而既然是在写 web 就只能搞 js 的轮子了.
+然而 chartjs 需要给它一个生的 canvas DOM object. 但是 vue 的制造者似乎就是非常不喜欢开发者拿生的 DOM, 甚至把 document 对象都给屏蔽了. (?</description>
+    </item>
+    
+  </channel>
+</rss>

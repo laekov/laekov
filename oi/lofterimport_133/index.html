@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>BZOJ1597 [Usaco2008 Mar]土地购买 | The Site of laekov</title>
+<meta name="keywords" content="bzoj, data\xa0structure, oi">
+<meta name="description" content="大概也不是很难。毕竟只有做水题的份。
+就把原来的土地按x排个序，把能合并的合并，变成一个x单增y单减的序列。
+然后就是dp。f[i]&nbsp;= min(f[j]&nbsp;&#43; y[j&#43;1]*x[i])，可以单调的斜率优化。
+符号比较郁闷还搞错了好几次。
+所以说我太弱了啊怎么办啊。
+#include &lt;cstdio&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+typedef long long qw;
+typedef long double exf;
+#ifdef WIN32
+#define lld &quot;%I64d&quot;
+#else
+#define lld &quot;%lld&quot;
+#endif
+#define _l (qw)
+#define _f (exf)
+struct field {
+int x, y;
+};
+inline bool cmpField(const field&amp; a, const field&amp; b)&nbsp;{
+return (a. x &lt; b. x)&nbsp;||&nbsp;(a. x == b. x &amp;&amp; a. y &lt; b. y);
+}">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/lofterimport_133/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="BZOJ1597 [Usaco2008 Mar]土地购买" />
+<meta property="og:description" content="大概也不是很难。毕竟只有做水题的份。
+就把原来的土地按x排个序，把能合并的合并，变成一个x单增y单减的序列。
+然后就是dp。f[i]&nbsp;= min(f[j]&nbsp;&#43; y[j&#43;1]*x[i])，可以单调的斜率优化。
+符号比较郁闷还搞错了好几次。
+所以说我太弱了啊怎么办啊。
+#include &lt;cstdio&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+typedef long long qw;
+typedef long double exf;
+#ifdef WIN32
+#define lld &quot;%I64d&quot;
+#else
+#define lld &quot;%lld&quot;
+#endif
+#define _l (qw)
+#define _f (exf)
+struct field {
+int x, y;
+};
+inline bool cmpField(const field&amp; a, const field&amp; b)&nbsp;{
+return (a. x &lt; b. x)&nbsp;||&nbsp;(a. x == b. x &amp;&amp; a. y &lt; b. y);
+}" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/lofterimport_133/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2014-10-20T21:01:01+00:00" />
+<meta property="article:modified_time" content="2014-10-20T21:01:01+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BZOJ1597 [Usaco2008 Mar]土地购买"/>
+<meta name="twitter:description" content="大概也不是很难。毕竟只有做水题的份。
+就把原来的土地按x排个序，把能合并的合并，变成一个x单增y单减的序列。
+然后就是dp。f[i]&nbsp;= min(f[j]&nbsp;&#43; y[j&#43;1]*x[i])，可以单调的斜率优化。
+符号比较郁闷还搞错了好几次。
+所以说我太弱了啊怎么办啊。
+#include &lt;cstdio&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+typedef long long qw;
+typedef long double exf;
+#ifdef WIN32
+#define lld &quot;%I64d&quot;
+#else
+#define lld &quot;%lld&quot;
+#endif
+#define _l (qw)
+#define _f (exf)
+struct field {
+int x, y;
+};
+inline bool cmpField(const field&amp; a, const field&amp; b)&nbsp;{
+return (a. x &lt; b. x)&nbsp;||&nbsp;(a. x == b. x &amp;&amp; a. y &lt; b. y);
+}"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "BZOJ1597 [Usaco2008 Mar]土地购买",
+      "item": "/oi/lofterimport_133/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BZOJ1597 [Usaco2008 Mar]土地购买",
+  "name": "BZOJ1597 [Usaco2008 Mar]土地购买",
+  "description": "大概也不是很难。毕竟只有做水题的份。\n就把原来的土地按x排个序，把能合并的合并，变成一个x单增y单减的序列。\n然后就是dp。f[i]\u0026nbsp;= min(f[j]\u0026nbsp;+ y[j+1]*x[i])，可以单调的斜率优化。\n符号比较郁闷还搞错了好几次。\n所以说我太弱了啊怎么办啊。\n#include \u0026lt;cstdio\u0026gt;\n#include \u0026lt;algorithm\u0026gt;\nusing namespace std;\ntypedef long long qw;\ntypedef long double exf;\n#ifdef WIN32\n#define lld \u0026quot;%I64d\u0026quot;\n#else\n#define lld \u0026quot;%lld\u0026quot;\n#endif\n#define _l (qw)\n#define _f (exf)\nstruct field {\nint x, y;\n};\ninline bool cmpField(const field\u0026amp; a, const field\u0026amp; b)\u0026nbsp;{\nreturn (a. x \u0026lt; b. x)\u0026nbsp;||\u0026nbsp;(a. x == b. x \u0026amp;\u0026amp; a. y \u0026lt; b. y);\n}",
+  "keywords": [
+    "bzoj", "data\\xa0structure", "oi"
+  ],
+  "articleBody": "大概也不是很难。毕竟只有做水题的份。\n就把原来的土地按x排个序，把能合并的合并，变成一个x单增y单减的序列。\n然后就是dp。f[i] = min(f[j] + y[j+1]*x[i])，可以单调的斜率优化。\n符号比较郁闷还搞错了好几次。\n所以说我太弱了啊怎么办啊。\n#include #include using namespace std;\ntypedef long long qw;\ntypedef long double exf;\n#ifdef WIN32\n#define lld \"%I64d\"\n#else\n#define lld \"%lld\"\n#endif\n#define _l (qw)\n#define _f (exf)\nstruct field {\nint x, y;\n};\ninline bool cmpField(const field\u0026 a, const field\u0026 b) {\nreturn (a. x \u003c b. x) || (a. x == b. x \u0026\u0026 a. y \u003c b. y);\n}\nconst int maxn = 50009;\nint n, t;\nint q[maxn];\nqw f[maxn];\nfield o[maxn], a[maxn];\n#define getK(_x_,_y_) ((_f f[_y_]-f[_x_])/(_f a[_x_+1].y-a[_y_+1].y))\nvoid dp() {\nint hd = 0, tl = 1;\na[0]. x = 0;\na[0]. y = 0;\nf[0] = 0;\nq[hd] = 0;\nfor (int i = 1; i \u003c= t; ++ i) {\nwhile (hd + 1 \u003c tl \u0026\u0026 getK(q[hd], q[hd + 1]) \u003c a[i]. x)\n++ hd;\nf[i] = f[q[hd]] + _l a[q[hd] + 1]. y * a[i]. x;\nif (i == t)\nbreak;\nwhile (hd + 1 \u003c tl \u0026\u0026 getK(q[tl - 2], q[tl - 1]) \u003e getK(q[tl - 2], i))\n-- tl;\nq[tl ++] = i;\n}\n}\nint main() {\n#ifndef ONLINE_JUDGE\nfreopen(\"in.txt\", \"r\", stdin);\n#endif\nscanf(\"%d\", \u0026n);\nfor (int i = 0; i \u003c n; ++ i)\nscanf(\"%d%d\", \u0026o[i]. x, \u0026o[i]. y);\nsort(o, o + n, cmpField);\nt = 1;\na[1] = o[0];\nfor (int i = 1; i \u003c n; ++ i) {\nwhile (t \u0026\u0026 o[i]. y \u003e a[t]. y)\n-- t;\nif (!t || o[i]. x \u003e a[t]. x)\na[++ t] = o[i];\n}\ndp();\nprintf(lld \"\\n\", f[t]);\n}\n",
+  "wordCount" : "233",
+  "inLanguage": "en",
+  "datePublished": "2014-10-20T21:01:01Z",
+  "dateModified": "2014-10-20T21:01:01Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/lofterimport_133/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      BZOJ1597 [Usaco2008 Mar]土地购买
+    </h1>
+    <div class="post-meta"><span title='2014-10-20 21:01:01 +0000 UTC'>October 20, 2014</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>大概也不是很难。毕竟只有做水题的份。<br /></p> 
+<p><br /></p> 
+<p>就把原来的土地按x排个序，把能合并的合并，变成一个x单增y单减的序列。</p> 
+<p><br /></p> 
+<p>然后就是dp。f[i]&nbsp;= min(f[j]&nbsp;+ y[j+1]*x[i])，可以单调的斜率优化。</p> 
+<p><br /></p> 
+<p>符号比较郁闷还搞错了好几次。</p> 
+<p><br /></p> 
+<p>所以说我太弱了啊怎么办啊。</p> 
+<p><br /></p> 
+<p>#include &lt;cstdio&gt;</p> 
+<p>#include &lt;algorithm&gt;</p> 
+<p><br /></p> 
+<p>using namespace std;</p> 
+<p><br /></p> 
+<p>typedef long long qw;</p> 
+<p>typedef long double exf;</p> 
+<p><br /></p> 
+<p>#ifdef WIN32</p> 
+<p>#define lld &quot;%I64d&quot;</p> 
+<p>#else</p> 
+<p>#define lld &quot;%lld&quot;</p> 
+<p>#endif</p> 
+<p>#define _l (qw)</p> 
+<p>#define _f (exf)</p> 
+<p><br /></p> 
+<p>struct field {</p> 
+<p>int x, y;</p> 
+<p>};</p> 
+<p><br /></p> 
+<p>inline bool cmpField(const field&amp; a, const field&amp; b)&nbsp;{</p> 
+<p>return (a. x &lt; b. x)&nbsp;||&nbsp;(a. x == b. x &amp;&amp; a. y &lt; b. y);</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>const int maxn = 50009;</p> 
+<p><br /></p> 
+<p>int n, t;</p> 
+<p>int q[maxn];</p> 
+<p>qw f[maxn];</p> 
+<p>field o[maxn], a[maxn];</p> 
+<p><br /></p> 
+<p>#define getK(_x_,_y_)&nbsp;((_f f[_y_]-f[_x_])/(_f a[_x_+1].y-a[_y_+1].y))</p> 
+<p><br /></p> 
+<p>void dp()&nbsp;{</p> 
+<p>int hd = 0, tl = 1;</p> 
+<p>a[0]. x = 0;</p> 
+<p>a[0]. y = 0;</p> 
+<p>f[0]&nbsp;= 0;</p> 
+<p>q[hd]&nbsp;= 0;</p> 
+<p>for (int i = 1; i &lt;= t;&nbsp;++ i)&nbsp;{</p> 
+<p>while (hd&nbsp;+ 1 &lt; tl &amp;&amp; getK(q[hd], q[hd + 1])&nbsp;&lt; a[i]. x)</p> 
+<p>++ hd;</p> 
+<p>f[i]&nbsp;= f[q[hd]]&nbsp;+ _l a[q[hd]&nbsp;+ 1]. y * a[i]. x;</p> 
+<p>if (i&nbsp;== t)</p> 
+<p>break;</p> 
+<p>while (hd&nbsp;+ 1 &lt; tl &amp;&amp; getK(q[tl - 2], q[tl - 1])&nbsp;&gt; getK(q[tl - 2], i))</p> 
+<p>-- tl;</p> 
+<p>q[tl ++]&nbsp;= i;</p> 
+<p>}</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int main()&nbsp;{</p> 
+<p>#ifndef ONLINE_JUDGE</p> 
+<p>freopen(&quot;in.txt&quot;,&nbsp;&quot;r&quot;, stdin);</p> 
+<p>#endif</p> 
+<p><br /></p> 
+<p>scanf(&quot;%d&quot;,&nbsp;&amp;n);</p> 
+<p>for (int i = 0; i &lt; n;&nbsp;++ i)</p> 
+<p>scanf(&quot;%d%d&quot;,&nbsp;&amp;o[i]. x,&nbsp;&amp;o[i]. y);</p> 
+<p>sort(o, o + n, cmpField);</p> 
+<p>t = 1;</p> 
+<p>a[1]&nbsp;= o[0];</p> 
+<p>for (int i = 1; i &lt; n;&nbsp;++ i)&nbsp;{</p> 
+<p>while (t&nbsp;&amp;&amp; o[i]. y &gt; a[t]. y)</p> 
+<p>-- t;</p> 
+<p>if (!t&nbsp;|| o[i]. x &gt; a[t]. x)</p> 
+<p>a[++ t]&nbsp;= o[i];</p> 
+<p>}</p> 
+<p>dp();</p> 
+<p>printf(lld &quot;\n&quot;, f[t]);</p> 
+<p>}</p> 
+<p><br /></p> 
+<p><br /></p>
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/bzoj/">bzoj</a></li>
+      <li><a href="/tags/data%5Cxa0structure/">data\xa0structure</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/lofterimport_131/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>20141021 计划</span>
+  </a>
+  <a class="next" href="/oi/lofterimport_134/">
+    <span class="title">Next »</span>
+    <br>
+    <span>BZOJ3231 递归数列</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

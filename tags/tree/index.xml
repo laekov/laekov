@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>tree on The Site of laekov</title>
+    <link>/tags/tree/</link>
+    <description>Recent content in tree on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Wed, 17 Jun 2015 20:55:30 +0000</lastBuildDate><atom:link href="/tags/tree/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>bzoj3451 tyvj1953 Normal</title>
+      <link>/oi/dbimport_194/</link>
+      <pubDate>Wed, 17 Jun 2015 20:55:30 +0000</pubDate>
+      
+      <guid>/oi/dbimport_194/</guid>
+      <description>mhy大爷多久之前开的坑啊ovo
+这题的思路比较神.点分+fft.两个点会产生的贡献是1/(dist + 1).于是要知道长度为多少的链有多少条.
+利用树分可以将∑深度降到O(n*log n)的级别.原因很明显啊.
+然后就用fft来求就好喽.反正是double也懒得用数论了.然后找了wyf的程序随便就拍出一组末位不等,也没用long double.居然能过太神奇了.
+总复杂度O(n*log2n).然后莫名其妙就拿了rank1好开心啊.</description>
+    </item>
+    
+    <item>
+      <title>bzoj4031 [HEOI2015]小Z的房间</title>
+      <link>/oi/dbimport_232/</link>
+      <pubDate>Thu, 30 Apr 2015 15:57:53 +0000</pubDate>
+      
+      <guid>/oi/dbimport_232/</guid>
+      <description>看上去像是插头dp啊.然后基尔霍夫矩阵也能做.
+关键是模数不是质数,所以不能逆元,所以要用mhy的黑科技,碾转相除来做.
+mhy太强了ovo</description>
+    </item>
+    
+    <item>
+      <title>bzoj1211 [HNOI2004]树的计数</title>
+      <link>/oi/dbimport_119/</link>
+      <pubDate>Mon, 06 Apr 2015 22:20:35 +0000</pubDate>
+      
+      <guid>/oi/dbimport_119/</guid>
+      <description>网没救啦.然后发现看电影居然看得无聊了.于是去愉快地刷题了ovo
+来复习一下一个叫prufer序列的东西.它是用来做生成树计数的.考虑一棵有标号的树,每次把叶子中编号最大的一个节点的唯一一条边的另一边扔进序列尾部,然后把它扯了,直到只剩俩点.然后发现这个序列对于一棵树是唯一的,且一个序列对应唯一的树.且这个序列的取值全都是1到n的数,无相互限制.这也是为啥完全图的生成树个数是nn-2.
+然后这个题是给定度数嘛,于是就是对于每个点要求在prufer序列中出现次数一定.那也很好做的啦.
+然后要注意的是有一堆无解的情况要先判断一下.然后听说写c++要小心暴long long.我强行python无压力啦ovo</description>
+    </item>
+    
+    <item>
+      <title>bzoj3611 [Heoi2014]大工程</title>
+      <link>/oi/dbimport_204/</link>
+      <pubDate>Mon, 06 Apr 2015 11:17:41 +0000</pubDate>
+      
+      <guid>/oi/dbimport_204/</guid>
+      <description>继续填idy的坑ovo
+这个题就是比sdoi那个题要麻烦一些.于是我决定把虚树建成真正的树来跑dp.然后这个树形dp似乎没啥麻烦的东西.就是给你一棵有关键点的树求所有点对的距离和,距离min和max.
+常数又被吊打ovo无语喽.</description>
+    </item>
+    
+    <item>
+      <title>bzoj2286 [Sdoi2011]消耗战</title>
+      <link>/oi/dbimport_134/</link>
+      <pubDate>Mon, 06 Apr 2015 10:11:26 +0000</pubDate>
+      
+      <guid>/oi/dbimport_134/</guid>
+      <description>idy又开坑辣.居然开的是虚树.
+然后发现我好像还是不会ovo我太弱了ovo而且idy自带常数优化+代码长度优化根本打不过ovo
+这个题算是相对比较容易的虚树吧.强行模拟一遍缩掉所有没有用的边之后的dfs就好了.中间要讨论一下几个点的祖先关系.yy起来还比较清晰.
+然后似乎就没有啥要说的了ovo
+Upd:早上起来脑洞一开发现似乎不需要讨论当前的点已经在栈里的情况啊ovo</description>
+    </item>
+    
+    <item>
+      <title>bzoj2896 桥</title>
+      <link>/oi/dbimport_169/</link>
+      <pubDate>Sun, 05 Apr 2015 14:16:04 +0000</pubDate>
+      
+      <guid>/oi/dbimport_169/</guid>
+      <description>有点像xyz在wc的时候讲的动态图连通性问题.不过这个看上去要水些啊.
+考虑建一棵生成树,那么所有剩余的边覆盖了的边就不是桥.如果没有被覆盖就是桥.
+于是这个题可以倒过来,支持加边和查询两点间没有被覆盖的边数.
+似乎挺水.
+完了.</description>
+    </item>
+    
+    <item>
+      <title>bzoj2182 [Spoj1479]The GbAaY Kingdom最小直径生成树</title>
+      <link>/oi/dbimport_128/</link>
+      <pubDate>Fri, 03 Apr 2015 20:34:55 +0000</pubDate>
+      
+      <guid>/oi/dbimport_128/</guid>
+      <description>下午写的东西被奇妙地吞掉了ovo
+最小直径生成树,一定不要用sort,否则会tle.
+首先考虑一个绝对中心的概念.既在生成树上它是所有直径的严格中心.它有可能在点上,也有可能在边上.
+于是我们枚举边,试图让这个绝对中心在这条边上.那么每个点都选择到这条边的最短路树来生成.如果两个端点的最长链的差距不是很大,那么就有可能在这条边上找到最小直径生成树的绝对中心.
+考虑绝对中心对一个端点的距离,会对每个点形成一个峰形的函数.要找的答案就在相邻两个峰之间.于是可以利用两边直线k相同,把b排序之后直接做.总复杂度O(n3).
+然后如果每个边强行排序只会多个log,但是会tle.</description>
+    </item>
+    
+    <item>
+      <title>bzoj3772 精神污染</title>
+      <link>/oi/dbimport_206/</link>
+      <pubDate>Wed, 01 Apr 2015 21:50:09 +0000</pubDate>
+      
+      <guid>/oi/dbimport_206/</guid>
+      <description>idy又开坑辣,虽然是个无聊的无聊题.
+考虑每条路径会被哪些路径包含.那条路径的两个端点一定是在条路径的两个端点的子树上.(如果这两个点有祖先关系,那么需要重新makeroot一下)
+当然我不是说要用Lct.直接用可持久化线段树在dfs序上把路径存下来就完了.</description>
+    </item>
+    
+    <item>
+      <title>bzoj2395 [Balkan 2011]Timeismoney</title>
+      <link>/oi/dbimport_138/</link>
+      <pubDate>Wed, 01 Apr 2015 16:03:54 +0000</pubDate>
+      
+      <guid>/oi/dbimport_138/</guid>
+      <description>谁说最小乘积生成树是取log了ovo题意都不一样好么.
+首先这个东西一定在一个像是下凸壳一样的东西上.其实是一个反比例函数的k的最小值.
+把x和y的和看作坐标,求在(x0,y0)与(x1,y1)中间的一个点,为了平均分配,要取那个三角形最大,于是可以用叉积弄出一个式子来当作x和y的系数,这样就可以直接kruskal求最小生成树了.
+如果求出来的点在这个线段上,那这个区间就不用再找了.否则还得去两边继续递归.
+然后最初的左端点和右端点就取x的最小生成树和y的最小生成树就好了.
+这个时间复杂度似乎还是没有保证啊.有点像自适应simpson的感觉,虽然这个肯定是精确的.然后跑起来也比较快.有意思.
+这个玩意还是比较好写的.虽然中间kruskal把0打成1,看了半天ovo</description>
+    </item>
+    
+    <item>
+      <title>bzoj3784 树上的路径</title>
+      <link>/oi/dbimport_208/</link>
+      <pubDate>Fri, 27 Mar 2015 21:33:23 +0000</pubDate>
+      
+      <guid>/oi/dbimport_208/</guid>
+      <description>又是idy开的坑。感觉回去要被他吊打致残。
+树分治。最开始想用二分，然后直接去每个分治点上查询。这样的总复杂度是O(n*log3n)的。不过感觉常数比较小而且绝对省代码，只用二分不用数据结构。然后发现要输出所有的边。这个算法要用容斥一样的东西来减，根本搞不定。
+于是向mhy学习。使用类似noi那个超级钢琴的思路，每次把最大的一条路径找出来，然后找它的替代品。树分治后，对于每一个树上的团，算出它的dfs序。默认一个点与dfs序在它前面的区间中最深的连边。这样就可以保证不重，也比较好写。然后用堆来维护。堆中一个点需要记录的信息是这个点的答案，线段树的根，左右端点，这个点到分治团的根的距离。然后每次找出一个最大的之后把它的区间再折成两半扔回堆里就好啦。
+比较神的做法。感觉我自己是想不出来的。要是考场上遇到还真会出事呢。郁闷ing。</description>
+    </item>
+    
+  </channel>
+</rss>

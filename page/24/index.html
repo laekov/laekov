@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head>
+	<meta name="generator" content="Hugo 0.111.3"><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>The Site of laekov</title>
+
+<meta name="description" content="">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="/index.xml">
+<link rel="alternate" type="application/json" href="/index.json">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="The Site of laekov" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="The Site of laekov"/>
+<meta name="twitter:description" content=""/>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "The Site of laekov",
+  "url": "/",
+  "description": "",
+  "thumbnailUrl": "/favicon.ico",
+  "sameAs": [
+      "https://github.com/laekov", "/cv", "/not-easily-available", "/not-easily-available", "/not-easily-available", "/not-easily-available", "index.xml"
+  ]
+}
+</script>
+</head>
+
+<body class="list" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>BZOJ1815 [Shoi2006]color 有色图
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>&lt;div class=&#34;post_brief&#34;&gt;&lt;p&gt; 一道burnside，做了几次之后感觉比较经典了。然后发现网上居然没有题解。&lt;/p&gt;  
+枚举正整数拆分，既每个质换的长度。然后枚举gcd算每类置换的贡献。再用错排公式来算每类置换的数量。然后求和。
+ 
+#include &lt;cstdio&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+#define _l (long long int)
+const int maxn = 63;
+int n, m, mod, ans, g[maxn][maxn]; int sq[maxn], tq, fac[maxn], finv[maxn], vinv[maxn];
+int modPow(int a, int x) { int s(1); for (; x; x &gt;&gt;= 1, a = _l a * a % mod) if (x &amp; 1) s = _l s * a % mod; return s; }...</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-02-04 17:46:41 +0000 UTC'>February 4, 2015</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to BZOJ1815 [Shoi2006]color 有色图" href="/oi/i11rimport_057/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>BZOJ2401 陶陶的难题I
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>&lt;div class=&#34;post_brief&#34;&gt;&lt;p&gt; 推了半天，发现还是得sqrt，过不到啊。&lt;/p&gt;  
+然后发现与经典的问题相比，就是n=n。然后这不是做过的那个LCM sum的前缀和就完了嘛。傻了。
+ 
+然后第一次MLE是因为明明压了8位，还是开了30长的数组。第二次WA是因为高精输出的时候%08d写成了%8d。是不是明天又要逗极而死了。
+ 
+#include &lt;cstdio&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+typedef long long dint;
+#define _l (long long int)
+const int maxlen = 7; const dint base = 1e8; struct BigInt { dint dig[maxlen], len; BigInt() { len = 0; } void set(dint x) { dig[0] = x; len = 1; while (dig[len - 1] &gt;= base) { dig[len] = dig[len - 1] / base; dig[len - 1] %= base; &#43;&#43; len; } } void copy(const BigInt&amp; x) { len = x....</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-02-01 21:18:41 +0000 UTC'>February 1, 2015</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to BZOJ2401 陶陶的难题I" href="/oi/i11rimport_061/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>BZOJ3435 [Wc2014]紫荆花之恋
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>想起去年在考场上完全没有思路不想写数据结构于是骗了30分。现在想想当初还是naive。
+ 
+这题看上去就是点分治。因为要动态加点所以要动态。然后利用替罪羊树的方法重构树上的一团东西（不能叫团，否则命名重复了）。
+ 
+本来以为要写很久，结果也没写多久。奇怪的是，把maintain展开到insert里面之后就跑得飞快了，否则过不到而且根本跑不下来9和10。又丑了郁闷。
+ 
+#include &lt;cstdio&gt; #include &lt;cctype&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+const int buf_len = 4000; const size_t buf_size = buf_len * sizeof(char); char buf[buf_len], *bufb(buf), *bufe(buf &#43; 1); #define readBuf() { if (&#43;&#43; bufb == bufe) bufe = (bufb = buf) &#43; fread(buf, 1, buf_size, stdin); } #define readInt(x) { register int s(0); do { readBuf(); } while (!isdigit(*bufb)); do { s = s * 10 &#43; *bufb - 48; readBuf(); } while (isdigit(*bufb)); x = s; }...</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-02-01 20:07:41 +0000 UTC'>February 1, 2015</span>&nbsp;·&nbsp;6 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to BZOJ3435 [Wc2014]紫荆花之恋" href="/oi/i11rimport_062/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>POJ2154 Color
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>&lt;div class=&#34;post_brief&#34;&gt;&lt;p&gt; 首先是burnside，对于旋转x下都要当作一个置换，所以总共有n个。然后第i个的不动点数量等于n&lt;sup&gt;gcd(n,i)&lt;/sup&gt;，然后统计一下个数是phi(gcd(n,i))个。&lt;/p&gt;  
+然后发现要用奇奇怪怪的东西来求phi。我用的方法是分解质因数然后DFS，跑得飞快。
+ 
+#include &lt;cstdio&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+#define _l (long long int)
+const int maxn = 50009;
+int n, mod; int tp, pn[maxn], phi[maxn]; bool pr[maxn];
+void pre() { memset(pr, 0, sizeof(pr)); tp = 0; phi[1] = 1; for (int i = 2; i &lt; maxn; &#43;&#43; i) { if (!pr[i]) { pn[tp &#43;&#43;] = i; phi[i] = i - 1; } for (int j = 0; j &lt; tp &amp;&amp; i * pn[j] &lt; maxn; &#43;&#43; j) { pr[i * pn[j]] = 1; if (i % pn[j] == 0) { phi[i * pn[j]] = phi[i] * pn[j]; break; } else phi[i * pn[j]] = phi[i] * phi[pn[j]]; } } }...</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-01-31 23:18:41 +0000 UTC'>January 31, 2015</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to POJ2154 Color" href="/oi/i11rimport_064/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>BZOJ2653 middle
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>&lt;div class=&#34;post_brief&#34;&gt;&lt;p&gt; 老久之前就看到过的题，不过不会做。今天晚上也是花了差不多俩小时才调过，虽然大概一个半小时都在纠结二分怎么写的问题。我没救了。&lt;/p&gt;  
+考虑经典的中位数二分，是把≤x的数字取-1，&gt;x的数取1，然后算最大子串看是否大于-1或1中的某一个，具体要看题目要求偶数是取上整还是下整什么的。
+ 
+然后这题就把所有东西排序之后拿可持久化线段树把这个序列搞出来，然后照着之前的思路二分就好了。线段树用来维护最大和最小前缀和。
+#include &lt;cstdio&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+struct dat { int sm, s; }; struct seg { int l, r; dat v[2]; seg *ls, *rs; };
+#define _l (long long int)
+typedef pair &lt;int, int&gt; vpr; typedef dat(*dat_mf)(const dat&amp;, const dat&amp;);
+const int maxn = 20009; const int maxnd = maxn * 19; const dat null_str = {0, 0}; const dat neg_str0 = {-1, -1}; const dat neg_str1 = {-1, -1}; const dat pos_str0 = {1, 1}; const dat pos_str1 = {1, 1};...</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-01-29 20:50:41 +0000 UTC'>January 29, 2015</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to BZOJ2653 middle" href="/oi/i11rimport_067/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>BZOJ3351 [ioi2009]Regions
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>&lt;div class=&#34;post_brief&#34;&gt;&lt;p&gt; ioi的数据结构题，果然还是比较BT的。&lt;/p&gt;  
+做法是对颜色分开，大的颜色预处理，小的颜色直接暴力。
+ 
+然后一个小错又坑了好久。我真的没救了。
+#include &lt;cstdio&gt; #include &lt;cstdlib&gt; #include &lt;cctype&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+const int buf_len = 4000; const size_t buf_size = buf_len * sizeof(char); char buf[buf_len], *bufb(buf), *bufe(buf &#43; 1); #define readBuf() { if (&#43;&#43; bufb == bufe) bufe = (bufb = buf) &#43; fread(buf, 1, buf_size, stdin); } #define readInt(x) { register int s(0); do { readBuf(); } while (!isdigit(*bufb)); do { s = s * 10 &#43; *bufb - 48; readBuf(); } while (isdigit(*bufb)); x = s; }...</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-01-28 18:44:41 +0000 UTC'>January 28, 2015</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to BZOJ3351 [ioi2009]Regions" href="/oi/i11rimport_068/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>BZOJ1502 [NOI2005]月下柠檬树
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>&lt;div class=&#34;post_brief&#34;&gt;&lt;p&gt; 今天几乎讲了一天的算几。或者说能听的只有算几。然后就去做了一道基础题。&lt;/p&gt;  
+刚开始的时候比较naive，把相交的情况想简单了，打算直接上数学，然后悲剧地发现还有其它的不好算交点的情况，于是就去写simpson了。
+ 
+simpson就是一个估计用的，s = (4 * f(mid) &#43; f(l) &#43; f(r))*(r-l)/6。至于为啥是对的就不知道了。反正比较能用。然后每次直接去扫一遍所有能交的地方，取max就行了，比挨个算交点方便许多。
+ 
+然后第一次写，代码也比较乱。
+#include &lt;cstdio&gt; #include &lt;cstring&gt; #include &lt;cmath&gt; #include &lt;algorithm&gt; using namespace std;
+const int maxn = 509; const double pi = asin(1) * 2; const double eps = 1e-6;
+#define x1 x1 #define x2 x2 #define y1 y1 #define y2 y2
+int n; double tht, x[maxn], h[maxn], r[maxn]; double crd[maxn]; double x1[maxn], x2[maxn], y1[maxn], y2[maxn]; bool c[maxn];...</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-01-27 20:55:41 +0000 UTC'>January 27, 2015</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to BZOJ1502 [NOI2005]月下柠檬树" href="/oi/i11rimport_071/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>BZOJ2816 [ZJOI2012]网络
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>&lt;div class=&#34;post_brief&#34;&gt;&lt;p&gt; 听说是水水的splay，果然是。&lt;/p&gt;  
+乍一看要用lct，然后因为度数只有2，所以肯定是一条链。然后就直接用splay来维护。然后因为少写了句splay(v)导致多调了至少一节课的时间。我没救了。
+#include &lt;cstdio&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; #include &lt;map&gt; using namespace std;
+#define upmax(a,b) { if (a &lt; b) a = b; }
+struct splay_node { int vl, vm, rv; splay_node *pt, *ls, *rs; inline void update() { vm = vl; if (ls) upmax(vm, ls-&gt; vm); if (rs) upmax(vm, rs-&gt; vm); } inline void fix() { if (rv) { swap(ls, rs); if (ls) ls-&gt; rv ^= 1; if (rs) rs-&gt; rv ^= 1; rv = 0; } } };...</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-01-27 20:51:41 +0000 UTC'>January 27, 2015</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to BZOJ2816 [ZJOI2012]网络" href="/oi/i11rimport_072/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>BZOJ3870 Our happy ending
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>&lt;div class=&#34;post_brief&#34;&gt;&lt;p&gt; 立杰出的题，orz。&lt;/p&gt;  
+一个时间比较微妙的状压DP。用一个二进制状态表示0~k中哪些数已经可以被表示出来了，然后大于k的数直接乘，因为对状态不产生影响。
+#include &lt;cstdio&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+#define pow2(x) (1&lt;&lt;(x)) #define _l (long long int)
+const int maxn = 21; const int maxb = pow2(maxn) &#43; 9; const int mod = 1e9 &#43; 7;
+int n, k, l, f[2][maxb], zu, va;
+#define incm(a,b) { a &#43;= b; if (a &gt;= mod) a %= mod; }
+int sov() { int prv(0), cur(1); memset(f, 0, sizeof(f)); va = max(0, l - k) &#43; 1; zu = pow2(k &#43; 1) - 1; f[cur][1] = 1; for (int ti = 0; ti &lt; n; &#43;&#43; ti) { swap(cur, prv); for (int i = zu; i; – i) f[cur][i] = 0; for (int i = zu; i; – i) if (f[prv][i]) { for (int j = 1; j &lt;= k; &#43;&#43; j) { int zn((i | (i &lt;&lt; j)) &amp; zu); incm(f[cur][zn], f[prv][i]); } incm(f[cur][i], _l f[prv][i] * va % mod); } } int ans(0); for (int i = zu, e = pow2(k); i &gt;= e; – i) incm(ans, f[cur][i]); return ans; }...</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-01-27 20:48:41 +0000 UTC'>January 27, 2015</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to BZOJ3870 Our happy ending" href="/oi/i11rimport_073/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>BZOJ2815 [ZJOI2012]灾难
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>&lt;div class=&#34;post_brief&#34;&gt;&lt;p&gt; 灭绝树的模板题么。之前不知道这题，差点当原创题出出去了。&lt;/p&gt;  
+好像有不少人不知道这东西的样子？orz zhx。
+ 
+灭绝树只有一句口诀：一个东西的父亲是所有入边的另一端的点的LCA。
+#include &lt;cstdio&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+struct edge { int t; edge *next; };
+const int maxn = 70009; const int maxl = 19; const int maxe = 2000009;
+int n, ind[maxn], oud[maxn], tpo[maxn], ath[maxn][maxl], sz[maxn], d[maxn]; edge *ha[maxn], *hr[maxn], *ht[maxn];
+inline void addEdge(edge** head, int u, int v) { edge* ep = new edge; ep-&gt; t = v; ep-&gt; next = head[u]; head[u] = ep; }...</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-01-27 20:45:41 +0000 UTC'>January 27, 2015</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to BZOJ2815 [ZJOI2012]灾难" href="/oi/i11rimport_074/"></a>
+</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="prev" href="/page/23/">
+      «&nbsp;Prev&nbsp;
+    </a>
+    <a class="next" href="/page/25/">Next&nbsp;&nbsp;»
+    </a>
+  </nav>
+</footer>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

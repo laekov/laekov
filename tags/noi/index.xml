@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>noi on The Site of laekov</title>
+    <link>/tags/noi/</link>
+    <description>Recent content in noi on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Sun, 19 Jul 2015 13:31:05 +0000</lastBuildDate><atom:link href="/tags/noi/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>20150719 noi2015 diary 2</title>
+      <link>/diary/dbimport_060/</link>
+      <pubDate>Sun, 19 Jul 2015 13:31:05 +0000</pubDate>
+      
+      <guid>/diary/dbimport_060/</guid>
+      <description>还记得初中每次考完试都有讲卷,唯独中考卷从未讲过.
+高中两年写了不少diary和summary,可是不会有最后一篇了.</description>
+    </item>
+    
+    <item>
+      <title>20150718 noi2015 diary√2</title>
+      <link>/diary/dbimport_059/</link>
+      <pubDate>Sat, 18 Jul 2015 15:56:31 +0000</pubDate>
+      
+      <guid>/diary/dbimport_059/</guid>
+      <description>昨天是day1,明天是day2,所以今天是day√2.
+去了ali,听了一下技术方面的演讲.发现ali是资瓷开源的很开心啊.然后发现其实data science挺有意思的啊.
+然后去西溪.唯二的感觉是热和挤.于是也成功地没有寻到宝ovo
+然后就回来浪了.明天就可以退役了哈哈哈哈好开心.
+所以我还是太年轻了.</description>
+    </item>
+    
+    <item>
+      <title>20150717 noi2015 diary 1</title>
+      <link>/diary/dbimport_058/</link>
+      <pubDate>Fri, 17 Jul 2015 19:51:36 +0000</pubDate>
+      
+      <guid>/diary/dbimport_058/</guid>
+      <description>最后一次noi的day1.似乎没有想象中的隆重,也没有想象中的紧张.倒是有一点像做梦一样的麻木.
+考场上依然是倒扣的试题和食物和水.每次看到水就想到让监考老师再拿一瓶.今天我也的确这么做了23333
+旁边是lxh背后是ysy真是好神奇ovo瞄了一眼发现lxh在配vim我才想起要配vim于是赶紧去配vim然后再看题.
+第一题咦这是在逗我么?水水水敲敲敲5分钟完事.
+第二题第一眼我以为是dag呢原来是树那不是直接无脑链剖就完了么搞搞搞敲敲敲.咦最近怎么这么喜欢用三个同样的字.
+第三题然后就卡住了.首先肯定大于n/2的素数可以直接乘嘛.然后怎么做50分呢?想了一想似乎可以3k过掉50分?算了一算发现不对诶.然后想了想可以22k过掉?然后可以枚举子集?咦子集那不是可以用vfk的子集反演?咦推推推推于是终于推出了k*2k的感觉了.咦那是不是可以试试200?啊啊跑不过啊ovoovoovo算了算了当骗分了吧.
+于是考完一句话没说吃饭睡觉.睡到2:30老师突然很激动地打电话过来说赶紧来可以查成绩了ovo一脸没睡醒地过去了.然后跪着看成绩,还好100+100+60前两题没跪第三题m/2是闭区间.唉.
+然后萌萌哒爹妈终于来了于是晚上睡觉之前可以找个有网有电有床的地方玩了好开心啊ovoovo
+于是窝还是太弱啦已经排到30+了呢.大概day2会炸炸炸了吧.唉.</description>
+    </item>
+    
+    <item>
+      <title>20150716 noi2015 diary 0</title>
+      <link>/diary/dbimport_057/</link>
+      <pubDate>Fri, 17 Jul 2015 19:50:35 +0000</pubDate>
+      
+      <guid>/diary/dbimport_057/</guid>
+      <description>明天就是day1了,所以今天是day0.(咦是不是一年前我写过这句话)
+早上是合照和ovo的开幕式似乎杜主席讲的东西比较,励志?不知道how to 形容.
+下午笔试.感觉经历过一次之后,那种悬的感觉冲淡了许多.虽然还是认真地检查了不过总有一种麻木.这可不太对啊.
+笔试完还很早.深刻了解xj的接待水平之后决定出去浪于是和czr打了半个下午的台球.比较惊讶mhy不会打.其间各种++rp和&amp;ndash;rp的事件发生.倒是感觉noi完了之后自己会台球上瘾ovo感觉美式台球比snooker有成就感一些虽然被czr虐了好几盘.
+咦noi day1之前居然去颓台球是不是会跪啊.
+咦明天就day1了?终于走到了这一天,然时势异也.也许这就是最后一次在oi的赛场上战斗了呢.心态什么的总有些波动.不过,唉,反正不要给自己的青春留下遗憾吧,fighting.</description>
+    </item>
+    
+    <item>
+      <title>20150715 noi2015 diary -1</title>
+      <link>/diary/dbimport_056/</link>
+      <pubDate>Wed, 15 Jul 2015 18:24:57 +0000</pubDate>
+      
+      <guid>/diary/dbimport_056/</guid>
+      <description>想起了去年的这个时候,坐在深圳外国语学校的电子阅览室里写相同的东西.那时候还没有doa.那时候还在用百度空间.ovoovo
+这里不得不比较一下今年和去年的noi招待条件ovo去年是6住3,今年是5住4.更郁闷的是洗个澡还得下两层楼ovoovo然后嘛,电子阅览室,根本,不够用嘛.周围站了很多人啊要不是我来得早也没电充了(虽然已经在机房充满了TT然后发现这些人我怎么都不认识)学校这么小想散个步都没处去虽然热得也不想动ovo寝室也热死还不开空调是闹哪样.
+嗯毫无疑问地颓废了一天的cross fire而不是codeforces.感觉我没救了.根本不想写题,笔试已经背了很多遍了.然后也复习不进去.想起zhx说过的,今年也许是心态变了吧.
+然后,嗯,水ovoovo热</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3242 [Noi2013]快餐店</title>
+      <link>/oi/i11rimport_017/</link>
+      <pubDate>Tue, 03 Mar 2015 21:18:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_017/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 好吧我的本意是想学习一下dp的。然后发现了这道纠结了一年半还多的题。&amp;lt;/p&amp;gt; &amp;nbsp;
+首先把环找出来。然后环上会长一些树。先把树的答案求了，因为它很好求。
+&amp;nbsp;
+然后考虑环，那么答案应该是随便断一条边之后答案的最小值（而不是最大值）。于是乎记录一下每个点按某个方向到起点的距离，记为d[i]。算一下每个点的树的深度，记为l[i]。于是每次要最大化l[i]+l[j]+|d[i]-d[j]|。反正是最大化所以顺序是没有关系的，但是不能自交。这是个比较容易错的地方。于是就去写个线段树来维护吧。只查询不修改让我总有能线性搞的想法，虽然没想清楚具体怎么实现。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; #include &amp;lt;set&amp;gt; using namespace std;
+struct edge { int t, v; edge *next; };
+typedef long long dint; #ifdef WIN32 #define lld &amp;ldquo;%I64d&amp;rdquo; #else #define lld &amp;ldquo;%lld&amp;rdquo; #endif #define _l (long long int)
+const int maxn = 100009;
+edge elst[maxn &amp;lt;&amp;lt; 1], *ep(elst), *head[maxn]; int n, fa[maxn], df[maxn], ol[maxn], d[maxn]; int tlp, lp[maxn &amp;lt;&amp;lt; 1]; dint lv[maxn &amp;lt;&amp;lt; 1], le[maxn &amp;lt;&amp;lt; 1], md[maxn], ans;</description>
+    </item>
+    
+  </channel>
+</rss>

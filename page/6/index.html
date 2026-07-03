@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head>
+	<meta name="generator" content="Hugo 0.111.3"><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>The Site of laekov</title>
+
+<meta name="description" content="">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="/index.xml">
+<link rel="alternate" type="application/json" href="/index.json">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="The Site of laekov" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="The Site of laekov"/>
+<meta name="twitter:description" content=""/>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "The Site of laekov",
+  "url": "/",
+  "description": "",
+  "thumbnailUrl": "/favicon.ico",
+  "sameAs": [
+      "https://github.com/laekov", "/cv", "/not-easily-available", "/not-easily-available", "/not-easily-available", "/not-easily-available", "index.xml"
+  ]
+}
+</script>
+</head>
+
+<body class="list" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>在若干不同机器上安装 Debian 并修了一些锅的记录
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>最近因为各种神奇的移动, 在不同的3台电脑上装了 debian, 并踩了不同的坑. 开一个文章来记录一下各种神奇的坑.
+0 一台 2013 年的联想 ideapad 笔记本, 配备了 AMD HD 6400M 独显. 因为突然想起了 bios 的管理密码所以激活了独显. 于是想用独显来跑 opencl 之类的.
+然而老的 amd crystal 驱动好像不是很支持? 时间有点久, 忘记了踩了什么坑. 总之 apt 瞎搞最后就装上了.
+1 实验室师兄的 i7 &#43; GTX 1070 &#43; 4k 屏. 装 nvidia 驱动并 disable nouveau 是常规操作.
+然后遇到的问题是 4k 屏对 gtk 的程序好像不是很友好. chrome 的地址栏和 ibus 之类的东西会变得非常小, 瞎眼. 解决方案是用 GTK_SCALE=2 这个环境变量. 但问题是这个环境变量不应该在开窗口的时候再设, 而是要放到 profile.d 里面. 然后就解决了问题.
+然后 ibus 冥顽不化地占据了我的输入法. 然后发现 apt remove 之后就能愉快地使用 fcitx 了....</p>
+  </div>
+  <footer class="entry-footer"><span title='2020-01-13 13:59:15 +0000 UTC'>January 13, 2020</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to 在若干不同机器上安装 Debian 并修了一些锅的记录" href="/technical/29af09/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>Minimon: A minimal surveillance system based on buildroot for RaspberryPi
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>因为发现助教给炼丹任务提供了 64 张图片作为训练集, 64 张图片作为验证集, 所以果断放弃了炼丹任务. (update: 发现还是炼丹任务好做)
+打算用 buildroot 从底向上 build 一个能跑起 python-gpio 的 linux. 另开一文记录一下坑们.
+(补充) 计划 先不管镜像大小, 用 buildroot 搞出一个能跑的系统. (好像 buildroot 部分差不多了.) 实时性补丁 进一步裁剪内核. (即使不栽应该也比 raspbian 小很多了. 毕竟老师那边 raspbian 裁剪纪录是 200M, 而 buildroot 现在才不到 150.) build 使用了默认配置 $ make raspberrypi3_defconfig 节省了很多自己摸索的时间.
+配置静态 ip 的时候发现可能是由于 networking 的版本问题, 必需要在 interfaces 配置文件里把 netmask 写在 address 上面, 否则不 work.
+另外选装上了 openssh 以支持 ssh 登录. 在折腾了半天之后终于能 ssh 上树莓派上的系统了.
+然后发现它有一个轻量级的 dropbear 作为 sshd....</p>
+  </div>
+  <footer class="entry-footer"><span title='2019-11-27 21:18:35 +0000 UTC'>November 27, 2019</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to Minimon: A minimal surveillance system based on buildroot for RaspberryPi" href="/technical/1f8072/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>SCC@SC&#39;19 笔记
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>好的 scc@sc&#39;19 终于没有拿亚军
+记个流水账
+Benchmarking 好像没啥特别的.
+一个新的发现是 HPL 的功耗飘可能是因为 GPU 功耗上升而不是计算 pattern? 回头仔细看看..?
+内核的奇怪的锅 导致 idle 状态下 ssh 上一台机器就能跳 200w 的功耗 spike. 通过更新内核版本解决了该问题.
+IB 卡烧掉了??? benchmark 本来早晨很早就交了而且数也还行. 然而中午玩着玩着发现 ib 卡没了. 尝试 pci hot reenable 失败之后重启并重新跑了 benchmark. 后来发现是 ib 卡在 gpu 风道里, 而我们给没插卡的节点的 gpu 风扇拔了一半的线, 另一半还是最低速运转的, 于是把 ib 给热傻了…
+SST 人脑挖矿 &#43; 无脑跑 SST 第一个部分是给定 cpu 核心数, l1/l2 cache 的不同搭配之类的总共乘起来 5760 种选择, 让用 SST 搞出一种性能最好且不超过5000块钱的配置.
+人脑挖矿 vs 暴力. 测算发现暴力应该能跑完所有点, 于是就暴力了一下.
+听说别的队有试图人脑的…...</p>
+  </div>
+  <footer class="entry-footer"><span title='2019-11-23 06:05:51 +0000 UTC'>November 23, 2019</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to SCC@SC&#39;19 笔记" href="/technical/b1c6c4/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>Raspberry Pi 折腾记录
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>获得一个生日礼物 raspberry pi 已将近一年, 然而因为它只有四个核所以被嫌弃地闲置了很久. 近期因为上了嵌入式的课, 所以又开始了一轮折腾. 把一些有趣的事记录一下.
+网络连接配置 老师说让我们先插上显示器配wifi, 之前我也是这么干的, 于是照做了.
+然后想拿回家用, 家里没显示器, wifi 密码输入错误, 失联 ovo
+后来想起直接给有线网口配个静态ip 就完事了. 和电脑直接对插就能访问 ovo.
+延迟测试 发了一个示波器很好玩, 然而只有 windows 的 pc 端驱动差评.
+GPIO 管脚控制居然是 python, 严重怀疑效率.
+实验本身倒是很简单. 接下来是给 kernel 打实时性补丁. (中断响应优先级? 时间步大小? 感觉 很有趣)
+视频流 网上看到一个例子是把 raspivid 的输出用 nc 接起来到 host 上用 mplayer / vlc 播放. 非常有趣就试了一下. cvlc 转发延迟略高. 直接 mplayer 放 h264 格式的视频非常流畅.
+Modius NN 计算棒 去 intel 上找到了 openvino 作为 myriad 计算棒的驱动....</p>
+  </div>
+  <footer class="entry-footer"><span title='2019-11-03 21:49:27 +0000 UTC'>November 3, 2019</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to Raspberry Pi 折腾记录" href="/technical/0ab785/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>Graph Processing Systems
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>GridGraph 师兄的文章. 主要 idea 是把邻接矩阵切成块 (p*p) 放到磁盘上顺序读来提升 io 性能. 单机.
+GraphChi disk-based, parallel sliding windows, single consumer-level computer.
+metis 不 work (???)
+解决出入边都要考虑和写的问题.
+按出边分块 shard. 入边按序存放, 在每个 shard 中为连续一段. 可加载进来.
+解决了一些比较麻烦的问题比如数三角形.</p>
+  </div>
+  <footer class="entry-footer"><span title='2019-09-25 16:44:18 +0000 UTC'>September 25, 2019</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to Graph Processing Systems" href="/technical/3fd4cd/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>(排名17的何先生的) 一篇站台失败记 -- 19&#39; 长寿湖联赛
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>因为在 LA 爬了俩月坡, 感觉自己功率有所长进, 所以这场比赛以为自己能站个台. 然而事实是刷出了 pw. 这个经历再次验证了 flag 学三大定理 lyzy, 2016.
+起源和准备阶段 赛前两周才听说重庆有比赛. 本来下半年没有比赛计划的, 自己的公路车也还没组装好, 但考虑到可以中秋回趟成都过节, 就还是毅然决然地被报名了.
+在成都老车迷租到了一台 Trek Emonda 的入门铝公路车, 是前段时间某个比赛的赞助车, 虽然套件轮组辣鸡, 但总之能骑, 而且比在 LA 骑的那台上古 Allez 强. 甚至感觉自己能刷 pb.
+回北京第一周早晨倒时差起床跑步, 发现跑六分配速都喘. 三天跑了11km. 游泳训练是和洞pro约在陈明讨论学术顺便划了300米.
+赛前 发现20-24被重邮移通铁人队占了绝大多数. 有点方. 听尘尘和红红说他们很菜. 我竟然信了.
+去车店取了车准备骑回家, 一路在三环辅路上飙到40kph非常爽. 然而骑了 6km 胎就被扎了. 回家看了半天才发现胎里扎了个钉子. ovo
+开自家车带着爹妈和自行车从成都开了四个半小时到长寿湖. 一路定速巡航还挺爽.
+审体检报告的时候果然又被短pr间期的问题卡了. 不过这次赛会医疗组很人性化地带了心电图设备, 直接现场复查了. 赞.
+看赛道的时候让我爹开车跟着, 体验了一把后援车跟拍. 发现有一段颠颠颠颠的下坡. 以及发现这车变速不太准. 当场调变速.
+晚上去吃奇怪的水库鱼, 然后鱼一直没上, 饭都吃完了, 就把鱼退了.
+游泳 第一次遇到水下出发. 第一圈还将就就是有点慢. 第二圈下水就游偏了, 被裁判船吹哨赶了回去.
+上岸的时候发现岸边有石头甚至差点划破了脚.
+到 T1 发现只有我和另一台自行车了....</p>
+  </div>
+  <footer class="entry-footer"><span title='2019-09-15 20:52:35 +0000 UTC'>September 15, 2019</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to (排名17的何先生的) 一篇站台失败记 -- 19&#39; 长寿湖联赛" href="/random/1830a0/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>Leetcode1152 用户行为分析
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>看上去很复杂的一个题. 然而数据范围 ( n \leq 50 )
+基础知识0: python 里面 list 可以做 dict 的 key.
+基础知识1: python 里面 list 可以直接比较大小, 比较方式就是元素的字典序.
+做法是先按照 username 对记录进行归类 (dict of list).
+然后把每个 username 对应的所有记录按 timestamp 进行排序. (sorted(…, key=lambda …))
+然后枚举每个用户的所有访问页面三元组并扔进 list 里面. 因为要求一个用户只算一次, 所以要去除 list 里面重复的元素. 所以把 list 转换成 set (集合) 就好了. 也可以直接用 set.
+然后把 set 里面的元素都用一个 dict 做一下记数.
+最后从记数的 dict 里面挑出次数最多且字典序最小的就可以了.
+代码链接</p>
+  </div>
+  <footer class="entry-footer"><span title='2019-08-13 02:31:17 +0000 UTC'>August 13, 2019</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to Leetcode1152 用户行为分析" href="/oi/461caf/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>Leetcode1130 叶值最小代价生成树
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>首先弄清楚中序遍历是什么意思.
+中序遍历是一个序列 (list).
+不存在的节点的中序遍历是空序 ([]).
+以 u 为根的二叉树的中序遍历 = u 的左儿子的中序遍历 &#43; u &#43; u 的右儿子的中序遍历
+其中加号就是连接两个序列的意思.
+题目里说只考虑叶子节点的中序遍历, 就是把所有非叶子从中序里扔掉就好了.
+然后考虑从随便一个序列构造一个满足条件的二叉树. 其实这个二叉树上的任意一个点会对应原序列中的连续一段, 而这个点的值就是这一段的所有数的最大值.
+我们考虑自底向上的建树. 也就是说最开始是 n 个单独的点, 然后每次建一个新点, 它的两个儿子分别是原来的两个点. 然后用这个新点代替原来的两个点. 重复 “挑选, 替代” 的过程直到只剩一个点, 就建成了一棵完整的树.
+每次挑选的两个点一定代表原数组上相邻的两个区间. 合并后建成这棵树的 最小 代价为 左儿子的最小代价 &#43; 右儿子的最小代价 &#43; 左边最大值 * 右边最大值. 而我们的最小化目标是根的 最小 代价.
+自然想到用 f[l][i] 代表以 i 为第一个数的长度为 l 的区间所代表的点为根的树 的 最小 代价. 首先 f[1][i] == a[i], 而我们的目标是 f[n][0].
+进一步想, 最小化 f[l][i] 就是在所有该点的左右儿子分配方式 (就是各有多长, 总之加起来是 l) 中挑一个最小的....</p>
+  </div>
+  <footer class="entry-footer"><span title='2019-07-24 05:04:14 +0000 UTC'>July 24, 2019</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to Leetcode1130 叶值最小代价生成树" href="/oi/967d6b/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>Leetcode1129  颜色交替的最短路径
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>很基础的 BFS 题目.
+BFS 和 DFS 是相对应的两种算法. 其区别在于对于新发现的可能性, BFS 将其放入队列末尾, 稍后进行探索, 而 DFS 立即探索这种新情况, 等探索完之后再回到之前的状态继续枚举.
+对于这道题目来说, 具体来讲, 状况可以用 (位置, 距离, 颜色) 这么一个 tuple 来表示. 最开始的时候, 有 (0, 0, blue) 和 (0, 0, red) 这两种情况. 假设 0到1 有一条蓝边, 0到2 有一条红边, 那么新的情况是 (1, 1, red) 和 (2, 1, blue).
+如果我们使用 DFS, 那么当新发现 (1, 1, red) 这个状态的时候, 我会立即以 (1, 1, red) 为起点, 继续探索 1 号点的邻居, 比如找到了 (3, 2, blue) … 直到找完所有通过 (1, 1, red) 可以达到的状态之后, 再继续以 (2, 1, blue) 为基础进行枚举....</p>
+  </div>
+  <footer class="entry-footer"><span title='2019-07-24 02:51:30 +0000 UTC'>July 24, 2019</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to Leetcode1129  颜色交替的最短路径" href="/oi/0529db/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>Leetcode5129
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>先预处理一下, 把 &gt;8h 的变成 &#43;1, &lt;=8h 的变成 -1
+现在问题就变成了: 找最长的连续一段使其和 &gt;0
+使用前缀和数组, 要求 i~j 的和, 公式是 sum[j] - sum[i - 1].
+枚举左端点 i. 对于某个确定的 i, 要找以 i 为左端点的最长一段符合要求的区间, 即找满足条件 sum[j] &gt; sum[i - 1] 的最大的 j
+注意到 sum 数组的取值为 [-n, n], 故使用值域数组 values. value[k] 表示 sum[j] == k 的最大的 j. 该数组可以在求 sum 数组时一并求出.
+满足条件 sum[j] &gt; sum[i - 1] 的最大 j 即求 values[sum[i - 1] &#43; 1], values[sum[i - 1] &#43; 2], values[sum[i - 1] &#43; 3], …, values[正无穷] 中的最大值....</p>
+  </div>
+  <footer class="entry-footer"><span title='2019-07-16 12:16:25 +0000 UTC'>July 16, 2019</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to Leetcode5129" href="/oi/51d1b4/"></a>
+</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="prev" href="/page/5/">
+      «&nbsp;Prev&nbsp;
+    </a>
+    <a class="next" href="/page/7/">Next&nbsp;&nbsp;»
+    </a>
+  </nav>
+</footer>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

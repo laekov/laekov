@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>spoj on The Site of laekov</title>
+    <link>/tags/spoj/</link>
+    <description>Recent content in spoj on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Mon, 13 Apr 2015 20:46:02 +0000</lastBuildDate><atom:link href="/tags/spoj/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>spoj235 Very Fast Multiplication</title>
+      <link>/oi/dbimport_277/</link>
+      <pubDate>Mon, 13 Apr 2015 20:46:02 +0000</pubDate>
+      
+      <guid>/oi/dbimport_277/</guid>
+      <description>水水的fft啦.主要是来mark一下数论版fft.
+有一个奇妙的东西叫原根.这个玩意要乘(p-1)次才能乘回自己.然后如果(p-1)含有很多很多个2的话,就可以拿来做fft辣.其实就是解决了fft的单位根,不用complex.剩下的照搬好辣.
+水ovo.在这个前不着村后不着店的四星酒店里好无语ovo</description>
+    </item>
+    
+    <item>
+      <title>bzoj2482 Spoj1557 Can you answer these queries II</title>
+      <link>/oi/dbimport_146/</link>
+      <pubDate>Thu, 19 Mar 2015 22:58:43 +0000</pubDate>
+      
+      <guid>/oi/dbimport_146/</guid>
+      <description>原来备案还没过。那之前是怎么成功访问的囧。
+写了一晚上。教训还是之前那个，写之前要想清楚。写完再去改就很烦。自己yy了很久，虽然最初是听了mhy的一句提醒。好有危机感。
+首先这个东西可以离线。之前一直在想在线怎么做然后也觉得没法做。
+把询问按右端点排序之后问题就转化成了左端点在一个范围里的时候的最大子段。
+然后用一个线段树表示从i到current right的时候的和，这个玩意可以直接区间加。然后再去维护这个东西的历史最大值。于是就变成了每个位置上接了一个add序列，要找它的前缀最大值。那么只需要存两个东西：当前的和以及当前的最大前缀和，就可以合并了。
+然后线段树上维护两个add序列，分别是对整个线段的lazy tag of add和max value of son。就可写了。
+然后好像跑得很慢啊TT。</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3769 SPOJ8549 BST again</title>
+      <link>/oi/i11rimport_044/</link>
+      <pubDate>Mon, 16 Feb 2015 22:16:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_044/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 什么鬼。&amp;lt;/p&amp;gt; &amp;nbsp;
+很好想的dp。f[i][j]表示深度不超过i且大小为j的二叉树的个数。转移是f[i][j] = ∑(f[i - 1][k] * f[i - 1][j - k - 1])。
+&amp;nbsp;
+然后直接暴力是O(n3)的。在spoj上能过在bzoj上不能过。在bzoj上得用记忆化搜索来减掉一些无用的东西。虽然我觉得很烦。
+&amp;nbsp;
+然后试图用fft，发现fft比暴力还慢。然后试图用fnt，然后发现fnt好像不能对1e9+7这种质数用。因为1e9+6只有来一个2。真悲伤。我还是太弱啊。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;cmath&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+const int maxn = 609; const int mod = 1000000007;
+#define _l (long long int)
+int f[maxn][maxn];
+int getf(int i, int j) { if (i == 0) return j &amp;lt;= 1; else if (j == 0) return 1; else if (f[i][j] == -1) { f[i][j] = 0; for (int k = 0; k &amp;lt; j; ++ k) f[i][j] = (f[i][j] + _l getf(i - 1, k) * getf(i - 1, j - k - 1)) % mod; } return f[i][j]; }</description>
+    </item>
+    
+    <item>
+      <title>SPOJ4487 GSS6</title>
+      <link>/oi/lofterimport_141/</link>
+      <pubDate>Fri, 17 Oct 2014 19:48:32 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_141/</guid>
+      <description>看上去挺水水水水水水水水的一道平衡树维护序列的数据结构题啊。
+先用split-merge tree写，tle。
+然后改用splay，tle。
+最后据说把splay的裸数组改到struct node里就能过。于是再写了一个程序来改代码。
+不&amp;nbsp;带&amp;nbsp;这&amp;nbsp;么&amp;nbsp;坑&amp;nbsp;的&amp;nbsp;！
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cstdlib&amp;gt;
+#include &amp;lt;cctype&amp;gt;
+#include &amp;lt;memory.h&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+/*#define readInt(_s_)&amp;nbsp;{\
+int _d_;\
+bool _nag_ = 0;\
+_s_ = 0;\
+while (!isdigit(_d_&amp;nbsp;= getchar()))\
+if (_d_&amp;nbsp;==&amp;nbsp;&#39;-&#39;)\
+_nag_ = 1;\
+while ((_s_&amp;nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\
+if (_nag_)\
+_s_ =&amp;nbsp;- _s_;\
+}*/
+#define readInt(_s_) scanf(&amp;quot;%d&amp;quot;,&amp;amp;_s_);
+#define readOpt(_s_)&amp;nbsp;{\
+do\
+_s_ = getchar();\
+while (_s_&amp;nbsp;!=&amp;nbsp;&#39;I&#39;&amp;nbsp;&amp;amp;&amp;amp; _s_ !=&amp;nbsp;&#39;D&#39;&amp;nbsp;&amp;amp;&amp;amp; _s_ !</description>
+    </item>
+    
+  </channel>
+</rss>

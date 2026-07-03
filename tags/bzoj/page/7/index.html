@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>bzoj | The Site of laekov</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/tags/bzoj/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="/tags/bzoj/index.xml">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="bzoj" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="/tags/bzoj/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="bzoj"/>
+<meta name="twitter:description" content=""/>
+
+</head>
+
+<body class="list" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+<header class="page-header"><div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/tags/">Tags</a></div>
+  <h1>
+    bzoj
+    <a href="/tags/bzoj/index.xml" title="RSS" aria-label="RSS">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" height="23">
+        <path d="M4 11a9 9 0 0 1 9 9" />
+        <path d="M4 4a16 16 0 0 1 16 16" />
+        <circle cx="5" cy="19" r="1" />
+      </svg>
+    </a>
+  </h1>
+</header>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>bzoj2806 ctsc2012 Cheat
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>我的SAM第一题。按照惯例几乎是照着std抄的OVO。本来以为是要在SAM上DP，后来发现好像是并列的，于是比较开心。
+SAM这个东西主要就是用来匹配子串用的。建法详见clj的课件，然后现在我还处于消化状态中。
+SAM匹配多个串的话也比较好弄，直接在串末再加一个字符集里没有的元素就好了。
+现在假设已经用SAM匹配出了第i个位置往左ml[i]个位置都是可以匹配的，那么可以二分一个答案，然后用单调队列来DP判断。写法比较简单，虽然我急着去写SAM所以这部分也是蒙过去的。
+然后网上的2个std就有2种不同的答案还和我不一样。最后还是wd学长的代码靠谱orz。
+现在我可以说我是写过SAM的人了哈哈。</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-03-25 20:13:37 +0000 UTC'>March 25, 2015</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to bzoj2806 ctsc2012 Cheat" href="/oi/dbimport_161/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>bzoj3221 Codechef FEB13 Obserbing the tree树上询问
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>很早之前就看过的题。一直被数据范围吓到，然后感觉也比较难写所以都没写。后来发现还是挺好的。
+就重链dfs序维护一下每个位置的和，然后可持久化一下就完了。然后一个常数优化是如果这个点是在这次修改的时候建的，那么就直接覆盖而不是新建点。然后跑得就比较快了。</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-03-23 22:08:32 +0000 UTC'>March 23, 2015</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to bzoj3221 Codechef FEB13 Obserbing the tree树上询问" href="/oi/dbimport_182/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>bzoj3328 PYXFIB
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>上课讲的神题。构造公式。本来用HTML写了一堆公式的。然后天杀的网就断了要我重新开然后就没了。很想骂人。那就不写了呗，自行翻课件或者yy。</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-03-22 21:22:04 +0000 UTC'>March 22, 2015</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to bzoj3328 PYXFIB" href="/oi/dbimport_190/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>bzoj2700 聚会
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>比较基础的dp。不过因为权限的原因好像做的人不多。
+首先肯定先泡便宜的茶再泡贵的茶。
+然后记一下上一种茶是啥，连续泡了几次。
+于是用f[i][j][k][l]表示泡了i个红茶，j个绿茶，上一种茶是k，连续泡了l次的最小花费。转移是O(1)的。然后后两个反正都要手拆开，所以干脆压下来了。
+似乎很水的样子。</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-03-20 22:40:35 +0000 UTC'>March 20, 2015</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to bzoj2700 聚会" href="/oi/dbimport_157/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>bzoj2683 简单题
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>水水的cdq。久了不写练一下手。然后发现犯了一堆逗错。幸好没过样例不然就do big die了。</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-03-20 20:26:17 +0000 UTC'>March 20, 2015</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to bzoj2683 简单题" href="/oi/dbimport_153/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>bzoj2400 Spoj839 Optimal Marks
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>多年之前讲过的最小割。
+比较好想啦。
+把每一位拆开。然后单独跑一遍最小割。各种连边。然后以答案为高位，数字和为低位跑就行了。
+好像也没说清楚怎么建图啊。
+对于原图中已经确定的点，如果它是1，就从源连过来，否则连向汇。对于每一个未知的点，把所有边建出来。然后再向汇连个1的边来表示它如果选1的话就要产生贡献。然后就差不多了吧。脑补一下。</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-03-19 22:59:07 +0000 UTC'>March 19, 2015</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to bzoj2400 Spoj839 Optimal Marks" href="/oi/dbimport_140/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>bzoj2482 Spoj1557 Can you answer these queries II
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>原来备案还没过。那之前是怎么成功访问的囧。
+写了一晚上。教训还是之前那个，写之前要想清楚。写完再去改就很烦。自己yy了很久，虽然最初是听了mhy的一句提醒。好有危机感。
+首先这个东西可以离线。之前一直在想在线怎么做然后也觉得没法做。
+把询问按右端点排序之后问题就转化成了左端点在一个范围里的时候的最大子段。
+然后用一个线段树表示从i到current right的时候的和，这个玩意可以直接区间加。然后再去维护这个东西的历史最大值。于是就变成了每个位置上接了一个add序列，要找它的前缀最大值。那么只需要存两个东西：当前的和以及当前的最大前缀和，就可以合并了。
+然后线段树上维护两个add序列，分别是对整个线段的lazy tag of add和max value of son。就可写了。
+然后好像跑得很慢啊TT。</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-03-19 22:58:43 +0000 UTC'>March 19, 2015</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to bzoj2482 Spoj1557 Can you answer these queries II" href="/oi/dbimport_146/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>BZOJ3598 [Scoi2014]方伯伯的商场之旅
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>&lt;div class=&#34;post_brief&#34;&gt;&lt;p&gt; 题目名字好长。&lt;/p&gt;  
+当年在考场上只会分块打表的题。
+ 
+前几天有人讲之后觉得大概可做。而且好像那个方法很优秀。
+ 
+于是我难得地去写了一回不用记搜且不记上界的数位dp。感觉这个玩意写出来很短，但是思考和调试的复杂度变高了。我觉得是状态定义变得不明确的原因。也许再补一些题就好了。
+ 
+考虑先让所有都合并到最低位，一个基础数位dp。（然后写丑了好久）
+ 
+然后考虑如果把一个数字的集合位置从p移动到p&#43;1，设这个数字从低位到高位是a[0]..a[n-1]，那么贡献就是∑a[0..p]-∑a[p&#43;1..n-1]。显然当p从右往左移动的时候它是会先负后正的。如果它负的话就减，否则就不玩了。可以发现它们互相不影响。于是对于每一个p单独计算一遍贡献就行了。
+ 
+然后还是没有原版跑得快。OTL。
+ 
+#define PROC &#34;shop&#34; #include &lt;cstdio&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+typedef long long dint; #ifdef WIN32 #define lld “%I64d” #else #define lld “%lld” #endif #define _l (long long int)
+const int maxn = 53; const int maxm = 509; const int mb = 253;
+dint l, r; int n, m, bs, a[maxn];...</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-03-11 19:16:41 +0000 UTC'>March 11, 2015</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to BZOJ3598 [Scoi2014]方伯伯的商场之旅" href="/oi/i11rimport_002/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>BZOJ1604 [Usaco2008 Open]Cow Neighborhoods 奶牛的邻居
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>&lt;div class=&#34;post_brief&#34;&gt;&lt;p&gt; 在一道usaco的题上wa了三次。我也是厉害。&lt;/p&gt;  
+其实好像有简单做法的。不过我是要脑补一下曼哈顿最小生成树。
+ 
+对于一个平面图上的点的曼哈顿最小生成树，一定存在一种方案，使得每个点的度数至多为8。也就是说以斜率为0,inf,1,-1的四条直线分出来的八个区域里各有一个点就行了。然后是可以保证的。
+ 
+于是就是拿俩树状数组扫四遍就行了。
+ 
+#include &lt;cstdio&gt; #include &lt;cstdlib&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+const int inf = 0x3f3f3f3f;
+struct point { int x, y, i; point() { x = -inf, y = -1; } point(int xo, int yo) { x = xo, y = yo; } inline void init(int ix) { scanf(&#34;%d%d&#34;, &amp;x, &amp;y); i = ix; } };
+inline bool operator &lt;(const point&amp; a, const point&amp; b) { return (a....</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-03-11 14:47:41 +0000 UTC'>March 11, 2015</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to BZOJ1604 [Usaco2008 Open]Cow Neighborhoods 奶牛的邻居" href="/oi/i11rimport_003/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>BZOJ1814 Ural 1519 Formula 1
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>&lt;div class=&#34;post_brief&#34;&gt;&lt;p&gt; 插头dp的练手题么。虽然之前还没写过哈密顿回路的题。&lt;/p&gt;  
+学习了一下广义括号法。发现状态数比之前记连通性的方法要少。仔细想想发现，两个连通的插头的顺序有关。不能存在1212这种东西。所以连通性的方法记了很多废状态。那把连通性方法改进一下会不会变得更快呢？可以研究一下。我觉得应该是等效了吧。
+ 
+今天的debug时间明显缩短了。虽然还是debug了老半天。然后怎么代码还是那么长。想起我每次都觉得把东西挤到一起看起来很不雅观，于是去写一堆找转移的函数。晕。
+ 
+#include &lt;cstdio&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+typedef long long dint; #ifdef WIN32 #define lld “%I64d” #else #define lld “%lld” #endif #define _l (long long int)
+const int maxn = 15; const int maxst = 50009;
+#define mbit(x,y) ((x)&lt;&lt;((y)&lt;&lt;1)) #define gbit(x,y) (((x)&gt;&gt;((y)&lt;&lt;1))&amp;3) #define cbit(x,y) ((x)&amp;(~(3&lt;&lt;((y)&lt;&lt;1))))
+int n, m, tots, slst[maxst]; bool mp[maxn][maxn]; dint f[2][maxst];
+void dfsState(int l, int c, int z) { if (l == m &#43; 1) { if (!...</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-03-07 17:02:41 +0000 UTC'>March 7, 2015</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to BZOJ1814 Ural 1519 Formula 1" href="/oi/i11rimport_008/"></a>
+</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="prev" href="/tags/bzoj/page/6/">
+      «&nbsp;Prev&nbsp;
+    </a>
+    <a class="next" href="/tags/bzoj/page/8/">Next&nbsp;&nbsp;»
+    </a>
+  </nav>
+</footer>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

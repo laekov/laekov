@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>汇编 CSAPP Attack Lab | The Site of laekov</title>
+<meta name="keywords" content="developing">
+<meta name="description" content="最近做 attack lab 感到虽然很头大但是很好玩.
+主要分为两个 target: code injection 和 return hack
+两个实验的原理都是栈向上溢出之后抹掉了一些 return address, 从而可以改写, 做任何你想做的事.
+ctarget 比较简单粗暴, 可以直接跳到用户上传的字符串里面, 把用户数据直接当代码执行.
+第一个子任务 可以直接跳转.
+第二个子任务 需要把 cookie 找出来并写进 %rdi. 我最开始以为cookie是随机的, 于是去gdb里把 cookie 的内存地址给弄出来强行读了. 后来才发现可以直接 hardcode.
+第三个子任务 同上, 没有发现这个 trick, 于是就从内存里读之后, 调用它提供的 sprintf 函数. 这个函数有很多的陷阱, 比如一定要把 %rax 设成 0, 不然会跳错. 然后打印的地址也得自己在栈里找. 更坑的是栈空间会被 sprintf 函数给抹掉, 所以必需得先把 %rsp 放低到很远的位置去, 不然就算打对了字符串, 注入的代码段也没有了, 还是会 segmentation fault.
+好了现在问题又来了, 注入的栈只有 56 个字节. 如何把上面一长串代码塞进去. 其实有个简单的方法是继续向上溢出, 中间加一条 jmp. 但是懒惰的我强行使用各种办法把代码给压进去了. 比如 subl 比 subq 少一个字节, 于是可以只减 rsp 的低32位 esp.">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/technical/6788d3/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="汇编 CSAPP Attack Lab" />
+<meta property="og:description" content="最近做 attack lab 感到虽然很头大但是很好玩.
+主要分为两个 target: code injection 和 return hack
+两个实验的原理都是栈向上溢出之后抹掉了一些 return address, 从而可以改写, 做任何你想做的事.
+ctarget 比较简单粗暴, 可以直接跳到用户上传的字符串里面, 把用户数据直接当代码执行.
+第一个子任务 可以直接跳转.
+第二个子任务 需要把 cookie 找出来并写进 %rdi. 我最开始以为cookie是随机的, 于是去gdb里把 cookie 的内存地址给弄出来强行读了. 后来才发现可以直接 hardcode.
+第三个子任务 同上, 没有发现这个 trick, 于是就从内存里读之后, 调用它提供的 sprintf 函数. 这个函数有很多的陷阱, 比如一定要把 %rax 设成 0, 不然会跳错. 然后打印的地址也得自己在栈里找. 更坑的是栈空间会被 sprintf 函数给抹掉, 所以必需得先把 %rsp 放低到很远的位置去, 不然就算打对了字符串, 注入的代码段也没有了, 还是会 segmentation fault.
+好了现在问题又来了, 注入的栈只有 56 个字节. 如何把上面一长串代码塞进去. 其实有个简单的方法是继续向上溢出, 中间加一条 jmp. 但是懒惰的我强行使用各种办法把代码给压进去了. 比如 subl 比 subq 少一个字节, 于是可以只减 rsp 的低32位 esp." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/technical/6788d3/" /><meta property="article:section" content="technical" />
+<meta property="article:published_time" content="2018-08-30T08:59:09+00:00" />
+<meta property="article:modified_time" content="2018-08-30T08:59:09+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="汇编 CSAPP Attack Lab"/>
+<meta name="twitter:description" content="最近做 attack lab 感到虽然很头大但是很好玩.
+主要分为两个 target: code injection 和 return hack
+两个实验的原理都是栈向上溢出之后抹掉了一些 return address, 从而可以改写, 做任何你想做的事.
+ctarget 比较简单粗暴, 可以直接跳到用户上传的字符串里面, 把用户数据直接当代码执行.
+第一个子任务 可以直接跳转.
+第二个子任务 需要把 cookie 找出来并写进 %rdi. 我最开始以为cookie是随机的, 于是去gdb里把 cookie 的内存地址给弄出来强行读了. 后来才发现可以直接 hardcode.
+第三个子任务 同上, 没有发现这个 trick, 于是就从内存里读之后, 调用它提供的 sprintf 函数. 这个函数有很多的陷阱, 比如一定要把 %rax 设成 0, 不然会跳错. 然后打印的地址也得自己在栈里找. 更坑的是栈空间会被 sprintf 函数给抹掉, 所以必需得先把 %rsp 放低到很远的位置去, 不然就算打对了字符串, 注入的代码段也没有了, 还是会 segmentation fault.
+好了现在问题又来了, 注入的栈只有 56 个字节. 如何把上面一长串代码塞进去. 其实有个简单的方法是继续向上溢出, 中间加一条 jmp. 但是懒惰的我强行使用各种办法把代码给压进去了. 比如 subl 比 subq 少一个字节, 于是可以只减 rsp 的低32位 esp."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Technicals",
+      "item": "/technical/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "汇编 CSAPP Attack Lab",
+      "item": "/technical/6788d3/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "汇编 CSAPP Attack Lab",
+  "name": "汇编 CSAPP Attack Lab",
+  "description": "最近做 attack lab 感到虽然很头大但是很好玩.\n主要分为两个 target: code injection 和 return hack\n两个实验的原理都是栈向上溢出之后抹掉了一些 return address, 从而可以改写, 做任何你想做的事.\nctarget 比较简单粗暴, 可以直接跳到用户上传的字符串里面, 把用户数据直接当代码执行.\n第一个子任务 可以直接跳转.\n第二个子任务 需要把 cookie 找出来并写进 %rdi. 我最开始以为cookie是随机的, 于是去gdb里把 cookie 的内存地址给弄出来强行读了. 后来才发现可以直接 hardcode.\n第三个子任务 同上, 没有发现这个 trick, 于是就从内存里读之后, 调用它提供的 sprintf 函数. 这个函数有很多的陷阱, 比如一定要把 %rax 设成 0, 不然会跳错. 然后打印的地址也得自己在栈里找. 更坑的是栈空间会被 sprintf 函数给抹掉, 所以必需得先把 %rsp 放低到很远的位置去, 不然就算打对了字符串, 注入的代码段也没有了, 还是会 segmentation fault.\n好了现在问题又来了, 注入的栈只有 56 个字节. 如何把上面一长串代码塞进去. 其实有个简单的方法是继续向上溢出, 中间加一条 jmp. 但是懒惰的我强行使用各种办法把代码给压进去了. 比如 subl 比 subq 少一个字节, 于是可以只减 rsp 的低32位 esp.",
+  "keywords": [
+    "developing"
+  ],
+  "articleBody": "最近做 attack lab 感到虽然很头大但是很好玩.\n主要分为两个 target: code injection 和 return hack\n两个实验的原理都是栈向上溢出之后抹掉了一些 return address, 从而可以改写, 做任何你想做的事.\nctarget 比较简单粗暴, 可以直接跳到用户上传的字符串里面, 把用户数据直接当代码执行.\n第一个子任务 可以直接跳转.\n第二个子任务 需要把 cookie 找出来并写进 %rdi. 我最开始以为cookie是随机的, 于是去gdb里把 cookie 的内存地址给弄出来强行读了. 后来才发现可以直接 hardcode.\n第三个子任务 同上, 没有发现这个 trick, 于是就从内存里读之后, 调用它提供的 sprintf 函数. 这个函数有很多的陷阱, 比如一定要把 %rax 设成 0, 不然会跳错. 然后打印的地址也得自己在栈里找. 更坑的是栈空间会被 sprintf 函数给抹掉, 所以必需得先把 %rsp 放低到很远的位置去, 不然就算打对了字符串, 注入的代码段也没有了, 还是会 segmentation fault.\n好了现在问题又来了, 注入的栈只有 56 个字节. 如何把上面一长串代码塞进去. 其实有个简单的方法是继续向上溢出, 中间加一条 jmp. 但是懒惰的我强行使用各种办法把代码给压进去了. 比如 subl 比 subq 少一个字节, 于是可以只减 rsp 的低32位 esp. 同理还有 movq 和 movl. 再有就是清零可以直接 xor %eax, %eax, 直接省下了四五个字节, 岂不美哉.\nrtarget 这个就没那么粗暴了. 注入到栈空间里的东西只能是数据或者 ra, 不可以是代码. 如果 %pc 指进栈空间会直接报错.\n但是引入了一个叫 farm 的东西. farm 里全是一些小函数, 有很多 c3, 即 ret. 于是只要在 c3 的前面找到一些有用的子串作为我需要的代码, 岂不就能解决问题了.\n第四个子任务 这个任务要调 touch2, 即把 cookie 放进 %rdi. 前面说了其实 cookie 是固定的. 所以可以写进栈里.\n观察发现有 popq %rax, 和 mov %eax, %edi 这俩非常有用的代码片段, 所以就直接 从栈里弹出来然后扔进 %edi 就完事了.\n####第五个子任务 这个玩意挺有难度也挺有意思, 虽然做完之后觉得也就那样了.\n任务是写字符串. 其实那个字符串的长度刚好就是一个 64 位整数, 放进栈里的某个位置就好. 然后有一个非常非常关键的函数叫 add_xy. (我因为没看到这个函数懵了一个小时也是很醉.) 这函数的意思是把 %rdi 和 %rsi 加起来放进 %rax.\n观察发现有 movq %rsp, %rax 和 movq %rax, %rdi. 因为栈地址前面一段都是 f, 所以必需得用 64 位操作. 正好这一条链式传递可以把 %rsp 放到 %rdi.\n另外还需要弄一个偏移量. 把常数压进栈里然后放到 %rsi. 但是由于 farm 里找不到 很好用的片段, 这里需要一个非常长的传递, 依次经过 rax rdx rcx rsi. 这里需要好好使用 vim 的正则匹配功能才能迅速地找到对应的代码.\n最后就是把 %rax 再放到 %rdi, 然后调 touch3.\n最后一个问要大力感谢室友 seventhheavan 给我的提示.\n",
+  "wordCount" : "190",
+  "inLanguage": "en",
+  "datePublished": "2018-08-30T08:59:09Z",
+  "dateModified": "2018-08-30T08:59:09Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/technical/6788d3/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/technical/">Technicals</a></div>
+    <h1 class="post-title">
+      汇编 CSAPP Attack Lab
+    </h1>
+    <div class="post-meta"><span title='2018-08-30 08:59:09 +0000 UTC'>August 30, 2018</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#ctarget" aria-label="ctarget">ctarget</a><ul>
+                        
+                <li>
+                    <a href="#%e7%ac%ac%e4%b8%80%e4%b8%aa%e5%ad%90%e4%bb%bb%e5%8a%a1" aria-label="第一个子任务">第一个子任务</a></li>
+                <li>
+                    <a href="#%e7%ac%ac%e4%ba%8c%e4%b8%aa%e5%ad%90%e4%bb%bb%e5%8a%a1" aria-label="第二个子任务">第二个子任务</a></li>
+                <li>
+                    <a href="#%e7%ac%ac%e4%b8%89%e4%b8%aa%e5%ad%90%e4%bb%bb%e5%8a%a1" aria-label="第三个子任务">第三个子任务</a></li></ul>
+                </li>
+                <li>
+                    <a href="#rtarget" aria-label="rtarget">rtarget</a><ul>
+                        
+                <li>
+                    <a href="#%e7%ac%ac%e5%9b%9b%e4%b8%aa%e5%ad%90%e4%bb%bb%e5%8a%a1" aria-label="第四个子任务">第四个子任务</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p>最近做 attack lab 感到虽然很头大但是很好玩.</p>
+<p>主要分为两个 target: code injection 和 return hack</p>
+<p>两个实验的原理都是栈向上溢出之后抹掉了一些 return address, 从而可以改写, 做任何你想做的事.</p>
+<h3 id="ctarget">ctarget<a hidden class="anchor" aria-hidden="true" href="#ctarget">#</a></h3>
+<p>比较简单粗暴, 可以直接跳到用户上传的字符串里面, 把用户数据直接当代码执行.</p>
+<h4 id="第一个子任务">第一个子任务<a hidden class="anchor" aria-hidden="true" href="#第一个子任务">#</a></h4>
+<p>可以直接跳转.</p>
+<h4 id="第二个子任务">第二个子任务<a hidden class="anchor" aria-hidden="true" href="#第二个子任务">#</a></h4>
+<p>需要把 cookie 找出来并写进 <code>%rdi</code>. 我最开始以为cookie是随机的, 于是去gdb里把 cookie 的内存地址给弄出来强行读了. 后来才发现可以直接 hardcode.</p>
+<h4 id="第三个子任务">第三个子任务<a hidden class="anchor" aria-hidden="true" href="#第三个子任务">#</a></h4>
+<p>同上, 没有发现这个 trick, 于是就从内存里读之后, 调用它提供的 sprintf 函数. 这个函数有很多的陷阱, 比如一定要把 <code>%rax</code> 设成 <code>0</code>, 不然会跳错. 然后打印的地址也得自己在栈里找. 更坑的是栈空间会被 <code>sprintf</code> 函数给抹掉, 所以必需得先把 <code>%rsp</code> 放低到很远的位置去, 不然就算打对了字符串, 注入的代码段也没有了, 还是会 segmentation fault.</p>
+<p>好了现在问题又来了, 注入的栈只有 56 个字节. 如何把上面一长串代码塞进去. 其实有个简单的方法是继续向上溢出, 中间加一条 jmp. 但是懒惰的我强行使用各种办法把代码给压进去了. 比如 <code>subl</code> 比 <code>subq</code> 少一个字节, 于是可以只减 <code>rsp</code> 的低32位 <code>esp</code>. 同理还有 <code>movq</code> 和 <code>movl</code>. 再有就是清零可以直接 <code>xor %eax, %eax</code>, 直接省下了四五个字节, 岂不美哉.</p>
+<h3 id="rtarget">rtarget<a hidden class="anchor" aria-hidden="true" href="#rtarget">#</a></h3>
+<p>这个就没那么粗暴了. 注入到栈空间里的东西只能是数据或者 ra, 不可以是代码. 如果 <code>%pc</code> 指进栈空间会直接报错.</p>
+<p>但是引入了一个叫 farm 的东西. farm 里全是一些小函数, 有很多 <code>c3</code>, 即 <code>ret</code>. 于是只要在 <code>c3</code> 的前面找到一些有用的子串作为我需要的代码, 岂不就能解决问题了.</p>
+<h4 id="第四个子任务">第四个子任务<a hidden class="anchor" aria-hidden="true" href="#第四个子任务">#</a></h4>
+<p>这个任务要调 touch2, 即把 cookie 放进 <code>%rdi</code>. 前面说了其实 cookie 是固定的. 所以可以写进栈里.</p>
+<p>观察发现有 <code>popq %rax</code>, 和 <code>mov %eax, %edi</code> 这俩非常有用的代码片段, 所以就直接 从栈里弹出来然后扔进 <code>%edi</code> 就完事了.</p>
+<p>####第五个子任务
+这个玩意挺有难度也挺有意思, 虽然做完之后觉得也就那样了.</p>
+<p>任务是写字符串. 其实那个字符串的长度刚好就是一个 64 位整数, 放进栈里的某个位置就好. 然后有一个非常非常关键的函数叫 <code>add_xy</code>. (我因为没看到这个函数懵了一个小时也是很醉.) 这函数的意思是把 <code>%rdi</code> 和 <code>%rsi</code> 加起来放进 <code>%rax</code>.</p>
+<p>观察发现有 <code>movq %rsp, %rax</code> 和 <code>movq %rax, %rdi</code>. 因为栈地址前面一段都是 <code>f</code>, 所以必需得用 64 位操作. 正好这一条链式传递可以把 <code>%rsp</code> 放到 <code>%rdi</code>.</p>
+<p>另外还需要弄一个偏移量. 把常数压进栈里然后放到 <code>%rsi</code>. 但是由于 farm 里找不到 很好用的片段, 这里需要一个非常长的传递, 依次经过 <code>rax rdx rcx rsi</code>. 这里需要好好使用 vim 的正则匹配功能才能迅速地找到对应的代码.</p>
+<p>最后就是把 <code>%rax</code> 再放到 <code>%rdi</code>, 然后调 <code>touch3</code>.</p>
+<p>最后一个问要大力感谢室友 seventhheavan 给我的提示.</p>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/developing/">developing</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/technical/bb68d3/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>DyNet 代码笔记</span>
+  </a>
+  <a class="next" href="/technical/e51049/">
+    <span class="title">Next »</span>
+    <br>
+    <span>DyNet 论文笔记</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

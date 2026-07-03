@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>BZOJ2653 middle | The Site of laekov</title>
+<meta name="keywords" content="bzoj, ds, oi">
+<meta name="description" content="&lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt; 老久之前就看到过的题，不过不会做。今天晚上也是花了差不多俩小时才调过，虽然大概一个半小时都在纠结二分怎么写的问题。我没救了。&lt;/p&gt; &nbsp;
+考虑经典的中位数二分，是把≤x的数字取-1，&gt;x的数取1，然后算最大子串看是否大于-1或1中的某一个，具体要看题目要求偶数是取上整还是下整什么的。
+&nbsp;
+然后这题就把所有东西排序之后拿可持久化线段树把这个序列搞出来，然后照着之前的思路二分就好了。线段树用来维护最大和最小前缀和。
+#include &lt;cstdio&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+struct dat { int sm, s; }; struct seg { int l, r; dat v[2]; seg *ls, *rs; };
+#define _l (long long int)
+typedef pair &lt;int, int&gt; vpr; typedef dat(*dat_mf)(const dat&amp;, const dat&amp;);
+const int maxn = 20009; const int maxnd = maxn * 19; const dat null_str = {0, 0}; const dat neg_str0 = {-1, -1}; const dat neg_str1 = {-1, -1}; const dat pos_str0 = {1, 1}; const dat pos_str1 = {1, 1};">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/i11rimport_067/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="BZOJ2653 middle" />
+<meta property="og:description" content="&lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt; 老久之前就看到过的题，不过不会做。今天晚上也是花了差不多俩小时才调过，虽然大概一个半小时都在纠结二分怎么写的问题。我没救了。&lt;/p&gt; &nbsp;
+考虑经典的中位数二分，是把≤x的数字取-1，&gt;x的数取1，然后算最大子串看是否大于-1或1中的某一个，具体要看题目要求偶数是取上整还是下整什么的。
+&nbsp;
+然后这题就把所有东西排序之后拿可持久化线段树把这个序列搞出来，然后照着之前的思路二分就好了。线段树用来维护最大和最小前缀和。
+#include &lt;cstdio&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+struct dat { int sm, s; }; struct seg { int l, r; dat v[2]; seg *ls, *rs; };
+#define _l (long long int)
+typedef pair &lt;int, int&gt; vpr; typedef dat(*dat_mf)(const dat&amp;, const dat&amp;);
+const int maxn = 20009; const int maxnd = maxn * 19; const dat null_str = {0, 0}; const dat neg_str0 = {-1, -1}; const dat neg_str1 = {-1, -1}; const dat pos_str0 = {1, 1}; const dat pos_str1 = {1, 1};" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/i11rimport_067/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2015-01-29T20:50:41+00:00" />
+<meta property="article:modified_time" content="2015-01-29T20:50:41+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BZOJ2653 middle"/>
+<meta name="twitter:description" content="&lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt; 老久之前就看到过的题，不过不会做。今天晚上也是花了差不多俩小时才调过，虽然大概一个半小时都在纠结二分怎么写的问题。我没救了。&lt;/p&gt; &nbsp;
+考虑经典的中位数二分，是把≤x的数字取-1，&gt;x的数取1，然后算最大子串看是否大于-1或1中的某一个，具体要看题目要求偶数是取上整还是下整什么的。
+&nbsp;
+然后这题就把所有东西排序之后拿可持久化线段树把这个序列搞出来，然后照着之前的思路二分就好了。线段树用来维护最大和最小前缀和。
+#include &lt;cstdio&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+struct dat { int sm, s; }; struct seg { int l, r; dat v[2]; seg *ls, *rs; };
+#define _l (long long int)
+typedef pair &lt;int, int&gt; vpr; typedef dat(*dat_mf)(const dat&amp;, const dat&amp;);
+const int maxn = 20009; const int maxnd = maxn * 19; const dat null_str = {0, 0}; const dat neg_str0 = {-1, -1}; const dat neg_str1 = {-1, -1}; const dat pos_str0 = {1, 1}; const dat pos_str1 = {1, 1};"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "BZOJ2653 middle",
+      "item": "/oi/i11rimport_067/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BZOJ2653 middle",
+  "name": "BZOJ2653 middle",
+  "description": "\u0026lt;div class=\u0026quot;post_brief\u0026quot;\u0026gt;\u0026lt;p\u0026gt; 老久之前就看到过的题，不过不会做。今天晚上也是花了差不多俩小时才调过，虽然大概一个半小时都在纠结二分怎么写的问题。我没救了。\u0026lt;/p\u0026gt; \u0026nbsp;\n考虑经典的中位数二分，是把≤x的数字取-1，\u0026gt;x的数取1，然后算最大子串看是否大于-1或1中的某一个，具体要看题目要求偶数是取上整还是下整什么的。\n\u0026nbsp;\n然后这题就把所有东西排序之后拿可持久化线段树把这个序列搞出来，然后照着之前的思路二分就好了。线段树用来维护最大和最小前缀和。\n#include \u0026lt;cstdio\u0026gt; #include \u0026lt;cstring\u0026gt; #include \u0026lt;algorithm\u0026gt; using namespace std;\nstruct dat { int sm, s; }; struct seg { int l, r; dat v[2]; seg *ls, *rs; };\n#define _l (long long int)\ntypedef pair \u0026lt;int, int\u0026gt; vpr; typedef dat(*dat_mf)(const dat\u0026amp;, const dat\u0026amp;);\nconst int maxn = 20009; const int maxnd = maxn * 19; const dat null_str = {0, 0}; const dat neg_str0 = {-1, -1}; const dat neg_str1 = {-1, -1}; const dat pos_str0 = {1, 1}; const dat pos_str1 = {1, 1};",
+  "keywords": [
+    "bzoj", "ds", "oi"
+  ],
+  "articleBody": "\t老久之前就看到过的题，不过不会做。今天晚上也是花了差不多俩小时才调过，虽然大概一个半小时都在纠结二分怎么写的问题。我没救了。\n考虑经典的中位数二分，是把≤x的数字取-1，\u003ex的数取1，然后算最大子串看是否大于-1或1中的某一个，具体要看题目要求偶数是取上整还是下整什么的。\n然后这题就把所有东西排序之后拿可持久化线段树把这个序列搞出来，然后照着之前的思路二分就好了。线段树用来维护最大和最小前缀和。\n#include #include #include using namespace std;\nstruct dat { int sm, s; }; struct seg { int l, r; dat v[2]; seg *ls, *rs; };\n#define _l (long long int)\ntypedef pair vpr; typedef dat(*dat_mf)(const dat\u0026, const dat\u0026);\nconst int maxn = 20009; const int maxnd = maxn * 19; const dat null_str = {0, 0}; const dat neg_str0 = {-1, -1}; const dat neg_str1 = {-1, -1}; const dat pos_str0 = {1, 1}; const dat pos_str1 = {1, 1};\nvpr a[maxn]; int n, m, q[4], lans, maxv; seg slst[maxnd], *sp(slst), *rt[maxn];\n#define mid(p) ((p-\u003el+p-\u003er)\u003e\u003e1)\ndat ret; inline dat merd0(const dat\u0026 a, const dat\u0026 b) { ret. sm = a. sm + b. sm; ret. s = min(a. s, a. sm + b. s); return ret; } inline dat merd1(const dat\u0026 a, const dat\u0026 b) { ret. sm = a. sm + b. sm; ret. s = max(a. s, a. sm + b. s); return ret; } const dat_mf dmf[2] = {merd0, merd1}; inline dat addSum(const int\u0026 v, const dat\u0026 a) { ret. s = a. s + v; ret. sm = a. sm + v; return ret; }\nseg* sgtBuild(int l, int r) { seg *p(sp ++); p-\u003e l = l; p-\u003e r = r; if (l + 1 == r) { p-\u003e v[0] = neg_str0; p-\u003e v[1] = neg_str1; } else { p-\u003e ls = sgtBuild(l, mid(p)); p-\u003e rs = sgtBuild(mid(p), r); p-\u003e v[0] = merd0(p-\u003e ls-\u003e v[0], p-\u003e rs-\u003e v[0]); p-\u003e v[1] = merd1(p-\u003e ls-\u003e v[1], p-\u003e rs-\u003e v[1]); } return p; }\nseg* sgtChg(seg* q, int p0) { seg* p(sp ++); p-\u003e l = q-\u003e l; p-\u003e r = q-\u003e r; if (p-\u003e l + 1 == p-\u003e r) { p-\u003e v[0] = pos_str0; p-\u003e v[1] = pos_str1; } else { if (p0 \u003c mid(p)) { p-\u003e ls = sgtChg(q-\u003e ls, p0); p-\u003e rs = q-\u003e rs; } else { p-\u003e ls = q-\u003e ls; p-\u003e rs = sgtChg(q-\u003e rs, p0); } p-\u003e v[0] = merd0(p-\u003e ls-\u003e v[0], p-\u003e rs-\u003e v[0]); p-\u003e v[1] = merd1(p-\u003e ls-\u003e v[1], p-\u003e rs-\u003e v[1]); } return p; }\nint qv; dat sgtQry(seg* p, int l, int r) { if (p-\u003e l == l \u0026\u0026 p-\u003e r == r) return p-\u003e v[qv]; else if (r \u003c= mid(p)) return sgtQry(p-\u003e ls, l, r); else if (l \u003e= mid(p)) return addSum(p-\u003e ls-\u003e v[0]. sm, sgtQry(p-\u003e rs, l, r)); else return dmf[qv](sgtQry(p-\u003e ls, l, mid(p)), sgtQry(p-\u003e rs, mid(p), r)); }\nvoid pstat(seg* p, bool sr = 1) { if (p-\u003e l + 1 == p-\u003e r) printf(\"%d “, p-\u003e v[0]. sm); else { pstat(p-\u003e ls, 0); pstat(p-\u003e rs, 0); } if (sr) putchar(10); }\nint minSum(int x) { int v0, v1; qv = 1; if (q[0] == 0) v0 = max(0, sgtQry(rt[x], 0, q[1]). s); else v0 = sgtQry(rt[x], q[0] - 1, q[1]). s; qv = 0; v1 = sgtQry(rt[x], q[2], q[3] + 1). s; return v1 - v0; }\nint main() { #ifndef ONLINE_JUDGE freopen(“in.txt”, “r”, stdin); #endif\nscanf(\"%d\", \u0026amp;n); for (int i = 0; i \u0026lt; n; ++ i) scanf(\"%d\", \u0026amp;a[i]. first), a[i]. second = i; sort(a, a + n); rt[0] = sgtBuild(0, n); for (int i = 1; i \u0026lt;= n; ++ i) rt[i] = sgtChg(rt[i - 1], a[i - 1]. second); scanf(\"%d\", \u0026amp;m); lans = 0; while (m --) { for (int i = 0; i \u0026lt; 4; ++ i) { scanf(\"%d\", q + i); q[i] = (_l q[i] + lans) % n; } sort(q, q + 4); int l(0), r(n - 1); while (l \u0026lt; r) { int md((l + r + 1) \u0026gt;\u0026gt; 1); if (minSum(md) \u0026gt; 0) r = md - 1; else l = md; } printf(\"%d\\n\", (lans = a[l]. first)); } } ",
+  "wordCount" : "629",
+  "inLanguage": "en",
+  "datePublished": "2015-01-29T20:50:41Z",
+  "dateModified": "2015-01-29T20:50:41Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/i11rimport_067/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      BZOJ2653 middle
+    </h1>
+    <div class="post-meta"><span title='2015-01-29 20:50:41 +0000 UTC'>January 29, 2015</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><pre><code>			    &lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt;
+老久之前就看到过的题，不过不会做。今天晚上也是花了差不多俩小时才调过，虽然大概一个半小时都在纠结二分怎么写的问题。我没救了。&lt;/p&gt;
+</code></pre>
+<p>
+	&nbsp;</p>
+<p>
+	考虑经典的中位数二分，是把≤x的数字取-1，&gt;x的数取1，然后算最大子串看是否大于-1或1中的某一个，具体要看题目要求偶数是取上整还是下整什么的。</p>
+<p>
+	&nbsp;</p>
+<p>
+	然后这题就把所有东西排序之后拿可持久化线段树把这个序列搞出来，然后照着之前的思路二分就好了。线段树用来维护最大和最小前缀和。</p>
+<pre class="bcode">#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+<p>using namespace std;</p>
+<p>struct dat {
+int sm, s;
+};
+struct seg {
+int l, r;
+dat v[2];
+seg *ls, *rs;
+};</p>
+<p>#define _l (long long int)</p>
+<p>typedef pair &lt;int, int&gt; vpr;
+typedef dat(*dat_mf)(const dat&amp;, const dat&amp;);</p>
+<p>const int maxn = 20009;
+const int maxnd = maxn * 19;
+const dat null_str = {0, 0};
+const dat neg_str0 = {-1, -1};
+const dat neg_str1 = {-1, -1};
+const dat pos_str0 = {1, 1};
+const dat pos_str1 = {1, 1};</p>
+<p>vpr a[maxn];
+int n, m, q[4], lans, maxv;
+seg slst[maxnd], *sp(slst), *rt[maxn];</p>
+<p>#define mid(p) ((p-&gt;l+p-&gt;r)&gt;&gt;1)</p>
+<p>dat ret;
+inline dat merd0(const dat&amp; a, const dat&amp; b) {
+ret. sm = a. sm + b. sm;
+ret. s = min(a. s, a. sm + b. s);
+return ret;
+}
+inline dat merd1(const dat&amp; a, const dat&amp; b) {
+ret. sm = a. sm + b. sm;
+ret. s = max(a. s, a. sm + b. s);
+return ret;
+}
+const dat_mf dmf[2] = {merd0, merd1};
+inline dat addSum(const int&amp; v, const dat&amp; a) {
+ret. s = a. s + v;
+ret. sm = a. sm + v;
+return ret;
+}</p>
+<p>seg* sgtBuild(int l, int r) {
+seg *p(sp ++);
+p-&gt; l = l;
+p-&gt; r = r;
+if (l + 1 == r) {
+p-&gt; v[0] = neg_str0;
+p-&gt; v[1] = neg_str1;
+}
+else {
+p-&gt; ls = sgtBuild(l, mid(p));
+p-&gt; rs = sgtBuild(mid(p), r);
+p-&gt; v[0] = merd0(p-&gt; ls-&gt; v[0], p-&gt; rs-&gt; v[0]);
+p-&gt; v[1] = merd1(p-&gt; ls-&gt; v[1], p-&gt; rs-&gt; v[1]);
+}
+return p;
+}</p>
+<p>seg* sgtChg(seg* q, int p0) {
+seg* p(sp ++);
+p-&gt; l = q-&gt; l;
+p-&gt; r = q-&gt; r;
+if (p-&gt; l + 1 == p-&gt; r) {
+p-&gt; v[0] = pos_str0;
+p-&gt; v[1] = pos_str1;
+}
+else {
+if (p0 &lt; mid(p)) {
+p-&gt; ls = sgtChg(q-&gt; ls, p0);
+p-&gt; rs = q-&gt; rs;
+}
+else {
+p-&gt; ls = q-&gt; ls;
+p-&gt; rs = sgtChg(q-&gt; rs, p0);
+}
+p-&gt; v[0] = merd0(p-&gt; ls-&gt; v[0], p-&gt; rs-&gt; v[0]);
+p-&gt; v[1] = merd1(p-&gt; ls-&gt; v[1], p-&gt; rs-&gt; v[1]);
+}
+return p;
+}</p>
+<p>int qv;
+dat sgtQry(seg* p, int l, int r) {
+if (p-&gt; l == l &amp;&amp; p-&gt; r == r)
+return p-&gt; v[qv];
+else if (r &lt;= mid(p))
+return sgtQry(p-&gt; ls, l, r);
+else if (l &gt;= mid(p))
+return addSum(p-&gt; ls-&gt; v[0]. sm, sgtQry(p-&gt; rs, l, r));
+else
+return dmf[qv](sgtQry(p-&gt; ls, l, mid(p)), sgtQry(p-&gt; rs, mid(p), r));
+}</p>
+<p>void pstat(seg* p, bool sr = 1) {
+if (p-&gt; l + 1 == p-&gt; r)
+printf(&quot;%d &ldquo;, p-&gt; v[0]. sm);
+else {
+pstat(p-&gt; ls, 0);
+pstat(p-&gt; rs, 0);
+}
+if (sr)
+putchar(10);
+}</p>
+<p>int minSum(int x) {
+int v0, v1;
+qv = 1;
+if (q[0] == 0)
+v0 = max(0, sgtQry(rt[x], 0, q[1]). s);
+else
+v0 = sgtQry(rt[x], q[0] - 1, q[1]). s;
+qv = 0;
+v1 = sgtQry(rt[x], q[2], q[3] + 1). s;
+return v1 - v0;
+}</p>
+<p>int main() {
+#ifndef ONLINE_JUDGE
+freopen(&ldquo;in.txt&rdquo;, &ldquo;r&rdquo;, stdin);
+#endif</p>
+<pre><code>scanf(&quot;%d&quot;, &amp;amp;n);
+for (int i = 0; i &amp;lt; n; ++ i)
+	scanf(&quot;%d&quot;, &amp;amp;a[i]. first), a[i]. second = i;
+sort(a, a + n);
+rt[0] = sgtBuild(0, n);
+for (int i = 1; i &amp;lt;= n; ++ i)
+	rt[i] = sgtChg(rt[i - 1], a[i - 1]. second);
+scanf(&quot;%d&quot;, &amp;amp;m);
+lans = 0;
+while (m --) {
+	for (int i = 0; i &amp;lt; 4; ++ i) {
+		scanf(&quot;%d&quot;, q + i); 
+		q[i] = (_l q[i] + lans) % n;
+	}
+	sort(q, q + 4);
+	int l(0), r(n - 1);
+	while (l &amp;lt; r) {
+		int md((l + r + 1) &amp;gt;&amp;gt; 1);
+		if (minSum(md) &amp;gt; 0)
+			r = md - 1;
+		else
+			l = md;
+	}
+	printf(&quot;%d\n&quot;, (lans = a[l]. first));
+}
+</code></pre>
+<p>}
+</pre></p>
+</div>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/bzoj/">bzoj</a></li>
+      <li><a href="/tags/ds/">ds</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/i11rimport_064/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>POJ2154 Color</span>
+  </a>
+  <a class="next" href="/oi/i11rimport_068/">
+    <span class="title">Next »</span>
+    <br>
+    <span>BZOJ3351 [ioi2009]Regions</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>BZOJ3809 Gty的二逼妹子序列 | The Site of laekov</title>
+<meta name="keywords" content="bzoj, data\xa0structure, oi">
+<meta name="description" content="好一道卡常数。不仅卡时间，还卡空间。堪称丧心病狂的极致。
+首先因为空间小所以得用莫队。然后不知为何树状数组没有直接分块跑得快。
+没有救啦。
+#include &lt;cstdio&gt;
+#include &lt;cctype&gt;
+#include &lt;cmath&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+&nbsp;
+usingnamespacestd;
+&nbsp;
+structqry {
+&nbsp;&nbsp;&nbsp; intl, r, a, b, n;
+};
+&nbsp;
+int_d_;
+#define readInt(_x_)&nbsp;{&nbsp;\
+&nbsp;&nbsp;&nbsp; int&amp; _s_ = _x_;&nbsp;\
+&nbsp;&nbsp;&nbsp; while(!isdigit(_d_ = getchar()));&nbsp;\
+&nbsp;&nbsp;&nbsp; _s_ = 0;&nbsp;\
+&nbsp;&nbsp;&nbsp; while((_s_ = _s_ * 10 &#43; _d_ - 48), isdigit(_d_ = getchar()));&nbsp;\
+}
+&nbsp;
+constintmaxn = 100009;
+constintmaxm = 1000009;
+&nbsp;
+intn, m, bsz, a[maxn], c[maxn], w[maxn], b[maxn], ans[maxm];">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/lofterimport_029/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="BZOJ3809 Gty的二逼妹子序列" />
+<meta property="og:description" content="好一道卡常数。不仅卡时间，还卡空间。堪称丧心病狂的极致。
+首先因为空间小所以得用莫队。然后不知为何树状数组没有直接分块跑得快。
+没有救啦。
+#include &lt;cstdio&gt;
+#include &lt;cctype&gt;
+#include &lt;cmath&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+&nbsp;
+usingnamespacestd;
+&nbsp;
+structqry {
+&nbsp;&nbsp;&nbsp; intl, r, a, b, n;
+};
+&nbsp;
+int_d_;
+#define readInt(_x_)&nbsp;{&nbsp;\
+&nbsp;&nbsp;&nbsp; int&amp; _s_ = _x_;&nbsp;\
+&nbsp;&nbsp;&nbsp; while(!isdigit(_d_ = getchar()));&nbsp;\
+&nbsp;&nbsp;&nbsp; _s_ = 0;&nbsp;\
+&nbsp;&nbsp;&nbsp; while((_s_ = _s_ * 10 &#43; _d_ - 48), isdigit(_d_ = getchar()));&nbsp;\
+}
+&nbsp;
+constintmaxn = 100009;
+constintmaxm = 1000009;
+&nbsp;
+intn, m, bsz, a[maxn], c[maxn], w[maxn], b[maxn], ans[maxm];" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/lofterimport_029/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2014-12-22T19:38:16+00:00" />
+<meta property="article:modified_time" content="2014-12-22T19:38:16+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BZOJ3809 Gty的二逼妹子序列"/>
+<meta name="twitter:description" content="好一道卡常数。不仅卡时间，还卡空间。堪称丧心病狂的极致。
+首先因为空间小所以得用莫队。然后不知为何树状数组没有直接分块跑得快。
+没有救啦。
+#include &lt;cstdio&gt;
+#include &lt;cctype&gt;
+#include &lt;cmath&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+&nbsp;
+usingnamespacestd;
+&nbsp;
+structqry {
+&nbsp;&nbsp;&nbsp; intl, r, a, b, n;
+};
+&nbsp;
+int_d_;
+#define readInt(_x_)&nbsp;{&nbsp;\
+&nbsp;&nbsp;&nbsp; int&amp; _s_ = _x_;&nbsp;\
+&nbsp;&nbsp;&nbsp; while(!isdigit(_d_ = getchar()));&nbsp;\
+&nbsp;&nbsp;&nbsp; _s_ = 0;&nbsp;\
+&nbsp;&nbsp;&nbsp; while((_s_ = _s_ * 10 &#43; _d_ - 48), isdigit(_d_ = getchar()));&nbsp;\
+}
+&nbsp;
+constintmaxn = 100009;
+constintmaxm = 1000009;
+&nbsp;
+intn, m, bsz, a[maxn], c[maxn], w[maxn], b[maxn], ans[maxm];"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "BZOJ3809 Gty的二逼妹子序列",
+      "item": "/oi/lofterimport_029/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BZOJ3809 Gty的二逼妹子序列",
+  "name": "BZOJ3809 Gty的二逼妹子序列",
+  "description": "好一道卡常数。不仅卡时间，还卡空间。堪称丧心病狂的极致。\n首先因为空间小所以得用莫队。然后不知为何树状数组没有直接分块跑得快。\n没有救啦。\n#include \u0026lt;cstdio\u0026gt;\n#include \u0026lt;cctype\u0026gt;\n#include \u0026lt;cmath\u0026gt;\n#include \u0026lt;cstring\u0026gt;\n#include \u0026lt;algorithm\u0026gt;\n\u0026nbsp;\nusingnamespacestd;\n\u0026nbsp;\nstructqry {\n\u0026nbsp;\u0026nbsp;\u0026nbsp; intl, r, a, b, n;\n};\n\u0026nbsp;\nint_d_;\n#define readInt(_x_)\u0026nbsp;{\u0026nbsp;\\\n\u0026nbsp;\u0026nbsp;\u0026nbsp; int\u0026amp; _s_ = _x_;\u0026nbsp;\\\n\u0026nbsp;\u0026nbsp;\u0026nbsp; while(!isdigit(_d_ = getchar()));\u0026nbsp;\\\n\u0026nbsp;\u0026nbsp;\u0026nbsp; _s_ = 0;\u0026nbsp;\\\n\u0026nbsp;\u0026nbsp;\u0026nbsp; while((_s_ = _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\u0026nbsp;\\\n}\n\u0026nbsp;\nconstintmaxn = 100009;\nconstintmaxm = 1000009;\n\u0026nbsp;\nintn, m, bsz, a[maxn], c[maxn], w[maxn], b[maxn], ans[maxm];",
+  "keywords": [
+    "bzoj", "data\\xa0structure", "oi"
+  ],
+  "articleBody": "好一道卡常数。不仅卡时间，还卡空间。堪称丧心病狂的极致。\n首先因为空间小所以得用莫队。然后不知为何树状数组没有直接分块跑得快。\n没有救啦。\n#include #include #include #include #include usingnamespacestd;\nstructqry {\nintl, r, a, b, n;\n};\nint_d_;\n#define readInt(_x_) { \\\nint\u0026 _s_ = _x_; \\\nwhile(!isdigit(_d_ = getchar())); \\\n_s_ = 0; \\\nwhile((_s_ = _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar())); \\\n}\nconstintmaxn = 100009;\nconstintmaxm = 1000009;\nintn, m, bsz, a[maxn], c[maxn], w[maxn], b[maxn], ans[maxm];\nqry q[maxm];\ninlineboolcmpQry(constqry\u0026 a, constqry\u0026 b) {\nreturnw[a. l] \u003c w[b. l] || (w[a. l] == w[b. l] \u0026\u0026 a. r \u003c b. r);\n}\ninlinevoidchg(intp, intv) {\nb[w[p]] += v;\n}\nintqry(intl, intr) {\nints = 0;\nif(w[l] == w[r]) {\nwhile(l \u003c= r) {\nif(c[l])\n++ s;\n++ l;\n}\n}\nelse{\nfor(inti = l; w[i] == w[l]; ++ i)\nif(c[i])\n++ s;\nfor(inti = w[l] + 1; i \u003c w[r]; ++ i)\ns += b[i];\nfor(inti = r; w[i] == w[r]; -- i)\nif(c[i])\n++ s;\n}\nreturns;\n}\nintmain() {\n#ifndef ONLINE_JUDGE\nfreopen(\"in.txt\", \"r\", stdin);\n#endif\nreadInt(n);\nreadInt(m);\nbsz = (int)sqrt(n / 4) + 1;\nfor(inti = 1; i \u003c= n; ++ i) {\nreadInt(a[i]);\nw[i] = (i - 1) / bsz + 1;\n}\nfor(inti = 0; i \u003c m; ++ i) {\nreadInt(q[i]. l);\nreadInt(q[i]. r);\nreadInt(q[i]. a);\nreadInt(q[i]. b);\nq[i]. n = i;\n}\nsort(q, q + m, cmpQry);\nmemset(b, 0, sizeof(b));\nchg(a[1], 1);\nc[a[1]] = 1;\nfor(inti = 0, l = 1, r = 1; i \u003c m; ++ i) {\nwhile(l \u003e q[i]. l) {\n-- l;\nif(!c[a[l]])\nchg(a[l], 1);\n++ c[a[l]];\n}\nwhile(r \u003c q[i]. r) {\n++ r;\nif(!c[a[r]])\nchg(a[r], 1);\n++ c[a[r]];\n}\nwhile(l \u003c q[i]. l) {\n-- c[a[l]];\nif(!c[a[l]])\nchg(a[l], -1);\n++ l;\n}\nwhile(r \u003e q[i]. r) {\n-- c[a[r]];\nif(!c[a[r]])\nchg(a[r], -1);\n-- r;\n}\nans[q[i]. n] = qry(q[i]. a, q[i]. b);\n}\nfor(inti = 0; i \u003c m; ++ i)\nprintf(\"%d\\n\", ans[i]);\n}\n",
+  "wordCount" : "333",
+  "inLanguage": "en",
+  "datePublished": "2014-12-22T19:38:16Z",
+  "dateModified": "2014-12-22T19:38:16Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/lofterimport_029/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      BZOJ3809 Gty的二逼妹子序列
+    </h1>
+    <div class="post-meta"><span title='2014-12-22 19:38:16 +0000 UTC'>December 22, 2014</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>好一道卡常数。不仅卡时间，还卡空间。堪称丧心病狂的极致。</p> 
+<p><br /></p> 
+<p>首先因为空间小所以得用莫队。然后不知为何树状数组没有直接分块跑得快。</p> 
+<p><br /></p> 
+<p>没有救啦。</p> 
+<p><br /></p> 
+<p>#include &lt;cstdio&gt;</p> 
+<p>#include &lt;cctype&gt;</p> 
+<p>#include &lt;cmath&gt;</p> 
+<p>#include &lt;cstring&gt;</p> 
+<p>#include &lt;algorithm&gt;</p> 
+<p>&nbsp;</p> 
+<p>usingnamespacestd;</p> 
+<p>&nbsp;</p> 
+<p>structqry {</p> 
+<p>&nbsp;&nbsp;&nbsp; intl, r, a, b, n;</p> 
+<p>};</p> 
+<p>&nbsp;</p> 
+<p>int_d_;</p> 
+<p>#define readInt(_x_)&nbsp;{&nbsp;\</p> 
+<p>&nbsp;&nbsp;&nbsp; int&amp; _s_ = _x_;&nbsp;\</p> 
+<p>&nbsp;&nbsp;&nbsp; while(!isdigit(_d_ = getchar()));&nbsp;\</p> 
+<p>&nbsp;&nbsp;&nbsp; _s_ = 0;&nbsp;\</p> 
+<p>&nbsp;&nbsp;&nbsp; while((_s_ = _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));&nbsp;\</p> 
+<p>}</p> 
+<p>&nbsp;</p> 
+<p>constintmaxn = 100009;</p> 
+<p>constintmaxm = 1000009;</p> 
+<p>&nbsp;</p> 
+<p>intn, m, bsz, a[maxn], c[maxn], w[maxn], b[maxn], ans[maxm];</p> 
+<p>qry q[maxm];</p> 
+<p>&nbsp;</p> 
+<p>inlineboolcmpQry(constqry&amp; a, constqry&amp; b)&nbsp;{</p> 
+<p>&nbsp;&nbsp;&nbsp; returnw[a. l]&nbsp;&lt; w[b. l]&nbsp;||&nbsp;(w[a. l]&nbsp;== w[b. l]&nbsp;&amp;&amp; a. r &lt; b. r);</p> 
+<p>}</p> 
+<p>&nbsp;</p> 
+<p>inlinevoidchg(intp, intv)&nbsp;{</p> 
+<p>&nbsp;&nbsp;&nbsp; b[w[p]]&nbsp;+= v;</p> 
+<p>}</p> 
+<p>&nbsp;</p> 
+<p>intqry(intl, intr)&nbsp;{</p> 
+<p>&nbsp;&nbsp;&nbsp; ints = 0;</p> 
+<p>&nbsp;&nbsp;&nbsp; if(w[l]&nbsp;== w[r])&nbsp;{</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while(l &lt;= r)&nbsp;{</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(c[l])</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++ s;</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++ l;</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;}</p> 
+<p>&nbsp;&nbsp;&nbsp; else{</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for(inti = l; w[i]&nbsp;== w[l];&nbsp;++ i)</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(c[i])</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++ s;</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for(inti = w[l]&nbsp;+ 1; i &lt; w[r];&nbsp;++ i)</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; s += b[i];</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for(inti = r; w[i]&nbsp;== w[r];&nbsp;-- i)</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(c[i])</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++ s;</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;}</p> 
+<p>&nbsp;&nbsp;&nbsp; returns;</p> 
+<p>}</p> 
+<p>&nbsp;</p> 
+<p>intmain()&nbsp;{</p> 
+<p>#ifndef ONLINE_JUDGE</p> 
+<p>&nbsp;&nbsp;&nbsp; freopen(&quot;in.txt&quot;,&nbsp;&quot;r&quot;, stdin);</p> 
+<p>#endif</p> 
+<p>&nbsp;</p> 
+<p>&nbsp;&nbsp;&nbsp; readInt(n);</p> 
+<p>&nbsp;&nbsp;&nbsp; readInt(m);</p> 
+<p>&nbsp;&nbsp;&nbsp; bsz =&nbsp;(int)sqrt(n&nbsp;/ 4)&nbsp;+ 1;</p> 
+<p>&nbsp;&nbsp;&nbsp; for(inti = 1; i &lt;= n;&nbsp;++ i)&nbsp;{</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; readInt(a[i]);</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; w[i]&nbsp;=&nbsp;(i - 1)&nbsp;/ bsz + 1;</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;}</p> 
+<p>&nbsp;&nbsp;&nbsp; for(inti = 0; i &lt; m;&nbsp;++ i)&nbsp;{</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; readInt(q[i]. l);</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; readInt(q[i]. r);</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; readInt(q[i]. a);</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; readInt(q[i]. b);</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; q[i]. n = i;</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;}</p> 
+<p>&nbsp;&nbsp;&nbsp; sort(q, q + m, cmpQry);</p> 
+<p>&nbsp;&nbsp;&nbsp; memset(b, 0, sizeof(b));</p> 
+<p>&nbsp;&nbsp;&nbsp; chg(a[1], 1);</p> 
+<p>&nbsp;&nbsp;&nbsp; c[a[1]]&nbsp;= 1;</p> 
+<p>&nbsp;&nbsp;&nbsp; for(inti = 0, l = 1, r = 1; i &lt; m;&nbsp;++ i)&nbsp;{</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while(l &gt; q[i]. l)&nbsp;{</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- l;</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(!c[a[l]])</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; chg(a[l], 1);</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++ c[a[l]];</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while(r &lt; q[i]. r)&nbsp;{</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++ r;</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(!c[a[r]])</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; chg(a[r], 1);</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++ c[a[r]];</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while(l &lt; q[i]. l)&nbsp;{</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- c[a[l]];</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(!c[a[l]])</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; chg(a[l],&nbsp;-1);</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;++ l;</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while(r &gt; q[i]. r)&nbsp;{</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- c[a[r]];</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(!c[a[r]])</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; chg(a[r],&nbsp;-1);</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- r;</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ans[q[i]. n]&nbsp;= qry(q[i]. a, q[i]. b);</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;}</p> 
+<p>&nbsp;&nbsp;&nbsp; for(inti = 0; i &lt; m;&nbsp;++ i)</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; printf(&quot;%d\n&quot;, ans[i]);</p> 
+<p>}</p> 
+<p><br /></p>
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/bzoj/">bzoj</a></li>
+      <li><a href="/tags/data%5Cxa0structure/">data\xa0structure</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/lofterimport_028/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>20141222</span>
+  </a>
+  <a class="next" href="/oi/lofterimport_031/">
+    <span class="title">Next »</span>
+    <br>
+    <span>BZOJ1875 [SDOI2009]HH去散步</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

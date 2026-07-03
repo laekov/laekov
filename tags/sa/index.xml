@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>sa on The Site of laekov</title>
+    <link>/tags/sa/</link>
+    <description>Recent content in sa on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Mon, 06 Apr 2015 13:51:17 +0000</lastBuildDate><atom:link href="/tags/sa/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>bzoj2251 [2010Beijing Wc]外星联络</title>
+      <link>/oi/dbimport_132/</link>
+      <pubDate>Mon, 06 Apr 2015 13:51:17 +0000</pubDate>
+      
+      <guid>/oi/dbimport_132/</guid>
+      <description>后缀数组的基础题ovo好久没写sa了还自己yy了半天ovo
+为啥感觉每次写sa写得都不一样ovo
+求出height数组之后,如果一个位置的height大于上一个位置的,那么高出来的这一截都是新的一个答案.那么直接朴素地去找它出现了多少次就好了.我相信出题人没有办法构造数据把我卡到三方.
+所以各种题都要再复习一下ovo</description>
+    </item>
+    
+  </channel>
+</rss>

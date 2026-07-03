@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>BZOJ3825 [Usaco2014 Nov]Marathon | The Site of laekov</title>
+<meta name="keywords" content="bzoj, data\xa0structure, oi">
+<meta name="description" content="英语阅读题。做完去翻译题面然后写英语作业了。
+就维护一下区间里的距离和and忽略一个点的收益的最大值。完了。
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+struct seg {
+int l, r;
+int s, v;
+seg *ls,&nbsp;*rs;
+};
+const int maxn = 100009;
+int n, m, x[maxn], y[maxn], d[maxn], v[maxn];
+seg *rt,&nbsp;*sp;
+inline void upDis(int i)&nbsp;{
+if (i&nbsp;&lt; n)
+d[i]&nbsp;= abs(x[i &#43; 1]&nbsp;- x[i])&nbsp;&#43; abs(y[i &#43; 1]&nbsp;- y[i]);
+else
+d[i]&nbsp;= 0;
+}
+inline void upVal(int i)&nbsp;{
+if (i&nbsp;&gt; 1 &amp;&amp; i &lt; n)
+v[i]&nbsp;= d[i - 1]&nbsp;&#43; d[i]&nbsp;- abs(x[i &#43; 1]&nbsp;- x[i - 1])&nbsp;- abs(y[i &#43; 1]&nbsp;- y[i - 1]);">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/lofterimport_017/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="BZOJ3825 [Usaco2014 Nov]Marathon" />
+<meta property="og:description" content="英语阅读题。做完去翻译题面然后写英语作业了。
+就维护一下区间里的距离和and忽略一个点的收益的最大值。完了。
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+struct seg {
+int l, r;
+int s, v;
+seg *ls,&nbsp;*rs;
+};
+const int maxn = 100009;
+int n, m, x[maxn], y[maxn], d[maxn], v[maxn];
+seg *rt,&nbsp;*sp;
+inline void upDis(int i)&nbsp;{
+if (i&nbsp;&lt; n)
+d[i]&nbsp;= abs(x[i &#43; 1]&nbsp;- x[i])&nbsp;&#43; abs(y[i &#43; 1]&nbsp;- y[i]);
+else
+d[i]&nbsp;= 0;
+}
+inline void upVal(int i)&nbsp;{
+if (i&nbsp;&gt; 1 &amp;&amp; i &lt; n)
+v[i]&nbsp;= d[i - 1]&nbsp;&#43; d[i]&nbsp;- abs(x[i &#43; 1]&nbsp;- x[i - 1])&nbsp;- abs(y[i &#43; 1]&nbsp;- y[i - 1]);" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/lofterimport_017/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2015-01-01T16:08:54+00:00" />
+<meta property="article:modified_time" content="2015-01-01T16:08:54+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BZOJ3825 [Usaco2014 Nov]Marathon"/>
+<meta name="twitter:description" content="英语阅读题。做完去翻译题面然后写英语作业了。
+就维护一下区间里的距离和and忽略一个点的收益的最大值。完了。
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+struct seg {
+int l, r;
+int s, v;
+seg *ls,&nbsp;*rs;
+};
+const int maxn = 100009;
+int n, m, x[maxn], y[maxn], d[maxn], v[maxn];
+seg *rt,&nbsp;*sp;
+inline void upDis(int i)&nbsp;{
+if (i&nbsp;&lt; n)
+d[i]&nbsp;= abs(x[i &#43; 1]&nbsp;- x[i])&nbsp;&#43; abs(y[i &#43; 1]&nbsp;- y[i]);
+else
+d[i]&nbsp;= 0;
+}
+inline void upVal(int i)&nbsp;{
+if (i&nbsp;&gt; 1 &amp;&amp; i &lt; n)
+v[i]&nbsp;= d[i - 1]&nbsp;&#43; d[i]&nbsp;- abs(x[i &#43; 1]&nbsp;- x[i - 1])&nbsp;- abs(y[i &#43; 1]&nbsp;- y[i - 1]);"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "BZOJ3825 [Usaco2014 Nov]Marathon",
+      "item": "/oi/lofterimport_017/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BZOJ3825 [Usaco2014 Nov]Marathon",
+  "name": "BZOJ3825 [Usaco2014 Nov]Marathon",
+  "description": "英语阅读题。做完去翻译题面然后写英语作业了。\n就维护一下区间里的距离和and忽略一个点的收益的最大值。完了。\n#include \u0026lt;cstdio\u0026gt;\n#include \u0026lt;cstring\u0026gt;\n#include \u0026lt;algorithm\u0026gt;\nusing namespace std;\nstruct seg {\nint l, r;\nint s, v;\nseg *ls,\u0026nbsp;*rs;\n};\nconst int maxn = 100009;\nint n, m, x[maxn], y[maxn], d[maxn], v[maxn];\nseg *rt,\u0026nbsp;*sp;\ninline void upDis(int i)\u0026nbsp;{\nif (i\u0026nbsp;\u0026lt; n)\nd[i]\u0026nbsp;= abs(x[i + 1]\u0026nbsp;- x[i])\u0026nbsp;+ abs(y[i + 1]\u0026nbsp;- y[i]);\nelse\nd[i]\u0026nbsp;= 0;\n}\ninline void upVal(int i)\u0026nbsp;{\nif (i\u0026nbsp;\u0026gt; 1 \u0026amp;\u0026amp; i \u0026lt; n)\nv[i]\u0026nbsp;= d[i - 1]\u0026nbsp;+ d[i]\u0026nbsp;- abs(x[i + 1]\u0026nbsp;- x[i - 1])\u0026nbsp;- abs(y[i + 1]\u0026nbsp;- y[i - 1]);",
+  "keywords": [
+    "bzoj", "data\\xa0structure", "oi"
+  ],
+  "articleBody": "英语阅读题。做完去翻译题面然后写英语作业了。\n就维护一下区间里的距离和and忽略一个点的收益的最大值。完了。\n#include #include #include using namespace std;\nstruct seg {\nint l, r;\nint s, v;\nseg *ls, *rs;\n};\nconst int maxn = 100009;\nint n, m, x[maxn], y[maxn], d[maxn], v[maxn];\nseg *rt, *sp;\ninline void upDis(int i) {\nif (i \u003c n)\nd[i] = abs(x[i + 1] - x[i]) + abs(y[i + 1] - y[i]);\nelse\nd[i] = 0;\n}\ninline void upVal(int i) {\nif (i \u003e 1 \u0026\u0026 i \u003c n)\nv[i] = d[i - 1] + d[i] - abs(x[i + 1] - x[i - 1]) - abs(y[i + 1] - y[i - 1]);\nelse\nv[i] = 0;\n}\n#define mid(p) ((p-\u003el+p-\u003er)\u003e\u003e1)\ninline seg* sgtBuild(int l, int r) {\nseg *p = sp ++;\np-\u003e l = l;\np-\u003e r = r;\nif (l + 1 == r) {\np-\u003e s = d[l];\np-\u003e v = v[l];\n}\nelse {\np-\u003e ls = sgtBuild(l, mid(p));\np-\u003e rs = sgtBuild(mid(p), r);\np-\u003e s = p-\u003e ls-\u003e s + p-\u003e rs-\u003e s;\np-\u003e v = max(p-\u003e ls-\u003e v, p-\u003e rs-\u003e v);\n}\nreturn p;\n}\ninline void sgtUpd(seg* p, int l, int r) {\nif (l \u003e= r || l \u003e= p-\u003e r || r \u003c= p-\u003e l)\nreturn;\nelse if (p-\u003e l + 1 == p-\u003e r) {\np-\u003e s = d[p-\u003e l];\np-\u003e v = v[p-\u003e l];\n}\nelse {\nif (r \u003c= mid(p))\nsgtUpd(p-\u003e ls, l, r);\nelse if (l \u003e= mid(p))\nsgtUpd(p-\u003e rs, l, r);\nelse {\nsgtUpd(p-\u003e ls, l, mid(p));\nsgtUpd(p-\u003e rs, mid(p), r);\n}\np-\u003e s = p-\u003e ls-\u003e s + p-\u003e rs-\u003e s;\np-\u003e v = max(p-\u003e ls-\u003e v, p-\u003e rs-\u003e v);\n}\n}\ninline int sgtSum(seg* p, int l, int r) {\nif (l \u003e= r || l \u003e= p-\u003e r || r \u003c= p-\u003e l)\nreturn 0;\nelse if (p-\u003e l == l \u0026\u0026 p-\u003e r == r)\nreturn p-\u003e s;\nelse if (r \u003c= mid(p))\nreturn sgtSum(p-\u003e ls, l, r);\nelse if (l \u003e= mid(p))\nreturn sgtSum(p-\u003e rs, l, r);\nelse\nreturn sgtSum(p-\u003e ls, l, mid(p)) + sgtSum(p-\u003e rs, mid(p), r);\n}\ninline int sgtMax(seg* p, int l, int r) {\nif (l \u003e= r || l \u003e= p-\u003e r || r \u003c= p-\u003e l)\nreturn 0;\nelse if (p-\u003e l == l \u0026\u0026 p-\u003e r == r)\nreturn p-\u003e v;\nelse if (r \u003c= mid(p))\nreturn sgtMax(p-\u003e ls, l, r);\nelse if (l \u003e= mid(p))\nreturn sgtMax(p-\u003e rs, l, r);\nelse\nreturn max(sgtMax(p-\u003e ls, l, mid(p)), sgtMax(p-\u003e rs, mid(p), r));\n}\nint main() {\n#ifndef ONLINE_JUDGE\nfreopen(\"in.txt\", \"r\", stdin);\n#endif\nscanf(\"%d%d\", \u0026n, \u0026m);\nfor (int i = 1; i \u003c= n; ++ i)\nscanf(\"%d%d\", x + i, y + i);\nfor (int i = 1; i \u003c= n; ++ i) {\nupDis(i);\nupVal(i);\n}\nsp = new seg[n * 3];\nrt = sgtBuild(1, n + 1);\nwhile (m --) {\nchar opt;\nint a, b, c;\ndo\nopt = getchar();\nwhile (opt != 'U' \u0026\u0026 opt != 'Q');\nif (opt == 'U') {\nscanf(\"%d%d%d\", \u0026a, \u0026b, \u0026c);\nx[a] = b;\ny[a] = c;\nupDis(a - 1);\nupDis(a);\nupVal(a - 1);\nupVal(a);\nupVal(a + 1);\nsgtUpd(rt, a - 1, a + 2);\n}\nelse {\nscanf(\"%d%d\", \u0026a, \u0026b);\nint d = sgtSum(rt, a, b);\nint v = sgtMax(rt, a + 1, b);\nprintf(\"%d\\n\", d - v);\n}\n}\n}\n",
+  "wordCount" : "495",
+  "inLanguage": "en",
+  "datePublished": "2015-01-01T16:08:54Z",
+  "dateModified": "2015-01-01T16:08:54Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/lofterimport_017/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      BZOJ3825 [Usaco2014 Nov]Marathon
+    </h1>
+    <div class="post-meta"><span title='2015-01-01 16:08:54 +0000 UTC'>January 1, 2015</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>英语阅读题。做完去翻译题面然后写英语作业了。</p> 
+<p><br /></p> 
+<p>就维护一下区间里的距离和and忽略一个点的收益的最大值。完了。</p> 
+<p><br /></p> 
+<p>#include &lt;cstdio&gt;</p> 
+<p>#include &lt;cstring&gt;</p> 
+<p>#include &lt;algorithm&gt;</p> 
+<p><br /></p> 
+<p>using namespace std;</p> 
+<p><br /></p> 
+<p>struct seg {</p> 
+<p>int l, r;</p> 
+<p>int s, v;</p> 
+<p>seg *ls,&nbsp;*rs;</p> 
+<p>};</p> 
+<p><br /></p> 
+<p>const int maxn = 100009;</p> 
+<p><br /></p> 
+<p>int n, m, x[maxn], y[maxn], d[maxn], v[maxn];</p> 
+<p>seg *rt,&nbsp;*sp;</p> 
+<p><br /></p> 
+<p>inline void upDis(int i)&nbsp;{</p> 
+<p>if (i&nbsp;&lt; n)</p> 
+<p>d[i]&nbsp;= abs(x[i + 1]&nbsp;- x[i])&nbsp;+ abs(y[i + 1]&nbsp;- y[i]);</p> 
+<p>else</p> 
+<p>d[i]&nbsp;= 0;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>inline void upVal(int i)&nbsp;{</p> 
+<p>if (i&nbsp;&gt; 1 &amp;&amp; i &lt; n)</p> 
+<p>v[i]&nbsp;= d[i - 1]&nbsp;+ d[i]&nbsp;- abs(x[i + 1]&nbsp;- x[i - 1])&nbsp;- abs(y[i + 1]&nbsp;- y[i - 1]);</p> 
+<p>else</p> 
+<p>v[i]&nbsp;= 0;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>#define mid(p)&nbsp;((p-&gt;l+p-&gt;r)&gt;&gt;1)</p> 
+<p><br /></p> 
+<p>inline seg* sgtBuild(int l, int r)&nbsp;{</p> 
+<p>seg *p&nbsp;= sp ++;</p> 
+<p>p-&gt; l = l;</p> 
+<p>p-&gt; r = r;</p> 
+<p>if (l&nbsp;+ 1 == r)&nbsp;{</p> 
+<p>p-&gt; s = d[l];</p> 
+<p>p-&gt; v = v[l];</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>p-&gt; ls = sgtBuild(l, mid(p));</p> 
+<p>p-&gt; rs = sgtBuild(mid(p), r);</p> 
+<p>p-&gt; s = p-&gt; ls-&gt; s + p-&gt; rs-&gt; s;</p> 
+<p>p-&gt; v = max(p-&gt; ls-&gt; v, p-&gt; rs-&gt; v);</p> 
+<p>}</p> 
+<p>return p;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>inline void sgtUpd(seg* p, int l, int r)&nbsp;{</p> 
+<p>if (l&nbsp;&gt;= r || l &gt;= p-&gt; r || r &lt;= p-&gt; l)</p> 
+<p>return;</p> 
+<p>else if (p-&gt; l + 1 == p-&gt; r)&nbsp;{</p> 
+<p>p-&gt; s = d[p-&gt; l];</p> 
+<p>p-&gt; v = v[p-&gt; l];</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>if (r&nbsp;&lt;= mid(p))</p> 
+<p>sgtUpd(p-&gt; ls, l, r);</p> 
+<p>else if (l&nbsp;&gt;= mid(p))</p> 
+<p>sgtUpd(p-&gt; rs, l, r);</p> 
+<p>else {</p> 
+<p>sgtUpd(p-&gt; ls, l, mid(p));</p> 
+<p>sgtUpd(p-&gt; rs, mid(p), r);</p> 
+<p>}</p> 
+<p>p-&gt; s = p-&gt; ls-&gt; s + p-&gt; rs-&gt; s;</p> 
+<p>p-&gt; v = max(p-&gt; ls-&gt; v, p-&gt; rs-&gt; v);</p> 
+<p>}</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>inline int sgtSum(seg* p, int l, int r)&nbsp;{</p> 
+<p>if (l&nbsp;&gt;= r || l &gt;= p-&gt; r || r &lt;= p-&gt; l)</p> 
+<p>return 0;</p> 
+<p>else if (p-&gt; l == l &amp;&amp; p-&gt; r == r)</p> 
+<p>return p-&gt; s;</p> 
+<p>else if (r&nbsp;&lt;= mid(p))</p> 
+<p>return sgtSum(p-&gt; ls, l, r);</p> 
+<p>else if (l&nbsp;&gt;= mid(p))</p> 
+<p>return sgtSum(p-&gt; rs, l, r);</p> 
+<p>else</p> 
+<p>return sgtSum(p-&gt; ls, l, mid(p))&nbsp;+ sgtSum(p-&gt; rs, mid(p), r);</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>inline int sgtMax(seg* p, int l, int r)&nbsp;{</p> 
+<p>if (l&nbsp;&gt;= r || l &gt;= p-&gt; r || r &lt;= p-&gt; l)</p> 
+<p>return 0;</p> 
+<p>else if (p-&gt; l == l &amp;&amp; p-&gt; r == r)</p> 
+<p>return p-&gt; v;</p> 
+<p>else if (r&nbsp;&lt;= mid(p))</p> 
+<p>return sgtMax(p-&gt; ls, l, r);</p> 
+<p>else if (l&nbsp;&gt;= mid(p))</p> 
+<p>return sgtMax(p-&gt; rs, l, r);</p> 
+<p>else</p> 
+<p>return max(sgtMax(p-&gt; ls, l, mid(p)), sgtMax(p-&gt; rs, mid(p), r));</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int main()&nbsp;{</p> 
+<p>#ifndef ONLINE_JUDGE</p> 
+<p>freopen(&quot;in.txt&quot;,&nbsp;&quot;r&quot;, stdin);</p> 
+<p>#endif</p> 
+<p><br /></p> 
+<p>scanf(&quot;%d%d&quot;,&nbsp;&amp;n,&nbsp;&amp;m);</p> 
+<p>for (int i = 1; i &lt;= n;&nbsp;++ i)</p> 
+<p>scanf(&quot;%d%d&quot;, x + i, y + i);</p> 
+<p>for (int i = 1; i &lt;= n;&nbsp;++ i)&nbsp;{</p> 
+<p>upDis(i);</p> 
+<p>upVal(i);</p> 
+<p>}</p> 
+<p>sp = new seg[n * 3];</p> 
+<p>rt = sgtBuild(1, n + 1);</p> 
+<p>while (m&nbsp;--)&nbsp;{</p> 
+<p>char opt;</p> 
+<p>int a, b, c;</p> 
+<p>do</p> 
+<p>opt = getchar();</p> 
+<p>while (opt&nbsp;!=&nbsp;'U'&nbsp;&amp;&amp; opt !=&nbsp;'Q');</p> 
+<p>if (opt&nbsp;==&nbsp;'U')&nbsp;{</p> 
+<p>scanf(&quot;%d%d%d&quot;,&nbsp;&amp;a,&nbsp;&amp;b,&nbsp;&amp;c);</p> 
+<p>x[a]&nbsp;= b;</p> 
+<p>y[a]&nbsp;= c;</p> 
+<p>upDis(a - 1);</p> 
+<p>upDis(a);</p> 
+<p>upVal(a - 1);</p> 
+<p>upVal(a);</p> 
+<p>upVal(a + 1);</p> 
+<p>sgtUpd(rt, a - 1, a + 2);</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>scanf(&quot;%d%d&quot;,&nbsp;&amp;a,&nbsp;&amp;b);</p> 
+<p>int d = sgtSum(rt, a, b);</p> 
+<p>int v = sgtMax(rt, a + 1, b);</p> 
+<p>printf(&quot;%d\n&quot;, d - v);</p> 
+<p>}</p> 
+<p>}</p> 
+<p>}</p> 
+<p><br /></p>
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/bzoj/">bzoj</a></li>
+      <li><a href="/tags/data%5Cxa0structure/">data\xa0structure</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/lofterimport_016/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>BZOJ3401 [Usaco2009 Mar]Look Up 仰望</span>
+  </a>
+  <a class="next" href="/oi/lofterimport_018/">
+    <span class="title">Next »</span>
+    <br>
+    <span>BZOJ3826 [Usaco2014 Nov]Cow Jog</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

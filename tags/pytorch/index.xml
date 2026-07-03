@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>pytorch on The Site of laekov</title>
+    <link>/tags/pytorch/</link>
+    <description>Recent content in pytorch on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Thu, 20 Jun 2024 00:00:00 +0000</lastBuildDate><atom:link href="/tags/pytorch/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>在 PyTorch Distributed 中混合使用 mpi 和其它 backend</title>
+      <link>/technical/pytorch-distributed-hybrid-mpi-backend/</link>
+      <pubDate>Thu, 20 Jun 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/technical/pytorch-distributed-hybrid-mpi-backend/</guid>
+      <description>laekov 遇到的问题是希望使用 mpi 进行一些 cpu 的通信, 以及用 nccl 来进行一些 gpu 间的通信. // 没错, 说的就是让 FastDecode 支持模型并行.
+众所周知, pytorch 和 mpi 的关系不太好的亚子. 然而 mpi 其实是最方便, 也是最适合大规模使用的. 虽然新版的 pytorch 试图引入 ucc backend 来支持 cpu 和 gpu 的混合通信, 但在较老的版本或一些特定环境里还无法顺畅地使用 ucc.
+事实上 pytorch 支持创建不同 backend 的不同 ProcessGroup. 然而如果写如下一段代码, 就会发现并跑不起来.
+dist.init_process_group(backend=&amp;#39;mpi&amp;#39;) ... g = dist.new_group(list(range(world_size)), backend=&amp;#39;nccl&amp;#39;) x = torch.ones(16, device=&amp;#39;cuda&amp;#39;) * (rank + 1) xs = [torch.empty_like(x) for _ in range(world_size)] dist.all_gather(xs, x, group=g) 甚至会获得一些在 ucx 里的错误栈, 再往上找会发现报错在 c10d::PrefixStore::set 这个函数里.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>BZOJ2648 SJY摆棋子 | The Site of laekov</title>
+<meta name="keywords" content="bzoj, data\xa0structure, oi">
+<meta name="description" content="Log^2的cdq分治怎么也跑不过。优化常数优化到底了也不行。所以kd大法好。
+怎么都觉得kd树就一暴力&#43;剪枝=log。
+思想就是先按x二分，然后再按y二分，然后再按x二分。然后这玩意比较像平衡树，中间那个点是要代表一个真实的结点的而不是一个值。然后insert的时候感觉复杂度完全没有保证啊。如果要保证可能要替罪羊一类的东西吧。虽然这题好像不用保证。
+询问的时候就更迷了，就是估计一个离哪边近，然后先搜。然后另一边如果估计值还小于答案就再搜一遍。好诡异，时间复杂度是怎么来的。
+然后代码略丑，加了zhx式读入优化后长度xxxxx。
+#include &lt;cstdio&gt;
+#include &lt;cctype&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+#define READ_OPTIMIZE
+#ifdef READ_OPTIMIZE
+/*int _d_;
+#define readInt(_s_)&nbsp;{\
+_s_ = 0;\
+while (!isdigit(_d_&nbsp;= getchar()));\
+while ((_s_&nbsp;= _s_ * 10 &#43; _d_ - 48), isdigit(_d_ = getchar()));\
+}*/
+const int BUF_SIZE = 30;
+char buf[BUF_SIZE],&nbsp;*buf_s = buf,&nbsp;*buf_t = buf &#43; 1;
+&nbsp;&nbsp;
+#define PTR_NEXT()&nbsp;\
+{&nbsp;\
+buf_s &#43;&#43;;&nbsp;\
+if (buf_s&nbsp;== buf_t)&nbsp;\
+{&nbsp;\
+buf_s = buf;&nbsp;\
+buf_t = buf &#43; fread(buf, 1, BUF_SIZE, stdin);&nbsp;\">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/lofterimport_071/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="BZOJ2648 SJY摆棋子" />
+<meta property="og:description" content="Log^2的cdq分治怎么也跑不过。优化常数优化到底了也不行。所以kd大法好。
+怎么都觉得kd树就一暴力&#43;剪枝=log。
+思想就是先按x二分，然后再按y二分，然后再按x二分。然后这玩意比较像平衡树，中间那个点是要代表一个真实的结点的而不是一个值。然后insert的时候感觉复杂度完全没有保证啊。如果要保证可能要替罪羊一类的东西吧。虽然这题好像不用保证。
+询问的时候就更迷了，就是估计一个离哪边近，然后先搜。然后另一边如果估计值还小于答案就再搜一遍。好诡异，时间复杂度是怎么来的。
+然后代码略丑，加了zhx式读入优化后长度xxxxx。
+#include &lt;cstdio&gt;
+#include &lt;cctype&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+#define READ_OPTIMIZE
+#ifdef READ_OPTIMIZE
+/*int _d_;
+#define readInt(_s_)&nbsp;{\
+_s_ = 0;\
+while (!isdigit(_d_&nbsp;= getchar()));\
+while ((_s_&nbsp;= _s_ * 10 &#43; _d_ - 48), isdigit(_d_ = getchar()));\
+}*/
+const int BUF_SIZE = 30;
+char buf[BUF_SIZE],&nbsp;*buf_s = buf,&nbsp;*buf_t = buf &#43; 1;
+&nbsp;&nbsp;
+#define PTR_NEXT()&nbsp;\
+{&nbsp;\
+buf_s &#43;&#43;;&nbsp;\
+if (buf_s&nbsp;== buf_t)&nbsp;\
+{&nbsp;\
+buf_s = buf;&nbsp;\
+buf_t = buf &#43; fread(buf, 1, BUF_SIZE, stdin);&nbsp;\" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/lofterimport_071/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2014-11-24T10:23:51+00:00" />
+<meta property="article:modified_time" content="2014-11-24T10:23:51+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BZOJ2648 SJY摆棋子"/>
+<meta name="twitter:description" content="Log^2的cdq分治怎么也跑不过。优化常数优化到底了也不行。所以kd大法好。
+怎么都觉得kd树就一暴力&#43;剪枝=log。
+思想就是先按x二分，然后再按y二分，然后再按x二分。然后这玩意比较像平衡树，中间那个点是要代表一个真实的结点的而不是一个值。然后insert的时候感觉复杂度完全没有保证啊。如果要保证可能要替罪羊一类的东西吧。虽然这题好像不用保证。
+询问的时候就更迷了，就是估计一个离哪边近，然后先搜。然后另一边如果估计值还小于答案就再搜一遍。好诡异，时间复杂度是怎么来的。
+然后代码略丑，加了zhx式读入优化后长度xxxxx。
+#include &lt;cstdio&gt;
+#include &lt;cctype&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+#define READ_OPTIMIZE
+#ifdef READ_OPTIMIZE
+/*int _d_;
+#define readInt(_s_)&nbsp;{\
+_s_ = 0;\
+while (!isdigit(_d_&nbsp;= getchar()));\
+while ((_s_&nbsp;= _s_ * 10 &#43; _d_ - 48), isdigit(_d_ = getchar()));\
+}*/
+const int BUF_SIZE = 30;
+char buf[BUF_SIZE],&nbsp;*buf_s = buf,&nbsp;*buf_t = buf &#43; 1;
+&nbsp;&nbsp;
+#define PTR_NEXT()&nbsp;\
+{&nbsp;\
+buf_s &#43;&#43;;&nbsp;\
+if (buf_s&nbsp;== buf_t)&nbsp;\
+{&nbsp;\
+buf_s = buf;&nbsp;\
+buf_t = buf &#43; fread(buf, 1, BUF_SIZE, stdin);&nbsp;\"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "BZOJ2648 SJY摆棋子",
+      "item": "/oi/lofterimport_071/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BZOJ2648 SJY摆棋子",
+  "name": "BZOJ2648 SJY摆棋子",
+  "description": "Log^2的cdq分治怎么也跑不过。优化常数优化到底了也不行。所以kd大法好。\n怎么都觉得kd树就一暴力+剪枝=log。\n思想就是先按x二分，然后再按y二分，然后再按x二分。然后这玩意比较像平衡树，中间那个点是要代表一个真实的结点的而不是一个值。然后insert的时候感觉复杂度完全没有保证啊。如果要保证可能要替罪羊一类的东西吧。虽然这题好像不用保证。\n询问的时候就更迷了，就是估计一个离哪边近，然后先搜。然后另一边如果估计值还小于答案就再搜一遍。好诡异，时间复杂度是怎么来的。\n然后代码略丑，加了zhx式读入优化后长度xxxxx。\n#include \u0026lt;cstdio\u0026gt;\n#include \u0026lt;cctype\u0026gt;\n#include \u0026lt;cstring\u0026gt;\n#include \u0026lt;algorithm\u0026gt;\nusing namespace std;\n#define READ_OPTIMIZE\n#ifdef READ_OPTIMIZE\n/*int _d_;\n#define readInt(_s_)\u0026nbsp;{\\\n_s_ = 0;\\\nwhile (!isdigit(_d_\u0026nbsp;= getchar()));\\\nwhile ((_s_\u0026nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\\\n}*/\nconst int BUF_SIZE = 30;\nchar buf[BUF_SIZE],\u0026nbsp;*buf_s = buf,\u0026nbsp;*buf_t = buf + 1;\n\u0026nbsp;\u0026nbsp;\n#define PTR_NEXT()\u0026nbsp;\\\n{\u0026nbsp;\\\nbuf_s ++;\u0026nbsp;\\\nif (buf_s\u0026nbsp;== buf_t)\u0026nbsp;\\\n{\u0026nbsp;\\\nbuf_s = buf;\u0026nbsp;\\\nbuf_t = buf + fread(buf, 1, BUF_SIZE, stdin);\u0026nbsp;\\",
+  "keywords": [
+    "bzoj", "data\\xa0structure", "oi"
+  ],
+  "articleBody": "Log^2的cdq分治怎么也跑不过。优化常数优化到底了也不行。所以kd大法好。\n怎么都觉得kd树就一暴力+剪枝=log。\n思想就是先按x二分，然后再按y二分，然后再按x二分。然后这玩意比较像平衡树，中间那个点是要代表一个真实的结点的而不是一个值。然后insert的时候感觉复杂度完全没有保证啊。如果要保证可能要替罪羊一类的东西吧。虽然这题好像不用保证。\n询问的时候就更迷了，就是估计一个离哪边近，然后先搜。然后另一边如果估计值还小于答案就再搜一遍。好诡异，时间复杂度是怎么来的。\n然后代码略丑，加了zhx式读入优化后长度xxxxx。\n#include #include #include #include using namespace std;\n#define READ_OPTIMIZE\n#ifdef READ_OPTIMIZE\n/*int _d_;\n#define readInt(_s_) {\\\n_s_ = 0;\\\nwhile (!isdigit(_d_ = getchar()));\\\nwhile ((_s_ = _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\\\n}*/\nconst int BUF_SIZE = 30;\nchar buf[BUF_SIZE], *buf_s = buf, *buf_t = buf + 1;\n#define PTR_NEXT() \\\n{ \\\nbuf_s ++; \\\nif (buf_s == buf_t) \\\n{ \\\nbuf_s = buf; \\\nbuf_t = buf + fread(buf, 1, BUF_SIZE, stdin); \\\n} \\\n}\n#define readInt(_n_) \\\n{ \\\nwhile (*buf_s != '-' \u0026\u0026 !isdigit(*buf_s)) \\\nPTR_NEXT(); \\\nbool register _nega_ = false; \\\nif (*buf_s == '-') \\\n{ \\\n_nega_ = true; \\\nPTR_NEXT(); \\\n} \\\nint register _x_ = 0; \\\nwhile (isdigit(*buf_s)) \\\n{ \\\n_x_ = _x_ * 10 + *buf_s - '0'; \\\nPTR_NEXT(); \\\n} \\\nif (_nega_) \\\n_x_ = -_x_; \\\n(_n_) = (_x_); \\\n}\n#else\n#define readInt(_s_) (scanf(\"%d\",\u0026_s_));\n#endif\n#define min(_a_,_b_) (((_a_)\u003c(_b_))?(_a_):(_b_))\n#define max(_a_,_b_) (((_a_)\u003e(_b_))?(_a_):(_b_))\nstruct point {\nint x, y, t;\n};\nstruct kdnode {\nint x, y;\nint l, r, u, d;\nkdnode *ls, *rs;\nkdnode() {\nls = 0, rs = 0;\n}\n};\nconst int maxn = 1000009;\nconst int maxnd = maxn;\nconst int inf = 0x3f3f3f3f;\ninline bool cmpx(const point\u0026 a, const point\u0026 b) {\nreturn a. x \u003c b. x;\n}\ninline bool cmpy(const point\u0026 a, const point\u0026 b) {\nreturn a. y \u003c b. y;\n}\nint m, n;\npoint a[maxn], b[maxn];\nkdnode *sp, nlst[maxnd];\ninline void update(kdnode*\u0026 p) {\np-\u003e l = p-\u003e x;\np-\u003e r = p-\u003e x;\np-\u003e d = p-\u003e y;\np-\u003e u = p-\u003e y;\nif (p-\u003e ls) {\nif (p-\u003e ls-\u003e l \u003c p-\u003e l)\np-\u003e l = p-\u003e ls-\u003e l;\nif (p-\u003e ls-\u003e r \u003e p-\u003e r)\np-\u003e r = p-\u003e ls-\u003e r;\nif (p-\u003e ls-\u003e d \u003c p-\u003e d)\np-\u003e d = p-\u003e ls-\u003e d;\nif (p-\u003e ls-\u003e u \u003e p-\u003e u)\np-\u003e u = p-\u003e ls-\u003e u;\n}\nif (p-\u003e rs) {\nif (p-\u003e rs-\u003e l \u003c p-\u003e l)\np-\u003e l = p-\u003e rs-\u003e l;\nif (p-\u003e rs-\u003e r \u003e p-\u003e r)\np-\u003e r = p-\u003e rs-\u003e r;\nif (p-\u003e rs-\u003e d \u003c p-\u003e d)\np-\u003e d = p-\u003e rs-\u003e d;\nif (p-\u003e rs-\u003e u \u003e p-\u003e u)\np-\u003e u = p-\u003e rs-\u003e u;\n}\n}\nkdnode *kdBuild(int l, int r, int dr = 1) {\nif (l \u003e= r)\nreturn 0;\nint mid = (l + r) \u003e\u003e 1;\nkdnode *p = sp ++;\nif (dr)\nnth_element(a + l, a + mid, a + r, cmpx);\nelse\nnth_element(a + l, a + mid, a + r, cmpy);\np-\u003e x = a[mid]. x;\np-\u003e y = a[mid]. y;\np-\u003e ls = kdBuild(l, mid, dr ^ 1);\np-\u003e rs = kdBuild(mid + 1, r, dr ^ 1);\nupdate(p);\nreturn p;\n}\ninline int guessDist(kdnode* p, int x, int y) {\nint ans = 0;\nif (x \u003e p-\u003e r)\nans += x - p-\u003e r;\nelse if (x \u003c p-\u003e l)\nans += p-\u003e l - x;\nif (y \u003e p-\u003e u)\nans += y - p-\u003e u;\nelse if (y \u003c p-\u003e d)\nans += p-\u003e d - y;\nreturn ans;\n}\nvoid kdQry(kdnode* p, int x, int y, int\u0026 ans) {\nint dl, dr, d = abs(x - p-\u003e x) + abs(y - p-\u003e y);\nif (d \u003c ans)\nans = d;\nif (p-\u003e ls)\ndl = guessDist(p-\u003e ls, x, y);\nelse\ndl = inf;\nif (p-\u003e rs)\ndr = guessDist(p-\u003e rs, x, y);\nelse\ndr = inf;\nif (dl \u003c dr) {\nif (dl \u003c ans)\nkdQry(p-\u003e ls, x, y, ans);\nif (dr \u003c ans)\nkdQry(p-\u003e rs, x, y, ans);\n}\nelse {\nif (dr \u003c ans)\nkdQry(p-\u003e rs, x, y, ans);\nif (dl \u003c ans)\nkdQry(p-\u003e ls, x, y, ans);\n}\n}\nkdnode* kdIns(kdnode* p, int x, int y, int dr = 1) {\nif (!p) {\np = sp ++;\np-\u003e x = x;\np-\u003e y = y;\np-\u003e ls = 0;\np-\u003e rs = 0;\n}\nelse {\nif (dr) {\nif (x \u003c p-\u003e x)\np-\u003e ls = kdIns(p-\u003e ls, x, y, dr ^ 1);\nelse\np-\u003e rs = kdIns(p-\u003e rs, x, y, dr ^ 1);\n}\nelse {\nif (y \u003c p-\u003e y)\np-\u003e ls = kdIns(p-\u003e ls, x, y, dr ^ 1);\nelse\np-\u003e rs = kdIns(p-\u003e rs, x, y, dr ^ 1);\n}\n}\nupdate(p);\nreturn p;\n}\nint main() {\n#ifndef ONLINE_JUDGE\nfreopen(\"in.txt\", \"r\", stdin);\n#endif\nreadInt(m);\nreadInt(n);\nfor (int i = 0; i \u003c m; ++ i) {\nreadInt(a[i]. x);\nreadInt(a[i]. y);\na[i]. t = 0;\n}\nfor (int i = 0; i \u003c n; ++ i) {\nreadInt(b[i]. t);\nreadInt(b[i]. x);\nreadInt(b[i]. y);\n}\nsp = nlst;\nkdnode *rt = kdBuild(0, m);\nfor (int i = 0; i \u003c n; ++ i)\nif (b[i]. t == 2) {\nint ans = inf;\nkdQry(rt, b[i]. x, b[i]. y, ans);\nprintf(\"%d\\n\", ans);\n}\nelse\nrt = kdIns(rt, b[i]. x, b[i]. y);\n}\n",
+  "wordCount" : "761",
+  "inLanguage": "en",
+  "datePublished": "2014-11-24T10:23:51Z",
+  "dateModified": "2014-11-24T10:23:51Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/lofterimport_071/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      BZOJ2648 SJY摆棋子
+    </h1>
+    <div class="post-meta"><span title='2014-11-24 10:23:51 +0000 UTC'>November 24, 2014</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>Log^2的cdq分治怎么也跑不过。优化常数优化到底了也不行。所以kd大法好。</p> 
+<p><br /></p> 
+<p>怎么都觉得kd树就一暴力+剪枝=log。</p> 
+<p><br /></p> 
+<p>思想就是先按x二分，然后再按y二分，然后再按x二分。然后这玩意比较像平衡树，中间那个点是要代表一个真实的结点的而不是一个值。然后insert的时候感觉复杂度完全没有保证啊。如果要保证可能要替罪羊一类的东西吧。虽然这题好像不用保证。</p> 
+<p><br /></p> 
+<p>询问的时候就更迷了，就是估计一个离哪边近，然后先搜。然后另一边如果估计值还小于答案就再搜一遍。好诡异，时间复杂度是怎么来的。</p> 
+<p><br /></p> 
+<p>然后代码略丑，加了zhx式读入优化后长度xxxxx。</p> 
+<p><br /></p> 
+<p>#include &lt;cstdio&gt;</p> 
+<p>#include &lt;cctype&gt;</p> 
+<p>#include &lt;cstring&gt;</p> 
+<p>#include &lt;algorithm&gt;</p> 
+<p><br /></p> 
+<p>using namespace std;</p> 
+<p><br /></p> 
+<p>#define READ_OPTIMIZE</p> 
+<p>#ifdef READ_OPTIMIZE</p> 
+<p>/*int _d_;</p> 
+<p>#define readInt(_s_)&nbsp;{\</p> 
+<p>_s_ = 0;\</p> 
+<p>while (!isdigit(_d_&nbsp;= getchar()));\</p> 
+<p>while ((_s_&nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\</p> 
+<p>}*/</p> 
+<p>const int BUF_SIZE = 30;</p> 
+<p>char buf[BUF_SIZE],&nbsp;*buf_s = buf,&nbsp;*buf_t = buf + 1;</p> 
+<p>&nbsp;&nbsp;</p> 
+<p>#define PTR_NEXT()&nbsp;\</p> 
+<p>{&nbsp;\</p> 
+<p>buf_s ++;&nbsp;\</p> 
+<p>if (buf_s&nbsp;== buf_t)&nbsp;\</p> 
+<p>{&nbsp;\</p> 
+<p>buf_s = buf;&nbsp;\</p> 
+<p>buf_t = buf + fread(buf, 1, BUF_SIZE, stdin);&nbsp;\</p> 
+<p>}&nbsp;\</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>#define readInt(_n_)&nbsp;\</p> 
+<p>{&nbsp;\</p> 
+<p>while (*buf_s&nbsp;!=&nbsp;'-'&nbsp;&amp;&amp;&nbsp;!isdigit(*buf_s))&nbsp;\</p> 
+<p>PTR_NEXT();&nbsp;\</p> 
+<p>bool register _nega_ = false;&nbsp;\</p> 
+<p>if (*buf_s&nbsp;==&nbsp;'-')&nbsp;\</p> 
+<p>{&nbsp;\</p> 
+<p>_nega_ = true;&nbsp;\</p> 
+<p>PTR_NEXT();&nbsp;\</p> 
+<p>}&nbsp;\</p> 
+<p>int register _x_ = 0;&nbsp;\</p> 
+<p>while (isdigit(*buf_s))&nbsp;\</p> 
+<p>{&nbsp;\</p> 
+<p>_x_ = _x_ * 10 +&nbsp;*buf_s&nbsp;-&nbsp;'0';&nbsp;\</p> 
+<p>PTR_NEXT();&nbsp;\</p> 
+<p>}&nbsp;\</p> 
+<p>if (_nega_)&nbsp;\</p> 
+<p>_x_ =&nbsp;-_x_;&nbsp;\</p> 
+<p>(_n_)&nbsp;=&nbsp;(_x_);&nbsp;\</p> 
+<p>}</p> 
+<p>#else</p> 
+<p>#define readInt(_s_)&nbsp;(scanf(&quot;%d&quot;,&amp;_s_));</p> 
+<p>#endif</p> 
+<p>#define min(_a_,_b_)&nbsp;(((_a_)&lt;(_b_))?(_a_):(_b_))</p> 
+<p>#define max(_a_,_b_)&nbsp;(((_a_)&gt;(_b_))?(_a_):(_b_))</p> 
+<p><br /></p> 
+<p>struct point {</p> 
+<p>int x, y, t;</p> 
+<p>};</p> 
+<p>struct kdnode {</p> 
+<p>int x, y;</p> 
+<p>int l, r, u, d;</p> 
+<p>kdnode *ls,&nbsp;*rs;</p> 
+<p>kdnode()&nbsp;{</p> 
+<p>ls = 0, rs = 0;</p> 
+<p>}</p> 
+<p>};</p> 
+<p><br /></p> 
+<p>const int maxn = 1000009;</p> 
+<p>const int maxnd = maxn;</p> 
+<p>const int inf = 0x3f3f3f3f;</p> 
+<p><br /></p> 
+<p>inline bool cmpx(const point&amp; a, const point&amp; b)&nbsp;{</p> 
+<p>return a. x &lt; b. x;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>inline bool cmpy(const point&amp; a, const point&amp; b)&nbsp;{</p> 
+<p>return a. y &lt; b. y;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int m, n;</p> 
+<p>point a[maxn], b[maxn];</p> 
+<p>kdnode *sp, nlst[maxnd];</p> 
+<p><br /></p> 
+<p>inline void update(kdnode*&amp; p)&nbsp;{</p> 
+<p>p-&gt; l = p-&gt; x;</p> 
+<p>p-&gt; r = p-&gt; x;</p> 
+<p>p-&gt; d = p-&gt; y;</p> 
+<p>p-&gt; u = p-&gt; y;</p> 
+<p>if (p-&gt; ls)&nbsp;{</p> 
+<p>if (p-&gt; ls-&gt; l &lt; p-&gt; l)</p> 
+<p>p-&gt; l = p-&gt; ls-&gt; l;</p> 
+<p>if (p-&gt; ls-&gt; r &gt; p-&gt; r)</p> 
+<p>p-&gt; r = p-&gt; ls-&gt; r;</p> 
+<p>if (p-&gt; ls-&gt; d &lt; p-&gt; d)</p> 
+<p>p-&gt; d = p-&gt; ls-&gt; d;</p> 
+<p>if (p-&gt; ls-&gt; u &gt; p-&gt; u)</p> 
+<p>p-&gt; u = p-&gt; ls-&gt; u;</p> 
+<p>}</p> 
+<p>if (p-&gt; rs)&nbsp;{</p> 
+<p>if (p-&gt; rs-&gt; l &lt; p-&gt; l)</p> 
+<p>p-&gt; l = p-&gt; rs-&gt; l;</p> 
+<p>if (p-&gt; rs-&gt; r &gt; p-&gt; r)</p> 
+<p>p-&gt; r = p-&gt; rs-&gt; r;</p> 
+<p>if (p-&gt; rs-&gt; d &lt; p-&gt; d)</p> 
+<p>p-&gt; d = p-&gt; rs-&gt; d;</p> 
+<p>if (p-&gt; rs-&gt; u &gt; p-&gt; u)</p> 
+<p>p-&gt; u = p-&gt; rs-&gt; u;</p> 
+<p>}</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>kdnode *kdBuild(int l, int r, int dr = 1)&nbsp;{</p> 
+<p>if (l&nbsp;&gt;= r)</p> 
+<p>return 0;</p> 
+<p>int mid =&nbsp;(l&nbsp;+ r)&nbsp;&gt;&gt; 1;</p> 
+<p>kdnode *p&nbsp;= sp ++;</p> 
+<p>if (dr)</p> 
+<p>nth_element(a + l, a + mid, a + r, cmpx);</p> 
+<p>else</p> 
+<p>nth_element(a + l, a + mid, a + r, cmpy);</p> 
+<p>p-&gt; x = a[mid]. x;</p> 
+<p>p-&gt; y = a[mid]. y;</p> 
+<p>p-&gt; ls = kdBuild(l, mid, dr ^ 1);</p> 
+<p>p-&gt; rs = kdBuild(mid + 1, r, dr ^ 1);</p> 
+<p>update(p);</p> 
+<p>return p;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>inline int guessDist(kdnode* p, int x, int y)&nbsp;{</p> 
+<p>int ans = 0;</p> 
+<p>if (x&nbsp;&gt; p-&gt; r)</p> 
+<p>ans += x - p-&gt; r;</p> 
+<p>else if (x&nbsp;&lt; p-&gt; l)</p> 
+<p>ans += p-&gt; l - x;</p> 
+<p>if (y&nbsp;&gt; p-&gt; u)</p> 
+<p>ans += y - p-&gt; u;</p> 
+<p>else if (y&nbsp;&lt; p-&gt; d)</p> 
+<p>ans += p-&gt; d - y;</p> 
+<p>return ans;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>void kdQry(kdnode* p, int x, int y, int&amp; ans)&nbsp;{</p> 
+<p>int dl, dr, d = abs(x - p-&gt; x)&nbsp;+ abs(y - p-&gt; y);</p> 
+<p>if (d&nbsp;&lt; ans)</p> 
+<p>ans = d;</p> 
+<p>if (p-&gt; ls)</p> 
+<p>dl = guessDist(p-&gt; ls, x, y);</p> 
+<p>else</p> 
+<p>dl = inf;</p> 
+<p>if (p-&gt; rs)</p> 
+<p>dr = guessDist(p-&gt; rs, x, y);</p> 
+<p>else</p> 
+<p>dr = inf;</p> 
+<p>if (dl&nbsp;&lt; dr)&nbsp;{</p> 
+<p>if (dl&nbsp;&lt; ans)</p> 
+<p>kdQry(p-&gt; ls, x, y, ans);</p> 
+<p>if (dr&nbsp;&lt; ans)</p> 
+<p>kdQry(p-&gt; rs, x, y, ans);</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>if (dr&nbsp;&lt; ans)</p> 
+<p>kdQry(p-&gt; rs, x, y, ans);</p> 
+<p>if (dl&nbsp;&lt; ans)</p> 
+<p>kdQry(p-&gt; ls, x, y, ans);</p> 
+<p>}</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>kdnode* kdIns(kdnode* p, int x, int y, int dr = 1)&nbsp;{</p> 
+<p>if (!p)&nbsp;{</p> 
+<p>p = sp ++;</p> 
+<p>p-&gt; x = x;</p> 
+<p>p-&gt; y = y;</p> 
+<p>p-&gt; ls = 0;</p> 
+<p>p-&gt; rs = 0;</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>if (dr)&nbsp;{</p> 
+<p>if (x&nbsp;&lt; p-&gt; x)</p> 
+<p>p-&gt; ls = kdIns(p-&gt; ls, x, y, dr ^ 1);</p> 
+<p>else</p> 
+<p>p-&gt; rs = kdIns(p-&gt; rs, x, y, dr ^ 1);</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>if (y&nbsp;&lt; p-&gt; y)</p> 
+<p>p-&gt; ls = kdIns(p-&gt; ls, x, y, dr ^ 1);</p> 
+<p>else</p> 
+<p>p-&gt; rs = kdIns(p-&gt; rs, x, y, dr ^ 1);</p> 
+<p>}</p> 
+<p>}</p> 
+<p>update(p);</p> 
+<p>return p;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int main()&nbsp;{</p> 
+<p>#ifndef ONLINE_JUDGE</p> 
+<p>freopen(&quot;in.txt&quot;,&nbsp;&quot;r&quot;, stdin);</p> 
+<p>#endif</p> 
+<p><br /></p> 
+<p>readInt(m);</p> 
+<p>readInt(n);</p> 
+<p>for (int i = 0; i &lt; m;&nbsp;++ i)&nbsp;{</p> 
+<p>readInt(a[i]. x);</p> 
+<p>readInt(a[i]. y);</p> 
+<p>a[i]. t = 0;</p> 
+<p>}</p> 
+<p>for (int i = 0; i &lt; n;&nbsp;++ i)&nbsp;{</p> 
+<p>readInt(b[i]. t);</p> 
+<p>readInt(b[i]. x);</p> 
+<p>readInt(b[i]. y);</p> 
+<p>}</p> 
+<p>sp = nlst;</p> 
+<p>kdnode *rt&nbsp;= kdBuild(0, m);</p> 
+<p>for (int i = 0; i &lt; n;&nbsp;++ i)</p> 
+<p>if (b[i]. t == 2)&nbsp;{</p> 
+<p>int ans = inf;</p> 
+<p>kdQry(rt, b[i]. x, b[i]. y, ans);</p> 
+<p>printf(&quot;%d\n&quot;, ans);</p> 
+<p>}</p> 
+<p>else</p> 
+<p>rt = kdIns(rt, b[i]. x, b[i]. y);</p> 
+<p>}</p> 
+<p><br /></p>
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/bzoj/">bzoj</a></li>
+      <li><a href="/tags/data%5Cxa0structure/">data\xa0structure</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/lofterimport_070/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>BZOJ1227 [SDOI2009]虔诚的墓主人</span>
+  </a>
+  <a class="next" href="/oi/lofterimport_073/">
+    <span class="title">Next »</span>
+    <br>
+    <span>BZOJ2716 [Violet 3]天使玩偶</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

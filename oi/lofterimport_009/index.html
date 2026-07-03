@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>BZOJ1112 [POI2008]砖块 | The Site of laekov</title>
+<meta name="keywords" content="bzoj, data\xa0structure, oi">
+<meta name="description" content="水一发。
+本来可以直接拿主席树找中位数的，但是因为main上只有32MB，所以只好写了个splay。感觉现在是爱上指针了。然后kth的时候少打个等号又wa又re好爽。
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+typedef long long dint;
+#ifdef WIN32
+#define lld &quot;%I64d&quot;
+#else
+#define lld &quot;%lld&quot;
+#endif
+#define _l (long long int)
+const int maxn = 100009;
+#define nsz(p)&nbsp;((p)?(p-&gt;sz):0)
+#define sof(p)&nbsp;((p)?(p-&gt;s):0)
+struct splay_node {
+&nbsp;&nbsp; int v, sz;
+&nbsp;&nbsp; dint s;
+&nbsp;&nbsp; splay_node *ls,&nbsp;*rs,&nbsp;*pt;
+&nbsp;&nbsp; inline void init(int v0)&nbsp;{
+&nbsp;&nbsp; v = v0;
+&nbsp;&nbsp; sz = 1;
+&nbsp;&nbsp; s = v0;
+&nbsp;&nbsp; pt = ls = rs = 0;">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/lofterimport_009/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="BZOJ1112 [POI2008]砖块" />
+<meta property="og:description" content="水一发。
+本来可以直接拿主席树找中位数的，但是因为main上只有32MB，所以只好写了个splay。感觉现在是爱上指针了。然后kth的时候少打个等号又wa又re好爽。
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+typedef long long dint;
+#ifdef WIN32
+#define lld &quot;%I64d&quot;
+#else
+#define lld &quot;%lld&quot;
+#endif
+#define _l (long long int)
+const int maxn = 100009;
+#define nsz(p)&nbsp;((p)?(p-&gt;sz):0)
+#define sof(p)&nbsp;((p)?(p-&gt;s):0)
+struct splay_node {
+&nbsp;&nbsp; int v, sz;
+&nbsp;&nbsp; dint s;
+&nbsp;&nbsp; splay_node *ls,&nbsp;*rs,&nbsp;*pt;
+&nbsp;&nbsp; inline void init(int v0)&nbsp;{
+&nbsp;&nbsp; v = v0;
+&nbsp;&nbsp; sz = 1;
+&nbsp;&nbsp; s = v0;
+&nbsp;&nbsp; pt = ls = rs = 0;" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/lofterimport_009/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2015-01-07T22:26:51+00:00" />
+<meta property="article:modified_time" content="2015-01-07T22:26:51+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BZOJ1112 [POI2008]砖块"/>
+<meta name="twitter:description" content="水一发。
+本来可以直接拿主席树找中位数的，但是因为main上只有32MB，所以只好写了个splay。感觉现在是爱上指针了。然后kth的时候少打个等号又wa又re好爽。
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+typedef long long dint;
+#ifdef WIN32
+#define lld &quot;%I64d&quot;
+#else
+#define lld &quot;%lld&quot;
+#endif
+#define _l (long long int)
+const int maxn = 100009;
+#define nsz(p)&nbsp;((p)?(p-&gt;sz):0)
+#define sof(p)&nbsp;((p)?(p-&gt;s):0)
+struct splay_node {
+&nbsp;&nbsp; int v, sz;
+&nbsp;&nbsp; dint s;
+&nbsp;&nbsp; splay_node *ls,&nbsp;*rs,&nbsp;*pt;
+&nbsp;&nbsp; inline void init(int v0)&nbsp;{
+&nbsp;&nbsp; v = v0;
+&nbsp;&nbsp; sz = 1;
+&nbsp;&nbsp; s = v0;
+&nbsp;&nbsp; pt = ls = rs = 0;"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "BZOJ1112 [POI2008]砖块",
+      "item": "/oi/lofterimport_009/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BZOJ1112 [POI2008]砖块",
+  "name": "BZOJ1112 [POI2008]砖块",
+  "description": "水一发。\n本来可以直接拿主席树找中位数的，但是因为main上只有32MB，所以只好写了个splay。感觉现在是爱上指针了。然后kth的时候少打个等号又wa又re好爽。\n#include \u0026lt;cstdio\u0026gt;\n#include \u0026lt;cstring\u0026gt;\n#include \u0026lt;algorithm\u0026gt;\nusing namespace std;\ntypedef long long dint;\n#ifdef WIN32\n#define lld \u0026quot;%I64d\u0026quot;\n#else\n#define lld \u0026quot;%lld\u0026quot;\n#endif\n#define _l (long long int)\nconst int maxn = 100009;\n#define nsz(p)\u0026nbsp;((p)?(p-\u0026gt;sz):0)\n#define sof(p)\u0026nbsp;((p)?(p-\u0026gt;s):0)\nstruct splay_node {\n\u0026nbsp;\u0026nbsp; int v, sz;\n\u0026nbsp;\u0026nbsp; dint s;\n\u0026nbsp;\u0026nbsp; splay_node *ls,\u0026nbsp;*rs,\u0026nbsp;*pt;\n\u0026nbsp;\u0026nbsp; inline void init(int v0)\u0026nbsp;{\n\u0026nbsp;\u0026nbsp; v = v0;\n\u0026nbsp;\u0026nbsp; sz = 1;\n\u0026nbsp;\u0026nbsp; s = v0;\n\u0026nbsp;\u0026nbsp; pt = ls = rs = 0;",
+  "keywords": [
+    "bzoj", "data\\xa0structure", "oi"
+  ],
+  "articleBody": "水一发。\n本来可以直接拿主席树找中位数的，但是因为main上只有32MB，所以只好写了个splay。感觉现在是爱上指针了。然后kth的时候少打个等号又wa又re好爽。\n#include #include #include using namespace std;\ntypedef long long dint;\n#ifdef WIN32\n#define lld \"%I64d\"\n#else\n#define lld \"%lld\"\n#endif\n#define _l (long long int)\nconst int maxn = 100009;\n#define nsz(p) ((p)?(p-\u003esz):0)\n#define sof(p) ((p)?(p-\u003es):0)\nstruct splay_node {\nint v, sz;\ndint s;\nsplay_node *ls, *rs, *pt;\ninline void init(int v0) {\nv = v0;\nsz = 1;\ns = v0;\npt = ls = rs = 0;\n}\ninline void update() {\ns = v;\nsz = 1;\nif (ls) {\ns += ls-\u003e s;\nsz += ls-\u003e sz;\n}\nif (rs) {\ns += rs-\u003e s;\nsz += rs-\u003e sz;\n}\n}\n};\nstruct splay_tree {\nsplay_node *cr, *sp, slst[maxn];\ninline splay_tree() {\ncr = 0;\nsp = slst;\n}\ninline void rot(splay_node* q) {\nsplay_node *p = q-\u003e pt;\nif (p-\u003e pt) {\nif (p-\u003e pt-\u003e ls == p)\np-\u003e pt-\u003e ls = q;\nelse\np-\u003e pt-\u003e rs = q;\n}\nq-\u003e pt = p-\u003e pt;\np-\u003e pt = q;\nif (q == p-\u003e ls) {\nif (q-\u003e rs)\nq-\u003e rs-\u003e pt = p;\np-\u003e ls = q-\u003e rs;\nq-\u003e rs = p;\n}\nelse {\nif (q-\u003e ls)\nq-\u003e ls-\u003e pt = p;\np-\u003e rs = q-\u003e ls;\nq-\u003e ls = p;\n}\np-\u003e update();\nq-\u003e update();\n}\nvoid splay(splay_node* q) {\nwhile (q-\u003e pt) {\nsplay_node *p = q-\u003e pt;\nif (!p-\u003e pt)\nrot(q);\nelse if ((p == p-\u003e pt-\u003e ls) == (q == p-\u003e ls))\nrot(p), rot(q);\nelse\nrot(q), rot(q);\n}\ncr = q;\n}\nsplay_node* kth(splay_node* p, int k) {\nwhile (p)\nif (nsz(p-\u003e ls) + 1 == k)\nbreak;\nelse if (nsz(p-\u003e ls) \u003e= k)\np = p-\u003e ls;\nelse\nk -= nsz(p-\u003e ls) + 1, p = p-\u003e rs;\nreturn p;\n}\nvoid ins(int v) {\nsplay_node *x = sp ++;\nx-\u003e init(v);\nif (!cr)\ncr = x;\nelse {\nsplay_node *p = cr;\nwhile (p)\nif (v \u003c p-\u003e v) {\nif (!p-\u003e ls) {\np-\u003e ls = x;\nx-\u003e pt = p;\nbreak;\n}\nelse\np = p-\u003e ls;\n}\nelse {\nif (!p-\u003e rs) {\np-\u003e rs = x;\nx-\u003e pt = p;\nbreak;\n}\nelse\np = p-\u003e rs;\n}\nsplay(x);\n}\n}\nvoid ers(int v) {\nsplay_node *p = cr;\nwhile (p)\nif (p-\u003e v == v)\nbreak;\nelse if (v \u003c p-\u003e v)\np = p-\u003e ls;\nelse\np = p-\u003e rs;\nsplay(p);\nif (!p-\u003e rs) {\nif (p-\u003e ls)\np-\u003e ls-\u003e pt = 0;\ncr = p-\u003e ls;\n}\nelse {\np-\u003e rs-\u003e pt = 0;\nsplay_node* q = kth(p-\u003e rs, 1);\nsplay(q);\nq-\u003e ls = p-\u003e ls;\nif (p-\u003e ls)\np-\u003e ls-\u003e pt = q;\nq-\u003e update();\ncr = q;\n}\n}\ndint ans(int k) {\nsplay_node *p = kth(cr, (k + 1) \u003e\u003e 1);\nsplay(p);\nif (k \u0026 1)\nreturn sof(p-\u003e rs) - sof(p-\u003e ls);\nelse\nreturn sof(p-\u003e rs) - p-\u003e v - sof(p-\u003e ls);\n}\ninline int midv() {\nreturn cr-\u003e v;\n}\n};\nint n, k, a[maxn];\nint p0, v0;\ndint ans;\nsplay_tree t;\nint main() {\n#ifndef ONLINE_JUDGE\n//freopen(\"in.txt\", \"r\", stdin);\n#endif\nscanf(\"%d%d\", \u0026n, \u0026k);\nfor (int i = 0; i \u003c n; ++ i)\nscanf(\"%d\", a + i);\nfor (int i = 0; i \u003c k; ++ i)\nt. ins(a[i]);\nans = t. ans(k);\np0 = 0;\nv0 = t. midv();\nfor (int i = k; i \u003c n; ++ i) {\nt. ers(a[i - k]);\nt. ins(a[i]);\ndint vn = t. ans(k);\nif (vn \u003c ans) {\nans = vn;\np0 = i - k + 1;\nv0 = t. midv();\n}\n}\nprintf(lld \"\\n\", ans);\n/*for (int i = p0; i \u003c p0 + k; ++ i)\na[i] = v0;\nfor (int i = 0; i \u003c n; ++ i)\nprintf(\"%d\\n\", a[i]);*/\n}\n",
+  "wordCount" : "593",
+  "inLanguage": "en",
+  "datePublished": "2015-01-07T22:26:51Z",
+  "dateModified": "2015-01-07T22:26:51Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/lofterimport_009/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      BZOJ1112 [POI2008]砖块
+    </h1>
+    <div class="post-meta"><span title='2015-01-07 22:26:51 +0000 UTC'>January 7, 2015</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>水一发。</p> 
+<p><br /></p> 
+<p>本来可以直接拿主席树找中位数的，但是因为main上只有32MB，所以只好写了个splay。感觉现在是爱上指针了。然后kth的时候少打个等号又wa又re好爽。</p> 
+<p><br /></p> 
+<p>#include &lt;cstdio&gt;</p> 
+<p>#include &lt;cstring&gt;</p> 
+<p>#include &lt;algorithm&gt;</p> 
+<p><br /></p> 
+<p>using namespace std;</p> 
+<p><br /></p> 
+<p>typedef long long dint;</p> 
+<p><br /></p> 
+<p>#ifdef WIN32</p> 
+<p>#define lld &quot;%I64d&quot;</p> 
+<p>#else</p> 
+<p>#define lld &quot;%lld&quot;</p> 
+<p>#endif</p> 
+<p>#define _l (long long int)</p> 
+<p><br /></p> 
+<p>const int maxn = 100009;</p> 
+<p><br /></p> 
+<p>#define nsz(p)&nbsp;((p)?(p-&gt;sz):0)</p> 
+<p>#define sof(p)&nbsp;((p)?(p-&gt;s):0)</p> 
+<p><br /></p> 
+<p>struct splay_node {</p> 
+<p>&nbsp;&nbsp; int v, sz;</p> 
+<p>&nbsp;&nbsp; dint s;</p> 
+<p>&nbsp;&nbsp; splay_node *ls,&nbsp;*rs,&nbsp;*pt;</p> 
+<p>&nbsp;&nbsp; inline void init(int v0)&nbsp;{</p> 
+<p>&nbsp;&nbsp; v = v0;</p> 
+<p>&nbsp;&nbsp; sz = 1;</p> 
+<p>&nbsp;&nbsp; s = v0;</p> 
+<p>&nbsp;&nbsp; pt = ls = rs = 0;</p> 
+<p>&nbsp;&nbsp;&nbsp;}</p> 
+<p>&nbsp;&nbsp; inline void update()&nbsp;{</p> 
+<p>&nbsp;&nbsp; s = v;</p> 
+<p>&nbsp;&nbsp; sz = 1;</p> 
+<p>&nbsp;&nbsp; if (ls)&nbsp;{</p> 
+<p>&nbsp;&nbsp; s += ls-&gt; s;</p> 
+<p>&nbsp;&nbsp; sz += ls-&gt; sz;</p> 
+<p>&nbsp;&nbsp;&nbsp;}</p> 
+<p>&nbsp;&nbsp; if (rs)&nbsp;{</p> 
+<p>&nbsp;&nbsp; s += rs-&gt; s;</p> 
+<p>&nbsp;&nbsp; sz += rs-&gt; sz;</p> 
+<p>&nbsp;&nbsp;&nbsp;}</p> 
+<p>&nbsp;&nbsp;&nbsp;}</p> 
+<p>};</p> 
+<p>struct splay_tree {</p> 
+<p>splay_node *cr,&nbsp;*sp, slst[maxn];</p> 
+<p>inline splay_tree()&nbsp;{</p> 
+<p>cr = 0;</p> 
+<p>sp = slst;</p> 
+<p>}</p> 
+<p>inline void rot(splay_node* q)&nbsp;{</p> 
+<p>splay_node *p&nbsp;= q-&gt; pt;</p> 
+<p>if (p-&gt; pt)&nbsp;{</p> 
+<p>if (p-&gt; pt-&gt; ls == p)</p> 
+<p>p-&gt; pt-&gt; ls = q;</p> 
+<p>else</p> 
+<p>p-&gt; pt-&gt; rs = q;</p> 
+<p>}</p> 
+<p>q-&gt; pt = p-&gt; pt;</p> 
+<p>p-&gt; pt = q;</p> 
+<p>if (q&nbsp;== p-&gt; ls)&nbsp;{</p> 
+<p>if (q-&gt; rs)</p> 
+<p>q-&gt; rs-&gt; pt = p;</p> 
+<p>p-&gt; ls = q-&gt; rs;</p> 
+<p>q-&gt; rs = p;</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>if (q-&gt; ls)</p> 
+<p>q-&gt; ls-&gt; pt = p;</p> 
+<p>p-&gt; rs = q-&gt; ls;</p> 
+<p>q-&gt; ls = p;</p> 
+<p>}</p> 
+<p>p-&gt; update();</p> 
+<p>q-&gt; update();</p> 
+<p>}</p> 
+<p>void splay(splay_node* q)&nbsp;{</p> 
+<p>while (q-&gt; pt)&nbsp;{</p> 
+<p>splay_node *p&nbsp;= q-&gt; pt;</p> 
+<p>if (!p-&gt; pt)</p> 
+<p>rot(q);</p> 
+<p>else if ((p&nbsp;== p-&gt; pt-&gt; ls)&nbsp;==&nbsp;(q == p-&gt; ls))</p> 
+<p>rot(p), rot(q);</p> 
+<p>else</p> 
+<p>rot(q), rot(q);</p> 
+<p>}</p> 
+<p>cr = q;</p> 
+<p>}</p> 
+<p>splay_node* kth(splay_node* p, int k)&nbsp;{</p> 
+<p>while (p)</p> 
+<p>if (nsz(p-&gt; ls)&nbsp;+ 1 == k)</p> 
+<p>break;</p> 
+<p>else if (nsz(p-&gt; ls)&nbsp;&gt;= k)</p> 
+<p>p = p-&gt; ls;</p> 
+<p>else</p> 
+<p>k -= nsz(p-&gt; ls)&nbsp;+ 1, p = p-&gt; rs;</p> 
+<p>return p;</p> 
+<p>}</p> 
+<p>void ins(int v)&nbsp;{</p> 
+<p>splay_node *x&nbsp;= sp ++;</p> 
+<p>x-&gt; init(v);</p> 
+<p>if (!cr)</p> 
+<p>cr = x;</p> 
+<p>else {</p> 
+<p>splay_node *p&nbsp;= cr;</p> 
+<p>while (p)</p> 
+<p>if (v&nbsp;&lt; p-&gt; v)&nbsp;{</p> 
+<p>if (!p-&gt; ls)&nbsp;{</p> 
+<p>p-&gt; ls = x;</p> 
+<p>x-&gt; pt = p;</p> 
+<p>break;</p> 
+<p>}</p> 
+<p>else</p> 
+<p>p = p-&gt; ls;</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>if (!p-&gt; rs)&nbsp;{</p> 
+<p>p-&gt; rs = x;</p> 
+<p>x-&gt; pt = p;</p> 
+<p>break;</p> 
+<p>}</p> 
+<p>else</p> 
+<p>p = p-&gt; rs;</p> 
+<p>}</p> 
+<p>splay(x);</p> 
+<p>}</p> 
+<p>}</p> 
+<p>void ers(int v)&nbsp;{</p> 
+<p>splay_node *p&nbsp;= cr;</p> 
+<p>while (p)</p> 
+<p>if (p-&gt; v == v)</p> 
+<p>break;</p> 
+<p>else if (v&nbsp;&lt; p-&gt; v)</p> 
+<p>p = p-&gt; ls;</p> 
+<p>else</p> 
+<p>p = p-&gt; rs;</p> 
+<p>splay(p);</p> 
+<p>if (!p-&gt; rs)&nbsp;{</p> 
+<p>if (p-&gt; ls)</p> 
+<p>p-&gt; ls-&gt; pt = 0;</p> 
+<p>cr = p-&gt; ls;</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>p-&gt; rs-&gt; pt = 0;</p> 
+<p>splay_node* q = kth(p-&gt; rs, 1);</p> 
+<p>splay(q);</p> 
+<p>q-&gt; ls = p-&gt; ls;</p> 
+<p>if (p-&gt; ls)</p> 
+<p>p-&gt; ls-&gt; pt = q;</p> 
+<p>q-&gt; update();</p> 
+<p>cr = q;</p> 
+<p>}</p> 
+<p>}</p> 
+<p>dint ans(int k)&nbsp;{</p> 
+<p>splay_node *p&nbsp;= kth(cr,&nbsp;(k + 1)&nbsp;&gt;&gt; 1);</p> 
+<p>splay(p);</p> 
+<p>if (k&nbsp;&amp; 1)</p> 
+<p>return sof(p-&gt; rs)&nbsp;- sof(p-&gt; ls);</p> 
+<p>else</p> 
+<p>return sof(p-&gt; rs)&nbsp;- p-&gt; v - sof(p-&gt; ls);</p> 
+<p>}</p> 
+<p>inline int midv()&nbsp;{</p> 
+<p>return cr-&gt; v;</p> 
+<p>}</p> 
+<p>};</p> 
+<p><br /></p> 
+<p>int n, k, a[maxn];</p> 
+<p>int p0, v0;</p> 
+<p>dint ans;</p> 
+<p>splay_tree t;</p> 
+<p><br /></p> 
+<p>int main()&nbsp;{</p> 
+<p>#ifndef ONLINE_JUDGE</p> 
+<p>//freopen(&quot;in.txt&quot;,&nbsp;&quot;r&quot;, stdin);</p> 
+<p>#endif</p> 
+<p><br /></p> 
+<p>scanf(&quot;%d%d&quot;,&nbsp;&amp;n,&nbsp;&amp;k);</p> 
+<p>for (int i = 0; i &lt; n;&nbsp;++ i)</p> 
+<p>scanf(&quot;%d&quot;, a + i);</p> 
+<p>for (int i = 0; i &lt; k;&nbsp;++ i)</p> 
+<p>t. ins(a[i]);</p> 
+<p>ans = t. ans(k);</p> 
+<p>p0 = 0;</p> 
+<p>v0 = t. midv();</p> 
+<p>for (int i = k; i &lt; n;&nbsp;++ i)&nbsp;{</p> 
+<p>t. ers(a[i - k]);</p> 
+<p>t. ins(a[i]);</p> 
+<p>dint vn = t. ans(k);</p> 
+<p>if (vn&nbsp;&lt; ans)&nbsp;{</p> 
+<p>ans = vn;</p> 
+<p>p0 = i - k + 1;</p> 
+<p>v0 = t. midv();</p> 
+<p>}</p> 
+<p>}</p> 
+<p>printf(lld &quot;\n&quot;, ans);</p> 
+<p>/*for (int i = p0; i &lt; p0 + k;&nbsp;++ i)</p> 
+<p>a[i]&nbsp;= v0;</p> 
+<p>for (int i = 0; i &lt; n;&nbsp;++ i)</p> 
+<p>printf(&quot;%d\n&quot;, a[i]);*/</p> 
+<p>}</p> 
+<p><br /></p>
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/bzoj/">bzoj</a></li>
+      <li><a href="/tags/data%5Cxa0structure/">data\xa0structure</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/lofterimport_008/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>BZOJ2527 [Poi2011]Meteors</span>
+  </a>
+  <a class="next" href="/oi/lofterimport_010/">
+    <span class="title">Next »</span>
+    <br>
+    <span>BZOJ1097 [POI2007]旅游景点</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

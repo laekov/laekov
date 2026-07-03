@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>读博五年的流水账和胡思乱想 | The Site of laekov</title>
+<meta name="keywords" content="">
+<meta name="description" content="Introduction 离毕业已经过去9个月了，终于得以端坐在大洋彼岸计划中的公寓的书桌前开始写这篇拖欠已久的文章。
+人生每过一个阶段，就写下些什么，是 laekov 形成已久的惯例。 而读博这一篇章在结束时曾经尤为令 laekov 感到激动而想要进行一番记录。
+在 laekov 并不长的一生中，在一个校园里度过四年之后，再选择继续待五年甚至可能是更长的时间，并不是一件容易的决定。 Dr 这短短两个字母的前缀，是曾经崇高的追求，也带来迷惘和痛苦。 它让 laekov 晚了一些年真正地进入社会，或许少了一些经历，也或许多了一些成长。 当这一切结束于一场并不那么隆重的毕业典礼时，当匆匆离去的脚步在不经意间拉开了更精彩世界的帷幕之后，曾经的平静、单纯显得多么珍贵。 而曾经的痛苦、愤怒、迷茫终将化为浅浅一笑。
+这一切建立了一个人类对于这个社会最初始的认知。 它改变或者说塑造了这个人的愿望、行为。 老师总是说，PhD 最重要的是培养一个人做研究的能力。 一个人自己的一段经历以及自身的脱变何尝不是一个重要的研究对象呢？
+Motivation: 这一切是怎么开始的 五年前 laekov 对读 phd 这个决定的产生进行了详细的描述。
+一言以蔽之，就是对科研产生了憧憬并决定花五年的时间来更进一步。
+曾经的 laekov 认为科研是一件崇高的事业，因为科研是在扩展人类的知识边界，这听起来是多么伟大而有意义的事呀！ 因为 laekov 认为人的生命是没有意义的，因为宇宙是没有意义的。宇宙从诞生到消失，无可改变，甚至一切也许就是写好的剧本。 在这样的背景下，努力奋斗或许本身就是一个伪命题。 而在这无聊的世界中，或许唯一有意义的事，不就是“扩展认知”这一件吗？ 来到这个大千世界，在人生有限的几万天内，去做一些无人做过的事，发现一些无人发现的角落，用一篇篇 paper 构筑一个属于自己的世界。 或许这些研究并没有作用，或许只是一个无聊的小 trick，但当说起它们的时候哪怕有一点点的令人兴奋也是一件好事情呀。
+laekov 选择了并行计算这个方向，原因或许也不那复杂，只是因为从 2017 年开始 laekov 就开始了，到 2019 年的时候已经是一个有一些些经验的“熟练工”了。 相比起彼时方兴未艾的热门方向“机器学习”，laekov 认为做出一个实际可用的 system 并且在成千上万的计算资源上高效运转起来是最能带来成就感的事情。 laekov 曾经的爽点就在于看着 scc 集群上每台机器的一百多个 cpu 核在 htop 里一片绿的场景，甚至是使用特殊的绑核策略绑出一些神奇的花纹。 相比起来，性能优化的工作是确定的，被完好定义的，有上限的。这件事激活了 laekov 从中学开始的竞赛基因。 另一方面，或许 laekov 对科研和工程这两件事的看法是两者是需要结合的。相比于纯粹的理论上的贡献，laekov 更想看到在有生之年科研成果能够被用于真实的世界，产生真正的价值。 因此，虽然哪怕 system 这个方向更强调 engineering 与 fancy idea 的结合，而并非一个那么有理论深度，那么数学公式满天飞的领域，但 laekov 依然选择了这个方向。">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/random/phd-thesis/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="读博五年的流水账和胡思乱想" />
+<meta property="og:description" content="Introduction 离毕业已经过去9个月了，终于得以端坐在大洋彼岸计划中的公寓的书桌前开始写这篇拖欠已久的文章。
+人生每过一个阶段，就写下些什么，是 laekov 形成已久的惯例。 而读博这一篇章在结束时曾经尤为令 laekov 感到激动而想要进行一番记录。
+在 laekov 并不长的一生中，在一个校园里度过四年之后，再选择继续待五年甚至可能是更长的时间，并不是一件容易的决定。 Dr 这短短两个字母的前缀，是曾经崇高的追求，也带来迷惘和痛苦。 它让 laekov 晚了一些年真正地进入社会，或许少了一些经历，也或许多了一些成长。 当这一切结束于一场并不那么隆重的毕业典礼时，当匆匆离去的脚步在不经意间拉开了更精彩世界的帷幕之后，曾经的平静、单纯显得多么珍贵。 而曾经的痛苦、愤怒、迷茫终将化为浅浅一笑。
+这一切建立了一个人类对于这个社会最初始的认知。 它改变或者说塑造了这个人的愿望、行为。 老师总是说，PhD 最重要的是培养一个人做研究的能力。 一个人自己的一段经历以及自身的脱变何尝不是一个重要的研究对象呢？
+Motivation: 这一切是怎么开始的 五年前 laekov 对读 phd 这个决定的产生进行了详细的描述。
+一言以蔽之，就是对科研产生了憧憬并决定花五年的时间来更进一步。
+曾经的 laekov 认为科研是一件崇高的事业，因为科研是在扩展人类的知识边界，这听起来是多么伟大而有意义的事呀！ 因为 laekov 认为人的生命是没有意义的，因为宇宙是没有意义的。宇宙从诞生到消失，无可改变，甚至一切也许就是写好的剧本。 在这样的背景下，努力奋斗或许本身就是一个伪命题。 而在这无聊的世界中，或许唯一有意义的事，不就是“扩展认知”这一件吗？ 来到这个大千世界，在人生有限的几万天内，去做一些无人做过的事，发现一些无人发现的角落，用一篇篇 paper 构筑一个属于自己的世界。 或许这些研究并没有作用，或许只是一个无聊的小 trick，但当说起它们的时候哪怕有一点点的令人兴奋也是一件好事情呀。
+laekov 选择了并行计算这个方向，原因或许也不那复杂，只是因为从 2017 年开始 laekov 就开始了，到 2019 年的时候已经是一个有一些些经验的“熟练工”了。 相比起彼时方兴未艾的热门方向“机器学习”，laekov 认为做出一个实际可用的 system 并且在成千上万的计算资源上高效运转起来是最能带来成就感的事情。 laekov 曾经的爽点就在于看着 scc 集群上每台机器的一百多个 cpu 核在 htop 里一片绿的场景，甚至是使用特殊的绑核策略绑出一些神奇的花纹。 相比起来，性能优化的工作是确定的，被完好定义的，有上限的。这件事激活了 laekov 从中学开始的竞赛基因。 另一方面，或许 laekov 对科研和工程这两件事的看法是两者是需要结合的。相比于纯粹的理论上的贡献，laekov 更想看到在有生之年科研成果能够被用于真实的世界，产生真正的价值。 因此，虽然哪怕 system 这个方向更强调 engineering 与 fancy idea 的结合，而并非一个那么有理论深度，那么数学公式满天飞的领域，但 laekov 依然选择了这个方向。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/random/phd-thesis/" /><meta property="article:section" content="random" />
+<meta property="article:published_time" content="2026-03-21T13:00:00+00:00" />
+<meta property="article:modified_time" content="2026-03-21T13:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="读博五年的流水账和胡思乱想"/>
+<meta name="twitter:description" content="Introduction 离毕业已经过去9个月了，终于得以端坐在大洋彼岸计划中的公寓的书桌前开始写这篇拖欠已久的文章。
+人生每过一个阶段，就写下些什么，是 laekov 形成已久的惯例。 而读博这一篇章在结束时曾经尤为令 laekov 感到激动而想要进行一番记录。
+在 laekov 并不长的一生中，在一个校园里度过四年之后，再选择继续待五年甚至可能是更长的时间，并不是一件容易的决定。 Dr 这短短两个字母的前缀，是曾经崇高的追求，也带来迷惘和痛苦。 它让 laekov 晚了一些年真正地进入社会，或许少了一些经历，也或许多了一些成长。 当这一切结束于一场并不那么隆重的毕业典礼时，当匆匆离去的脚步在不经意间拉开了更精彩世界的帷幕之后，曾经的平静、单纯显得多么珍贵。 而曾经的痛苦、愤怒、迷茫终将化为浅浅一笑。
+这一切建立了一个人类对于这个社会最初始的认知。 它改变或者说塑造了这个人的愿望、行为。 老师总是说，PhD 最重要的是培养一个人做研究的能力。 一个人自己的一段经历以及自身的脱变何尝不是一个重要的研究对象呢？
+Motivation: 这一切是怎么开始的 五年前 laekov 对读 phd 这个决定的产生进行了详细的描述。
+一言以蔽之，就是对科研产生了憧憬并决定花五年的时间来更进一步。
+曾经的 laekov 认为科研是一件崇高的事业，因为科研是在扩展人类的知识边界，这听起来是多么伟大而有意义的事呀！ 因为 laekov 认为人的生命是没有意义的，因为宇宙是没有意义的。宇宙从诞生到消失，无可改变，甚至一切也许就是写好的剧本。 在这样的背景下，努力奋斗或许本身就是一个伪命题。 而在这无聊的世界中，或许唯一有意义的事，不就是“扩展认知”这一件吗？ 来到这个大千世界，在人生有限的几万天内，去做一些无人做过的事，发现一些无人发现的角落，用一篇篇 paper 构筑一个属于自己的世界。 或许这些研究并没有作用，或许只是一个无聊的小 trick，但当说起它们的时候哪怕有一点点的令人兴奋也是一件好事情呀。
+laekov 选择了并行计算这个方向，原因或许也不那复杂，只是因为从 2017 年开始 laekov 就开始了，到 2019 年的时候已经是一个有一些些经验的“熟练工”了。 相比起彼时方兴未艾的热门方向“机器学习”，laekov 认为做出一个实际可用的 system 并且在成千上万的计算资源上高效运转起来是最能带来成就感的事情。 laekov 曾经的爽点就在于看着 scc 集群上每台机器的一百多个 cpu 核在 htop 里一片绿的场景，甚至是使用特殊的绑核策略绑出一些神奇的花纹。 相比起来，性能优化的工作是确定的，被完好定义的，有上限的。这件事激活了 laekov 从中学开始的竞赛基因。 另一方面，或许 laekov 对科研和工程这两件事的看法是两者是需要结合的。相比于纯粹的理论上的贡献，laekov 更想看到在有生之年科研成果能够被用于真实的世界，产生真正的价值。 因此，虽然哪怕 system 这个方向更强调 engineering 与 fancy idea 的结合，而并非一个那么有理论深度，那么数学公式满天飞的领域，但 laekov 依然选择了这个方向。"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Randoms",
+      "item": "/random/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "读博五年的流水账和胡思乱想",
+      "item": "/random/phd-thesis/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "读博五年的流水账和胡思乱想",
+  "name": "读博五年的流水账和胡思乱想",
+  "description": "Introduction 离毕业已经过去9个月了，终于得以端坐在大洋彼岸计划中的公寓的书桌前开始写这篇拖欠已久的文章。\n人生每过一个阶段，就写下些什么，是 laekov 形成已久的惯例。 而读博这一篇章在结束时曾经尤为令 laekov 感到激动而想要进行一番记录。\n在 laekov 并不长的一生中，在一个校园里度过四年之后，再选择继续待五年甚至可能是更长的时间，并不是一件容易的决定。 Dr 这短短两个字母的前缀，是曾经崇高的追求，也带来迷惘和痛苦。 它让 laekov 晚了一些年真正地进入社会，或许少了一些经历，也或许多了一些成长。 当这一切结束于一场并不那么隆重的毕业典礼时，当匆匆离去的脚步在不经意间拉开了更精彩世界的帷幕之后，曾经的平静、单纯显得多么珍贵。 而曾经的痛苦、愤怒、迷茫终将化为浅浅一笑。\n这一切建立了一个人类对于这个社会最初始的认知。 它改变或者说塑造了这个人的愿望、行为。 老师总是说，PhD 最重要的是培养一个人做研究的能力。 一个人自己的一段经历以及自身的脱变何尝不是一个重要的研究对象呢？\nMotivation: 这一切是怎么开始的 五年前 laekov 对读 phd 这个决定的产生进行了详细的描述。\n一言以蔽之，就是对科研产生了憧憬并决定花五年的时间来更进一步。\n曾经的 laekov 认为科研是一件崇高的事业，因为科研是在扩展人类的知识边界，这听起来是多么伟大而有意义的事呀！ 因为 laekov 认为人的生命是没有意义的，因为宇宙是没有意义的。宇宙从诞生到消失，无可改变，甚至一切也许就是写好的剧本。 在这样的背景下，努力奋斗或许本身就是一个伪命题。 而在这无聊的世界中，或许唯一有意义的事，不就是“扩展认知”这一件吗？ 来到这个大千世界，在人生有限的几万天内，去做一些无人做过的事，发现一些无人发现的角落，用一篇篇 paper 构筑一个属于自己的世界。 或许这些研究并没有作用，或许只是一个无聊的小 trick，但当说起它们的时候哪怕有一点点的令人兴奋也是一件好事情呀。\nlaekov 选择了并行计算这个方向，原因或许也不那复杂，只是因为从 2017 年开始 laekov 就开始了，到 2019 年的时候已经是一个有一些些经验的“熟练工”了。 相比起彼时方兴未艾的热门方向“机器学习”，laekov 认为做出一个实际可用的 system 并且在成千上万的计算资源上高效运转起来是最能带来成就感的事情。 laekov 曾经的爽点就在于看着 scc 集群上每台机器的一百多个 cpu 核在 htop 里一片绿的场景，甚至是使用特殊的绑核策略绑出一些神奇的花纹。 相比起来，性能优化的工作是确定的，被完好定义的，有上限的。这件事激活了 laekov 从中学开始的竞赛基因。 另一方面，或许 laekov 对科研和工程这两件事的看法是两者是需要结合的。相比于纯粹的理论上的贡献，laekov 更想看到在有生之年科研成果能够被用于真实的世界，产生真正的价值。 因此，虽然哪怕 system 这个方向更强调 engineering 与 fancy idea 的结合，而并非一个那么有理论深度，那么数学公式满天飞的领域，但 laekov 依然选择了这个方向。",
+  "keywords": [
+    
+  ],
+  "articleBody": "Introduction 离毕业已经过去9个月了，终于得以端坐在大洋彼岸计划中的公寓的书桌前开始写这篇拖欠已久的文章。\n人生每过一个阶段，就写下些什么，是 laekov 形成已久的惯例。 而读博这一篇章在结束时曾经尤为令 laekov 感到激动而想要进行一番记录。\n在 laekov 并不长的一生中，在一个校园里度过四年之后，再选择继续待五年甚至可能是更长的时间，并不是一件容易的决定。 Dr 这短短两个字母的前缀，是曾经崇高的追求，也带来迷惘和痛苦。 它让 laekov 晚了一些年真正地进入社会，或许少了一些经历，也或许多了一些成长。 当这一切结束于一场并不那么隆重的毕业典礼时，当匆匆离去的脚步在不经意间拉开了更精彩世界的帷幕之后，曾经的平静、单纯显得多么珍贵。 而曾经的痛苦、愤怒、迷茫终将化为浅浅一笑。\n这一切建立了一个人类对于这个社会最初始的认知。 它改变或者说塑造了这个人的愿望、行为。 老师总是说，PhD 最重要的是培养一个人做研究的能力。 一个人自己的一段经历以及自身的脱变何尝不是一个重要的研究对象呢？\nMotivation: 这一切是怎么开始的 五年前 laekov 对读 phd 这个决定的产生进行了详细的描述。\n一言以蔽之，就是对科研产生了憧憬并决定花五年的时间来更进一步。\n曾经的 laekov 认为科研是一件崇高的事业，因为科研是在扩展人类的知识边界，这听起来是多么伟大而有意义的事呀！ 因为 laekov 认为人的生命是没有意义的，因为宇宙是没有意义的。宇宙从诞生到消失，无可改变，甚至一切也许就是写好的剧本。 在这样的背景下，努力奋斗或许本身就是一个伪命题。 而在这无聊的世界中，或许唯一有意义的事，不就是“扩展认知”这一件吗？ 来到这个大千世界，在人生有限的几万天内，去做一些无人做过的事，发现一些无人发现的角落，用一篇篇 paper 构筑一个属于自己的世界。 或许这些研究并没有作用，或许只是一个无聊的小 trick，但当说起它们的时候哪怕有一点点的令人兴奋也是一件好事情呀。\nlaekov 选择了并行计算这个方向，原因或许也不那复杂，只是因为从 2017 年开始 laekov 就开始了，到 2019 年的时候已经是一个有一些些经验的“熟练工”了。 相比起彼时方兴未艾的热门方向“机器学习”，laekov 认为做出一个实际可用的 system 并且在成千上万的计算资源上高效运转起来是最能带来成就感的事情。 laekov 曾经的爽点就在于看着 scc 集群上每台机器的一百多个 cpu 核在 htop 里一片绿的场景，甚至是使用特殊的绑核策略绑出一些神奇的花纹。 相比起来，性能优化的工作是确定的，被完好定义的，有上限的。这件事激活了 laekov 从中学开始的竞赛基因。 另一方面，或许 laekov 对科研和工程这两件事的看法是两者是需要结合的。相比于纯粹的理论上的贡献，laekov 更想看到在有生之年科研成果能够被用于真实的世界，产生真正的价值。 因此，虽然哪怕 system 这个方向更强调 engineering 与 fancy idea 的结合，而并非一个那么有理论深度，那么数学公式满天飞的领域，但 laekov 依然选择了这个方向。\n当然了，至于在哪里读 PhD 这件事，laekov 其实是被命运的齿轮转动着引导到了意想不到的地方，以一种神奇的姿势站在了时代的浪潮之巅。 在 2020 年，laekov 原计划是前往大洋这边的阳光下的 LA 来进行 PhD 的旅程，但因为 COVID 和川总的 travel ban，不幸滞留在了北京。 当时 laekov 手里甚至有或许能用的签证，只需前往第三国中转两周，便可踏上新的土地去完成自己的梦想。 然而或许是冥冥中的指引（或许是不想扛着自行车去中转），laekov 选择了在原地先打工过度，然后又在绝望的打工过程中收到了来自本科母校的召唤，于是回到了 PACMAN，并且最终在这里又度过了五年。\nMethodology: 我好像在做科研 贵系对于 PhD 的获取条件是明码标价的：至少一项被“顶会”（基本赞同于 CCF A 类会）发表的一作工作。 尽管在本科时接受了一些基础的训练，但 laekov 对“科研”这件事的理解是在逐步形成的。 laekov 最开始认为科研就是找到一个问题，提出一个解决方案并且写一些代码来证明这个方案，把方案写清楚，就称得上是一个成功的科研项目了。 在本科时的 Prague 这篇文章写作的时候，laekov 就直接地践行着这个理念。然而，彼时的 laekov 并未意识到背后还有更复杂的来龙去脉。\n直到昨天 laekov 才恍然意识到，“创新”是学术界所 appreciate 的核心价值，但 laekov enjoy 的或许只是“创造”这个过程罢了。 用一个纸箱搓一个柜子，或者是写出什么粗糙但可以满足某种需求的网页，显然并不足以发一篇 paper，但对于 laekov 来说，这和写系统发论文带来的成就感是并无太大差异的。 这也许是 laekov 在读博前混淆所以产生了一些虚假期望的原因。不过没有关系，这不妨碍以下罗列的这些经历成为 laekov 宝贵的回忆和人生经历。\nStarting From FastMoE laekov 的第一篇论文开始地异常的顺利。 在博一上半学期快要结束的时候，2020 年末，laekov 被派去和算法组的同学合作解决一些他们发现的模型训练效率问题，这就是 FastMoE 这个故事开始的地方。 彼时 Bert 和 GPT 才刚刚在业内为众人所知。谷歌已经开始研究如何扩增 LLM 的参数量来获取更好的性能，同时又想要节省计算量。“稀疏”戳中了 laekov 本想研究 GNN 的神经。 在支持算法同学研究 MoE 模型的路上，laekov 把自己的系统命名为 FastMoE，代表着这是一个快速（写得快）的实现，旨在赶紧支持合作的算法同学的科研需求。 这个系统的初版甚至被用于“并行计算”这门课的期末作业。laekov 为了实现迅速，舍弃了 torch 里推荐使用的 NCCL，而是在 MPI 的基础上搓出了第零个版本。 为了使用那个版本的系统，用户不能使用 pip 安装 torch，而是需要在装好 openmpi 开发环境的系统里编译 pytorch。 后来的故事是 laekov 寒假选择了不回家留在北京，在智源的清华科技园二楼的办公室里写完了 NCCL 版本的开源的 FastMoE 的初版，甚至还“不小心”联系了公关能力远超 PACMAN 水平的智源团队来 PR 这个系统。\n然而 FastMoE 这个项目只解决了从“没有开源系统可用”到“有办法训”的路径。相比于 paper 所需要的 novelty 还相去甚远。 彼时 laekov 已经规划好了一些可能的方案，而 FastMoE 这个系统的开源和 arxiv 只是为了给自己提供一个可比较的 baseline。 回忆起来会觉得 laekov 当时的设计能力强得可怕，哪怕手里的只是一个非常基本的，没有一点创新的，只是解决工程问题的项目。\n无独有偶，在 FastMoE 的 arxiv 论文公开后仅仅三天之后，facebook 就公布了他们的同样基于 pytorch 的开源的 fairseq。 尽管在对 capacity 的理解等方面 fairseq 和 FastMoE 不尽一致，但就是这争分夺秒而来的 3 天的优势，堪堪让 FastMoE 坐稳了“全世界首个基于 PyTorch 的开源 xx”这个虽然定语有点长但实实在在是世界首个的位置。 对于 laekov 来说，哪怕 paper 还没有发布在某个 CCF A 类会议接收，但这样毫离之间的小小成功也是令人振奋的。 也或许当今 AI 模型之间激烈的竞争从那时起就埋下了小小的种子？\n八卦炉：Is scalability everything? FastMoE 是带着更多的目的诞生的。八卦炉也是其中之一。\n那是 2021 年的春节前，laekov 跟着老师加入了一个神奇的四方会谈，目标是冲击一个“世界最大”规模的 LLM 预训练，具体一点，是要去冲击戈登-贝尔奖（GB）。 这个奖每个颁发给在 HPC 领域干出“最大”事情的团队。从前的 GB 通常颁发给大气海洋模拟这样的“科学”应用，当然也有如 2018 年这样把 Exascale ML 应用到气象模拟的工作。 而此次的 LLM 应用（甚至是多模态的 LLM）更像是一场 CS 界自己的狂欢。而这个模型甚至并不需要被真正训出来吐字。只要有模型方作为“科学”的一方进行背书即可。\n实际上，在 2021 年初这个节点，要在短短两个月之内完成这样一个项目，其难度是巨大的。 因为这台机器并非基于 NVIDIA 生态，而是用了一套真正自主研发的众核向量指令架构，从算子到 pytorch 都还是一片平地。在些基础上搭起 LLM 训练框架的高楼，是一项艰巨的工程挑战。 幸运的是 PACMAN 派出了十多人的可以“自动驾驶”的研究生团队（指可以在导师不在的情况下自主组织起来合作进行工作），以及靠谱的合作方，堪堪在 DDL 之前点燃了这个巨大的十万卡量级的“丹炉”，并完成了工作。\n这个工作所达成的规模在现在来看依然是惊人的。时至今日，产品级的 LLM 总参数规模还徘徊在 ?00B 规模，而彼时八卦炉所炼化的最小的模型也是 1.75T 量级。1?T 的模型也达到了相当可观的 MFU。 而最大的 1??T 的模型甚至把 EP 的规模推到了十万卡超大 EP 这个水平。哪怕是在五年后，这个数字也是极为惊人的。\n虽然在工程上 laekov 所在的团队达成了巨大的成功，但这个模型除了 loss 可以降以外，并没有收获到任何“模型能力”上的效果，也没有所谓的“学术创新”。GB 奖项的冲刺失败了，而合作团队也在投稿后各奔天涯了。 今天很难再去追究当时为什么甚至没有获得一个 GB Candidate。或许是同期的其它工作更加亮眼，也或许是“LLM”这件事并不符合当时 SC 评委老登们的 taste。 但从 2026 年的视角来看，没有继续在那样一个平台上去实验，去探索如何让 LLM 训练变得更稳定，能力变得更强，是一件更加令人唏嘘的事情。 也许是没有在正确的地方加上 grad norm，也许是训练数据质量过低，也许是没有人有拍板去坚持训练这样一个模型。\n历史无从假设。不过，聚是一团火，散是满天星。千问和豆包、DeepSeek 和 GLM，背后都站着当时那个团队里某些成员。也算是“那一把火”持续地烧穿了这个时代吧。\n左脚踩右脚上天的 FasterMoE 从四月的青岛回到北京，laekov 就要开始为自己毕业路上的第一个里程碑：一篇顶会论文开始奋斗了。虽然彼时 laekov 还在读博的第一年。\nFastMoE 的 arxiv 论文和 GitHub 开源版本获得了不错的关注，八卦炉也用上了 FastMoE 作为 EP 的基础，这为 laekov 的这篇论文进行了充分的铺垫。 目标是 PPoPP 这个注重“并行”的会议，所以 laekov 瞄准了 EP 的性能优化，并第一次完整地自己总结出了三个创新：负载均衡、计算通信重叠、通信量优化。 这一切对比的基准则是几个月前开源挂 arxiv 的 FastMoE 和靠 FSDP 训 MoE 的 DeepSpeed。\n或许成功的论文各不相同，但 PACMAN 投文章的结构千篇一律：一个问题，三个挑战，三个创新点，总结成一句话，加上 solid 且 visible 的 speedup。 令 laekov 印象深刻的或许是和葡萄牙兄弟 Tiago 的跨时区激情合作，或许是被封在学校不准出去但是把夜熬穿在广州超算集群上占 64x V100 做实验，或许是一边在实验室投影看东京奥运会一边改论文。 奇迹般的，laekov 在那个晚 8 点 DDL 前的最后两小时跑出了一条还算好看的 loss 曲线并贴进了论文里。而在等曲线的时候感觉论文已经改无可改，于是打开了 GTA 还被老师抓了现行。\n暑假过去，投稿完成。十月，出分，还不错，rebuttal。十一月，在生日前后的某天，收到了开头为 Congratulations 的邮件。Artifact Evaluation, Camera Ready。 做科研仿佛是一件很顺利的事情，唯一的缺憾是 2022 年疫情原因没能去韩国线下参加 PPoPP，亲自现场讲自己的论文。 然而或许 laekov 仍未明白为什么这篇文章会如此顺利。\nlaekov 在做完 FasterMoE 之后发现 MoE 尚未被大规模应用。EP 也并非必需品。于是在投完 FasterMoE 后的2022 年，laekov 将注意力转向了 LLM 以外的方向。 从 2026 年的视角，这一决定无非是与时代的浪潮背道而驰。然而 2022 年的 laekov 甚至不愿意说自己是搞 AI 的，而希望做更“有意思”的负载，更“科学”的应用。 这里也无论对错，只是总结规律，当时代的潮水还停留在海面之下暗流涌动的时候，或许弄潮儿还没能感知大浪即将到来，于是选择了胡乱划水罢了。\nDLRM 的折戟沉沙与屡败屡战 书接上回，在 2021 年秋天，在 FasterMoE 投稿工作告一段落之后，laekov 被同时分配到了两份实习工作（横向项目），分别是某大模型公司（实验室）的想搞自动（？）并行，另一边则是某短视频公司想搞 DLRM 训练加速。 在迅速地意识到前者需要的可能只是一套 DTensor （当时还没有这个玩意）并且自动并行早在本科搞 Garlic 的时候就已经被 laekov 认为是一个并不好玩的方向。 而 DLRM（基于 Deep Learning 的 Recommendation Model）这件事和 laekov 事先定下的“稀疏”的主线不谋而合，甚至有一些优化思路还可以从 MoE 中借鉴过来。 于是 laekov 把更大的热情投在了 DLRM 这件事情上。 然而，由于一些原因（比如老师坚持要以学术项目为主导以及某司工作环境实在比较难以为继），laekov 并没有真正拿到业界的真实系统和数据，而是在 NVIDIA 开源的 HugeCTR 上展开了探索（修修补补）。\n这里要引入 laekov 后来总结的一个关于论文的做菜理论：投论文就像是厨艺大赛，要做菜给评委吃。它研究的问题是原料，而研究方法和写作手法则是烹饪的工序和手法。 新鲜的食材仅需要简单的处理即可散发出诱人的美味，而陈腐的食材尽管经过了重油重盐的大力处理，依然难以掩盖其平庸的内在。 很遗憾，laekov 第一次无意踩中了 MoE 这个极为鲜美的甚至彼时还未被人开发的处子领域，而在 DLRM 这个方面则不幸命中了一个已经弥漫着并不新鲜的味道的话题。 工业界在 DLRM 方面的研究至少领先公开可查的论文 5 年，而他们显然不会将自己公司的核心竞争力通过论文公之于众。 然而，当来自工业界的审稿人看到投稿还在讨论他们早已解决的问题的时候，得到低分是难以避免的。\n当 laekov 开始在 HugeCTR 上进行优化的时候，已经是 2022 年初了。在这一年发生了什么无需多言。而 laekov 开发的过于复杂的优化所遇到的代码正确性 bug 隐藏得很深。 在时间凝固的 2022 年，处于工作效率谷底的 laekov 几乎花费了大半年的时间来解决这些 bug，并堪堪在一些开源的显著有别于真实数据的 case 上获得了性能收益。\n12 月，由于 covid 感染和封城而倒在宿舍里的 laekov 一拍脑门，拉上室友 Harry，决定出手这篇文章，投一个 ATC。 彼时由于还有师弟在 MoE 方向的续作 SmartMoE 需要 laekov 参与，故 laekov 选择了 ATC 给出的一个神奇的 Short Paper 选项，仅需写正常 paper 的一半长度。 经过一番努力包装，这篇 paper 最终喜提 early reject。（而同时投稿的 SmartMoE 则一次中稿。 /* 是师弟似乎也继承了 laekov 的诅咒，后续投稿至今未能投中。让我们在这里祝他早日 accept，脱离苦海 */）\n于是 laekov 转战当年的 sc，把文章扩展成了十多页的长文，故事变成了 scaling up sparse training，然后毫无意外地继续吃 reject。 后来投 PPoPP'24 的“稀疏通信”给了一个 poster（reject 之后的安慰奖），然后又被 ASPLOS 继续按在地上拒了一次。laekov 彻底绝望了。\n直到 24 年底毕业前夕，laekov 决定投一个 ICDE，然而因为没搞清楚单盲投稿要写名字所以 desk reject 了，于是当场转到 ATC'25 陪跑自己的另一篇文章。 没想到收到分数的时候发现，这篇已经放弃治疗的文章，竟然比当时认真写的那篇分数还要高！有一个 reviewer 认为这是 solid system 并给出了 4 分的神奇意见。 laekov 会记得那个四月的 SG 的晚上，laekov 从地铁里走出来回宾馆的时候，收到了这篇文章的 congrats 邮件。 当时的 laekov 站在 Stamford 酒店半空中的露台上凝视着 SG 的夜景对这一切感到如此地不真实但又是某种意义上历时两年半的压力的释放。 这篇文章经历了六次投稿，终于在毕业前中了。\n所以 laekov 的料理大赛理论还需要加上一条：“投”即投其所好。然而对于现代双盲评审的会议，从技术上讲并无可能真正对审稿人进行偏好攻击。 因此，laekov 更愿意将这一过程比喻为“投壶”：对于这种差劲边缘的工作，机缘（以及背后一些不能放到表面来研究的过程）或许也是十分重要的一个部分。\nFastDecode: Good idea 毁于拖延 在 23 年初的时候，LLM 的火爆已经初现端倪。老师和 laekov 都敏锐地意识到 LLM 的推理成本或许将会比训练成本更加关键。 彼时 vllm 的论文还没有发表，LLM 推理的领域还是一片蓝海。在课题组 23 年初的年会上，laekov 提出要好好研究流水并行和异构硬件对于 decoding 成本的帮助。 然后那年 laekov 就去折腾其它的事情了。直到 11 月才想起来还有这么个 idea 要做。然而当时不仅有 vllm，甚至 PD 分离都已经快要出来了。 然而 laekov 当时也有别的事在搞，于是胡乱做了些 CPU / GPU 分离 PP 的实验，完全 focus 在 throughput 上，并且达成了超级高的 throughput。 于是 laekov 就以赶 arxiv 版本的心态又投了一年的 ATC，然后不出意外地被 ATC 审稿人各种挑刺并拒掉了，不过 laekov 的目标真的只是赶紧挂个 arxiv 完事。 这篇文章也经历了一年多的重新包装 \u0026 polish，乃至于在 2025 年初又投 ATC 的时候已经完全看不出之前的模样了。 虽然直到 laekov 毕业它还是没中，但是它也贡献了一份专利+一份 workshop paper，在下一章讲到的故事里发挥了一些有趣的作用。\n现在复盘如果这个 idea 做出来得再早一点，把分离 serving 的概念再提得明确一些，或许也是一篇不错的工作。 Serving 在 2023 年初的时候确实是一个新鲜的“食材”，可惜这个时代一个 idea 放六个月可能就已经不新鲜了，被别人做烂了。 这也是在 DLRM 基础上的一个新的 lesson: 越是大的浪潮，它流动的速度也越快，在此中做学术或技术，更要有紧迫感，注重时效性。\nImplementation: 开个公司试试？ 有了 FastMoE 这个“著名”开源项目，有了八卦炉在国产硬件和大规模上的积累，2023 年中的时候，一个创业的念头摆在了 laekov 和导师面前。 最初版本的故事是，如果能用上那些国产算力，那或许可以以极低的成本达成 LLM 的训练。\n于是 laekov 开始研究如何作为一个博士生开一家公司。然后在和老师一起逐步了解和搭建这个框架的时候，又引入了更多的合伙人乃至是新的 CEO 和 COO，laekov 最终的形态是一个联创。 在 2023 年的后半部分，“见投资人”和“改 BP PPT”就成为了 laekov 工作的重要部分。BP 的 PPT 是继 22 年杰青 PPT 之后 laekov 和 PhD 伙伴们最倒背如流的 PPT 之一了。\n这个 startup 的故事最终落在了“国产硬件”这件事情上，但八卦炉的故事事实上已经过时了。在 AI Infra 这个赛道，硬件厂商和模型厂商都有更复杂、更具体的需求。 在获得了天使轮的融资之后，2024 年 laekov 的主要目标是“做成一个项目”。于是和不同的厂商谈了合作。而厂商似乎对 FastDecode 这个事情比较感兴趣，而无巧不成书，FastDecode 往不同加速器平台移植的成本也是极低的。 于是以 FastDecode 为主要内容之一的项目甚至比八卦炉在训练上落地这个事情推进得更加顺利一些。 在这个过程中 laekov 也认识了很多不同的人，接触了商业逻辑的方方面面。比起以创新为核心的学术圈，商业利益驱动的世界更在乎一件事物短期内能产生的实际价值。\n或许这一切可以被指责为冰冷无情，但换个方面想，这些事情也简单了许多。 可复制的产品是获取利润的核心工具。 而作为创业公司，抓住时代的浪潮固然重要，敢于 all in 的勇气也是成功的必要条件。\n这段经历让 laekov 对世界产生了更新的认识。从前的 laekov 或许一心只想当个 AP，但在这一次大胆行动之后，laekov 对于技术是如何产生价值的、对于商业是如何运行的有了初步的认识。 虽然这次经历并没有让 laekov 从此走上人生巅峰实现财富自由，但 laekov 认为这是老师在 laekov 的 PhD 培养过程中给出的十分重要的最后一课。 这在 laekov 选择自己的人生路径的时候产生的影响也是终身的。\nEvaluation 和五年前的记录进行一个逐行对比。\nlaekov 本科期间换了 4 个新手机, 0 个新电脑.\nlaekov 研究生期间换了 1 个新手机，自费买了 2 台电脑，领用了至少 6 台办公用电脑。\nlaekov 本科期间去过 4 次美国, 2 次德国. 两次去德国都在 Frankfurt.\nlaekov 研究生期间去了 2 趟美国，1 趟英国。\nlaekov 一共参加了 7 场超算比赛, 其中 5 场是正式队员, 4 场由 laekov 主要负责被面试.\nlaekov 研究生期间去超算比赛看本科小朋友们玩过。\nlaekov 本科期间一共发表了 2 篇论文.\nlaekov 研究生期间共发表了 9 篇论文，其中一作 CCF-A 类 2 篇。总引用量 600+。\n(根据学校统计) laekov 一共吃过学校的 15 个不同食堂中的 14 个.\nlaekov 研究生期间学校新开了双清食堂，并吃上了。对本科时没刷上卡的荷园食堂进行了补档。但由于各种原因没再去吃过北园南园融园。\nlaekov 本科期间拥有过 13 辆自行车, 其中包括 6 辆公路车 (小绿, 大彩, 小灰, 蓝车, 大紫, 大橙), 6 辆通勤车 (黑色卧凤, 大绿, 成都死飞, 大蓝, 大白, 大粉), 1 辆山地车 (大黄).\nlaekov 研究生期间购买了 4 辆自行车，其中包括 1 台公路车（老六），1 台软尾山地车（大大紫），2 台通勤车（大青、大黑）。\nlaekov 在 4 个国外城市和 7 个国内城市骑过自行车 (不少于 40km).\nlaekov 研究生期间没在国外骑过车，国内除了北京外只在两到三个城市骑过车。\n根据 laekov 的 strava 记录, 从 2017 年到 2020 年 6 月 24 日, laekov 一共骑行了 12884.9 千米, 海拔爬升 133472 米. (相当于从海平面爬了15 次珠峰?)\nstrava 数据有点难统计了，但 laekov 每年都还在骑公路车 3000 km 以上（除了 2024 年没达到 3kkm），总爬升应该比本科多吧。\nlaekov 本科期间完成了 4 场铁人三项比赛, 2 场半程马拉松比赛, 1 场越野跑比赛. 参加了 3 次自行车比赛, 其中有一次因为下雨太冷退赛了, 另有一次因为摔断了手而 DNS.\nlaekov 研究生期间没有完成过铁人三项比赛（DNS 一场），蹭了一场半马，参加了 1 场越野跑，4 次自行车比赛并且都完赛了。\n除此之外，laekov 在研究生期间开辟了赛车的新方向。 代表学校在卡丁车比赛夺冠一次，在模拟器比赛获得亚军一次，在 hipole 平台共参赛 98 场，11 次登上领奖台，但从来没有拿过冠军。\nlaekov 在研究生期间先后在 6 家单位办过实习。\n",
+  "wordCount" : "924",
+  "inLanguage": "en",
+  "datePublished": "2026-03-21T13:00:00Z",
+  "dateModified": "2026-03-21T13:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/random/phd-thesis/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/random/">Randoms</a></div>
+    <h1 class="post-title">
+      读博五年的流水账和胡思乱想
+    </h1>
+    <div class="post-meta"><span title='2026-03-21 13:00:00 +0000 UTC'>March 21, 2026</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#introduction" aria-label="Introduction">Introduction</a></li>
+                <li>
+                    <a href="#motivation-%e8%bf%99%e4%b8%80%e5%88%87%e6%98%af%e6%80%8e%e4%b9%88%e5%bc%80%e5%a7%8b%e7%9a%84" aria-label="Motivation: 这一切是怎么开始的">Motivation: 这一切是怎么开始的</a></li>
+                <li>
+                    <a href="#methodology-%e6%88%91%e5%a5%bd%e5%83%8f%e5%9c%a8%e5%81%9a%e7%a7%91%e7%a0%94" aria-label="Methodology: 我好像在做科研">Methodology: 我好像在做科研</a><ul>
+                        
+                <li>
+                    <a href="#starting-from-fastmoe" aria-label="Starting From FastMoE">Starting From FastMoE</a></li>
+                <li>
+                    <a href="#%e5%85%ab%e5%8d%a6%e7%82%89is-scalability-everything" aria-label="八卦炉：Is scalability everything?">八卦炉：Is scalability everything?</a></li>
+                <li>
+                    <a href="#%e5%b7%a6%e8%84%9a%e8%b8%a9%e5%8f%b3%e8%84%9a%e4%b8%8a%e5%a4%a9%e7%9a%84-fastermoe" aria-label="左脚踩右脚上天的 FasterMoE">左脚踩右脚上天的 FasterMoE</a></li>
+                <li>
+                    <a href="#dlrm-%e7%9a%84%e6%8a%98%e6%88%9f%e6%b2%89%e6%b2%99%e4%b8%8e%e5%b1%a1%e8%b4%a5%e5%b1%a1%e6%88%98" aria-label="DLRM 的折戟沉沙与屡败屡战">DLRM 的折戟沉沙与屡败屡战</a></li>
+                <li>
+                    <a href="#fastdecode-good-idea-%e6%af%81%e4%ba%8e%e6%8b%96%e5%bb%b6" aria-label="FastDecode: Good idea 毁于拖延">FastDecode: Good idea 毁于拖延</a></li></ul>
+                </li>
+                <li>
+                    <a href="#implementation-%e5%bc%80%e4%b8%aa%e5%85%ac%e5%8f%b8%e8%af%95%e8%af%95" aria-label="Implementation: 开个公司试试？">Implementation: 开个公司试试？</a></li>
+                <li>
+                    <a href="#evaluation" aria-label="Evaluation">Evaluation</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h3 id="introduction">Introduction<a hidden class="anchor" aria-hidden="true" href="#introduction">#</a></h3>
+<p>离毕业已经过去9个月了，终于得以端坐在大洋彼岸计划中的公寓的书桌前开始写这篇拖欠已久的文章。</p>
+<p>人生每过一个阶段，就写下些什么，是 laekov 形成已久的惯例。
+而读博这一篇章在结束时曾经尤为令 laekov 感到激动而想要进行一番记录。</p>
+<p>在 laekov 并不长的一生中，在一个校园里度过四年之后，再选择继续待五年甚至可能是更长的时间，并不是一件容易的决定。
+Dr 这短短两个字母的前缀，是曾经崇高的追求，也带来迷惘和痛苦。
+它让 laekov 晚了一些年真正地进入社会，或许少了一些经历，也或许多了一些成长。
+当这一切结束于一场并不那么隆重的毕业典礼时，当匆匆离去的脚步在不经意间拉开了更精彩世界的帷幕之后，曾经的平静、单纯显得多么珍贵。
+而曾经的痛苦、愤怒、迷茫终将化为浅浅一笑。</p>
+<p>这一切建立了一个人类对于这个社会最初始的认知。
+它改变或者说塑造了这个人的愿望、行为。
+老师总是说，PhD 最重要的是培养一个人做研究的能力。
+一个人自己的一段经历以及自身的脱变何尝不是一个重要的研究对象呢？</p>
+<h3 id="motivation-这一切是怎么开始的">Motivation: 这一切是怎么开始的<a hidden class="anchor" aria-hidden="true" href="#motivation-这一切是怎么开始的">#</a></h3>
+<p>五年前 laekov 对读 phd 这个决定的产生进行了<a href="https://laekov.com.cn/random/2897dc/#%2525e7%2525a7%252591%2525e7%2525a0%252594-phd-%2525e7%25259a%252584%2525e5%252586%2525b3%2525e5%2525ae%25259a%2525e4%2525b8%25258e%2525e7%252594%2525b3%2525e8%2525af%2525b7">详细的描述</a>。</p>
+<p>一言以蔽之，就是对科研产生了憧憬并决定花五年的时间来更进一步。</p>
+<p>曾经的 laekov 认为科研是一件崇高的事业，因为科研是在扩展人类的知识边界，这听起来是多么伟大而有意义的事呀！
+因为 laekov 认为人的生命是没有意义的，因为宇宙是没有意义的。宇宙从诞生到消失，无可改变，甚至一切也许就是写好的剧本。
+在这样的背景下，努力奋斗或许本身就是一个伪命题。
+而在这无聊的世界中，或许唯一有意义的事，不就是“扩展认知”这一件吗？
+来到这个大千世界，在人生有限的几万天内，去做一些无人做过的事，发现一些无人发现的角落，用一篇篇 paper 构筑一个属于自己的世界。
+或许这些研究并没有作用，或许只是一个无聊的小 trick，但当说起它们的时候哪怕有一点点的令人兴奋也是一件好事情呀。</p>
+<p>laekov 选择了并行计算这个方向，原因或许也不那复杂，只是因为从 2017 年开始 laekov 就开始了，到 2019 年的时候已经是一个有一些些经验的“熟练工”了。
+相比起彼时方兴未艾的热门方向“机器学习”，laekov 认为做出一个实际可用的 system 并且在成千上万的计算资源上高效运转起来是最能带来成就感的事情。
+laekov 曾经的爽点就在于看着 scc 集群上每台机器的一百多个 cpu 核在 htop 里一片绿的场景，甚至是使用特殊的绑核策略绑出一些神奇的花纹。
+相比起来，性能优化的工作是确定的，被完好定义的，有上限的。这件事激活了 laekov 从中学开始的竞赛基因。
+另一方面，或许 laekov 对科研和工程这两件事的看法是两者是需要结合的。相比于纯粹的理论上的贡献，laekov 更想看到在有生之年科研成果能够被用于真实的世界，产生真正的价值。
+因此，虽然哪怕 system 这个方向更强调 engineering 与 fancy idea 的结合，而并非一个那么有理论深度，那么数学公式满天飞的领域，但 laekov 依然选择了这个方向。</p>
+<p>当然了，至于在哪里读 PhD 这件事，laekov 其实是被命运的齿轮转动着引导到了意想不到的地方，以一种神奇的姿势站在了时代的浪潮之巅。
+在 2020 年，laekov 原计划是前往大洋这边的阳光下的 LA 来进行 PhD 的旅程，但因为 COVID 和川总的 travel ban，不幸滞留在了北京。
+当时 laekov 手里甚至有或许能用的签证，只需前往第三国中转两周，便可踏上新的土地去完成自己的梦想。
+然而或许是冥冥中的指引（或许是不想扛着自行车去中转），laekov 选择了在原地先打工过度，然后又在绝望的打工过程中收到了来自本科母校的召唤，于是回到了 PACMAN，并且最终在这里又度过了五年。</p>
+<h3 id="methodology-我好像在做科研">Methodology: 我好像在做科研<a hidden class="anchor" aria-hidden="true" href="#methodology-我好像在做科研">#</a></h3>
+<p>贵系对于 PhD 的获取条件是明码标价的：至少一项被“顶会”（基本赞同于 CCF A 类会）发表的一作工作。
+尽管在本科时接受了一些基础的训练，但 laekov 对“科研”这件事的理解是在逐步形成的。
+laekov 最开始认为科研就是找到一个问题，提出一个解决方案并且写一些代码来证明这个方案，把方案写清楚，就称得上是一个成功的科研项目了。
+在本科时的 Prague 这篇文章写作的时候，laekov 就直接地践行着这个理念。然而，彼时的 laekov 并未意识到背后还有更复杂的来龙去脉。</p>
+<p>直到昨天 laekov 才恍然意识到，“创新”是学术界所 appreciate 的核心价值，但 laekov enjoy 的或许只是“创造”这个过程罢了。
+用一个纸箱搓一个柜子，或者是写出什么粗糙但可以满足某种需求的网页，显然并不足以发一篇 paper，但对于 laekov 来说，这和写系统发论文带来的成就感是并无太大差异的。
+这也许是 laekov 在读博前混淆所以产生了一些虚假期望的原因。不过没有关系，这不妨碍以下罗列的这些经历成为 laekov 宝贵的回忆和人生经历。</p>
+<h4 id="starting-from-fastmoe">Starting From FastMoE<a hidden class="anchor" aria-hidden="true" href="#starting-from-fastmoe">#</a></h4>
+<p>laekov 的第一篇论文开始地异常的顺利。
+在博一上半学期快要结束的时候，2020 年末，laekov 被派去和算法组的同学合作解决一些他们发现的模型训练效率问题，这就是 FastMoE 这个故事开始的地方。
+彼时 Bert 和 GPT 才刚刚在业内为众人所知。谷歌已经开始研究如何扩增 LLM 的参数量来获取更好的性能，同时又想要节省计算量。“稀疏”戳中了 laekov 本想研究 GNN 的神经。
+在支持算法同学研究 MoE 模型的路上，laekov 把自己的系统命名为 FastMoE，代表着这是一个快速（写得快）的实现，旨在赶紧支持合作的算法同学的科研需求。
+这个系统的初版甚至被用于“并行计算”这门课的期末作业。laekov 为了实现迅速，舍弃了 torch 里推荐使用的 NCCL，而是在 MPI 的基础上搓出了第零个版本。
+为了使用那个版本的系统，用户不能使用 pip 安装 torch，而是需要在装好 openmpi 开发环境的系统里编译 pytorch。
+后来的故事是 laekov 寒假选择了不回家留在北京，在智源的清华科技园二楼的办公室里写完了 NCCL 版本的开源的 FastMoE 的初版，甚至还“不小心”联系了公关能力远超 PACMAN 水平的智源团队来 PR 这个系统。</p>
+<p>然而 FastMoE 这个项目只解决了从“没有开源系统可用”到“有办法训”的路径。相比于 paper 所需要的 novelty 还相去甚远。
+彼时 laekov 已经规划好了一些可能的方案，而 FastMoE 这个系统的开源和 arxiv 只是为了给自己提供一个可比较的 baseline。
+回忆起来会觉得 laekov 当时的设计能力强得可怕，哪怕手里的只是一个非常基本的，没有一点创新的，只是解决工程问题的项目。</p>
+<p>无独有偶，在 FastMoE 的 arxiv 论文公开后仅仅三天之后，facebook 就公布了他们的同样基于 pytorch 的开源的 fairseq。
+尽管在对 capacity 的理解等方面 fairseq 和 FastMoE 不尽一致，但就是这争分夺秒而来的 3 天的优势，堪堪让 FastMoE 坐稳了“全世界首个基于 PyTorch 的开源 xx”这个虽然定语有点长但实实在在是世界首个的位置。
+对于 laekov 来说，哪怕 paper 还没有发布在某个 CCF A 类会议接收，但这样毫离之间的小小成功也是令人振奋的。
+也或许当今 AI 模型之间激烈的竞争从那时起就埋下了小小的种子？</p>
+<h4 id="八卦炉is-scalability-everything">八卦炉：Is scalability everything?<a hidden class="anchor" aria-hidden="true" href="#八卦炉is-scalability-everything">#</a></h4>
+<p>FastMoE 是带着更多的目的诞生的。八卦炉也是其中之一。</p>
+<p>那是 2021 年的春节前，laekov 跟着老师加入了一个神奇的四方会谈，目标是冲击一个“世界最大”规模的 LLM 预训练，具体一点，是要去冲击戈登-贝尔奖（GB）。
+这个奖每个颁发给在 HPC 领域干出“最大”事情的团队。从前的 GB 通常颁发给大气海洋模拟这样的“科学”应用，当然也有如 2018 年这样把 Exascale ML 应用到气象模拟的工作。
+而此次的 LLM 应用（甚至是多模态的 LLM）更像是一场 CS 界自己的狂欢。而这个模型甚至并不需要被真正训出来吐字。只要有模型方作为“科学”的一方进行背书即可。</p>
+<p>实际上，在 2021 年初这个节点，要在短短两个月之内完成这样一个项目，其难度是巨大的。
+因为这台机器并非基于 NVIDIA 生态，而是用了一套真正自主研发的众核向量指令架构，从算子到 pytorch 都还是一片平地。在些基础上搭起 LLM 训练框架的高楼，是一项艰巨的工程挑战。
+幸运的是 PACMAN 派出了十多人的可以“自动驾驶”的研究生团队（指可以在导师不在的情况下自主组织起来合作进行工作），以及靠谱的合作方，堪堪在 DDL 之前点燃了这个巨大的十万卡量级的“丹炉”，并完成了工作。</p>
+<p>这个工作所达成的规模在现在来看依然是惊人的。时至今日，产品级的 LLM 总参数规模还徘徊在 ?00B 规模，而彼时八卦炉所炼化的最小的模型也是 1.75T 量级。1?T 的模型也达到了相当可观的 MFU。
+而最大的 1??T 的模型甚至把 EP 的规模推到了十万卡超大 EP 这个水平。哪怕是在五年后，这个数字也是极为惊人的。</p>
+<p>虽然在工程上 laekov 所在的团队达成了巨大的成功，但这个模型除了 loss 可以降以外，并没有收获到任何“模型能力”上的效果，也没有所谓的“学术创新”。GB 奖项的冲刺失败了，而合作团队也在投稿后各奔天涯了。
+今天很难再去追究当时为什么甚至没有获得一个 GB Candidate。或许是同期的其它工作更加亮眼，也或许是“LLM”这件事并不符合当时 SC 评委老登们的 taste。
+但从 2026 年的视角来看，没有继续在那样一个平台上去实验，去探索如何让 LLM 训练变得更稳定，能力变得更强，是一件更加令人唏嘘的事情。
+也许是没有在正确的地方加上 grad norm，也许是训练数据质量过低，也许是没有人有拍板去坚持训练这样一个模型。</p>
+<p>历史无从假设。不过，聚是一团火，散是满天星。千问和豆包、DeepSeek 和 GLM，背后都站着当时那个团队里某些成员。也算是“那一把火”持续地烧穿了这个时代吧。</p>
+<h4 id="左脚踩右脚上天的-fastermoe">左脚踩右脚上天的 FasterMoE<a hidden class="anchor" aria-hidden="true" href="#左脚踩右脚上天的-fastermoe">#</a></h4>
+<p>从四月的青岛回到北京，laekov 就要开始为自己毕业路上的第一个里程碑：一篇顶会论文开始奋斗了。虽然彼时 laekov 还在读博的第一年。</p>
+<p>FastMoE 的 arxiv 论文和 GitHub 开源版本获得了不错的关注，八卦炉也用上了 FastMoE 作为 EP 的基础，这为 laekov 的这篇论文进行了充分的铺垫。
+目标是 PPoPP 这个注重“并行”的会议，所以 laekov 瞄准了 EP 的性能优化，并第一次完整地自己总结出了三个创新：负载均衡、计算通信重叠、通信量优化。
+这一切对比的基准则是几个月前开源挂 arxiv 的 FastMoE 和靠 FSDP 训 MoE 的 DeepSpeed。</p>
+<p>或许成功的论文各不相同，但 PACMAN 投文章的结构千篇一律：一个问题，三个挑战，三个创新点，总结成一句话，加上 solid 且 visible 的 speedup。
+令 laekov 印象深刻的或许是和葡萄牙兄弟 Tiago 的跨时区激情合作，或许是被封在学校不准出去但是把夜熬穿在广州超算集群上占 64x V100 做实验，或许是一边在实验室投影看东京奥运会一边改论文。
+奇迹般的，laekov 在那个晚 8 点 DDL 前的最后两小时跑出了一条还算好看的 loss 曲线并贴进了论文里。而在等曲线的时候感觉论文已经改无可改，于是打开了 GTA 还被老师抓了现行。</p>
+<p>暑假过去，投稿完成。十月，出分，还不错，rebuttal。十一月，在生日前后的某天，收到了开头为 Congratulations 的邮件。Artifact Evaluation, Camera Ready。
+做科研仿佛是一件很顺利的事情，唯一的缺憾是 2022 年疫情原因没能去韩国线下参加 PPoPP，亲自现场讲自己的论文。
+然而或许 laekov 仍未明白为什么这篇文章会如此顺利。</p>
+<p>laekov 在做完 FasterMoE 之后发现 MoE 尚未被大规模应用。EP 也并非必需品。于是在投完 FasterMoE 后的2022 年，laekov 将注意力转向了 LLM 以外的方向。
+从 2026 年的视角，这一决定无非是与时代的浪潮背道而驰。然而 2022 年的 laekov 甚至不愿意说自己是搞 AI 的，而希望做更“有意思”的负载，更“科学”的应用。
+这里也无论对错，只是总结规律，当时代的潮水还停留在海面之下暗流涌动的时候，或许弄潮儿还没能感知大浪即将到来，于是选择了胡乱划水罢了。</p>
+<h4 id="dlrm-的折戟沉沙与屡败屡战">DLRM 的折戟沉沙与屡败屡战<a hidden class="anchor" aria-hidden="true" href="#dlrm-的折戟沉沙与屡败屡战">#</a></h4>
+<p>书接上回，在 2021 年秋天，在 FasterMoE 投稿工作告一段落之后，laekov 被同时分配到了两份实习工作（横向项目），分别是某大模型公司（实验室）的想搞自动（？）并行，另一边则是某短视频公司想搞 DLRM 训练加速。
+在迅速地意识到前者需要的可能只是一套 DTensor （当时还没有这个玩意）并且自动并行早在本科搞 Garlic 的时候就已经被 laekov 认为是一个并不好玩的方向。
+而 DLRM（基于 Deep Learning 的 Recommendation Model）这件事和 laekov 事先定下的“稀疏”的主线不谋而合，甚至有一些优化思路还可以从 MoE 中借鉴过来。
+于是 laekov 把更大的热情投在了 DLRM 这件事情上。
+然而，由于一些原因（比如老师坚持要以学术项目为主导以及某司工作环境实在比较难以为继），laekov 并没有真正拿到业界的真实系统和数据，而是在 NVIDIA 开源的 HugeCTR 上展开了探索（修修补补）。</p>
+<p>这里要引入 laekov 后来总结的一个关于论文的做菜理论：投论文就像是厨艺大赛，要做菜给评委吃。它研究的问题是原料，而研究方法和写作手法则是烹饪的工序和手法。
+新鲜的食材仅需要简单的处理即可散发出诱人的美味，而陈腐的食材尽管经过了重油重盐的大力处理，依然难以掩盖其平庸的内在。
+很遗憾，laekov 第一次无意踩中了 MoE 这个极为鲜美的甚至彼时还未被人开发的处子领域，而在 DLRM 这个方面则不幸命中了一个已经弥漫着并不新鲜的味道的话题。
+工业界在 DLRM 方面的研究至少领先公开可查的论文 5 年，而他们显然不会将自己公司的核心竞争力通过论文公之于众。
+然而，当来自工业界的审稿人看到投稿还在讨论他们早已解决的问题的时候，得到低分是难以避免的。</p>
+<p>当 laekov 开始在 HugeCTR 上进行优化的时候，已经是 2022 年初了。在这一年发生了什么无需多言。而 laekov 开发的过于复杂的优化所遇到的代码正确性 bug 隐藏得很深。
+在时间凝固的 2022 年，处于工作效率谷底的 laekov 几乎花费了大半年的时间来解决这些 bug，并堪堪在一些开源的显著有别于真实数据的 case 上获得了性能收益。</p>
+<p>12 月，由于 covid 感染和封城而倒在宿舍里的 laekov 一拍脑门，拉上室友 Harry，决定出手这篇文章，投一个 ATC。
+彼时由于还有师弟在 MoE 方向的续作 SmartMoE 需要 laekov 参与，故 laekov 选择了 ATC 给出的一个神奇的 Short Paper 选项，仅需写正常 paper 的一半长度。
+经过一番努力包装，这篇 paper 最终喜提 early reject。（而同时投稿的 SmartMoE 则一次中稿。 /* 是师弟似乎也继承了 laekov 的诅咒，后续投稿至今未能投中。让我们在这里祝他早日 accept，脱离苦海 */）</p>
+<p>于是 laekov 转战当年的 sc，把文章扩展成了十多页的长文，故事变成了 scaling up sparse training，然后毫无意外地继续吃 reject。
+后来投 PPoPP'24 的“稀疏通信”给了一个 poster（reject 之后的安慰奖），然后又被 ASPLOS 继续按在地上拒了一次。laekov 彻底绝望了。</p>
+<p>直到 24 年底毕业前夕，laekov 决定投一个 ICDE，然而因为没搞清楚单盲投稿要写名字所以 desk reject 了，于是当场转到 ATC'25 陪跑自己的另一篇文章。
+没想到收到分数的时候发现，这篇已经放弃治疗的文章，竟然比当时认真写的那篇分数还要高！有一个 reviewer 认为这是 solid system 并给出了 4 分的神奇意见。
+laekov 会记得那个四月的 SG 的晚上，laekov 从地铁里走出来回宾馆的时候，收到了这篇文章的 congrats 邮件。
+当时的 laekov 站在 Stamford 酒店半空中的露台上凝视着 SG 的夜景对这一切感到如此地不真实但又是某种意义上历时两年半的压力的释放。
+这篇文章经历了六次投稿，终于在毕业前中了。</p>
+<p>所以 laekov 的料理大赛理论还需要加上一条：“投”即投其所好。然而对于现代双盲评审的会议，从技术上讲并无可能真正对审稿人进行偏好攻击。
+因此，laekov 更愿意将这一过程比喻为“投壶”：对于这种差劲边缘的工作，机缘（以及背后一些不能放到表面来研究的过程）或许也是十分重要的一个部分。</p>
+<h4 id="fastdecode-good-idea-毁于拖延">FastDecode: Good idea 毁于拖延<a hidden class="anchor" aria-hidden="true" href="#fastdecode-good-idea-毁于拖延">#</a></h4>
+<p>在 23 年初的时候，LLM 的火爆已经初现端倪。老师和 laekov 都敏锐地意识到 LLM 的推理成本或许将会比训练成本更加关键。
+彼时 vllm 的论文还没有发表，LLM 推理的领域还是一片蓝海。在课题组 23 年初的年会上，laekov 提出要好好研究流水并行和异构硬件对于 decoding 成本的帮助。
+然后那年 laekov 就去折腾其它的事情了。直到 11 月才想起来还有这么个 idea 要做。然而当时不仅有 vllm，甚至 PD 分离都已经快要出来了。
+然而 laekov 当时也有别的事在搞，于是胡乱做了些 CPU / GPU 分离 PP 的实验，完全 focus 在 throughput 上，并且达成了超级高的 throughput。
+于是 laekov 就以赶 arxiv 版本的心态又投了一年的 ATC，然后不出意外地被 ATC 审稿人各种挑刺并拒掉了，不过 laekov 的目标真的只是赶紧挂个 arxiv 完事。
+这篇文章也经历了一年多的重新包装 &amp; polish，乃至于在 2025 年初又投 ATC 的时候已经完全看不出之前的模样了。
+虽然直到 laekov 毕业它还是没中，但是它也贡献了一份专利+一份 workshop paper，在下一章讲到的故事里发挥了一些有趣的作用。</p>
+<p>现在复盘如果这个 idea 做出来得再早一点，把分离 serving 的概念再提得明确一些，或许也是一篇不错的工作。
+Serving 在 2023 年初的时候确实是一个新鲜的“食材”，可惜这个时代一个 idea 放六个月可能就已经不新鲜了，被别人做烂了。
+这也是在 DLRM 基础上的一个新的 lesson: 越是大的浪潮，它流动的速度也越快，在此中做学术或技术，更要有紧迫感，注重时效性。</p>
+<h3 id="implementation-开个公司试试">Implementation: 开个公司试试？<a hidden class="anchor" aria-hidden="true" href="#implementation-开个公司试试">#</a></h3>
+<p>有了 FastMoE 这个“著名”开源项目，有了八卦炉在国产硬件和大规模上的积累，2023 年中的时候，一个创业的念头摆在了 laekov 和导师面前。
+最初版本的故事是，如果能用上那些国产算力，那或许可以以极低的成本达成 LLM 的训练。</p>
+<p>于是 laekov 开始研究如何作为一个博士生开一家公司。然后在和老师一起逐步了解和搭建这个框架的时候，又引入了更多的合伙人乃至是新的 CEO 和 COO，laekov 最终的形态是一个联创。
+在 2023 年的后半部分，“见投资人”和“改 BP PPT”就成为了 laekov 工作的重要部分。BP 的 PPT 是继 22 年杰青 PPT 之后 laekov 和 PhD 伙伴们最倒背如流的 PPT 之一了。</p>
+<p>这个 startup 的故事最终落在了“国产硬件”这件事情上，但八卦炉的故事事实上已经过时了。在 AI Infra 这个赛道，硬件厂商和模型厂商都有更复杂、更具体的需求。
+在获得了天使轮的融资之后，2024 年 laekov 的主要目标是“做成一个项目”。于是和不同的厂商谈了合作。而厂商似乎对 FastDecode 这个事情比较感兴趣，而无巧不成书，FastDecode 往不同加速器平台移植的成本也是极低的。
+于是以 FastDecode 为主要内容之一的项目甚至比八卦炉在训练上落地这个事情推进得更加顺利一些。
+在这个过程中 laekov 也认识了很多不同的人，接触了商业逻辑的方方面面。比起以创新为核心的学术圈，商业利益驱动的世界更在乎一件事物短期内能产生的实际价值。</p>
+<p>或许这一切可以被指责为冰冷无情，但换个方面想，这些事情也简单了许多。
+可复制的产品是获取利润的核心工具。
+而作为创业公司，抓住时代的浪潮固然重要，敢于 all in 的勇气也是成功的必要条件。</p>
+<p>这段经历让 laekov 对世界产生了更新的认识。从前的 laekov 或许一心只想当个 AP，但在这一次大胆行动之后，laekov 对于技术是如何产生价值的、对于商业是如何运行的有了初步的认识。
+虽然这次经历并没有让 laekov 从此走上人生巅峰实现财富自由，但 laekov 认为这是老师在 laekov 的 PhD 培养过程中给出的十分重要的最后一课。
+这在 laekov 选择自己的人生路径的时候产生的影响也是终身的。</p>
+<h3 id="evaluation">Evaluation<a hidden class="anchor" aria-hidden="true" href="#evaluation">#</a></h3>
+<p>和<a href="https://laekov.com.cn/random/2897dc/#%2525E4%2525B8%252580%2525E4%2525BA%25259B%2525E7%2525BB%25259F%2525E8%2525AE%2525A1%2525E6%252595%2525B0%2525E6%25258D%2525AE">五年前的记录</a>进行一个逐行对比。</p>
+<blockquote>
+<p>laekov 本科期间换了 4 个新手机, 0 个新电脑.</p>
+</blockquote>
+<p>laekov 研究生期间换了 1 个新手机，自费买了 2 台电脑，领用了至少 6 台办公用电脑。</p>
+<blockquote>
+<p>laekov 本科期间去过 4 次美国, 2 次德国. 两次去德国都在 Frankfurt.</p>
+</blockquote>
+<p>laekov 研究生期间去了 2 趟美国，1 趟英国。</p>
+<blockquote>
+<p>laekov 一共参加了 7 场超算比赛, 其中 5 场是正式队员, 4 场由 laekov 主要负责被面试.</p>
+</blockquote>
+<p>laekov 研究生期间去超算比赛看本科小朋友们玩过。</p>
+<blockquote>
+<p>laekov 本科期间一共发表了 2 篇论文.</p>
+</blockquote>
+<p>laekov 研究生期间共发表了 9 篇论文，其中一作 CCF-A 类 2 篇。总引用量 600+。</p>
+<blockquote>
+<p>(根据学校统计) laekov 一共吃过学校的 15 个不同食堂中的 14 个.</p>
+</blockquote>
+<p>laekov 研究生期间学校新开了双清食堂，并吃上了。对本科时没刷上卡的荷园食堂进行了补档。但由于各种原因没再去吃过北园南园融园。</p>
+<blockquote>
+<p>laekov 本科期间拥有过 13 辆自行车, 其中包括 6 辆公路车 (小绿, 大彩, 小灰, 蓝车, 大紫, 大橙), 6 辆通勤车 (黑色卧凤, 大绿, 成都死飞, 大蓝, 大白, 大粉), 1 辆山地车 (大黄).</p>
+</blockquote>
+<p>laekov 研究生期间购买了 4 辆自行车，其中包括 1 台公路车（老六），1 台软尾山地车（大大紫），2 台通勤车（大青、大黑）。</p>
+<blockquote>
+<p>laekov 在 4 个国外城市和 7 个国内城市骑过自行车 (不少于 40km).</p>
+</blockquote>
+<p>laekov 研究生期间没在国外骑过车，国内除了北京外只在两到三个城市骑过车。</p>
+<blockquote>
+<p>根据 laekov 的 strava 记录, 从 2017 年到 2020 年 6 月 24 日, laekov 一共骑行了 12884.9 千米, 海拔爬升 133472 米. (相当于从海平面爬了15 次珠峰?)</p>
+</blockquote>
+<p>strava 数据有点难统计了，但 laekov 每年都还在骑公路车 3000 km 以上（除了 2024 年没达到 3kkm），总爬升应该比本科多吧。</p>
+<blockquote>
+<p>laekov 本科期间完成了 4 场铁人三项比赛, 2 场半程马拉松比赛, 1 场越野跑比赛. 参加了 3 次自行车比赛, 其中有一次因为下雨太冷退赛了, 另有一次因为摔断了手而 DNS.</p>
+</blockquote>
+<p>laekov 研究生期间没有完成过铁人三项比赛（DNS 一场），蹭了一场半马，参加了 1 场越野跑，4 次自行车比赛并且都完赛了。</p>
+<p>除此之外，laekov 在研究生期间开辟了赛车的新方向。
+代表学校在卡丁车比赛夺冠一次，在模拟器比赛获得亚军一次，在 hipole 平台共参赛 98 场，11 次登上领奖台，但从来没有拿过冠军。</p>
+<p>laekov 在研究生期间先后在 6 家单位办过实习。</p>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/random/sfba-outdoor-logs/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>湾区户外 Ledger</span>
+  </a>
+  <a class="next" href="/random/on-frustrated/">
+    <span class="title">Next »</span>
+    <br>
+    <span>关于绝望的当下</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

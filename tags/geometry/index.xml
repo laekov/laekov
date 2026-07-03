@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>geometry on The Site of laekov</title>
+    <link>/tags/geometry/</link>
+    <description>Recent content in geometry on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Thu, 21 May 2015 16:04:54 +0000</lastBuildDate><atom:link href="/tags/geometry/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>bzoj2961 共点圆</title>
+      <link>/oi/dbimport_171/</link>
+      <pubDate>Thu, 21 May 2015 16:04:54 +0000</pubDate>
+      
+      <guid>/oi/dbimport_171/</guid>
+      <description>之前觉得不可做的一道题.然后昨天听mhy一句话瞬间懂:几何反演.然后mhy说这题用cdq?骗我读书少呢?
+html写公式好郁闷.把设圆心是(p,q),点是(x,y),那么点在圆内的条件是
+(p-x)2+(q-y)2 ≤ p2+q2
+转化一下变成
+q ≥ -(x/y) * p + (x2+y2) / (y*2)
+然后就可以把(p,q)看作一个点,每个询问就是询问之前的所有点是否都在这条直线的上方.
+那么直接归并排序喽.处理出左边的凸壳再单调扫一遍右边的所有直线.这样复杂度是O(n*logn),又短又快yeah.
+然后还听说有精度误差?我全程double没用eps也没出事啊hhh</description>
+    </item>
+    
+    <item>
+      <title>bzoj1209 [HNOI2004]最佳包裹</title>
+      <link>/oi/dbimport_118/</link>
+      <pubDate>Tue, 21 Apr 2015 09:37:44 +0000</pubDate>
+      
+      <guid>/oi/dbimport_118/</guid>
+      <description>三维算几ovo给mhy和idy跪烂.
+三维凸包算是一种比较简单的三维算几吧.首先有一些基本的公式比如算四个点的体积就是一个底*高.不过变成了一个面的法向量点乘另一个向量.
+然后就用随机增量法每次替掉一些面就好了.
+然后有一种可能是所有点都共面.这种时候就随机把一些点乱移动一下让它们形成一个高度和纸一样薄的凸包再来算就行了.
+感觉也不是特别恶心啊ovo</description>
+    </item>
+    
+    <item>
+      <title>bzoj2289 POJ Challenge圆，圆，圆</title>
+      <link>/oi/dbimport_136/</link>
+      <pubDate>Sat, 28 Mar 2015 21:48:13 +0000</pubDate>
+      
+      <guid>/oi/dbimport_136/</guid>
+      <description>白天讲课讲到的题。感觉比较有意思于是就去写了。然后这也是我超过于教授的题。感觉还是挺有意义的。
+之前遇到过这个题。不过没有想出比较靠谱的方法。然后就用黑暗水过了。这回算是来对地方了。
+做法比较简单。二分一个xo，看x=xo这条直线上有没有一部分被所有圆覆盖。如果有就ok。没有的话，如果有圆完全在它左或者它右，那么可以确定二分往哪边走或者无解。否则去随便找两个不相交的圆。如果它们在不同侧那就没有解了。在同一侧也可以确定方向。虽然我觉得没解这个地方需要再想想严格的证明。
+不过反正填了2个点分之后终于写了道有意思的题，开心ing。
+Historical Comments Unknown friend at 2016-01-18T08:27:34 @bzoj2289: “否则去随便找两个不相交的圆。如果它们在不同侧那就没有解了。” QAQ这里是有反例的……！ &amp;mdash;- anonymous
+Unknown friend at 2016-01-18T08:27:34 @bzoj2289: “否则去随便找两个不相交的圆。如果它们在不同侧那就没有解了。” QAQ这里是有反例的……！ &amp;mdash;- anonymous
+Unknown friend at 2016-01-18T22:40:55 @bzoj2289: 也许是吧= =表示高考解析几何比这玩意好玩多了ovo还有啊匿名是几个意思ovo &amp;mdash;- laekov
+Unknown friend at 2016-01-18T22:40:55 @bzoj2289: 也许是吧= =表示高考解析几何比这玩意好玩多了ovo还有啊匿名是几个意思ovo &amp;mdash;- laekov</description>
+    </item>
+    
+    <item>
+      <title>BZOJ2178 圆的面积并</title>
+      <link>/oi/i11rimport_012/</link>
+      <pubDate>Fri, 06 Mar 2015 00:39:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_012/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 计算几何题。别人都用simpson搞。然后我决定不水一发，用hwd神犇在wc上讲的关键点法做。&amp;lt;/p&amp;gt; &amp;nbsp;
+然后就搞到了12点半。发现坑数次。还专门用js写了个画圆的。当然我现在知道怎么画圆了。过两天去把oj7的统计图改一改。
+&amp;nbsp;
+思路是把所有圆的左右端点和所有圆的两两交的x提出来，unique一发（不然会tle显然的）。这样两个x之间的部分的圆弧是不会有交的。那么就可以视为一堆弓形和梯形了。然后扫描一下中位线的有效长度算梯形。每次新进入一个连通区域和出来的时候加相应弓形的面积。
+&amp;nbsp;
+需要注意按y排序的时候是按弓形与竖线的交点的y，而不是梯形的y，否则会有非常神奇的精度误差。另外算弓形面积必需要用反三角函数（至少我没研究出怎么不用）。如果用acos的话会暴精度暴得很惨。要用atan2来提高精度。
+&amp;nbsp;
+然后这样写连样例都会tle。仔细感受一下发现好像如果有一堆同心圆的话都会tle。然后考虑去掉包含的圆之后似乎就快了。然后就交了，然后居然跑过了。
+&amp;nbsp;
+然后来欣赏一下我的时间巨大，空间巨大，长度巨大。挤在一堆simpson里显得特别郁闷的代码。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cmath&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+const double eps = 1e-8; const double pi = acos(-1);
+inline int sgn(double x) { return (x &amp;gt; eps) - (x &amp;lt; -eps); } inline double sqr(double x) { return x * x; }
+typedef struct geo_obj { double x, y; geo_obj() {} geo_obj(double xo, double yo) { x = xo, y = yo; } inline void read() { scanf(&amp;quot;%lf%lf&amp;quot;, &amp;amp;x, &amp;amp;y); } inline geo_obj vertical() { return geo_obj(-y, x); } inline double len() { return sqrt(sqr(x) + sqr(y)); } } point, vect; inline geo_obj operator +(const geo_obj&amp;amp; a, const geo_obj&amp;amp; b) { return geo_obj(a.</description>
+    </item>
+    
+    <item>
+      <title>BZOJ1822 [JSOI2010]Frozen Nova 冷冻波</title>
+      <link>/oi/i11rimport_036/</link>
+      <pubDate>Tue, 24 Feb 2015 16:08:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_036/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 简单的算几+网络流么。然后花了将近两天。最近总和算几过不去啊。&amp;lt;/p&amp;gt; &amp;nbsp;
+判断线段和圆是否有交还是比较简单的。反正不要让我用解析。先找下垂线，然后找下垂足，然后点乘一下搞定。然后错得不知道怎么死的。搞了很久。
+&amp;nbsp;
+然后二分网络流水水水水水水水水。
+&amp;nbsp;
+感觉mac好卡啊，gdb巨卡，bash也非常卡。难道我又没有搞对打开方式？
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cmath&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+inline long double sqr(long double x) { return x * x; }
+typedef struct geo_obj { double x, y; geo_obj() {} geo_obj(double x0, double y0) { x = x0, y = y0; } inline void read() { scanf(&amp;quot;%lf%lf&amp;quot;, &amp;amp;x, &amp;amp;y); } inline geo_obj rev() { return geo_obj(-y, x); } inline double len() { return sqrt(sqr(x) + sqr(y)); } inline double sqLen() { return sqr(x) + sqr(y); } } point, vect; inline geo_obj operator +(const geo_obj&amp;amp; a, const geo_obj&amp;amp; b) { return geo_obj(a.</description>
+    </item>
+    
+    <item>
+      <title>BZOJ1845 [Cqoi2005] 三角形面积并</title>
+      <link>/oi/i11rimport_038/</link>
+      <pubDate>Sun, 22 Feb 2015 21:48:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_038/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 比较基础的算几。当是hwd在wc的时候讲的东西拿来练练吧。（都过去多久了）&amp;lt;/p&amp;gt; &amp;nbsp;
+算几的板比较长。然后记得还有道半平面交精度题至今没过！？什么效率。
+&amp;nbsp;
+这题的思路比较简单。找出所有的关键x，分段。每段内都是一堆边不相交的梯形，那么答案=∑(▵x*∑中位线并的长度)。总时间复杂度到了O(n3)。不过n才100显然可过。至于n等于1000的题暂时不会啊。我太弱了。
+&amp;nbsp;
+然后这题也有神奇的精度误差，答案要-1e-7才能过。
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+const double eps = 1e-7; inline int sgn(double x) { return (x &amp;gt; eps) - (x &amp;lt; -eps); } inline double sqr(double x) { return x * x; }
+typedef struct geo_obj { double x, y; inline geo_obj() {} inline geo_obj(double x0, double y0) { x = x0, y = y0; } inline void read() { scanf(&amp;quot;%lf%lf&amp;quot;, &amp;amp;x, &amp;amp;y); } } point, vect; inline geo_obj operator +(const geo_obj&amp;amp; a, const geo_obj&amp;amp; b) { return geo_obj(a.</description>
+    </item>
+    
+    <item>
+      <title>BZOJ2642 Pku3968 Jungle Outpost</title>
+      <link>/oi/i11rimport_056/</link>
+      <pubDate>Wed, 04 Feb 2015 21:28:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_056/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 看mhy写了好几天了啊。然后研究了一下，居然过得比他早。&amp;lt;/p&amp;gt; &amp;nbsp;
+首先敌人一定可以炸连续的一段。然后就是要看炸掉任意连续一段之后还有没有剩下的公共部分，既半平面交。
+&amp;nbsp;
+然后我yy出了一个半平面交的做法。找出一条基准直线，按方向顺时针方向排序。然后按照正常半平面交的方法根据栈顶两个元素和当前直线的位置关系判断是否需要退栈。然后当找到一条与基准直线的角度大于等于π的直线（直线是有向的，也可以说是成负角）且它把栈里退到只剩基准直线一条的时候，这些半平面没有交。否则这些半平面有交。
+&amp;nbsp;
+至于证明嘛，我也不会（挠头），毕竟是感受出来的。然后感觉这次代码写得比较漂亮，开心。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cmath&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+inline double sqr(double x) { return x * x; }
+struct point { double x, y; inline point() {} inline point(double x0, double y0) { x = x0, y = y0; } inline void read() { scanf(&amp;quot;%lf%lf&amp;quot;, &amp;amp;x, &amp;amp;y); } }; struct vect { double x, y; inline vect() {} inline vect(double x0, double y0) { x = x0, y = y0; } inline vect(point a, point b) { x = b.</description>
+    </item>
+    
+    <item>
+      <title>BZOJ1502 [NOI2005]月下柠檬树</title>
+      <link>/oi/i11rimport_071/</link>
+      <pubDate>Tue, 27 Jan 2015 20:55:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_071/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 今天几乎讲了一天的算几。或者说能听的只有算几。然后就去做了一道基础题。&amp;lt;/p&amp;gt; &amp;nbsp;
+刚开始的时候比较naive，把相交的情况想简单了，打算直接上数学，然后悲剧地发现还有其它的不好算交点的情况，于是就去写simpson了。
+&amp;nbsp;
+simpson就是一个估计用的，s = (4 * f(mid) + f(l) + f(r))*(r-l)/6。至于为啥是对的就不知道了。反正比较能用。然后每次直接去扫一遍所有能交的地方，取max就行了，比挨个算交点方便许多。
+&amp;nbsp;
+然后第一次写，代码也比较乱。
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;cmath&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+const int maxn = 509; const double pi = asin(1) * 2; const double eps = 1e-6;
+#define x1 x1 #define x2 x2 #define y1 y1 #define y2 y2
+int n; double tht, x[maxn], h[maxn], r[maxn]; double crd[maxn]; double x1[maxn], x2[maxn], y1[maxn], y2[maxn]; bool c[maxn];</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3237 [Ahoi2013]连通图</title>
+      <link>/oi/lofterimport_066/</link>
+      <pubDate>Wed, 26 Nov 2014 11:32:53 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_066/</guid>
+      <description>CDQ重构图。听上去比CDQ还高档的样子。
+就是每层重新标号，把没有询问到的边拿来跑并查集。
+最初是分开考虑然后可修复的并查集就T傻了。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;cctype&amp;gt;
+#include &amp;lt;set&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+int _d_;
+#define readInt(_x_)&amp;nbsp;{&amp;nbsp;\
+int&amp;amp; _s_ = _x_;&amp;nbsp;\
+while (!isdigit(_d_&amp;nbsp;= getchar()));&amp;nbsp;\
+_s_ = 0;&amp;nbsp;\
+while ((_s_&amp;nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));&amp;nbsp;\
+}
+const int maxn = 100009;
+const int maxm = 200009;
+const int maxl = 19;
+struct edge {
+int a, b, i;
+};
+struct dset {
+int r[maxn], hp[maxn * 5], hv[maxn * 5], cnt;</description>
+    </item>
+    
+    <item>
+      <title>BZOJ1488 || POJ1741 Tree</title>
+      <link>/oi/lofterimport_068/</link>
+      <pubDate>Mon, 24 Nov 2014 19:53:03 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_068/</guid>
+      <description>据说是男人八题。
+状态太差调了一节宝贵的晚自习，严重不开心。
+异常裸的点分治。然后里面还是套的sbt。
+卡空间比较丧病，不能开nlogn，要想办法开到n。其实就是找重心分治完再bfs一遍。最初没有写，所以mle爽，在poj上还显示的是re。
+然后各种逗的错误调啊调。把代码调得怪丑。我还是naive啊。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+struct edge {
+int t, v;
+edge *next;
+};
+const int maxn = 40009;
+int n, k, ans;
+int d[maxn], tvis, vis[maxn], vd[maxn], sz[maxn], qu[maxn];
+edge *ep,&amp;nbsp;*head[maxn], elst[maxn * 2];
+#define update(_p_)&amp;nbsp;(sz[_p_]=sz[ls[_p_]]+sz[rs[_p_]]+1)
+namespace sbt {
+const int maxnd = maxn * 2;
+const int balc = 5;
+int nst[maxnd], tn;
+int ls[maxnd], rs[maxnd], vl[maxnd], sz[maxnd];
+inline void lRot(int&amp;amp; p)&amp;nbsp;{</description>
+    </item>
+    
+    <item>
+      <title>BZOJ2716 [Violet 3]天使玩偶</title>
+      <link>/oi/lofterimport_073/</link>
+      <pubDate>Mon, 24 Nov 2014 08:43:28 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_073/</guid>
+      <description>看时间比较宽么，写一个log^2的cdq+树状数组么。
+然后被2648卡了。学kd-tree吧。
+naive。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cctype&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+int _d_;
+#define readInt(_s_)&amp;nbsp;{\
+_s_ = 0;\
+while (!isdigit(_d_&amp;nbsp;= getchar()));\
+while ((_s_&amp;nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\
+}
+struct point {
+int x, y, t, i;
+};
+const int maxn = 500009;
+const int maxz = 1000009;
+const int inf = 0x3f3f3f3f;
+inline bool cmpPoint(const point&amp;amp; a, const point&amp;amp; b)&amp;nbsp;{
+return a.</description>
+    </item>
+    
+    <item>
+      <title>BZOJ1492 [NOI2007]货币兑换Cash</title>
+      <link>/oi/lofterimport_078/</link>
+      <pubDate>Sun, 23 Nov 2014 13:51:36 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_078/</guid>
+      <description>cdq分治第二题。
+最初没看清题所以一直不会做。晕。
+cdq教程里的模板题。
+显然所有卖都是卖完，买都是把钱买光。
+f[i]表示第i天结束后最多持有b卷的数量，ans表示当前最多能赚到的rmb。
+方程是：
+f[i]&amp;nbsp;= max(ans, f[j]&amp;nbsp;* r[j]&amp;nbsp;* a[i]&amp;nbsp;+ f[j]&amp;nbsp;* b[i])&amp;nbsp;/&amp;nbsp;(a[i]&amp;nbsp;* r[i]&amp;nbsp;+ b[i])。
+移项得：
+f[j]&amp;nbsp;=&amp;nbsp;-(a[i]/b[i])&amp;nbsp;*&amp;nbsp;(r[j]&amp;nbsp;* f[j])&amp;nbsp;+&amp;nbsp;(r[i]&amp;nbsp;* a[i]&amp;nbsp;+ b[i])&amp;nbsp;/ b[i]&amp;nbsp;* f[j]。
+把r[j]*f[j]看作x，把f[j]看作y，好像可以斜率优化了。
+&amp;nbsp;不急，f[j]好像没有单调性吧？不对，好像a[i]/b[i]也没有单调性！？
+平衡树维护凸壳？想起了上回那道hnoi的作业，调了一晚上，怎么能这样。
+然后，其实可以cdq。
+每次对右边有影响的是左边的凸壳，所以先跑左边，计算左边对右边的影响，再跑右边。这回是中序遍历，而不是Mokia那题的后序。
+原来cdq可以这么神奇。
+然后又把凸壳写丑了TT。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+const int maxn = 100009;
+double ans, s, f[maxn], a[maxn], b[maxn], r[maxn];
+int n, h[maxn], tmp[maxn], t;
+inline double getx(const int&amp;amp; i)&amp;nbsp;{
+return f[i]&amp;nbsp;* r[i];
+}
+inline double gety(const int&amp;amp; i)&amp;nbsp;{
+return f[i];</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3428 [Usaco2014 Jan]Cow Curling</title>
+      <link>/oi/lofterimport_126/</link>
+      <pubDate>Wed, 22 Oct 2014 10:50:12 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_126/</guid>
+      <description>补昨天的题。
+比较好想的计算几何。就看每个点在不在另一个颜色的点形成的上凸壳下面，下凸壳上面。这个用二分可以做到单次log。用单调应该也能O(n)。
+但是写起来非常坑，要用long long，还有各种等号啥的。
+写win32 app来显示点的代码比交上去的代码还长。开心。
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+&amp;nbsp;
+usingnamespacestd;
+&amp;nbsp;
+typedeflonglongqw;
+&amp;nbsp;
+#define _l (qw)
+&amp;nbsp;
+structpoint {
+&amp;nbsp;&amp;nbsp;&amp;nbsp; intx, y;
+&amp;nbsp;&amp;nbsp;&amp;nbsp; point (intx0&amp;nbsp;= 0, inty0 = 0)&amp;nbsp;{
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; x = x0, y = y0;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;}
+&amp;nbsp;&amp;nbsp;&amp;nbsp; inlinevoidread()&amp;nbsp;{
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; scanf(&amp;quot;%d%d&amp;quot;,&amp;nbsp;&amp;amp;x,&amp;nbsp;&amp;amp;y);
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;}
+};
+structvect {
+&amp;nbsp;&amp;nbsp;&amp;nbsp; intx, y;
+&amp;nbsp;&amp;nbsp;&amp;nbsp; vect(intx0 = 0, inty0 = 0)&amp;nbsp;{
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; x = x0, y = y0;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;}
+&amp;nbsp;&amp;nbsp;&amp;nbsp; vect(constpoint&amp;amp; a, constpoint&amp;amp; b)&amp;nbsp;{</description>
+    </item>
+    
+    <item>
+      <title>BZOJ2338 数矩形</title>
+      <link>/oi/lofterimport_129/</link>
+      <pubDate>Tue, 21 Oct 2014 15:47:05 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_129/</guid>
+      <description>本来以为是上回那道数正方形的原题的。结果发现不要求边与座标轴平行，于是我就naive了。然后数据结构变身计算几何一堆东西吼吼。
+矩形的对角线相等且互相平分（来自初二数学书）。把所有点对的中点找出来，把所有相等且平分的放一起用单调性，有点像旋转卡(qia3)壳(qiao4)的做法。jason_yu说暴力枚举都能过，而且他跑得比我快！
+计算几何也写得比较naive。调了半天啊。
+毕竟我弱嘛。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cmath&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+typedef long long qw;
+#ifdef WIN32
+#define lld &amp;quot;%I64d&amp;quot;
+#else
+#define lld &amp;quot;%lld&amp;quot;
+#endif
+#define _l (qw)
+const double eps = 1e-8;
+const int maxn = 1509;
+#define sqr(x)&amp;nbsp;((x)*(x))
+#define dist(a,b)&amp;nbsp;(sqr(a.x-b.x)+sqr(a.y-b.y))
+#define nextele(_x_)&amp;nbsp;((_x_+1==r)?(l):(_x_+1))
+struct point {
+qw x, y;
+point(qw x0 = 0, qw y0 = 0)&amp;nbsp;{
+x = x0, y = y0;
+}
+inline point operator =(const point&amp;amp; a)&amp;nbsp;{</description>
+    </item>
+    
+  </channel>
+</rss>

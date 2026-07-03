@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>BZOJ3744 Gty的妹子序列 | The Site of laekov</title>
+<meta name="keywords" content="bzoj, data\xa0structure, oi">
+<meta name="description" content="这题就是考你怎么把能优化常数的地方都优化一下。
+做法比较清晰，分块加持久化值域线段树。大块预处理，小块暴力算。虽然最初不想写持久化数据结构就试图用平衡树去做，结果发现做法是错的，单次复杂度是O(n*lgn)的。看来我太年轻了。后来改了但是常数巨大也没法跑。
+本来是一次询问里有若干次在持久化线段树上查询的。然后首先发现可以预处理出从开头到一块末尾这一段里有多少个比后面任意一个位置大的数的个数。还有一个数前面比它大的数的个数。这俩加起来常数差不多就小到能过了。
+丧心病狂！
+#include &lt;cstdio&gt;
+#include &lt;cctype&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+const int maxn = 50009;
+const int maxb = 259;
+const int maxnd = maxn * 30;
+struct seg {
+int v;
+seg *ls,&nbsp;*rs;
+};
+inline bool cmpP(const int* a, const int* b)&nbsp;{
+return *a&nbsp;&lt;&nbsp;*b;
+}
+#define readInt(_s_)&nbsp;{\
+int _d_;\
+_s_ = 0;\
+while (!isdigit(_d_&nbsp;= getchar()));\
+while ((_s_&nbsp;= _s_ * 10 &#43; _d_ - 48), isdigit(_d_ = getchar()));\">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/lofterimport_095/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="BZOJ3744 Gty的妹子序列" />
+<meta property="og:description" content="这题就是考你怎么把能优化常数的地方都优化一下。
+做法比较清晰，分块加持久化值域线段树。大块预处理，小块暴力算。虽然最初不想写持久化数据结构就试图用平衡树去做，结果发现做法是错的，单次复杂度是O(n*lgn)的。看来我太年轻了。后来改了但是常数巨大也没法跑。
+本来是一次询问里有若干次在持久化线段树上查询的。然后首先发现可以预处理出从开头到一块末尾这一段里有多少个比后面任意一个位置大的数的个数。还有一个数前面比它大的数的个数。这俩加起来常数差不多就小到能过了。
+丧心病狂！
+#include &lt;cstdio&gt;
+#include &lt;cctype&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+const int maxn = 50009;
+const int maxb = 259;
+const int maxnd = maxn * 30;
+struct seg {
+int v;
+seg *ls,&nbsp;*rs;
+};
+inline bool cmpP(const int* a, const int* b)&nbsp;{
+return *a&nbsp;&lt;&nbsp;*b;
+}
+#define readInt(_s_)&nbsp;{\
+int _d_;\
+_s_ = 0;\
+while (!isdigit(_d_&nbsp;= getchar()));\
+while ((_s_&nbsp;= _s_ * 10 &#43; _d_ - 48), isdigit(_d_ = getchar()));\" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/lofterimport_095/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2014-11-14T21:14:19+00:00" />
+<meta property="article:modified_time" content="2014-11-14T21:14:19+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BZOJ3744 Gty的妹子序列"/>
+<meta name="twitter:description" content="这题就是考你怎么把能优化常数的地方都优化一下。
+做法比较清晰，分块加持久化值域线段树。大块预处理，小块暴力算。虽然最初不想写持久化数据结构就试图用平衡树去做，结果发现做法是错的，单次复杂度是O(n*lgn)的。看来我太年轻了。后来改了但是常数巨大也没法跑。
+本来是一次询问里有若干次在持久化线段树上查询的。然后首先发现可以预处理出从开头到一块末尾这一段里有多少个比后面任意一个位置大的数的个数。还有一个数前面比它大的数的个数。这俩加起来常数差不多就小到能过了。
+丧心病狂！
+#include &lt;cstdio&gt;
+#include &lt;cctype&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+const int maxn = 50009;
+const int maxb = 259;
+const int maxnd = maxn * 30;
+struct seg {
+int v;
+seg *ls,&nbsp;*rs;
+};
+inline bool cmpP(const int* a, const int* b)&nbsp;{
+return *a&nbsp;&lt;&nbsp;*b;
+}
+#define readInt(_s_)&nbsp;{\
+int _d_;\
+_s_ = 0;\
+while (!isdigit(_d_&nbsp;= getchar()));\
+while ((_s_&nbsp;= _s_ * 10 &#43; _d_ - 48), isdigit(_d_ = getchar()));\"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "BZOJ3744 Gty的妹子序列",
+      "item": "/oi/lofterimport_095/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BZOJ3744 Gty的妹子序列",
+  "name": "BZOJ3744 Gty的妹子序列",
+  "description": "这题就是考你怎么把能优化常数的地方都优化一下。\n做法比较清晰，分块加持久化值域线段树。大块预处理，小块暴力算。虽然最初不想写持久化数据结构就试图用平衡树去做，结果发现做法是错的，单次复杂度是O(n*lgn)的。看来我太年轻了。后来改了但是常数巨大也没法跑。\n本来是一次询问里有若干次在持久化线段树上查询的。然后首先发现可以预处理出从开头到一块末尾这一段里有多少个比后面任意一个位置大的数的个数。还有一个数前面比它大的数的个数。这俩加起来常数差不多就小到能过了。\n丧心病狂！\n#include \u0026lt;cstdio\u0026gt;\n#include \u0026lt;cctype\u0026gt;\n#include \u0026lt;cstring\u0026gt;\n#include \u0026lt;algorithm\u0026gt;\nusing namespace std;\nconst int maxn = 50009;\nconst int maxb = 259;\nconst int maxnd = maxn * 30;\nstruct seg {\nint v;\nseg *ls,\u0026nbsp;*rs;\n};\ninline bool cmpP(const int* a, const int* b)\u0026nbsp;{\nreturn *a\u0026nbsp;\u0026lt;\u0026nbsp;*b;\n}\n#define readInt(_s_)\u0026nbsp;{\\\nint _d_;\\\n_s_ = 0;\\\nwhile (!isdigit(_d_\u0026nbsp;= getchar()));\\\nwhile ((_s_\u0026nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\\",
+  "keywords": [
+    "bzoj", "data\\xa0structure", "oi"
+  ],
+  "articleBody": "这题就是考你怎么把能优化常数的地方都优化一下。\n做法比较清晰，分块加持久化值域线段树。大块预处理，小块暴力算。虽然最初不想写持久化数据结构就试图用平衡树去做，结果发现做法是错的，单次复杂度是O(n*lgn)的。看来我太年轻了。后来改了但是常数巨大也没法跑。\n本来是一次询问里有若干次在持久化线段树上查询的。然后首先发现可以预处理出从开头到一块末尾这一段里有多少个比后面任意一个位置大的数的个数。还有一个数前面比它大的数的个数。这俩加起来常数差不多就小到能过了。\n丧心病狂！\n#include #include #include #include using namespace std;\nconst int maxn = 50009;\nconst int maxb = 259;\nconst int maxnd = maxn * 30;\nstruct seg {\nint v;\nseg *ls, *rs;\n};\ninline bool cmpP(const int* a, const int* b) {\nreturn *a \u003c *b;\n}\n#define readInt(_s_) {\\\nint _d_;\\\n_s_ = 0;\\\nwhile (!isdigit(_d_ = getchar()));\\\nwhile ((_s_ = _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\\\n}\nint n, m, bs, tb, a[maxn], *r[maxn], lans, t[maxn];\nint bb[maxb][maxb], br[maxb], bt[maxb], bi[maxb],bp[maxb][maxb], fb[maxn];\nint clo[maxn], ff[maxb][maxn];\nseg *sp, *rt[maxn];\n#define mid(p) ((p-\u003el+p-\u003er)\u003e\u003e1)\nint btQry(int* t, int p) {\nint s = 0;\nwhile (p)\ns += t[p], p -= (p \u0026 -p);\nreturn s;\n}\nvoid btChg(int* t, int p, int v) {\nwhile (p \u003c= n)\nt[p] += v, p += (p \u0026 -p);\n}\n#define vof(x) ((x)?(x-\u003ev):0)\n#define lson(x) ((x)?(x-\u003els):0)\n#define rson(x) ((x)?(x-\u003ers):0)\nseg *sgtChg(seg* q, int p0, int v0) {\nseg *s = sp ++, *p = s;\nint l = 1, r = n;\nwhile (l \u003c r) {\nint mid = (l + r) \u003e\u003e 1;\np-\u003e v = vof(q) + v0;\nif (p0 \u003c= mid) {\np-\u003e rs = rson(q);\nq = lson(q);\np-\u003e ls = sp ++;\np = p-\u003e ls;\nr = mid;\n}\nelse {\np-\u003e ls = lson(q);\nq = rson(q);\np-\u003e rs = sp ++;\np = p-\u003e rs;\nl = mid + 1;\n}\n}\np-\u003e v = vof(q) + v0;\nreturn s;\n}\nint sgtQryLower(seg* p, int v) {\nint l = 1, r = n, s = 0;\nwhile (l \u003c r \u0026\u0026 p) {\nint mid = (l + r) \u003e\u003e 1;\nif (v \u003e mid) {\ns += vof(lson(p));\np = rson(p);\nl = mid + 1;\n}\nelse {\np = lson(p);\nr = mid;\n}\n}\nreturn s;\n}\nint query(int l, int r) {\nint lb = fb[l] + 1, rb = fb[r] - 1, ans = 0;\nif (fb[l] == fb[r]) {\nfor (int i = l; i \u003c= r; ++ i)\nans += sgtQryLower(rt[r + 1], a[i]) - clo[i];\n}\nelse {\nfor (int i = lb; i \u003c= rb; ++ i) {\nans += bi[i];\nans += bb[i][rb];\n}\nfor (int i = l; fb[i] \u003c lb; ++ i)\nans += sgtQryLower(rt[r + 1], a[i]) - clo[i];\nif (lb)\nfor (int i = (rb + 1) * bs; i \u003c= r; ++ i)\nans += ff[rb][i] - ff[lb - 1][i];\nelse\nfor (int i = (rb + 1) * bs; i \u003c= r; ++ i)\nans += ff[rb][i];\nans += bp[fb[r]][r - bs * fb[r]];\n}\nreturn ans;\n}\nint main() {\n#ifndef ONLINE_JUDGE\nfreopen(\"in.txt\", \"r\", stdin);\n#endif\nmemset(br, 0, sizeof(br));\nmemset(bb, 0, sizeof(bb));\nmemset(bi, 0, sizeof(bi));\nmemset(bt, 0, sizeof(bt));\nreadInt(n);\nsp = new seg[maxn * 30];\nfor (bs = 1; bs * bs \u003c n; ++ bs);\nfor (int i = 0; i \u003c n; ++ i) {\nreadInt(a[i]);\nr[i] = a + i;\nfb[i] = i / bs;\n}\nfb[n] = n;\nsort(r, r + n, cmpP);\nfor (int i = 0, l = *r[0] - 1, v = 0; i \u003c n; ++ i)\nif (*r[i] == l)\n*r[i] = v;\nelse\nl = *r[i], *r[i] = ++ v;\nrt[0] = 0;\nfor (int i = 0; i \u003c n; ++ i) {\nbi[fb[i]] += i - fb[i] * bs - btQry(t, a[i]);\nbp[fb[i]][i - fb[i] * bs] = bi[fb[i]];\nbtChg(t, a[i], 1);\nrt[i + 1] = sgtChg(rt[i], a[i], 1);\nclo[i] = sgtQryLower(rt[i], a[i]);\nif (fb[i] ^ fb[i + 1])\nmemset(t, 0, sizeof(t));\n}\ntb = fb[n - 1];\nfor (int i = 0; i \u003c tb; ++ i) {\nint s = 0, c = 0;\nmemset(t, 0, sizeof(t));\nfor (int j = i * bs; fb[j] == fb[i * bs]; ++ j)\nbtChg(t, a[j], 1), ++ c;\nfor (int j = (i + 1) * bs; j \u003c n; ++ j) {\ns += c - btQry(t, a[j]);\nif (fb[j] ^ fb[j + 1])\nbb[i][fb[j]] = s;\n}\n}\nfor (int i = 0; i \u003c tb; ++ i) {\nint c = 0;\nmemset(t, 0, sizeof(t));\nfor (int j = 0; fb[j] \u003c= fb[i * bs]; ++ j)\nbtChg(t, a[j], 1), ++ c;\nfor (int j = (i + 1) * bs; j \u003c n; ++ j)\nff[i][j] = c - btQry(t, a[j]);\n}\nlans = 0;\nreadInt(m);\nwhile (m --) {\nint l, r;\nreadInt(l);\nreadInt(r);\nl ^= lans;\nr ^= lans;\n-- l;\n-- r;\nprintf(\"%d\\n\", (lans = query(l, r)));\n}\n}\n",
+  "wordCount" : "659",
+  "inLanguage": "en",
+  "datePublished": "2014-11-14T21:14:19Z",
+  "dateModified": "2014-11-14T21:14:19Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/lofterimport_095/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      BZOJ3744 Gty的妹子序列
+    </h1>
+    <div class="post-meta"><span title='2014-11-14 21:14:19 +0000 UTC'>November 14, 2014</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>这题就是考你怎么把能优化常数的地方都优化一下。</p> 
+<p><br /></p> 
+<p>做法比较清晰，分块加持久化值域线段树。大块预处理，小块暴力算。虽然最初不想写持久化数据结构就试图用平衡树去做，结果发现做法是错的，单次复杂度是O(n*lgn)的。看来我太年轻了。后来改了但是常数巨大也没法跑。</p> 
+<p><br /></p> 
+<p>本来是一次询问里有若干次在持久化线段树上查询的。然后首先发现可以预处理出从开头到一块末尾这一段里有多少个比后面任意一个位置大的数的个数。还有一个数前面比它大的数的个数。这俩加起来常数差不多就小到能过了。</p> 
+<p><br /></p> 
+<p>丧心病狂！</p> 
+<p><br /></p> 
+<p>#include &lt;cstdio&gt;</p> 
+<p>#include &lt;cctype&gt;</p> 
+<p>#include &lt;cstring&gt;</p> 
+<p>#include &lt;algorithm&gt;</p> 
+<p><br /></p> 
+<p>using namespace std;</p> 
+<p><br /></p> 
+<p>const int maxn = 50009;</p> 
+<p>const int maxb = 259;</p> 
+<p>const int maxnd = maxn * 30;</p> 
+<p><br /></p> 
+<p>struct seg {</p> 
+<p>int v;</p> 
+<p>seg *ls,&nbsp;*rs;</p> 
+<p>};</p> 
+<p><br /></p> 
+<p>inline bool cmpP(const int* a, const int* b)&nbsp;{</p> 
+<p>return *a&nbsp;&lt;&nbsp;*b;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>#define readInt(_s_)&nbsp;{\</p> 
+<p>int _d_;\</p> 
+<p>_s_ = 0;\</p> 
+<p>while (!isdigit(_d_&nbsp;= getchar()));\</p> 
+<p>while ((_s_&nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int n, m, bs, tb, a[maxn],&nbsp;*r[maxn], lans, t[maxn];</p> 
+<p>int bb[maxb][maxb], br[maxb], bt[maxb], bi[maxb],bp[maxb][maxb], fb[maxn];</p> 
+<p>int clo[maxn], ff[maxb][maxn];</p> 
+<p>seg *sp,&nbsp;*rt[maxn];</p> 
+<p><br /></p> 
+<p>#define mid(p)&nbsp;((p-&gt;l+p-&gt;r)&gt;&gt;1)</p> 
+<p><br /></p> 
+<p>int btQry(int* t, int p)&nbsp;{</p> 
+<p>int s = 0;</p> 
+<p>while (p)</p> 
+<p>s += t[p], p -=&nbsp;(p&nbsp;&amp;&nbsp;-p);</p> 
+<p>return s;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>void btChg(int* t, int p, int v)&nbsp;{</p> 
+<p>while (p&nbsp;&lt;= n)</p> 
+<p>t[p]&nbsp;+= v, p +=&nbsp;(p&nbsp;&amp;&nbsp;-p);</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>#define vof(x)&nbsp;((x)?(x-&gt;v):0)</p> 
+<p>#define lson(x)&nbsp;((x)?(x-&gt;ls):0)</p> 
+<p>#define rson(x)&nbsp;((x)?(x-&gt;rs):0)</p> 
+<p><br /></p> 
+<p>seg *sgtChg(seg* q, int p0, int v0)&nbsp;{</p> 
+<p>seg *s&nbsp;= sp ++,&nbsp;*p&nbsp;= s;</p> 
+<p>int l = 1, r = n;</p> 
+<p>while (l&nbsp;&lt; r)&nbsp;{</p> 
+<p>int mid =&nbsp;(l&nbsp;+ r)&nbsp;&gt;&gt; 1;</p> 
+<p>p-&gt; v = vof(q)&nbsp;+ v0;</p> 
+<p>if (p0&nbsp;&lt;= mid)&nbsp;{</p> 
+<p>p-&gt; rs = rson(q);</p> 
+<p>q = lson(q);</p> 
+<p>p-&gt; ls = sp ++;</p> 
+<p>p = p-&gt; ls;</p> 
+<p>r = mid;</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>p-&gt; ls = lson(q);</p> 
+<p>q = rson(q);</p> 
+<p>p-&gt; rs = sp ++;</p> 
+<p>p = p-&gt; rs;</p> 
+<p>l = mid + 1;</p> 
+<p>}</p> 
+<p>}</p> 
+<p>p-&gt; v = vof(q)&nbsp;+ v0;</p> 
+<p>return s;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int sgtQryLower(seg* p, int v)&nbsp;{</p> 
+<p>int l = 1, r = n, s = 0;</p> 
+<p>while (l&nbsp;&lt; r &amp;&amp; p)&nbsp;{</p> 
+<p>int mid =&nbsp;(l&nbsp;+ r)&nbsp;&gt;&gt; 1;</p> 
+<p>if (v&nbsp;&gt; mid)&nbsp;{</p> 
+<p>s += vof(lson(p));</p> 
+<p>p = rson(p);</p> 
+<p>l = mid + 1;</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>p = lson(p);</p> 
+<p>r = mid;</p> 
+<p>}</p> 
+<p>}</p> 
+<p>return s;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int query(int l, int r)&nbsp;{</p> 
+<p>int lb = fb[l]&nbsp;+ 1, rb = fb[r]&nbsp;- 1, ans = 0;</p> 
+<p>if (fb[l]&nbsp;== fb[r])&nbsp;{</p> 
+<p>for (int i = l; i &lt;= r;&nbsp;++ i)</p> 
+<p>ans += sgtQryLower(rt[r + 1], a[i])&nbsp;- clo[i];</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>for (int i = lb; i &lt;= rb;&nbsp;++ i)&nbsp;{</p> 
+<p>ans += bi[i];</p> 
+<p>ans += bb[i][rb];</p> 
+<p>}</p> 
+<p>for (int i = l; fb[i]&nbsp;&lt; lb;&nbsp;++ i)</p> 
+<p>ans += sgtQryLower(rt[r + 1], a[i])&nbsp;- clo[i];</p> 
+<p>if (lb)</p> 
+<p>for (int i =&nbsp;(rb&nbsp;+ 1)&nbsp;* bs; i &lt;= r;&nbsp;++ i)</p> 
+<p>ans += ff[rb][i]&nbsp;- ff[lb - 1][i];</p> 
+<p>else</p> 
+<p>for (int i =&nbsp;(rb&nbsp;+ 1)&nbsp;* bs; i &lt;= r;&nbsp;++ i)</p> 
+<p>ans += ff[rb][i];</p> 
+<p>ans += bp[fb[r]][r - bs * fb[r]];</p> 
+<p>}</p> 
+<p>return ans;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int main()&nbsp;{</p> 
+<p>#ifndef ONLINE_JUDGE</p> 
+<p>freopen(&quot;in.txt&quot;,&nbsp;&quot;r&quot;, stdin);</p> 
+<p>#endif</p> 
+<p><br /></p> 
+<p>memset(br, 0, sizeof(br));</p> 
+<p>memset(bb, 0, sizeof(bb));</p> 
+<p>memset(bi, 0, sizeof(bi));</p> 
+<p>memset(bt, 0, sizeof(bt));</p> 
+<p>readInt(n);</p> 
+<p>sp = new seg[maxn * 30];</p> 
+<p>for (bs&nbsp;= 1; bs * bs &lt; n;&nbsp;++ bs);</p> 
+<p>for (int i = 0; i &lt; n;&nbsp;++ i)&nbsp;{</p> 
+<p>readInt(a[i]);</p> 
+<p>&nbsp;&nbsp; r[i]&nbsp;= a + i;</p> 
+<p>&nbsp;&nbsp; fb[i]&nbsp;= i / bs;</p> 
+<p>}</p> 
+<p>fb[n]&nbsp;= n;</p> 
+<p>sort(r, r + n, cmpP);</p> 
+<p>for (int i = 0, l =&nbsp;*r[0]&nbsp;- 1, v = 0; i &lt; n;&nbsp;++ i)</p> 
+<p>if (*r[i]&nbsp;== l)</p> 
+<p>*r[i]&nbsp;= v;</p> 
+<p>else</p> 
+<p>l =&nbsp;*r[i],&nbsp;*r[i]&nbsp;=&nbsp;++ v;</p> 
+<p>rt[0]&nbsp;= 0;</p> 
+<p>for (int i = 0; i &lt; n;&nbsp;++ i)&nbsp;{</p> 
+<p>bi[fb[i]]&nbsp;+= i - fb[i]&nbsp;* bs - btQry(t, a[i]);</p> 
+<p>bp[fb[i]][i - fb[i]&nbsp;* bs]&nbsp;= bi[fb[i]];</p> 
+<p>btChg(t, a[i], 1);</p> 
+<p>rt[i + 1]&nbsp;= sgtChg(rt[i], a[i], 1);</p> 
+<p>clo[i]&nbsp;= sgtQryLower(rt[i], a[i]);</p> 
+<p>if (fb[i]&nbsp;^ fb[i + 1])</p> 
+<p>memset(t, 0, sizeof(t));</p> 
+<p>}</p> 
+<p>tb = fb[n - 1];</p> 
+<p>for (int i = 0; i &lt; tb;&nbsp;++ i)&nbsp;{</p> 
+<p>int s = 0, c = 0;</p> 
+<p>memset(t, 0, sizeof(t));</p> 
+<p>for (int j = i * bs; fb[j]&nbsp;== fb[i * bs];&nbsp;++ j)</p> 
+<p>btChg(t, a[j], 1),&nbsp;++ c;</p> 
+<p>for (int j =&nbsp;(i&nbsp;+ 1)&nbsp;* bs; j &lt; n;&nbsp;++ j)&nbsp;{</p> 
+<p>s += c - btQry(t, a[j]);</p> 
+<p>if (fb[j]&nbsp;^ fb[j + 1])</p> 
+<p>bb[i][fb[j]]&nbsp;= s;</p> 
+<p>}</p> 
+<p>}</p> 
+<p>for (int i = 0; i &lt; tb;&nbsp;++ i)&nbsp;{</p> 
+<p>int c = 0;</p> 
+<p>memset(t, 0, sizeof(t));</p> 
+<p>for (int j = 0; fb[j]&nbsp;&lt;= fb[i * bs];&nbsp;++ j)</p> 
+<p>btChg(t, a[j], 1),&nbsp;++ c;</p> 
+<p>for (int j =&nbsp;(i&nbsp;+ 1)&nbsp;* bs; j &lt; n;&nbsp;++ j)</p> 
+<p>ff[i][j]&nbsp;= c - btQry(t, a[j]);</p> 
+<p>}</p> 
+<p>lans = 0;</p> 
+<p>readInt(m);</p> 
+<p>while (m&nbsp;--)&nbsp;{</p> 
+<p>int l, r;</p> 
+<p>readInt(l);</p> 
+<p>readInt(r);</p> 
+<p>l ^= lans;</p> 
+<p>r ^= lans;</p> 
+<p>-- l;</p> 
+<p>-- r;</p> 
+<p>printf(&quot;%d\n&quot;,&nbsp;(lans = query(l, r)));</p> 
+<p>}</p> 
+<p>}</p> 
+<p><br /></p>
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/bzoj/">bzoj</a></li>
+      <li><a href="/tags/data%5Cxa0structure/">data\xa0structure</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/lofterimport_092/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>高二上半期总结</span>
+  </a>
+  <a class="next" href="/oi/lofterimport_096/">
+    <span class="title">Next »</span>
+    <br>
+    <span>BZOJ3333 排队计划</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

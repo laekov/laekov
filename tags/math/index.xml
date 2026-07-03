@@ -1,0 +1,876 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>math on The Site of laekov</title>
+    <link>/tags/math/</link>
+    <description>Recent content in math on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Wed, 28 Mar 2018 10:20:59 +0000</lastBuildDate><atom:link href="/tags/math/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Lagrange插值, 三次样条插值和最小二乘拟合</title>
+      <link>/technical/4aba20/</link>
+      <pubDate>Wed, 28 Mar 2018 10:20:59 +0000</pubDate>
+      
+      <guid>/technical/4aba20/</guid>
+      <description>看 paper 看烦了来贴点代码玩.
+Lagrange插值就是一个多项式乘.
+void genLagrangePoly(int n) { double *x = new double[n + 1]; double *y = new double[n + 1]; double *a = new double[n + 1]; double *tmp = new double[n + 1]; for (int i = 0; i &amp;lt;= n; ++ i) { x[i] = -5. + 10. / n * i; y[i] = f(x[i]); a[i] = 0; } for (int i = 0; i &amp;lt;= n; ++ i) { memset(tmp, 0, sizeof(double) * (n + 1)); tmp[0] = 1.</description>
+    </item>
+    
+    <item>
+      <title>二项分布方差公式证明</title>
+      <link>/random/47bc0e/</link>
+      <pubDate>Wed, 09 Mar 2016 23:00:17 +0000</pubDate>
+      
+      <guid>/random/47bc0e/</guid>
+      <description>公式: 一枚硬币扔一次有p的概率朝上, 扔n次, 朝上次数的方差为`n * p * (1-p)\\\&#39;.
+证明: 归纳法(增量证明)
+设D(n)表示扔n次时的方差. E(n)表示扔n次时的期望. P(n, i)表示扔n次, 朝上i次的概率.
+对于n=1的情况显然成立.
+对于n&amp;gt;1的情况
+$$D(i)=\sum_{i=0}^{n}P(n,i)*(i-E(n))^2$$
+对于D(n+1)
+$$D(i+1)=\sum_{i=0}^{n}P(n, i) * (p * (i + 1 - E(p) - p)^2 + (1-p) * (i - E(p) - p)^2)$$
+再两式相减, 式子有点麻烦, 但是可以巧妙地拆开然后用平方差化简.
+$$D(n+1) - D(n) = \sum_{i=0}^{n}P(n, i) * p * (1-p)$$
+右边那坨是常数. 左边这坨和刚好为1.
+于是
+$$D(n+1) - D(n) = p * (1-p)$$
+搞定.
+数学考试遇到直接背公式就好. 可以记一个简单的结论是方差与n成正比. 不知道有没有奇怪的证明方法可以直接证这个来证上面那个公式.
+思考了好久才思考出这种证法ovo.
+mathJax还没搞定所以公式全是乱码qwq. 随便喂给一个TeX编译器应该都能看.
+推荐bestcoder的这个http://bestcoder.hdu.edu.cn/latex.php</description>
+    </item>
+    
+    <item>
+      <title>bzoj2781 机器人走步</title>
+      <link>/oi/dbimport_159/</link>
+      <pubDate>Fri, 26 Jun 2015 21:44:36 +0000</pubDate>
+      
+      <guid>/oi/dbimport_159/</guid>
+      <description>上课题.之前只有5个人过5个人交.我成功地拉低了这题的通过率yeah.
+其实就是考虑Si序列走完之后对x和y的贡献以及对方向的改变就好了.
+比较烦的是中间那一个东西是哪个方向.然后发现如果在上一层的左边就是1否则是0.和更上层没有关系不能直接异或往下传.
+代码越写越丑了TAT</description>
+    </item>
+    
+    <item>
+      <title>bzoj3329 Xorequ</title>
+      <link>/oi/dbimport_192/</link>
+      <pubDate>Tue, 23 Jun 2015 15:52:12 +0000</pubDate>
+      
+      <guid>/oi/dbimport_192/</guid>
+      <description>还不错的题ovoovo
+发现其实要求x的二进制表示中没有相邻的1就行了.
+第一问水水的数位dp.从未写得如此愉快.
+第二问就是前面的g.然后发现是fib数列.矩阵快速幂搞定.</description>
+    </item>
+    
+    <item>
+      <title>弱省互测Round5 Count</title>
+      <link>/oi/dbimport_275/</link>
+      <pubDate>Thu, 11 Jun 2015 20:03:25 +0000</pubDate>
+      
+      <guid>/oi/dbimport_275/</guid>
+      <description>这题我的做法不太一样.所以mark一下.首先我把题里的n和m看反了,所以下面的m和n都与原题里的m和n相反.
+首先考虑一行的方案.在不考虑顺序(即只考虑题中要求􏰍􏱫􏴈􏴉􏰕􏱫􏰍􏱫􏴈􏴉􏰕􏱫􏲙每个颜色个数这个条件一定时)的方案数.
+n是50,刚好可以正整数拆分,把n拆成不超过k个正整数时,可行的方案数为n! / c1! / c2! / &amp;hellip; / s1! / s2! / &amp;hellip;这个样子.其中cx表示正整数拆分中的第x个数(后面补0可以不管),s1表示第一种相同的cx的个数.
+其实就是说怎么把k个颜色分配到我拆分出的这些整数里.
+然后对于一种这样的方案的排列数也比较好求.
+然后就是求m行的情况.我的思考方法是先按上面固定顺序,再乘m!.其实这样有问题虽然我没出事.也有可以补救的方法.
+上面拆出来的一种拆分,设它有t个不同的颜色分配方案,一种方案有c种排列.这里用一个类似于背包的转移,f[i] = f[j] + 一坨东西.
+这坨东西就是把(i - j)个方案按顺序排列的答案.(都叫方案啊好晕ovo)当然这里排列的话会用到判断t是否大于等于(i - j),但是t被模过ovoovo.我偷了个懒假设t如果被模过不会正好小到影响统计.果然也没有.
+其实也可以不去除,而是乘组合数吧.不过写起来好麻烦.
+咦写了这么多了.然而感觉还是没说清楚啊.ovoovo结合代码理解吧.</description>
+    </item>
+    
+    <item>
+      <title>bzoj4004 [JLOI2015]装备购买</title>
+      <link>/oi/dbimport_226/</link>
+      <pubDate>Tue, 09 Jun 2015 21:05:32 +0000</pubDate>
+      
+      <guid>/oi/dbimport_226/</guid>
+      <description>比较郁闷的题ovo拍了老久.最后还是找Po神要来了数据.
+首先这个矩阵的基就是一个拟阵,所以可以贪心.
+然后发现就是要O(n^2)判断是否线性无关.
+其他人的做法是强行顺序.我觉得没辣么麻烦啊.先把原来消出来的东西备份一下.如果发现不行再备份回来就好了啊ovoovo
+那么直接高消会有非常严重的精度问题(似乎是).
+于是我想直接用整数搞.然后发现会有变成负数的问题和越界的问题,强行re+wa.非常不开心.
+于是直接取模yeah.然后由于用了辗转相除之类的东西所以常数巨大.而且bzoj上开了O2比本机没开O2竟然慢了6倍.ovoovo</description>
+    </item>
+    
+    <item>
+      <title>bzoj1225 [HNOI2001] 求正整数</title>
+      <link>/oi/dbimport_121/</link>
+      <pubDate>Thu, 14 May 2015 09:43:59 +0000</pubDate>
+      
+      <guid>/oi/dbimport_121/</guid>
+      <description>ioi好神啊,居然写搜索.我显然是不想写高精的啦于是用java于是花费了整整两节课TT
+我的想法是dp.设答案为f[m],那么f[m]只与fd有关.设f[i][j]表示i为m的第i小的约数,且已经用了前j个素数的答案.然后就可以转移辣.
+然后得二分一下用多大的素数可以卡过.毕竟java自带大常数.而且bzoj坑爹在不管有多少组数据都只多给2秒总时限ovo</description>
+    </item>
+    
+    <item>
+      <title>bzoj2111 [ZJOI2010]Perm 排列计数</title>
+      <link>/oi/dbimport_126/</link>
+      <pubDate>Wed, 13 May 2015 17:36:12 +0000</pubDate>
+      
+      <guid>/oi/dbimport_126/</guid>
+      <description>之前觉得好神的题根本没有思路.刚才才发现ovo
+发现这玩意其实就是一个堆而且堆里没有相同的元素.那么对于一个点它的方案数就是左右儿子的方案数的积再乘两边大小的组合数ovo
+然后被坑了直到看到zyf的题解才想起有可能mod&amp;lt;n.然后得用一个pair来代替原来的数.
+无语喽ovo</description>
+    </item>
+    
+    <item>
+      <title>bzoj4001 [TJOI2015]概率论</title>
+      <link>/oi/dbimport_223/</link>
+      <pubDate>Tue, 28 Apr 2015 15:55:58 +0000</pubDate>
+      
+      <guid>/oi/dbimport_223/</guid>
+      <description>无语的智商题啊.居然没人写题解.
+首先dp打个表.cnt[i]表示大小为i的二叉树的总个数.当然这个就是catlan数.然后son[i]表示大小为i的所有不同构的二叉树的叶子数的和.
+然后经过找规律(翻oeis)发现son[i] = C(2n-2,n-1).
+于是就没有于是了.推一下组合数发现answer=n2(n+1) / (n2) / (n*2-1).
+代码好无语.</description>
+    </item>
+    
+    <item>
+      <title>bzoj3270 博物馆</title>
+      <link>/oi/dbimport_188/</link>
+      <pubDate>Sun, 26 Apr 2015 13:40:49 +0000</pubDate>
+      
+      <guid>/oi/dbimport_188/</guid>
+      <description>比较基础的期望+高消的题.为了说明一下高消是what,我决定写一发题解.
+首先题意是有个n个点m条边的无向图.有两个人初始位置是a和b.每个时刻每个人在一个点有p_i的概率不动,否则等概率移动到相邻的点.只有在同一时刻在同一个顶点上才算相遇.相遇了他俩就玩去了.求在第i号点相遇的概率.
+首先方程很好列.定义一个状态f[i][j]表示第一个人在i,第二个人在j的概率.那么f[i][j] = ∑ f[k][l] * ptrans(k,i) * ptrans(j, l),其中ptrans(a,b)表示从a移动到b的概率.
+然后这个东西就用高消嘛.(upd:才发现它叫gauss而不是guess.捂脸ing)
+高消就是说每次把剩下的方程里的第一个系数不为0的未知数的系数全部通过减某一个方程来把这个系数都消成0.当然被减的方程得留下系数过会再用于推答案.然后就可以不管这个被留下的方程了.
+换句话说,如果把方程组看成t*(t+1)的矩阵的话,其实就是消成一个右上三角.
+然后再倒着推出每个未知数的值.
+这个直接算比例就完了嘛.然后有一种情况是当前a[i][i]已经为0了,那么减不掉?反正所有方程的顺序没有关系啊.你就随便找一个不是0的到前面来消就好了啊.如果剩下方程的这一个系数都是0,那这个未知数取啥就无关了.也无所谓啦.
+详见代码.</description>
+    </item>
+    
+    <item>
+      <title>bzoj2671 Calc</title>
+      <link>/oi/dbimport_151/</link>
+      <pubDate>Mon, 20 Apr 2015 21:17:44 +0000</pubDate>
+      
+      <guid>/oi/dbimport_151/</guid>
+      <description>在颓废了一天之后决定写一个题解.因为我觉得这题挺有意思.
+我们需要转化一下式子.把原来的a,b改成A,B.设d=gcd(A,B),A=ad,B=bd.
+那么(a+b)d | abd2,即(a+b)|ab*d.
+又因为gcd(a,b)=1,所以(a+b)一定与a,b都互质.于是(a+b)|d.
+设t*(a+b)=d.那么因为bd≤n,所以t(a+b)*b≤n.那么b是sqrt(n)级别的.且我们只需要统计三元组(a,b,t)的个数就行了.
+answer=∑b∑a(n/b)/(a+b)(gcd(a,b)=1)然后这个玩意看上去好像是个长得怪异一点的狄利克雷卷积啊.
+于是就是要求[l, r]中与b互质的数的个数?这个玩意等于∑i|bu(i)*(r/i).然后发现可以把b分解质因数.而且只留下u不为0的.于是就能出奇迹辣好厉害ovo</description>
+    </item>
+    
+    <item>
+      <title>bzoj3944 sum</title>
+      <link>/oi/dbimport_218/</link>
+      <pubDate>Mon, 13 Apr 2015 23:41:20 +0000</pubDate>
+      
+      <guid>/oi/dbimport_218/</guid>
+      <description>比较神奇的数学题.首先你得听说过一个东西叫Mertens函数.于是你可以找到一篇论文.然后你发现它是英文的.试图理解了很久没有成功.
+然后终于有人良心贴出了一个blog.这回懂辣开心ovo
+其实就是那一个公式:F(n) = ∑一堆约数 + ∑k=2nF([n/k])
+然后发现mu和phi的左边一堆都是可以O(1)算的辣.右边强行记搜可以做到O(n2/3)的辣.
+然后手写个hash啥的就能跑得飞快的辣.</description>
+    </item>
+    
+    <item>
+      <title>bzoj1211 [HNOI2004]树的计数</title>
+      <link>/oi/dbimport_119/</link>
+      <pubDate>Mon, 06 Apr 2015 22:20:35 +0000</pubDate>
+      
+      <guid>/oi/dbimport_119/</guid>
+      <description>网没救啦.然后发现看电影居然看得无聊了.于是去愉快地刷题了ovo
+来复习一下一个叫prufer序列的东西.它是用来做生成树计数的.考虑一棵有标号的树,每次把叶子中编号最大的一个节点的唯一一条边的另一边扔进序列尾部,然后把它扯了,直到只剩俩点.然后发现这个序列对于一棵树是唯一的,且一个序列对应唯一的树.且这个序列的取值全都是1到n的数,无相互限制.这也是为啥完全图的生成树个数是nn-2.
+然后这个题是给定度数嘛,于是就是对于每个点要求在prufer序列中出现次数一定.那也很好做的啦.
+然后要注意的是有一堆无解的情况要先判断一下.然后听说写c++要小心暴long long.我强行python无压力啦ovo</description>
+    </item>
+    
+    <item>
+      <title>bzoj2986 Non-Squarefree Numbers</title>
+      <link>/oi/dbimport_175/</link>
+      <pubDate>Tue, 31 Mar 2015 19:42:17 +0000</pubDate>
+      
+      <guid>/oi/dbimport_175/</guid>
+      <description>比较好想的dfs容斥，然后二分答案。
+就只用dfs不超过sqrt(n)的素数的平方和。</description>
+    </item>
+    
+    <item>
+      <title>bzoj2820 yy的gcd</title>
+      <link>/oi/dbimport_163/</link>
+      <pubDate>Tue, 31 Mar 2015 10:41:02 +0000</pubDate>
+      
+      <guid>/oi/dbimport_163/</guid>
+      <description>idy又开坑辣。
+mobius反演题么么哒。强行sqrt(n)的询问。
+于是推一下式子。
+answer = ∑i∑j1 (gcd(i, j) = 1)
+= ∑&amp;lt;sub&amp;gt;p&amp;lt;/sub&amp;gt;∑&amp;lt;sub&amp;gt;g&amp;lt;/sub&amp;gt;u(g) * (n/(p*g)) * (m/(p*g)) 然后把p和g合起来设为v。
+h(v) = ∑ u(v) (v = x/p)
+然后发现h(v)函数是很好推的。
+h(px) = (x % p == 0) ? (u(x)) : (u(x) - h(x))
+然后就搞定啦orz.</description>
+    </item>
+    
+    <item>
+      <title>bzoj3328 PYXFIB</title>
+      <link>/oi/dbimport_190/</link>
+      <pubDate>Sun, 22 Mar 2015 21:22:04 +0000</pubDate>
+      
+      <guid>/oi/dbimport_190/</guid>
+      <description>上课讲的神题。构造公式。本来用HTML写了一堆公式的。然后天杀的网就断了要我重新开然后就没了。很想骂人。那就不写了呗，自行翻课件或者yy。</description>
+    </item>
+    
+    <item>
+      <title>BZOJ2916 [Poi1997]Monochromatic Triangles</title>
+      <link>/oi/i11rimport_034/</link>
+      <pubDate>Wed, 25 Feb 2015 10:10:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_034/</guid>
+      <description>	&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 每日一水。不过这题还比较有意思。最初没看清题，觉得没法数总三角形个数。&amp;lt;/p&amp;gt; &amp;nbsp;
+同色=总-不同色。对于一个不同色，会有两个顶点的两边颜色不同。直接按照顶点统计一下不同色的边组数，然后减一下就完了。
+&amp;nbsp;
+说好的糖果呢。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+const int maxn = 1009;
+int n, m, t, c, w[maxn];
+int main() { #ifndef ONLINE_JUDGE //freopen(&amp;ldquo;in.txt&amp;rdquo;, &amp;ldquo;r&amp;rdquo;, stdin); #endif
+scanf(&amp;quot;%d%d&amp;quot;, &amp;amp;amp;n, &amp;amp;amp;m); memset(w, 0, sizeof(w)); t = n * (n - 1) * (n - 2) / 6; for (int i = 0; i &amp;amp;lt; m; ++ i) { int u, v; scanf(&amp;quot;%d%d&amp;quot;, &amp;amp;amp;u, &amp;amp;amp;v); ++ w[u]; ++ w[v]; } c = 0; for (int i = 1; i &amp;amp;lt;= n; ++ i) c += w[i] * (n - w[i] - 1); c &amp;amp;gt;&amp;amp;gt;= 1; printf(&amp;quot;%d\n&amp;quot;, t - c); } </description>
+    </item>
+    
+    <item>
+      <title>BZOJ1815 [Shoi2006]color 有色图</title>
+      <link>/oi/i11rimport_057/</link>
+      <pubDate>Wed, 04 Feb 2015 17:46:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_057/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 一道burnside，做了几次之后感觉比较经典了。然后发现网上居然没有题解。&amp;lt;/p&amp;gt; &amp;nbsp;
+枚举正整数拆分，既每个质换的长度。然后枚举gcd算每类置换的贡献。再用错排公式来算每类置换的数量。然后求和。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+#define _l (long long int)
+const int maxn = 63;
+int n, m, mod, ans, g[maxn][maxn]; int sq[maxn], tq, fac[maxn], finv[maxn], vinv[maxn];
+int modPow(int a, int x) { int s(1); for (; x; x &amp;gt;&amp;gt;= 1, a = _l a * a % mod) if (x &amp;amp; 1) s = _l s * a % mod; return s; }</description>
+    </item>
+    
+    <item>
+      <title>BZOJ2401 陶陶的难题I</title>
+      <link>/oi/i11rimport_061/</link>
+      <pubDate>Sun, 01 Feb 2015 21:18:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_061/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 推了半天，发现还是得sqrt，过不到啊。&amp;lt;/p&amp;gt; &amp;nbsp;
+然后发现与经典的问题相比，就是n=n。然后这不是做过的那个LCM sum的前缀和就完了嘛。傻了。
+&amp;nbsp;
+然后第一次MLE是因为明明压了8位，还是开了30长的数组。第二次WA是因为高精输出的时候%08d写成了%8d。是不是明天又要逗极而死了。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+typedef long long dint;
+#define _l (long long int)
+const int maxlen = 7; const dint base = 1e8; struct BigInt { dint dig[maxlen], len; BigInt() { len = 0; } void set(dint x) { dig[0] = x; len = 1; while (dig[len - 1] &amp;gt;= base) { dig[len] = dig[len - 1] / base; dig[len - 1] %= base; ++ len; } } void copy(const BigInt&amp;amp; x) { len = x.</description>
+    </item>
+    
+    <item>
+      <title>POJ2154 Color</title>
+      <link>/oi/i11rimport_064/</link>
+      <pubDate>Sat, 31 Jan 2015 23:18:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_064/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 首先是burnside，对于旋转x下都要当作一个置换，所以总共有n个。然后第i个的不动点数量等于n&amp;lt;sup&amp;gt;gcd(n,i)&amp;lt;/sup&amp;gt;，然后统计一下个数是phi(gcd(n,i))个。&amp;lt;/p&amp;gt; &amp;nbsp;
+然后发现要用奇奇怪怪的东西来求phi。我用的方法是分解质因数然后DFS，跑得飞快。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+#define _l (long long int)
+const int maxn = 50009;
+int n, mod; int tp, pn[maxn], phi[maxn]; bool pr[maxn];
+void pre() { memset(pr, 0, sizeof(pr)); tp = 0; phi[1] = 1; for (int i = 2; i &amp;lt; maxn; ++ i) { if (!pr[i]) { pn[tp ++] = i; phi[i] = i - 1; } for (int j = 0; j &amp;lt; tp &amp;amp;&amp;amp; i * pn[j] &amp;lt; maxn; ++ j) { pr[i * pn[j]] = 1; if (i % pn[j] == 0) { phi[i * pn[j]] = phi[i] * pn[j]; break; } else phi[i * pn[j]] = phi[i] * phi[pn[j]]; } } }</description>
+    </item>
+    
+    <item>
+      <title>BZOJ1502 [NOI2005]月下柠檬树</title>
+      <link>/oi/i11rimport_071/</link>
+      <pubDate>Tue, 27 Jan 2015 20:55:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_071/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 今天几乎讲了一天的算几。或者说能听的只有算几。然后就去做了一道基础题。&amp;lt;/p&amp;gt; &amp;nbsp;
+刚开始的时候比较naive，把相交的情况想简单了，打算直接上数学，然后悲剧地发现还有其它的不好算交点的情况，于是就去写simpson了。
+&amp;nbsp;
+simpson就是一个估计用的，s = (4 * f(mid) + f(l) + f(r))*(r-l)/6。至于为啥是对的就不知道了。反正比较能用。然后每次直接去扫一遍所有能交的地方，取max就行了，比挨个算交点方便许多。
+&amp;nbsp;
+然后第一次写，代码也比较乱。
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;cmath&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+const int maxn = 509; const double pi = asin(1) * 2; const double eps = 1e-6;
+#define x1 x1 #define x2 x2 #define y1 y1 #define y2 y2
+int n; double tht, x[maxn], h[maxn], r[maxn]; double crd[maxn]; double x1[maxn], x2[maxn], y1[maxn], y2[maxn]; bool c[maxn];</description>
+    </item>
+    
+    <item>
+      <title>BZOJ2419 电阻</title>
+      <link>/oi/i11rimport_078/</link>
+      <pubDate>Sun, 25 Jan 2015 21:33:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_078/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 记得这是高一的时候ty同学和我说的东西了。然后现在才解决，可以打败上帝造题的七分钟，荣登解决时间最长的题目了。&amp;lt;/p&amp;gt; &amp;nbsp;
+其实也就是一个高斯消元，用电势来列方程。不过高斯消元写得不熟，平时有空都写ds的题去了。以后不能再这样了。
+&amp;nbsp;
+用自己的代码高亮脚本了，虽然还不完善不过还是很开心的。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;cmath&amp;gt; #include &amp;lt;cstdlib&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+const int maxn = 109; const double inf = 1e100; const double eps = 1e-8;
+double x[maxn], a[maxn][maxn], b[maxn][maxn]; int n, m, perm[maxn];
+int main() { #ifndef ONLINE_JUDGE freopen(&amp;ldquo;in.txt&amp;rdquo;, &amp;ldquo;r&amp;rdquo;, stdin); #endif
+srand(19970911); while (scanf(&amp;quot;%d%d&amp;quot;, &amp;amp;amp;n, &amp;amp;amp;m) != EOF) { for (int i = 1; i &amp;amp;lt;= n; ++ i) perm[i] = i; if (n &amp;amp;gt; 2) random_shuffle(perm + 2, perm + n); for (int i = 1; i &amp;amp;lt;= n; ++ i) for (int j = 1; j &amp;amp;lt;= n; ++ j) if (i == j) a[i][j] = 0; else a[i][j] = inf; while (m --) { int u, v; double p; scanf(&amp;quot;%d%d%lf&amp;quot;, &amp;amp;amp;u, &amp;amp;amp;v, &amp;amp;amp;p); u = perm[u]; v = perm[v]; if (u == v) continue; a[u][v] = 1.</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3136 [Baltic2013]brunhilda</title>
+      <link>/oi/i11rimport_080/</link>
+      <pubDate>Fri, 23 Jan 2015 21:32:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_080/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 决心写一道usaco之外的题，于是就挑中了这道。&amp;lt;/p&amp;gt; &amp;nbsp;
+为啥这编辑器有BUG，每次按回车要向下跳？
+&amp;nbsp;
+发现可以预处理DP。f_i表示第i个数被砍完需要最少多少刀。对于每一个i，设p_i是它的质因子里最大的一个在给定集合里的，那么它可以转移到(i+1,i+p_i)这个范围。然后f_i显然不减，所以用单调队列之类的玩意。
+&amp;nbsp;
+然后卡着时间限制过了。不知道前面那些秒跑的人是怎么搞的。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+const int maxn = 10000009; const int maxm = 100009;
+int k[maxn], f[maxn], n, m, q, p[maxm], v[maxm];
+void pre(int n) { sort(p, p + m); memset(k, 0, sizeof(k)); for (int i = 0; i &amp;lt; m; ++ i) if (!i || p[i] != p[i - 1]) for (int j = 0; j &amp;lt;= n; j += p[i]) k[j] = p[i];</description>
+    </item>
+    
+    <item>
+      <title>BZOJ2693 jzptab</title>
+      <link>/oi/lofterimport_000/</link>
+      <pubDate>Sat, 17 Jan 2015 18:36:19 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_000/</guid>
+      <description>多组询问，硬根号。yy了一下午，在去80MSWC的时候的病历上打了若干草稿，最后硬yy出来了。
+其实拿LaTeX来当公式编辑器蛮好的。
+然后d(a)函数可以线性筛，讨论一下是不是倍数就行了。
+发现数论真的好神奇。
+lofter的html源码好讨厌啊。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+&amp;nbsp;
+using namespace std;
+&amp;nbsp;
+#define _l (long long int)
+&amp;nbsp;
+const int maxn = 10000009;
+const int maxq = 10009;
+const int mod = 1e8 + 9;
+&amp;nbsp;
+int pn[maxn], tp, d[maxn];
+bool pr[maxn];
+int q, m[maxq], n[maxq], t;
+&amp;nbsp;
+#define incm(_a_,_b_)&amp;nbsp;{&amp;nbsp;\
+&amp;nbsp;&amp;nbsp;&amp;nbsp; _a_+=_b_;&amp;nbsp;\
+&amp;nbsp;&amp;nbsp;&amp;nbsp; if (_a_&amp;gt;=mod||_a_&amp;lt;=-mod)&amp;nbsp;\
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; _a_%=mod;&amp;nbsp;\
+&amp;nbsp;&amp;nbsp;&amp;nbsp; if (_a_&amp;lt;0)&amp;nbsp;\
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; _a_+=mod;&amp;nbsp;\
+}
+&amp;nbsp;
+void pre(int n)&amp;nbsp;{</description>
+    </item>
+    
+    <item>
+      <title>BZOJ2393 Cirno的完美算数教室</title>
+      <link>/oi/lofterimport_004/</link>
+      <pubDate>Sun, 11 Jan 2015 11:12:49 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_004/</guid>
+      <description>充分证明我已经学傻了。把ONLINE_JUDGE打成ONLINE_JUGE还WA了若干次。然后开了个10^10的数组直接CE还想了好久是怎么回事。
+10^10大概会TLE，真正的数据大概只有10^9。
+做法比较简单直接容斥+剪枝，反正凑起来的几个数不会很多。
+#ifndef ONLINE_JUGE
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+typedef long long dint;
+#ifdef WIN32
+#define lld &amp;quot;%I64d&amp;quot;
+#else
+#define lld &amp;quot;%lld&amp;quot;
+#endif
+const int maxa = 2048;
+const dint maxn = 10000000000LL;
+//const dint maxn = 100000LL;
+int e, t;
+dint l, r, s, a[maxa], ans;
+bool g[maxa];
+void pre()&amp;nbsp;{
+t = 0;
+for (int l = 1; l &amp;lt;= 10;&amp;nbsp;++ l)
+for (int j = 0; j &amp;lt;&amp;nbsp;(1&amp;nbsp;&amp;lt;&amp;lt; l);&amp;nbsp;++ j)&amp;nbsp;{</description>
+    </item>
+    
+    <item>
+      <title>BZOJ2813 奇妙的Fibonacci</title>
+      <link>/oi/lofterimport_005/</link>
+      <pubDate>Thu, 08 Jan 2015 20:46:03 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_005/</guid>
+      <description>的确比较奇妙。
+有一个奇妙的玩意是fib[gcd(i, j)]&amp;nbsp;== gcd(fib[i], fib[j])。(fib[1]&amp;nbsp;= fib[2]&amp;nbsp;= 1)
+然后就比较可搞了。
+线性筛处理每个数的因子个数和因子和。开一点变量然后推一下就出来了。
+然后要注意fib[2]也可以整除所有奇数，包括1。表示在这上面坑了2次提交。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+#define _l (long long int)
+const int maxn = 10000009;
+const int mod = 1000000007;
+int tp, pn[maxn], sa[maxn], sb[maxn], b[maxn], c[maxn];
+bool pr[maxn];
+void pre(int n)&amp;nbsp;{
+memset(pr, 0, sizeof(pr));
+tp = 0;
+sa[1]&amp;nbsp;= 1;
+sb[1]&amp;nbsp;= 1;
+b[1]&amp;nbsp;= 1;
+c[1]&amp;nbsp;= 0;
+for (int i = 2; i &amp;lt;= n;&amp;nbsp;++ i)&amp;nbsp;{
+if (!</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3858 Number Transformation</title>
+      <link>/oi/lofterimport_011/</link>
+      <pubDate>Tue, 06 Jan 2015 21:10:22 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_011/</guid>
+      <description>yy了一个sqrt的玩意，不过因为n在变所以没有保障啊。
+肯定不是正解了。
+1s的题跑了1.3s居然AC，好厉害。
+#include &amp;lt;cstdio&amp;gt;
+typedef long long dint;
+#ifdef WIN32
+#define lld &amp;quot;%I64d&amp;quot;
+#else
+#define lld &amp;quot;%lld&amp;quot;
+#endif
+dint calc(dint n, dint k)&amp;nbsp;{
+if (n&amp;nbsp;&amp;lt;= 1)
+return k;
+for (dint i = 1, j; i &amp;lt;= k; i = j + 1)&amp;nbsp;{
+if (n&amp;nbsp;&amp;lt;= i)
+return k;
+j =&amp;nbsp;(n&amp;nbsp;- 1)&amp;nbsp;/&amp;nbsp;((n - 1)&amp;nbsp;/ i);
+if (j&amp;nbsp;&amp;gt; k)
+j = k;
+n =&amp;nbsp;((n&amp;nbsp;- 1)&amp;nbsp;/ i + 1)&amp;nbsp;* j;
+}
+return n;</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3834 [Poi2014]Solar Panels</title>
+      <link>/oi/lofterimport_013/</link>
+      <pubDate>Mon, 05 Jan 2015 12:04:52 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_013/</guid>
+      <description>orz jason_yu提醒了我一句“最简单的优化”，才想起来。
+如果d合法的话那么b/d-(a-1)/d&amp;gt;0。然后用整除优化到sqrt就可过。虽然比较慢。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+int main()&amp;nbsp;{
+int t, a, b, c, d, s, e;
+scanf(&amp;quot;%d&amp;quot;,&amp;nbsp;&amp;amp;t);
+while (t&amp;nbsp;--)&amp;nbsp;{
+scanf(&amp;quot;%d%d%d%d&amp;quot;,&amp;nbsp;&amp;amp;a,&amp;nbsp;&amp;amp;b,&amp;nbsp;&amp;amp;c,&amp;nbsp;&amp;amp;d);
+-- a;
+-- c;
+s = 1;
+e = min(b, d);
+for (int i = 1, j; i &amp;lt;= e; i = j + 1)&amp;nbsp;{
+j = min(b /&amp;nbsp;(b&amp;nbsp;/ i), d /&amp;nbsp;(d&amp;nbsp;/ i));
+if (a&amp;nbsp;/ i)
+j = min(j, a /&amp;nbsp;(a&amp;nbsp;/ i));
+if (c&amp;nbsp;/ i)</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3301 [USACO2011 Feb] Cow Line</title>
+      <link>/oi/lofterimport_020/</link>
+      <pubDate>Thu, 01 Jan 2015 00:00:03 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_020/</guid>
+      <description>新年第一题哈哈。虽然没有成功拿到fb。
+所谓阶乘进制数么。略水。只不过加一减一啥的得小心些。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+typedef long long dint;
+#define pow2(x)&amp;nbsp;(1&amp;lt;&amp;lt;(x))
+#ifdef WIN32
+#define lld &amp;quot;%I64d&amp;quot;
+#else
+#define lld &amp;quot;%lld&amp;quot;
+#endif
+const int maxn = 21;
+dint fac[maxn];
+int n, k, t, x[maxn];
+dint a;
+void sovPerm()&amp;nbsp;{
+t = 0;
+for (int i = n; i;&amp;nbsp;-- i)&amp;nbsp;{
+int r =&amp;nbsp;(a&amp;nbsp;- 1)&amp;nbsp;/ fac[i - 1]&amp;nbsp;+ 1, c = 0;
+a -=&amp;nbsp;(r&amp;nbsp;- 1)&amp;nbsp;* fac[i - 1];</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3823 定情信物</title>
+      <link>/oi/lofterimport_021/</link>
+      <pubDate>Sun, 28 Dec 2014 01:38:08 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_021/</guid>
+      <description>解锁成就：半夜过题。（其实是因为在搞bsd）
+仔细看下题推一下发现第n维中m维元素的个数为2^(n-m)*C(n,m)。
+然后组合数好像得nlogn用逆元？恭喜tle。
+然后yy了一个用线性筛的办法，只是素数用快速幂，这样大约可以降低复杂度，然后就能过了。好神奇。
+代码好长TT。
+#include &amp;lt;cstdio&amp;gt;
+#include&amp;nbsp;&amp;lt;cstring&amp;gt;
+#define _l (long long int)
+const int maxn = 10000009;
+int tp, pn[maxn], inv[maxn];
+bool pr[maxn];
+int n, mod, s, c, p;
+int modPow(int a, int x)&amp;nbsp;{
+&amp;nbsp;&amp;nbsp;&amp;nbsp; int s = 1;
+&amp;nbsp;&amp;nbsp;&amp;nbsp; for (; x; x &amp;gt;&amp;gt;= 1, a = _l a * a % mod)
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; if (x&amp;nbsp;&amp;amp; 1)
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; s = _l s * a % mod;
+&amp;nbsp;&amp;nbsp;&amp;nbsp; return s;</description>
+    </item>
+    
+    <item>
+      <title>BZOJ2154 Crash的数字表格</title>
+      <link>/oi/lofterimport_055/</link>
+      <pubDate>Mon, 01 Dec 2014 21:27:34 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_055/</guid>
+      <description>优化方法暑假的时候zhx讲过，我居然还记得好感动。
+Mobius反演加些奇异的东西。（不会用公式编辑器是不是已经落伍了）
+两个优化-&amp;gt; sqrt(n)^2 == n。
+跑得飞慢&amp;nbsp;。而且中间那坨又长又丑。
+久了不写都快忘了。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+typedef long long qw;
+#define _l (qw)
+const int maxn = 10000009;
+const int mod = 20101009;
+int pn[maxn], mu[maxn], smu[maxn], tp;
+bool pr[maxn];
+void pre(int maxn)&amp;nbsp;{
+memset(pr, 0, sizeof(pr));
+tp = 0;
+mu[1]&amp;nbsp;= 1;
+for (int i = 2; i &amp;lt;= maxn;&amp;nbsp;++ i)&amp;nbsp;{
+if (!pr[i])&amp;nbsp;{
+pn[tp ++]&amp;nbsp;= i;
+mu[i]&amp;nbsp;=&amp;nbsp;-1;
+}
+for (int j = 0; j &amp;lt; tp &amp;amp;&amp;amp; i * pn[j]&amp;nbsp;&amp;lt;= maxn;&amp;nbsp;++ j)&amp;nbsp;{</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3000 Big Number</title>
+      <link>/oi/lofterimport_058/</link>
+      <pubDate>Sun, 30 Nov 2014 11:28:01 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_058/</guid>
+      <description>题意：求n!在b进制下的位数（n&amp;lt;=2^31）。
+好像要高精！？好像会TLE！？根本不会做！
+然后想到answer=∑log(k,i)
+然后积分？∫ln(x) dx = xln(x)&amp;nbsp;- x
+小数据直接跑，过之。试个极限数据，差了3！？
+仔细一想，对数函数是凹的，这样算答案当然会偏小。
+百度了一下，发现有个公式：n!≈√(2*π*n)*(n/e)^n。
+拆开之后发现就是比原来的积分多了个ln(2*π*n)
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cmath&amp;gt;
+const double pi = asin(1)&amp;nbsp;* 2.0;
+double calc(double n, double k)&amp;nbsp;{
+double ans = 0;
+if (n&amp;nbsp;&amp;lt; 100000)&amp;nbsp;{
+for (int i = 1; i &amp;lt;= n;&amp;nbsp;++ i)
+ans += log(i);
+ans /= log(k);
+}
+else {
+ans =&amp;nbsp;(0.5&amp;nbsp;* log(pi * n * 2)&amp;nbsp;+ log(n)&amp;nbsp;* n - n)&amp;nbsp;/ log(k);
+}
+return ans + 0.5;
+}</description>
+    </item>
+    
+    <item>
+      <title>BZOJ1951 [Sdoi2010]古代猪文</title>
+      <link>/oi/lofterimport_061/</link>
+      <pubDate>Sat, 29 Nov 2014 17:04:43 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_061/</guid>
+      <description>好像数学都退化了。
+其实一直没有用过中国剩余定理。虽然好像也不是太麻烦，不过要记住。
+然后这题也比较裸吧。把C(n,m)中的阶乘分解成t*p^k的样子就好了。ORZ JASON_YU
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+typedef long long qw;
+#define _l (qw)
+const int mod = 999911659;
+const int pn[4]&amp;nbsp;=&amp;nbsp;{2, 3, 4679, 35617};
+const int maxb = 50009;
+int n, g, fac[maxb], tf, s[4];
+int t[maxb];
+int modPow(int a, int x, int mod)&amp;nbsp;{
+int s = 1;
+for (a&amp;nbsp;%= mod; x; x &amp;gt;&amp;gt;= 1, a = _l a * a % mod)</description>
+    </item>
+    
+    <item>
+      <title>BZOJ1227 [SDOI2009]虔诚的墓主人</title>
+      <link>/oi/lofterimport_070/</link>
+      <pubDate>Mon, 24 Nov 2014 10:59:07 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_070/</guid>
+      <description>写完Kdtree感觉整个人都要离散了。
+这题比较神，之前连题都没看懂。每个位置的方案数就是上下左右的数量的组合数的乘积。把x离散之后维护区间中左&amp;times;右的和，上下y相同的扫一遍搞定。（感觉说了像没说）
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+struct point {
+int x, y;
+};
+const int maxn = 100009;
+const int maxk = 13;
+inline bool cmpP(int* a, int* b)&amp;nbsp;{
+return *a&amp;nbsp;&amp;lt;&amp;nbsp;*b;
+}
+inline bool cmpy(const point&amp;amp; a, const point&amp;amp; b)&amp;nbsp;{
+return (a. y &amp;lt; b. y)&amp;nbsp;||&amp;nbsp;(a. y == b. y &amp;amp;&amp;amp; a. x &amp;lt; b. x);
+}
+point a[maxn];
+int n, m, c[maxn][maxk], cx[maxn], tx[maxn], t[maxn], maxx, ans;</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3751 [NOIP2014]解方程</title>
+      <link>/oi/lofterimport_083/</link>
+      <pubDate>Fri, 21 Nov 2014 09:11:40 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_083/</guid>
+      <description>BZOJ里的第二道noip题，今年防ak题，OTZ。
+最初直接用大素数取模的方法要TLE，虽然本机不会。
+用几个小质数pni，算出在模pni的同余系里0~pni-1的答案。如果x为原方程的解的话x%pni在模pni意义下也应该为0。
+然后还是会TLE，最后发现小质数乘的时候不用取模了。bzoj上这题纯粹是丧心病狂卡常数啊。
+ORZMHY
+#define PROC &amp;quot;equation&amp;quot;
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+typedef unsigned long long uqw;
+typedef long long qw;
+const int maxn = 109;
+const int maxl = 10009;
+const int maxm = 1000009;
+const int cp = 5;
+//const int pn[cp]&amp;nbsp;=&amp;nbsp;{111119, 23333, 11113, 23251, 33329};
+const int pn[]&amp;nbsp;=&amp;nbsp;{22861, 22871, 22877, 22901, 22907, 22921};
+const int p10[]&amp;nbsp;=&amp;nbsp;{1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000};</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3513 [MUTC2013]idiots</title>
+      <link>/oi/lofterimport_110/</link>
+      <pubDate>Thu, 30 Oct 2014 21:11:25 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_110/</guid>
+      <description>居然写了一半手贱就把所有东西都弄没了。严重地不开心。
+既然这样那么简单说吧。
+长度≤10^5这个条件在bzoj上没说。
+用fft求出长度和为leni的组数。
+枚举第三根火柴，可行的是（它作为最长的总组合数&amp;nbsp;-&amp;nbsp;（长度≤它的组合数））那么多组。
+fft必需常数够小。不写蝴蝶会tle。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cmath&amp;gt;
+#include &amp;lt;cctype&amp;gt;
+#include &amp;lt;memory.h&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+typedef long long qw;
+#define readInt(_s_)&amp;nbsp;{\
+int _d_;\
+_s_ = 0;\
+while (!isdigit(_d_&amp;nbsp;= getchar()));\
+while ((_s_&amp;nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\
+}
+struct cplx {
+double r, i;
+inline cplx()&amp;nbsp;{
+r = 0, i = 0;
+}
+inline cplx(double r0, double i0)&amp;nbsp;{
+r = r0, i = i0;</description>
+    </item>
+    
+    <item>
+      <title>BZOJ2226 LCMSum</title>
+      <link>/oi/lofterimport_125/</link>
+      <pubDate>Wed, 22 Oct 2014 21:14:21 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_125/</guid>
+      <description>比较神奇的数学题。
+重要的结论是&amp;lt;n且与n素质的数的和是phi(n)*n/2。
+所以就枚举一下gcd就好了。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cctype&amp;gt;
+#include &amp;lt;memory.h&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+typedef long long qw;
+#ifdef WIN32
+#define lld &amp;quot;%I64d&amp;quot;
+#else
+#define lld &amp;quot;%lld&amp;quot;
+#endif
+#define _l (qw)
+#define readInt(_s_)&amp;nbsp;{\
+int _d_;\
+_s_ = 0;\
+while (!isdigit(_d_&amp;nbsp;= getchar()));\
+while ((_s_&amp;nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\
+}
+const int maxn = 1000009;
+qw ans[maxn];
+int tp, pn[maxn], phi[maxn];
+bool pr[maxn];
+void pre()&amp;nbsp;{
+memset(pr, 0, sizeof(pr));</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3231 递归数列</title>
+      <link>/oi/lofterimport_134/</link>
+      <pubDate>Mon, 20 Oct 2014 19:06:02 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_134/</guid>
+      <description>感觉几百年没有刷bzoj了？虽然昨天才写了题，下午也还交了题的。
+还是挺水的一道矩阵题。看到数列想得到矩阵，不知道没看到数列能不能想到矩阵。
+关键是求和比较不好想。其实新加一行把和记下来就行了。重点就是构造对吧。
+然后矩阵快速幂啥的还好。主要是要记得快速乘。（想起了zhx的babysit）
+#include &amp;lt;iostream&amp;gt;
+#ifndef ONLINE_JUDGE
+#include &amp;lt;fstream&amp;gt;
+#define cin _cin_
+std :: ifstream cin(&amp;quot;in.txt&amp;quot;);
+#endif
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+typedef long long qw;
+const int maxn = 19;
+qw n, b[maxn], c[maxn], x, y, mod;
+qw modMul(qw a, qw b)&amp;nbsp;{
+qw s = 0;
+for (; b; b &amp;gt;&amp;gt;= 1, a =&amp;nbsp;(a&amp;nbsp;&amp;lt;&amp;lt; 1)&amp;nbsp;% mod)
+if (b&amp;nbsp;&amp;amp; 1)
+s =&amp;nbsp;(s&amp;nbsp;+ a)&amp;nbsp;% mod;
+return s;
+}
+class matrix {</description>
+    </item>
+    
+    <item>
+      <title>CodeVS3147 矩阵乘法2</title>
+      <link>/oi/lofterimport_138/</link>
+      <pubDate>Sat, 18 Oct 2014 17:06:28 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_138/</guid>
+      <description>居然继续沦落到写CV的题解的地步了。
+这又是一道坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑坑题。
+思路很简单。就是记a的列前缀和和b的行前缀和，每次询问的时候O(n)的扫一遍乘积累和。
+但是，极限数据本地要跑3.2s。虽然我笔记本是慢，但是也不能这样玩我啊。交了好久都在tle。
+最后想到一个常数优化的办法。因为每次是把一行或者一列的数都访问一遍，所以用一个指针把数组的那一行记下来。这样寻址会快一些。事实证明快了不只一些。
+坑，哈哈。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cctype&amp;gt;
+#include &amp;lt;memory.h&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+typedef long long qw;
+#ifdef WIN32
+#define lld &amp;quot;%I64d&amp;quot;
+#else
+#define lld &amp;quot;%lld&amp;quot;
+#endif
+#define _l (qw)
+#define readInt(_s_)&amp;nbsp;{\
+int _d_;\
+_s_ = 0;\
+while (!isdigit(_d_&amp;nbsp;= getchar()));\
+while ((_s_&amp;nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\
+}
+const int maxn = 2001;
+int a[maxn][maxn], b[maxn][maxn], n, m;
+int main()&amp;nbsp;{
+readInt(n);</description>
+    </item>
+    
+    <item>
+      <title>tyvj1996 工作分配2</title>
+      <link>/oi/lofterimport_147/</link>
+      <pubDate>Wed, 15 Oct 2014 12:00:49 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_147/</guid>
+      <description>沦落到写tyvj的题解了。不过看在这题之前只有7人过的份上就写一下好了。
+式子是容斥，比较好想。answer = sigma((-1)^i * m^(n-i)&amp;nbsp;* C(m, i))&amp;nbsp;(0 &amp;lt;= i &amp;lt;= m)
+m^(n-i)这一块用快速幂就好了。
+然后对于前一题因为m很小所以用m^2把组合数弄出来就行了。但是这里m^2就T到明天去了。
+观察
+C(m, i)&amp;nbsp;= m!/(i!&amp;nbsp;*&amp;nbsp;(m-i)!)&amp;nbsp;
+=&amp;gt; C(m, i - 1)&amp;nbsp;= m!&amp;nbsp;/&amp;nbsp;((i-1)!&amp;nbsp;*&amp;nbsp;(m-i+1)!)&amp;nbsp;
+=&amp;gt; C(m, i)&amp;nbsp;= C(m, i - 1)&amp;nbsp;/ i *&amp;nbsp;(m&amp;nbsp;- i + 1)
+这样递推用逆元来做就是O(m * lgm)的时间了。
+然后这题就这样了。代码很短。
+#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;memory.h&amp;gt;
+using namespace std;
+#define _l (long long int)
+typedef long long qw;
+const int maxm = 1000009;
+const int mod = 1e9 + 7;
+int cm[maxm];</description>
+    </item>
+    
+  </channel>
+</rss>

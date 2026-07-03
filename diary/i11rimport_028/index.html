@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>20150228 bc31 | The Site of laekov</title>
+<meta name="keywords" content="life, bc, diary">
+<meta name="description" content="&lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt; 又是愉快的一天两场。&lt;/p&gt; &nbsp;
+早上是高三众出了一套据称是NOIP模拟题的玩意。感觉比较坑，不过还是可做。
+&nbsp;
+第一题是个简单的思考题，除了高精以外没啥恶心的地方。但是当时觉得有点麻烦，想对了方向但是没有继续想下去。当然一个重要的原因是第二题和第三题比较吸引人。
+&nbsp;
+第二题是个灭绝树的比较裸的题。这玩意比较简单不过比较偏。这种考点就是要严防的。建树还比较简单。问题是求一堆链的并比较麻烦。当然我直接上链剖了反正最近写得比较多，半个小时就搞定了整道题。然后也可以不用链剖用DFS序的，不过我觉得可能我思考和调试的时间会比直接无脑码链剖的时间还要长。
+&nbsp;
+第三题是去年冬令营前模拟的时候考过的原题吧，大概日期是20140122？印象比较深的原因是时空穿梭有这个部分分不过那题我还是暴0了。一年过去了，于是我决定硬推mobius，然后推了若干页草稿纸，中间还经历了一次重启之后最终还是推出来了。中间重启的原因还是对mobius反演不够熟悉。不过感觉经过上次在80ms的学习之后，自己的数论水平还是有些进步吧。至少现在看到mobius不会昏了。
+&nbsp;
+于是考试的时候第一题30暴力&#43;100&#43;100。没写丑东西还是比较欣慰的。
+&nbsp;
+下午各种事情没有刷题没有改题没有写总结。
+&nbsp;
+晚上7点17分想起有BC。
+&nbsp;
+a题小学生题水。
+&nbsp;
+b题中学生题数位DP水。然后写了半天。久了不写手生。怎么感觉说这句话说了整整一个寒假了。
+&nbsp;
+c题不是当年SCOI那个题的升级版吗？然后naive了一次因为如果有车把两行隔开的话两个王就不会产生影响了。然后发现要先处理出所有大小方块的王的放法数，然后枚举一下n的正整数拆分，还要用在xj学到的枚举排列去重的方法。细节各种麻烦。写之交之过pt之玩之fst之，错因未知。
+&nbsp;
+d题不会。题解都那么长一定是神题。
+&nbsp;
+然后去写上午的第一题，然后脑洞大开写了个java，然后去补bzoj，然后写总结。事情好多TT
+&nbsp;
+所以我还是太年轻了啊。">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/diary/i11rimport_028/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="20150228 bc31" />
+<meta property="og:description" content="&lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt; 又是愉快的一天两场。&lt;/p&gt; &nbsp;
+早上是高三众出了一套据称是NOIP模拟题的玩意。感觉比较坑，不过还是可做。
+&nbsp;
+第一题是个简单的思考题，除了高精以外没啥恶心的地方。但是当时觉得有点麻烦，想对了方向但是没有继续想下去。当然一个重要的原因是第二题和第三题比较吸引人。
+&nbsp;
+第二题是个灭绝树的比较裸的题。这玩意比较简单不过比较偏。这种考点就是要严防的。建树还比较简单。问题是求一堆链的并比较麻烦。当然我直接上链剖了反正最近写得比较多，半个小时就搞定了整道题。然后也可以不用链剖用DFS序的，不过我觉得可能我思考和调试的时间会比直接无脑码链剖的时间还要长。
+&nbsp;
+第三题是去年冬令营前模拟的时候考过的原题吧，大概日期是20140122？印象比较深的原因是时空穿梭有这个部分分不过那题我还是暴0了。一年过去了，于是我决定硬推mobius，然后推了若干页草稿纸，中间还经历了一次重启之后最终还是推出来了。中间重启的原因还是对mobius反演不够熟悉。不过感觉经过上次在80ms的学习之后，自己的数论水平还是有些进步吧。至少现在看到mobius不会昏了。
+&nbsp;
+于是考试的时候第一题30暴力&#43;100&#43;100。没写丑东西还是比较欣慰的。
+&nbsp;
+下午各种事情没有刷题没有改题没有写总结。
+&nbsp;
+晚上7点17分想起有BC。
+&nbsp;
+a题小学生题水。
+&nbsp;
+b题中学生题数位DP水。然后写了半天。久了不写手生。怎么感觉说这句话说了整整一个寒假了。
+&nbsp;
+c题不是当年SCOI那个题的升级版吗？然后naive了一次因为如果有车把两行隔开的话两个王就不会产生影响了。然后发现要先处理出所有大小方块的王的放法数，然后枚举一下n的正整数拆分，还要用在xj学到的枚举排列去重的方法。细节各种麻烦。写之交之过pt之玩之fst之，错因未知。
+&nbsp;
+d题不会。题解都那么长一定是神题。
+&nbsp;
+然后去写上午的第一题，然后脑洞大开写了个java，然后去补bzoj，然后写总结。事情好多TT
+&nbsp;
+所以我还是太年轻了啊。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/diary/i11rimport_028/" /><meta property="article:section" content="diary" />
+<meta property="article:published_time" content="2015-02-27T22:40:41+00:00" />
+<meta property="article:modified_time" content="2015-02-27T22:40:41+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="20150228 bc31"/>
+<meta name="twitter:description" content="&lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt; 又是愉快的一天两场。&lt;/p&gt; &nbsp;
+早上是高三众出了一套据称是NOIP模拟题的玩意。感觉比较坑，不过还是可做。
+&nbsp;
+第一题是个简单的思考题，除了高精以外没啥恶心的地方。但是当时觉得有点麻烦，想对了方向但是没有继续想下去。当然一个重要的原因是第二题和第三题比较吸引人。
+&nbsp;
+第二题是个灭绝树的比较裸的题。这玩意比较简单不过比较偏。这种考点就是要严防的。建树还比较简单。问题是求一堆链的并比较麻烦。当然我直接上链剖了反正最近写得比较多，半个小时就搞定了整道题。然后也可以不用链剖用DFS序的，不过我觉得可能我思考和调试的时间会比直接无脑码链剖的时间还要长。
+&nbsp;
+第三题是去年冬令营前模拟的时候考过的原题吧，大概日期是20140122？印象比较深的原因是时空穿梭有这个部分分不过那题我还是暴0了。一年过去了，于是我决定硬推mobius，然后推了若干页草稿纸，中间还经历了一次重启之后最终还是推出来了。中间重启的原因还是对mobius反演不够熟悉。不过感觉经过上次在80ms的学习之后，自己的数论水平还是有些进步吧。至少现在看到mobius不会昏了。
+&nbsp;
+于是考试的时候第一题30暴力&#43;100&#43;100。没写丑东西还是比较欣慰的。
+&nbsp;
+下午各种事情没有刷题没有改题没有写总结。
+&nbsp;
+晚上7点17分想起有BC。
+&nbsp;
+a题小学生题水。
+&nbsp;
+b题中学生题数位DP水。然后写了半天。久了不写手生。怎么感觉说这句话说了整整一个寒假了。
+&nbsp;
+c题不是当年SCOI那个题的升级版吗？然后naive了一次因为如果有车把两行隔开的话两个王就不会产生影响了。然后发现要先处理出所有大小方块的王的放法数，然后枚举一下n的正整数拆分，还要用在xj学到的枚举排列去重的方法。细节各种麻烦。写之交之过pt之玩之fst之，错因未知。
+&nbsp;
+d题不会。题解都那么长一定是神题。
+&nbsp;
+然后去写上午的第一题，然后脑洞大开写了个java，然后去补bzoj，然后写总结。事情好多TT
+&nbsp;
+所以我还是太年轻了啊。"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Diaries",
+      "item": "/diary/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "20150228 bc31",
+      "item": "/diary/i11rimport_028/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "20150228 bc31",
+  "name": "20150228 bc31",
+  "description": "\u0026lt;div class=\u0026quot;post_brief\u0026quot;\u0026gt;\u0026lt;p\u0026gt; 又是愉快的一天两场。\u0026lt;/p\u0026gt; \u0026nbsp;\n早上是高三众出了一套据称是NOIP模拟题的玩意。感觉比较坑，不过还是可做。\n\u0026nbsp;\n第一题是个简单的思考题，除了高精以外没啥恶心的地方。但是当时觉得有点麻烦，想对了方向但是没有继续想下去。当然一个重要的原因是第二题和第三题比较吸引人。\n\u0026nbsp;\n第二题是个灭绝树的比较裸的题。这玩意比较简单不过比较偏。这种考点就是要严防的。建树还比较简单。问题是求一堆链的并比较麻烦。当然我直接上链剖了反正最近写得比较多，半个小时就搞定了整道题。然后也可以不用链剖用DFS序的，不过我觉得可能我思考和调试的时间会比直接无脑码链剖的时间还要长。\n\u0026nbsp;\n第三题是去年冬令营前模拟的时候考过的原题吧，大概日期是20140122？印象比较深的原因是时空穿梭有这个部分分不过那题我还是暴0了。一年过去了，于是我决定硬推mobius，然后推了若干页草稿纸，中间还经历了一次重启之后最终还是推出来了。中间重启的原因还是对mobius反演不够熟悉。不过感觉经过上次在80ms的学习之后，自己的数论水平还是有些进步吧。至少现在看到mobius不会昏了。\n\u0026nbsp;\n于是考试的时候第一题30暴力+100+100。没写丑东西还是比较欣慰的。\n\u0026nbsp;\n下午各种事情没有刷题没有改题没有写总结。\n\u0026nbsp;\n晚上7点17分想起有BC。\n\u0026nbsp;\na题小学生题水。\n\u0026nbsp;\nb题中学生题数位DP水。然后写了半天。久了不写手生。怎么感觉说这句话说了整整一个寒假了。\n\u0026nbsp;\nc题不是当年SCOI那个题的升级版吗？然后naive了一次因为如果有车把两行隔开的话两个王就不会产生影响了。然后发现要先处理出所有大小方块的王的放法数，然后枚举一下n的正整数拆分，还要用在xj学到的枚举排列去重的方法。细节各种麻烦。写之交之过pt之玩之fst之，错因未知。\n\u0026nbsp;\nd题不会。题解都那么长一定是神题。\n\u0026nbsp;\n然后去写上午的第一题，然后脑洞大开写了个java，然后去补bzoj，然后写总结。事情好多TT\n\u0026nbsp;\n所以我还是太年轻了啊。",
+  "keywords": [
+    "life", "bc", "diary"
+  ],
+  "articleBody": "\t又是愉快的一天两场。\n早上是高三众出了一套据称是NOIP模拟题的玩意。感觉比较坑，不过还是可做。\n第一题是个简单的思考题，除了高精以外没啥恶心的地方。但是当时觉得有点麻烦，想对了方向但是没有继续想下去。当然一个重要的原因是第二题和第三题比较吸引人。\n第二题是个灭绝树的比较裸的题。这玩意比较简单不过比较偏。这种考点就是要严防的。建树还比较简单。问题是求一堆链的并比较麻烦。当然我直接上链剖了反正最近写得比较多，半个小时就搞定了整道题。然后也可以不用链剖用DFS序的，不过我觉得可能我思考和调试的时间会比直接无脑码链剖的时间还要长。\n第三题是去年冬令营前模拟的时候考过的原题吧，大概日期是20140122？印象比较深的原因是时空穿梭有这个部分分不过那题我还是暴0了。一年过去了，于是我决定硬推mobius，然后推了若干页草稿纸，中间还经历了一次重启之后最终还是推出来了。中间重启的原因还是对mobius反演不够熟悉。不过感觉经过上次在80ms的学习之后，自己的数论水平还是有些进步吧。至少现在看到mobius不会昏了。\n于是考试的时候第一题30暴力+100+100。没写丑东西还是比较欣慰的。\n下午各种事情没有刷题没有改题没有写总结。\n晚上7点17分想起有BC。\na题小学生题水。\nb题中学生题数位DP水。然后写了半天。久了不写手生。怎么感觉说这句话说了整整一个寒假了。\nc题不是当年SCOI那个题的升级版吗？然后naive了一次因为如果有车把两行隔开的话两个王就不会产生影响了。然后发现要先处理出所有大小方块的王的放法数，然后枚举一下n的正整数拆分，还要用在xj学到的枚举排列去重的方法。细节各种麻烦。写之交之过pt之玩之fst之，错因未知。\nd题不会。题解都那么长一定是神题。\n然后去写上午的第一题，然后脑洞大开写了个java，然后去补bzoj，然后写总结。事情好多TT\n所以我还是太年轻了啊。\n",
+  "wordCount" : "29",
+  "inLanguage": "en",
+  "datePublished": "2015-02-27T22:40:41Z",
+  "dateModified": "2015-02-27T22:40:41Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/diary/i11rimport_028/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/diary/">Diaries</a></div>
+    <h1 class="post-title">
+      20150228 bc31
+    </h1>
+    <div class="post-meta"><span title='2015-02-27 22:40:41 +0000 UTC'>February 27, 2015</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><pre><code>			    &lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt;
+又是愉快的一天两场。&lt;/p&gt;
+</code></pre>
+<p>
+	&nbsp;</p>
+<p>
+	早上是高三众出了一套据称是NOIP模拟题的玩意。感觉比较坑，不过还是可做。</p>
+<p>
+	&nbsp;</p>
+<p>
+	第一题是个简单的思考题，除了高精以外没啥恶心的地方。但是当时觉得有点麻烦，想对了方向但是没有继续想下去。当然一个重要的原因是第二题和第三题比较吸引人。</p>
+<p>
+	&nbsp;</p>
+<p>
+	第二题是个灭绝树的比较裸的题。这玩意比较简单不过比较偏。这种考点就是要严防的。建树还比较简单。问题是求一堆链的并比较麻烦。当然我直接上链剖了反正最近写得比较多，半个小时就搞定了整道题。然后也可以不用链剖用DFS序的，不过我觉得可能我思考和调试的时间会比直接无脑码链剖的时间还要长。</p>
+<p>
+	&nbsp;</p>
+<p>
+	第三题是去年冬令营前模拟的时候考过的原题吧，大概日期是20140122？印象比较深的原因是时空穿梭有这个部分分不过那题我还是暴0了。一年过去了，于是我决定硬推mobius，然后推了若干页草稿纸，中间还经历了一次重启之后最终还是推出来了。中间重启的原因还是对mobius反演不够熟悉。不过感觉经过上次在80ms的学习之后，自己的数论水平还是有些进步吧。至少现在看到mobius不会昏了。</p>
+<p>
+	&nbsp;</p>
+<p>
+	于是考试的时候第一题30暴力+100+100。没写丑东西还是比较欣慰的。</p>
+<p>
+	&nbsp;</p>
+<p>
+	下午各种事情没有刷题没有改题没有写总结。</p>
+<p>
+	&nbsp;</p>
+<p>
+	晚上7点17分想起有BC。</p>
+<p>
+	&nbsp;</p>
+<p>
+	a题小学生题水。</p>
+<p>
+	&nbsp;</p>
+<p>
+	b题中学生题数位DP水。然后写了半天。久了不写手生。怎么感觉说这句话说了整整一个寒假了。</p>
+<p>
+	&nbsp;</p>
+<p>
+	c题不是当年SCOI那个题的升级版吗？然后naive了一次因为如果有车把两行隔开的话两个王就不会产生影响了。然后发现要先处理出所有大小方块的王的放法数，然后枚举一下n的正整数拆分，还要用在xj学到的枚举排列去重的方法。细节各种麻烦。写之交之过pt之玩之fst之，错因未知。</p>
+<p>
+	&nbsp;</p>
+<p>
+	d题不会。题解都那么长一定是神题。</p>
+<p>
+	&nbsp;</p>
+<p>
+	然后去写上午的第一题，然后脑洞大开写了个java，然后去补bzoj，然后写总结。事情好多TT</p>
+<p>
+	&nbsp;</p>
+<p>
+	所以我还是太年轻了啊。</p>
+</div>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/life/">life</a></li>
+      <li><a href="/tags/bc/">bc</a></li>
+      <li><a href="/tags/diary/">diary</a></li>
+    </ul>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

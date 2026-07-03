@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>ISC&#39;19 马后炮 | The Site of laekov</title>
+<meta name="keywords" content="developing">
+<meta name="description" content="ISC&#39;19. 一场大概是退役失败的超算比赛.
+我负责的 part 是 AI, 还有万年大锅 HPL, 以及神秘应用. 还有就是订保险订酒店联系赞助商blabla.
+本来想帮忙搞 HPCC 的但是没有精力搞不动 ovo
+AI AI 题是去年的 GB 论文 &#43; 精调模型. 在解决了组委会提供的脚本里的一些性能上的 bug 之后顺利地训了起来. 而且按照原文里在上千个节点上并行训还能收敛来讲, 是可以在现有机器条件下随便数据并行的. (事实证明直接把整个训练集切成 10 个batch 也没有问题)
+因为最终要求是精度, 所以请教了一些人, 得到的思路是 数据增强, ensemble. 数据增强不太写得动, 于是改脚本做了 ensemble 的 inference, 效果还不错. 比原文高了几个点. 但也没有特别闪亮的突破性进展. 唯一发现是 bn 用的是 training mode. (原因应该是 tf 的 bn 一直自带 bug, 如果用推理模式精度就是会炸掉) 于是推理的时候也应该 bs 越大越好. 于是就有了 dummy sample inference &#43; unique 的一个脚本. 然后因为没有处理好 &ldquo;//&rdquo; 于是组委会还怀疑了半天为什么我的脚本有锅. 哭.
+然后就是现场出了一个锅: unseen dataset 发下来一看居然是事前给出的 test set.">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/technical/6a12b3/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="ISC&#39;19 马后炮" />
+<meta property="og:description" content="ISC&#39;19. 一场大概是退役失败的超算比赛.
+我负责的 part 是 AI, 还有万年大锅 HPL, 以及神秘应用. 还有就是订保险订酒店联系赞助商blabla.
+本来想帮忙搞 HPCC 的但是没有精力搞不动 ovo
+AI AI 题是去年的 GB 论文 &#43; 精调模型. 在解决了组委会提供的脚本里的一些性能上的 bug 之后顺利地训了起来. 而且按照原文里在上千个节点上并行训还能收敛来讲, 是可以在现有机器条件下随便数据并行的. (事实证明直接把整个训练集切成 10 个batch 也没有问题)
+因为最终要求是精度, 所以请教了一些人, 得到的思路是 数据增强, ensemble. 数据增强不太写得动, 于是改脚本做了 ensemble 的 inference, 效果还不错. 比原文高了几个点. 但也没有特别闪亮的突破性进展. 唯一发现是 bn 用的是 training mode. (原因应该是 tf 的 bn 一直自带 bug, 如果用推理模式精度就是会炸掉) 于是推理的时候也应该 bs 越大越好. 于是就有了 dummy sample inference &#43; unique 的一个脚本. 然后因为没有处理好 &ldquo;//&rdquo; 于是组委会还怀疑了半天为什么我的脚本有锅. 哭.
+然后就是现场出了一个锅: unseen dataset 发下来一看居然是事前给出的 test set." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/technical/6a12b3/" /><meta property="article:section" content="technical" />
+<meta property="article:published_time" content="2019-07-01T09:54:58+00:00" />
+<meta property="article:modified_time" content="2019-07-01T09:54:58+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ISC&#39;19 马后炮"/>
+<meta name="twitter:description" content="ISC&#39;19. 一场大概是退役失败的超算比赛.
+我负责的 part 是 AI, 还有万年大锅 HPL, 以及神秘应用. 还有就是订保险订酒店联系赞助商blabla.
+本来想帮忙搞 HPCC 的但是没有精力搞不动 ovo
+AI AI 题是去年的 GB 论文 &#43; 精调模型. 在解决了组委会提供的脚本里的一些性能上的 bug 之后顺利地训了起来. 而且按照原文里在上千个节点上并行训还能收敛来讲, 是可以在现有机器条件下随便数据并行的. (事实证明直接把整个训练集切成 10 个batch 也没有问题)
+因为最终要求是精度, 所以请教了一些人, 得到的思路是 数据增强, ensemble. 数据增强不太写得动, 于是改脚本做了 ensemble 的 inference, 效果还不错. 比原文高了几个点. 但也没有特别闪亮的突破性进展. 唯一发现是 bn 用的是 training mode. (原因应该是 tf 的 bn 一直自带 bug, 如果用推理模式精度就是会炸掉) 于是推理的时候也应该 bs 越大越好. 于是就有了 dummy sample inference &#43; unique 的一个脚本. 然后因为没有处理好 &ldquo;//&rdquo; 于是组委会还怀疑了半天为什么我的脚本有锅. 哭.
+然后就是现场出了一个锅: unseen dataset 发下来一看居然是事前给出的 test set."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Technicals",
+      "item": "/technical/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "ISC'19 马后炮",
+      "item": "/technical/6a12b3/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "ISC'19 马后炮",
+  "name": "ISC\u002719 马后炮",
+  "description": "ISC'19. 一场大概是退役失败的超算比赛.\n我负责的 part 是 AI, 还有万年大锅 HPL, 以及神秘应用. 还有就是订保险订酒店联系赞助商blabla.\n本来想帮忙搞 HPCC 的但是没有精力搞不动 ovo\nAI AI 题是去年的 GB 论文 + 精调模型. 在解决了组委会提供的脚本里的一些性能上的 bug 之后顺利地训了起来. 而且按照原文里在上千个节点上并行训还能收敛来讲, 是可以在现有机器条件下随便数据并行的. (事实证明直接把整个训练集切成 10 个batch 也没有问题)\n因为最终要求是精度, 所以请教了一些人, 得到的思路是 数据增强, ensemble. 数据增强不太写得动, 于是改脚本做了 ensemble 的 inference, 效果还不错. 比原文高了几个点. 但也没有特别闪亮的突破性进展. 唯一发现是 bn 用的是 training mode. (原因应该是 tf 的 bn 一直自带 bug, 如果用推理模式精度就是会炸掉) 于是推理的时候也应该 bs 越大越好. 于是就有了 dummy sample inference + unique 的一个脚本. 然后因为没有处理好 \u0026ldquo;//\u0026rdquo; 于是组委会还怀疑了半天为什么我的脚本有锅. 哭.\n然后就是现场出了一个锅: unseen dataset 发下来一看居然是事前给出的 test set.",
+  "keywords": [
+    "developing"
+  ],
+  "articleBody": "ISC'19. 一场大概是退役失败的超算比赛.\n我负责的 part 是 AI, 还有万年大锅 HPL, 以及神秘应用. 还有就是订保险订酒店联系赞助商blabla.\n本来想帮忙搞 HPCC 的但是没有精力搞不动 ovo\nAI AI 题是去年的 GB 论文 + 精调模型. 在解决了组委会提供的脚本里的一些性能上的 bug 之后顺利地训了起来. 而且按照原文里在上千个节点上并行训还能收敛来讲, 是可以在现有机器条件下随便数据并行的. (事实证明直接把整个训练集切成 10 个batch 也没有问题)\n因为最终要求是精度, 所以请教了一些人, 得到的思路是 数据增强, ensemble. 数据增强不太写得动, 于是改脚本做了 ensemble 的 inference, 效果还不错. 比原文高了几个点. 但也没有特别闪亮的突破性进展. 唯一发现是 bn 用的是 training mode. (原因应该是 tf 的 bn 一直自带 bug, 如果用推理模式精度就是会炸掉) 于是推理的时候也应该 bs 越大越好. 于是就有了 dummy sample inference + unique 的一个脚本. 然后因为没有处理好 “//” 于是组委会还怀疑了半天为什么我的脚本有锅. 哭.\n然后就是现场出了一个锅: unseen dataset 发下来一看居然是事前给出的 test set. 虽然理论上不应该在 test set 上训, 但别的队肯定有队这么干了呀, 那过拟合到什么精度都不过分. 哭了. 而且发现的时候离比赛结束只有30分钟了. argue 也没有用了组委会也不会再改数据了 ovo 只好硬着头皮上了, 结果成为你清为数不多的没进前三的题. 跪下认错.jpg.\n还有就是关于作为一个超算比赛为什么会比这种 cv 领域都当作 trick 在看的细节, 而真正性能相关的东西几乎没有 ovo. 如果有跟组委会吐槽的机会, 我觉得可以适当吐槽一下这个事. (至少 ASC 一直都是这个风格, ISC 也就这样. 相比起来 SC 去年的 AI 题目还是很不错的)\nPennant 因为 AI 应用是第二天所以我第一天没啥事于是就在跑这个叫 pennant 的有限元.\n代码很短, 还算优美(形式上), 也很好编译. Openmp 扩展性不行, 于是骚调了一波进程数.\n然后发现这个东西吃的是内存带宽. 然而我们强行插双倍内存把 2933 的主存频率降成了 2666. 于是. 哭了. 而且机器数少, 所以尝试不了更大的并行方式了并被同样机器的中大吊打. 于是就成为了你清另一个没有进前三的题. 跪下认错.jpg x2.\n试图优化一下代码, 发现确实是很杂乱的访存 pattern, 但是也没优化动. 以及由于跟 cp2k 和 swift 两个应用在同一天, 有抢机时的问题, 所以其实只在集群上跑了两次, 也没有太多时间进行别的尝试. qaq\nHPL 虽然hpl没有什么新的东西, 而且 ISC 比赛要让机时给 HPCC, 但我要强力吐槽一波.\nInspur 的 MF5280M5 机器的 PCIE 有四个 x16 的槽, 其中三个跟 CPU1 亲和, 一个跟 CPU0 亲和. 奇怪的配置ovo. 于是导致四张卡之间的计算严重不均衡, 这也是功耗曲线如此抖动的原因.\n希望以后的机器… 正常一点.\n另外就是造了一个 hpl auto tune script. 以后有机会可以试试.\nHPCG 没话可说. 卡多就是厉害.\n为数不多的拿了第一的题. 也是我跑的. ovo\n杂 赛前根据 shanker wang 师兄的建议要了三倍备用机, 并且确实用上了. 但其实内存这些物资不一定要从机器里面 hao. 其实应该跟赞助商更好地沟通的. 有很多物资 (比如 PCIe 扩展板, 内存, 额外的ssd) 其实可以直接联系对接的同学去专门要. 这次动机器动得很厉害也导致拆装机器挺麻烦的. 以后可以更精细地管理一下.\n以及也并不是16卡和内存插满就是最好的操作方式. 还是要考虑清楚应用的需求和比赛的导向. 以及每次都大胆猜想神秘应用能上GPU每次都猜错, 也是很尴尬了.\n清华是一支很优秀很成熟的队伍, 获得了很多的荣誉. 但荣誉可以是自信的来源, 也可能是在比赛中畏缩从而错失机会的根源. 不忘初心, 方能始终.\n",
+  "wordCount" : "211",
+  "inLanguage": "en",
+  "datePublished": "2019-07-01T09:54:58Z",
+  "dateModified": "2019-07-01T09:54:58Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/technical/6a12b3/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/technical/">Technicals</a></div>
+    <h1 class="post-title">
+      ISC&#39;19 马后炮
+    </h1>
+    <div class="post-meta"><span title='2019-07-01 09:54:58 +0000 UTC'>July 1, 2019</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#ai" aria-label="AI">AI</a></li>
+                <li>
+                    <a href="#pennant" aria-label="Pennant">Pennant</a></li>
+                <li>
+                    <a href="#hpl" aria-label="HPL">HPL</a></li>
+                <li>
+                    <a href="#hpcg" aria-label="HPCG">HPCG</a></li>
+                <li>
+                    <a href="#%e6%9d%82" aria-label="杂">杂</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p>ISC'19. 一场大概是退役失败的超算比赛.</p>
+<p>我负责的 part 是 AI, 还有万年大锅 HPL, 以及神秘应用. 还有就是订保险订酒店联系赞助商blabla.</p>
+<p>本来想帮忙搞 HPCC 的但是没有精力搞不动 ovo</p>
+<h3 id="ai">AI<a hidden class="anchor" aria-hidden="true" href="#ai">#</a></h3>
+<p>AI 题是去年的 GB 论文 + 精调模型. 在解决了组委会提供的脚本里的一些性能上的 bug 之后顺利地训了起来. 而且按照原文里在上千个节点上并行训还能收敛来讲, 是可以在现有机器条件下随便数据并行的. (事实证明直接把整个训练集切成 10 个batch 也没有问题)</p>
+<p>因为最终要求是精度, 所以请教了一些人, 得到的思路是 数据增强, ensemble. 数据增强不太写得动, 于是改脚本做了 ensemble 的 inference, 效果还不错. 比原文高了几个点. 但也没有特别闪亮的突破性进展. 唯一发现是 bn 用的是 training mode. (原因应该是 tf 的 bn 一直自带 bug, 如果用推理模式精度就是会炸掉) 于是推理的时候也应该 bs 越大越好. 于是就有了 dummy sample inference + unique 的一个脚本. 然后因为没有处理好 &ldquo;//&rdquo; 于是组委会还怀疑了半天为什么我的脚本有锅. 哭.</p>
+<p>然后就是现场出了一个锅: unseen dataset 发下来一看居然是事前给出的 test set. 虽然理论上不应该在 test set 上训, 但别的队肯定有队这么干了呀, 那过拟合到什么精度都不过分. 哭了. 而且发现的时候离比赛结束只有30分钟了. argue 也没有用了组委会也不会再改数据了 ovo 只好硬着头皮上了, 结果成为你清为数不多的没进前三的题. 跪下认错.jpg.</p>
+<p>还有就是关于作为一个超算比赛为什么会比这种 cv 领域都当作 trick 在看的细节, 而真正性能相关的东西几乎没有 ovo. 如果有跟组委会吐槽的机会, 我觉得可以适当吐槽一下这个事. (至少 ASC 一直都是这个风格, ISC 也就这样. 相比起来 SC 去年的 AI 题目还是很不错的)</p>
+<h3 id="pennant">Pennant<a hidden class="anchor" aria-hidden="true" href="#pennant">#</a></h3>
+<p>因为 AI 应用是第二天所以我第一天没啥事于是就在跑这个叫 pennant 的有限元.</p>
+<p>代码很短, 还算优美(形式上), 也很好编译. Openmp 扩展性不行, 于是骚调了一波进程数.</p>
+<p>然后发现这个东西吃的是内存带宽. 然而我们强行插双倍内存把 2933 的主存频率降成了 2666. 于是. 哭了. 而且机器数少, 所以尝试不了更大的并行方式了并被同样机器的中大吊打. 于是就成为了你清另一个没有进前三的题.  跪下认错.jpg x2.</p>
+<p>试图优化一下代码, 发现确实是很杂乱的访存 pattern, 但是也没优化动. 以及由于跟 cp2k 和 swift 两个应用在同一天, 有抢机时的问题, 所以其实只在集群上跑了两次, 也没有太多时间进行别的尝试. qaq</p>
+<h3 id="hpl">HPL<a hidden class="anchor" aria-hidden="true" href="#hpl">#</a></h3>
+<p>虽然hpl没有什么新的东西, 而且 ISC 比赛要让机时给 HPCC, 但我要强力吐槽一波.</p>
+<p>Inspur 的 MF5280M5 机器的 PCIE 有四个 x16 的槽, 其中三个跟 CPU1 亲和, 一个跟 CPU0 亲和. 奇怪的配置ovo. 于是导致四张卡之间的计算严重不均衡, 这也是功耗曲线如此抖动的原因.</p>
+<p>希望以后的机器&hellip; 正常一点.</p>
+<p>另外就是造了一个 hpl auto tune script. 以后有机会可以试试.</p>
+<h3 id="hpcg">HPCG<a hidden class="anchor" aria-hidden="true" href="#hpcg">#</a></h3>
+<p>没话可说. 卡多就是厉害.</p>
+<p>为数不多的拿了第一的题. 也是我跑的. ovo</p>
+<h3 id="杂">杂<a hidden class="anchor" aria-hidden="true" href="#杂">#</a></h3>
+<p>赛前根据 shanker wang 师兄的建议要了三倍备用机, 并且确实用上了. 但其实内存这些物资不一定要从机器里面 hao. 其实应该跟赞助商更好地沟通的. 有很多物资 (比如 PCIe 扩展板, 内存, 额外的ssd) 其实可以直接联系对接的同学去专门要. 这次动机器动得很厉害也导致拆装机器挺麻烦的. 以后可以更精细地管理一下.</p>
+<p>以及也并不是16卡和内存插满就是最好的操作方式. 还是要考虑清楚应用的需求和比赛的导向. 以及每次都大胆猜想神秘应用能上GPU每次都猜错, 也是很尴尬了.</p>
+<p>清华是一支很优秀很成熟的队伍, 获得了很多的荣誉. 但荣誉可以是自信的来源, 也可能是在比赛中畏缩从而错失机会的根源. 不忘初心, 方能始终.</p>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/developing/">developing</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/63d337/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>Leetcode5130</span>
+  </a>
+  <a class="next" href="/technical/f93221/">
+    <span class="title">Next »</span>
+    <br>
+    <span>Mac微信Bug修复手记</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

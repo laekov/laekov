@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>BZOJ3237 [Ahoi2013]连通图 | The Site of laekov</title>
+<meta name="keywords" content="bzoj, geometry, graph, oi">
+<meta name="description" content="CDQ重构图。听上去比CDQ还高档的样子。
+就是每层重新标号，把没有询问到的边拿来跑并查集。
+最初是分开考虑然后可修复的并查集就T傻了。
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;cctype&gt;
+#include &lt;set&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+int _d_;
+#define readInt(_x_)&nbsp;{&nbsp;\
+int&amp; _s_ = _x_;&nbsp;\
+while (!isdigit(_d_&nbsp;= getchar()));&nbsp;\
+_s_ = 0;&nbsp;\
+while ((_s_&nbsp;= _s_ * 10 &#43; _d_ - 48), isdigit(_d_ = getchar()));&nbsp;\
+}
+const int maxn = 100009;
+const int maxm = 200009;
+const int maxl = 19;
+struct edge {
+int a, b, i;
+};
+struct dset {
+int r[maxn], hp[maxn * 5], hv[maxn * 5], cnt;">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/lofterimport_066/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="BZOJ3237 [Ahoi2013]连通图" />
+<meta property="og:description" content="CDQ重构图。听上去比CDQ还高档的样子。
+就是每层重新标号，把没有询问到的边拿来跑并查集。
+最初是分开考虑然后可修复的并查集就T傻了。
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;cctype&gt;
+#include &lt;set&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+int _d_;
+#define readInt(_x_)&nbsp;{&nbsp;\
+int&amp; _s_ = _x_;&nbsp;\
+while (!isdigit(_d_&nbsp;= getchar()));&nbsp;\
+_s_ = 0;&nbsp;\
+while ((_s_&nbsp;= _s_ * 10 &#43; _d_ - 48), isdigit(_d_ = getchar()));&nbsp;\
+}
+const int maxn = 100009;
+const int maxm = 200009;
+const int maxl = 19;
+struct edge {
+int a, b, i;
+};
+struct dset {
+int r[maxn], hp[maxn * 5], hv[maxn * 5], cnt;" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/lofterimport_066/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2014-11-26T11:32:53+00:00" />
+<meta property="article:modified_time" content="2014-11-26T11:32:53+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BZOJ3237 [Ahoi2013]连通图"/>
+<meta name="twitter:description" content="CDQ重构图。听上去比CDQ还高档的样子。
+就是每层重新标号，把没有询问到的边拿来跑并查集。
+最初是分开考虑然后可修复的并查集就T傻了。
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;cctype&gt;
+#include &lt;set&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+int _d_;
+#define readInt(_x_)&nbsp;{&nbsp;\
+int&amp; _s_ = _x_;&nbsp;\
+while (!isdigit(_d_&nbsp;= getchar()));&nbsp;\
+_s_ = 0;&nbsp;\
+while ((_s_&nbsp;= _s_ * 10 &#43; _d_ - 48), isdigit(_d_ = getchar()));&nbsp;\
+}
+const int maxn = 100009;
+const int maxm = 200009;
+const int maxl = 19;
+struct edge {
+int a, b, i;
+};
+struct dset {
+int r[maxn], hp[maxn * 5], hv[maxn * 5], cnt;"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "BZOJ3237 [Ahoi2013]连通图",
+      "item": "/oi/lofterimport_066/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BZOJ3237 [Ahoi2013]连通图",
+  "name": "BZOJ3237 [Ahoi2013]连通图",
+  "description": "CDQ重构图。听上去比CDQ还高档的样子。\n就是每层重新标号，把没有询问到的边拿来跑并查集。\n最初是分开考虑然后可修复的并查集就T傻了。\n#include \u0026lt;cstdio\u0026gt;\n#include \u0026lt;cstring\u0026gt;\n#include \u0026lt;cctype\u0026gt;\n#include \u0026lt;set\u0026gt;\n#include \u0026lt;algorithm\u0026gt;\nusing namespace std;\nint _d_;\n#define readInt(_x_)\u0026nbsp;{\u0026nbsp;\\\nint\u0026amp; _s_ = _x_;\u0026nbsp;\\\nwhile (!isdigit(_d_\u0026nbsp;= getchar()));\u0026nbsp;\\\n_s_ = 0;\u0026nbsp;\\\nwhile ((_s_\u0026nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\u0026nbsp;\\\n}\nconst int maxn = 100009;\nconst int maxm = 200009;\nconst int maxl = 19;\nstruct edge {\nint a, b, i;\n};\nstruct dset {\nint r[maxn], hp[maxn * 5], hv[maxn * 5], cnt;",
+  "keywords": [
+    "bzoj", "geometry", "graph", "oi"
+  ],
+  "articleBody": "CDQ重构图。听上去比CDQ还高档的样子。\n就是每层重新标号，把没有询问到的边拿来跑并查集。\n最初是分开考虑然后可修复的并查集就T傻了。\n#include #include #include #include #include using namespace std;\nint _d_;\n#define readInt(_x_) { \\\nint\u0026 _s_ = _x_; \\\nwhile (!isdigit(_d_ = getchar())); \\\n_s_ = 0; \\\nwhile ((_s_ = _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar())); \\\n}\nconst int maxn = 100009;\nconst int maxm = 200009;\nconst int maxl = 19;\nstruct edge {\nint a, b, i;\n};\nstruct dset {\nint r[maxn], hp[maxn * 5], hv[maxn * 5], cnt;\nvoid init(int n) {\nfor (int i = 1; i \u003c= n; ++ i)\nr[i] = i;\ncnt = 0;\n}\nint getRoot(int x) {\nint p = x, q;\nfor (; r[p] ^ p; p = r[p]);\nfor (; x ^ p; x = q) {\n/*hp[cnt] = x;\nhv[cnt] = r[x];\n++ cnt;*/\nq = r[x];\nr[x] = p;\n}\nreturn p;\n}\nbool connected(int x, int y) {\nreturn getRoot(x) == getRoot(y);\n}\nbool merge(int x, int y) {\nint a = getRoot(x), b = getRoot(y);\nif (a ^ b) {\n/*hp[cnt] = a;\nhv[cnt] = a;\n++ cnt;*/\nr[a] = b;\nreturn 1;\n}\nelse\nreturn 0;\n}\nvoid recover(int y) {\nwhile (cnt \u003e y) {\n-- cnt;\nr[hp[cnt]] = hv[cnt];\n}\n}\n};\nstruct query {\nint t, a[5];\nvoid read() {\nreadInt(t);\nfor (int i = 0; i \u003c t; ++ i)\nreadInt(a[i]);\n}\n};\nstruct parr {\nint t, v[maxn];\nvoid init() {\nmemset(v, 0, sizeof(v));\nt = 0;\n}\ninline void next() {\n++ t;\n}\ninline void ins(const int\u0026 x) {\nv[x] = t;\n}\ninline bool query(const int\u0026 x) {\nreturn v[x] == t;\n}\n};\nint n, m, tq, ans[maxn], nn[maxn];\nedge e[maxl][maxm];\ndset s[maxl];\nparr vis;\nquery q[maxn];\nvoid cdq(int l, int r, int c, int d, int n, int m) {\nif (c == 1) {\nfor (int i = l; i \u003c r; ++ i)\nans[i] = 1;\nreturn;\n}\ns[d]. init(n);\nint mid = (l + r) \u003e\u003e 1;\nvis. next();\nfor (int i = l; i \u003c r; ++ i)\nfor (int j = 0; j \u003c q[i]. t; ++ j)\nvis. ins(q[i]. a[j]);\nint cc = c, tn = 0, te = 0;\nfor (int i = 0; i \u003c m; ++ i)\nif (!vis. query(e[d][i]. i))\ncc -= s[d]. merge(e[d][i]. a, e[d][i]. b);\nfor (int i = 1; i \u003c= n; ++ i)\nif (s[d]. getRoot(i) == i)\nnn[i] = ++ tn;\nfor (int i = 0; i \u003c m; ++ i)\nif (!s[d]. connected(e[d][i]. a, e[d][i]. b)) {\ne[d + 1][te]. a = nn[s[d]. getRoot(e[d][i]. a)];\ne[d + 1][te]. b = nn[s[d]. getRoot(e[d][i]. b)];\ne[d + 1][te]. i = e[d][i]. i;\n++ te;\n}\nif (l + 1 == r) {\nans[l] = (cc == 1);\n}\nelse {\ncdq(l, mid, cc, d + 1, tn, te);\ncdq(mid, r, cc, d + 1, tn, te);\n}\n}\nint main() {\n#ifndef ONLINE_JUDGE\nfreopen(\"in.txt\", \"r\", stdin);\n#endif\nreadInt(n);\nreadInt(m);\nfor (int i = 0; i \u003c m; ++ i) {\nreadInt(e[0][i]. a);\nreadInt(e[0][i]. b);\ne[0][i]. i = i + 1;\n}\nreadInt(tq);\nfor (int i = 0; i \u003c tq; ++ i)\nq[i]. read();\nvis. init();\ncdq(0, tq, n, 0, n, m);\nfor (int i = 0; i \u003c tq; ++ i)\nputs(ans[i] ? \"Connected\" : \"Disconnected\");\n}\n",
+  "wordCount" : "495",
+  "inLanguage": "en",
+  "datePublished": "2014-11-26T11:32:53Z",
+  "dateModified": "2014-11-26T11:32:53Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/lofterimport_066/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      BZOJ3237 [Ahoi2013]连通图
+    </h1>
+    <div class="post-meta"><span title='2014-11-26 11:32:53 +0000 UTC'>November 26, 2014</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>CDQ重构图。听上去比CDQ还高档的样子。</p> 
+<p><br /></p> 
+<p>就是每层重新标号，把没有询问到的边拿来跑并查集。</p> 
+<p><br /></p> 
+<p>最初是分开考虑然后可修复的并查集就T傻了。</p> 
+<p><br /></p> 
+<p>#include &lt;cstdio&gt;</p> 
+<p>#include &lt;cstring&gt;</p> 
+<p>#include &lt;cctype&gt;</p> 
+<p>#include &lt;set&gt;</p> 
+<p>#include &lt;algorithm&gt;</p> 
+<p><br /></p> 
+<p>using namespace std;</p> 
+<p><br /></p> 
+<p>int _d_;</p> 
+<p>#define readInt(_x_)&nbsp;{&nbsp;\</p> 
+<p>int&amp; _s_ = _x_;&nbsp;\</p> 
+<p>while (!isdigit(_d_&nbsp;= getchar()));&nbsp;\</p> 
+<p>_s_ = 0;&nbsp;\</p> 
+<p>while ((_s_&nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));&nbsp;\</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>const int maxn = 100009;</p> 
+<p>const int maxm = 200009;</p> 
+<p>const int maxl = 19;</p> 
+<p><br /></p> 
+<p>struct edge {</p> 
+<p>int a, b, i;</p> 
+<p>};</p> 
+<p>struct dset {</p> 
+<p>int r[maxn], hp[maxn * 5], hv[maxn * 5], cnt;</p> 
+<p>void init(int n)&nbsp;{</p> 
+<p>for (int i = 1; i &lt;= n;&nbsp;++ i)</p> 
+<p>r[i]&nbsp;= i;</p> 
+<p>cnt = 0;</p> 
+<p>}</p> 
+<p>int getRoot(int x)&nbsp;{</p> 
+<p>int p = x, q;</p> 
+<p>for (; r[p]&nbsp;^ p; p = r[p]);</p> 
+<p>for (; x ^ p; x = q)&nbsp;{</p> 
+<p>/*hp[cnt]&nbsp;= x;</p> 
+<p>hv[cnt]&nbsp;= r[x];</p> 
+<p>++ cnt;*/</p> 
+<p>q = r[x];</p> 
+<p>r[x]&nbsp;= p;</p> 
+<p>}</p> 
+<p>return p;</p> 
+<p>}</p> 
+<p>bool connected(int x, int y)&nbsp;{</p> 
+<p>return getRoot(x)&nbsp;== getRoot(y);</p> 
+<p>}</p> 
+<p>bool merge(int x, int y)&nbsp;{</p> 
+<p>int a = getRoot(x), b = getRoot(y);</p> 
+<p>if (a&nbsp;^ b)&nbsp;{</p> 
+<p>/*hp[cnt]&nbsp;= a;</p> 
+<p>hv[cnt]&nbsp;= a;</p> 
+<p>++ cnt;*/</p> 
+<p>r[a]&nbsp;= b;</p> 
+<p>return 1;</p> 
+<p>}</p> 
+<p>else</p> 
+<p>return 0;</p> 
+<p>}</p> 
+<p>void recover(int y)&nbsp;{</p> 
+<p>while (cnt&nbsp;&gt; y)&nbsp;{</p> 
+<p>-- cnt;</p> 
+<p>r[hp[cnt]]&nbsp;= hv[cnt];</p> 
+<p>}</p> 
+<p>}</p> 
+<p>};</p> 
+<p>struct query {</p> 
+<p>int t, a[5];</p> 
+<p>void read()&nbsp;{</p> 
+<p>readInt(t);</p> 
+<p>for (int i = 0; i &lt; t;&nbsp;++ i)</p> 
+<p>readInt(a[i]);</p> 
+<p>}</p> 
+<p>};</p> 
+<p>struct parr {</p> 
+<p>int t, v[maxn];</p> 
+<p>void init()&nbsp;{</p> 
+<p>memset(v, 0, sizeof(v));</p> 
+<p>t = 0;</p> 
+<p>}</p> 
+<p>inline void next()&nbsp;{</p> 
+<p>++ t;</p> 
+<p>}</p> 
+<p>inline void ins(const int&amp; x)&nbsp;{</p> 
+<p>v[x]&nbsp;= t;</p> 
+<p>}</p> 
+<p>inline bool query(const int&amp; x)&nbsp;{</p> 
+<p>return v[x]&nbsp;== t;</p> 
+<p>}</p> 
+<p>};</p> 
+<p><br /></p> 
+<p>int n, m, tq, ans[maxn], nn[maxn];</p> 
+<p>edge e[maxl][maxm];</p> 
+<p>dset s[maxl];</p> 
+<p>parr vis;</p> 
+<p>query q[maxn];</p> 
+<p><br /></p> 
+<p>void cdq(int l, int r, int c, int d, int n, int m)&nbsp;{</p> 
+<p>if (c&nbsp;== 1)&nbsp;{</p> 
+<p>for (int i = l; i &lt; r;&nbsp;++ i)</p> 
+<p>ans[i]&nbsp;= 1;</p> 
+<p>return;</p> 
+<p>}</p> 
+<p>s[d]. init(n);</p> 
+<p>int mid =&nbsp;(l&nbsp;+ r)&nbsp;&gt;&gt; 1;</p> 
+<p>vis. next();</p> 
+<p>for (int i = l; i &lt; r;&nbsp;++ i)</p> 
+<p>for (int j = 0; j &lt; q[i]. t;&nbsp;++ j)</p> 
+<p>vis. ins(q[i]. a[j]);</p> 
+<p>int cc = c, tn = 0, te = 0;</p> 
+<p>for (int i = 0; i &lt; m;&nbsp;++ i)</p> 
+<p>if (!vis. query(e[d][i]. i))</p> 
+<p>cc -= s[d]. merge(e[d][i]. a, e[d][i]. b);</p> 
+<p>for (int i = 1; i &lt;= n;&nbsp;++ i)</p> 
+<p>if (s[d]. getRoot(i)&nbsp;== i)</p> 
+<p>nn[i]&nbsp;=&nbsp;++ tn;</p> 
+<p>for (int i = 0; i &lt; m;&nbsp;++ i)</p> 
+<p>if (!s[d]. connected(e[d][i]. a, e[d][i]. b))&nbsp;{</p> 
+<p>e[d + 1][te]. a = nn[s[d]. getRoot(e[d][i]. a)];</p> 
+<p>e[d + 1][te]. b = nn[s[d]. getRoot(e[d][i]. b)];</p> 
+<p>e[d + 1][te]. i = e[d][i]. i;</p> 
+<p>++ te;</p> 
+<p>}</p> 
+<p>if (l&nbsp;+ 1 == r)&nbsp;{</p> 
+<p>ans[l]&nbsp;=&nbsp;(cc == 1);</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>cdq(l, mid, cc, d + 1, tn, te);</p> 
+<p>cdq(mid, r, cc, d + 1, tn, te);</p> 
+<p>}</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int main()&nbsp;{</p> 
+<p>#ifndef ONLINE_JUDGE</p> 
+<p>freopen(&quot;in.txt&quot;,&nbsp;&quot;r&quot;, stdin);</p> 
+<p>#endif</p> 
+<p><br /></p> 
+<p>readInt(n);</p> 
+<p>readInt(m);</p> 
+<p>for (int i = 0; i &lt; m;&nbsp;++ i)&nbsp;{</p> 
+<p>readInt(e[0][i]. a);</p> 
+<p>readInt(e[0][i]. b);</p> 
+<p>e[0][i]. i = i + 1;</p> 
+<p>}</p> 
+<p>readInt(tq);</p> 
+<p>for (int i = 0; i &lt; tq;&nbsp;++ i)</p> 
+<p>q[i]. read();</p> 
+<p>vis. init();</p> 
+<p>cdq(0, tq, n, 0, n, m);</p> 
+<p>for (int i = 0; i &lt; tq;&nbsp;++ i)</p> 
+<p>puts(ans[i]&nbsp;?&nbsp;&quot;Connected&quot;&nbsp;:&nbsp;&quot;Disconnected&quot;);</p> 
+<p>}</p> 
+<p><br /></p>
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/bzoj/">bzoj</a></li>
+      <li><a href="/tags/geometry/">geometry</a></li>
+      <li><a href="/tags/graph/">graph</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/lofterimport_065/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>Scoi2013多项式的运算</span>
+  </a>
+  <a class="next" href="/oi/lofterimport_067/">
+    <span class="title">Next »</span>
+    <br>
+    <span>BZOJ3289 Mato的文件管理</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

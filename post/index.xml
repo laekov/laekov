@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Posts on The Site of laekov</title>
+    <link>/post/</link>
+    <description>Recent content in Posts on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Tue, 05 Dec 2023 00:00:00 +0000</lastBuildDate><atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>本网站的崩溃与重建</title>
+      <link>/post/2023-server-failure-recovery/</link>
+      <pubDate>Tue, 05 Dec 2023 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2023-server-failure-recovery/</guid>
+      <description>由于升级系统升挂了(说来话长&amp;hellip;) 原本跑在青岛阿里云 ecs 上的 shiruku 无了.
+于是决定迁移到 Hugo. 目前姑且能用了, 且保留了之前的大部分内容. 之后还会继续修缮. 顺便开个坑记录一下这次的经历.
+升级然后挂了 在 12 月 5 号这一天, laekov 看到自己的青岛阿里云服务器还跑着 ubuntu 18.04 (i686), 于是决定对它进行一个 dist-upgrade. (好像也没啥原因)
+没想到 do-release-upgrade 说没有新的版本, 于是 laekov 直接在 sources.list 里把 bionic 换成了 jammy, 然后愉快地 apt update / upgrade 了一顿.
+然后疑似 kernel 还是 4.19, laekov 感到疑惑, 但是没多想就重启了机器.
+没想到重启之后服务器 ping 不通了, 还好 aliyun 提供了 vnc, 连过去一看 kernel panic, 读不出镜像.
+还好重启之后发现有一个旧的 kernel 可以启动, 于是和 harry 一拍脑门, 决定跑一遍 initramfs, 然后这下好了, 新的旧的都启不动了.</description>
+    </item>
+    
+    <item>
+      <title>Pipedream </title>
+      <link>/post/5554ae/</link>
+      <pubDate>Tue, 14 Jul 2020 09:17:00 +0000</pubDate>
+      
+      <guid>/post/5554ae/</guid>
+      <description>% Pipedream - Generalized Pipeline Parallelism for DNN Training % Authors from MSR + CMU + Stanford; Presentation &amp;amp; Interpretation by laekov % July 14
+DNN Training 的三种并行模式 Data Parallel (DP) 沿 batch 维度进行切分 通信: 同步 weight Model Parallel (MP) 沿 weight 维度进行切分 通信: feature tensor 的求和或者拼装 Pipeline Parallel (PP) Inter-layer partition 通信: 切口处的 feature tensor 及它们的梯度 (在部分模型中通信更少) Overlap 通信和计算 (DP 的 lazy update 也算 pipeline 的一种) Inter-batch Parallelism 无并行的 pipeline 分摊 weight 所需显存 支持不同规格加速器混用 在 homogeneous 环境下毫无加速 GPipe 并行: 批处理模式 Pipedream 并行 多发射 forward 和 backwoard 交错进行 可填满流水线 计算通信 overlap 由 pytorch 框架实现.</description>
+    </item>
+    
+    <item>
+      <title>JAX Reading Log</title>
+      <link>/post/7990d5/</link>
+      <pubDate>Mon, 13 Jul 2020 21:49:51 +0000</pubDate>
+      
+      <guid>/post/7990d5/</guid>
+      <description>% JAX: Autograd and XLA % Jiaao Ho % July 9, 2020
+功能和组成 Autograd: 自动求导, numpy 自动求导 JIT: 把 numpy 运算移植到 GPU 和 TPU 上 vmap: 自动 vectorize pmap: 自动 SPMD 自动求导和训练 使用 grad 函数实现 from jax import grad import jax.numpy as np def tanh(x): # Define a function y = np.exp(-2.0 * x) return (1.0 - y) / (1.0 + y) grad_tanh = grad(tanh) # Obtain its gradient function print(grad_tanh(1.</description>
+    </item>
+    
+    <item>
+      <title>GIF Test</title>
+      <link>/post/3d5d53/</link>
+      <pubDate>Wed, 13 May 2020 15:38:01 +0000</pubDate>
+      
+      <guid>/post/3d5d53/</guid>
+      <description> </description>
+    </item>
+    
+    <item>
+      <title>Cena 用户指南</title>
+      <link>/post/fbf425/</link>
+      <pubDate>Fri, 25 Jan 2019 16:19:17 +0000</pubDate>
+      
+      <guid>/post/fbf425/</guid>
+      <description> </description>
+    </item>
+    
+    <item>
+      <title>Encode</title>
+      <link>/post/a338f5/</link>
+      <pubDate>Mon, 27 Nov 2017 17:46:12 +0000</pubDate>
+      
+      <guid>/post/a338f5/</guid>
+      <description> Text Key Encode base64 Ceasar (needs key to be a number) Vigenere (needs key to be a string) MD5 SHA1 </description>
+    </item>
+    
+    <item>
+      <title>Two key MST</title>
+      <link>/post/e61433/</link>
+      <pubDate>Fri, 06 Oct 2017 18:55:41 +0000</pubDate>
+      
+      <guid>/post/e61433/</guid>
+      <description>laekov naiiiiiiiiive
+问题 一个无向图 (G), 每条边 (e) 有两个边权 (a_e, b_e).
+求一个生成树 (T) 使得 ( (\sum_{e \in T} a_e) * ( \sum_{e \in T} b_e) ) 最小.
+多项式算法就是胜利w.
+原题 搜 bzoj2395.
+这网站里搜可以找到代码.
+一个未成形的算法 正确性和时间复杂度都待证 qwq.
+感觉是对的. 但是严格证明 qaq. 已经脱离理论计算机科学界太久了.
+假设我们有一个生成树的序列 ( Q ) 和一个生成树池 ( P ).
+算法如下
+对 ( a ) 这一个权值跑出一个最小生成树 ( T_0 ). 把 ( T_0 ) 作为 ( Q ) 里的第一个元素. 取出 ( Q ) 里的最后一棵生成树 ( T ).</description>
+    </item>
+    
+    <item>
+      <title>test</title>
+      <link>/post/dbimport_279/</link>
+      <pubDate>Wed, 17 Jun 2015 21:05:25 +0000</pubDate>
+      
+      <guid>/post/dbimport_279/</guid>
+      <description>haha</description>
+    </item>
+    
+    <item>
+      <title>20150430 haoi2015 day1</title>
+      <link>/post/dbimport_027/</link>
+      <pubDate>Thu, 30 Apr 2015 16:01:15 +0000</pubDate>
+      
+      <guid>/post/dbimport_027/</guid>
+      <description>今天用apio赛制做别人的省选题ovo
+第一题直接用O(n3)的dp加剪枝水过去了.
+第二题数据结构题无聊ing
+第三题比较有意思.首先你需要有足够强的直觉来推出sg函数的感觉,然后还要用高超的常数优化技巧来过题.各种ovo
+晚上还有场tyvj有奖赛ovo</description>
+    </item>
+    
+    <item>
+      <title>Bug report</title>
+      <link>/post/bugreport/</link>
+      <pubDate>Thu, 01 Jan 1970 08:00:00 +0000</pubDate>
+      
+      <guid>/post/bugreport/</guid>
+      <description>Visitors may log down bugs they found here
+Historical Comments zms_ at 2016-03-19T14:05:51 为什么手机上不了ovo
+laekov at 2017-03-02T23:54:54 Github 登录功能已修复
+ydc258ttbaby at 2022-10-11T19:39:34 再来试试能不能评论</description>
+    </item>
+    
+    <item>
+      <title>Download</title>
+      <link>/post/download/</link>
+      <pubDate>Thu, 01 Jan 1970 08:00:00 +0000</pubDate>
+      
+      <guid>/post/download/</guid>
+      <description>这是laekov提供的资源页. laekov提供了一些常用的文件和一些奇怪的文件.
+出门讲课常用:
+my vimrc
+gvim74
+devcpp
+ppt 资源:
+一个紫紫的 keynote 的模板 </description>
+    </item>
+    
+    <item>
+      <title>Webboard</title>
+      <link>/post/webboard/</link>
+      <pubDate>Thu, 01 Jan 1970 08:00:00 +0000</pubDate>
+      
+      <guid>/post/webboard/</guid>
+      <description>Visitors can say anything to the owner here
+Historical Comments Unknown friend at 2015-04-01T00:08:45 写出了一个留言版一样的东西.不想再去写每个文章的评论列表了.那就将就用这个喽.我觉得还挺好的ovo &amp;mdash;- laekov
+Unknown friend at 2015-04-02T09:08:32 yjq naive &amp;mdash;- zhonghaoxi
+Unknown friend at 2015-04-02T09:09:45 yjq naive &amp;mdash;- hope1
+Unknown friend at 2015-04-02T09:09:45 yjq naive &amp;mdash;- hope1
+Unknown friend at 2015-04-02T13:03:20 yjq naive &amp;mdash;- mhy12345
+Unknown friend at 2015-04-02T13:05:14 hope1 naive &amp;mdash;- hope1
+Unknown friend at 2015-04-02T22:39:00 不要再刷naive了ovo &amp;mdash;- laekov
+Unknown friend at 2015-04-03T13:12:13 yjq要ak了 &amp;mdash;- tyh</description>
+    </item>
+    
+  </channel>
+</rss>

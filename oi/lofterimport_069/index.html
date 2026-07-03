@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>BZOJ2626 JZPFAR | The Site of laekov</title>
+<meta name="keywords" content="bzoj, data\xa0structure, oi">
+<meta name="description" content="jason_yu表示是kd-tree的裸题。
+拿个堆维护一下答案，然后剪剪枝啥的，写起来轻松愉快还比lct短。
+#include &lt;cstdio&gt;
+#include &lt;cctype&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+typedef long long qw;
+typedef pair &lt;qw, int&gt; hele;
+#define _l (qw)
+int _d_;
+bool _nag_;
+#define readInt(_x_)&nbsp;{&nbsp;\
+int &amp;_s_&nbsp;= _x_;&nbsp;\
+_s_ = 0;&nbsp;\
+_nag_ = 0;&nbsp;\
+while (!isdigit(_d_&nbsp;= getchar()))&nbsp;\
+if (_d_&nbsp;==&nbsp;&#39;-&#39;)&nbsp;\
+_nag_ = 1;&nbsp;\
+while ((_s_&nbsp;= _s_ * 10 &#43; _d_ - 48), isdigit(_d_ = getchar()));&nbsp;\
+if (_nag_)&nbsp;\
+_s_ =&nbsp;- _s_;\
+}
+const int maxn = 100009;">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/lofterimport_069/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="BZOJ2626 JZPFAR" />
+<meta property="og:description" content="jason_yu表示是kd-tree的裸题。
+拿个堆维护一下答案，然后剪剪枝啥的，写起来轻松愉快还比lct短。
+#include &lt;cstdio&gt;
+#include &lt;cctype&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+typedef long long qw;
+typedef pair &lt;qw, int&gt; hele;
+#define _l (qw)
+int _d_;
+bool _nag_;
+#define readInt(_x_)&nbsp;{&nbsp;\
+int &amp;_s_&nbsp;= _x_;&nbsp;\
+_s_ = 0;&nbsp;\
+_nag_ = 0;&nbsp;\
+while (!isdigit(_d_&nbsp;= getchar()))&nbsp;\
+if (_d_&nbsp;==&nbsp;&#39;-&#39;)&nbsp;\
+_nag_ = 1;&nbsp;\
+while ((_s_&nbsp;= _s_ * 10 &#43; _d_ - 48), isdigit(_d_ = getchar()));&nbsp;\
+if (_nag_)&nbsp;\
+_s_ =&nbsp;- _s_;\
+}
+const int maxn = 100009;" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/lofterimport_069/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2014-11-24T16:04:27+00:00" />
+<meta property="article:modified_time" content="2014-11-24T16:04:27+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BZOJ2626 JZPFAR"/>
+<meta name="twitter:description" content="jason_yu表示是kd-tree的裸题。
+拿个堆维护一下答案，然后剪剪枝啥的，写起来轻松愉快还比lct短。
+#include &lt;cstdio&gt;
+#include &lt;cctype&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+typedef long long qw;
+typedef pair &lt;qw, int&gt; hele;
+#define _l (qw)
+int _d_;
+bool _nag_;
+#define readInt(_x_)&nbsp;{&nbsp;\
+int &amp;_s_&nbsp;= _x_;&nbsp;\
+_s_ = 0;&nbsp;\
+_nag_ = 0;&nbsp;\
+while (!isdigit(_d_&nbsp;= getchar()))&nbsp;\
+if (_d_&nbsp;==&nbsp;&#39;-&#39;)&nbsp;\
+_nag_ = 1;&nbsp;\
+while ((_s_&nbsp;= _s_ * 10 &#43; _d_ - 48), isdigit(_d_ = getchar()));&nbsp;\
+if (_nag_)&nbsp;\
+_s_ =&nbsp;- _s_;\
+}
+const int maxn = 100009;"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "BZOJ2626 JZPFAR",
+      "item": "/oi/lofterimport_069/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BZOJ2626 JZPFAR",
+  "name": "BZOJ2626 JZPFAR",
+  "description": "jason_yu表示是kd-tree的裸题。\n拿个堆维护一下答案，然后剪剪枝啥的，写起来轻松愉快还比lct短。\n#include \u0026lt;cstdio\u0026gt;\n#include \u0026lt;cctype\u0026gt;\n#include \u0026lt;cstring\u0026gt;\n#include \u0026lt;algorithm\u0026gt;\nusing namespace std;\ntypedef long long qw;\ntypedef pair \u0026lt;qw, int\u0026gt; hele;\n#define _l (qw)\nint _d_;\nbool _nag_;\n#define readInt(_x_)\u0026nbsp;{\u0026nbsp;\\\nint \u0026amp;_s_\u0026nbsp;= _x_;\u0026nbsp;\\\n_s_ = 0;\u0026nbsp;\\\n_nag_ = 0;\u0026nbsp;\\\nwhile (!isdigit(_d_\u0026nbsp;= getchar()))\u0026nbsp;\\\nif (_d_\u0026nbsp;==\u0026nbsp;'-')\u0026nbsp;\\\n_nag_ = 1;\u0026nbsp;\\\nwhile ((_s_\u0026nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\u0026nbsp;\\\nif (_nag_)\u0026nbsp;\\\n_s_ =\u0026nbsp;- _s_;\\\n}\nconst int maxn = 100009;",
+  "keywords": [
+    "bzoj", "data\\xa0structure", "oi"
+  ],
+  "articleBody": "jason_yu表示是kd-tree的裸题。\n拿个堆维护一下答案，然后剪剪枝啥的，写起来轻松愉快还比lct短。\n#include #include #include #include using namespace std;\ntypedef long long qw;\ntypedef pair hele;\n#define _l (qw)\nint _d_;\nbool _nag_;\n#define readInt(_x_) { \\\nint \u0026_s_ = _x_; \\\n_s_ = 0; \\\n_nag_ = 0; \\\nwhile (!isdigit(_d_ = getchar())) \\\nif (_d_ == '-') \\\n_nag_ = 1; \\\nwhile ((_s_ = _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar())); \\\nif (_nag_) \\\n_s_ = - _s_;\\\n}\nconst int maxn = 100009;\nconst int maxk = 23;\nconst qw qinf = 0x3f3f3f3f3f3f3f3fLL;\nstruct heap {\nhele a[maxk];\nint n;\ninline heap() {\nn = 0;\n}\ninline void clear() {\nn = 0;\n}\ninline void push(hele x) {\na[n] = x;\npush_heap(a, a + (++ n));\n}\ninline hele top() {\nreturn a[0];\n}\ninline void pop() {\nif (n)\npop_heap(a, a + (n --));\n}\ninline int size() {\nreturn n;\n}\n};\nstruct kdnode {\nint x, y, n;\nint l, r, u, d;\nkdnode *ls, *rs;\n};\nstruct point {\nint x, y, i;\n};\ninline bool cmpx(const point\u0026 a, const point\u0026 b) {\nreturn a. x \u003c b. x;\n}\ninline bool cmpy(const point\u0026 a, const point\u0026 b) {\nreturn a. y \u003c b. y;\n}\ninline qw sqr(const qw\u0026 a) {\nreturn a * a;\n}\nint n, m, k;\nheap ans;\nkdnode *np, nlst[maxn];\npoint a[maxn];\n#define upmax(_a_,_b_) { \\\nif (_a_ \u003c _b_) \\\n_a_ = _b_; \\\n}\n#define upmin(_a_,_b_) { \\\nif (_a_ \u003e _b_) \\\n_a_ = _b_; \\\n}\ninline void update(kdnode* p) {\np-\u003e l = p-\u003e x;\np-\u003e r = p-\u003e x;\np-\u003e d = p-\u003e y;\np-\u003e u = p-\u003e y;\nif (p-\u003e ls) {\nupmin(p-\u003e l, p-\u003e ls-\u003e l);\nupmax(p-\u003e r, p-\u003e ls-\u003e r);\nupmin(p-\u003e d, p-\u003e ls-\u003e d);\nupmax(p-\u003e u, p-\u003e ls-\u003e u);\n}\nif (p-\u003e rs) {\nupmin(p-\u003e l, p-\u003e rs-\u003e l);\nupmax(p-\u003e r, p-\u003e rs-\u003e r);\nupmin(p-\u003e d, p-\u003e rs-\u003e d);\nupmax(p-\u003e u, p-\u003e rs-\u003e u);\n}\n}\nkdnode* kdBuild(int l, int r, int d = 1) {\nif (l \u003e= r)\nreturn 0;\nkdnode* p = np ++;\nint mid = (l + r) \u003e\u003e 1;\nif (d)\nnth_element(a + l, a + mid, a + r, cmpx);\nelse\nnth_element(a + l, a + mid, a + r, cmpy);\np-\u003e ls = kdBuild(l, mid, d ^ 1);\np-\u003e rs = kdBuild(mid + 1, r, d ^ 1);\np-\u003e x = a[mid]. x;\np-\u003e y = a[mid]. y;\np-\u003e n = a[mid]. i;\nupdate(p);\nreturn p;\n}\ninline hele guessDist(kdnode* p, int x, int y) {\nreturn hele(-max(sqr(x - p-\u003e l), sqr(x - p-\u003e r)) - max(sqr(y - p-\u003e u), sqr(y - p-\u003e d)), -maxn);\n}\nvoid kdQry(kdnode* p, int x, int y) {\nhele d(- sqr(p-\u003e x - x) - sqr(p-\u003e y - y), p-\u003e n), dl, dr;\nif (ans. size() \u003c k || d \u003c ans. top()) {\nans. push(d);\nif (ans. size() \u003e k)\nans. pop();\n}\nif (p-\u003e ls)\ndl = guessDist(p-\u003e ls, x, y);\nelse\ndl = hele(qinf, -maxn);\nif (p-\u003e rs)\ndr = guessDist(p-\u003e rs, x, y);\nelse\ndr = hele(qinf, -maxn);\nif (dl \u003c dr) {\nif (p-\u003e ls \u0026\u0026 (dl \u003c ans. top() || ans. size() \u003c k))\nkdQry(p-\u003e ls, x, y);\nif (p-\u003e rs \u0026\u0026 (dr \u003c ans. top() || ans. size() \u003c k))\nkdQry(p-\u003e rs, x, y);\n}\nelse {\nif (p-\u003e rs \u0026\u0026 (dr \u003c ans. top() || ans. size() \u003c k))\nkdQry(p-\u003e rs, x, y);\nif (p-\u003e ls \u0026\u0026 (dl \u003c ans. top() || ans. size() \u003c k))\nkdQry(p-\u003e ls, x, y);\n}\n}\nint main() {\n#ifndef ONLINE_JUDGE\nfreopen(\"in.txt\", \"r\", stdin);\n#endif\nreadInt(n);\nfor (int i = 0; i \u003c n; ++ i) {\nreadInt(a[i]. x);\nreadInt(a[i]. y);\na[i]. i = i + 1;\n}\nreadInt(m);\nnp = nlst;\nkdnode* rt = kdBuild(0, n);\nwhile (m --) {\nint x, y;\nreadInt(x);\nreadInt(y);\nreadInt(k);\nans. clear();\nkdQry(rt, x, y);\nprintf(\"%d\\n\", ans. top(). second);\n}\n}\n",
+  "wordCount" : "591",
+  "inLanguage": "en",
+  "datePublished": "2014-11-24T16:04:27Z",
+  "dateModified": "2014-11-24T16:04:27Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/lofterimport_069/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      BZOJ2626 JZPFAR
+    </h1>
+    <div class="post-meta"><span title='2014-11-24 16:04:27 +0000 UTC'>November 24, 2014</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>jason_yu表示是kd-tree的裸题。</p> 
+<p><br /></p> 
+<p>拿个堆维护一下答案，然后剪剪枝啥的，写起来轻松愉快还比lct短。</p> 
+<p><br /></p> 
+<p>#include &lt;cstdio&gt;</p> 
+<p>#include &lt;cctype&gt;</p> 
+<p>#include &lt;cstring&gt;</p> 
+<p>#include &lt;algorithm&gt;</p> 
+<p><br /></p> 
+<p>using namespace std;</p> 
+<p><br /></p> 
+<p>typedef long long qw;</p> 
+<p>typedef pair &lt;qw, int&gt; hele;</p> 
+<p><br /></p> 
+<p>#define _l (qw)</p> 
+<p><br /></p> 
+<p>int _d_;</p> 
+<p>bool _nag_;</p> 
+<p>#define readInt(_x_)&nbsp;{&nbsp;\</p> 
+<p>int &amp;_s_&nbsp;= _x_;&nbsp;\</p> 
+<p>_s_ = 0;&nbsp;\</p> 
+<p>_nag_ = 0;&nbsp;\</p> 
+<p>while (!isdigit(_d_&nbsp;= getchar()))&nbsp;\</p> 
+<p>if (_d_&nbsp;==&nbsp;'-')&nbsp;\</p> 
+<p>_nag_ = 1;&nbsp;\</p> 
+<p>while ((_s_&nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));&nbsp;\</p> 
+<p>if (_nag_)&nbsp;\</p> 
+<p>_s_ =&nbsp;- _s_;\</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>const int maxn = 100009;</p> 
+<p>const int maxk = 23;</p> 
+<p>const qw qinf = 0x3f3f3f3f3f3f3f3fLL;</p> 
+<p><br /></p> 
+<p>struct heap {</p> 
+<p>hele a[maxk];</p> 
+<p>int n;</p> 
+<p>inline heap()&nbsp;{</p> 
+<p>n = 0;</p> 
+<p>}</p> 
+<p>inline void clear()&nbsp;{</p> 
+<p>n = 0;</p> 
+<p>}</p> 
+<p>inline void push(hele x)&nbsp;{</p> 
+<p>a[n]&nbsp;= x;</p> 
+<p>push_heap(a, a +&nbsp;(++ n));</p> 
+<p>}</p> 
+<p>inline hele top()&nbsp;{</p> 
+<p>return a[0];</p> 
+<p>}</p> 
+<p>inline void pop()&nbsp;{</p> 
+<p>if (n)</p> 
+<p>pop_heap(a, a +&nbsp;(n&nbsp;--));</p> 
+<p>}</p> 
+<p>inline int size()&nbsp;{</p> 
+<p>return n;</p> 
+<p>}</p> 
+<p>};</p> 
+<p>struct kdnode {</p> 
+<p>int x, y, n;</p> 
+<p>int l, r, u, d;</p> 
+<p>kdnode *ls,&nbsp;*rs;</p> 
+<p>};</p> 
+<p>struct point {</p> 
+<p>int x, y, i;</p> 
+<p>};</p> 
+<p><br /></p> 
+<p>inline bool cmpx(const point&amp; a, const point&amp; b)&nbsp;{</p> 
+<p>return a. x &lt; b. x;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>inline bool cmpy(const point&amp; a, const point&amp; b)&nbsp;{</p> 
+<p>return a. y &lt; b. y;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>inline qw sqr(const qw&amp; a)&nbsp;{</p> 
+<p>return a * a;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int n, m, k;</p> 
+<p>heap ans;</p> 
+<p>kdnode *np, nlst[maxn];</p> 
+<p>point a[maxn];</p> 
+<p><br /></p> 
+<p>#define upmax(_a_,_b_)&nbsp;{&nbsp;\</p> 
+<p>if (_a_&nbsp;&lt; _b_)&nbsp;\</p> 
+<p>_a_ = _b_;&nbsp;\</p> 
+<p>}</p> 
+<p>#define upmin(_a_,_b_)&nbsp;{&nbsp;\</p> 
+<p>if (_a_&nbsp;&gt; _b_)&nbsp;\</p> 
+<p>_a_ = _b_;&nbsp;\</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>inline void update(kdnode* p)&nbsp;{</p> 
+<p>p-&gt; l = p-&gt; x;</p> 
+<p>p-&gt; r = p-&gt; x;</p> 
+<p>p-&gt; d = p-&gt; y;</p> 
+<p>p-&gt; u = p-&gt; y;</p> 
+<p>if (p-&gt; ls)&nbsp;{</p> 
+<p>upmin(p-&gt; l, p-&gt; ls-&gt; l);</p> 
+<p>upmax(p-&gt; r, p-&gt; ls-&gt; r);</p> 
+<p>upmin(p-&gt; d, p-&gt; ls-&gt; d);</p> 
+<p>upmax(p-&gt; u, p-&gt; ls-&gt; u);</p> 
+<p>}</p> 
+<p>if (p-&gt; rs)&nbsp;{</p> 
+<p>upmin(p-&gt; l, p-&gt; rs-&gt; l);</p> 
+<p>upmax(p-&gt; r, p-&gt; rs-&gt; r);</p> 
+<p>upmin(p-&gt; d, p-&gt; rs-&gt; d);</p> 
+<p>upmax(p-&gt; u, p-&gt; rs-&gt; u);</p> 
+<p>}</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>kdnode* kdBuild(int l, int r, int d = 1)&nbsp;{</p> 
+<p>if (l&nbsp;&gt;= r)</p> 
+<p>return 0;</p> 
+<p>kdnode* p = np ++;</p> 
+<p>int mid =&nbsp;(l&nbsp;+ r)&nbsp;&gt;&gt; 1;</p> 
+<p>if (d)</p> 
+<p>nth_element(a + l, a + mid, a + r, cmpx);</p> 
+<p>else</p> 
+<p>nth_element(a + l, a + mid, a + r, cmpy);</p> 
+<p>p-&gt; ls = kdBuild(l, mid, d ^ 1);</p> 
+<p>p-&gt; rs = kdBuild(mid + 1, r, d ^ 1);</p> 
+<p>p-&gt; x = a[mid]. x;</p> 
+<p>p-&gt; y = a[mid]. y;</p> 
+<p>p-&gt; n = a[mid]. i;</p> 
+<p>update(p);</p> 
+<p>return p;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>inline hele guessDist(kdnode* p, int x, int y)&nbsp;{</p> 
+<p>return hele(-max(sqr(x - p-&gt; l), sqr(x - p-&gt; r))&nbsp;</p> 
+<p>- max(sqr(y - p-&gt; u), sqr(y - p-&gt; d)),&nbsp;-maxn);</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>void kdQry(kdnode* p, int x, int y)&nbsp;{</p> 
+<p>hele d(- sqr(p-&gt; x - x)&nbsp;- sqr(p-&gt; y - y), p-&gt; n), dl, dr;</p> 
+<p>if (ans. size()&nbsp;&lt; k || d &lt; ans. top())&nbsp;{</p> 
+<p>ans. push(d);</p> 
+<p>if (ans. size()&nbsp;&gt; k)</p> 
+<p>ans. pop();</p> 
+<p>}</p> 
+<p>if (p-&gt; ls)</p> 
+<p>dl = guessDist(p-&gt; ls, x, y);</p> 
+<p>else</p> 
+<p>dl = hele(qinf,&nbsp;-maxn);</p> 
+<p>if (p-&gt; rs)</p> 
+<p>dr = guessDist(p-&gt; rs, x, y);</p> 
+<p>else</p> 
+<p>dr = hele(qinf,&nbsp;-maxn);</p> 
+<p>if (dl&nbsp;&lt; dr)&nbsp;{</p> 
+<p>if (p-&gt; ls &amp;&amp;&nbsp;(dl&nbsp;&lt; ans. top()&nbsp;|| ans. size()&nbsp;&lt; k))</p> 
+<p>kdQry(p-&gt; ls, x, y);</p> 
+<p>if (p-&gt; rs &amp;&amp;&nbsp;(dr&nbsp;&lt; ans. top()&nbsp;|| ans. size()&nbsp;&lt; k))</p> 
+<p>kdQry(p-&gt; rs, x, y);</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>if (p-&gt; rs &amp;&amp;&nbsp;(dr&nbsp;&lt; ans. top()&nbsp;|| ans. size()&nbsp;&lt; k))</p> 
+<p>kdQry(p-&gt; rs, x, y);</p> 
+<p>if (p-&gt; ls &amp;&amp;&nbsp;(dl&nbsp;&lt; ans. top()&nbsp;|| ans. size()&nbsp;&lt; k))</p> 
+<p>kdQry(p-&gt; ls, x, y);</p> 
+<p>}</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int main()&nbsp;{</p> 
+<p>#ifndef ONLINE_JUDGE</p> 
+<p>freopen(&quot;in.txt&quot;,&nbsp;&quot;r&quot;, stdin);</p> 
+<p>#endif</p> 
+<p><br /></p> 
+<p>readInt(n);</p> 
+<p>for (int i = 0; i &lt; n;&nbsp;++ i)&nbsp;{</p> 
+<p>readInt(a[i]. x);</p> 
+<p>readInt(a[i]. y);</p> 
+<p>a[i]. i = i + 1;</p> 
+<p>}</p> 
+<p>readInt(m);</p> 
+<p>np = nlst;</p> 
+<p>kdnode* rt = kdBuild(0, n);</p> 
+<p>while (m&nbsp;--)&nbsp;{</p> 
+<p>int x, y;</p> 
+<p>readInt(x);</p> 
+<p>readInt(y);</p> 
+<p>readInt(k);</p> 
+<p>ans. clear();</p> 
+<p>kdQry(rt, x, y);</p> 
+<p>printf(&quot;%d\n&quot;, ans. top(). second);</p> 
+<p>}</p> 
+<p>}</p> 
+<p><br /></p>
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/bzoj/">bzoj</a></li>
+      <li><a href="/tags/data%5Cxa0structure/">data\xa0structure</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/lofterimport_068/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>BZOJ1488 || POJ1741 Tree</span>
+  </a>
+  <a class="next" href="/oi/lofterimport_070/">
+    <span class="title">Next »</span>
+    <br>
+    <span>BZOJ1227 [SDOI2009]虔诚的墓主人</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

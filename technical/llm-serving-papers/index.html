@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>LLM Serving 文章阅读笔记 | The Site of laekov</title>
+<meta name="keywords" content="developing, distributed, llm, serving">
+<meta name="description" content="经典老文 orca Continuous batching: 把 prefill 和 decode 里的每个 token 打散重新做 batching.
+vllm 用 page attention 来管理 kv cache 来应对碎片化, 以及利用 cpu memory 来 offload (这部分好像不是重点)。
+OSDI&#39;24 一个会有一个 session 一篇文章讲同一个事，可怕。
+Taming Throughput-Latency Tradeoff in LLM Inference with Sarathi-Serve 背景是现有 llm serving 系统（TRT-LLM, vLLM）要么等 decode 完了再 prefill, 要么有 prefill 就先做完整个 prefill, 导致 latency to first token 或者 decoding latency 不稳定。一个额外的坏处是这个事情影响 pp，因为 pp 里面有多个任务，每个任务时长不一样，就会有比较多的 bubble。
+这文章把 prefill 任务 chunk 掉，这样调度的时候可以更好地复合 prefill 和 decode，控制 pp 里每个任务的 latency，从而对 decode 的 latency 也有保障了 (stall-free batching）。">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/technical/llm-serving-papers/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="LLM Serving 文章阅读笔记" />
+<meta property="og:description" content="经典老文 orca Continuous batching: 把 prefill 和 decode 里的每个 token 打散重新做 batching.
+vllm 用 page attention 来管理 kv cache 来应对碎片化, 以及利用 cpu memory 来 offload (这部分好像不是重点)。
+OSDI&#39;24 一个会有一个 session 一篇文章讲同一个事，可怕。
+Taming Throughput-Latency Tradeoff in LLM Inference with Sarathi-Serve 背景是现有 llm serving 系统（TRT-LLM, vLLM）要么等 decode 完了再 prefill, 要么有 prefill 就先做完整个 prefill, 导致 latency to first token 或者 decoding latency 不稳定。一个额外的坏处是这个事情影响 pp，因为 pp 里面有多个任务，每个任务时长不一样，就会有比较多的 bubble。
+这文章把 prefill 任务 chunk 掉，这样调度的时候可以更好地复合 prefill 和 decode，控制 pp 里每个任务的 latency，从而对 decode 的 latency 也有保障了 (stall-free batching）。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/technical/llm-serving-papers/" /><meta property="article:section" content="technical" />
+<meta property="article:published_time" content="2024-07-12T00:00:00+00:00" />
+<meta property="article:modified_time" content="2024-07-12T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="LLM Serving 文章阅读笔记"/>
+<meta name="twitter:description" content="经典老文 orca Continuous batching: 把 prefill 和 decode 里的每个 token 打散重新做 batching.
+vllm 用 page attention 来管理 kv cache 来应对碎片化, 以及利用 cpu memory 来 offload (这部分好像不是重点)。
+OSDI&#39;24 一个会有一个 session 一篇文章讲同一个事，可怕。
+Taming Throughput-Latency Tradeoff in LLM Inference with Sarathi-Serve 背景是现有 llm serving 系统（TRT-LLM, vLLM）要么等 decode 完了再 prefill, 要么有 prefill 就先做完整个 prefill, 导致 latency to first token 或者 decoding latency 不稳定。一个额外的坏处是这个事情影响 pp，因为 pp 里面有多个任务，每个任务时长不一样，就会有比较多的 bubble。
+这文章把 prefill 任务 chunk 掉，这样调度的时候可以更好地复合 prefill 和 decode，控制 pp 里每个任务的 latency，从而对 decode 的 latency 也有保障了 (stall-free batching）。"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Technicals",
+      "item": "/technical/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "LLM Serving 文章阅读笔记",
+      "item": "/technical/llm-serving-papers/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "LLM Serving 文章阅读笔记",
+  "name": "LLM Serving 文章阅读笔记",
+  "description": "经典老文 orca Continuous batching: 把 prefill 和 decode 里的每个 token 打散重新做 batching.\nvllm 用 page attention 来管理 kv cache 来应对碎片化, 以及利用 cpu memory 来 offload (这部分好像不是重点)。\nOSDI'24 一个会有一个 session 一篇文章讲同一个事，可怕。\nTaming Throughput-Latency Tradeoff in LLM Inference with Sarathi-Serve 背景是现有 llm serving 系统（TRT-LLM, vLLM）要么等 decode 完了再 prefill, 要么有 prefill 就先做完整个 prefill, 导致 latency to first token 或者 decoding latency 不稳定。一个额外的坏处是这个事情影响 pp，因为 pp 里面有多个任务，每个任务时长不一样，就会有比较多的 bubble。\n这文章把 prefill 任务 chunk 掉，这样调度的时候可以更好地复合 prefill 和 decode，控制 pp 里每个任务的 latency，从而对 decode 的 latency 也有保障了 (stall-free batching）。",
+  "keywords": [
+    "developing", "distributed", "llm", "serving"
+  ],
+  "articleBody": "经典老文 orca Continuous batching: 把 prefill 和 decode 里的每个 token 打散重新做 batching.\nvllm 用 page attention 来管理 kv cache 来应对碎片化, 以及利用 cpu memory 来 offload (这部分好像不是重点)。\nOSDI'24 一个会有一个 session 一篇文章讲同一个事，可怕。\nTaming Throughput-Latency Tradeoff in LLM Inference with Sarathi-Serve 背景是现有 llm serving 系统（TRT-LLM, vLLM）要么等 decode 完了再 prefill, 要么有 prefill 就先做完整个 prefill, 导致 latency to first token 或者 decoding latency 不稳定。一个额外的坏处是这个事情影响 pp，因为 pp 里面有多个任务，每个任务时长不一样，就会有比较多的 bubble。\n这文章把 prefill 任务 chunk 掉，这样调度的时候可以更好地复合 prefill 和 decode，控制 pp 里每个任务的 latency，从而对 decode 的 latency 也有保障了 (stall-free batching）。\n实验最多用了 tp4 x pp2 路 a100，测试了 serving capacity (最大吞吐量）,给了 capacity 和 p99 latency 的关系曲线（7b 模型从0.1 到 0.5s）。\nServerlessLLM: Low-Latency Serverless Inference for Large Language Models 在 Serverless 场下做快速模型加载和推理任务迁移。\nInfiniGen: Efficient Generative Inference of Large Language Models with Dynamic KV Cache Management KVCache 只加载必要的部分（改算法），从而减小 kvcache 访问量，据称模型精度还增加了。\nLlumnix: Dynamic Scheduling for Large Language Model Serving 通过在多个模型推理服务实例之间迁移任务来获得更好的负载均衡。 主要要解决几个问题。\n性能隔离 内存碎片化 优先级 (考虑离线任务，比如 evaluation [51], scoring [36], or data wrangling [43]) 解决方案是尽量减小迁移开销，然后通过 scheduling 手段去做一些操作, 最后效果还蛮好的\nDistServe: Disaggregating Prefill and Decoding for Goodput-optimized Large Language Model Serving TTFT (prefill latency) 和 TOPT (decoding latency) 要分开优化。所以拆到不同的 worker 上做。\n然后各种手段优化一下两边的并行策略，通过不同的策略来做不同的阶段, 优化 prefill 产生的 kv-cache 的传输。\n",
+  "wordCount" : "178",
+  "inLanguage": "en",
+  "datePublished": "2024-07-12T00:00:00Z",
+  "dateModified": "2024-07-12T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/technical/llm-serving-papers/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/technical/">Technicals</a></div>
+    <h1 class="post-title">
+      LLM Serving 文章阅读笔记
+    </h1>
+    <div class="post-meta"><span title='2024-07-12 00:00:00 +0000 UTC'>July 12, 2024</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e7%bb%8f%e5%85%b8%e8%80%81%e6%96%87" aria-label="经典老文">经典老文</a><ul>
+                        
+                <li>
+                    <a href="#orca" aria-label="orca">orca</a></li>
+                <li>
+                    <a href="#vllm" aria-label="vllm">vllm</a></li></ul>
+                </li>
+                <li>
+                    <a href="#osdi24" aria-label="OSDI&#39;24">OSDI'24</a><ul>
+                        
+                <li>
+                    <a href="#taming-throughput-latency-tradeoff-in-llm-inference-with-sarathi-serve" aria-label="Taming Throughput-Latency Tradeoff in LLM Inference with Sarathi-Serve">Taming Throughput-Latency Tradeoff in LLM Inference with Sarathi-Serve</a></li>
+                <li>
+                    <a href="#serverlessllm-low-latency-serverless-inference-for-large-language-models" aria-label="ServerlessLLM: Low-Latency Serverless Inference for Large Language Models">ServerlessLLM: Low-Latency Serverless Inference for Large Language Models</a></li>
+                <li>
+                    <a href="#infinigen-efficient-generative-inference-of-large-language-models-with-dynamic-kv-cache-management" aria-label="InfiniGen: Efficient Generative Inference of Large Language Models with Dynamic KV Cache Management">InfiniGen: Efficient Generative Inference of Large Language Models with Dynamic KV Cache Management</a></li>
+                <li>
+                    <a href="#llumnix-dynamic-scheduling-for-large-language-model-serving" aria-label="Llumnix: Dynamic Scheduling for Large Language Model Serving">Llumnix: Dynamic Scheduling for Large Language Model Serving</a></li>
+                <li>
+                    <a href="#distserve-disaggregating-prefill-and-decoding-for-goodput-optimized-large-language-model-serving" aria-label="DistServe: Disaggregating Prefill and Decoding for Goodput-optimized Large Language Model Serving">DistServe: Disaggregating Prefill and Decoding for Goodput-optimized Large Language Model Serving</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h2 id="经典老文">经典老文<a hidden class="anchor" aria-hidden="true" href="#经典老文">#</a></h2>
+<h3 id="orca">orca<a hidden class="anchor" aria-hidden="true" href="#orca">#</a></h3>
+<p>Continuous batching: 把 prefill 和 decode 里的每个 token 打散重新做 batching.</p>
+<h3 id="vllm">vllm<a hidden class="anchor" aria-hidden="true" href="#vllm">#</a></h3>
+<p>用 page attention 来管理 kv cache 来应对碎片化, 以及利用 cpu memory 来 offload (这部分好像不是重点)。</p>
+<h2 id="osdi24">OSDI'24<a hidden class="anchor" aria-hidden="true" href="#osdi24">#</a></h2>
+<p>一个会有一个 session 一篇文章讲同一个事，可怕。</p>
+<h3 id="taming-throughput-latency-tradeoff-in-llm-inference-with-sarathi-serve">Taming Throughput-Latency Tradeoff in LLM Inference with Sarathi-Serve<a hidden class="anchor" aria-hidden="true" href="#taming-throughput-latency-tradeoff-in-llm-inference-with-sarathi-serve">#</a></h3>
+<p>背景是现有 llm serving 系统（TRT-LLM, vLLM）要么等 decode 完了再 prefill, 要么有 prefill 就先做完整个 prefill, 导致 latency to first token 或者 decoding latency 不稳定。一个额外的坏处是这个事情影响 pp，因为 pp 里面有多个任务，每个任务时长不一样，就会有比较多的 bubble。</p>
+<p>这文章把 prefill 任务 chunk 掉，这样调度的时候可以更好地复合 prefill 和 decode，控制 pp 里每个任务的 latency，从而对 decode 的 latency 也有保障了 (stall-free batching）。</p>
+<p>实验最多用了 tp4 x pp2 路 a100，测试了 serving capacity (最大吞吐量）,给了 capacity 和 p99 latency 的关系曲线（7b 模型从0.1 到 0.5s）。</p>
+<h3 id="serverlessllm-low-latency-serverless-inference-for-large-language-models">ServerlessLLM: Low-Latency Serverless Inference for Large Language Models<a hidden class="anchor" aria-hidden="true" href="#serverlessllm-low-latency-serverless-inference-for-large-language-models">#</a></h3>
+<p>在 Serverless 场下做快速模型加载和推理任务迁移。</p>
+<h3 id="infinigen-efficient-generative-inference-of-large-language-models-with-dynamic-kv-cache-management">InfiniGen: Efficient Generative Inference of Large Language Models with Dynamic KV Cache Management<a hidden class="anchor" aria-hidden="true" href="#infinigen-efficient-generative-inference-of-large-language-models-with-dynamic-kv-cache-management">#</a></h3>
+<p>KVCache 只加载必要的部分（改算法），从而减小 kvcache 访问量，据称模型精度还增加了。</p>
+<h3 id="llumnix-dynamic-scheduling-for-large-language-model-serving">Llumnix: Dynamic Scheduling for Large Language Model Serving<a hidden class="anchor" aria-hidden="true" href="#llumnix-dynamic-scheduling-for-large-language-model-serving">#</a></h3>
+<p>通过在多个模型推理服务实例之间迁移任务来获得更好的负载均衡。
+主要要解决几个问题。</p>
+<ul>
+<li>性能隔离</li>
+<li>内存碎片化</li>
+<li>优先级 (考虑离线任务，比如 evaluation [51], scoring [36], or data wrangling [43])</li>
+</ul>
+<p>解决方案是尽量减小迁移开销，然后通过 scheduling 手段去做一些操作, 最后效果还蛮好的</p>
+<h3 id="distserve-disaggregating-prefill-and-decoding-for-goodput-optimized-large-language-model-serving">DistServe: Disaggregating Prefill and Decoding for Goodput-optimized Large Language Model Serving<a hidden class="anchor" aria-hidden="true" href="#distserve-disaggregating-prefill-and-decoding-for-goodput-optimized-large-language-model-serving">#</a></h3>
+<p>TTFT (prefill latency) 和 TOPT (decoding latency) 要分开优化。所以拆到不同的 worker 上做。</p>
+<p>然后各种手段优化一下两边的并行策略，通过不同的策略来做不同的阶段, 优化 prefill 产生的 kv-cache 的传输。</p>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/developing/">developing</a></li>
+      <li><a href="/tags/distributed/">distributed</a></li>
+      <li><a href="/tags/llm/">LLM</a></li>
+      <li><a href="/tags/serving/">serving</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/random/20250818/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>20250818那个夏天的十年之后</span>
+  </a>
+  <a class="next" href="/technical/fastmoe/">
+    <span class="title">Next »</span>
+    <br>
+    <span>FastMoE 系统指南</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

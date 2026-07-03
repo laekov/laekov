@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>BZOJ1037 生日聚会 | The Site of laekov</title>
+<meta name="keywords" content="bzoj, dp, oi">
+<meta name="description" content="好久没做过数据范围这么小的题了。
+看来我是有点偏科了。
+这么前面的题居然都不做。
+dp就好。状态是前面男-女的最大值和最小值还有现在有多少男。然后滚动。
+我毕竟太年轻。
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+const int maxn = 159;
+const int maxk = 49;
+const int kbase = 23;
+const int mod = 12345678;
+int n, m, c, f[2][maxn][maxk][maxk];
+#define incm(_x_,_b_)&nbsp;{&nbsp;\
+int&amp; _a_ = _x_;&nbsp;\
+_a_ &#43;= _b_;&nbsp;\
+if (_a_&nbsp;&gt;= mod)&nbsp;\
+_a_ %= mod;&nbsp;\
+}
+int main()&nbsp;{
+#ifndef ONLINE_JUDGE
+freopen(&quot;in.txt&quot;,&nbsp;&quot;r&quot;, stdin);
+#endif
+scanf(&quot;%d%d%d&quot;,&nbsp;&amp;n,&nbsp;&amp;m,&nbsp;&amp;c);
+if (c&nbsp;== 0)&nbsp;{
+puts(&quot;0&quot;);
+}
+else {">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/lofterimport_046/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="BZOJ1037 生日聚会" />
+<meta property="og:description" content="好久没做过数据范围这么小的题了。
+看来我是有点偏科了。
+这么前面的题居然都不做。
+dp就好。状态是前面男-女的最大值和最小值还有现在有多少男。然后滚动。
+我毕竟太年轻。
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+const int maxn = 159;
+const int maxk = 49;
+const int kbase = 23;
+const int mod = 12345678;
+int n, m, c, f[2][maxn][maxk][maxk];
+#define incm(_x_,_b_)&nbsp;{&nbsp;\
+int&amp; _a_ = _x_;&nbsp;\
+_a_ &#43;= _b_;&nbsp;\
+if (_a_&nbsp;&gt;= mod)&nbsp;\
+_a_ %= mod;&nbsp;\
+}
+int main()&nbsp;{
+#ifndef ONLINE_JUDGE
+freopen(&quot;in.txt&quot;,&nbsp;&quot;r&quot;, stdin);
+#endif
+scanf(&quot;%d%d%d&quot;,&nbsp;&amp;n,&nbsp;&amp;m,&nbsp;&amp;c);
+if (c&nbsp;== 0)&nbsp;{
+puts(&quot;0&quot;);
+}
+else {" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/lofterimport_046/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2014-12-08T15:04:52+00:00" />
+<meta property="article:modified_time" content="2014-12-08T15:04:52+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BZOJ1037 生日聚会"/>
+<meta name="twitter:description" content="好久没做过数据范围这么小的题了。
+看来我是有点偏科了。
+这么前面的题居然都不做。
+dp就好。状态是前面男-女的最大值和最小值还有现在有多少男。然后滚动。
+我毕竟太年轻。
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+const int maxn = 159;
+const int maxk = 49;
+const int kbase = 23;
+const int mod = 12345678;
+int n, m, c, f[2][maxn][maxk][maxk];
+#define incm(_x_,_b_)&nbsp;{&nbsp;\
+int&amp; _a_ = _x_;&nbsp;\
+_a_ &#43;= _b_;&nbsp;\
+if (_a_&nbsp;&gt;= mod)&nbsp;\
+_a_ %= mod;&nbsp;\
+}
+int main()&nbsp;{
+#ifndef ONLINE_JUDGE
+freopen(&quot;in.txt&quot;,&nbsp;&quot;r&quot;, stdin);
+#endif
+scanf(&quot;%d%d%d&quot;,&nbsp;&amp;n,&nbsp;&amp;m,&nbsp;&amp;c);
+if (c&nbsp;== 0)&nbsp;{
+puts(&quot;0&quot;);
+}
+else {"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "BZOJ1037 生日聚会",
+      "item": "/oi/lofterimport_046/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BZOJ1037 生日聚会",
+  "name": "BZOJ1037 生日聚会",
+  "description": "好久没做过数据范围这么小的题了。\n看来我是有点偏科了。\n这么前面的题居然都不做。\ndp就好。状态是前面男-女的最大值和最小值还有现在有多少男。然后滚动。\n我毕竟太年轻。\n#include \u0026lt;cstdio\u0026gt;\n#include \u0026lt;cstring\u0026gt;\n#include \u0026lt;algorithm\u0026gt;\nusing namespace std;\nconst int maxn = 159;\nconst int maxk = 49;\nconst int kbase = 23;\nconst int mod = 12345678;\nint n, m, c, f[2][maxn][maxk][maxk];\n#define incm(_x_,_b_)\u0026nbsp;{\u0026nbsp;\\\nint\u0026amp; _a_ = _x_;\u0026nbsp;\\\n_a_ += _b_;\u0026nbsp;\\\nif (_a_\u0026nbsp;\u0026gt;= mod)\u0026nbsp;\\\n_a_ %= mod;\u0026nbsp;\\\n}\nint main()\u0026nbsp;{\n#ifndef ONLINE_JUDGE\nfreopen(\u0026quot;in.txt\u0026quot;,\u0026nbsp;\u0026quot;r\u0026quot;, stdin);\n#endif\nscanf(\u0026quot;%d%d%d\u0026quot;,\u0026nbsp;\u0026amp;n,\u0026nbsp;\u0026amp;m,\u0026nbsp;\u0026amp;c);\nif (c\u0026nbsp;== 0)\u0026nbsp;{\nputs(\u0026quot;0\u0026quot;);\n}\nelse {",
+  "keywords": [
+    "bzoj", "dp", "oi"
+  ],
+  "articleBody": "好久没做过数据范围这么小的题了。\n看来我是有点偏科了。\n这么前面的题居然都不做。\ndp就好。状态是前面男-女的最大值和最小值还有现在有多少男。然后滚动。\n我毕竟太年轻。\n#include #include #include using namespace std;\nconst int maxn = 159;\nconst int maxk = 49;\nconst int kbase = 23;\nconst int mod = 12345678;\nint n, m, c, f[2][maxn][maxk][maxk];\n#define incm(_x_,_b_) { \\\nint\u0026 _a_ = _x_; \\\n_a_ += _b_; \\\nif (_a_ \u003e= mod) \\\n_a_ %= mod; \\\n}\nint main() {\n#ifndef ONLINE_JUDGE\nfreopen(\"in.txt\", \"r\", stdin);\n#endif\nscanf(\"%d%d%d\", \u0026n, \u0026m, \u0026c);\nif (c == 0) {\nputs(\"0\");\n}\nelse {\nint prv = 0, cur = 1;\nmemset(f, 0, sizeof(f));\nf[cur][0][kbase][kbase] = 1;\nfor (int i = 0; i \u003c m + n; ++ i) {\nswap(cur, prv);\nfor (int j = 0; j \u003c= n; ++ j)\nfor (int k = kbase - c; k \u003c= kbase + c; ++ k)\nfor (int l = kbase - c; l \u003c= kbase + c; ++ l)\nf[cur][j][k][l] = 0;\nfor (int j = 0; j \u003c= n; ++ j)\nfor (int k = kbase - c; k \u003c= kbase + c; ++ k)\nfor (int l = k; l \u003c= k + c \u0026\u0026 l \u003c= kbase + c; ++ l)\nif (f[prv][j][k][l]) {\nint d = j * 2 - i + kbase;\nif (l - k \u003c c || d \u003c l)\nincm(f[cur][j + 1][k][max(d + 1, l)], f[prv][j][k][l]);\nif (l - k \u003c c || d \u003e k)\nincm(f[cur][j][min(d - 1, k)][l], f[prv][j][k][l]);\n}\n}\nint ans = 0;\nfor (int k = kbase - c; k \u003c= kbase + c; ++ k)\nfor (int l = k; l \u003c= k + c \u0026\u0026 l \u003c= kbase + c; ++ l)\nincm(ans, f[cur][n][k][l]);\nprintf(\"%d\\n\", ans);\n}\n}\n",
+  "wordCount" : "255",
+  "inLanguage": "en",
+  "datePublished": "2014-12-08T15:04:52Z",
+  "dateModified": "2014-12-08T15:04:52Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/lofterimport_046/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      BZOJ1037 生日聚会
+    </h1>
+    <div class="post-meta"><span title='2014-12-08 15:04:52 +0000 UTC'>December 8, 2014</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>好久没做过数据范围这么小的题了。</p> 
+<p><br /></p> 
+<p>看来我是有点偏科了。</p> 
+<p><br /></p> 
+<p>这么前面的题居然都不做。</p> 
+<p><br /></p> 
+<p>dp就好。状态是前面男-女的最大值和最小值还有现在有多少男。然后滚动。</p> 
+<p><br /></p> 
+<p>我毕竟太年轻。</p> 
+<p><br /></p> 
+<p>#include &lt;cstdio&gt;</p> 
+<p>#include &lt;cstring&gt;</p> 
+<p>#include &lt;algorithm&gt;</p> 
+<p><br /></p> 
+<p>using namespace std;</p> 
+<p><br /></p> 
+<p>const int maxn = 159;</p> 
+<p>const int maxk = 49;</p> 
+<p>const int kbase = 23;</p> 
+<p>const int mod = 12345678;</p> 
+<p><br /></p> 
+<p>int n, m, c, f[2][maxn][maxk][maxk];</p> 
+<p><br /></p> 
+<p>#define incm(_x_,_b_)&nbsp;{&nbsp;\</p> 
+<p>int&amp; _a_ = _x_;&nbsp;\</p> 
+<p>_a_ += _b_;&nbsp;\</p> 
+<p>if (_a_&nbsp;&gt;= mod)&nbsp;\</p> 
+<p>_a_ %= mod;&nbsp;\</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int main()&nbsp;{</p> 
+<p>#ifndef ONLINE_JUDGE</p> 
+<p>freopen(&quot;in.txt&quot;,&nbsp;&quot;r&quot;, stdin);</p> 
+<p>#endif</p> 
+<p><br /></p> 
+<p>scanf(&quot;%d%d%d&quot;,&nbsp;&amp;n,&nbsp;&amp;m,&nbsp;&amp;c);</p> 
+<p>if (c&nbsp;== 0)&nbsp;{</p> 
+<p>puts(&quot;0&quot;);</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>int prv = 0, cur = 1;</p> 
+<p>memset(f, 0, sizeof(f));</p> 
+<p>f[cur][0][kbase][kbase]&nbsp;= 1;</p> 
+<p>for (int i = 0; i &lt; m + n;&nbsp;++ i)&nbsp;{</p> 
+<p>swap(cur, prv);</p> 
+<p>for (int j = 0; j &lt;= n;&nbsp;++ j)</p> 
+<p>for (int k = kbase - c; k &lt;= kbase + c;&nbsp;++ k)</p> 
+<p>for (int l = kbase - c; l &lt;= kbase + c;&nbsp;++ l)</p> 
+<p>f[cur][j][k][l]&nbsp;= 0;</p> 
+<p>for (int j = 0; j &lt;= n;&nbsp;++ j)</p> 
+<p>for (int k = kbase - c; k &lt;= kbase + c;&nbsp;++ k)</p> 
+<p>for (int l = k; l &lt;= k + c &amp;&amp; l &lt;= kbase + c;&nbsp;++ l)</p> 
+<p>if (f[prv][j][k][l])&nbsp;{</p> 
+<p>int d = j * 2 - i + kbase;</p> 
+<p>if (l&nbsp;- k &lt; c || d &lt; l)</p> 
+<p>incm(f[cur][j + 1][k][max(d + 1, l)], f[prv][j][k][l]);</p> 
+<p>if (l&nbsp;- k &lt; c || d &gt; k)</p> 
+<p>incm(f[cur][j][min(d - 1, k)][l], f[prv][j][k][l]);</p> 
+<p>}</p> 
+<p>}</p> 
+<p>int ans = 0;</p> 
+<p>for (int k = kbase - c; k &lt;= kbase + c;&nbsp;++ k)</p> 
+<p>for (int l = k; l &lt;= k + c &amp;&amp; l &lt;= kbase + c;&nbsp;++ l)</p> 
+<p>incm(ans, f[cur][n][k][l]);</p> 
+<p>printf(&quot;%d\n&quot;, ans);</p> 
+<p>}</p> 
+<p>}</p> 
+<p><br /></p>
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/bzoj/">bzoj</a></li>
+      <li><a href="/tags/dp/">dp</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/lofterimport_045/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>80MSWC diary 0</span>
+  </a>
+  <a class="next" href="/oi/lofterimport_053/">
+    <span class="title">Next »</span>
+    <br>
+    <span>BZOJ3786 星系探索</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

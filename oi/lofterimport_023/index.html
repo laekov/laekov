@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>BZOJ1171 大sz的游戏 | The Site of laekov</title>
+<meta name="keywords" content="bzoj, data\xa0structure, dp, oi">
+<meta name="description" content="大概是今天不宜刷题来着。应该好好做作业。
+用线段树套单调队列可以把复杂度降到O(nlogn)。然后deque严重不靠谱，得用list才行。
+然后还是跑得巨慢。前面的人是排序搞定的么？表示不明觉厉。
+#include &lt;cstdio&gt;
+#include &lt;cctype&gt;
+#include &lt;cstring&gt;
+#include &lt;deque&gt;
+#include &lt;list&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+int _d_;
+#define readInt(_x_)&nbsp;{&nbsp;\
+int&amp; _s_ = _x_;&nbsp;\
+while (!isdigit(_d_&nbsp;= getchar()));&nbsp;\
+_s_ = 0;&nbsp;\
+while ((_s_&nbsp;= _s_ * 10 &#43; _d_ - 48), isdigit(_d_ = getchar()));&nbsp;\
+}
+//typedef deque &lt;int&gt; dque_i;
+typedef list &lt;int&gt; dque_i;
+struct seg {
+int l, r;
+dque_i u, d;
+seg *ls,&nbsp;*rs;
+};
+const int maxn = 250009;">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/lofterimport_023/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="BZOJ1171 大sz的游戏" />
+<meta property="og:description" content="大概是今天不宜刷题来着。应该好好做作业。
+用线段树套单调队列可以把复杂度降到O(nlogn)。然后deque严重不靠谱，得用list才行。
+然后还是跑得巨慢。前面的人是排序搞定的么？表示不明觉厉。
+#include &lt;cstdio&gt;
+#include &lt;cctype&gt;
+#include &lt;cstring&gt;
+#include &lt;deque&gt;
+#include &lt;list&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+int _d_;
+#define readInt(_x_)&nbsp;{&nbsp;\
+int&amp; _s_ = _x_;&nbsp;\
+while (!isdigit(_d_&nbsp;= getchar()));&nbsp;\
+_s_ = 0;&nbsp;\
+while ((_s_&nbsp;= _s_ * 10 &#43; _d_ - 48), isdigit(_d_ = getchar()));&nbsp;\
+}
+//typedef deque &lt;int&gt; dque_i;
+typedef list &lt;int&gt; dque_i;
+struct seg {
+int l, r;
+dque_i u, d;
+seg *ls,&nbsp;*rs;
+};
+const int maxn = 250009;" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/lofterimport_023/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2014-12-27T10:00:25+00:00" />
+<meta property="article:modified_time" content="2014-12-27T10:00:25+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BZOJ1171 大sz的游戏"/>
+<meta name="twitter:description" content="大概是今天不宜刷题来着。应该好好做作业。
+用线段树套单调队列可以把复杂度降到O(nlogn)。然后deque严重不靠谱，得用list才行。
+然后还是跑得巨慢。前面的人是排序搞定的么？表示不明觉厉。
+#include &lt;cstdio&gt;
+#include &lt;cctype&gt;
+#include &lt;cstring&gt;
+#include &lt;deque&gt;
+#include &lt;list&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+int _d_;
+#define readInt(_x_)&nbsp;{&nbsp;\
+int&amp; _s_ = _x_;&nbsp;\
+while (!isdigit(_d_&nbsp;= getchar()));&nbsp;\
+_s_ = 0;&nbsp;\
+while ((_s_&nbsp;= _s_ * 10 &#43; _d_ - 48), isdigit(_d_ = getchar()));&nbsp;\
+}
+//typedef deque &lt;int&gt; dque_i;
+typedef list &lt;int&gt; dque_i;
+struct seg {
+int l, r;
+dque_i u, d;
+seg *ls,&nbsp;*rs;
+};
+const int maxn = 250009;"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "BZOJ1171 大sz的游戏",
+      "item": "/oi/lofterimport_023/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BZOJ1171 大sz的游戏",
+  "name": "BZOJ1171 大sz的游戏",
+  "description": "大概是今天不宜刷题来着。应该好好做作业。\n用线段树套单调队列可以把复杂度降到O(nlogn)。然后deque严重不靠谱，得用list才行。\n然后还是跑得巨慢。前面的人是排序搞定的么？表示不明觉厉。\n#include \u0026lt;cstdio\u0026gt;\n#include \u0026lt;cctype\u0026gt;\n#include \u0026lt;cstring\u0026gt;\n#include \u0026lt;deque\u0026gt;\n#include \u0026lt;list\u0026gt;\n#include \u0026lt;algorithm\u0026gt;\nusing namespace std;\nint _d_;\n#define readInt(_x_)\u0026nbsp;{\u0026nbsp;\\\nint\u0026amp; _s_ = _x_;\u0026nbsp;\\\nwhile (!isdigit(_d_\u0026nbsp;= getchar()));\u0026nbsp;\\\n_s_ = 0;\u0026nbsp;\\\nwhile ((_s_\u0026nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\u0026nbsp;\\\n}\n//typedef deque \u0026lt;int\u0026gt; dque_i;\ntypedef list \u0026lt;int\u0026gt; dque_i;\nstruct seg {\nint l, r;\ndque_i u, d;\nseg *ls,\u0026nbsp;*rs;\n};\nconst int maxn = 250009;",
+  "keywords": [
+    "bzoj", "data\\xa0structure", "dp", "oi"
+  ],
+  "articleBody": "大概是今天不宜刷题来着。应该好好做作业。\n用线段树套单调队列可以把复杂度降到O(nlogn)。然后deque严重不靠谱，得用list才行。\n然后还是跑得巨慢。前面的人是排序搞定的么？表示不明觉厉。\n#include #include #include #include #include #include using namespace std;\nint _d_;\n#define readInt(_x_) { \\\nint\u0026 _s_ = _x_; \\\nwhile (!isdigit(_d_ = getchar())); \\\n_s_ = 0; \\\nwhile ((_s_ = _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar())); \\\n}\n//typedef deque dque_i;\ntypedef list dque_i;\nstruct seg {\nint l, r;\ndque_i u, d;\nseg *ls, *rs;\n};\nconst int maxn = 250009;\nconst int maxm = 500009;\nconst int inf = 0x3f3f3f3f;\nint n, l, m, x[maxn], y[maxn], d[maxn], f[maxn], *r[maxm];\nseg *rt, *sp;\ninline bool cmpP(int* a, int* b) {\nreturn *a \u003c *b;\n}\nvoid dispVals() {\nint t = (n - 1) \u003c\u003c 1;\nsort(r, r + t, cmpP);\nm = 0;\nfor (int i = 0, l = *r[0] - 1; i \u003c t; ++ i)\nif (*r[i] == l)\n*r[i] = m;\nelse\nl = *r[i], *r[i] = ++ m;\n}\nint upQue(dque_i\u0026 q, int d0) {\nwhile (!q. empty() \u0026\u0026 d0 - d[q. front()] \u003e l)\nq. pop_front();\nif (q. empty())\nreturn n;\nelse\nreturn q. front();\n}\nvoid insQue(dque_i\u0026 q, int i) {\nwhile (!q. empty() \u0026\u0026 f[i] \u003c= f[q. back()])\nq. pop_back();\nq. push_back(i);\n}\n#define mid(p) ((p-\u003el+p-\u003er)\u003e\u003e1)\ninline seg* sgtBuild(int l, int r) {\nseg* p = sp ++;\np-\u003e l = l;\np-\u003e r = r;\nif (l + 1 \u003c r) {\np-\u003e ls = sgtBuild(l, mid(p));\np-\u003e rs = sgtBuild(mid(p), r);\n}\nreturn p;\n}\ninline int sgtQry(seg* p, int l, int r, int d) {\nint x = upQue(p-\u003e u, d), y, z;\nif (p-\u003e l == l \u0026\u0026 p-\u003e r == r)\ny = upQue(p-\u003e d, d);\nelse if (r \u003c= mid(p))\ny = sgtQry(p-\u003e ls, l, r, d);\nelse if (l \u003e= mid(p))\ny = sgtQry(p-\u003e rs, l, r, d);\nelse {\ny = sgtQry(p-\u003e ls, l, mid(p), d);\nz = sgtQry(p-\u003e rs, mid(p), r, d);\nif (f[z] \u003c f[y])\ny = z;\n}\nif (f[x] \u003c f[y])\nreturn x;\nelse\nreturn y;\n}\ninline void sgtChg(seg* p, int l, int r, int v) {\ninsQue(p-\u003e d, v);\nif (p-\u003e l == l \u0026\u0026 p-\u003e r == r)\ninsQue(p-\u003e u, v);\nelse if (r \u003c= mid(p))\nsgtChg(p-\u003e ls, l, r, v);\nelse if (l \u003e= mid(p))\nsgtChg(p-\u003e rs, l, r, v);\nelse {\nsgtChg(p-\u003e ls, l, mid(p), v);\nsgtChg(p-\u003e rs, mid(p), r, v);\n}\n}\nint main() {\n#ifndef ONLINE_JUDGE\nfreopen(\"in.txt\", \"r\", stdin);\n#endif\nreadInt(n);\nreadInt(l);\nfor (int i = 1; i \u003c n; ++ i) {\nreadInt(x[i]);\nreadInt(y[i]);\nreadInt(d[i]);\nr[(i \u003c\u003c 1) - 2] = x + i;\nr[(i \u003c\u003c 1) - 1] = y + i;\n}\ndispVals();\nf[0] = 0;\nf[n] = inf;\nsp = new seg[m * 3];\nrt = sgtBuild(1, m + 1);\nfor (int i = 1; i \u003c n; ++ i) {\nif (d[i] \u003c= l)\nf[i] = 1;\nelse\nf[i] = f[sgtQry(rt, x[i], y[i] + 1, d[i])] + 1;\nif (f[i] \u003c inf)\nsgtChg(rt, x[i], y[i] + 1, i);\n}\nfor (int i = 1; i \u003c n; ++ i)\nif (f[i] \u003e= inf)\nputs(\"-1\");\nelse\nprintf(\"%d\\n\", f[i]);\n}\n",
+  "wordCount" : "463",
+  "inLanguage": "en",
+  "datePublished": "2014-12-27T10:00:25Z",
+  "dateModified": "2014-12-27T10:00:25Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/lofterimport_023/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      BZOJ1171 大sz的游戏
+    </h1>
+    <div class="post-meta"><span title='2014-12-27 10:00:25 +0000 UTC'>December 27, 2014</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>大概是今天不宜刷题来着。应该好好做作业。</p> 
+<p><br /></p> 
+<p>用线段树套单调队列可以把复杂度降到O(nlogn)。然后deque严重不靠谱，得用list才行。</p> 
+<p><br /></p> 
+<p>然后还是跑得巨慢。前面的人是排序搞定的么？表示不明觉厉。</p> 
+<p><br /></p> 
+<p>#include &lt;cstdio&gt;</p> 
+<p>#include &lt;cctype&gt;</p> 
+<p>#include &lt;cstring&gt;</p> 
+<p>#include &lt;deque&gt;</p> 
+<p>#include &lt;list&gt;</p> 
+<p>#include &lt;algorithm&gt;</p> 
+<p><br /></p> 
+<p>using namespace std;</p> 
+<p><br /></p> 
+<p>int _d_;</p> 
+<p>#define readInt(_x_)&nbsp;{&nbsp;\</p> 
+<p>int&amp; _s_ = _x_;&nbsp;\</p> 
+<p>while (!isdigit(_d_&nbsp;= getchar()));&nbsp;\</p> 
+<p>_s_ = 0;&nbsp;\</p> 
+<p>while ((_s_&nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));&nbsp;\</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>//typedef deque &lt;int&gt; dque_i;</p> 
+<p>typedef list &lt;int&gt; dque_i;</p> 
+<p><br /></p> 
+<p>struct seg {</p> 
+<p>int l, r;</p> 
+<p>dque_i u, d;</p> 
+<p>seg *ls,&nbsp;*rs;</p> 
+<p>};</p> 
+<p><br /></p> 
+<p>const int maxn = 250009;</p> 
+<p>const int maxm = 500009;</p> 
+<p>const int inf = 0x3f3f3f3f;</p> 
+<p><br /></p> 
+<p>int n, l, m, x[maxn], y[maxn], d[maxn], f[maxn],&nbsp;*r[maxm];</p> 
+<p>seg *rt,&nbsp;*sp;</p> 
+<p><br /></p> 
+<p>inline bool cmpP(int* a, int* b)&nbsp;{</p> 
+<p>return *a&nbsp;&lt;&nbsp;*b;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>void dispVals()&nbsp;{</p> 
+<p>int t =&nbsp;(n&nbsp;- 1)&nbsp;&lt;&lt; 1;</p> 
+<p>sort(r, r + t, cmpP);</p> 
+<p>m = 0;</p> 
+<p>for (int i = 0, l =&nbsp;*r[0]&nbsp;- 1; i &lt; t;&nbsp;++ i)</p> 
+<p>if (*r[i]&nbsp;== l)</p> 
+<p>*r[i]&nbsp;= m;</p> 
+<p>else</p> 
+<p>l =&nbsp;*r[i],&nbsp;*r[i]&nbsp;=&nbsp;++ m;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int upQue(dque_i&amp; q, int d0)&nbsp;{</p> 
+<p>while (!q. empty()&nbsp;&amp;&amp; d0 - d[q. front()]&nbsp;&gt; l)</p> 
+<p>q. pop_front();</p> 
+<p>if (q. empty())</p> 
+<p>return n;</p> 
+<p>else</p> 
+<p>return q. front();</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>void insQue(dque_i&amp; q, int i)&nbsp;{</p> 
+<p>while (!q. empty()&nbsp;&amp;&amp; f[i]&nbsp;&lt;= f[q. back()])</p> 
+<p>q. pop_back();</p> 
+<p>q. push_back(i);</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>#define mid(p)&nbsp;((p-&gt;l+p-&gt;r)&gt;&gt;1)</p> 
+<p><br /></p> 
+<p>inline seg* sgtBuild(int l, int r)&nbsp;{</p> 
+<p>seg* p = sp ++;</p> 
+<p>p-&gt; l = l;</p> 
+<p>p-&gt; r = r;</p> 
+<p>if (l&nbsp;+ 1 &lt; r)&nbsp;{</p> 
+<p>p-&gt; ls = sgtBuild(l, mid(p));</p> 
+<p>p-&gt; rs = sgtBuild(mid(p), r);</p> 
+<p>}</p> 
+<p>return p;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>inline int sgtQry(seg* p, int l, int r, int d)&nbsp;{</p> 
+<p>int x = upQue(p-&gt; u, d), y, z;</p> 
+<p>if (p-&gt; l == l &amp;&amp; p-&gt; r == r)</p> 
+<p>y = upQue(p-&gt; d, d);</p> 
+<p>else if (r&nbsp;&lt;= mid(p))</p> 
+<p>y = sgtQry(p-&gt; ls, l, r, d);</p> 
+<p>else if (l&nbsp;&gt;= mid(p))</p> 
+<p>y = sgtQry(p-&gt; rs, l, r, d);</p> 
+<p>else {</p> 
+<p>y = sgtQry(p-&gt; ls, l, mid(p), d);</p> 
+<p>z = sgtQry(p-&gt; rs, mid(p), r, d);</p> 
+<p>if (f[z]&nbsp;&lt; f[y])</p> 
+<p>y = z;</p> 
+<p>}</p> 
+<p>if (f[x]&nbsp;&lt; f[y])</p> 
+<p>return x;</p> 
+<p>else</p> 
+<p>return y;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>inline void sgtChg(seg* p, int l, int r, int v)&nbsp;{</p> 
+<p>insQue(p-&gt; d, v);</p> 
+<p>if (p-&gt; l == l &amp;&amp; p-&gt; r == r)</p> 
+<p>insQue(p-&gt; u, v);</p> 
+<p>else if (r&nbsp;&lt;= mid(p))</p> 
+<p>sgtChg(p-&gt; ls, l, r, v);</p> 
+<p>else if (l&nbsp;&gt;= mid(p))</p> 
+<p>sgtChg(p-&gt; rs, l, r, v);</p> 
+<p>else {</p> 
+<p>sgtChg(p-&gt; ls, l, mid(p), v);</p> 
+<p>sgtChg(p-&gt; rs, mid(p), r, v);</p> 
+<p>}</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int main()&nbsp;{</p> 
+<p>#ifndef ONLINE_JUDGE</p> 
+<p>freopen(&quot;in.txt&quot;,&nbsp;&quot;r&quot;, stdin);</p> 
+<p>#endif</p> 
+<p><br /></p> 
+<p>readInt(n);</p> 
+<p>readInt(l);</p> 
+<p>for (int i = 1; i &lt; n;&nbsp;++ i)&nbsp;{</p> 
+<p>readInt(x[i]);</p> 
+<p>readInt(y[i]);</p> 
+<p>readInt(d[i]);</p> 
+<p>r[(i &lt;&lt; 1)&nbsp;- 2]&nbsp;= x + i;</p> 
+<p>r[(i &lt;&lt; 1)&nbsp;- 1]&nbsp;= y + i;</p> 
+<p>}</p> 
+<p>dispVals();</p> 
+<p>f[0]&nbsp;= 0;</p> 
+<p>f[n]&nbsp;= inf;</p> 
+<p>sp = new seg[m * 3];</p> 
+<p>rt = sgtBuild(1, m + 1);</p> 
+<p>for (int i = 1; i &lt; n;&nbsp;++ i)&nbsp;{</p> 
+<p>if (d[i]&nbsp;&lt;= l)</p> 
+<p>f[i]&nbsp;= 1;</p> 
+<p>else</p> 
+<p>f[i]&nbsp;= f[sgtQry(rt, x[i], y[i]&nbsp;+ 1, d[i])]&nbsp;+ 1;</p> 
+<p>if (f[i]&nbsp;&lt; inf)</p> 
+<p>sgtChg(rt, x[i], y[i]&nbsp;+ 1, i);</p> 
+<p>}</p> 
+<p>for (int i = 1; i &lt; n;&nbsp;++ i)</p> 
+<p>if (f[i]&nbsp;&gt;= inf)</p> 
+<p>puts(&quot;-1&quot;);</p> 
+<p>else</p> 
+<p>printf(&quot;%d\n&quot;, f[i]);</p> 
+<p>}</p> 
+<p><br /></p>
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/bzoj/">bzoj</a></li>
+      <li><a href="/tags/data%5Cxa0structure/">data\xa0structure</a></li>
+      <li><a href="/tags/dp/">dp</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/lofterimport_022/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>BZOJ1367 [Baltic2004]sequence</span>
+  </a>
+  <a class="next" href="/oi/lofterimport_024/">
+    <span class="title">Next »</span>
+    <br>
+    <span>BZOJ3821 玄学</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

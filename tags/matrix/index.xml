@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>matrix on The Site of laekov</title>
+    <link>/tags/matrix/</link>
+    <description>Recent content in matrix on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Tue, 23 Jun 2015 15:52:12 +0000</lastBuildDate><atom:link href="/tags/matrix/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>bzoj3329 Xorequ</title>
+      <link>/oi/dbimport_192/</link>
+      <pubDate>Tue, 23 Jun 2015 15:52:12 +0000</pubDate>
+      
+      <guid>/oi/dbimport_192/</guid>
+      <description>还不错的题ovoovo
+发现其实要求x的二进制表示中没有相邻的1就行了.
+第一问水水的数位dp.从未写得如此愉快.
+第二问就是前面的g.然后发现是fib数列.矩阵快速幂搞定.</description>
+    </item>
+    
+    <item>
+      <title>BZOJ1875 [SDOI2009]HH去散步</title>
+      <link>/oi/lofterimport_031/</link>
+      <pubDate>Sun, 21 Dec 2014 14:55:35 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_031/</guid>
+      <description>乍一看矩阵水题，然后发现不能走回头路。
+于是改一下把边当做点，把点当作转移，转移的时候就可以避免走过去就走回来的情况了。
+说好的复习会考呢？
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+#define _l (long long int)
+const int mod = 45989;
+const int maxn = 123;
+class matrix {
+public:
+int n, a[maxn][maxn];
+inline matrix()&amp;nbsp;{
+}
+inline matrix(int n0, bool one = 0)&amp;nbsp;{
+n = n0;
+memset(a, 0, sizeof(a));
+if (one)
+for (int i = 0; i &amp;lt; n;&amp;nbsp;++ i)
+a[i][i]&amp;nbsp;= 1;
+}
+void operator =(const matrix&amp;amp; x)&amp;nbsp;{
+n = x.</description>
+    </item>
+    
+  </channel>
+</rss>

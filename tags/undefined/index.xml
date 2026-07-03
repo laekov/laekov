@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Undefined on The Site of laekov</title>
+    <link>/tags/undefined/</link>
+    <description>Recent content in Undefined on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Tue, 14 Mar 2023 11:29:18 +0000</lastBuildDate><atom:link href="/tags/undefined/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>20230314</title>
+      <link>/diary/711485/</link>
+      <pubDate>Tue, 14 Mar 2023 11:29:18 +0000</pubDate>
+      
+      <guid>/diary/711485/</guid>
+      <description>上午
+跑了没有数据的 gpt 175b (一半长), 使用了八张 v100 32g pcie.
+mp 的 latency 是 14636ms, 而 pp 是 57313ms. 考虑到 pp 其实只利用了一个卡, 所以 pp 其实还挺棒的 (?)
+下午
+摸鱼摸了挺久. 还去宿舍安全学习了.
+读了 gpt forward 的代码, 感觉 pipeline 优化已经做了. 只要 batch size 大, 应该打得挺满, 但是没有做 orca 那个工作里的 sequence 上的优化, 可能会导致 pipeline 不那么满?
+用 nsys 跑了一把小一点的模型, mp 和 pp 的时间大概是 9:16.
+nsys 结果是 pp 里面 send/recv 占了大概 13.5% 的时间. 而 80% 以上的时间在矩阵乘. 感觉打得挺满的, 有点令人疑惑. 可能需要一个有效一点的方式来刻画一下 pp 的 bubble 的情况.</description>
+    </item>
+    
+  </channel>
+</rss>

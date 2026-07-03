@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>20161113 ICPC Qingdao | The Site of laekov</title>
+<meta name="keywords" content="summary, acm, diary">
+<meta name="description" content="补mark.
+去青岛欢度周末然而没吃到任何海鲜差评.
+想带点纪念品回来然而一直没机会. 最后只有在高铁站里乱逛感觉东西不行于是啥都没买qwq.
+所以说好的acm旅游呢.
+头天试机的时候感觉自己状态好差, 仔细分析发现是头天晚上在火车上没洗澡所致.
+而且现在头发的长度已经有点不能忍了啊. 又开始纠结要不要去剪头发了.
+试机晚上和zhx去打台球. zhx一直在跳球真是有毒qaq. 然而我的台球水平还是竦么菜.
+睡前看板发现这都是些smg啊qaq. 为什么你们的板子大括号要换行啊qaq. 果然以后还是得自己备板.
+考试日起来感觉满血满状态复活.
+打vimrc的时候手僵.
+听说有些区的pc方在开场的时候挂了半小时. 还好我们运气不错, 只有榜挂了.
+上来zhx先切掉了a.
+然后觉得c可以推一推然后发现这个微分方程我还没学啊喂.
+于是我就去写b的魔方了. 魔方这玩意真是有毒好么.
+然后发现zhx和mhy还在推c还是f来着. 然后我发现g是个裸裸的费用流于是去写. 好久不写这玩意都手生了. 然后强行看错题意乘二. 第一次是直接把概率加起来了. 第二次是把有向边看成了无向边还yy了一个蛮麻烦的建图方法.
+然后zhx终于把c给淦出来了. 结果方程凑一下就出来了, 式子炒鸡简单.
+然后我和mhy都想到d题只算轮数较少的情况就行了. 然后zhx就写挂了过不到样例.
+于是我就去开k的kd-tree做法.
+过了一会zhx发现他sb了, 改了一下就过了还喊了一句 &ldquo;woc&rdquo;, 技惊四座.
+然后我就把kd-tree给debug了一下也过了.
+然后就发现没题可做了. 我把m转化成平面上放点, 区间改点区间查询. 想用二维线段树感觉标记不好维护. zhx写一半弃疗了.
+然后我们看了一下h插头懒得写, f大模拟懒得写, i式子太复杂不知道是啥鬼, l想了半天没有思路.
+zhx和我又想了想可以用象限四分树. zhx写了半天. 然后我灵机一动为什么不直接用kd-tree艹过去呢. 然后半粘半写的搞了一份.
+zhx和mhy则开始想j. 然后zhx搞了一个乱七八糟的dfs.
+然后我的m开始tle, zhx的j开始wa.
+这时候已经封榜了. 我对着我打印的代码找bug, zhx和mhy用gdb debug.
+然后我发现我的m写得太匆忙好多细节都没想清楚. 最后写了个data generator拍了一下, 发现因为忘剪标记所以死循环了. 然后就wa了. 然后再改个brute force出来拍了一下发现还是标记没打对. 然后最后终于在还有9分钟的时候a掉了. 后来发现还是first blood.">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/diary/3ed1b2/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="20161113 ICPC Qingdao" />
+<meta property="og:description" content="补mark.
+去青岛欢度周末然而没吃到任何海鲜差评.
+想带点纪念品回来然而一直没机会. 最后只有在高铁站里乱逛感觉东西不行于是啥都没买qwq.
+所以说好的acm旅游呢.
+头天试机的时候感觉自己状态好差, 仔细分析发现是头天晚上在火车上没洗澡所致.
+而且现在头发的长度已经有点不能忍了啊. 又开始纠结要不要去剪头发了.
+试机晚上和zhx去打台球. zhx一直在跳球真是有毒qaq. 然而我的台球水平还是竦么菜.
+睡前看板发现这都是些smg啊qaq. 为什么你们的板子大括号要换行啊qaq. 果然以后还是得自己备板.
+考试日起来感觉满血满状态复活.
+打vimrc的时候手僵.
+听说有些区的pc方在开场的时候挂了半小时. 还好我们运气不错, 只有榜挂了.
+上来zhx先切掉了a.
+然后觉得c可以推一推然后发现这个微分方程我还没学啊喂.
+于是我就去写b的魔方了. 魔方这玩意真是有毒好么.
+然后发现zhx和mhy还在推c还是f来着. 然后我发现g是个裸裸的费用流于是去写. 好久不写这玩意都手生了. 然后强行看错题意乘二. 第一次是直接把概率加起来了. 第二次是把有向边看成了无向边还yy了一个蛮麻烦的建图方法.
+然后zhx终于把c给淦出来了. 结果方程凑一下就出来了, 式子炒鸡简单.
+然后我和mhy都想到d题只算轮数较少的情况就行了. 然后zhx就写挂了过不到样例.
+于是我就去开k的kd-tree做法.
+过了一会zhx发现他sb了, 改了一下就过了还喊了一句 &ldquo;woc&rdquo;, 技惊四座.
+然后我就把kd-tree给debug了一下也过了.
+然后就发现没题可做了. 我把m转化成平面上放点, 区间改点区间查询. 想用二维线段树感觉标记不好维护. zhx写一半弃疗了.
+然后我们看了一下h插头懒得写, f大模拟懒得写, i式子太复杂不知道是啥鬼, l想了半天没有思路.
+zhx和我又想了想可以用象限四分树. zhx写了半天. 然后我灵机一动为什么不直接用kd-tree艹过去呢. 然后半粘半写的搞了一份.
+zhx和mhy则开始想j. 然后zhx搞了一个乱七八糟的dfs.
+然后我的m开始tle, zhx的j开始wa.
+这时候已经封榜了. 我对着我打印的代码找bug, zhx和mhy用gdb debug.
+然后我发现我的m写得太匆忙好多细节都没想清楚. 最后写了个data generator拍了一下, 发现因为忘剪标记所以死循环了. 然后就wa了. 然后再改个brute force出来拍了一下发现还是标记没打对. 然后最后终于在还有9分钟的时候a掉了. 后来发现还是first blood." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/diary/3ed1b2/" /><meta property="article:section" content="diary" />
+<meta property="article:published_time" content="2016-11-14T10:22:27+00:00" />
+<meta property="article:modified_time" content="2016-11-14T10:22:27+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="20161113 ICPC Qingdao"/>
+<meta name="twitter:description" content="补mark.
+去青岛欢度周末然而没吃到任何海鲜差评.
+想带点纪念品回来然而一直没机会. 最后只有在高铁站里乱逛感觉东西不行于是啥都没买qwq.
+所以说好的acm旅游呢.
+头天试机的时候感觉自己状态好差, 仔细分析发现是头天晚上在火车上没洗澡所致.
+而且现在头发的长度已经有点不能忍了啊. 又开始纠结要不要去剪头发了.
+试机晚上和zhx去打台球. zhx一直在跳球真是有毒qaq. 然而我的台球水平还是竦么菜.
+睡前看板发现这都是些smg啊qaq. 为什么你们的板子大括号要换行啊qaq. 果然以后还是得自己备板.
+考试日起来感觉满血满状态复活.
+打vimrc的时候手僵.
+听说有些区的pc方在开场的时候挂了半小时. 还好我们运气不错, 只有榜挂了.
+上来zhx先切掉了a.
+然后觉得c可以推一推然后发现这个微分方程我还没学啊喂.
+于是我就去写b的魔方了. 魔方这玩意真是有毒好么.
+然后发现zhx和mhy还在推c还是f来着. 然后我发现g是个裸裸的费用流于是去写. 好久不写这玩意都手生了. 然后强行看错题意乘二. 第一次是直接把概率加起来了. 第二次是把有向边看成了无向边还yy了一个蛮麻烦的建图方法.
+然后zhx终于把c给淦出来了. 结果方程凑一下就出来了, 式子炒鸡简单.
+然后我和mhy都想到d题只算轮数较少的情况就行了. 然后zhx就写挂了过不到样例.
+于是我就去开k的kd-tree做法.
+过了一会zhx发现他sb了, 改了一下就过了还喊了一句 &ldquo;woc&rdquo;, 技惊四座.
+然后我就把kd-tree给debug了一下也过了.
+然后就发现没题可做了. 我把m转化成平面上放点, 区间改点区间查询. 想用二维线段树感觉标记不好维护. zhx写一半弃疗了.
+然后我们看了一下h插头懒得写, f大模拟懒得写, i式子太复杂不知道是啥鬼, l想了半天没有思路.
+zhx和我又想了想可以用象限四分树. zhx写了半天. 然后我灵机一动为什么不直接用kd-tree艹过去呢. 然后半粘半写的搞了一份.
+zhx和mhy则开始想j. 然后zhx搞了一个乱七八糟的dfs.
+然后我的m开始tle, zhx的j开始wa.
+这时候已经封榜了. 我对着我打印的代码找bug, zhx和mhy用gdb debug.
+然后我发现我的m写得太匆忙好多细节都没想清楚. 最后写了个data generator拍了一下, 发现因为忘剪标记所以死循环了. 然后就wa了. 然后再改个brute force出来拍了一下发现还是标记没打对. 然后最后终于在还有9分钟的时候a掉了. 后来发现还是first blood."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Diaries",
+      "item": "/diary/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "20161113 ICPC Qingdao",
+      "item": "/diary/3ed1b2/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "20161113 ICPC Qingdao",
+  "name": "20161113 ICPC Qingdao",
+  "description": "补mark.\n去青岛欢度周末然而没吃到任何海鲜差评.\n想带点纪念品回来然而一直没机会. 最后只有在高铁站里乱逛感觉东西不行于是啥都没买qwq.\n所以说好的acm旅游呢.\n头天试机的时候感觉自己状态好差, 仔细分析发现是头天晚上在火车上没洗澡所致.\n而且现在头发的长度已经有点不能忍了啊. 又开始纠结要不要去剪头发了.\n试机晚上和zhx去打台球. zhx一直在跳球真是有毒qaq. 然而我的台球水平还是竦么菜.\n睡前看板发现这都是些smg啊qaq. 为什么你们的板子大括号要换行啊qaq. 果然以后还是得自己备板.\n考试日起来感觉满血满状态复活.\n打vimrc的时候手僵.\n听说有些区的pc方在开场的时候挂了半小时. 还好我们运气不错, 只有榜挂了.\n上来zhx先切掉了a.\n然后觉得c可以推一推然后发现这个微分方程我还没学啊喂.\n于是我就去写b的魔方了. 魔方这玩意真是有毒好么.\n然后发现zhx和mhy还在推c还是f来着. 然后我发现g是个裸裸的费用流于是去写. 好久不写这玩意都手生了. 然后强行看错题意乘二. 第一次是直接把概率加起来了. 第二次是把有向边看成了无向边还yy了一个蛮麻烦的建图方法.\n然后zhx终于把c给淦出来了. 结果方程凑一下就出来了, 式子炒鸡简单.\n然后我和mhy都想到d题只算轮数较少的情况就行了. 然后zhx就写挂了过不到样例.\n于是我就去开k的kd-tree做法.\n过了一会zhx发现他sb了, 改了一下就过了还喊了一句 \u0026ldquo;woc\u0026rdquo;, 技惊四座.\n然后我就把kd-tree给debug了一下也过了.\n然后就发现没题可做了. 我把m转化成平面上放点, 区间改点区间查询. 想用二维线段树感觉标记不好维护. zhx写一半弃疗了.\n然后我们看了一下h插头懒得写, f大模拟懒得写, i式子太复杂不知道是啥鬼, l想了半天没有思路.\nzhx和我又想了想可以用象限四分树. zhx写了半天. 然后我灵机一动为什么不直接用kd-tree艹过去呢. 然后半粘半写的搞了一份.\nzhx和mhy则开始想j. 然后zhx搞了一个乱七八糟的dfs.\n然后我的m开始tle, zhx的j开始wa.\n这时候已经封榜了. 我对着我打印的代码找bug, zhx和mhy用gdb debug.\n然后我发现我的m写得太匆忙好多细节都没想清楚. 最后写了个data generator拍了一下, 发现因为忘剪标记所以死循环了. 然后就wa了. 然后再改个brute force出来拍了一下发现还是标记没打对. 然后最后终于在还有9分钟的时候a掉了. 后来发现还是first blood.",
+  "keywords": [
+    "summary", "acm", "diary"
+  ],
+  "articleBody": "补mark.\n去青岛欢度周末然而没吃到任何海鲜差评.\n想带点纪念品回来然而一直没机会. 最后只有在高铁站里乱逛感觉东西不行于是啥都没买qwq.\n所以说好的acm旅游呢.\n头天试机的时候感觉自己状态好差, 仔细分析发现是头天晚上在火车上没洗澡所致.\n而且现在头发的长度已经有点不能忍了啊. 又开始纠结要不要去剪头发了.\n试机晚上和zhx去打台球. zhx一直在跳球真是有毒qaq. 然而我的台球水平还是竦么菜.\n睡前看板发现这都是些smg啊qaq. 为什么你们的板子大括号要换行啊qaq. 果然以后还是得自己备板.\n考试日起来感觉满血满状态复活.\n打vimrc的时候手僵.\n听说有些区的pc方在开场的时候挂了半小时. 还好我们运气不错, 只有榜挂了.\n上来zhx先切掉了a.\n然后觉得c可以推一推然后发现这个微分方程我还没学啊喂.\n于是我就去写b的魔方了. 魔方这玩意真是有毒好么.\n然后发现zhx和mhy还在推c还是f来着. 然后我发现g是个裸裸的费用流于是去写. 好久不写这玩意都手生了. 然后强行看错题意乘二. 第一次是直接把概率加起来了. 第二次是把有向边看成了无向边还yy了一个蛮麻烦的建图方法.\n然后zhx终于把c给淦出来了. 结果方程凑一下就出来了, 式子炒鸡简单.\n然后我和mhy都想到d题只算轮数较少的情况就行了. 然后zhx就写挂了过不到样例.\n于是我就去开k的kd-tree做法.\n过了一会zhx发现他sb了, 改了一下就过了还喊了一句 “woc”, 技惊四座.\n然后我就把kd-tree给debug了一下也过了.\n然后就发现没题可做了. 我把m转化成平面上放点, 区间改点区间查询. 想用二维线段树感觉标记不好维护. zhx写一半弃疗了.\n然后我们看了一下h插头懒得写, f大模拟懒得写, i式子太复杂不知道是啥鬼, l想了半天没有思路.\nzhx和我又想了想可以用象限四分树. zhx写了半天. 然后我灵机一动为什么不直接用kd-tree艹过去呢. 然后半粘半写的搞了一份.\nzhx和mhy则开始想j. 然后zhx搞了一个乱七八糟的dfs.\n然后我的m开始tle, zhx的j开始wa.\n这时候已经封榜了. 我对着我打印的代码找bug, zhx和mhy用gdb debug.\n然后我发现我的m写得太匆忙好多细节都没想清楚. 最后写了个data generator拍了一下, 发现因为忘剪标记所以死循环了. 然后就wa了. 然后再改个brute force出来拍了一下发现还是标记没打对. 然后最后终于在还有9分钟的时候a掉了. 后来发现还是first blood.\n然而mhy和zhx的j题一直在debug最后还是没对有点遗憾.\n于是rank2被陈老师队怒踩.\n说不定我们选择不要j, 去写f和h能艹上rank1. 不过事后再想没用了.\n都怪我英语太差qaq.\n然后我顺便吃掉了全队的巧克力, 还承包了全队的面包. 233.\n然后就是赛艇的揭榜颁奖. 第一次没有输罚时真是奇迹. 而且全队的罚时都是我贡献的 233.\n主持人念我们队名的时候内心肯定是崩溃的.\n居然要上台领奖, 居然还有杯.\n嗯然后这个赛季就结束了.\n滚粗回北京, 还要直面周三惨淡的微积分补考qaq.\n",
+  "wordCount" : "91",
+  "inLanguage": "en",
+  "datePublished": "2016-11-14T10:22:27Z",
+  "dateModified": "2016-11-14T10:22:27Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/diary/3ed1b2/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/diary/">Diaries</a></div>
+    <h1 class="post-title">
+      20161113 ICPC Qingdao
+    </h1>
+    <div class="post-meta"><span title='2016-11-14 10:22:27 +0000 UTC'>November 14, 2016</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>补mark.</p>
+<p>去青岛欢度周末然而没吃到任何海鲜差评.</p>
+<p>想带点纪念品回来然而一直没机会. 最后只有在高铁站里乱逛感觉东西不行于是啥都没买qwq.</p>
+<p>所以说好的acm旅游呢.</p>
+<p>头天试机的时候感觉自己状态好差, 仔细分析发现是头天晚上在火车上没洗澡所致.</p>
+<p>而且现在头发的长度已经有点不能忍了啊. 又开始纠结要不要去剪头发了.</p>
+<p>试机晚上和zhx去打台球. zhx一直在跳球真是有毒qaq. 然而我的台球水平还是竦么菜.</p>
+<p>睡前看板发现这都是些smg啊qaq. 为什么你们的板子大括号要换行啊qaq. 果然以后还是得自己备板.</p>
+<p>考试日起来感觉满血满状态复活.</p>
+<p>打vimrc的时候手僵.</p>
+<p>听说有些区的pc方在开场的时候挂了半小时. 还好我们运气不错, 只有榜挂了.</p>
+<p>上来zhx先切掉了a.</p>
+<p>然后觉得c可以推一推然后发现这个微分方程我还没学啊喂.</p>
+<p>于是我就去写b的魔方了. 魔方这玩意真是有毒好么.</p>
+<p>然后发现zhx和mhy还在推c还是f来着. 然后我发现g是个裸裸的费用流于是去写. 好久不写这玩意都手生了. 然后强行看错题意乘二. 第一次是直接把概率加起来了. 第二次是把有向边看成了无向边还yy了一个蛮麻烦的建图方法.</p>
+<p>然后zhx终于把c给淦出来了. 结果方程凑一下就出来了, 式子炒鸡简单.</p>
+<p>然后我和mhy都想到d题只算轮数较少的情况就行了. 然后zhx就写挂了过不到样例.</p>
+<p>于是我就去开k的kd-tree做法.</p>
+<p>过了一会zhx发现他sb了, 改了一下就过了还喊了一句 &ldquo;woc&rdquo;, 技惊四座.</p>
+<p>然后我就把kd-tree给debug了一下也过了.</p>
+<p>然后就发现没题可做了. 我把m转化成平面上放点, 区间改点区间查询. 想用二维线段树感觉标记不好维护. zhx写一半弃疗了.</p>
+<p>然后我们看了一下h插头懒得写, f大模拟懒得写, i式子太复杂不知道是啥鬼, l想了半天没有思路.</p>
+<p>zhx和我又想了想可以用象限四分树. zhx写了半天. 然后我灵机一动为什么不直接用kd-tree艹过去呢. 然后半粘半写的搞了一份.</p>
+<p>zhx和mhy则开始想j. 然后zhx搞了一个乱七八糟的dfs.</p>
+<p>然后我的m开始tle, zhx的j开始wa.</p>
+<p>这时候已经封榜了. 我对着我打印的代码找bug, zhx和mhy用gdb debug.</p>
+<p>然后我发现我的m写得太匆忙好多细节都没想清楚. 最后写了个data generator拍了一下, 发现因为忘剪标记所以死循环了. 然后就wa了. 然后再改个brute force出来拍了一下发现还是标记没打对. 然后最后终于在还有9分钟的时候a掉了. 后来发现还是first blood.</p>
+<p>然而mhy和zhx的j题一直在debug最后还是没对有点遗憾.</p>
+<p>于是rank2被陈老师队怒踩.</p>
+<p>说不定我们选择不要j, 去写f和h能艹上rank1. 不过事后再想没用了.</p>
+<p>都怪我英语太差qaq.</p>
+<p>然后我顺便吃掉了全队的巧克力, 还承包了全队的面包. 233.</p>
+<p>然后就是赛艇的揭榜颁奖. 第一次没有输罚时真是奇迹. 而且全队的罚时都是我贡献的 233.</p>
+<p>主持人念我们队名的时候内心肯定是崩溃的.</p>
+<p>居然要上台领奖, 居然还有杯.</p>
+<p>嗯然后这个赛季就结束了.</p>
+<p>滚粗回北京, 还要直面周三惨淡的微积分补考qaq.</p>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/summary/">summary</a></li>
+      <li><a href="/tags/acm/">acm</a></li>
+      <li><a href="/tags/diary/">diary</a></li>
+    </ul>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

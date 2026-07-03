@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>tool on The Site of laekov</title>
+    <link>/tags/tool/</link>
+    <description>Recent content in tool on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Thu, 01 Jan 1970 08:00:00 +0000</lastBuildDate><atom:link href="/tags/tool/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>What to eat</title>
+      <link>/tool/whattoeat/</link>
+      <pubDate>Thu, 01 Jan 1970 08:00:00 +0000</pubDate>
+      
+      <guid>/tool/whattoeat/</guid>
+      <description>今天是 吃什么? </description>
+    </item>
+    
+  </channel>
+</rss>

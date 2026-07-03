@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>CaPiano 基于 FPGA 和摄像头的现实增强钢琴 | The Site of laekov</title>
+<meta name="keywords" content="fpga, verilog, developing">
+<meta name="description" content="Queue 了一篇 CaPiano. 上午展示完. 人智课生产力低下. 把它 Dequeue 了罢.
+这个项目的最初设想是造一个识别指尖的算法, 然后用它来弹钢琴并发出声音. 还有一个完全没有开动的二期工程是把它变成一个音游 / 录音机.
+蓝图是美好的, 实现是丑陋的.
+摄像头 过去一个半月的主要工作就是和这个 OV7670 (AL422B) 的摄像头做斗争. AL422B 是一个 DRAM 的 FIFO 队列, 通过巧妙地接 7670 和 422 的管脚可以实现把 422 作为 7670 的一个输出缓冲. 422 本来是用于简化这件事的. 在国外大学的 PA 文档里也是这么说的. 然而 422 这个东西最大的毛病就是没有 dataready 这个信号, 所以根本没法成功探索出什么时候可以读. 挣扎了很久之后我选择买了一个不带 422 的 7670.
+7670 通过 SCCB 协议来进行配置, 有一些寄存器. 主要有用的是控制彩色的 12 和控制输出格式的 40. 本来想要 RGB565 加 QVGA 爽歪歪. 然而我的配置模块跑出来结果完全不对, 最后发现根本没设起. 降频到手工时钟都没有办法正常工作. 于是只好放弃, 使用默认的 YUV &#43; VGA.">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/technical/7acc1f/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="CaPiano 基于 FPGA 和摄像头的现实增强钢琴" />
+<meta property="og:description" content="Queue 了一篇 CaPiano. 上午展示完. 人智课生产力低下. 把它 Dequeue 了罢.
+这个项目的最初设想是造一个识别指尖的算法, 然后用它来弹钢琴并发出声音. 还有一个完全没有开动的二期工程是把它变成一个音游 / 录音机.
+蓝图是美好的, 实现是丑陋的.
+摄像头 过去一个半月的主要工作就是和这个 OV7670 (AL422B) 的摄像头做斗争. AL422B 是一个 DRAM 的 FIFO 队列, 通过巧妙地接 7670 和 422 的管脚可以实现把 422 作为 7670 的一个输出缓冲. 422 本来是用于简化这件事的. 在国外大学的 PA 文档里也是这么说的. 然而 422 这个东西最大的毛病就是没有 dataready 这个信号, 所以根本没法成功探索出什么时候可以读. 挣扎了很久之后我选择买了一个不带 422 的 7670.
+7670 通过 SCCB 协议来进行配置, 有一些寄存器. 主要有用的是控制彩色的 12 和控制输出格式的 40. 本来想要 RGB565 加 QVGA 爽歪歪. 然而我的配置模块跑出来结果完全不对, 最后发现根本没设起. 降频到手工时钟都没有办法正常工作. 于是只好放弃, 使用默认的 YUV &#43; VGA." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/technical/7acc1f/" /><meta property="article:section" content="technical" />
+<meta property="article:published_time" content="2018-06-12T14:00:36+00:00" />
+<meta property="article:modified_time" content="2018-06-12T14:00:36+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="CaPiano 基于 FPGA 和摄像头的现实增强钢琴"/>
+<meta name="twitter:description" content="Queue 了一篇 CaPiano. 上午展示完. 人智课生产力低下. 把它 Dequeue 了罢.
+这个项目的最初设想是造一个识别指尖的算法, 然后用它来弹钢琴并发出声音. 还有一个完全没有开动的二期工程是把它变成一个音游 / 录音机.
+蓝图是美好的, 实现是丑陋的.
+摄像头 过去一个半月的主要工作就是和这个 OV7670 (AL422B) 的摄像头做斗争. AL422B 是一个 DRAM 的 FIFO 队列, 通过巧妙地接 7670 和 422 的管脚可以实现把 422 作为 7670 的一个输出缓冲. 422 本来是用于简化这件事的. 在国外大学的 PA 文档里也是这么说的. 然而 422 这个东西最大的毛病就是没有 dataready 这个信号, 所以根本没法成功探索出什么时候可以读. 挣扎了很久之后我选择买了一个不带 422 的 7670.
+7670 通过 SCCB 协议来进行配置, 有一些寄存器. 主要有用的是控制彩色的 12 和控制输出格式的 40. 本来想要 RGB565 加 QVGA 爽歪歪. 然而我的配置模块跑出来结果完全不对, 最后发现根本没设起. 降频到手工时钟都没有办法正常工作. 于是只好放弃, 使用默认的 YUV &#43; VGA."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Technicals",
+      "item": "/technical/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "CaPiano 基于 FPGA 和摄像头的现实增强钢琴",
+      "item": "/technical/7acc1f/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "CaPiano 基于 FPGA 和摄像头的现实增强钢琴",
+  "name": "CaPiano 基于 FPGA 和摄像头的现实增强钢琴",
+  "description": "Queue 了一篇 CaPiano. 上午展示完. 人智课生产力低下. 把它 Dequeue 了罢.\n这个项目的最初设想是造一个识别指尖的算法, 然后用它来弹钢琴并发出声音. 还有一个完全没有开动的二期工程是把它变成一个音游 / 录音机.\n蓝图是美好的, 实现是丑陋的.\n摄像头 过去一个半月的主要工作就是和这个 OV7670 (AL422B) 的摄像头做斗争. AL422B 是一个 DRAM 的 FIFO 队列, 通过巧妙地接 7670 和 422 的管脚可以实现把 422 作为 7670 的一个输出缓冲. 422 本来是用于简化这件事的. 在国外大学的 PA 文档里也是这么说的. 然而 422 这个东西最大的毛病就是没有 dataready 这个信号, 所以根本没法成功探索出什么时候可以读. 挣扎了很久之后我选择买了一个不带 422 的 7670.\n7670 通过 SCCB 协议来进行配置, 有一些寄存器. 主要有用的是控制彩色的 12 和控制输出格式的 40. 本来想要 RGB565 加 QVGA 爽歪歪. 然而我的配置模块跑出来结果完全不对, 最后发现根本没设起. 降频到手工时钟都没有办法正常工作. 于是只好放弃, 使用默认的 YUV + VGA.",
+  "keywords": [
+    "fpga", "verilog", "developing"
+  ],
+  "articleBody": "Queue 了一篇 CaPiano. 上午展示完. 人智课生产力低下. 把它 Dequeue 了罢.\n这个项目的最初设想是造一个识别指尖的算法, 然后用它来弹钢琴并发出声音. 还有一个完全没有开动的二期工程是把它变成一个音游 / 录音机.\n蓝图是美好的, 实现是丑陋的.\n摄像头 过去一个半月的主要工作就是和这个 OV7670 (AL422B) 的摄像头做斗争. AL422B 是一个 DRAM 的 FIFO 队列, 通过巧妙地接 7670 和 422 的管脚可以实现把 422 作为 7670 的一个输出缓冲. 422 本来是用于简化这件事的. 在国外大学的 PA 文档里也是这么说的. 然而 422 这个东西最大的毛病就是没有 dataready 这个信号, 所以根本没法成功探索出什么时候可以读. 挣扎了很久之后我选择买了一个不带 422 的 7670.\n7670 通过 SCCB 协议来进行配置, 有一些寄存器. 主要有用的是控制彩色的 12 和控制输出格式的 40. 本来想要 RGB565 加 QVGA 爽歪歪. 然而我的配置模块跑出来结果完全不对, 最后发现根本没设起. 降频到手工时钟都没有办法正常工作. 于是只好放弃, 使用默认的 YUV + VGA.\n另外在网上看到有一个输出彩色条的 80 寄存器. 然而因为同上原因也没有用上.\nYUV格式是一个相邻两个像素共用四字节的奇怪格式. 按照时间读进来的四个字节是 Y1 U Y2 V. 其中Y是灰度, U和V是奇怪的参数. wikipedia 上有一个通过线性变换把它变到 RGB 彩色空间上的矩阵. 然而我发现我只有G是能判断出来的, 而且屏幕上的G其实是红色…\n这些问题都没解决也不打算解决了. 红色, 够用了.\n识别算法 最初想的识别算法是连通块判定blabla. 选这个题也是想用这个 CV 的问题充分发挥 FPGA 逻辑单元的并行性.\n然后噩耗是, 摄像头和VGA都是扫描的.\n于是最后变成了直接 Threshold. 因为 Threshold 太难调所以又加了个拿 PS2 键盘调 threshold 的小功能.\n然后就变成了识别一个像素点的 绿 红 蓝 分别大于或者小于某个值.\n真 简单粗暴.\n当然直接用手指是效果不好的\n于是我就去淘宝买了三盒红色橡胶指套.\n这指套也不是正红而是粉红.\n于是又去文具店买了根红色记号笔.\n终于能让它稍微效果好点了.\n琴键按下 同上. 直接判断某个屏幕区域里有多少个像素点是被识别成手指的. 然后用个 threshold.\n本来这块也是想并行做的, 然而. 扫描的.\n讲道理只要 30fps 的话并行也不错. 然而实在是懒得写状态姬了. 于是yy了一个动态维护的方法, 直接减去旧值加上新值 (都是0或者1).\n后来发现竟然会减成负的. 毕竟这个识别的准确性和 ram 读写都不是特别靠谱.\n索性过一段时间清零一次这个 count 寄存器组.\n然后意外发现这个东西顺便解决了长按弹起的问题, 鲁棒性大大地加强了. 非常开心.\n别的部分 剩下和 pc 通信并发现钢琴声的部分就全靠队友 bakser 同学了.\nbakser 同学干活还是很靠谱的.\n用了别人的 python 库. 来发声. 竟然还有 fft 和弦这种高级玩意.\n最后其实用起来效果也蛮奇怪的. 不过大家都是弹弹玩, 也没有谁认真地弹琴的. 也就乐呵呵地糊过去了.\n差点搞死我的数设 project 也就是这样了啦.\n以后有机会希望能拿 fpga 造点真正有用的东西. (比如网卡? 交换机? 硬件压缩算法? DL infer?)\n代码库也是乱七八糟没救了. (顺便感激一下 github 上找到的 submodule 让我抄都懒得抄了)\nhttps://github.com/laekov/capiano\nHistorical Comments laekov at 2018-06-12T22:05:42 突然产生了自己寨一个 strava 的想法… 然而除了画图有什么好玩之处呢? 思考\n",
+  "wordCount" : "195",
+  "inLanguage": "en",
+  "datePublished": "2018-06-12T14:00:36Z",
+  "dateModified": "2018-06-12T14:00:36Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/technical/7acc1f/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/technical/">Technicals</a></div>
+    <h1 class="post-title">
+      CaPiano 基于 FPGA 和摄像头的现实增强钢琴
+    </h1>
+    <div class="post-meta"><span title='2018-06-12 14:00:36 +0000 UTC'>June 12, 2018</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e6%91%84%e5%83%8f%e5%a4%b4" aria-label="摄像头">摄像头</a></li>
+                <li>
+                    <a href="#%e8%af%86%e5%88%ab%e7%ae%97%e6%b3%95" aria-label="识别算法">识别算法</a></li>
+                <li>
+                    <a href="#%e7%90%b4%e9%94%ae%e6%8c%89%e4%b8%8b" aria-label="琴键按下">琴键按下</a></li>
+                <li>
+                    <a href="#%e5%88%ab%e7%9a%84%e9%83%a8%e5%88%86" aria-label="别的部分">别的部分</a></li>
+                <li>
+                    <a href="#historical-comments" aria-label="Historical Comments">Historical Comments</a><ul>
+                        <ul>
+                        
+                <li>
+                    <a href="#laekov-at-2018-06-12t220542" aria-label="laekov at 2018-06-12T22:05:42">laekov at 2018-06-12T22:05:42</a>
+                </li>
+            </ul>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p>Queue 了一篇 CaPiano. 上午展示完. 人智课生产力低下. 把它 Dequeue 了罢.</p>
+<p>这个项目的最初设想是造一个识别指尖的算法, 然后用它来弹钢琴并发出声音. 还有一个完全没有开动的二期工程是把它变成一个音游 / 录音机.</p>
+<p>蓝图是美好的, 实现是丑陋的.</p>
+<h3 id="摄像头">摄像头<a hidden class="anchor" aria-hidden="true" href="#摄像头">#</a></h3>
+<p>过去一个半月的主要工作就是和这个 OV7670 (AL422B) 的摄像头做斗争. AL422B 是一个 DRAM 的 FIFO 队列, 通过巧妙地接 7670 和 422 的管脚可以实现把 422 作为 7670 的一个输出缓冲. 422 本来是用于简化这件事的. 在国外大学的 PA 文档里也是这么说的. 然而 422 这个东西最大的毛病就是没有 dataready 这个信号, 所以根本没法成功探索出什么时候可以读. 挣扎了很久之后我选择买了一个不带 422 的 7670.</p>
+<p>7670 通过 SCCB 协议来进行配置, 有一些寄存器. 主要有用的是控制彩色的 <code>12</code> 和控制输出格式的 <code>40</code>. 本来想要 RGB565 加 QVGA 爽歪歪. 然而我的配置模块跑出来结果完全不对, 最后发现根本没设起. 降频到手工时钟都没有办法正常工作. 于是只好放弃, 使用默认的 YUV + VGA.</p>
+<p>另外在网上看到有一个输出彩色条的 <code>80</code> 寄存器. 然而因为同上原因也没有用上.</p>
+<p>YUV格式是一个相邻两个像素共用四字节的奇怪格式. 按照时间读进来的四个字节是 Y1 U Y2 V. 其中Y是灰度, U和V是奇怪的参数. wikipedia 上有一个通过线性变换把它变到 RGB 彩色空间上的矩阵. 然而我发现我只有G是能判断出来的, 而且屏幕上的G其实是红色&hellip;</p>
+<p>这些问题都没解决也不打算解决了. 红色, 够用了.</p>
+<h3 id="识别算法">识别算法<a hidden class="anchor" aria-hidden="true" href="#识别算法">#</a></h3>
+<p>最初想的识别算法是连通块判定blabla. 选这个题也是想用这个 CV 的问题充分发挥 FPGA 逻辑单元的并行性.</p>
+<p>然后噩耗是, 摄像头和VGA都是扫描的.</p>
+<p>于是最后变成了直接 Threshold. 因为 Threshold 太难调所以又加了个拿 PS2 键盘调 threshold 的小功能.</p>
+<p>然后就变成了识别一个像素点的 绿 红 蓝 分别大于或者小于某个值.</p>
+<p>真 简单粗暴.</p>
+<p>当然直接用手指是效果不好的</p>
+<p>于是我就去淘宝买了三盒红色橡胶指套.</p>
+<p>这指套也不是正红而是粉红.</p>
+<p>于是又去文具店买了根红色记号笔.</p>
+<p>终于能让它稍微效果好点了.</p>
+<h3 id="琴键按下">琴键按下<a hidden class="anchor" aria-hidden="true" href="#琴键按下">#</a></h3>
+<p>同上. 直接判断某个屏幕区域里有多少个像素点是被识别成手指的. 然后用个 threshold.</p>
+<p>本来这块也是想并行做的, 然而. 扫描的.</p>
+<p>讲道理只要 30fps 的话并行也不错. 然而实在是懒得写状态姬了. 于是yy了一个动态维护的方法, 直接减去旧值加上新值 (都是0或者1).</p>
+<p>后来发现竟然会减成负的. 毕竟这个识别的准确性和 ram  读写都不是特别靠谱.</p>
+<p>索性过一段时间清零一次这个 count 寄存器组.</p>
+<p>然后意外发现这个东西顺便解决了长按弹起的问题, 鲁棒性大大地加强了. 非常开心.</p>
+<h3 id="别的部分">别的部分<a hidden class="anchor" aria-hidden="true" href="#别的部分">#</a></h3>
+<p>剩下和 pc 通信并发现钢琴声的部分就全靠队友 bakser 同学了.</p>
+<p>bakser 同学干活还是很靠谱的.</p>
+<p>用了别人的 python 库. 来发声. 竟然还有 fft 和弦这种高级玩意.</p>
+<p>最后其实用起来效果也蛮奇怪的. 不过大家都是弹弹玩, 也没有谁认真地弹琴的. 也就乐呵呵地糊过去了.</p>
+<p>差点搞死我的数设 project 也就是这样了啦.</p>
+<p>以后有机会希望能拿 fpga 造点真正有用的东西. (比如网卡? 交换机? 硬件压缩算法? DL infer?)</p>
+<p>代码库也是乱七八糟没救了. (顺便感激一下 github 上找到的 submodule 让我抄都懒得抄了)</p>
+<p><a href="https://github.com/laekov/capiano">https://github.com/laekov/capiano</a></p>
+<hr/>
+<h3 id="historical-comments">Historical Comments<a hidden class="anchor" aria-hidden="true" href="#historical-comments">#</a></h3>
+<h5 id="laekov-at-2018-06-12t220542">laekov at 2018-06-12T22:05:42<a hidden class="anchor" aria-hidden="true" href="#laekov-at-2018-06-12t220542">#</a></h5>
+<p>突然产生了自己寨一个 strava 的想法&hellip; 然而除了画图有什么好玩之处呢? 思考</p>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/fpga/">fpga</a></li>
+      <li><a href="/tags/verilog/">verilog</a></li>
+      <li><a href="/tags/developing/">developing</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/technical/e51049/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>DyNet 论文笔记</span>
+  </a>
+  <a class="next" href="/technical/75774b/">
+    <span class="title">Next »</span>
+    <br>
+    <span>人智的另一个作业. 教你 30 分钟写完 MNIST 作业</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

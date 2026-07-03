@@ -1,0 +1,1163 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Codes on The Site of laekov</title>
+    <link>/code/</link>
+    <description>Recent content in Codes on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Mon, 07 Oct 2019 09:39:11 +0000</lastBuildDate><atom:link href="/code/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>meeting.cc</title>
+      <link>/code/bd6efc/</link>
+      <pubDate>Mon, 07 Oct 2019 09:39:11 +0000</pubDate>
+      
+      <guid>/code/bd6efc/</guid>
+      <description>#include #include #include using namespace std;
+typedef long long dint; #define _l (long long int)
+struct Edge { int t; Edge* ne; };
+const int maxn = 100003;
+dint f[maxn], g[maxn], ans; Edge epool[maxn * 2], *ebuf(epool), *head[maxn]; int n;
+inline void addEdge(int u, int v) { ebuf-&amp;gt;t = v; ebuf-&amp;gt;ne = head[u]; head[u] = ebuf++; }
+void DFS(int u, int fr) { f[u] = 1; g[u] = 0; for (Edge* e = head[u]; e; e = e-&amp;gt;ne) { if (e-&amp;gt;t !</description>
+    </item>
+    
+    <item>
+      <title>leetcode5129.py</title>
+      <link>/code/fbcc0f/</link>
+      <pubDate>Tue, 16 Jul 2019 12:15:49 +0000</pubDate>
+      
+      <guid>/code/fbcc0f/</guid>
+      <description>class Solution: def longestWPI(self, hours: List[int]) -&amp;gt; int: for i, h in enumerate(hours): hours[i] = 1 if h &amp;gt; 8 else -1 s = [0] n = len(hours) values = [0] * (n * 2 + 2) for i, h in enumerate(hours): s.append(s[-1] + h) values[s[-1] + n] = i + 1 for i in range(n * 2 - 1, -1, -1): values[i] = max(values[i], values[i + 1]) answer = 0 for i in range(n): answer = max(answer, values[s[i] + n + 1] - i) return answer</description>
+    </item>
+    
+    <item>
+      <title>leetocde5130.py</title>
+      <link>/code/be49b0/</link>
+      <pubDate>Tue, 16 Jul 2019 00:24:11 +0000</pubDate>
+      
+      <guid>/code/be49b0/</guid>
+      <description>class Solution: def smallestSufficientTeam(self, req_skills: List[str], people: List[List[str]]) -&amp;gt; List[int]: m = len(req_skills) dp = [99999] * (1 &amp;laquo; m) fr = [None] * (1 &amp;laquo; m) dp[0] = 0 for pi, p in enumerate(people): skills = 0 for s in p: try: idx = req_skills.index(s) skills |= 1 &amp;laquo; idx except Exception: continue for i in range(1 &amp;laquo; m): if dp[i | skills] &amp;gt; dp[i] + 1: dp[i | skills] = dp[i] + 1 fr[i | skills] = (i, pi) result = [] stat = (1 &amp;laquo; m) - 1 while stat &amp;gt; 0: result.</description>
+    </item>
+    
+    <item>
+      <title>bzoj2118.cc</title>
+      <link>/code/c6433f/</link>
+      <pubDate>Sat, 29 Apr 2017 19:55:40 +0000</pubDate>
+      
+      <guid>/code/c6433f/</guid>
+      <description>#include #include #include using namespace std;
+typedef long long qw; typedef pair &amp;lt;qw, int&amp;gt; dpair;
+#ifdef WIN32 #define lld &amp;ldquo;%I64d&amp;rdquo; #else #define lld &amp;ldquo;%lld&amp;rdquo; #endif
+const int maxn = 13; const int maxw = 400009;
+int n, w[maxn]; qw b0, b1, d[maxw]; dpair hp[maxn * maxw];
+void dijkstra() { int th = 1; memset(d, -1, sizeof(d)); hp[0] = dpair(0, 0); while (th) { dpair g = hp[0]; pop_heap(hp, hp + (th &amp;ndash;)); if (d[g.</description>
+    </item>
+    
+    <item>
+      <title>pineapple.vim</title>
+      <link>/code/pineapple/</link>
+      <pubDate>Wed, 28 Sep 2016 15:29:24 +0000</pubDate>
+      
+      <guid>/code/pineapple/</guid>
+      <description>&amp;quot; local syntax file - set colors on a per-machine basis: &amp;quot; vim: tw=0 ts=4 sw=4 &amp;quot; Vim color file &amp;quot; Maintainer:	laekov laekov@163.com &amp;quot; Last Change:	2015 Feb &amp;quot; hi clear set background=dark syntax reset let g:colors_name=&amp;lsquo;pineapple&amp;rsquo; if has(&amp;lsquo;gui&amp;rsquo;) hi Normal guibg=#000000 guifg=white hi SpecialKey term=bold ctermfg=4 guifg=Blue hi Directory term=bold ctermfg=4 guifg=Blue hi ErrorMsg term=standout cterm=bold ctermfg=7 ctermbg=1 gui=bold guifg=White guibg=Red hi IncSearch term=reverse cterm=reverse gui=reverse hi Search term=reverse guibg=Blue guifg=White hi MoreMsg term=bold ctermfg=2 gui=bold guifg=White hi ModeMsg term=bold cterm=bold gui=bold hi LineNr term=underline ctermfg=3 guifg=Pink guibg=#222222 hi Question term=standout ctermfg=2 gui=bold guifg=White hi StatusLine term=bold,reverse cterm=bold,reverse gui=bold guifg=White guibg=Grey35 hi StatusLineNC term=reverse cterm=reverse gui=bold guifg=Grey10 guibg=Gray85 hi VertSplit guibg=Pink guifg=Black hi Title term=bold ctermfg=5 gui=bold guifg=DeepPink3 hi Visual term=reverse cterm=reverse gui=reverse guifg=Grey80 guibg=fg hi VisualNOS term=bold,underline cterm=bold,underline gui=bold,underline hi WarningMsg term=standout ctermfg=1 gui=bold guifg=Red hi WildMenu term=standout ctermfg=0 ctermbg=3 guifg=Black guibg=Yellow hi Folded term=standout ctermfg=4 ctermbg=7 guifg=Black guibg=#e3c1a5 hi FoldColumn term=standout ctermfg=4 ctermbg=7 guifg=DarkBlue guibg=Gray80 hi DiffAdd term=bold ctermbg=4 guibg=White hi DiffChange term=bold ctermbg=5 guibg=#edb5cd hi DiffDelete term=bold cterm=bold ctermfg=4 ctermbg=6 gui=bold guifg=LightBlue guibg=#f6e8d0 hi DiffText term=reverse cterm=bold ctermbg=1 gui=bold guibg=#ff8060 hi Cursor guifg=black guibg=white hi lCursor guifg=bg guibg=fg hi CursorLine guibg=#222222 hi CursorLineNr guibg=#222222 guifg=red hi NonText guifg=green guibg=#1a1a1a &amp;quot; Colors for syntax highlighting hi Comment term=bold ctermfg=4 guifg=Cyan hi Constant term=underline ctermfg=1 guifg=Yellow hi Special term=bold ctermfg=5 guifg=#ff9c3a hi Identifier term=underline ctermfg=6 guifg=#9999ff hi Statement term=bold ctermfg=3 gui=bold guifg=#09f93f hi PreProc term=underline ctermfg=5 guifg=#888888 hi Type term=underline ctermfg=2 gui=bold guifg=#598ff9 hi Ignore cterm=bold ctermfg=7 guifg=bg hi Error term=reverse cterm=bold ctermfg=7 ctermbg=1 gui=bold guifg=White guibg=Red hi Todo term=standout ctermfg=0 ctermbg=3 guifg=Blue guibg=Yellow else hi Normal ctermfg=white ctermbg=0 hi ErrorMsg cterm=standout cterm=bold ctermfg=7 ctermbg=1 hi IncSearch cterm=reverse ctermbg=1 ctermfg=7 hi Search cterm=reverse ctermbg=7 ctermfg=blue hi Visual cterm=reverse if $TERM == &amp;lsquo;xterm-256color&amp;rsquo; &amp;quot;	hi NonText cterm=bold ctermbg=232 ctermfg=2 &amp;quot;	hi Type cterm=bold ctermfg=4 &amp;quot;	hi Special cterm=bold ctermfg=172 hi NonText cterm=bold ctermbg=234 ctermfg=2 hi Type cterm=bold ctermfg=4 hi Special cterm=bold ctermfg=1 else hi NonText cterm=bold ctermbg=8 ctermfg=2 hi Type cterm=bold ctermfg=32 hi Special cterm=bold ctermfg=1 endif hi LineNr cterm=bold ctermfg=5 hi ModeMsg cterm=bold hi StatusLine cterm=bold ctermfg=7 ctermbg=8 hi StatusLineNC ctermfg=7 ctermbg=8 hi VertSplit ctermfg=0 ctermbg=5 hi Folded cterm=standout ctermfg=3 ctermbg=4 hi FoldedColumn cterm=standout ctermfg=3 ctermbg=4 &amp;ldquo;For syntax hilighter hi Comment cterm=bold ctermfg=6 hi Constant ctermfg=yellow hi Indentifier cterm=bold ctermfg=2 hi Statement cterm=bold ctermfg=2 hi PreProc cterm=bold ctermfg=darkgrey hi Ignore ctermfg=7 hi Error term=reverse cterm=bold ctermfg=7 ctermbg=1 hi Todo term=standout ctermbg=6 ctermfg=0 endif</description>
+    </item>
+    
+    <item>
+      <title>cf703e.cc</title>
+      <link>/code/c868c5/</link>
+      <pubDate>Sun, 07 Aug 2016 09:36:53 +0000</pubDate>
+      
+      <guid>/code/c868c5/</guid>
+      <description>#include #include #include using namespace std;
+typedef long long dint; #define _l (long long int) #ifdef WIN32
+define lld &amp;ldquo;%I64d&amp;rdquo; #else
+define lld &amp;ldquo;%lld&amp;rdquo; #endif
+const int maxs = (1 &amp;laquo; 22) + 1; const int maxf = 23; const int inf = 0x3f3f3f3f; const int maxn = 1003;
+typedef pair &amp;lt;dint, int&amp;gt; item;
+item a[maxn]; dint k, kf[maxf], fs[maxs]; int f[maxs], ff[maxs], cs[maxs], fv[maxs], n, m, t, cf[maxf], v[maxf], vn[maxf], c;</description>
+    </item>
+    
+    <item>
+      <title>noip2015_transport.cc</title>
+      <link>/code/dbimport_261/</link>
+      <pubDate>Tue, 17 Nov 2015 22:35:03 +0000</pubDate>
+      
+      <guid>/code/dbimport_261/</guid>
+      <description>// Source code from laekov at noip 2015 day2 #define PRID &amp;ldquo;transport&amp;rdquo; #include #include #include #include using namespace std;
+const int maxn = 300003; const int maxl = 21;
+const int buf_len = 45678; char buf[buf_len], *bufb(buf), *bufe(buf + 1); #define readBuf() { if (++ bufb == bufe) bufe = (bufb = buf) + fread(buf, 1, sizeof(buf), stdin); } #define readInt(x) { register int s(0), neg(0); while (!isdigit(*bufb)) { if (*bufb == &amp;lsquo;-&amp;rsquo;) neg = 1; readBuf(); } do { s = s * 10 + *bufb - 48; readBuf(); } while (isdigit(*bufb)); if (neg) x = -s; else x = s; }</description>
+    </item>
+    
+    <item>
+      <title>noip2015_substring.cc</title>
+      <link>/code/dbimport_260/</link>
+      <pubDate>Tue, 17 Nov 2015 22:31:07 +0000</pubDate>
+      
+      <guid>/code/dbimport_260/</guid>
+      <description>// Source code from laekov at noip 2015 day2 #define PRID &amp;ldquo;substring&amp;rdquo; #include #include #include using namespace std;
+const int maxa = 2003; const int maxb = 203; const int mod = 1e9 + 7;
+int n, m, l, f[2][maxb][maxb][2]; char a[maxa], b[maxb];
+#define mInc(a,b) { a += b; if (a &amp;gt;= mod) a -= mod; }
+int main() { freopen(PRID &amp;ldquo;.in&amp;rdquo;, &amp;ldquo;r&amp;rdquo;, stdin); freopen(PRID &amp;ldquo;.out&amp;rdquo;, &amp;ldquo;w&amp;rdquo;, stdout);
+scanf(&amp;quot;%d%d%d&amp;quot;, &amp;amp;n, &amp;amp;m, &amp;amp;l); scanf(&amp;quot;%s%s&amp;quot;, a, b); memset(f, 0, sizeof(f)); int cur(0), prv(1); f[cur][0][0][0] = 1; for (int i = 0; i &amp;lt; n; ++ i) { swap(cur, prv); memset(f[cur], 0, sizeof(f[cur])); for (int j = 0; j &amp;lt;= m; ++ j) { for (int k = 0; k &amp;lt;= j &amp;amp;&amp;amp; k &amp;lt;= l; ++ k) { if (f[prv][j][k][0]) mInc(f[cur][j][k][0], f[prv][j][k][0]); if (f[prv][j][k][1]) mInc(f[cur][j][k][0], f[prv][j][k][1]); } if (j &amp;lt; m &amp;amp;&amp;amp; a[i] == b[j]) { for (int k = 0; k &amp;lt;= j &amp;amp;&amp;amp; k &amp;lt;= l; ++ k) { if (f[prv][j][k][0] &amp;amp;&amp;amp; k &amp;lt; l) mInc(f[cur][j + 1][k + 1][1], f[prv][j][k][0]); if (f[prv][j][k][1]) { if (k &amp;lt; l) mInc(f[cur][j + 1][k + 1][1], f[prv][j][k][1]); mInc(f[cur][j + 1][k][1], f[prv][j][k][1]); } } } } } printf(&amp;quot;%d\n&amp;quot;, (f[cur][m][l][0] + f[cur][m][l][1])% mod); }</description>
+    </item>
+    
+    <item>
+      <title>noip2015_stone.cc</title>
+      <link>/code/dbimport_259/</link>
+      <pubDate>Tue, 17 Nov 2015 22:29:31 +0000</pubDate>
+      
+      <guid>/code/dbimport_259/</guid>
+      <description>// Source code from laekov at noip 2015 day2 #define PRID &amp;ldquo;stone&amp;rdquo; #include #include #include using namespace std;
+const int maxn = 50003;
+int n, m, l, a[maxn];
+int checkStone(int lt) { int s(0), po(0); for (int i = 0; i &amp;lt; n; ++ i) if (a[i] - po &amp;gt;= lt) po = a[i]; else ++ s; if (l - po &amp;lt; lt) ++ s; return s; }
+int main() { freopen(PRID &amp;ldquo;.</description>
+    </item>
+    
+    <item>
+      <title>noip2015_landlords.cc</title>
+      <link>/code/dbimport_256/</link>
+      <pubDate>Tue, 17 Nov 2015 22:27:55 +0000</pubDate>
+      
+      <guid>/code/dbimport_256/</guid>
+      <description>// Source code from laekov at noip 2015 day1 #define PRID &amp;ldquo;landlords&amp;rdquo; #include #include #include using namespace std;
+const int maxn = 17;
+int t, n, a[maxn], ans, c;
+int readCard() { int x, y; scanf(&amp;quot;%d%d&amp;quot;, &amp;amp;x, &amp;amp;y); if (x == 0) return 12 + y; else if (x == 1) return 11; else if (x == 2) return 12; else return x - 3; }
+void checkCtn(int, int, int, int);</description>
+    </item>
+    
+    <item>
+      <title>noip2015_message.cc</title>
+      <link>/code/dbimport_258/</link>
+      <pubDate>Tue, 17 Nov 2015 22:25:38 +0000</pubDate>
+      
+      <guid>/code/dbimport_258/</guid>
+      <description>// Source code from laekov at noip 2015 day1 #define PRID &amp;ldquo;message&amp;rdquo; #include #include #include using namespace std;
+const int maxn = 200003;
+int ans, n, t[maxn], d[maxn], v[maxn];
+int walk(int po) { if (d[po]) return n; int p(po); d[p] = 1; v[p] = po; while (p) if (!d[t[p]]) { d[t[p]] = d[p] + 1; v[t[p]] = po; p = t[p]; } else if (v[t[p]] == po) return d[p] - d[t[p]] + 1; else return n; return n; }</description>
+    </item>
+    
+    <item>
+      <title>noip2015_magic.cc</title>
+      <link>/code/dbimport_257/</link>
+      <pubDate>Tue, 17 Nov 2015 22:22:07 +0000</pubDate>
+      
+      <guid>/code/dbimport_257/</guid>
+      <description>// Source code from laekov at noip 2015 day1 #define PRID &amp;ldquo;magic&amp;rdquo; #include #include #include using namespace std;
+const int maxn = 41;
+int n, a[maxn][maxn], px[maxn * maxn], py[maxn * maxn];
+int main() { freopen(PRID &amp;ldquo;.in&amp;rdquo;, &amp;ldquo;r&amp;rdquo;, stdin); freopen(PRID &amp;ldquo;.out&amp;rdquo;, &amp;ldquo;w&amp;rdquo;, stdout);
+memset(a, -1, sizeof(a)); scanf(&amp;quot;%d&amp;quot;, &amp;amp;n); px[1] = 1; py[1] = (n + 1) &amp;gt;&amp;gt; 1; a[px[1]][py[1]] = 1; for (int i = 2; i &amp;lt;= n * n; ++ i) { if (px[i - 1] == 1 &amp;amp;&amp;amp; py[i - 1] &amp;lt; n) px[i] = n, py[i] = py[i - 1] + 1; else if (py[i - 1] == n &amp;amp;&amp;amp; px[i - 1] &amp;gt; 1) px[i] = px[i - 1] - 1, py[i] = 1; else if (px[i - 1] == 1 &amp;amp;&amp;amp; py[i - 1] == n) px[i] = 2, py[i] = n; else if (a[px[i - 1] - 1][py[i - 1] + 1] == -1) px[i] = px[i - 1] - 1, py[i] = py[i - 1] + 1; else px[i] = px[i - 1] + 1, py[i] = py[i - 1]; a[px[i]][py[i]] = i; } for (int i = 1; i &amp;lt;= n; ++ i) for (int j = 1; j &amp;lt;= n; ++ j) printf(&amp;quot;%d%c&amp;quot;, a[i][j], (j == n) ?</description>
+    </item>
+    
+    <item>
+      <title>recite.cc</title>
+      <link>/code/dbimport_273/</link>
+      <pubDate>Wed, 08 Jul 2015 22:45:30 +0000</pubDate>
+      
+      <guid>/code/dbimport_273/</guid>
+      <description>#include &amp;lt;bits/stdc++.h&amp;gt;
+using namespace std;
+const int maxn = 203; const int maxstr = 1003;
+int n, ted[maxn], tec; char g[maxstr], sq[maxn][maxstr], sa[maxn][maxstr];
+void setcol(int c) { printf(&amp;quot;\33[%dm&amp;quot;, c); }
+void init() { FILE* ipf(fopen(&amp;ldquo;bstk.txt&amp;rdquo;, &amp;ldquo;r&amp;rdquo;)); n = 0; while (fgets(g, sizeof(g), ipf), !feof(ipf)) { char* p; p = strstr(g, &amp;ldquo;&amp;mdash;&amp;rdquo;); if (!p) continue; *p = 0; strcpy(sq[n], g); strcpy(sa[n], p + strlen(&amp;quot;&amp;mdash;&amp;quot;)); ++ n; } fclose(ipf); printf(&amp;quot;%d problems loaded\n&amp;quot;, n); }</description>
+    </item>
+    
+    <item>
+      <title>bzoj2850.cc</title>
+      <link>/code/dbimport_164/</link>
+      <pubDate>Wed, 01 Jul 2015 20:51:30 +0000</pubDate>
+      
+      <guid>/code/dbimport_164/</guid>
+      <description>#include #include #include using namespace std;
+typedef long long dint; #ifdef WIN32
+define lld &amp;ldquo;%I64d&amp;rdquo; #else
+define lld &amp;ldquo;%lld&amp;rdquo; #endif #define _l (long long int)
+struct kdnode { int p[2], r[2][2], v; dint h; kdnode *ch[2]; inline void update(); }; struct candy { int a[2], v; void read() { scanf(&amp;quot;%d%d%d&amp;quot;, a, a + 1, &amp;amp;v); } };
+typedef struct biobj { double x, y; biobj() {} biobj(double xo, double yo) { x = xo, y = yo; } } point, vect; inline biobj operator +(const biobj&amp;amp; a, const biobj&amp;amp; b) { return biobj(a.</description>
+    </item>
+    
+    <item>
+      <title>bzoj4134.cc</title>
+      <link>/code/dbimport_245/</link>
+      <pubDate>Sat, 27 Jun 2015 21:39:37 +0000</pubDate>
+      
+      <guid>/code/dbimport_245/</guid>
+      <description>#include #include #include using namespace std;
+struct edge { int t; edge *ne; };
+struct node { int sz, rv; node *ch[2]; };
+const int maxn = 100003; const int maxnd = maxn * 46; const int maxl = 19;
+int n, vo[maxn], f[maxn], sp[maxn], tsp; node nbuf_arr[maxnd], *nbuf(nbuf_arr), *rt[maxn]; edge ebuf_arr[maxn &amp;laquo; 1], *ebuf(ebuf_arr), *head[maxn];
+#define szof(p) (p?p-&amp;gt;sz:0)
+inline void pushDown(node* q, int l) { if ((q-&amp;gt; rv &amp;raquo; l) &amp;amp; 1) swap(q-&amp;gt; ch[0], q-&amp;gt; ch[1]); if (q-&amp;gt; ch[0]) q-&amp;gt; ch[0]-&amp;gt; rv ^= q-&amp;gt; rv; if (q-&amp;gt; ch[1]) q-&amp;gt; ch[1]-&amp;gt; rv ^= q-&amp;gt; rv; q-&amp;gt; rv = 0; }</description>
+    </item>
+    
+    <item>
+      <title>bzoj2781.cc</title>
+      <link>/code/dbimport_158/</link>
+      <pubDate>Fri, 26 Jun 2015 21:44:49 +0000</pubDate>
+      
+      <guid>/code/dbimport_158/</guid>
+      <description>#include #include #include using namespace std;
+struct mov { int x, y, d; mov() { x = y = d = 0; } void rot(); };
+const int maxl = 33;
+int le[maxl], t; mov a[maxl], b[maxl];
+void mov :: rot() { int xo(x), yo(y); y = xo, x = -yo; d = (d + 1) &amp;amp; 3; }
+mov operator +(mov a, mov b) { mov r; for (int i = 0; i &amp;lt; a.</description>
+    </item>
+    
+    <item>
+      <title>bzoj3329.cc</title>
+      <link>/code/dbimport_191/</link>
+      <pubDate>Tue, 23 Jun 2015 15:52:31 +0000</pubDate>
+      
+      <guid>/code/dbimport_191/</guid>
+      <description>#include #include #include using namespace std;
+typedef long long dint; #ifdef WIN32 #define lld &amp;ldquo;%I64d&amp;rdquo; #else #define lld &amp;ldquo;%lld&amp;rdquo; #endif #define _l (long long int)
+const int maxl = 103;
+int bi[maxl], le; dint f[maxl], g[maxl][2];
+dint digDP(dint n) { le = 0; for (; n; n &amp;raquo;= 1, ++ le) bi[le] = n &amp;amp; 1; bi[le ++] = 0; memset(f, 0, sizeof(f)); memset(g, 0, sizeof(g)); g[0][0] = g[0][1] = 1; for (int i = 1; i &amp;lt; le; ++ i) { g[i][0] = g[i - 1][0] + g[i - 1][1]; g[i][1] = g[i - 1][0]; } f[0] = 1; for (int i = 1; i &amp;lt; le; ++ i) if (bi[i] == 1) { if (bi[i - 1] == 1) f[i] = g[i - 1][0]; else f[i] = f[i - 1]; } else { if (bi[i - 1] == 1) f[i] = f[i - 1] + g[i - 1][0]; else f[i] = f[i - 1]; } return f[le - 1] - 1; }</description>
+    </item>
+    
+    <item>
+      <title>bzoj4145.cc</title>
+      <link>/code/dbimport_247/</link>
+      <pubDate>Mon, 22 Jun 2015 10:56:09 +0000</pubDate>
+      
+      <guid>/code/dbimport_247/</guid>
+      <description>#include #include #include using namespace std;
+#define pow2(x) (1&amp;laquo;(x))
+const int maxn = 103; const int maxm = 19; const int maxs = pow2(16) + 3;
+int n, m, e, d[maxn], c[maxn][maxm], f[maxs], g[maxs];
+inline void upMin(int&amp;amp; a, const int&amp;amp; b) { if (a &amp;gt; b) a = b; }
+int main() { #ifdef LAEKOV_LOCAL freopen(&amp;quot;.in&amp;quot;, &amp;ldquo;r&amp;rdquo;, stdin); #endif
+scanf(&amp;quot;%d%d&amp;quot;, &amp;amp;n, &amp;amp;m); for (int i = 1; i &amp;lt;= n; ++ i) { scanf(&amp;quot;%d&amp;quot;, d + i); for (int j = 0; j &amp;lt; m; ++ j) scanf(&amp;quot;%d&amp;quot;, c[i] + j); } memset(f, 0x3f, sizeof(f)); f[0] = 0; e = pow2(m); for (int i = 1; i &amp;lt;= n; ++ i) { memset(g, 0x3f, sizeof(int) * e); for (int j = 0; j &amp;lt; m; ++ j) for (int k = e - 1; k &amp;gt;= 0; -- k) if (k &amp;amp; pow2(j)) { upMin(g[k], g[k ^ pow2(j)] + c[i][j]); upMin(g[k], f[k ^ pow2(j)] + d[i] + c[i][j]); } for (int j = 0; j &amp;lt; e; ++ j) upMin(g[j], f[j]); memcpy(f, g, sizeof(int) * e); } printf(&amp;quot;%d\n&amp;quot;, f[e - 1]); }</description>
+    </item>
+    
+    <item>
+      <title>bzoj4152.cc</title>
+      <link>/code/dbimport_249/</link>
+      <pubDate>Sun, 21 Jun 2015 11:13:13 +0000</pubDate>
+      
+      <guid>/code/dbimport_249/</guid>
+      <description>#include #include #include #include using namespace std;
+struct point { int x, y; void read() { scanf(&amp;quot;%d%d&amp;quot;, &amp;amp;x, &amp;amp;y); } }; struct edge { int t, v; edge *ne; };
+typedef pair &amp;lt;int, int&amp;gt; dpr;
+const int maxn = 200003;
+int n, xo[maxn], yo[maxn], d[maxn]; point p[maxn]; edge ebuf_arr[maxn &amp;laquo; 2], *ebuf(ebuf_arr), *head[maxn];
+inline bool xCmp(const int&amp;amp; a, const int&amp;amp; b) { return p[a]. x &amp;lt; p[b]. x; } inline bool yCmp(const int&amp;amp; a, const int&amp;amp; b) { return p[a].</description>
+    </item>
+    
+    <item>
+      <title>bzoj3451.cc</title>
+      <link>/code/dbimport_193/</link>
+      <pubDate>Wed, 17 Jun 2015 20:35:11 +0000</pubDate>
+      
+      <guid>/code/dbimport_193/</guid>
+      <description>#include #include #include #include using namespace std;
+#define float_t __float_t
+typedef double float_t; #define _f (float_t)
+struct cplx { float_t r, i; cplx() {} cplx(float_t ro, float_t io) { r = ro, i = io; } }; inline cplx operator +(const cplx&amp;amp; a, const cplx&amp;amp; b) { return cplx(a. r + b. r, a. i + b. i); } inline cplx operator -(const cplx&amp;amp; a, const cplx&amp;amp; b) { return cplx(a.</description>
+    </item>
+    
+    <item>
+      <title>bzoj3265.cc</title>
+      <link>/code/dbimport_185/</link>
+      <pubDate>Tue, 16 Jun 2015 20:58:26 +0000</pubDate>
+      
+      <guid>/code/dbimport_185/</guid>
+      <description>#include #include #include using namespace std;
+typedef long long dint; #ifdef WIN32 #define lld &amp;ldquo;%I64d&amp;rdquo; #else #define lld &amp;ldquo;%lld&amp;rdquo; #endif #define _l (long long int)
+const int maxn = 1003; const int maxm = 10003; const dint dinf = 0x3f3f3f3f3f3f3f3fll;
+int n, m, ne[maxn]; dint a[maxm][maxn];
+void pivot(int e, int p) { int fr(n + 1); for (int i = n; i &amp;gt;= 0; &amp;ndash; i) if (a[p][i]) { ne[fr] = i; fr = i; } ne[fr] = -1; a[p][e] = -1; for (int i = 0; i &amp;lt;= m; ++ i) if (i !</description>
+    </item>
+    
+    <item>
+      <title>bzoj2589.cc</title>
+      <link>/code/dbimport_148/</link>
+      <pubDate>Fri, 12 Jun 2015 13:38:57 +0000</pubDate>
+      
+      <guid>/code/dbimport_148/</guid>
+      <description>#include #include #include using namespace std;
+struct seg { int v; seg *ch[2]; }; struct edge { int t; edge *ne; };
+const int maxn = 40003; const int leafc = 20; const int maxk = leafc + 1;; const int maxl = 17; const int albsz = 1000003;
+int n, m, t, w[maxn], dl[maxn], df[maxn], fk[maxn], deg[maxn]; int tlf, lf[maxk], la[maxk][maxn], d[maxk][maxn], fr[maxk][maxn]; int dfb[maxk][maxn], dfe[maxk][maxn], dfn; int tvis, vis[maxn], vo[maxn], tv; seg *rt[maxk][maxn], *rl[maxk][maxn]; edge ebuf_arr[maxn &amp;laquo; 1], *ebuf(ebuf_arr), *head[maxn];</description>
+    </item>
+    
+    <item>
+      <title>rshcr5count.cc</title>
+      <link>/code/dbimport_274/</link>
+      <pubDate>Thu, 11 Jun 2015 20:03:44 +0000</pubDate>
+      
+      <guid>/code/dbimport_274/</guid>
+      <description>#include #include #include using namespace std;
+#define _l (long long int)
+const int maxn = 103; const int mod = 1e9 + 7;
+int modPow(int a, int x) { int s(1); for (; x; x &amp;raquo;= 1, a = _l a * a % mod) if (x &amp;amp; 1) s = _l s * a % mod; return s; }
+int fac[maxn], finv[maxn], vinv[maxn]; int n, m, k, f[maxn], c[maxn];</description>
+    </item>
+    
+    <item>
+      <title>bzoj1228.cc</title>
+      <link>/code/dbimport_123/</link>
+      <pubDate>Thu, 11 Jun 2015 14:48:59 +0000</pubDate>
+      
+      <guid>/code/dbimport_123/</guid>
+      <description>#include #include #include using namespace std;
+int calc(int i, int j, int d) { if ((i &amp;amp; 1) &amp;amp;&amp;amp; (j &amp;amp; 1)) return d; else return calc((i + 1) &amp;raquo; 1, (j + 1) &amp;raquo; 1, d + 1); }
+int main() { #ifdef LAEKOV_LOCAL freopen(&amp;quot;.in&amp;quot;, &amp;ldquo;r&amp;rdquo;, stdin); #endif
+int t; scanf(&amp;quot;%d&amp;quot;, &amp;amp;t); while (t --) { int n, s(0); scanf(&amp;quot;%d&amp;quot;, &amp;amp;n); for (int i = 0; i &amp;lt; n; i += 2) { int a, b; scanf(&amp;quot;%d%d&amp;quot;, &amp;amp;a, &amp;amp;b); s ^= calc(a, b, 0); } puts(s ?</description>
+    </item>
+    
+    <item>
+      <title>bzoj4127.cc</title>
+      <link>/code/dbimport_243/</link>
+      <pubDate>Wed, 10 Jun 2015 21:19:27 +0000</pubDate>
+      
+      <guid>/code/dbimport_243/</guid>
+      <description>#include #include #include #include using namespace std;
+const int buf_len = 45678; char buf[buf_len], *bufb(buf), *bufe(buf + 1); #define readBuf() { if (++ bufb == bufe) bufe = (bufb = buf) + fread(buf, 1, sizeof(buf), stdin); } #define readInt(x) { register int s(0), neg(0); while (!isdigit(*bufb)) { if (*bufb == &amp;lsquo;-&amp;rsquo;) neg = 1; readBuf(); } do { s = s * 10 + *bufb - 48; readBuf(); } while (isdigit(*bufb)); if (neg) x = -s; else x = s; }</description>
+    </item>
+    
+    <item>
+      <title>bzoj4004.cc</title>
+      <link>/code/dbimport_225/</link>
+      <pubDate>Tue, 09 Jun 2015 21:05:41 +0000</pubDate>
+      
+      <guid>/code/dbimport_225/</guid>
+      <description>#include #include #include using namespace std;
+#define _l (long long int)
+const int maxn = 503; const int hmod = 1111111121;
+int n, m, a[maxn][maxn], b[maxn][maxn], rb[maxn][maxn], c[maxn], o[maxn]; int t, s;
+inline bool cCmp(const int&amp;amp; a, const int&amp;amp; b) { return c[a] &amp;lt; c[b]; }
+void pr() { for (int i = 0; i &amp;lt; t; ++ i, putchar(10)) for (int j = 0; j &amp;lt; m; ++ j) fprintf(stderr, &amp;ldquo;%5d&amp;rdquo;, b[i][j]); }</description>
+    </item>
+    
+    <item>
+      <title>hdu5267.cc</title>
+      <link>/code/dbimport_253/</link>
+      <pubDate>Sun, 07 Jun 2015 21:24:23 +0000</pubDate>
+      
+      <guid>/code/dbimport_253/</guid>
+      <description>#include #include #include using namespace std;
+typedef long long dint; #ifdef WIN32 #define lld &amp;ldquo;%I64d&amp;rdquo; #else #define lld &amp;ldquo;%lld&amp;rdquo; #endif #define _l (long long int)
+struct edge { int t; edge *ne; };
+struct seg { int l, r, rv, s; seg *ch[2]; };
+const int maxn = 10003; const int maxl = 17;
+int n, m, a[maxn], ca[maxn]; int dv[maxn], sz[maxl][maxn], dfb[maxl][maxn], dfe[maxl][maxn], dsr[maxl][maxn], df[maxn]; int cp[maxn], cv[maxn], cb[maxn]; dint ans[maxn], cans; dint tp[maxn], xpc[maxn]; int tvis, vis[maxn]; edge ebuf_arr[maxn &amp;laquo; 1], *ebuf, *head[maxn]; seg sbuf_arr[maxn * maxl * 3], *sbuf, *rt[maxn];</description>
+    </item>
+    
+    <item>
+      <title>bzoj4123.cc</title>
+      <link>/code/dbimport_241/</link>
+      <pubDate>Thu, 04 Jun 2015 22:31:32 +0000</pubDate>
+      
+      <guid>/code/dbimport_241/</guid>
+      <description>#include #include #include using namespace std;
+const int maxn = 1000003;
+int n, l, a[maxn], b[maxn], s; int q[maxn], hd, tl;
+int main() { #ifdef LAEKOV_LOCAL freopen(&amp;quot;.in&amp;quot;, &amp;ldquo;r&amp;rdquo;, stdin); #endif
+scanf(&amp;quot;%d&amp;quot;, &amp;amp;n); for (int i = 1; i &amp;lt;= n; ++ i) scanf(&amp;quot;%d&amp;quot;, a + i); for (int i = n + 1; i &amp;lt;= n * 2; ++ i) a[i] = a[i - n]; a[0] = 0; for (int i = 1; i &amp;lt;= n * 2; ++ i) a[i] += a[i - 1]; l = (n + 1) &amp;gt;&amp;gt; 1; for (int i = 1; i + l - 1 &amp;lt;= n * 2; ++ i) b[i] = a[i + l - 1] - a[i - 1]; s = 0; hd = tl = 0; for (int i = 1; i + l - 1 &amp;lt;= n * 2; ++ i) { while (hd &amp;lt; tl &amp;amp;&amp;amp; b[q[tl - 1]] &amp;gt;= b[i]) -- tl; q[tl ++] = i; while (hd &amp;lt; tl &amp;amp;&amp;amp; q[hd] + l &amp;lt;= i) ++ hd; if (i &amp;gt;= l) s = max(s, b[q[hd]]); } printf(&amp;quot;%d\n&amp;quot;, s); }</description>
+    </item>
+    
+    <item>
+      <title>bzoj2877.cc</title>
+      <link>/code/dbimport_166/</link>
+      <pubDate>Thu, 28 May 2015 19:39:30 +0000</pubDate>
+      
+      <guid>/code/dbimport_166/</guid>
+      <description>#include #include #include using namespace std;
+typedef long long dint; #ifdef WIN32 #define lld &amp;ldquo;%I64d&amp;rdquo; #else #define lld &amp;ldquo;%lld&amp;rdquo; #endif #define _l (long long int)
+#define checkNeg(x) { if (x &amp;lt; 0) x = -x; } dint gcd(dint a, dint b) { checkNeg(a); checkNeg(b); while (a) { register dint c(b % a); b = a; a = c; } return b; }
+#define md ((p-&amp;gt;l+p-&amp;gt;r)&amp;raquo;1) #define mdp(p) ((p-&amp;gt;l+p-&amp;gt;r)&amp;raquo;1) #define zp(x,y) ((x)*m+(y))</description>
+    </item>
+    
+    <item>
+      <title>ovoo.cc</title>
+      <link>/code/dbimport_269/</link>
+      <pubDate>Thu, 28 May 2015 12:01:04 +0000</pubDate>
+      
+      <guid>/code/dbimport_269/</guid>
+      <description>#include #include #include using namespace std;
+typedef long long dint; #define _l (long long int)
+typedef pair &amp;lt;dint, int&amp;gt; dpr;
+struct node { int v, t, sz; node* ch[2]; }; struct edge { int t, v; edge *next; };
+const int maxn = 100009; const int maxh = 200009; const int maxnd = maxn * 43; const int mod = (1 &amp;laquo; 23) * 7 * 17 + 1;
+edge ebuf_arr[maxn], *ebuf(ebuf_arr), *head[maxn]; node nbuf_arr[maxnd], *nbuf(nbuf_arr), *nrt[maxn], *srt[maxn]; int n, k, ts, th; dint sans[maxn]; dpr hp[maxh];</description>
+    </item>
+    
+    <item>
+      <title>bzoj3864.cc</title>
+      <link>/code/dbimport_209/</link>
+      <pubDate>Sun, 24 May 2015 10:02:08 +0000</pubDate>
+      
+      <guid>/code/dbimport_209/</guid>
+      <description>#include #include #include using namespace std;
+const int mod = 1e9 + 7; const int maxs = 17; const int maxst = (1 &amp;laquo; 15) + 3; const char deoxynucleotide[5] = &amp;ldquo;AGCT&amp;rdquo;;
+#define mInc(a,b) { a += b; if (a &amp;gt;= mod) a -= mod; }
+int n, m, f[2][maxst], ans[maxs]; int trv[maxst][4]; char s[maxs];
+int getTrans(int i, int j) { static int fc[maxs], fd[maxs]; fc[0] = fd[0] = 0; for (int k = 0; k &amp;lt; n; ++ k) fc[k + 1] = fc[k] + ((i &amp;raquo; k) &amp;amp; 1); for (int k = 1; k &amp;lt;= n; ++ k) { if (s[k] == deoxynucleotide[j]) fd[k] = fc[k - 1] + 1; else if (fc[k] &amp;gt; fd[k - 1]) fd[k] = fc[k]; else fd[k] = fd[k - 1]; } int sn(0); for (int k = 0; k &amp;lt; n; ++ k) sn |= (fd[k + 1] - fd[k]) &amp;laquo; k; return sn; }</description>
+    </item>
+    
+    <item>
+      <title>bzoj2555.cc</title>
+      <link>/code/dbimport_147/</link>
+      <pubDate>Thu, 21 May 2015 19:34:55 +0000</pubDate>
+      
+      <guid>/code/dbimport_147/</guid>
+      <description>#include #include #include using namespace std;
+#define _l (long long int)
+struct node { int le, sz; node *tr[27], *pt; node() { memset(tr, 0, sizeof(tr)); pt = 0; sz = 0; } };
+const int maxn = 1200009; const int maxl = 4000000;
+char g[maxl]; int n, mask; node nbuf_arr[maxn], *nbuf(nbuf_arr), *srt, *scur;
+void decodeStr(char* a, int mask) { int l(strlen(a)); for (int i = 0; i &amp;lt; l; ++ i) { mask = (_l mask * 131 + i) % l; swap(a[i], a[mask]); } }</description>
+    </item>
+    
+    <item>
+      <title>bzoj3542.cc</title>
+      <link>/code/dbimport_197/</link>
+      <pubDate>Thu, 21 May 2015 19:33:45 +0000</pubDate>
+      
+      <guid>/code/dbimport_197/</guid>
+      <description>#include #include #include #include using namespace std;
+typedef long long dint; #ifdef WIN32 #define lld &amp;ldquo;%I64d&amp;rdquo; #else #define lld &amp;ldquo;%lld&amp;rdquo; #endif #define _l (long long int)
+struct seg { int m, a, c; seg *ch[2]; seg() { ch[0] = ch[1] = 0, m = a = c = 0; } };
+#define sgtRoot 1, n + 1 #define mp ((pl+pr)&amp;raquo;1) #define lson pl, mp #define rson mp, pr #define checkNeg(x) { if (x &amp;lt; 0) x += mod; } #define mInc(x,y) { x += y; if (x &amp;gt;= mod) x -= mod; }</description>
+    </item>
+    
+    <item>
+      <title>bzoj2962.cc</title>
+      <link>/code/dbimport_172/</link>
+      <pubDate>Mon, 18 May 2015 21:09:32 +0000</pubDate>
+      
+      <guid>/code/dbimport_172/</guid>
+      <description>#include #include #include using namespace std;
+#define _l (long long int)
+const int maxc = 23; const int maxn = 50009; const int mod = 19940417;
+struct dat { int a[maxc], t; inline dat() { memset(a, 0, sizeof(a)); a[0] = 1; t = 0; } inline int&amp;amp; operator[](const int&amp;amp; x) { return a[x]; } inline int operator[](const int&amp;amp; x) const { return a[x]; } void add(int); void rev(); };
+struct seg { int l, r, rv, a; dat d; seg *ch[2]; inline void update(); inline void catTag(int ta, int tr) { if (tr) { a = (mod - a) % mod; d.</description>
+    </item>
+    
+    <item>
+      <title>bzoj4066.cc</title>
+      <link>/code/dbimport_234/</link>
+      <pubDate>Thu, 14 May 2015 21:08:22 +0000</pubDate>
+      
+      <guid>/code/dbimport_234/</guid>
+      <description>#include #include #include using namespace std;
+#define upMax(a,b) { if (a &amp;lt; b) a = b; } #define upMin(a,b) { if (a &amp;gt; b) a = b; }
+struct kdnode { int p[2], a[2][2], v, s; kdnode *ch[2]; inline void update() { a[0][0] = a[1][0] = p[0]; a[0][1] = a[1][1] = p[1]; s = v; if (ch[0]) { upMin(a[0][0], ch[0]-&amp;gt; a[0][0]); upMin(a[0][1], ch[0]-&amp;gt; a[0][1]); upMax(a[1][0], ch[0]-&amp;gt; a[1][0]); upMax(a[1][1], ch[0]-&amp;gt; a[1][1]); s += ch[0]-&amp;gt; s; } if (ch[1]) { upMin(a[0][0], ch[1]-&amp;gt; a[0][0]); upMin(a[0][1], ch[1]-&amp;gt; a[0][1]); upMax(a[1][0], ch[1]-&amp;gt; a[1][0]); upMax(a[1][1], ch[1]-&amp;gt; a[1][1]); s += ch[1]-&amp;gt; s; } } };</description>
+    </item>
+    
+    <item>
+      <title>bzoj1225.java</title>
+      <link>/code/dbimport_122/</link>
+      <pubDate>Thu, 14 May 2015 09:44:14 +0000</pubDate>
+      
+      <guid>/code/dbimport_122/</guid>
+      <description>import java.util.; import java.math.;
+class Main { static int n, m, a[], tp, pn[]; static BigInteger f[][]; static boolean pr[], fl[][];
+static void pre() { int maxm = 30; pr = new boolean[maxm]; pn = new int[maxm]; pn[0] = 1; tp = 1; for (int i = 0; i &amp;lt; maxm; ++ i) pr[i] = false; for (int i = 2; i &amp;lt; maxm; ++ i) { if (!pr[i]) pn[tp ++] = i; for (int j = 1; j &amp;lt; tp &amp;amp;&amp;amp; i * pn[j] &amp;lt; maxm; ++ j) { pr[i * pn[j]] = true; if (i % pn[j] == 0) break; } } } public static void main(String args[]) { Scanner cin = new Scanner(System.</description>
+    </item>
+    
+    <item>
+      <title>bzoj4071.cc</title>
+      <link>/code/dbimport_239/</link>
+      <pubDate>Wed, 13 May 2015 18:37:39 +0000</pubDate>
+      
+      <guid>/code/dbimport_239/</guid>
+      <description>#include #include #include #include #include using namespace std;
+typedef long long dint; #ifdef WIN32 #define lld &amp;ldquo;%I64d&amp;rdquo; #else #define lld &amp;ldquo;%lld&amp;rdquo; #endif #define _l (long long int)
+struct range { int l, r; }; inline bool operator &amp;lt;(const range&amp;amp; a, const range&amp;amp; b) { return a. l + a. r &amp;lt; b. l + b. r; }
+struct bridge { static const int maxn = 200009; int ha[maxn], hb[maxn], ta, tb; dint sa, sb; inline void clr() { ta = tb = sa = sb = 0; } bridge() { clr(); } void balance() { while (ta &amp;gt; tb + 1) { hb[tb] = -ha[0]; sa -= ha[0]; sb += hb[tb]; pop_heap(ha, ha + ta &amp;ndash;); push_heap(hb, hb + ++ tb); } while (ta &amp;lt; tb + 1) { ha[ta] = -hb[0]; sb -= hb[0]; sa += ha[ta]; pop_heap(hb, hb + tb &amp;ndash;); push_heap(ha, ha + ++ ta); } } inline void ins(int x) { if (x &amp;lt;= ha[0]) { sa += x; ha[ta] = x; push_heap(ha, ha + ++ ta); } else { sb -= x; hb[tb] = -x; push_heap(hb, hb + ++ tb); } balance(); } inline dint qry() { return _l ha[0] * (ta - tb) - sa - sb; } };</description>
+    </item>
+    
+    <item>
+      <title>bzoj4070.cc</title>
+      <link>/code/dbimport_237/</link>
+      <pubDate>Wed, 13 May 2015 18:35:21 +0000</pubDate>
+      
+      <guid>/code/dbimport_237/</guid>
+      <description>#include #include #include #include #include using namespace std;
+struct edge { int t, v; edge* next; };
+const int maxn = 30009; const int bsz = 80; const int maxb = 83; const int maxnd = maxn * maxb; const int ebsz = 1000001;
+int n, m, st, te, d[maxnd], tnid, nid[maxb][maxn]; edge *head[maxnd];
+inline void addEdge(int u, int v, int w) { static edge* ebuf; static int cnt(0); if (!</description>
+    </item>
+    
+    <item>
+      <title>bzoj4069.cc</title>
+      <link>/code/dbimport_235/</link>
+      <pubDate>Wed, 13 May 2015 18:32:49 +0000</pubDate>
+      
+      <guid>/code/dbimport_235/</guid>
+      <description>#include #include #include #include using namespace std;
+typedef long long dint; #ifdef WIN32 #define lld &amp;ldquo;%I64d&amp;rdquo; #else #define lld &amp;ldquo;%lld&amp;rdquo; #endif #define _l (long long int) #define lpow2(x) (1ll&amp;laquo;(x))
+const int maxn = 2009; const int maxb = 43;
+dint a[maxn], ans; int n, ml, mh, d[maxn]; bitset f[maxn];
+int bitDP(int bo) { if (ml &amp;gt; 1) { memset(f, 0, sizeof(f)); f[0][0] = 1; for (int i = 1; i &amp;lt;= n; ++ i) { f[i - 1] &amp;laquo;= 1; for (int j = 0; j &amp;lt; i; ++ j) { dint vd(a[i] - a[j]); if (((vd &amp;amp; ans) &amp;raquo; bo) !</description>
+    </item>
+    
+    <item>
+      <title>bzoj2111.cc</title>
+      <link>/code/dbimport_125/</link>
+      <pubDate>Wed, 13 May 2015 17:36:29 +0000</pubDate>
+      
+      <guid>/code/dbimport_125/</guid>
+      <description>#include #include #include using namespace std;
+#define _l (long long int)
+const int maxn = 1000009;
+int n, mod, sz[maxn];
+int modPow(int a, int x) { int s(1); for (; x; x &amp;raquo;= 1, a = _l a * a % mod) if (x &amp;amp; 1) s = _l s * a % mod; return s; }
+struct modInt { int a, b; modInt() {} modInt(int ao, int bo) { a = ao, b = bo; } modInt(int xo) { a = xo; for (b = 0; a % mod == 0; a /= mod, ++ b); a %= mod; } inline void print() { if (b) puts(&amp;ldquo;0&amp;rdquo;); else printf(&amp;quot;%d\n&amp;quot;, a); } }; inline modInt operator *(const modInt&amp;amp; a, const modInt&amp;amp; b) { return modInt(_l a.</description>
+    </item>
+    
+    <item>
+      <title>bzoj4059.cc</title>
+      <link>/code/dbimport_233/</link>
+      <pubDate>Tue, 12 May 2015 14:32:18 +0000</pubDate>
+      
+      <guid>/code/dbimport_233/</guid>
+      <description>#include #include #include #include using namespace std;
+typedef pair &amp;lt;int, int&amp;gt; ipr; typedef map &amp;lt;int, int&amp;gt; imap; typedef imap :: iterator imap_it;
+struct seg { int l, r, s, a; seg *ls, *rs; }; struct oper { int x, ya, yb, t; }; inline bool operator &amp;lt;(const oper&amp;amp; a, const oper&amp;amp; b) { return a. x &amp;lt; b. x; }
+const int maxn = 400009;
+int n, m, a[maxn], pr[maxn], su[maxn], t; oper o[maxn]; seg sbuf_arr[maxn * 2], *sbuf, *rt; imap ri;</description>
+    </item>
+    
+    <item>
+      <title>bzoj4031.cc</title>
+      <link>/code/dbimport_231/</link>
+      <pubDate>Thu, 30 Apr 2015 15:58:05 +0000</pubDate>
+      
+      <guid>/code/dbimport_231/</guid>
+      <description>#include #include #include using namespace std;
+const int maxn = 89; const int mod = 1e9; const int movx[4] = {1, 0, -1, 0}; const int movy[4] = {0, 1, 0, -1};
+int n, m, a[maxn][maxn], nid[11][11], t; char g[11][11];
+#define _l (long long int) #define mInc(a,b) { a += b; if (a &amp;gt;= mod) a -= mod; } #define mDec(a,b) { a -= b; if (a &amp;lt; 0) a += mod; }</description>
+    </item>
+    
+    <item>
+      <title>bzoj3996.cc</title>
+      <link>/code/dbimport_221/</link>
+      <pubDate>Wed, 29 Apr 2015 19:04:47 +0000</pubDate>
+      
+      <guid>/code/dbimport_221/</guid>
+      <description>#include #include #include using namespace std;
+struct edge { int t, c; edge *next, *rv; };
+const int maxn = 255009; const int maxe = 2000009; const int maxa = 509; const int inf = 0x3f3f3f3f;
+int n, st, te, tnid, rid[maxa], ans; int tvis, vis[maxn], d[maxn]; edge ebuf_arr[maxe], *ebuf(ebuf_arr), *head[maxn];
+inline edge* allocEdge(int u, int v, int c) { ebuf-&amp;gt; t = v; ebuf-&amp;gt; c = c; ebuf-&amp;gt; next = head[u]; return head[u] = ebuf ++; } inline void addEdge(int u, int v, int c) { edge* a(allocEdge(u, v, c)); edge* b(allocEdge(v, u, 0)); a-&amp;gt; rv = b; b-&amp;gt; rv = a; }</description>
+    </item>
+    
+    <item>
+      <title>bzoj4011.cc</title>
+      <link>/code/dbimport_229/</link>
+      <pubDate>Wed, 29 Apr 2015 09:23:42 +0000</pubDate>
+      
+      <guid>/code/dbimport_229/</guid>
+      <description>#include #include #include using namespace std;
+struct edge { int t; edge* next; };
+typedef long long dint; #define _l (long long int)
+const int maxn = 100009; const int maxe = 200009; const int mod = 1e9 + 7;
+int n, m, x, y, ans, ind[maxn], tpo[maxn], tpn[maxn], inv[maxn], f[maxn]; edge ebuf_arr[maxe], *ebuf(ebuf_arr), *head[maxn];
+int modPow(int a, int x) { int s(1); for (; x; x &amp;raquo;= 1, a = _l a * a % mod) if (x &amp;amp; 1) s = _l s * a % mod; return s; }</description>
+    </item>
+    
+    <item>
+      <title>bzoj4001.pas</title>
+      <link>/code/dbimport_224/</link>
+      <pubDate>Tue, 28 Apr 2015 15:55:06 +0000</pubDate>
+      
+      <guid>/code/dbimport_224/</guid>
+      <description>var n: double; begin readln(n); writeln(nn(n+1)/(2n-1)/(2n):0:9); end.</description>
+    </item>
+    
+    <item>
+      <title>bzoj3270.cc</title>
+      <link>/code/dbimport_187/</link>
+      <pubDate>Sun, 26 Apr 2015 13:43:38 +0000</pubDate>
+      
+      <guid>/code/dbimport_187/</guid>
+      <description>#include #include #include #include using namespace std;
+const double eps = 1e-11; const int maxa = 23; const int maxn = 409;
+int n, m, t, pa, pb, mp[maxa][maxa], deg[maxn]; double p[maxa], a[maxn][maxn], s[maxn];
+inline double transPsb(int a, int b) { if (a == b) return p[a]; else if (!mp[a][b]) return 0; else return (1.0 - p[a]) / deg[a]; }
+void guess() { for (int i = 0; i &amp;lt; t; ++ i) { int z; for (z = i; fabs(a[z][i]) &amp;lt; eps; ++ z); if (z &amp;gt; i) for (int k = i; k &amp;lt;= t; ++ k) swap(a[i][k], a[z][k]); for (int j = i + 1; j &amp;lt; t; ++ j) { double rat(a[j][i] / a[i][i]); for (int k = i; k &amp;lt;= t; ++ k) a[j][k] -= a[i][k] * rat; } } for (int i = t - 1; i &amp;gt;= 0; &amp;ndash; i) { s[i] = - a[i][t]; for (int j = t - 1; j &amp;gt; i; &amp;ndash; j) s[i] -= s[j] * a[i][j]; s[i] /= a[i][i]; } }</description>
+    </item>
+    
+    <item>
+      <title>bzoj2961.cc</title>
+      <link>/code/dbimport_170/</link>
+      <pubDate>Sat, 25 Apr 2015 10:41:38 +0000</pubDate>
+      
+      <guid>/code/dbimport_170/</guid>
+      <description>#include #include #include using namespace std;
+inline double sqr(const double&amp;amp; x) { return x * x; }
+struct opt { int t, i; double x, y; inline double f(double xo) { return x * xo + y; } inline void read() { scanf(&amp;quot;%d%lf%lf&amp;quot;, &amp;amp;t, &amp;amp;x, &amp;amp;y); } }; inline bool operator &amp;lt;(const opt&amp;amp; a, const opt&amp;amp; b) { if (a. x == b. x) return a. y &amp;lt; b. y; else return a.</description>
+    </item>
+    
+    <item>
+      <title>bzoj1178.cc</title>
+      <link>/code/dbimport_115/</link>
+      <pubDate>Thu, 23 Apr 2015 10:08:59 +0000</pubDate>
+      
+      <guid>/code/dbimport_115/</guid>
+      <description>#include #include #include #include using namespace std;
+typedef set rbt; typedef set :: iterator rbt_it;
+struct cus { int l, r, i; }; inline bool rCmp(const cus&amp;amp; a, const cus&amp;amp; b) { if (a. r == b. r) return a. l &amp;gt; b. l; else return a. r &amp;lt; b. r; } inline bool iCmp(const cus&amp;amp; a, const cus&amp;amp; b) { return a. i &amp;lt; b. i; }
+const int maxn = 400009; const int maxl = 19;</description>
+    </item>
+    
+    <item>
+      <title>bzoj2438.cc</title>
+      <link>/code/dbimport_141/</link>
+      <pubDate>Tue, 21 Apr 2015 20:59:25 +0000</pubDate>
+      
+      <guid>/code/dbimport_141/</guid>
+      <description>#include #include #include using namespace std;
+struct edge { int t; edge *next; };
+const int maxn = 100009; const int maxe = 600009; const int maxst = 800009;
+int n, m, vis[maxn], dfn[maxn], low[maxn], tscc, fs[maxn], ssz[maxn], ind[maxn]; edge ebuf_arr[maxe], *ebuf(ebuf_arr), *head[maxn], *hg[maxn];
+inline void addEdge(edge** head, int u, int v) { ebuf-&amp;gt; t = v; ebuf-&amp;gt; next = head[u]; head[u] = ebuf ++; }
+void tarjanDFS(int po) { static int stc[maxst], stv[maxn], stt[maxn], fr[maxn], d[maxn]; int tsc(1), tsv(0), tst(0), dfi(0); d[stc[tsc] = po] = 1; vis[po] = 1; while (tsc) { int p(stc[tsc &amp;ndash;]); if (dfn[p]) continue; for (; tsv &amp;amp;&amp;amp; d[p] &amp;lt;= d[stv[tsv]]; &amp;ndash; tsv) { low[fr[stv[tsv]]] = min(low[fr[stv[tsv]]], low[stv[tsv]]); if (low[stv[tsv]] == dfn[stv[tsv]]) { ssz[++ tscc] = 0; do { vis[stt[tst]] = 2; ++ ssz[fs[stt[tst]] = tscc]; } while (stt[tst &amp;ndash;] !</description>
+    </item>
+    
+    <item>
+      <title>bzoj4010.cc</title>
+      <link>/code/dbimport_227/</link>
+      <pubDate>Tue, 21 Apr 2015 11:52:16 +0000</pubDate>
+      
+      <guid>/code/dbimport_227/</guid>
+      <description>#include #include #include using namespace std;
+struct edge { int t; edge *next; };
+const int maxn = 100009;
+int n, m, ind[maxn], hp[maxn], q[maxn]; edge ebuf_arr[maxn], *ebuf, *head[maxn];
+inline void addEdge(int u, int v) { ebuf-&amp;gt; t = v; ebuf-&amp;gt; next = head[u]; head[u] = ebuf ++; }
+void sov() { memset(ind, 0, sizeof(ind)); memset(head, 0, sizeof(head)); ebuf = ebuf_arr; scanf(&amp;quot;%d%d&amp;quot;, &amp;amp;n, &amp;amp;m); for (int i = 0; i &amp;lt; m; ++ i) { int u, v; scanf(&amp;quot;%d%d&amp;quot;, &amp;amp;u, &amp;amp;v); addEdge(v, u); ++ ind[u]; } int th(0), tq(0); for (int i = 1; i &amp;lt;= n; ++ i) if (!</description>
+    </item>
+    
+    <item>
+      <title>bzoj1209.cc</title>
+      <link>/code/dbimport_117/</link>
+      <pubDate>Tue, 21 Apr 2015 09:38:20 +0000</pubDate>
+      
+      <guid>/code/dbimport_117/</guid>
+      <description>#include #include #include #include #include using namespace std;
+#ifdef WIN32 #define randInt ((rand()&amp;laquo;16)|rand()) #else #define randInt (rand()) #endif
+const double eps = 1e-11; const double pi = acos(-1);
+inline double sqr(const double&amp;amp; x) { return x * x; } inline int sgn(const double&amp;amp; x) { return (x &amp;gt; eps) - (x &amp;lt; -eps); }
+typedef struct triobj { double x, y, z; triobj() {} triobj(const double&amp;amp; xo, const double&amp;amp; yo, const double&amp;amp; zo) { x = xo, y = yo, z = zo; } inline void read() { scanf(&amp;quot;%lf%lf%lf&amp;quot;, &amp;amp;x, &amp;amp;y, &amp;amp;z); } } point, vect; inline triobj operator +(const triobj&amp;amp; a, const triobj&amp;amp; b) { return triobj(a.</description>
+    </item>
+    
+    <item>
+      <title>bzoj2671.cc</title>
+      <link>/code/dbimport_150/</link>
+      <pubDate>Mon, 20 Apr 2015 21:17:53 +0000</pubDate>
+      
+      <guid>/code/dbimport_150/</guid>
+      <description>#include #include #include using namespace std;
+typedef long long dint; #ifdef WIN32 #define lld &amp;ldquo;%I64d&amp;rdquo; #else #define lld &amp;ldquo;%lld&amp;rdquo; #endif #define _l (long long int)
+const int maxn = 50009;
+dint n, s; int tp, pn[maxn], u[maxn], fc[maxn], tf; bool pr[maxn];
+void pre() { memset(pr, 0, sizeof(pr)); u[1] = 1; tp = 0; for (int i = 2; i &amp;lt; maxn; ++ i) { if (!pr[i]) { pn[tp ++] = i; u[i] = -1; } for (int j = 0, v; j &amp;lt; tp &amp;amp;&amp;amp; i * pn[j] &amp;lt; maxn; ++ j) { pr[v = i * pn[j]] = 1; if (i % pn[j] == 0) { u[v] = 0; break; } else u[v] = -u[i]; } } }</description>
+    </item>
+    
+    <item>
+      <title>bzoj3992.cc</title>
+      <link>/code/dbimport_219/</link>
+      <pubDate>Thu, 16 Apr 2015 17:25:26 +0000</pubDate>
+      
+      <guid>/code/dbimport_219/</guid>
+      <description>#include #include #include using namespace std;
+#define mInc(x,y) { x += y; if (x &amp;gt;= mod) x -= mod; } #define _l (long long int)
+const int maxn = 20009; const int mod = 1004535809; const int wo = 3;
+int n, m, mz, l, x, a[maxn], g[maxn], ss; int wm, wp[maxn];
+int modPow(int a, int x, int tmod = mod) { int s(1); for (; x; x &amp;raquo;= 1, a = _l a * a % tmod) if (x &amp;amp; 1) s = _l s * a % tmod; return s; }</description>
+    </item>
+    
+    <item>
+      <title>bzoj2466.cc</title>
+      <link>/code/dbimport_143/</link>
+      <pubDate>Wed, 15 Apr 2015 20:30:43 +0000</pubDate>
+      
+      <guid>/code/dbimport_143/</guid>
+      <description>#include #include #include using namespace std;
+struct edge { int t; edge *next; };
+const int maxn = 109; const int inf = 0x3f3f3f3f;
+edge *head[maxn], ebuf_arr[maxn &amp;laquo; 1], ebuf; int n, f[maxn][2][2]; / f[node][if u is light][if u is chosen] */
+inline void addEdge(int u, int v) { ebuf-&amp;gt; t = v; ebuf-&amp;gt; next = head[u]; head[u] = ebuf ++; }
+#define protect(x) { if (x &amp;gt; inf) x = inf; }</description>
+    </item>
+    
+    <item>
+      <title>bzoj3944.cc</title>
+      <link>/code/dbimport_217/</link>
+      <pubDate>Mon, 13 Apr 2015 23:39:34 +0000</pubDate>
+      
+      <guid>/code/dbimport_217/</guid>
+      <description>#include #include #include using namespace std;
+typedef long long dint; #ifdef WIN32 #define lld &amp;ldquo;%I64d&amp;rdquo; #else #define lld &amp;ldquo;%lld&amp;rdquo; #endif #define _l (long long int)
+struct node { int v; dint phi, mu; node *next; };
+const int maxv = 3000009; const int hmod = 4432457;
+int n, tp, pn[maxv], phi[maxv], mu[maxv]; dint sp[maxv], smu[maxv]; bool pr[maxv]; node *head[hmod];
+void pre() { memset(pr, 0, sizeof(pr)); memset(head, 0, sizeof(head)); tp = 0; phi[1] = mu[1] = 1; for (int i = 2; i &amp;lt; maxv; ++ i) { if (!</description>
+    </item>
+    
+    <item>
+      <title>spoj235.cc</title>
+      <link>/code/dbimport_276/</link>
+      <pubDate>Mon, 13 Apr 2015 20:46:21 +0000</pubDate>
+      
+      <guid>/code/dbimport_276/</guid>
+      <description>#include #include #include using namespace std;
+#define _l (long long int)
+const int maxn = 2000009; const int mod = (1 &amp;laquo; 23) * 7 * 17 + 1;
+int n, a[maxn], b[maxn], c[maxn];
+int readInt(int* a) { static char g[maxn]; scanf(&amp;quot;%s&amp;quot;, g); int l(strlen(g)); for (int i = 0; i &amp;lt; l; ++ i) a[l - i - 1] = g[i] - 48; return l; }
+int modPow(int a, int x) { int s(1); for (; x; x &amp;raquo;= 1, a = _l a * a % mod) if (x &amp;amp; 1) s = _l s * a % mod; return s; }</description>
+    </item>
+    
+    <item>
+      <title>bzoj3549.cc</title>
+      <link>/code/dbimport_199/</link>
+      <pubDate>Sat, 11 Apr 2015 15:06:26 +0000</pubDate>
+      
+      <guid>/code/dbimport_199/</guid>
+      <description>#include #include #include using namespace std;
+const int maxn = 100009;
+int n, a[maxn], sm[maxn], ans; int f[maxn], g[maxn], q[maxn], hd, tl;
+int main() { #ifndef ONLINE_JUDGE //freopen(&amp;quot;.in&amp;quot;, &amp;ldquo;r&amp;rdquo;, stdin); #endif
+scanf(&amp;quot;%d&amp;quot;, &amp;amp;n); sm[0] = 0; for (int i = 0; i &amp;lt; n; ++ i) { scanf(&amp;quot;%d&amp;quot;, a + i); sm[i + 1] = sm[i] + a[i]; } hd = 0, tl = 1, q[hd] = n; f[n] = 0, g[n] = 0; for (int i = n - 1; i &amp;gt;= 0; -- i) { while (hd + 1 &amp;lt; tl &amp;amp;&amp;amp; sm[q[hd + 1]] - f[q[hd + 1]] &amp;gt;= sm[i]) ++ hd; f[i] = sm[q[hd]] - sm[i]; g[i] = g[q[hd]] + 1; while (hd &amp;lt; tl &amp;amp;&amp;amp; sm[i] - f[i] &amp;gt;= sm[q[tl - 1]] - f[q[tl - 1]]) -- tl; q[tl ++] = i; } printf(&amp;quot;%d\n&amp;quot;, g[0]); }</description>
+    </item>
+    
+    <item>
+      <title>bzoj3940.cc</title>
+      <link>/code/dbimport_215/</link>
+      <pubDate>Fri, 10 Apr 2015 22:50:34 +0000</pubDate>
+      
+      <guid>/code/dbimport_215/</guid>
+      <description>#include #include #include using namespace std;
+const int maxn = 200009;
+int n, tn, tr[maxn][26], ed[maxn], fl[maxn]; int m, pi[maxn], dl[maxn], r[maxn]; char a[maxn], g[maxn];
+void trieIns(char* i) { int p(1), l(0); for (; *i; ++ i, ++ l) { int t(*i - 97); if (!tr[p][t]) { tr[p][t] = ++ tn; ed[tn] = 0; memset(tr[tn], 0, sizeof(tr[tn])); } p = tr[p][t]; } ed[p] = l; }
+void acaBuild() { static int q[maxn]; int hd(0), tl(1); q[0] = 1; while (hd &amp;lt; tl) { int u(q[hd ++]); for (int i = 0; i &amp;lt; 26; ++ i) if (tr[u][i]) { int v(tr[u][i]), w; for (w = fl[u]; w &amp;amp;&amp;amp; !</description>
+    </item>
+    
+    <item>
+      <title>bzoj2216.cc</title>
+      <link>/code/dbimport_129/</link>
+      <pubDate>Wed, 08 Apr 2015 22:38:49 +0000</pubDate>
+      
+      <guid>/code/dbimport_129/</guid>
+      <description>#include #include #include #include using namespace std;
+const int maxn = 500009;
+int n, a[maxn], z[maxn], ans, sa[maxn], sr[maxn]; double sqa[maxn];
+void pre(int n) { for (int i = 0, j = 0; j &amp;lt;= n; ++ i) for (; j &amp;lt;= i * i &amp;amp;&amp;amp; j &amp;lt;= n; ++ j) z[j] = i; for (int i = 0; i &amp;lt;= n; ++ i) sqa[i] = sqrt(i); }
+inline double fi(int j, int i) { return a[j] + sqa[i - j]; } inline int fii(int j, int i) { return a[j] + z[i - j]; }</description>
+    </item>
+    
+    <item>
+      <title>bzoj3887.cc</title>
+      <link>/code/dbimport_211/</link>
+      <pubDate>Wed, 08 Apr 2015 20:00:17 +0000</pubDate>
+      
+      <guid>/code/dbimport_211/</guid>
+      <description>#include #include #include using namespace std;
+struct edge { int t; edge *next; };
+const int maxn = 200009; const int maxe = 300009;
+int n, m, vis[maxn], tscc, fs[maxn], cs[maxn], f[2][maxn]; int tpo[maxn], ind[maxn]; edge ebuf_arr[maxe], *ebuf(ebuf_arr), *head[maxn], *hg[maxn];
+inline void addEdge(edge** head, int u, int v) { ebuf-&amp;gt; t = v; ebuf-&amp;gt; next = head[u]; head[u] = ebuf ++; }
+void tarjanDFS(int po) { static int stc[maxn], stv[maxn], stj[maxn], fr[maxn], d[maxn]; static int dfb[maxn], low[maxn]; int tst(1), dfn(0), tsv(0), tsj(0); vis[stc[tst] = po] = 1; fr[po] = 0; d[po] = 1; while (tst) { int p(stc[tst &amp;ndash;]); if (dfb[p]) continue; for (; tsv &amp;amp;&amp;amp; d[stv[tsv]] &amp;gt;= d[p]; &amp;ndash; tsv) { int q(stv[tsv]); low[fr[q]] = min(low[fr[q]], low[q]); if (dfb[q] == low[q]) { cs[++ tscc] = 0; do { ++ cs[tscc]; fs[stj[tsj]] = tscc; vis[stj[tsj]] = 2; } while (stj[tsj &amp;ndash;] !</description>
+    </item>
+    
+    <item>
+      <title>bzoj1211.py</title>
+      <link>/code/dbimport_120/</link>
+      <pubDate>Mon, 06 Apr 2015 22:20:53 +0000</pubDate>
+      
+      <guid>/code/dbimport_120/</guid>
+      <description>n = int(raw_input()); gl = raw_input().split(&amp;rsquo; &amp;lsquo;); a = []; a.append(0); s = 0; iz = 0; for i in range(0, n): a.append(int(gl[i]) - 1); s = s + a[i + 1]; if (a[i + 1] &amp;lt; 0): iz = 1; if (n == 1): if (a[1] == -1): print 1; else: print 0; elif (s != n - 2 or iz): print 0; else: fac = []; fac.append(1); for i in range(1, n + 1): fac.</description>
+    </item>
+    
+    <item>
+      <title>bzoj3163.cc</title>
+      <link>/code/dbimport_177/</link>
+      <pubDate>Mon, 06 Apr 2015 21:08:41 +0000</pubDate>
+      
+      <guid>/code/dbimport_177/</guid>
+      <description>#include #include #include #include using namespace std;
+struct doll { int w, v, e; inline void read() { scanf(&amp;quot;%d%d%d&amp;quot;, &amp;amp;w, &amp;amp;v, &amp;amp;e); } };
+const int maxn = 1009; const int tv = 1000;
+int n, q, bsz, fa[maxn][maxn], fr[maxn][maxn], f[maxn][maxn]; doll d[maxn];
+void sglDP(int* f, doll d) { int e(d. e); for (int i = 1; i &amp;lt;= e; i &amp;laquo;= 1) { e -= i; for (int j = tv; j &amp;gt;= i * d.</description>
+    </item>
+    
+    <item>
+      <title>bzoj2251.cc</title>
+      <link>/code/dbimport_131/</link>
+      <pubDate>Mon, 06 Apr 2015 13:50:59 +0000</pubDate>
+      
+      <guid>/code/dbimport_131/</guid>
+      <description>#include #include #include using namespace std;
+const int maxn = 3009;
+int n, a[maxn], sa[maxn], rk[maxn], hi[maxn], ho[maxn]; char g[maxn];
+inline bool equStr(int a, int b, int l) { if (rk[a] &amp;gt; rk[b]) return 0; else if (a + l &amp;gt;= n &amp;amp;&amp;amp; b + l &amp;gt;= n) return 1; else if (a + l &amp;gt;= n || b + l &amp;gt;= n) return 0; else return rk[a + l] == rk[b + l]; }</description>
+    </item>
+    
+    <item>
+      <title>bzoj3611.cc</title>
+      <link>/code/dbimport_203/</link>
+      <pubDate>Mon, 06 Apr 2015 11:17:58 +0000</pubDate>
+      
+      <guid>/code/dbimport_203/</guid>
+      <description>#include #include #include #include using namespace std;
+const int buf_len = 4567; char buf[buf_len], *bufb(buf), *bufe(bufb + 1); #define readBuf() { if (++ bufb == bufe) bufe = (bufb = buf) + fread(buf, 1, sizeof(buf), stdin); } #define readInt(x) { register int s(0); do { readBuf(); } while (!isdigit(*bufb)); do { s = s * 10 + *bufb - 48; readBuf(); } while (isdigit(*bufb)); x = s; }
+typedef long long dint; #ifdef WIN32 #define lld &amp;ldquo;%I64d&amp;rdquo; #else #define lld &amp;ldquo;%lld&amp;rdquo; #endif #define _l (long long int)</description>
+    </item>
+    
+    <item>
+      <title>bzoj2286.cc</title>
+      <link>/code/dbimport_133/</link>
+      <pubDate>Sun, 05 Apr 2015 22:17:54 +0000</pubDate>
+      
+      <guid>/code/dbimport_133/</guid>
+      <description>#include #include #include using namespace std;
+struct edge { int t, v; edge *next; };
+typedef long long dint; #ifdef WIN32 #define lld &amp;ldquo;%I64d&amp;rdquo; #else #define lld &amp;ldquo;%lld&amp;rdquo; #endif #define _l (long long int)
+const int maxn = 250009; const int maxl = 19; const int inf = 0x3f3f3f3f; const dint dinf = 0x3f3f3f3f3f3f3f3fll;
+int n, m; int d[maxn], dfb[maxn], dfe[maxn], dfo[maxn]; int ut[maxn][maxl], uv[maxn][maxl]; edge ebuf_arr[maxn &amp;laquo; 1], *ebuf(ebuf_arr), *head[maxn];</description>
+    </item>
+    
+    <item>
+      <title>bzoj3218.cc</title>
+      <link>/code/dbimport_179/</link>
+      <pubDate>Sun, 05 Apr 2015 21:06:28 +0000</pubDate>
+      
+      <guid>/code/dbimport_179/</guid>
+      <description>#include #include #include using namespace std;
+struct seg { int id; seg *ls, *rs; }; struct block { int b, w, p, l, r, a; int lid, rid, mid; inline void read() { scanf(&amp;quot;%d%d%d%d%d%d&amp;quot;, &amp;amp;a, &amp;amp;b, &amp;amp;w, &amp;amp;l, &amp;amp;r, &amp;amp;p); } }; struct edge { int t, c; edge *next, *rv; };
+const int maxn = 5009; const int maxnd = 90009; const int maxe = 400009; const int inf = 0x3f3f3f3f;</description>
+    </item>
+    
+    <item>
+      <title>bzoj2896.cc</title>
+      <link>/code/dbimport_168/</link>
+      <pubDate>Sun, 05 Apr 2015 14:15:48 +0000</pubDate>
+      
+      <guid>/code/dbimport_168/</guid>
+      <description>#include #include #include #include using namespace std;
+typedef pair &amp;lt;int, int&amp;gt; epr; typedef set erbt;
+struct seg { int s, z, l, r; seg *ls, *rs; }; struct edge { int t; edge *next; }; struct oper { int t, u, v, s; };
+const int maxn = 30009; const int maxq = 40009; const int maxe = 100009;
+int n, m, q, r[maxn]; int fa[maxn], d[maxn], sz[maxn], tc, fc[maxn], ch[maxn], cl[maxn]; seg sbuf_arr[maxn &amp;laquo; 2], *sbuf(sbuf_arr), *rt[maxn]; oper o[maxq]; erbt re; edge ebuf_arr[maxn &amp;laquo; 1], *ebuf(ebuf_arr), *head[maxn];</description>
+    </item>
+    
+    <item>
+      <title>bzoj2182.cc</title>
+      <link>/code/dbimport_127/</link>
+      <pubDate>Fri, 03 Apr 2015 20:35:29 +0000</pubDate>
+      
+      <guid>/code/dbimport_127/</guid>
+      <description>#include #include #include #include using namespace std;
+const int buf_len = 4567; char buf[buf_len], *bufb(buf), *bufe(buf + 1); #define readBuf() { if (++ bufb == bufe) bufe = (bufb = buf) + fread(buf, 1, sizeof(buf), stdin); } #define readInt(x) { register int s(0); do { readBuf(); } while (!isdigit(*bufb)); do { s = s * 10 + *bufb - 48; readBuf(); } while (isdigit(*bufb)); x = s; }
+const int maxn = 209; const int inf = 0x3f3f3f3f;</description>
+    </item>
+    
+    <item>
+      <title>bzoj3238.cc</title>
+      <link>/code/dbimport_183/</link>
+      <pubDate>Fri, 03 Apr 2015 10:39:48 +0000</pubDate>
+      
+      <guid>/code/dbimport_183/</guid>
+      <description>#include #include #include using namespace std;
+typedef long long dint; #ifdef WIN32 #define lld &amp;ldquo;%I64d&amp;rdquo; #else #define lld &amp;ldquo;%lld&amp;rdquo; #endif #define _l (long long int)
+struct node { int l, i, ri; node *tr[26], *pr; node() { ri = l = 0; memset(tr, 0, sizeof(tr)); } }; struct edge { int t; edge *next; };
+const int maxn = 1000009;
+char a[maxn]; int n, ni, f[maxn], sz[maxn], d[maxn]; dint ans; edge ebuf_arr[maxn], *ebuf(ebuf_arr), *head[maxn]; node nbuf_arr[maxn], *nbuf(nbuf_arr), *l, *srt, *scur;</description>
+    </item>
+    
+    <item>
+      <title>bzoj3772.cc</title>
+      <link>/code/dbimport_205/</link>
+      <pubDate>Wed, 01 Apr 2015 21:50:21 +0000</pubDate>
+      
+      <guid>/code/dbimport_205/</guid>
+      <description>#include #include #include using namespace std;
+typedef long long dint; #ifdef WIN32 #define lld &amp;ldquo;%I64d&amp;rdquo; #else #define lld &amp;ldquo;%lld&amp;rdquo; #endif #define _l (long long int)
+struct seg { int s; seg *ch[2]; }; struct edge { int t; edge *next; }; struct path { int u, v; inline void read() { scanf(&amp;quot;%d%d&amp;quot;, &amp;amp;u, &amp;amp;v); } };
+const int maxn = 100009; const int maxl = 19;
+seg sbuf_arr[maxn * maxl], *sbuf(sbuf_arr), *rt[maxn]; dint su, sd; int n, m, ut[maxn][maxl]; int d[maxn], dfo[maxn], dfb[maxn], dfe[maxn]; edge ebuf_arr[maxn &amp;laquo; 1], *ebuf(ebuf_arr), *head[maxn]; path q[maxn];</description>
+    </item>
+    
+    <item>
+      <title>bzoj3509.cc</title>
+      <link>/code/dbimport_195/</link>
+      <pubDate>Wed, 01 Apr 2015 20:01:32 +0000</pubDate>
+      
+      <guid>/code/dbimport_195/</guid>
+      <description>#include #include #include #include using namespace std;
+typedef long long dint; #ifdef WIN32 #define lld &amp;ldquo;%I64d&amp;rdquo; #else #define lld &amp;ldquo;%lld&amp;rdquo; #endif #define _l (long long int)
+struct cplx { double r, i; cplx() {} cplx(double rx, double ix) { r = rx, i = ix; } }; inline cplx operator +(const cplx&amp;amp; a, const cplx&amp;amp; b) { return cplx(a. r + b. r, a. i + b. i); } inline cplx operator -(const cplx&amp;amp; a, const cplx&amp;amp; b) { return cplx(a.</description>
+    </item>
+    
+    <item>
+      <title>bzoj2395.cc</title>
+      <link>/code/dbimport_137/</link>
+      <pubDate>Wed, 01 Apr 2015 16:04:12 +0000</pubDate>
+      
+      <guid>/code/dbimport_137/</guid>
+      <description>#include #include #include using namespace std;
+typedef long long dint; #define _l (long long int)
+struct edge { int a, b, va, vb; inline void read() { scanf(&amp;quot;%d%d%d%d&amp;quot;, &amp;amp;a, &amp;amp;b, &amp;amp;va, &amp;amp;vb); } };
+struct sptree { int va, vb; sptree() {} sptree(int ao, int bo) { va = ao, vb = bo; } inline dint prd() const { return _l va * vb; } void disp(int x) { printf(&amp;quot;(%d,%d)%c&amp;quot;, va, vb, x); } }; inline bool operator &amp;lt;(const sptree&amp;amp; a, const sptree&amp;amp; b) { return a.</description>
+    </item>
+    
+    <item>
+      <title>bzoj2820.cc</title>
+      <link>/code/dbimport_162/</link>
+      <pubDate>Tue, 31 Mar 2015 09:42:15 +0000</pubDate>
+      
+      <guid>/code/dbimport_162/</guid>
+      <description>#include #include #include using namespace std;
+typedef long long dint; #ifdef WIN32 #define lld &amp;ldquo;%I64d&amp;rdquo; #else #define lld &amp;ldquo;%lld&amp;rdquo; #endif #define _l (long long int)
+const int maxn = 10000009;
+int tp, pn[maxn], mu[maxn], h[maxn]; dint sh[maxn]; bool pr[maxn];
+void pre() { memset(pr, 0, sizeof(pr)); tp = 0; mu[1] = 1; sh[0] = sh[1] = 0; for (int i = 2; i &amp;lt; maxn; ++ i) { if (!pr[i]) { pn[tp ++] = i; mu[i] = -1; h[i] = 1; } for (int j = 0, v; j &amp;lt; tp &amp;amp;&amp;amp; i * pn[j] &amp;lt; maxn; ++ j) { pr[v = i * pn[j]] = 1; if (i % pn[j] == 0) { mu[v] = 0; h[v] = mu[i]; break; } else { mu[v] = -mu[i]; h[v] = mu[i] - h[i]; } } sh[i] = sh[i - 1] + h[i]; } }</description>
+    </item>
+    
+    <item>
+      <title>bzoj3597.cc</title>
+      <link>/code/dbimport_201/</link>
+      <pubDate>Sun, 29 Mar 2015 21:19:37 +0000</pubDate>
+      
+      <guid>/code/dbimport_201/</guid>
+      <description>#define PROC &amp;ldquo;coconut&amp;rdquo; #include #include #include using namespace std;
+struct edge { int t, v; edge *next; };
+const int maxn = 509; const int maxe = 6009; const double bseps = 1e-4; const double finf = 1e20;
+int n, m, fp[maxn], st, vis[maxn], tvis; edge ebuf_arr[maxe], *ebuf(ebuf_arr), *head[maxn]; double d[maxn];
+inline void addEdge(int u, int v, int w) { ebuf-&amp;gt; t = v; ebuf-&amp;gt; v = w; ebuf-&amp;gt; next = head[u]; head[u] = ebuf ++; //	printf(&amp;ldquo;AE %d -&amp;gt; %d of %d\n&amp;rdquo;, u, v, w); }</description>
+    </item>
+    
+    <item>
+      <title>bzoj3922.cc</title>
+      <link>/code/dbimport_213/</link>
+      <pubDate>Sun, 29 Mar 2015 20:32:19 +0000</pubDate>
+      
+      <guid>/code/dbimport_213/</guid>
+      <description>#include #include #include #include using namespace std;
+struct seg { int v, l, r; seg *ls, *rs; };
+const int maxn = 70009; const int maxb = 23; const int maxseg = maxn * maxb * 3;
+int n, m, bv, a[maxn]; seg *br[maxb][maxb], sbuf_arr[maxseg], *sbuf(sbuf_arr);
+#define midp(p) ((p-&amp;gt;l+p-&amp;gt;r)&amp;raquo;1) inline seg* sgtBuild(int l, int r) { seg* p(sbuf ++); p-&amp;gt; l = l; p-&amp;gt; r = r; p-&amp;gt; v = 0; if (l + 1 &amp;lt; r) { p-&amp;gt; ls = sgtBuild(l, midp(p)); p-&amp;gt; rs = sgtBuild(midp(p), r); } return p; } inline void sgtChg(seg* p, int po, int vo) { if (p-&amp;gt; l + 1 == p-&amp;gt; r) p-&amp;gt; v += vo; else { if (po &amp;lt; midp(p)) sgtChg(p-&amp;gt; ls, po, vo); else sgtChg(p-&amp;gt; rs, po, vo); p-&amp;gt; v = max(p-&amp;gt; ls-&amp;gt; v, p-&amp;gt; rs-&amp;gt; v); } }</description>
+    </item>
+    
+    <item>
+      <title>bzoj2289.cc</title>
+      <link>/code/dbimport_135/</link>
+      <pubDate>Sat, 28 Mar 2015 21:48:59 +0000</pubDate>
+      
+      <guid>/code/dbimport_135/</guid>
+      <description>#include #include #include #include using namespace std;
+#define dir_l 2 #define dir_r 3
+struct circle { double x, y, r; void read() { scanf(&amp;quot;%lf%lf%lf&amp;quot;, &amp;amp;x, &amp;amp;y, &amp;amp;r); } };
+typedef pair &amp;lt;double, int&amp;gt; dpr;
+inline double sqr(double x) { return x * x; }
+const int maxn = 100009; const double finf = 1e23; const double eps = 1e-8;
+int n, t; dpr y[maxn * 2]; circle c[maxn];
+int checkDir(double x) { int wl(0), wr(0); t = 0; for (int i = 1; i &amp;lt;= n; ++ i) if (c[i].</description>
+    </item>
+    
+    <item>
+      <title>bzoj3784.cc</title>
+      <link>/code/dbimport_207/</link>
+      <pubDate>Fri, 27 Mar 2015 21:33:56 +0000</pubDate>
+      
+      <guid>/code/dbimport_207/</guid>
+      <description>#include #include #include using namespace std;
+struct edge { int t, v; edge *next; };
+typedef pair &amp;lt;int, int&amp;gt; dpr; struct seg { dpr d; int l, r; seg *ls, *rs; };
+struct ptrec { dpr d; int l, r, du; seg *rt; }; inline bool operator &amp;lt;(const ptrec&amp;amp; a, const ptrec&amp;amp; b) { return a. d. first &amp;lt; b. d. first; }
+const int maxn = 50009; const int maxl = 17; const int maxbuf = maxn * maxl;</description>
+    </item>
+    
+    <item>
+      <title>bzoj2698.cc</title>
+      <link>/code/dbimport_154/</link>
+      <pubDate>Fri, 27 Mar 2015 10:25:06 +0000</pubDate>
+      
+      <guid>/code/dbimport_154/</guid>
+      <description>#include #include #include #include using namespace std;
+typedef long long dint;
+const int maxn = 1000009;
+int n, m, l, r; dint a[maxn], b[maxn], ss[maxn], sv[maxn], sa[maxn], sr[maxn], tot; double ans;
+int main() { #ifndef ONLINE_JUDGE freopen(&amp;ldquo;in.txt&amp;rdquo;, &amp;ldquo;r&amp;rdquo;, stdin); #endif
+scanf(&amp;quot;%d%d%d%d&amp;quot;, &amp;amp;n, &amp;amp;m, &amp;amp;l, &amp;amp;r); memset(sv, 0, sizeof(sv)); memset(sa, 0, sizeof(sa)); tot = 0; for (int i = 1; i + l - 1 &amp;lt;= n; ++ i) { int li(i + l - 1), ri(min(n, i + r - 1)); tot += ri - li + 1; sv[i] += ri - li + 1; sv[ri + 1] -= ri - li + 1; if (li &amp;lt; ri) { sa[li + 1] -= 1; sa[ri + 1] += 1; sr[ri + 1] += ri - li; } } a[0] = b[0] = 0; dint ad(0); for (int i = 1; i &amp;lt;= n; ++ i) { ad += sa[i]; a[i] = a[i - 1] + sv[i]; b[i] = b[i - 1] + ad + sr[i]; } for (int i = 1; i &amp;lt;= n; ++ i) a[i] += b[i]; ans = 0; for (int i = 1; i &amp;lt;= n; ++ i) ans += 1.</description>
+    </item>
+    
+    <item>
+      <title>bzoj1095.cc</title>
+      <link>/code/dbimport_113/</link>
+      <pubDate>Thu, 26 Mar 2015 23:35:55 +0000</pubDate>
+      
+      <guid>/code/dbimport_113/</guid>
+      <description>#include #include #include #include #include using namespace std;
+const int buf_len = 4567; char buf[buf_len], *bufb(buf), *bufe(buf + 1); #define readBuf() { if (++ bufb == bufe) bufe = (bufb = buf) + fread(buf, 1, sizeof(buf), stdin); } #define readInt(x) { register int s(0); do { readBuf(); } while (!isdigit(*bufb)); do { s = s * 10 + *bufb - 48; readBuf(); } while (isdigit(*bufb)); x = s; } #define readOpt(x) { do { readBuf(); } while (*bufb !</description>
+    </item>
+    
+    <item>
+      <title>bzoj2806.cc</title>
+      <link>/code/dbimport_160/</link>
+      <pubDate>Wed, 25 Mar 2015 20:14:03 +0000</pubDate>
+      
+      <guid>/code/dbimport_160/</guid>
+      <description>#include #include #include using namespace std;
+#define _l (long long int)
+struct node { int l; node *pr, *t[3]; node() { l = 0; pr = 0; memset(t, 0, sizeof(t)); } };
+const int maxn = 1100009;
+node nbuf_arr[maxn &amp;laquo; 1], *nbuf(nbuf_arr), *srt, *scur; int n, m, f[maxn], ml[maxn]; char a[maxn];
+void samIns(int w) { node *np(nbuf ++), *p; np-&amp;gt; l = scur-&amp;gt; l + 1; for (p = scur; p &amp;amp;&amp;amp; !</description>
+    </item>
+    
+    <item>
+      <title>bzoj3221.cc</title>
+      <link>/code/dbimport_181/</link>
+      <pubDate>Mon, 23 Mar 2015 22:03:37 +0000</pubDate>
+      
+      <guid>/code/dbimport_181/</guid>
+      <description>#include #include #include using namespace std;
+typedef long long dint; #ifdef WIN32 #define lld &amp;ldquo;%I64d&amp;rdquo; #else #define lld &amp;ldquo;%lld&amp;rdquo; #endif #define _l (long long int)
+struct edge { int t; edge *next; }; struct seg { dint a, b, s; int t; seg *ls, *rs; }; #define sgt_root 1,n+1 #define midp ((pl+pr)&amp;raquo;1) #define pls pl,midp #define prs midp,pr
+const int maxn = 100009;
+int n, m, p; int d[maxn], sz[maxn], fa[maxn], tc, fc[maxn], ch[maxn], fs[maxn]; int dfb[maxn], dfe[maxn], dfo[maxn], ci, ti; edge elst[maxn &amp;laquo; 1], *ep(elst), *head[maxn]; seg *rt[0];</description>
+    </item>
+    
+    <item>
+      <title>bzoj3328.cc</title>
+      <link>/code/dbimport_189/</link>
+      <pubDate>Sun, 22 Mar 2015 21:21:42 +0000</pubDate>
+      
+      <guid>/code/dbimport_189/</guid>
+      <description>#include #include #include using namespace std;
+typedef long long dint; #ifdef WIN32 #define lld &amp;ldquo;%I64d&amp;rdquo; #else #define lld &amp;ldquo;%lld&amp;rdquo; #endif #define _l (long long int) #define mInc(a,b) { a += b; if (a &amp;gt;= mod) a -= mod; }
+const int maxn = 40009;
+dint n; int k, mod;
+struct matrix { static const int n = 2; int a[n][n]; matrix() {} void init() { memset(a, 0, sizeof(a)); } void setOne() { memset(a, 0, sizeof(a)); for (int i = 0; i &amp;lt; n; ++ i) a[i][i] = 1; } void operator =(const matrix&amp;amp; b) { memcpy(a, b.</description>
+    </item>
+    
+    <item>
+      <title>bzoj2700.cc</title>
+      <link>/code/dbimport_156/</link>
+      <pubDate>Fri, 20 Mar 2015 22:40:59 +0000</pubDate>
+      
+      <guid>/code/dbimport_156/</guid>
+      <description>#include #include #include using namespace std;
+typedef long long dint; #ifdef WIN32 #define lld &amp;ldquo;%I64d&amp;rdquo; #else #define lld &amp;ldquo;%lld&amp;rdquo; #endif #define _l (long long int)
+const int maxn = 1009; const dint inf = 0x3f3f3f3f3f3f3f3fll;
+int n, m, ca[maxn], cb[maxn], ta, tb; dint f[maxn][maxn][5];
+#define upMin(a,b) { if (a &amp;gt; b) a = b; }
+dint dp() { memset(f, 0x3f, sizeof(f)); if (ta) f[1][0][0] = ca[0] * n; if (tb) f[0][1][2] = cb[0] * n; for (int i = 0; i &amp;lt;= ta; ++ i) for (int j = 0; j &amp;lt;= tb; ++ j) if (n - i - j &amp;gt; 0) { int cc(n - i - j); if (f[i][j][0] &amp;lt; inf) { if (i &amp;lt; ta) upMin(f[i + 1][j][1], f[i][j][0] + ca[i] * cc); if (j &amp;lt; tb) upMin(f[i][j + 1][2], f[i][j][0] + cb[j] * cc); } if (f[i][j][1] &amp;lt; inf) { if (j &amp;lt; tb) upMin(f[i][j + 1][2], f[i][j][1] + cb[j] * cc); } if (f[i][j][2] &amp;lt; inf) { if (i &amp;lt; ta) upMin(f[i + 1][j][0], f[i][j][2] + ca[i] * cc); if (j &amp;lt; tb) upMin(f[i][j + 1][3], f[i][j][2] + cb[j] * cc); } if (f[i][j][3] &amp;lt; inf) { if (i &amp;lt; ta) upMin(f[i + 1][j][0], f[i][j][3] + ca[i] * cc); } } dint ans(inf); for (int i = 0; i &amp;lt;= n; ++ i) for (int j = 0; j &amp;lt; 4; ++ j) upMin(ans, f[i][n - i][j]); return ans; }</description>
+    </item>
+    
+    <item>
+      <title>bzoj2683.cc</title>
+      <link>/code/dbimport_152/</link>
+      <pubDate>Fri, 20 Mar 2015 20:26:35 +0000</pubDate>
+      
+      <guid>/code/dbimport_152/</guid>
+      <description>#include #include #include #include using namespace std;
+const int max_buf = 4567; char buf[max_buf], *bufb(buf), *bufe(buf + 1); #define readBuf() { if (++ bufb == bufe) bufe = (bufb = buf) + fread(buf, 1, sizeof(buf), stdin); } #define readInt(x) { register int s(0); do { readBuf(); } while (!isdigit(*bufb)); do { s = s * 10 + *bufb - 48; readBuf(); } while (isdigit(*bufb)); x = s; }
+struct query { int t, x, y, v; };</description>
+    </item>
+    
+    <item>
+      <title>bzoj2482.cc</title>
+      <link>/code/dbimport_145/</link>
+      <pubDate>Wed, 18 Mar 2015 21:24:25 +0000</pubDate>
+      
+      <guid>/code/dbimport_145/</guid>
+      <description>#include #include #include #include using namespace std;
+const int max_buf = 4567; char buf[max_buf], *bufb(buf), *bufe(bufb + 1); #define readBuf() { if (++ bufb == bufe) bufe = (bufb = buf) + fread(buf, 1, sizeof(buf), stdin); } #define readInt(x) { register int s(0); register bool nag(0); do { readBuf(); } while (!isdigit(*bufb) &amp;amp;&amp;amp; *bufb != &amp;lsquo;-&amp;rsquo;); if (*bufb == &amp;lsquo;-&amp;rsquo;) { nag = 1; readBuf(); } do { s = s * 10 + *bufb - 48; readBuf(); } while (isdigit(*bufb)); if (nag) x = -s; else x = s; }</description>
+    </item>
+    
+    <item>
+      <title>bzoj2400.cc</title>
+      <link>/code/dbimport_139/</link>
+      <pubDate>Tue, 17 Mar 2015 18:17:47 +0000</pubDate>
+      
+      <guid>/code/dbimport_139/</guid>
+      <description>#include #include #include using namespace std;
+struct edge { int t, c, v; edge *next, *rv; };
+typedef long long dint; #ifdef WIN32 #define lld &amp;ldquo;%I64d&amp;rdquo; #else #define lld &amp;ldquo;%lld&amp;rdquo; #endif #define _l (long long int)
+const int maxn = 509; const int maxm = 2009; const int maxe = 10009; const int inf = 0x3f3f3f3f;
+dint ansc, ansv; int n, m, ea[maxm], eb[maxm], v[maxn], st, te; int d[maxm], fp[maxn]; edge *ep, *head[maxn], elst[maxe], *fe[maxn];</description>
+    </item>
+    
+    <item>
+      <title>bzoj2986.cc</title>
+      <link>/code/dbimport_174/</link>
+      <pubDate>Tue, 17 Mar 2015 12:08:41 +0000</pubDate>
+      
+      <guid>/code/dbimport_174/</guid>
+      <description>#include #include #include using namespace std;
+typedef long long dint; #ifdef WIN32 #define lld &amp;ldquo;%I64d&amp;rdquo; #else #define lld &amp;ldquo;%lld&amp;rdquo; #endif #define _l (long long int)
+const int maxp = 300009; const dint maxv = 1e11;
+int pn[maxp], tp; bool pr[maxp]; dint qv, x, cnt;
+void pre() { memset(pr, 0, sizeof(pr)); tp = 0; for (int i = 2; i &amp;lt; maxp; ++ i) { if (!pr[i]) pn[tp ++] = i; for (int j = 0; j &amp;lt; tp &amp;amp;&amp;amp; i * pn[j] &amp;lt; maxp; ++ j) { pr[i * pn[j]] = 1; if (i % pn[j] == 0) break; } } }</description>
+    </item>
+    
+    <item>
+      <title>pineapple.vim</title>
+      <link>/code/dbimport_271/</link>
+      <pubDate>Tue, 17 Mar 2015 07:49:05 +0000</pubDate>
+      
+      <guid>/code/dbimport_271/</guid>
+      <description>&amp;quot; local syntax file - set colors on a per-machine basis: &amp;quot; vim: tw=0 ts=4 sw=4 &amp;quot; Vim color file &amp;quot; Maintainer:	laekov laekov@163.com &amp;quot; Last Change:	2015 Feb &amp;quot; hi clear set background=dark syntax reset let g:colors_name=&amp;lsquo;pineapple&amp;rsquo; if has(&amp;lsquo;gui&amp;rsquo;) hi Normal guibg=#000000 guifg=white hi SpecialKey term=bold ctermfg=4 guifg=Blue hi Directory term=bold ctermfg=4 guifg=Blue hi ErrorMsg term=standout cterm=bold ctermfg=7 ctermbg=1 gui=bold guifg=White guibg=Red hi IncSearch term=reverse cterm=reverse gui=reverse hi Search term=reverse guibg=Blue guifg=White hi MoreMsg term=bold ctermfg=2 gui=bold guifg=White hi ModeMsg term=bold cterm=bold gui=bold hi LineNr term=underline ctermfg=3 guifg=Pink hi Question term=standout ctermfg=2 gui=bold guifg=White hi StatusLine term=bold,reverse cterm=bold,reverse gui=bold guifg=White guibg=Grey35 hi StatusLineNC term=reverse cterm=reverse gui=bold guifg=Grey10 guibg=Gray85 hi VertSplit guibg=Pink guifg=Black hi Title term=bold ctermfg=5 gui=bold guifg=DeepPink3 hi Visual term=reverse cterm=reverse gui=reverse guifg=Grey80 guibg=fg hi VisualNOS term=bold,underline cterm=bold,underline gui=bold,underline hi WarningMsg term=standout ctermfg=1 gui=bold guifg=Red hi WildMenu term=standout ctermfg=0 ctermbg=3 guifg=Black guibg=Yellow hi Folded term=standout ctermfg=4 ctermbg=7 guifg=Black guibg=#e3c1a5 hi FoldColumn term=standout ctermfg=4 ctermbg=7 guifg=DarkBlue guibg=Gray80 hi DiffAdd term=bold ctermbg=4 guibg=White hi DiffChange term=bold ctermbg=5 guibg=#edb5cd hi DiffDelete term=bold cterm=bold ctermfg=4 ctermbg=6 gui=bold guifg=LightBlue guibg=#f6e8d0 hi DiffText term=reverse cterm=bold ctermbg=1 gui=bold guibg=#ff8060 hi Cursor guifg=black guibg=white hi lCursor guifg=bg guibg=fg hi NonText guifg=green guibg=#1a1a1a &amp;quot; Colors for syntax highlighting hi Comment term=bold ctermfg=4 guifg=Cyan hi Constant term=underline ctermfg=1 guifg=Yellow hi Special term=bold ctermfg=5 guifg=#ff9c3a hi Identifier term=underline ctermfg=6 guifg=#9999ff hi Statement term=bold ctermfg=3 gui=bold guifg=#09f93f hi PreProc term=underline ctermfg=5 guifg=#888888 hi Type term=underline ctermfg=2 gui=bold guifg=#598ff9 hi Ignore cterm=bold ctermfg=7 guifg=bg hi Error term=reverse cterm=bold ctermfg=7 ctermbg=1 gui=bold guifg=White guibg=Red hi Todo term=standout ctermfg=0 ctermbg=3 guifg=Blue guibg=Yellow else hi Normal ctermfg=white ctermbg=0 hi ErrorMsg cterm=standout cterm=bold ctermfg=7 ctermbg=1 hi IncSearch cterm=reverse ctermbg=1 ctermfg=7 hi Search cterm=reverse ctermbg=7 ctermfg=blue hi Visual cterm=reverse if $TERM == &amp;lsquo;xterm-256color&amp;rsquo; &amp;quot;	hi NonText cterm=bold ctermbg=232 ctermfg=2 &amp;quot;	hi Type cterm=bold ctermfg=4 &amp;quot;	hi Special cterm=bold ctermfg=172 hi NonText cterm=bold ctermbg=234 ctermfg=2 hi Type cterm=bold ctermfg=4 hi Special cterm=bold ctermfg=1 else hi NonText cterm=bold ctermbg=8 ctermfg=2 hi Type cterm=bold ctermfg=32 hi Special cterm=bold ctermfg=1 endif hi LineNr cterm=bold ctermfg=5 hi ModeMsg cterm=bold hi StatusLine cterm=bold ctermfg=7 ctermbg=8 hi StatusLineNC ctermfg=7 ctermbg=8 hi VertSplit ctermfg=0 ctermbg=5 hi Folded cterm=standout ctermfg=3 ctermbg=4 hi FoldedColumn cterm=standout ctermfg=3 ctermbg=4 &amp;ldquo;For syntax hilighter hi Comment cterm=bold ctermfg=6 hi Constant ctermfg=yellow hi Indentifier cterm=bold ctermfg=2 hi Statement cterm=bold ctermfg=2 hi PreProc cterm=bold ctermfg=darkgrey hi Ignore ctermfg=7 hi Error term=reverse cterm=bold ctermfg=7 ctermbg=1 hi Todo term=standout ctermbg=6 ctermfg=0 endif</description>
+    </item>
+    
+    <item>
+      <title>vimrc</title>
+      <link>/code/dbimport_281/</link>
+      <pubDate>Tue, 17 Mar 2015 07:48:41 +0000</pubDate>
+      
+      <guid>/code/dbimport_281/</guid>
+      <description>set guioptions-=m set guioptions-=T
+source $VIMRUNTIME/mswin.vim behave mswin
+set nu set softtabstop=4 set tabstop=4 set shiftwidth=4 set nobackup set mouse=a set fdm=marker set guifont=Source\ Code\ Pro\ Semibold:h16 set hlsearch set ruler if has(&amp;lsquo;gui&amp;rsquo;) set columns=1000 set lines=1000 set cursorline endif
+map : call Save() map : !mvim -ro % map : !gdb &amp;ndash;quiet %&amp;lt; map : call Compile() map : !bash check.sh map : !./%&amp;lt; &amp;lt;.in map : call Run() map : !</description>
+    </item>
+    
+    <item>
+      <title>hdu5189.cc</title>
+      <link>/code/dbimport_251/</link>
+      <pubDate>Mon, 16 Mar 2015 22:39:43 +0000</pubDate>
+      
+      <guid>/code/dbimport_251/</guid>
+      <description>#include #include #include #include using namespace std;
+typedef pair &amp;lt;double, int&amp;gt; dpr;
+const int maxn = 30009; const int maxl = 15; const int max_buf = maxn * maxl * 2; const double eps = 1e-7; const double finf = 1e20;
+int ibuf_arr[max_buf], *ibuf; double fbuf_arr[max_buf], *fbuf;
+struct edge { int t; edge *next; };
+struct line { double k, b; inline double xCross(const line&amp;amp; a) { return (a. b - b) / (k - a.</description>
+    </item>
+    
+    <item>
+      <title>bzoj3052.cc</title>
+      <link>/code/dbimport_176/</link>
+      <pubDate>Mon, 16 Mar 2015 21:28:03 +0000</pubDate>
+      
+      <guid>/code/dbimport_176/</guid>
+      <description>#include #include #include #include using namespace std;
+const int maxn = 100009; const int maxl = 19;
+typedef struct node { int t; node *next; } edge; node nlst[maxn], *np(nlst); struct chain { int sz; node *hd, *tl; chain() { hd = tl = 0; sz = 0; } inline void clear() { hd = tl = 0; sz = 0; } inline void push(int x) { np-&amp;gt; t = x; np-&amp;gt; next = 0; if (sz) { tl-&amp;gt; next = np; tl = np; } else { hd = np; tl = np; } ++ np; ++ sz; } inline void merge(chain a) { sz += a.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>魔改 python-dbg | The Site of laekov</title>
+<meta name="keywords" content="developing">
+<meta name="description" content="最近在一些奇怪的地方使用 pytorch. 那里的 python 十分的鬼畜, 以至于 python-debug 用不了. c 的栈打出来大概是这样的.
+#110 0x00004ffff061c03c in _PyEval_EvalFrameDefault (f=&lt;optimized out&gt;, throwflag=&lt;optimized out&gt;) at ../Python-3.6.8/Python/ceval.c:3351 #111 0x00004ffff061865c in PyEval_EvalFrameEx (f=0x6, throwflag=8387296) at ../Python-3.6.8/Python/ceval.c:754 #112 0x00004ffff06192fc in _PyEval_EvalCodeWithName (_co=0x58000044c980, globals=&lt;optimized out&gt;, locals=&lt;optimized out&gt;, args=&lt;optimized out&gt;, argcount=0, kwnames=&lt;optimized out&gt;, kwargs=0x58000d8621b8, kwcount=2, kwstep=1, defs=0x580000449340, defcount=2, kwdefs=0x0, closure=0x0, name=0x5800003431c0, qualname=0x5800003431c0) at ../Python-3.6.8/Python/ceval.c:4166 #113 0x00004ffff0619768 in fast_function (kwnames=&lt;optimized out&gt;, nargs=0, stack=0x58000d8621b8, func=0x58000296f6b8) at ../Python-3.6.8/Python/ceval.c:4992 #114 call_function (pp_stack=0x500000804400, oparg=&lt;optimized out&gt;, kwnames=&lt;optimized out&gt;) at .">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/technical/5845d0/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="魔改 python-dbg" />
+<meta property="og:description" content="最近在一些奇怪的地方使用 pytorch. 那里的 python 十分的鬼畜, 以至于 python-debug 用不了. c 的栈打出来大概是这样的.
+#110 0x00004ffff061c03c in _PyEval_EvalFrameDefault (f=&lt;optimized out&gt;, throwflag=&lt;optimized out&gt;) at ../Python-3.6.8/Python/ceval.c:3351 #111 0x00004ffff061865c in PyEval_EvalFrameEx (f=0x6, throwflag=8387296) at ../Python-3.6.8/Python/ceval.c:754 #112 0x00004ffff06192fc in _PyEval_EvalCodeWithName (_co=0x58000044c980, globals=&lt;optimized out&gt;, locals=&lt;optimized out&gt;, args=&lt;optimized out&gt;, argcount=0, kwnames=&lt;optimized out&gt;, kwargs=0x58000d8621b8, kwcount=2, kwstep=1, defs=0x580000449340, defcount=2, kwdefs=0x0, closure=0x0, name=0x5800003431c0, qualname=0x5800003431c0) at ../Python-3.6.8/Python/ceval.c:4166 #113 0x00004ffff0619768 in fast_function (kwnames=&lt;optimized out&gt;, nargs=0, stack=0x58000d8621b8, func=0x58000296f6b8) at ../Python-3.6.8/Python/ceval.c:4992 #114 call_function (pp_stack=0x500000804400, oparg=&lt;optimized out&gt;, kwnames=&lt;optimized out&gt;) at ." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/technical/5845d0/" /><meta property="article:section" content="technical" />
+<meta property="article:published_time" content="2023-09-05T19:10:33+00:00" />
+<meta property="article:modified_time" content="2023-09-05T19:10:33+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="魔改 python-dbg"/>
+<meta name="twitter:description" content="最近在一些奇怪的地方使用 pytorch. 那里的 python 十分的鬼畜, 以至于 python-debug 用不了. c 的栈打出来大概是这样的.
+#110 0x00004ffff061c03c in _PyEval_EvalFrameDefault (f=&lt;optimized out&gt;, throwflag=&lt;optimized out&gt;) at ../Python-3.6.8/Python/ceval.c:3351 #111 0x00004ffff061865c in PyEval_EvalFrameEx (f=0x6, throwflag=8387296) at ../Python-3.6.8/Python/ceval.c:754 #112 0x00004ffff06192fc in _PyEval_EvalCodeWithName (_co=0x58000044c980, globals=&lt;optimized out&gt;, locals=&lt;optimized out&gt;, args=&lt;optimized out&gt;, argcount=0, kwnames=&lt;optimized out&gt;, kwargs=0x58000d8621b8, kwcount=2, kwstep=1, defs=0x580000449340, defcount=2, kwdefs=0x0, closure=0x0, name=0x5800003431c0, qualname=0x5800003431c0) at ../Python-3.6.8/Python/ceval.c:4166 #113 0x00004ffff0619768 in fast_function (kwnames=&lt;optimized out&gt;, nargs=0, stack=0x58000d8621b8, func=0x58000296f6b8) at ../Python-3.6.8/Python/ceval.c:4992 #114 call_function (pp_stack=0x500000804400, oparg=&lt;optimized out&gt;, kwnames=&lt;optimized out&gt;) at ."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Technicals",
+      "item": "/technical/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "魔改 python-dbg",
+      "item": "/technical/5845d0/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "魔改 python-dbg",
+  "name": "魔改 python-dbg",
+  "description": "最近在一些奇怪的地方使用 pytorch. 那里的 python 十分的鬼畜, 以至于 python-debug 用不了. c 的栈打出来大概是这样的.\n#110 0x00004ffff061c03c in _PyEval_EvalFrameDefault (f=\u0026lt;optimized out\u0026gt;, throwflag=\u0026lt;optimized out\u0026gt;) at ../Python-3.6.8/Python/ceval.c:3351 #111 0x00004ffff061865c in PyEval_EvalFrameEx (f=0x6, throwflag=8387296) at ../Python-3.6.8/Python/ceval.c:754 #112 0x00004ffff06192fc in _PyEval_EvalCodeWithName (_co=0x58000044c980, globals=\u0026lt;optimized out\u0026gt;, locals=\u0026lt;optimized out\u0026gt;, args=\u0026lt;optimized out\u0026gt;, argcount=0, kwnames=\u0026lt;optimized out\u0026gt;, kwargs=0x58000d8621b8, kwcount=2, kwstep=1, defs=0x580000449340, defcount=2, kwdefs=0x0, closure=0x0, name=0x5800003431c0, qualname=0x5800003431c0) at ../Python-3.6.8/Python/ceval.c:4166 #113 0x00004ffff0619768 in fast_function (kwnames=\u0026lt;optimized out\u0026gt;, nargs=0, stack=0x58000d8621b8, func=0x58000296f6b8) at ../Python-3.6.8/Python/ceval.c:4992 #114 call_function (pp_stack=0x500000804400, oparg=\u0026lt;optimized out\u0026gt;, kwnames=\u0026lt;optimized out\u0026gt;) at .",
+  "keywords": [
+    "developing"
+  ],
+  "articleBody": "最近在一些奇怪的地方使用 pytorch. 那里的 python 十分的鬼畜, 以至于 python-debug 用不了. c 的栈打出来大概是这样的.\n#110 0x00004ffff061c03c in _PyEval_EvalFrameDefault (f=, throwflag=) at ../Python-3.6.8/Python/ceval.c:3351 #111 0x00004ffff061865c in PyEval_EvalFrameEx (f=0x6, throwflag=8387296) at ../Python-3.6.8/Python/ceval.c:754 #112 0x00004ffff06192fc in _PyEval_EvalCodeWithName (_co=0x58000044c980, globals=, locals=, args=, argcount=0, kwnames=, kwargs=0x58000d8621b8, kwcount=2, kwstep=1, defs=0x580000449340, defcount=2, kwdefs=0x0, closure=0x0, name=0x5800003431c0, qualname=0x5800003431c0) at ../Python-3.6.8/Python/ceval.c:4166 #113 0x00004ffff0619768 in fast_function (kwnames=, nargs=0, stack=0x58000d8621b8, func=0x58000296f6b8) at ../Python-3.6.8/Python/ceval.c:4992 #114 call_function (pp_stack=0x500000804400, oparg=, kwnames=) at ../Python-3.6.8/Python/ceval.c:4872 众所周知, python-gdb 用了 _PyEval_EvalFrameDefault 里的 f 变量来查当前 frame, 如果 optimized out 了的话就用它上一层的 f. 然而这里上一层的 f 指针莫名其妙地变成了 0x6, 于是自然读不出来, 于是就没法知道执行到哪里了.\n然后 laekov 就灵机一动发现 _PyEval_EvalCodeWithName 里面的 _co 是不是可以用啊. 然后看了一通代码发现 _co 是一个 PyCodeObject, 里面确实有文件名和行号之类的信息, 于是可以用来进行一些 back trace, 只是缺了关键的 “哪一行在调用” 的信息 qwq. 仔细观察了一通代码之后发现 f_lineno 是在 EvalFrameDefault 里面动的, 所以没有 f对象的位置的话, 就找不到它了捏, 呜呜呜.\n但总之一通乱改之后它能打出一个能进行观察的栈了. 代码被放到了 github\n总结一下这个事情其实是在逆向别人不知道怎么过的一个 cpython interpreter 呢 \u003e_\u003e 还不如把源码给窝呢草\n",
+  "wordCount" : "129",
+  "inLanguage": "en",
+  "datePublished": "2023-09-05T19:10:33Z",
+  "dateModified": "2023-09-05T19:10:33Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/technical/5845d0/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/technical/">Technicals</a></div>
+    <h1 class="post-title">
+      魔改 python-dbg
+    </h1>
+    <div class="post-meta"><span title='2023-09-05 19:10:33 +0000 UTC'>September 5, 2023</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>最近在一些奇怪的地方使用 pytorch. 那里的 python 十分的鬼畜, 以至于 python-debug 用不了. c 的栈打出来大概是这样的.</p>
+<pre tabindex="0"><code>#110 0x00004ffff061c03c in _PyEval_EvalFrameDefault (f=&lt;optimized out&gt;, throwflag=&lt;optimized out&gt;) at ../Python-3.6.8/Python/ceval.c:3351                                                   
+#111 0x00004ffff061865c in PyEval_EvalFrameEx (f=0x6, throwflag=8387296) at ../Python-3.6.8/Python/ceval.c:754                                                                              
+#112 0x00004ffff06192fc in _PyEval_EvalCodeWithName (_co=0x58000044c980, globals=&lt;optimized out&gt;, locals=&lt;optimized out&gt;, args=&lt;optimized out&gt;, argcount=0, kwnames=&lt;optimized out&gt;, kwargs=0x58000d8621b8, kwcount=2, kwstep=1, defs=0x580000449340, defcount=2, kwdefs=0x0, closure=0x0, name=0x5800003431c0, qualname=0x5800003431c0) at ../Python-3.6.8/Python/ceval.c:4166
+#113 0x00004ffff0619768 in fast_function (kwnames=&lt;optimized out&gt;, nargs=0, stack=0x58000d8621b8, func=0x58000296f6b8) at ../Python-3.6.8/Python/ceval.c:4992                               
+#114 call_function (pp_stack=0x500000804400, oparg=&lt;optimized out&gt;, kwnames=&lt;optimized out&gt;) at ../Python-3.6.8/Python/ceval.c:4872   
+</code></pre><p>众所周知, python-gdb 用了 <code>_PyEval_EvalFrameDefault</code> 里的 <code>f</code> 变量来查当前 frame, 如果 optimized out 了的话就用它上一层的 <code>f</code>. 然而这里上一层的 <code>f</code> 指针莫名其妙地变成了 <code>0x6</code>, 于是自然读不出来, 于是就没法知道执行到哪里了.</p>
+<p>然后 laekov 就灵机一动发现 <code>_PyEval_EvalCodeWithName</code> 里面的 <code>_co</code> 是不是可以用啊. 然后看了一通代码发现 <code>_co</code> 是一个 <code>PyCodeObject</code>, 里面确实有文件名和行号之类的信息, 于是可以用来进行一些 back trace, 只是缺了关键的 &ldquo;哪一行在调用&rdquo; 的信息 qwq. 仔细观察了一通代码之后发现 <code>f_lineno</code> 是在 <code>EvalFrameDefault</code> 里面动的, 所以没有 <code>f</code>对象的位置的话, 就找不到它了捏, 呜呜呜.</p>
+<p>但总之一通乱改之后它能打出一个能进行观察的栈了. 代码被放到了 <a href="https://github.com/laekov/python-dbg">github</a></p>
+<p>总结一下这个事情其实是在逆向别人不知道怎么过的一个 cpython interpreter 呢 &gt;_&gt; 还不如把源码给窝呢草</p>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/developing/">developing</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/technical/88ab8d/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>CentOS 的防火墙和 ldap login</span>
+  </a>
+  <a class="next" href="/technical/b9d832/">
+    <span class="title">Next »</span>
+    <br>
+    <span>python-dbg 使用中遇到的 auto-load-safe 问题</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

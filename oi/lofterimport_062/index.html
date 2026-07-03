@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>BZOJ3319 黑白树 | The Site of laekov</title>
+<meta name="keywords" content="bzoj, disjoint\xa0set, oi">
+<meta name="description" content="异常欢乐的并查集。馒头染色法。均摊O(n)的时间。
+离线，先把每个染色操作会染黑哪些边算出来，把黑色子节点并到白色父节点里。
+然后倒着处理，询问就直接用并查集问白色子节点顶上的黑色父节点最近是谁。染色操作再染回来。
+#include &lt;cstdio&gt;
+#include &lt;cctype&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+struct edge {
+int t, i;
+edge *next;
+};
+struct query {
+int t, v, ans;
+int *b;
+};
+int _d_;
+#define readInt(_x_)&nbsp;{&nbsp;\
+int&amp; _s_ = _x_;&nbsp;\
+_s_ = 0;&nbsp;\
+while (!isdigit(_d_&nbsp;= getchar()));&nbsp;\
+while ((_s_&nbsp;= _s_ * 10 &#43; _d_ - 48), isdigit(_d_ = getchar()));&nbsp;\
+}
+const int maxn = 1000009;
+int n, m, d[maxn], fa[maxn], v[maxn], c[maxn], r[maxn];">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/lofterimport_062/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="BZOJ3319 黑白树" />
+<meta property="og:description" content="异常欢乐的并查集。馒头染色法。均摊O(n)的时间。
+离线，先把每个染色操作会染黑哪些边算出来，把黑色子节点并到白色父节点里。
+然后倒着处理，询问就直接用并查集问白色子节点顶上的黑色父节点最近是谁。染色操作再染回来。
+#include &lt;cstdio&gt;
+#include &lt;cctype&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+struct edge {
+int t, i;
+edge *next;
+};
+struct query {
+int t, v, ans;
+int *b;
+};
+int _d_;
+#define readInt(_x_)&nbsp;{&nbsp;\
+int&amp; _s_ = _x_;&nbsp;\
+_s_ = 0;&nbsp;\
+while (!isdigit(_d_&nbsp;= getchar()));&nbsp;\
+while ((_s_&nbsp;= _s_ * 10 &#43; _d_ - 48), isdigit(_d_ = getchar()));&nbsp;\
+}
+const int maxn = 1000009;
+int n, m, d[maxn], fa[maxn], v[maxn], c[maxn], r[maxn];" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/lofterimport_062/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2014-11-28T09:46:11+00:00" />
+<meta property="article:modified_time" content="2014-11-28T09:46:11+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BZOJ3319 黑白树"/>
+<meta name="twitter:description" content="异常欢乐的并查集。馒头染色法。均摊O(n)的时间。
+离线，先把每个染色操作会染黑哪些边算出来，把黑色子节点并到白色父节点里。
+然后倒着处理，询问就直接用并查集问白色子节点顶上的黑色父节点最近是谁。染色操作再染回来。
+#include &lt;cstdio&gt;
+#include &lt;cctype&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+struct edge {
+int t, i;
+edge *next;
+};
+struct query {
+int t, v, ans;
+int *b;
+};
+int _d_;
+#define readInt(_x_)&nbsp;{&nbsp;\
+int&amp; _s_ = _x_;&nbsp;\
+_s_ = 0;&nbsp;\
+while (!isdigit(_d_&nbsp;= getchar()));&nbsp;\
+while ((_s_&nbsp;= _s_ * 10 &#43; _d_ - 48), isdigit(_d_ = getchar()));&nbsp;\
+}
+const int maxn = 1000009;
+int n, m, d[maxn], fa[maxn], v[maxn], c[maxn], r[maxn];"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "BZOJ3319 黑白树",
+      "item": "/oi/lofterimport_062/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BZOJ3319 黑白树",
+  "name": "BZOJ3319 黑白树",
+  "description": "异常欢乐的并查集。馒头染色法。均摊O(n)的时间。\n离线，先把每个染色操作会染黑哪些边算出来，把黑色子节点并到白色父节点里。\n然后倒着处理，询问就直接用并查集问白色子节点顶上的黑色父节点最近是谁。染色操作再染回来。\n#include \u0026lt;cstdio\u0026gt;\n#include \u0026lt;cctype\u0026gt;\n#include \u0026lt;cstring\u0026gt;\n#include \u0026lt;algorithm\u0026gt;\nusing namespace std;\nstruct edge {\nint t, i;\nedge *next;\n};\nstruct query {\nint t, v, ans;\nint *b;\n};\nint _d_;\n#define readInt(_x_)\u0026nbsp;{\u0026nbsp;\\\nint\u0026amp; _s_ = _x_;\u0026nbsp;\\\n_s_ = 0;\u0026nbsp;\\\nwhile (!isdigit(_d_\u0026nbsp;= getchar()));\u0026nbsp;\\\nwhile ((_s_\u0026nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\u0026nbsp;\\\n}\nconst int maxn = 1000009;\nint n, m, d[maxn], fa[maxn], v[maxn], c[maxn], r[maxn];",
+  "keywords": [
+    "bzoj", "disjoint\\xa0set", "oi"
+  ],
+  "articleBody": "异常欢乐的并查集。馒头染色法。均摊O(n)的时间。\n离线，先把每个染色操作会染黑哪些边算出来，把黑色子节点并到白色父节点里。\n然后倒着处理，询问就直接用并查集问白色子节点顶上的黑色父节点最近是谁。染色操作再染回来。\n#include #include #include #include using namespace std;\nstruct edge {\nint t, i;\nedge *next;\n};\nstruct query {\nint t, v, ans;\nint *b;\n};\nint _d_;\n#define readInt(_x_) { \\\nint\u0026 _s_ = _x_; \\\n_s_ = 0; \\\nwhile (!isdigit(_d_ = getchar())); \\\nwhile ((_s_ = _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar())); \\\n}\nconst int maxn = 1000009;\nint n, m, d[maxn], fa[maxn], v[maxn], c[maxn], r[maxn];\nint i_buf[maxn], *tib;\nquery q[maxn];\nedge *head[maxn], *ep;\ninline void addEdge(int u, int v, int w) {\nep-\u003e t = v;\nep-\u003e i = w;\nep-\u003e next = head[u];\nhead[u] = ep ++;\n}\nvoid buildTree() {\nstatic int q[maxn];\nint hd = 0, tl = 1;\nmemset(d, 0, sizeof(d));\nmemset(c, 0, sizeof(c));\nd[1] = 1;\nfa[1] = 0;\nfa[0] = 0;\nr[0] = 0;\nv[0] = 0;\nv[1] = 0;\nq[hd] = 1;\nwhile (hd \u003c tl) {\nint p = q[hd ++];\nfor (edge* e = head[p]; e; e = e-\u003e next)\nif (!d[e-\u003e t]) {\nd[e-\u003e t] = d[p] + 1;\nfa[e-\u003e t] = p;\nv[e-\u003e t] = e-\u003e i;\nq[tl ++] = e-\u003e t;\n}\n}\n}\nint getRoot(int x) {\nint p, q;\nfor (p = x; r[p] ^ p; p = r[p]);\nfor (; x ^ p; q = r[x], r[x] = p, x = q);\nreturn p;\n}\nint lca(int u, int v, int* a) {\nint t = 0;\nu = getRoot(u);\nv = getRoot(v);\nwhile (u ^ v) {\nif (d[u] \u003e d[v]) {\na[t ++] = u;\nc[u] = 1;\nr[u] = getRoot(fa[u]);\nu = r[u];\n}\nelse {\na[t ++] = v;\nc[v] = 1;\nr[v] = getRoot(fa[v]);\nv = r[v];\n}\n}\nreturn t;\n}\nint main() {\n#ifndef ONLINE_JUDGE\nfreopen(\"in.txt\", \"r\", stdin);\n#endif\nreadInt(n);\nreadInt(m);\nmemset(head, 0, sizeof(head));\nep = new edge[n * 2];\nfor (int i = 1; i \u003c n; ++ i) {\nint u, v;\nreadInt(u);\nreadInt(v);\naddEdge(u, v, i);\naddEdge(v, u, i);\n}\nbuildTree();\ntib = i_buf;\nfor (int i = 1; i \u003c= n; ++ i)\nr[i] = i;\nfor (int i = 0; i \u003c m; ++ i) {\nreadInt(q[i]. t);\nif (q[i]. t == 1) {\nreadInt(q[i]. v);\n}\nelse {\nint u, v;\nreadInt(u);\nreadInt(v);\nq[i]. b = tib;\nq[i]. v = lca(u, v, q[i]. b);\ntib += q[i]. v;\n}\n}\nfor (int i = 1; i \u003c= n; ++ i)\nif (c[i])\nr[i] = i;\nelse\nr[i] = fa[i];\nfor (int i = m - 1; i \u003e= 0; -- i)\nif (q[i]. t == 1)\nq[i]. ans = v[getRoot(q[i]. v)];\nelse {\nfor (int j = 0; j \u003c q[i]. v; ++ j) {\nint p = q[i]. b[j];\nr[p] = getRoot(fa[p]);\nc[p] = 0;\n}\n}\nfor (int i = 0; i \u003c m; ++ i)\nif (q[i]. t == 1)\nprintf(\"%d\\n\", q[i]. ans);\n}\n",
+  "wordCount" : "430",
+  "inLanguage": "en",
+  "datePublished": "2014-11-28T09:46:11Z",
+  "dateModified": "2014-11-28T09:46:11Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/lofterimport_062/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      BZOJ3319 黑白树
+    </h1>
+    <div class="post-meta"><span title='2014-11-28 09:46:11 +0000 UTC'>November 28, 2014</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>异常欢乐的并查集。馒头染色法。均摊O(n)的时间。</p> 
+<p><br /></p> 
+<p>离线，先把每个染色操作会染黑哪些边算出来，把黑色子节点并到白色父节点里。</p> 
+<p><br /></p> 
+<p>然后倒着处理，询问就直接用并查集问白色子节点顶上的黑色父节点最近是谁。染色操作再染回来。</p> 
+<p><br /></p> 
+<p>#include &lt;cstdio&gt;</p> 
+<p>#include &lt;cctype&gt;</p> 
+<p>#include &lt;cstring&gt;</p> 
+<p>#include &lt;algorithm&gt;</p> 
+<p><br /></p> 
+<p>using namespace std;</p> 
+<p><br /></p> 
+<p>struct edge {</p> 
+<p>int t, i;</p> 
+<p>edge *next;</p> 
+<p>};</p> 
+<p>struct query {</p> 
+<p>int t, v, ans;</p> 
+<p>int *b;</p> 
+<p>};</p> 
+<p><br /></p> 
+<p>int _d_;</p> 
+<p>#define readInt(_x_)&nbsp;{&nbsp;\</p> 
+<p>int&amp; _s_ = _x_;&nbsp;\</p> 
+<p>_s_ = 0;&nbsp;\</p> 
+<p>while (!isdigit(_d_&nbsp;= getchar()));&nbsp;\</p> 
+<p>while ((_s_&nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));&nbsp;\</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>const int maxn = 1000009;</p> 
+<p><br /></p> 
+<p>int n, m, d[maxn], fa[maxn], v[maxn], c[maxn], r[maxn];</p> 
+<p>int i_buf[maxn],&nbsp;*tib;</p> 
+<p>query q[maxn];</p> 
+<p>edge *head[maxn],&nbsp;*ep;</p> 
+<p><br /></p> 
+<p>inline void addEdge(int u, int v, int w)&nbsp;{</p> 
+<p>ep-&gt; t = v;</p> 
+<p>ep-&gt; i = w;</p> 
+<p>ep-&gt; next = head[u];</p> 
+<p>head[u]&nbsp;= ep ++;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>void buildTree()&nbsp;{</p> 
+<p>static int q[maxn];</p> 
+<p>int hd = 0, tl = 1;</p> 
+<p>memset(d, 0, sizeof(d));</p> 
+<p>memset(c, 0, sizeof(c));</p> 
+<p>d[1]&nbsp;= 1;</p> 
+<p>fa[1]&nbsp;= 0;</p> 
+<p>fa[0]&nbsp;= 0;</p> 
+<p>r[0]&nbsp;= 0;</p> 
+<p>v[0]&nbsp;= 0;</p> 
+<p>v[1]&nbsp;= 0;</p> 
+<p>q[hd]&nbsp;= 1;</p> 
+<p>while (hd&nbsp;&lt; tl)&nbsp;{</p> 
+<p>int p = q[hd ++];</p> 
+<p>for (edge* e = head[p]; e; e = e-&gt; next)</p> 
+<p>if (!d[e-&gt; t])&nbsp;{</p> 
+<p>d[e-&gt; t]&nbsp;= d[p]&nbsp;+ 1;</p> 
+<p>fa[e-&gt; t]&nbsp;= p;</p> 
+<p>v[e-&gt; t]&nbsp;= e-&gt; i;</p> 
+<p>q[tl ++]&nbsp;= e-&gt; t;</p> 
+<p>}</p> 
+<p>}</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int getRoot(int x)&nbsp;{</p> 
+<p>int p, q;</p> 
+<p>for (p&nbsp;= x; r[p]&nbsp;^ p; p = r[p]);</p> 
+<p>for (; x ^ p; q = r[x], r[x]&nbsp;= p, x = q);</p> 
+<p>return p;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int lca(int u, int v, int* a)&nbsp;{</p> 
+<p>int t = 0;</p> 
+<p>u = getRoot(u);</p> 
+<p>v = getRoot(v);</p> 
+<p>while (u&nbsp;^ v)&nbsp;{</p> 
+<p>if (d[u]&nbsp;&gt; d[v])&nbsp;{</p> 
+<p>a[t ++]&nbsp;= u;</p> 
+<p>c[u]&nbsp;= 1;</p> 
+<p>r[u]&nbsp;= getRoot(fa[u]);</p> 
+<p>u = r[u];</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>a[t ++]&nbsp;= v;</p> 
+<p>c[v]&nbsp;= 1;</p> 
+<p>r[v]&nbsp;= getRoot(fa[v]);</p> 
+<p>v = r[v];</p> 
+<p>}</p> 
+<p>}</p> 
+<p>return t;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int main()&nbsp;{</p> 
+<p>#ifndef ONLINE_JUDGE</p> 
+<p>freopen(&quot;in.txt&quot;,&nbsp;&quot;r&quot;, stdin);</p> 
+<p>#endif</p> 
+<p><br /></p> 
+<p>readInt(n);</p> 
+<p>readInt(m);</p> 
+<p>memset(head, 0, sizeof(head));</p> 
+<p>ep = new edge[n * 2];</p> 
+<p>for (int i = 1; i &lt; n;&nbsp;++ i)&nbsp;{</p> 
+<p>int u, v;</p> 
+<p>readInt(u);</p> 
+<p>readInt(v);</p> 
+<p>addEdge(u, v, i);</p> 
+<p>addEdge(v, u, i);</p> 
+<p>}</p> 
+<p>buildTree();</p> 
+<p>tib = i_buf;</p> 
+<p>for (int i = 1; i &lt;= n;&nbsp;++ i)</p> 
+<p>r[i]&nbsp;= i;</p> 
+<p>for (int i = 0; i &lt; m;&nbsp;++ i)&nbsp;{</p> 
+<p>readInt(q[i]. t);</p> 
+<p>if (q[i]. t == 1)&nbsp;{</p> 
+<p>readInt(q[i]. v);</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>int u, v;</p> 
+<p>readInt(u);</p> 
+<p>readInt(v);</p> 
+<p>q[i]. b = tib;</p> 
+<p>q[i]. v = lca(u, v, q[i]. b);</p> 
+<p>tib += q[i]. v;</p> 
+<p>}</p> 
+<p>}</p> 
+<p>for (int i = 1; i &lt;= n;&nbsp;++ i)</p> 
+<p>if (c[i])</p> 
+<p>r[i]&nbsp;= i;</p> 
+<p>else</p> 
+<p>r[i]&nbsp;= fa[i];</p> 
+<p>for (int i = m - 1; i &gt;= 0;&nbsp;-- i)</p> 
+<p>if (q[i]. t == 1)</p> 
+<p>q[i]. ans = v[getRoot(q[i]. v)];</p> 
+<p>else {</p> 
+<p>for (int j = 0; j &lt; q[i]. v;&nbsp;++ j)&nbsp;{</p> 
+<p>int p = q[i]. b[j];</p> 
+<p>r[p]&nbsp;= getRoot(fa[p]);</p> 
+<p>c[p]&nbsp;= 0;</p> 
+<p>}</p> 
+<p>}</p> 
+<p>for (int i = 0; i &lt; m;&nbsp;++ i)</p> 
+<p>if (q[i]. t == 1)</p> 
+<p>printf(&quot;%d\n&quot;, q[i]. ans);</p> 
+<p>}</p> 
+<p><br /></p>
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/bzoj/">bzoj</a></li>
+      <li><a href="/tags/disjoint%5Cxa0set/">disjoint\xa0set</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/lofterimport_061/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>BZOJ1951 [Sdoi2010]古代猪文</span>
+  </a>
+  <a class="next" href="/oi/lofterimport_063/">
+    <span class="title">Next »</span>
+    <br>
+    <span>BZOJ1954 Pku3764 The xor-longest Path</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

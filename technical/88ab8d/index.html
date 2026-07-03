@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>CentOS 的防火墙和 ldap login | The Site of laekov</title>
+<meta name="keywords" content="developing">
+<meta name="description" content="最近在实验室遇到一些情况必需搞一台 centos 的服务器, 但是还是想给它配置我们常用的一些东西, 于是踩了一些坑, 作一个记录.
+sshd 在别的端口 我们用这个来提供外网的仅公钥的访问, 然而 cent 里面配了 sshd_config 里的 port 之后竟然没法从别的机器访问到这个 port. 关掉 selinux 也没用, 最后发现需要 disable firewalld. (什么企业级安全)
+sssd ldap 无法 auth 相比 debian 底下使用 libnss-ldapd 和 libpam-ldapd, cent 下面用的是一个叫 sssd 的玩意. 然后使用 authconfig 来进行配置. 然而配好了之后可以 id 一个用户 , 却不能 getent. 发现需要在 sssd 配置文件里加上这个.
+enumerate = true 然而还是无法用 ldap 用户密码登录, 一通查发现是因为
+SSSD always uses an encrypted channel for authentication, which ensures that passwords are never sent over the network unencrypted.">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/technical/88ab8d/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="CentOS 的防火墙和 ldap login" />
+<meta property="og:description" content="最近在实验室遇到一些情况必需搞一台 centos 的服务器, 但是还是想给它配置我们常用的一些东西, 于是踩了一些坑, 作一个记录.
+sshd 在别的端口 我们用这个来提供外网的仅公钥的访问, 然而 cent 里面配了 sshd_config 里的 port 之后竟然没法从别的机器访问到这个 port. 关掉 selinux 也没用, 最后发现需要 disable firewalld. (什么企业级安全)
+sssd ldap 无法 auth 相比 debian 底下使用 libnss-ldapd 和 libpam-ldapd, cent 下面用的是一个叫 sssd 的玩意. 然后使用 authconfig 来进行配置. 然而配好了之后可以 id 一个用户 , 却不能 getent. 发现需要在 sssd 配置文件里加上这个.
+enumerate = true 然而还是无法用 ldap 用户密码登录, 一通查发现是因为
+SSSD always uses an encrypted channel for authentication, which ensures that passwords are never sent over the network unencrypted." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/technical/88ab8d/" /><meta property="article:section" content="technical" />
+<meta property="article:published_time" content="2023-09-21T17:07:08+00:00" />
+<meta property="article:modified_time" content="2023-09-21T17:07:08+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="CentOS 的防火墙和 ldap login"/>
+<meta name="twitter:description" content="最近在实验室遇到一些情况必需搞一台 centos 的服务器, 但是还是想给它配置我们常用的一些东西, 于是踩了一些坑, 作一个记录.
+sshd 在别的端口 我们用这个来提供外网的仅公钥的访问, 然而 cent 里面配了 sshd_config 里的 port 之后竟然没法从别的机器访问到这个 port. 关掉 selinux 也没用, 最后发现需要 disable firewalld. (什么企业级安全)
+sssd ldap 无法 auth 相比 debian 底下使用 libnss-ldapd 和 libpam-ldapd, cent 下面用的是一个叫 sssd 的玩意. 然后使用 authconfig 来进行配置. 然而配好了之后可以 id 一个用户 , 却不能 getent. 发现需要在 sssd 配置文件里加上这个.
+enumerate = true 然而还是无法用 ldap 用户密码登录, 一通查发现是因为
+SSSD always uses an encrypted channel for authentication, which ensures that passwords are never sent over the network unencrypted."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Technicals",
+      "item": "/technical/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "CentOS 的防火墙和 ldap login",
+      "item": "/technical/88ab8d/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "CentOS 的防火墙和 ldap login",
+  "name": "CentOS 的防火墙和 ldap login",
+  "description": "最近在实验室遇到一些情况必需搞一台 centos 的服务器, 但是还是想给它配置我们常用的一些东西, 于是踩了一些坑, 作一个记录.\nsshd 在别的端口 我们用这个来提供外网的仅公钥的访问, 然而 cent 里面配了 sshd_config 里的 port 之后竟然没法从别的机器访问到这个 port. 关掉 selinux 也没用, 最后发现需要 disable firewalld. (什么企业级安全)\nsssd ldap 无法 auth 相比 debian 底下使用 libnss-ldapd 和 libpam-ldapd, cent 下面用的是一个叫 sssd 的玩意. 然后使用 authconfig 来进行配置. 然而配好了之后可以 id 一个用户 , 却不能 getent. 发现需要在 sssd 配置文件里加上这个.\nenumerate = true 然而还是无法用 ldap 用户密码登录, 一通查发现是因为\nSSSD always uses an encrypted channel for authentication, which ensures that passwords are never sent over the network unencrypted.",
+  "keywords": [
+    "developing"
+  ],
+  "articleBody": "最近在实验室遇到一些情况必需搞一台 centos 的服务器, 但是还是想给它配置我们常用的一些东西, 于是踩了一些坑, 作一个记录.\nsshd 在别的端口 我们用这个来提供外网的仅公钥的访问, 然而 cent 里面配了 sshd_config 里的 port 之后竟然没法从别的机器访问到这个 port. 关掉 selinux 也没用, 最后发现需要 disable firewalld. (什么企业级安全)\nsssd ldap 无法 auth 相比 debian 底下使用 libnss-ldapd 和 libpam-ldapd, cent 下面用的是一个叫 sssd 的玩意. 然后使用 authconfig 来进行配置. 然而配好了之后可以 id 一个用户 , 却不能 getent. 发现需要在 sssd 配置文件里加上这个.\nenumerate = true 然而还是无法用 ldap 用户密码登录, 一通查发现是因为\nSSSD always uses an encrypted channel for authentication, which ensures that passwords are never sent over the network unencrypted. With ldap_id_use_start_tls = true, identity lookups (such as commands based on the id or getent utilities) are also encrypted.\n解决方案是在配置文件里加一行\nldap_auth_disable_tls_never_use_in_production=true 总结 cent 才是真灵车\n",
+  "wordCount" : "100",
+  "inLanguage": "en",
+  "datePublished": "2023-09-21T17:07:08Z",
+  "dateModified": "2023-09-21T17:07:08Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/technical/88ab8d/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/technical/">Technicals</a></div>
+    <h1 class="post-title">
+      CentOS 的防火墙和 ldap login
+    </h1>
+    <div class="post-meta"><span title='2023-09-21 17:07:08 +0000 UTC'>September 21, 2023</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#sshd-%e5%9c%a8%e5%88%ab%e7%9a%84%e7%ab%af%e5%8f%a3" aria-label="sshd 在别的端口">sshd 在别的端口</a></li>
+                <li>
+                    <a href="#sssd-ldap-%e6%97%a0%e6%b3%95-auth" aria-label="sssd ldap 无法 auth">sssd ldap 无法 auth</a></li>
+                <li>
+                    <a href="#%e6%80%bb%e7%bb%93" aria-label="总结">总结</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p>最近在实验室遇到一些情况必需搞一台 centos 的服务器, 但是还是想给它配置我们常用的一些东西, 于是踩了一些坑, 作一个记录.</p>
+<h2 id="sshd-在别的端口">sshd 在别的端口<a hidden class="anchor" aria-hidden="true" href="#sshd-在别的端口">#</a></h2>
+<p>我们用这个来提供外网的仅公钥的访问, 然而 cent 里面配了 sshd_config 里的 port 之后竟然没法从别的机器访问到这个 port. 关掉 selinux 也没用, 最后发现需要 disable firewalld. (什么企业级安全)</p>
+<h2 id="sssd-ldap-无法-auth">sssd ldap 无法 auth<a hidden class="anchor" aria-hidden="true" href="#sssd-ldap-无法-auth">#</a></h2>
+<p>相比 debian 底下使用 libnss-ldapd 和 libpam-ldapd, cent 下面用的是一个叫 sssd 的玩意. 然后使用 <code>authconfig</code> 来进行配置. 然而配好了之后可以 id 一个用户 , 却不能 getent. 发现需要在 sssd 配置文件里加上这个.</p>
+<pre tabindex="0"><code>enumerate = true
+</code></pre><p>然而还是无法用 ldap 用户密码登录, 一通查发现是因为</p>
+<blockquote>
+<p>SSSD always uses an encrypted channel for authentication, which ensures that passwords are never sent over the network unencrypted. With ldap_id_use_start_tls = true, identity lookups (such as commands based on the id or getent utilities) are also encrypted.</p>
+</blockquote>
+<p>解决方案是在配置文件里加一行</p>
+<pre tabindex="0"><code>ldap_auth_disable_tls_never_use_in_production=true
+</code></pre><h2 id="总结">总结<a hidden class="anchor" aria-hidden="true" href="#总结">#</a></h2>
+<p>cent 才是真灵车</p>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/developing/">developing</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/post/2023-server-failure-recovery/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>本网站的崩溃与重建</span>
+  </a>
+  <a class="next" href="/technical/5845d0/">
+    <span class="title">Next »</span>
+    <br>
+    <span>魔改 python-dbg</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

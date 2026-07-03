@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>bestcoder on The Site of laekov</title>
+    <link>/tags/bestcoder/</link>
+    <description>Recent content in bestcoder on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Sat, 29 Nov 2014 22:49:53 +0000</lastBuildDate><atom:link href="/tags/bestcoder/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bestcoder #20 题解&amp;&amp;总结</title>
+      <link>/diary/lofterimport_060/</link>
+      <pubDate>Sat, 29 Nov 2014 22:49:53 +0000</pubDate>
+      
+      <guid>/diary/lofterimport_060/</guid>
+      <description>人生第一次AK网赛。之前cf和bc总是fst。
+第一题水，比谁手速快。好像我手速也比较慢啊。
+第二题离散一下，然后直接用前缀和找最大。手速又有点慢。
+第三题树状数组优化DP，有点像SCOI2014的玉米田。然后写挫了好几次。
+第四题比较有含金量。前两天才做了cdq的mokia，于是想了一会决定用cdq套树状数组套平衡树。然后花了20分钟写30分钟把平衡树里ins的时候把点的编号改对和++size。我觉得我没有抢救的必要了。
+然后所以虽然AK但是排名还是低。上次虽然只过了两题还是RANK1，难度差距有点大啊。
+不过终于超过jason_yu了。
+看来我还是比较年轻，还要再努力啊。</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>gauss on The Site of laekov</title>
+    <link>/tags/gauss/</link>
+    <description>Recent content in gauss on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Sun, 26 Apr 2015 13:40:49 +0000</lastBuildDate><atom:link href="/tags/gauss/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>bzoj3270 博物馆</title>
+      <link>/oi/dbimport_188/</link>
+      <pubDate>Sun, 26 Apr 2015 13:40:49 +0000</pubDate>
+      
+      <guid>/oi/dbimport_188/</guid>
+      <description>比较基础的期望+高消的题.为了说明一下高消是what,我决定写一发题解.
+首先题意是有个n个点m条边的无向图.有两个人初始位置是a和b.每个时刻每个人在一个点有p_i的概率不动,否则等概率移动到相邻的点.只有在同一时刻在同一个顶点上才算相遇.相遇了他俩就玩去了.求在第i号点相遇的概率.
+首先方程很好列.定义一个状态f[i][j]表示第一个人在i,第二个人在j的概率.那么f[i][j] = ∑ f[k][l] * ptrans(k,i) * ptrans(j, l),其中ptrans(a,b)表示从a移动到b的概率.
+然后这个东西就用高消嘛.(upd:才发现它叫gauss而不是guess.捂脸ing)
+高消就是说每次把剩下的方程里的第一个系数不为0的未知数的系数全部通过减某一个方程来把这个系数都消成0.当然被减的方程得留下系数过会再用于推答案.然后就可以不管这个被留下的方程了.
+换句话说,如果把方程组看成t*(t+1)的矩阵的话,其实就是消成一个右上三角.
+然后再倒着推出每个未知数的值.
+这个直接算比例就完了嘛.然后有一种情况是当前a[i][i]已经为0了,那么减不掉?反正所有方程的顺序没有关系啊.你就随便找一个不是0的到前面来消就好了啊.如果剩下方程的这一个系数都是0,那这个未知数取啥就无关了.也无所谓啦.
+详见代码.</description>
+    </item>
+    
+  </channel>
+</rss>

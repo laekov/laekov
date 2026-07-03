@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>DLF on The Site of laekov</title>
+    <link>/tags/dlf/</link>
+    <description>Recent content in DLF on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Sat, 01 Sep 2018 20:52:52 +0000</lastBuildDate><atom:link href="/tags/dlf/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>DyNet 代码笔记</title>
+      <link>/technical/bb68d3/</link>
+      <pubDate>Sat, 01 Sep 2018 20:52:52 +0000</pubDate>
+      
+      <guid>/technical/bb68d3/</guid>
+      <description>API角度 Python 功能没有 pytorch 完善. 参数收集等都需要手写.
+CPP API 同 Python.
+设计理念 类名为 Expression: 表达式 -&amp;gt; 明确定义 未执行.
+Graph @xl nodes, parameter_nodes
+inplace: forward_inplace_state { NOPE } 完全没支持inplace.
+immediate_compute 立即执行.
+提供backward方法, 但传入了loss的index.
+Tensor 暴力绑定内存. (直接就是一个裸指针)
+Expression (Variable) value() 方法真正执行expression并获取值. 调用ee(ExecutionEngine).
+Autobatching 在执行cg的时候做. 具体代码在 exec.cc 里一个叫 incremental_forward_no_update的函数里.
+使用 signiture 机制. 不同功能的function对应不同的signiture. 相同signiture的 合并.
+Optimize 没有做. 只有一个找关键路径的简单算法.
+Node(Functions) Spec推断 DimForward 专门维护 shape 信息.
+forward 和 backward 放在一个子类里.
+所有控制都由 Graph 接管. 包括所有 Variable 和 Nodes (Function)</description>
+    </item>
+    
+  </channel>
+</rss>

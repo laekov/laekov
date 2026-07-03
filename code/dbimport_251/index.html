@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>hdu5189.cc | The Site of laekov</title>
+<meta name="keywords" content="code">
+<meta name="description" content="#include #include #include #include using namespace std;
+typedef pair &lt;double, int&gt; dpr;
+const int maxn = 30009; const int maxl = 15; const int max_buf = maxn * maxl * 2; const double eps = 1e-7; const double finf = 1e20;
+int ibuf_arr[max_buf], *ibuf; double fbuf_arr[max_buf], *fbuf;
+struct edge { int t; edge *next; };
+struct line { double k, b; inline double xCross(const line&amp; a) { return (a. b - b) / (k - a.">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/code/dbimport_251/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="hdu5189.cc" />
+<meta property="og:description" content="#include #include #include #include using namespace std;
+typedef pair &lt;double, int&gt; dpr;
+const int maxn = 30009; const int maxl = 15; const int max_buf = maxn * maxl * 2; const double eps = 1e-7; const double finf = 1e20;
+int ibuf_arr[max_buf], *ibuf; double fbuf_arr[max_buf], *fbuf;
+struct edge { int t; edge *next; };
+struct line { double k, b; inline double xCross(const line&amp; a) { return (a. b - b) / (k - a." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/code/dbimport_251/" /><meta property="article:section" content="code" />
+<meta property="article:published_time" content="2015-03-16T22:39:43+00:00" />
+<meta property="article:modified_time" content="2015-03-16T22:39:43+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="hdu5189.cc"/>
+<meta name="twitter:description" content="#include #include #include #include using namespace std;
+typedef pair &lt;double, int&gt; dpr;
+const int maxn = 30009; const int maxl = 15; const int max_buf = maxn * maxl * 2; const double eps = 1e-7; const double finf = 1e20;
+int ibuf_arr[max_buf], *ibuf; double fbuf_arr[max_buf], *fbuf;
+struct edge { int t; edge *next; };
+struct line { double k, b; inline double xCross(const line&amp; a) { return (a. b - b) / (k - a."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Codes",
+      "item": "/code/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "hdu5189.cc",
+      "item": "/code/dbimport_251/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "hdu5189.cc",
+  "name": "hdu5189.cc",
+  "description": "#include #include #include #include using namespace std;\ntypedef pair \u0026lt;double, int\u0026gt; dpr;\nconst int maxn = 30009; const int maxl = 15; const int max_buf = maxn * maxl * 2; const double eps = 1e-7; const double finf = 1e20;\nint ibuf_arr[max_buf], *ibuf; double fbuf_arr[max_buf], *fbuf;\nstruct edge { int t; edge *next; };\nstruct line { double k, b; inline double xCross(const line\u0026amp; a) { return (a. b - b) / (k - a.",
+  "keywords": [
+    "code"
+  ],
+  "articleBody": "#include #include #include #include using namespace std;\ntypedef pair dpr;\nconst int maxn = 30009; const int maxl = 15; const int max_buf = maxn * maxl * 2; const double eps = 1e-7; const double finf = 1e20;\nint ibuf_arr[max_buf], *ibuf; double fbuf_arr[max_buf], *fbuf;\nstruct edge { int t; edge *next; };\nstruct line { double k, b; inline double xCross(const line\u0026 a) { return (a. b - b) / (k - a. k); } inline double f(double x) { return k * x + b; } }; line a[maxn « 1];\nstruct hull { int t; int *l; double *cx; void init(int x) { t = 1; l = ibuf ++; l[0] = x; cx = 0; } void merge(const hull\u0026 x, const hull\u0026 y) { static int stc[maxn]; static double tx[maxn]; t = 0; for (int i = 0, j = 0, c; i \u003c x. t || j \u003c y. t; ) { if (i == x. t || (j \u003c y. t \u0026\u0026 a[x. l[i]]. k \u003e a[y. l[j]]. k)) c = y. l[j ++]; else c = x. l[i ++]; if (t \u0026\u0026 fabs(a[c]. k - a[stc[t - 1]]. k) \u003c eps) { if (a[c]. b \u003e= a[stc[t - 1]]. b) – t; else continue; } while (t \u003e 1 \u0026\u0026 a[c]. xCross(a[stc[t - 2]]) \u003c= tx[t - 2]) – t; if (t) tx[t - 1] = a[c]. xCross(a[stc[t - 1]]); stc[t ++] = c; } l = ibuf; ibuf += t; cx = fbuf; fbuf += t - 1; for (int i = 0; i \u003c t; ++ i) { l[i] = stc[i]; if (i \u003c t - 1) cx[i] = a[stc[i]]. xCross(a[stc[i + 1]]); } } dpr qry(double x) { int p(lower_bound(cx, cx + t - 1, x) - cx); return dpr(a[l[p]]. f(x), l[p]); } }; struct seg { hull h[2]; int l, r; seg *ls, *rs; };\nint n, m, k1[maxn], b1[maxn], k2[maxn], b2[maxn]; dpr qans[2]; double qx; int fa[maxn], d[maxn], sz[maxn], tc, fc[maxn], ch[maxn], cl[maxn], *ci[maxn]; edge elst[maxn « 1], *ep, *head[maxn]; seg slst[maxn « 2], *sp, *rt[maxn];\ninline void upMax(double\u0026 a, double b) { if (a \u003c b) a = b; } inline void upMax(dpr\u0026 a, dpr b) { if (a \u003c b) a = b; } inline void addEdge(int u, int v) { ep-\u003e t = v; ep-\u003e next = head[u]; head[u] = ep ++; }\n#define cpos(p) (d[p]-d[ch[fc[p]]]) #define midp(p) ((p-\u003el+p-\u003er)»1)\ninline seg* sgtBuild(int l, int r, int* ci) { seg p(sp ++); p-\u003e l = l; p-\u003e r = r; if (l + 1 == r) { p-\u003e h[0]. init(ci[l]); p-\u003e h[1]. init(ci[l] + n); } else { p-\u003e ls = sgtBuild(l, midp(p), ci); p-\u003e rs = sgtBuild(midp(p), r, ci); p-\u003e h[0]. merge(p-\u003e ls-\u003e h[0], p-\u003e rs-\u003e h[0]); p-\u003e h[1]. merge(p-\u003e ls-\u003e h[1], p-\u003e rs-\u003e h[1]); } return p; } inline void sgtQry(seg p, int l, int r) { if (p-\u003e l == l \u0026\u0026 p-\u003e r == r) { upMax(qans[0], p-\u003e h[0]. qry(qx)); upMax(qans[1], p-\u003e h[1]. qry(qx)); } else if (r \u003c= midp(p)) sgtQry(p-\u003e ls, l, r); else if (l \u003e= midp(p)) sgtQry(p-\u003e rs, l, r); else { sgtQry(p-\u003e ls, l, midp(p)); sgtQry(p-\u003e rs, midp(p), r); } }\nvoid divide() { static int q[maxn]; int hd(0), tl(1); memset(d, 0, sizeof(d)); d[q[0] = 1] = 1; fa[1] = 0; while (hd \u003c tl) { int p(q[hd ++]); for (edge* e = head[p]; e; e = e-\u003e next) if (!d[e-\u003e t]) { d[e-\u003e t] = d[p] + 1; fa[e-\u003e t] = p; q[tl ++] = e-\u003e t; } } tc = 0; for (int i = tl - 1; i \u003e= 0; – i) { int p(q[i]), z(-1); sz[p] = 1; for (edge* e = head[p]; e; e = e-\u003e next) if (fa[e-\u003e t] == p) { sz[p] += sz[e-\u003e t]; if (z == -1 || sz[e-\u003e t] \u003e sz[z]) z = e-\u003e t; } if (z == -1) cl[fc[p] = ++ tc] = 1; else ++ cl[fc[p] = fc[z]]; ch[fc[p]] = p; } for (int i = 1; i \u003c= tc; ++ i) { ci[i] = ibuf; ibuf += cl[i]; } for (int i = 1; i \u003c= n; ++ i) ci[fc[i]][cpos(i)] = i; for (int i = 1; i \u003c= tc; ++ i) rt[i] = sgtBuild(0, cl[i], ci[i]); }\nbool check(int u, int v, double x) { qans[0] = qans[1] = dpr(-finf, 0); qx = -x; while (fc[u] ^ fc[v]) if (d[ch[fc[u]]] \u003e d[ch[fc[v]]]) { sgtQry(rt[fc[u]], 0, cpos(u) + 1); u = fa[ch[fc[u]]]; } else { sgtQry(rt[fc[v]], 0, cpos(v) + 1); v = fa[ch[fc[v]]]; } if (d[u] \u003c d[v]) sgtQry(rt[fc[u]], cpos(u), cpos(v) + 1); else sgtQry(rt[fc[u]], cpos(v), cpos(u) + 1); return qans[0]. first + qans[1]. first \u003e= 0; }\nint gcd(int a, int b) { while (a) { int c(b % a); b = a; a = c; } return b; }\nint main() { while (scanf(\"%d%d\", \u0026n, \u0026m) != EOF) { for (int i = 1; i \u003c= n; ++ i) { scanf(\"%d%d%d%d\", k1 + i, b1 + i, k2 + i, b2 + i); a[i]. k = k1[i]; a[i]. b = a[i]. k * b1[i]; a[i + n]. k = k2[i]; a[i + n]. b = a[i + n]. k * b2[i]; } memset(head, 0, sizeof(head)); ibuf = ibuf_arr; fbuf = fbuf_arr; ep = elst; sp = slst; for (int i = 1; i \u003c n; ++ i) { int u, v; scanf(\"%d%d\", \u0026u, \u0026v); addEdge(u, v); addEdge(v, u); } divide(); while (m –) { int u, v; scanf(\"%d%d\", \u0026u, \u0026v); double l(1e-3), r(1e3); while (l + eps \u003c r) { double mid((l + r + eps) / 2.0); if (check(u, v, mid)) l = mid; else r = mid - eps; } int x(qans[0]. second), y(qans[1]. second - n); int fu((k1[x] * b1[x] + k2[y] * b2[y])); int fd(k1[x] + k2[y]); int g(gcd(fu, fd)); fu /= g, fd /= g; printf(\"%d/%d\\n\", fu, fd); } } }\n",
+  "wordCount" : "986",
+  "inLanguage": "en",
+  "datePublished": "2015-03-16T22:39:43Z",
+  "dateModified": "2015-03-16T22:39:43Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/code/dbimport_251/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/code/">Codes</a></div>
+    <h1 class="post-title">
+      hdu5189.cc
+    </h1>
+    <div class="post-meta"><span title='2015-03-16 22:39:43 +0000 UTC'>March 16, 2015</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>#include <cstdio>
+#include <cmath>
+#include <cstring>
+#include <algorithm></p>
+<p>using namespace std;</p>
+<p>typedef pair &lt;double, int&gt; dpr;</p>
+<p>const int maxn = 30009;
+const int maxl = 15;
+const int max_buf = maxn * maxl * 2;
+const double eps = 1e-7;
+const double finf = 1e20;</p>
+<p>int ibuf_arr[max_buf], *ibuf;
+double fbuf_arr[max_buf], *fbuf;</p>
+<p>struct edge {
+int t;
+edge *next;
+};</p>
+<p>struct line {
+double k, b;
+inline double xCross(const line&amp; a) {
+return (a. b - b) / (k - a. k);
+}
+inline double f(double x) {
+return k * x + b;
+}
+};
+line a[maxn &laquo; 1];</p>
+<p>struct hull {
+int t;
+int *l;
+double *cx;
+void init(int x) {
+t = 1;
+l = ibuf ++;
+l[0] = x;
+cx = 0;
+}
+void merge(const hull&amp; x, const hull&amp; y) {
+static int stc[maxn];
+static double tx[maxn];
+t = 0;
+for (int i = 0, j = 0, c; i &lt; x. t || j &lt; y. t; ) {
+if (i == x. t || (j &lt; y. t &amp;&amp; a[x. l[i]]. k &gt; a[y. l[j]]. k))
+c = y. l[j ++];
+else
+c = x. l[i ++];
+if (t &amp;&amp; fabs(a[c]. k - a[stc[t - 1]]. k) &lt; eps) {
+if (a[c]. b &gt;= a[stc[t - 1]]. b)
+&ndash; t;
+else
+continue;
+}
+while (t &gt; 1 &amp;&amp; a[c]. xCross(a[stc[t - 2]]) &lt;= tx[t - 2])
+&ndash; t;
+if (t)
+tx[t - 1] = a[c]. xCross(a[stc[t - 1]]);
+stc[t ++] = c;
+}
+l = ibuf;
+ibuf += t;
+cx = fbuf;
+fbuf += t - 1;
+for (int i = 0; i &lt; t; ++ i) {
+l[i] = stc[i];
+if (i &lt; t - 1)
+cx[i] = a[stc[i]]. xCross(a[stc[i + 1]]);
+}
+}
+dpr qry(double x) {
+int p(lower_bound(cx, cx + t - 1, x) - cx);
+return dpr(a[l[p]]. f(x), l[p]);
+}
+};
+struct seg {
+hull h[2];
+int l, r;
+seg *ls, *rs;
+};</p>
+<p>int n, m, k1[maxn], b1[maxn], k2[maxn], b2[maxn];
+dpr qans[2];
+double qx;
+int fa[maxn], d[maxn], sz[maxn], tc, fc[maxn], ch[maxn], cl[maxn], *ci[maxn];
+edge elst[maxn &laquo; 1], *ep, *head[maxn];
+seg slst[maxn &laquo; 2], *sp, *rt[maxn];</p>
+<p>inline void upMax(double&amp; a, double b) {
+if (a &lt; b)
+a = b;
+}
+inline void upMax(dpr&amp; a, dpr b) {
+if (a &lt; b)
+a = b;
+}
+inline void addEdge(int u, int v) {
+ep-&gt; t = v;
+ep-&gt; next = head[u];
+head[u] = ep ++;
+}</p>
+<p>#define cpos(<em>p</em>) (d[<em>p</em>]-d[ch[fc[<em>p</em>]]])
+#define midp(p) ((p-&gt;l+p-&gt;r)&raquo;1)</p>
+<p>inline seg* sgtBuild(int l, int r, int* ci) {
+seg <em>p(sp ++);
+p-&gt; l = l;
+p-&gt; r = r;
+if (l + 1 == r) {
+p-&gt; h[0]. init(ci[l]);
+p-&gt; h[1]. init(ci[l] + n);
+}
+else {
+p-&gt; ls = sgtBuild(l, midp(p), ci);
+p-&gt; rs = sgtBuild(midp(p), r, ci);
+p-&gt; h[0]. merge(p-&gt; ls-&gt; h[0], p-&gt; rs-&gt; h[0]);
+p-&gt; h[1]. merge(p-&gt; ls-&gt; h[1], p-&gt; rs-&gt; h[1]);
+}
+return p;
+}
+inline void sgtQry(seg</em> p, int l, int r) {
+if (p-&gt; l == l &amp;&amp; p-&gt; r == r) {
+upMax(qans[0], p-&gt; h[0]. qry(qx));
+upMax(qans[1], p-&gt; h[1]. qry(qx));
+}
+else if (r &lt;= midp(p))
+sgtQry(p-&gt; ls, l, r);
+else if (l &gt;= midp(p))
+sgtQry(p-&gt; rs, l, r);
+else {
+sgtQry(p-&gt; ls, l, midp(p));
+sgtQry(p-&gt; rs, midp(p), r);
+}
+}</p>
+<p>void divide() {
+static int q[maxn];
+int hd(0), tl(1);
+memset(d, 0, sizeof(d));
+d[q[0] = 1] = 1;
+fa[1] = 0;
+while (hd &lt; tl) {
+int p(q[hd ++]);
+for (edge* e = head[p]; e; e = e-&gt; next)
+if (!d[e-&gt; t]) {
+d[e-&gt; t] = d[p] + 1;
+fa[e-&gt; t] = p;
+q[tl ++] = e-&gt; t;
+}
+}
+tc = 0;
+for (int i = tl - 1; i &gt;= 0; &ndash; i) {
+int p(q[i]), z(-1);
+sz[p] = 1;
+for (edge* e = head[p]; e; e = e-&gt; next)
+if (fa[e-&gt; t] == p) {
+sz[p] += sz[e-&gt; t];
+if (z == -1 || sz[e-&gt; t] &gt; sz[z])
+z = e-&gt; t;
+}
+if (z == -1)
+cl[fc[p] = ++ tc] = 1;
+else
+++ cl[fc[p] = fc[z]];
+ch[fc[p]] = p;
+}
+for (int i = 1; i &lt;= tc; ++ i) {
+ci[i] = ibuf;
+ibuf += cl[i];
+}
+for (int i = 1; i &lt;= n; ++ i)
+ci[fc[i]][cpos(i)] = i;
+for (int i = 1; i &lt;= tc; ++ i)
+rt[i] = sgtBuild(0, cl[i], ci[i]);
+}</p>
+<p>bool check(int u, int v, double x) {
+qans[0] = qans[1] = dpr(-finf, 0);
+qx = -x;
+while (fc[u] ^ fc[v])
+if (d[ch[fc[u]]] &gt; d[ch[fc[v]]]) {
+sgtQry(rt[fc[u]], 0, cpos(u) + 1);
+u = fa[ch[fc[u]]];
+}
+else {
+sgtQry(rt[fc[v]], 0, cpos(v) + 1);
+v = fa[ch[fc[v]]];
+}
+if (d[u] &lt; d[v])
+sgtQry(rt[fc[u]], cpos(u), cpos(v) + 1);
+else
+sgtQry(rt[fc[u]], cpos(v), cpos(u) + 1);
+return qans[0]. first + qans[1]. first &gt;= 0;
+}</p>
+<p>int gcd(int a, int b) {
+while (a) {
+int c(b % a);
+b = a;
+a = c;
+}
+return b;
+}</p>
+<p>int main() {
+while (scanf(&quot;%d%d&quot;, &amp;n, &amp;m) != EOF) {
+for (int i = 1; i &lt;= n; ++ i) {
+scanf(&quot;%d%d%d%d&quot;, k1 + i, b1 + i, k2 + i, b2 + i);
+a[i]. k = k1[i];
+a[i]. b = a[i]. k * b1[i];
+a[i + n]. k = k2[i];
+a[i + n]. b = a[i + n]. k * b2[i];
+}
+memset(head, 0, sizeof(head));
+ibuf = ibuf_arr;
+fbuf = fbuf_arr;
+ep = elst;
+sp = slst;
+for (int i = 1; i &lt; n; ++ i) {
+int u, v;
+scanf(&quot;%d%d&quot;, &amp;u, &amp;v);
+addEdge(u, v);
+addEdge(v, u);
+}
+divide();
+while (m &ndash;) {
+int u, v;
+scanf(&quot;%d%d&quot;, &amp;u, &amp;v);
+double l(1e-3), r(1e3);
+while (l + eps &lt; r) {
+double mid((l + r + eps) / 2.0);
+if (check(u, v, mid))
+l = mid;
+else
+r = mid - eps;
+}
+int x(qans[0]. second), y(qans[1]. second - n);
+int fu((k1[x] * b1[x] + k2[y] * b2[y]));
+int fd(k1[x] + k2[y]);
+int g(gcd(fu, fd));
+fu /= g, fd /= g;
+printf(&quot;%d/%d\n&quot;, fu, fd);
+}
+}
+}</p>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/code/">code</a></li>
+    </ul>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

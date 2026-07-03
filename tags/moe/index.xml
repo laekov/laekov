@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>MoE on The Site of laekov</title>
+    <link>/tags/moe/</link>
+    <description>Recent content in MoE on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Tue, 02 Jul 2024 00:00:00 +0000</lastBuildDate><atom:link href="/tags/moe/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>FastMoE 系统指南</title>
+      <link>/technical/fastmoe/</link>
+      <pubDate>Tue, 02 Jul 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/technical/fastmoe/</guid>
+      <description>FastMoE 是世界上首个开源的在 PyTorch 上支持 MoE 模型分布式训练的框架. 经过持续不断的更新与优化, 其在性能上相比各类竞品持续保持了一定的优势. 从 2021 年 3 月开源至今, 已经历了若干个发行版本, 亦有一些相关学术工作发表在各大会议和平台上. 此处对官方提供的公开资料进行汇总整理.
+FastMoE 代码仓库 FastMoE 框架的开源版本开源在 GitHub 上. 链接 该开源版本支持 cuda 平台.
+开源版本中也包含来自社区贡献的对 rocm 平台的支持, 但对新版本 FastMoE 的支持可能并不完善.
+此外, 对于申威和一些其它国产加速平台, FastMoE 也有相应的私有版本. 如有兴趣, 请联系清程极智.
+FastMoE 使用方式 FastMoE 作为 PyTorch 的插件存在, 推荐的使用方式是和 Megatron-LM 框架一起使用. 开源版本代码仓库中提供了修改不同版本 Megatron-LM 并与 FastMoE 一起使用的教程和参考补丁.
+在FastMoE 官网(暂停维护)和代码仓库的中有更多文档可供参考.
+FastMoE 及系列学术文章 FastMoE 支持专家并行的工作原理在一篇 arxiv 文章中进行了讲解.
+arxiv原文 中文博客版本. FasterMoE 是一个发表在 PPoPP 学术会议上的工作. 其对于专家并行中负载均衡和通信计算重叠进行了研究. 该论文中所述的优化均已集成到 FastMoE v1.0.0 以后的版本中.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>BZOJ3672 [NOI2014]购票 | The Site of laekov</title>
+<meta name="keywords" content="bzoj, data\xa0structure, dp, oi">
+<meta name="description" content="考场上只想到暴力。
+如果只是一条链的话怎么乱搞一搞？
+如果没有深度限制的话简单的斜率优化&#43;链剖就行了。
+有深度限制就把hull扔到线段树里用可持久化栈来维护一下。DFS的时候塞进线段树里，然后完了再扔出来。总的复杂度O(n*log^2(n))，
+代码也不怎么复杂。
+#include &lt;cstdio&gt;
+#include&nbsp;&lt;cctype&gt;
+#include&nbsp;&lt;memory.h&gt;
+#include&nbsp;&lt;vector&gt;
+#include&nbsp;&lt;algorithm&gt;
+using namespace std;
+struct edge {
+int t;
+edge* next;
+};
+typedef long long qw;
+typedef long double exf;
+#ifdef WIN32
+#define lld &quot;%I64d&quot;
+#else
+#define lld &quot;%lld&quot;
+#endif
+#define _l (qw)
+#define readInt(_s_)&nbsp;{\
+int _d_;\
+_s_ = 0;\
+while (!isdigit(_d_&nbsp;= getchar()));\
+while ((_s_&nbsp;= _s_ * 10 &#43; _d_ - 48), isdigit(_d_ = getchar()));\
+}
+struct oper {
+int p, v, t;">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/lofterimport_150/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="BZOJ3672 [NOI2014]购票" />
+<meta property="og:description" content="考场上只想到暴力。
+如果只是一条链的话怎么乱搞一搞？
+如果没有深度限制的话简单的斜率优化&#43;链剖就行了。
+有深度限制就把hull扔到线段树里用可持久化栈来维护一下。DFS的时候塞进线段树里，然后完了再扔出来。总的复杂度O(n*log^2(n))，
+代码也不怎么复杂。
+#include &lt;cstdio&gt;
+#include&nbsp;&lt;cctype&gt;
+#include&nbsp;&lt;memory.h&gt;
+#include&nbsp;&lt;vector&gt;
+#include&nbsp;&lt;algorithm&gt;
+using namespace std;
+struct edge {
+int t;
+edge* next;
+};
+typedef long long qw;
+typedef long double exf;
+#ifdef WIN32
+#define lld &quot;%I64d&quot;
+#else
+#define lld &quot;%lld&quot;
+#endif
+#define _l (qw)
+#define readInt(_s_)&nbsp;{\
+int _d_;\
+_s_ = 0;\
+while (!isdigit(_d_&nbsp;= getchar()));\
+while ((_s_&nbsp;= _s_ * 10 &#43; _d_ - 48), isdigit(_d_ = getchar()));\
+}
+struct oper {
+int p, v, t;" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/lofterimport_150/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2014-10-14T18:01:23+00:00" />
+<meta property="article:modified_time" content="2014-10-14T18:01:23+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BZOJ3672 [NOI2014]购票"/>
+<meta name="twitter:description" content="考场上只想到暴力。
+如果只是一条链的话怎么乱搞一搞？
+如果没有深度限制的话简单的斜率优化&#43;链剖就行了。
+有深度限制就把hull扔到线段树里用可持久化栈来维护一下。DFS的时候塞进线段树里，然后完了再扔出来。总的复杂度O(n*log^2(n))，
+代码也不怎么复杂。
+#include &lt;cstdio&gt;
+#include&nbsp;&lt;cctype&gt;
+#include&nbsp;&lt;memory.h&gt;
+#include&nbsp;&lt;vector&gt;
+#include&nbsp;&lt;algorithm&gt;
+using namespace std;
+struct edge {
+int t;
+edge* next;
+};
+typedef long long qw;
+typedef long double exf;
+#ifdef WIN32
+#define lld &quot;%I64d&quot;
+#else
+#define lld &quot;%lld&quot;
+#endif
+#define _l (qw)
+#define readInt(_s_)&nbsp;{\
+int _d_;\
+_s_ = 0;\
+while (!isdigit(_d_&nbsp;= getchar()));\
+while ((_s_&nbsp;= _s_ * 10 &#43; _d_ - 48), isdigit(_d_ = getchar()));\
+}
+struct oper {
+int p, v, t;"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "BZOJ3672 [NOI2014]购票",
+      "item": "/oi/lofterimport_150/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BZOJ3672 [NOI2014]购票",
+  "name": "BZOJ3672 [NOI2014]购票",
+  "description": "考场上只想到暴力。\n如果只是一条链的话怎么乱搞一搞？\n如果没有深度限制的话简单的斜率优化+链剖就行了。\n有深度限制就把hull扔到线段树里用可持久化栈来维护一下。DFS的时候塞进线段树里，然后完了再扔出来。总的复杂度O(n*log^2(n))，\n代码也不怎么复杂。\n#include \u0026lt;cstdio\u0026gt;\n#include\u0026nbsp;\u0026lt;cctype\u0026gt;\n#include\u0026nbsp;\u0026lt;memory.h\u0026gt;\n#include\u0026nbsp;\u0026lt;vector\u0026gt;\n#include\u0026nbsp;\u0026lt;algorithm\u0026gt;\nusing namespace std;\nstruct edge {\nint t;\nedge* next;\n};\ntypedef long long qw;\ntypedef long double exf;\n#ifdef WIN32\n#define lld \u0026quot;%I64d\u0026quot;\n#else\n#define lld \u0026quot;%lld\u0026quot;\n#endif\n#define _l (qw)\n#define readInt(_s_)\u0026nbsp;{\\\nint _d_;\\\n_s_ = 0;\\\nwhile (!isdigit(_d_\u0026nbsp;= getchar()));\\\nwhile ((_s_\u0026nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\\\n}\nstruct oper {\nint p, v, t;",
+  "keywords": [
+    "bzoj", "data\\xa0structure", "dp", "oi"
+  ],
+  "articleBody": "考场上只想到暴力。\n如果只是一条链的话怎么乱搞一搞？\n如果没有深度限制的话简单的斜率优化+链剖就行了。\n有深度限制就把hull扔到线段树里用可持久化栈来维护一下。DFS的时候塞进线段树里，然后完了再扔出来。总的复杂度O(n*log^2(n))，\n代码也不怎么复杂。\n#include #include #include #include #include using namespace std;\nstruct edge {\nint t;\nedge* next;\n};\ntypedef long long qw;\ntypedef long double exf;\n#ifdef WIN32\n#define lld \"%I64d\"\n#else\n#define lld \"%lld\"\n#endif\n#define _l (qw)\n#define readInt(_s_) {\\\nint _d_;\\\n_s_ = 0;\\\nwhile (!isdigit(_d_ = getchar()));\\\nwhile ((_s_ = _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\\\n}\nstruct oper {\nint p, v, t;\noper(int p0 = 0, int v0 = 0, int t0 = 0) {\np = p0, v = v0, t = t0;\n}\n};\nstruct phull {\nint *s, t;\nvector r;\n};\nstruct seg {\nint l, r;\nphull d;\nseg *ls, *rs;\n};\nconst int maxn = 200009;\nconst qw inf = 0x3f3f3f3f3f3f3f3fLL;\nconst exf eps = 1e-8;\nqw d[maxn], k[maxn], b[maxn], dl[maxn], f[maxn];\nint n, fa[maxn], stc[maxn];\nedge *head[maxn], *ep;\nseg *rt, *sp;\ninline exf getK(int a, int b) {\nreturn ((exf)f[b] - f[a]) / ((exf)d[b] - d[a]);\n}\ninline void addEdge(int u, int v) {\nep-\u003e t = v;\nep-\u003e next = head[u];\nhead[u] = ep ++;\n}\n#define mid(p) ((p-\u003el+p-\u003er)\u003e\u003e1)\nvoid phIns(phull\u0026 h, int v0) {\nif (!h. t) {\nh. r. push_back(oper(1, 0, 0));\nh. s[h. t = 1] = v0;\n}\nelse if (h. t == 1) {\nh. r. push_back(oper(2, 0, 1));\nh. s[h. t = 2] = v0;\n}\nelse {\nint l = 2, r = h. t;\nwhile (l \u003c r) {\nint mid = (l + r + 1) \u003e\u003e 1;\nif (getK(h. s[mid - 1], h. s[mid]) \u003e getK(h. s[mid - 1], v0) + eps)\nr = mid - 1;\nelse\nl = mid;\n}\nif (l \u003e 2 || getK(h. s[1], h. s[2]) \u003c= getK(h. s[1], v0))\n++ l;\nh. r. push_back(oper(l, h. s[l], h. t));\nh. s[h. t = l] = v0;\n}\n}\nvoid phCancel(phull\u0026 h) {\nif (h. r. empty())\nreturn;\noper o = *h. r. rbegin();\nh. r. pop_back();\nh. s[o. p] = o. v;\nh. t = o. t;\n}\nqw phQry(phull\u0026 h, int i) {\nint l = 1, r = h. t - 1;\nif (!h. t)\nreturn inf;\nwhile (l \u003c r) {\nint mid = (l + r) \u003e\u003e 1;\nif (getK(h. s[mid], h. s[mid + 1]) + eps \u003c k[i])\nl = mid + 1;\nelse\nr = mid;\n}\nif (l == h. t - 1 \u0026\u0026 getK(h. s[l], h. s[l + 1]) + eps \u003c k[i])\n++ l;\nreturn f[h. s[l]] + (d[i] - d[h. s[l]]) * k[i] + b[i];\n}\nseg *sgtBuild(int l, int r) {\nseg *p = sp ++;\np-\u003e d. s = new int[r - l + 3];\np-\u003e d. t = 0;\np-\u003e l = l;\np-\u003e r = r;\nif (l + 1 \u003c r) {\np-\u003e ls = sgtBuild(l, mid(p));\np-\u003e rs = sgtBuild(mid(p), r);\n}\nreturn p;\n}\nvoid sgtChg(seg* p, int p0, int v0) {\nif (v0 == -1)\nphCancel(p-\u003e d);\nelse\nphIns(p-\u003e d, v0);\nif (p-\u003e l + 1 \u003c p-\u003e r) {\nif (p0 \u003c mid(p))\nsgtChg(p-\u003e ls, p0, v0);\nelse\nsgtChg(p-\u003e rs, p0, v0);\n}\n}\nqw sgtQry(seg* p, int l, int r, int v0) {\nif (l \u003e= r)\nreturn inf;\nelse if (l == p-\u003e l \u0026\u0026 r == p-\u003e r)\nreturn phQry(p-\u003e d, v0);\nelse if (r \u003c= mid(p))\nreturn sgtQry(p-\u003e ls, l, r, v0);\nelse if (l \u003e= mid(p))\nreturn sgtQry(p-\u003e rs, l, r, v0);\nelse\nreturn min(sgtQry(p-\u003e ls, l, mid(p), v0), sgtQry(p-\u003e rs, mid(p), r, v0));\n}\nqw getAns(int p, int d0) {\nint l = 1, r = d0;\nwhile (l \u003c r) {\nint mid = (l + r) \u003e\u003e 1;\nif (d[p] - d[stc[mid]] \u003e dl[p])\nl = mid + 1;\nelse\nr = mid;\n}\nreturn sgtQry(rt, l, d0 + 1, p);\n}\nvoid dfs(int p, int d0) {\nif (p \u003e 1)\nf[p] = getAns(p, d0 - 1);\nsgtChg(rt, d0, p);\nstc[d0] = p;\nfor (edge* e = head[p]; e; e = e-\u003e next)\ndfs(e-\u003e t, d0 + 1);\nsgtChg(rt, d0, -1);\n}\nint main() {\n#ifndef ONLINE_JUDGE\nfreopen(\"ticket.in\", \"r\", stdin);\nfreopen(\"ticket.out\", \"w\", stdout);\n#endif\nmemset(head, 0, sizeof(head));\nep = new edge[maxn];\nqw tmp;\nreadInt(n);\nreadInt(tmp);\nsp = new seg[maxn * 3];\nrt = sgtBuild(1, n + 1);\nd[1] = 0;\nf[1] = 0;\nfor (int i = 2; i \u003c= n; ++ i) {\nreadInt(fa[i]);\naddEdge(fa[i], i);\nreadInt(tmp);\nd[i] = d[fa[i]] + tmp;\nreadInt(k[i]);\nreadInt(b[i]);\nreadInt(dl[i]);\n}\ndfs(1, 1);\nfor (int i = 2; i \u003c= n; ++ i)\nprintf(lld \"\\n\", f[i]);\n}\n",
+  "wordCount" : "683",
+  "inLanguage": "en",
+  "datePublished": "2014-10-14T18:01:23Z",
+  "dateModified": "2014-10-14T18:01:23Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/lofterimport_150/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      BZOJ3672 [NOI2014]购票
+    </h1>
+    <div class="post-meta"><span title='2014-10-14 18:01:23 +0000 UTC'>October 14, 2014</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>考场上只想到暴力。</p> 
+<p><br /></p> 
+<p>如果只是一条链的话怎么乱搞一搞？</p> 
+<p><br /></p> 
+<p>如果没有深度限制的话简单的斜率优化+链剖就行了。</p> 
+<p><br /></p> 
+<p>有深度限制就把hull扔到线段树里用可持久化栈来维护一下。DFS的时候塞进线段树里，然后完了再扔出来。总的复杂度O(n*log^2(n))，</p> 
+<p><br /></p> 
+<p>代码也不怎么复杂。<br /></p> 
+<p><br /></p> 
+<p>#include &lt;cstdio&gt;</p> 
+<p>#include&nbsp;&lt;cctype&gt;</p> 
+<p>#include&nbsp;&lt;memory.h&gt;</p> 
+<p>#include&nbsp;&lt;vector&gt;</p> 
+<p>#include&nbsp;&lt;algorithm&gt;</p> 
+<p><br /></p> 
+<p>using namespace std;</p> 
+<p><br /></p> 
+<p>struct edge {</p> 
+<p>int t;</p> 
+<p>edge* next;</p> 
+<p>};</p> 
+<p>typedef long long qw;</p> 
+<p>typedef long double exf;</p> 
+<p><br /></p> 
+<p>#ifdef WIN32</p> 
+<p>#define lld &quot;%I64d&quot;</p> 
+<p>#else</p> 
+<p>#define lld &quot;%lld&quot;</p> 
+<p>#endif</p> 
+<p>#define _l (qw)</p> 
+<p>#define readInt(_s_)&nbsp;{\</p> 
+<p>int _d_;\</p> 
+<p>_s_ = 0;\</p> 
+<p>while (!isdigit(_d_&nbsp;= getchar()));\</p> 
+<p>while ((_s_&nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>struct oper {</p> 
+<p>int p, v, t;</p> 
+<p>oper(int p0 = 0, int v0 = 0, int t0 = 0)&nbsp;{</p> 
+<p>p = p0, v = v0, t = t0;</p> 
+<p>}</p> 
+<p>};</p> 
+<p>struct phull {</p> 
+<p>int&nbsp;*s, t;</p> 
+<p>vector &lt;oper&gt; r;</p> 
+<p>};</p> 
+<p>struct seg {</p> 
+<p>int l, r;</p> 
+<p>phull d;</p> 
+<p>seg *ls,&nbsp;*rs;</p> 
+<p>};</p> 
+<p><br /></p> 
+<p>const int maxn = 200009;</p> 
+<p>const qw inf = 0x3f3f3f3f3f3f3f3fLL;</p> 
+<p>const exf eps = 1e-8;</p> 
+<p><br /></p> 
+<p>qw d[maxn], k[maxn], b[maxn], dl[maxn], f[maxn];</p> 
+<p>int n, fa[maxn], stc[maxn];</p> 
+<p>edge *head[maxn],&nbsp;*ep;</p> 
+<p>seg&nbsp;*rt,&nbsp;*sp;</p> 
+<p><br /></p> 
+<p>inline exf getK(int a, int b)&nbsp;{</p> 
+<p>return ((exf)f[b]&nbsp;- f[a])&nbsp;/&nbsp;((exf)d[b]&nbsp;- d[a]);</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>inline void addEdge(int u, int v)&nbsp;{</p> 
+<p>ep-&gt; t = v;</p> 
+<p>ep-&gt; next = head[u];</p> 
+<p>head[u]&nbsp;= ep ++;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>#define mid(p)&nbsp;((p-&gt;l+p-&gt;r)&gt;&gt;1)</p> 
+<p><br /></p> 
+<p>void phIns(phull&amp; h, int v0)&nbsp;{</p> 
+<p>if (!h. t)&nbsp;{</p> 
+<p>h. r. push_back(oper(1, 0, 0));</p> 
+<p>h. s[h. t = 1]&nbsp;= v0;</p> 
+<p>}</p> 
+<p>else if (h. t == 1)&nbsp;{</p> 
+<p>h. r. push_back(oper(2, 0, 1));</p> 
+<p>h. s[h. t = 2]&nbsp;= v0;</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>int l = 2, r = h. t;</p> 
+<p>while (l&nbsp;&lt; r)&nbsp;{</p> 
+<p>int mid =&nbsp;(l&nbsp;+ r + 1)&nbsp;&gt;&gt; 1;</p> 
+<p>if (getK(h. s[mid - 1], h. s[mid])&nbsp;&gt; getK(h. s[mid - 1], v0)&nbsp;+ eps)</p> 
+<p>r = mid - 1;</p> 
+<p>else</p> 
+<p>l = mid;</p> 
+<p>}</p> 
+<p>if (l&nbsp;&gt; 2 || getK(h. s[1], h. s[2])&nbsp;&lt;= getK(h. s[1], v0))</p> 
+<p>++ l;</p> 
+<p>h. r. push_back(oper(l, h. s[l], h. t));</p> 
+<p>h. s[h. t = l]&nbsp;= v0;</p> 
+<p>}</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>void phCancel(phull&amp; h)&nbsp;{</p> 
+<p>if (h. r. empty())</p> 
+<p>return;</p> 
+<p>oper o =&nbsp;*h. r. rbegin();</p> 
+<p>h. r. pop_back();</p> 
+<p>h. s[o. p]&nbsp;= o. v;</p> 
+<p>h. t = o. t;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>qw phQry(phull&amp; h, int i)&nbsp;{</p> 
+<p>int l = 1, r = h. t - 1;</p> 
+<p>if (!h. t)</p> 
+<p>return inf;</p> 
+<p>while (l&nbsp;&lt; r)&nbsp;{</p> 
+<p>int mid =&nbsp;(l&nbsp;+ r)&nbsp;&gt;&gt; 1;</p> 
+<p>if (getK(h. s[mid], h. s[mid + 1])&nbsp;+ eps &lt; k[i])</p> 
+<p>l = mid + 1;</p> 
+<p>else</p> 
+<p>r = mid;</p> 
+<p>}</p> 
+<p>if (l&nbsp;== h. t - 1 &amp;&amp; getK(h. s[l], h. s[l + 1])&nbsp;+ eps &lt; k[i])</p> 
+<p>++ l;</p> 
+<p>return f[h. s[l]]&nbsp;+&nbsp;(d[i]&nbsp;- d[h. s[l]])&nbsp;* k[i]&nbsp;+ b[i];</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>seg *sgtBuild(int l, int r)&nbsp;{</p> 
+<p>seg *p&nbsp;= sp ++;</p> 
+<p>p-&gt; d. s = new int[r - l + 3];</p> 
+<p>p-&gt; d. t = 0;</p> 
+<p>p-&gt; l = l;</p> 
+<p>p-&gt; r = r;</p> 
+<p>if (l&nbsp;+ 1 &lt; r)&nbsp;{</p> 
+<p>p-&gt; ls = sgtBuild(l, mid(p));</p> 
+<p>p-&gt; rs = sgtBuild(mid(p), r);</p> 
+<p>}</p> 
+<p>return p;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>void sgtChg(seg* p, int p0, int v0)&nbsp;{</p> 
+<p>if (v0&nbsp;==&nbsp;-1)</p> 
+<p>phCancel(p-&gt; d);</p> 
+<p>else</p> 
+<p>phIns(p-&gt; d, v0);</p> 
+<p>if (p-&gt; l + 1 &lt; p-&gt; r)&nbsp;{</p> 
+<p>if (p0&nbsp;&lt; mid(p))</p> 
+<p>sgtChg(p-&gt; ls, p0, v0);</p> 
+<p>else</p> 
+<p>sgtChg(p-&gt; rs, p0, v0);</p> 
+<p>}</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>qw sgtQry(seg* p, int l, int r, int v0)&nbsp;{</p> 
+<p>if (l&nbsp;&gt;= r)</p> 
+<p>return inf;</p> 
+<p>else if (l&nbsp;== p-&gt; l &amp;&amp; r == p-&gt; r)</p> 
+<p>return phQry(p-&gt; d, v0);</p> 
+<p>else if (r&nbsp;&lt;= mid(p))</p> 
+<p>return sgtQry(p-&gt; ls, l, r, v0);</p> 
+<p>else if (l&nbsp;&gt;= mid(p))</p> 
+<p>return sgtQry(p-&gt; rs, l, r, v0);</p> 
+<p>else</p> 
+<p>return min(sgtQry(p-&gt; ls, l, mid(p), v0), sgtQry(p-&gt; rs, mid(p), r, v0));</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>qw getAns(int p, int d0)&nbsp;{</p> 
+<p>int l = 1, r = d0;</p> 
+<p>while (l&nbsp;&lt; r)&nbsp;{</p> 
+<p>int mid =&nbsp;(l&nbsp;+ r)&nbsp;&gt;&gt; 1;</p> 
+<p>if (d[p]&nbsp;- d[stc[mid]]&nbsp;&gt; dl[p])</p> 
+<p>l = mid + 1;</p> 
+<p>else</p> 
+<p>r = mid;</p> 
+<p>}</p> 
+<p>return sgtQry(rt, l, d0 + 1, p);</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>void dfs(int p, int d0)&nbsp;{</p> 
+<p>if (p&nbsp;&gt; 1)</p> 
+<p>f[p]&nbsp;= getAns(p, d0 - 1);</p> 
+<p>sgtChg(rt, d0, p);</p> 
+<p>stc[d0]&nbsp;= p;</p> 
+<p>for (edge* e = head[p]; e; e = e-&gt; next)</p> 
+<p>dfs(e-&gt; t, d0 + 1);</p> 
+<p>sgtChg(rt, d0,&nbsp;-1);</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int main()&nbsp;{</p> 
+<p>#ifndef ONLINE_JUDGE</p> 
+<p>freopen(&quot;ticket.in&quot;,&nbsp;&quot;r&quot;, stdin);</p> 
+<p>freopen(&quot;ticket.out&quot;,&nbsp;&quot;w&quot;, stdout);</p> 
+<p>#endif</p> 
+<p><br /></p> 
+<p>memset(head, 0, sizeof(head));</p> 
+<p>ep = new edge[maxn];</p> 
+<p>qw tmp;</p> 
+<p>readInt(n);</p> 
+<p>readInt(tmp);</p> 
+<p>sp = new seg[maxn * 3];</p> 
+<p>rt = sgtBuild(1, n + 1);</p> 
+<p>d[1]&nbsp;= 0;</p> 
+<p>f[1]&nbsp;= 0;</p> 
+<p>for (int i = 2; i &lt;= n;&nbsp;++ i)&nbsp;{</p> 
+<p>readInt(fa[i]);</p> 
+<p>addEdge(fa[i], i);</p> 
+<p>readInt(tmp);</p> 
+<p>d[i]&nbsp;= d[fa[i]]&nbsp;+ tmp;</p> 
+<p>readInt(k[i]);</p> 
+<p>readInt(b[i]);</p> 
+<p>readInt(dl[i]);</p> 
+<p>}</p> 
+<p>dfs(1, 1);</p> 
+<p>for (int i = 2; i &lt;= n;&nbsp;++ i)</p> 
+<p>printf(lld &quot;\n&quot;, f[i]);</p> 
+<p>}</p> 
+<p><br /></p> 
+<p><br /></p>
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/bzoj/">bzoj</a></li>
+      <li><a href="/tags/data%5Cxa0structure/">data\xa0structure</a></li>
+      <li><a href="/tags/dp/">dp</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/lofterimport_148/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>20141015 计划</span>
+  </a>
+  <a class="next" href="/oi/lofterimport_151/">
+    <span class="title">Next »</span>
+    <br>
+    <span>20141014 计划</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

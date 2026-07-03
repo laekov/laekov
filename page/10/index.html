@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head>
+	<meta name="generator" content="Hugo 0.111.3"><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>The Site of laekov</title>
+
+<meta name="description" content="">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="/index.xml">
+<link rel="alternate" type="application/json" href="/index.json">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="The Site of laekov" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="The Site of laekov"/>
+<meta name="twitter:description" content=""/>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "The Site of laekov",
+  "url": "/",
+  "description": "",
+  "thumbnailUrl": "/favicon.ico",
+  "sameAs": [
+      "https://github.com/laekov", "/cv", "/not-easily-available", "/not-easily-available", "/not-easily-available", "/not-easily-available", "index.xml"
+  ]
+}
+</script>
+</head>
+
+<body class="list" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>轮子们
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>一些可以用的轮子.
+passportjs 用户登陆/管理模块
+zmq 消息队列. 处理后台各种不能异步的请求.
+openjudge-sandbox oj评测沙箱(还没搞懂)
+react 前端框架
+angularjs 更重量更强大的前端框架
+bootstrap css板子
+nodegit 顾名思义
+grunt 开发自动化
+threejs h5的3d绘图
+phoria 另一个h5的3d绘图 // 似乎star比上一个多, 然而没有文档, 玩ball喽
+// 开始考虑要不要重写srk了然而没有时间&gt;_&lt;</p>
+  </div>
+  <footer class="entry-footer"><span title='2016-09-19 12:32:51 +0000 UTC'>September 19, 2016</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to 轮子们" href="/technical/38ac37/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>人类为什么要自相残杀
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>这是一篇乱七八糟的瓦尔登湖读后感. 可能要花很多天才能写完&gt;_&lt;
+一湖一林一屋一人, 就是一个世界.
+人们常常抱怨这个世界过于喧嚣, 却没有发现世界的喧嚣源于自己的索求. 如梭罗自己所实验的, 如果你不需要整日辛勤劳作开荒种田, 你就不需要厚实的衣服鞋子. 如果你不需要为了咖啡和茶而赚钱, 那你就不需要用它们来支撑你的体力. 正所谓世上本无事, 庸人自扰之. 虽然东西不同, 但是梭罗的思想和中国古代的道家不谋而和. 人类的麻烦都是自找的.
+我们明明可以选择一种悠闲而优雅的生活方式, 浪迹山林, 仰观蓝天, 坐看清湖.
+然而啊, 存在即合理. 为什么人类是这样而不是那样啊? 明明全人类都可以退隐山林, 回归原始人. 即环保, 又悠闲. 然而, 发展是人类的必然趋势.所以我们必然也必需社会化, 工业化, 以及未来的信息化, 宇宙化. 如果不求上进, 和那些动物一样只会吃吃吃睡睡睡, 那么人凭什么能有今天如此悠闲的生活? 上进是人类的必需品. 环保, 回归, 可以是人类的幻想, 也有如作者一般的人会追求它, 赞扬它, 但是他们永远只能是少数.
+另一方面讲, 人们从梭罗研究环保的先驱. 然而这样的环保是真正的环保吗? 未必. 真正的环保应该是尽量减少资源的浪费. 即最大化资源利用效率. 可是我们的梭罗先生呢? 伐木为柴, 折枝为箭. 他才是真正挥霍资源的人. 他所谓的情怀, 不过是文人式的矫情的无病呻吟罢了.
+以上.
+20160829
+Historical Comments lyzy at 2016-10-26T20:21:16 膜laekov
+lyzy at 2016-10-26T20:21:27 hahahaha 成功了</p>
+  </div>
+  <footer class="entry-footer"><span title='2016-08-15 13:43:10 +0000 UTC'>August 15, 2016</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to 人类为什么要自相残杀" href="/random/cb9485/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>CF703E Mishka and Divisors
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>题意:
+给你n个数和一个k. 求这n个数的一个最小子集, 使得元素乘积为k的倍数, 且元素之和最小.
+要输出方案.
+\( n \leq 10^3, k \leq 10^{12} \)
+结局:
+死在输出方案上了.
+思路:
+首先发现k的质因数不会很多, 最多有14个.
+然后k的因数也不会很多.
+所以就dp一下. \(f_i\)表示当前积与k的gcd为i的时候的元素个数.
+然后就像个背包一样嘛. 输出方案? 记录从哪里转移来的不就好了.
+然后.
+考虑这个例子.
+3 9 3 24 21 你会先拿24从3更新到9.
+然后21就会把3和9的转移都更新.
+然后就炸了.
+因为3应该是从原来的状态更新的. 但是现在被覆盖了.
+然后发现状态是棵树. 可以把状态可持久化记下来.
+更新一个状态的时候, 不是直接覆盖, 而是新建一个状态来保证从原来的状态转移出去的情况不会出错.
+这样空间复杂度应该和转移次数有关?
+然后怎么就糊过去了.
+另一个细节是k=1是答案不能是0. woc.
+依然感觉很鬼蓄.
+代码</p>
+  </div>
+  <footer class="entry-footer"><span title='2016-08-07 09:46:02 +0000 UTC'>August 7, 2016</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to CF703E Mishka and Divisors" href="/oi/7a9bc3/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>由Ingress想到的oi题0
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Ps: 在思考ingress自动规划连边的时候顺便想到的一个题.
+题:
+Ingress里要连多重来刷ap. 这是一种简化的情况.
+假设平面上有点(A), (B), (C_1, \dots , C_n).
+其中(C_1 , \dots , C_n)在直线(AB)同侧.
+要连一个多重就要选一些点( { C_{a_i} } ), 使得( \Delta ABC_{a_1}, \Delta ABC_{a_2}, \dots \Delta ABC_{a_m} ) 依次包含. 即( C_{a_i} )在( \Delta ABC_{a_{i-1}} ) 内.
+然后每个(C_i)都有个权值( W_i ), 求所有方案中最大的权值和.
+另:
+把权值和最大改成权值积最大, 对( 998244353 )取模. 让一群人写高精去然后再随便把高精卡T掉哈哈哈哈哈哈哈.
+解法: (口糊的请打脸)
+大概是个dp题.
+把(C_i)按照离直线(AB)的距离排序即可保证拓补序. (其实这题我觉得有意思的地方就是这个了. 然而太简单)
+然后就是找平面上某个三角形里的最大(f)值. KD树搞之. (AFO太久的我已经不知道KD树是什么了. 似乎有人告诉过我KD树这么用保证不到时间复杂度.)
+印象中KD树常年被用来打脸和被打脸.
+也许有更方便的搞法? 然而我的数据结构实在太渣ovo.
+就酱.</p>
+  </div>
+  <footer class="entry-footer"><span title='2016-06-05 21:33:15 +0000 UTC'>June 5, 2016</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to 由Ingress想到的oi题0" href="/random/258fa2/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>yzy的计算器
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>yzy给的题. 感觉挺有意思.
+听说是thu的自招题.
+题:
+yzy有个计算器, 只有一个按键.
+计算器上有一个自然数n, 每按一次按键这个数就会等概率变成区间[0,n)中的一个自然数.
+现在的数字是2333, yzy不停地按直到变成0. 问同时出现过999, 99, 9的概率.
+解法:
+首先随便想个dp类似的递推.
+然后推一下前几项就发现规律了.
+然后就完了.
+答案是(\frac{1}{10^6}).
+可以拿来出题用.</p>
+  </div>
+  <footer class="entry-footer"><span title='2016-05-24 22:33:00 +0000 UTC'>May 24, 2016</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to yzy的计算器" href="/random/49fe08/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>混乱的变加速运动位移
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>(madan打到一半不小心把浏览器关了)
+(微分方程挺有意思的. 要是暑假有人找我出oi题我就出数学题吼吼吼)
+题:
+一维空间里有个质点.
+速度为\(v\)的时候加速度为\(-k\sqrt{a^2-v^2}\) (即与速度方向相反).
+求速度从\(v_1\)变成\(v_2\)的过程中的位移\(x_m\).
+其中\(0\leq v_2 \leq v_1 &lt; a\).
+歪:
+仔细看看这不就是简谐振动么? mdzz题.
+算都不用算随便看看就出来了.
+下面的东西不用看了.
+解:
+根据题意列个方程.
+$$\frac{dv}{dt}=-k\sqrt{a^2-v^2}$$
+整理.
+$$\frac{dv}{\sqrt{a^2-v^2}} = -kdt$$
+两边积分.
+$$arcsin\frac{v}{a} = -kt &#43; C_1$$
+顺手整理.
+$$v = -a*sin(kt-C_1)$$
+$$t = \frac{C_1 - arcsin\frac{v}{a}}{k}$$
+再对\(v\)积分求位移.
+$$x=\int vdt = -\frac{a}{k} \int sin(kt-C_1)dkt$$
+$$x=\frac{a}{k}cos(kt-C_1)=\frac{a}{k}cos(arcsin\frac{v}{a})$$
+再定积分.
+$$x_m = \int_{v_1}^{v_2}vdt$$
+$$x_m = \frac{a}{k} [cos(arcsin\frac{v_2}{a})-cos(arcsin\frac{v_1}{a}) ] $$
+顺手化简.
+$$x_m = \frac{a}{k} ( \sqrt{1-(\frac{v_2}{a})^2} - \sqrt{1-(\frac{v_1}{a})^2}$$
+$$x_m = \frac{\sqrt{a^2-v_2^2}-\sqrt{a^2-v_1^2}}{k}$$...</p>
+  </div>
+  <footer class="entry-footer"><span title='2016-05-19 22:39:31 +0000 UTC'>May 19, 2016</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to 混乱的变加速运动位移" href="/random/810ef0/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>空间随机游走位移平方期望及证明
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>原问题: 从数轴原点开始, 每次抛一枚正反概率相等的硬币, 如果是正面就沿正方向走1单位长度, 否则沿反方向走1单位. 设走n步之后的位移为x, 求(x^2)的期望(E(x^2)).
+答案是n. 即随机游走时, 位移的平方的期望为步数. 并且这个结论可以推广到k维.
+(因为我的三角函数太捉鸡所以只推了2维, 但是目测了一下更多维都是对的)
+看了zhihu上的一篇答案是关于一维情况的证明, 我受到了启发. 链接在这. 答主用的我不认识的东西有点多. 所以他证明过的部分我还是用自己的语言重新写一遍.
+设第i次移动的位移为(x_i).
+引理: 对于两次不同的位移(x_i)和(x_j), ( E(x_i*x_j)=0).
+这个很好想, (x_i)的有0.5的概率为1和-1, 列个分布列(雾), 答案显然为0.
+证明:
+$$E(x^2)=E((\sum_{i=1}^n x_i)^2)$$
+$$E(x^2)=E(\sum_{i=1}^n x_i^2) &#43; 2E(\sum_{i=1}^n\sum_{j=i&#43;1}^n(x_ix_j))$$
+后面那坨的E可以扔进里面去, 根据引理该部分值为0.
+前面那部分显然有
+$$x_i^2=1$$
+于是得证
+$$E(x^2)=n$$
+然后是向高维推广. 这里是二维的证明.
+只需要改引理.
+对于两次不同的位移(\vec{a_i} )和(\vec{a_j} ), (\vec{a_i} \cdot \vec{a_j} = 0 )
+证明: 设两个向量的角度分别为( \theta_i )和( \theta_j ).
+$$ \theta_i , \theta_j \in [0, 2\pi) $$
+因为它们都是单位向量, 所以 $$\vec{a_i} \cdot \vec{a_j} = cos(\theta_i - \theta_j) $$...</p>
+  </div>
+  <footer class="entry-footer"><span title='2016-04-17 19:31:42 +0000 UTC'>April 17, 2016</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to 空间随机游走位移平方期望及证明" href="/random/a71b9d/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>MathJax简单配置
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>在网页上写数学公式怎么少得了MathJax. 然而这玩意因为功能复杂所以比showdown之类的库要难配置一些.
+首先从Github上把它clone下来. 然后发现这玩意真的好大. 后来发现是有一堆迷之png.
+别人家的cdn的速度从我这来看都不怎么样, 所以还是只能扔到自已的server上.
+最简单的用法就是在html head里加一行
+&lt;script src=&#39;xxx/MathJax.js?config=default&#39;&gt;&lt;/script&gt; 然后它就会用默认配置在网页加载的时候把那些玩意给转换了.
+这里有一个config的文件可以选择. 在unpacked里的default.js里有很详细的说明. (虽然是英文的)
+看上去能用了? 然后问题来了. 我的前端是先加载网页框架, 再用js去加载内容, 然而内容加载出来的时候MathJax已经把活干完歇菜了. 显然应该有什么控制单元能随时更新某个element. google了一下发现MathJax有个子类控制单元叫Hub. Hub有个方法叫Typeset, 能重新检查页面.
+于是这么写?
+$.post(&#34;xxx&#34;, {xx}, function(res) { $(&#34;#xxx&#34;).html(res.content); MathJax.Hub.Typeset(); }); 然而这样的话是不是我每加载一个listitem或者comment都要重新扫一遍整个页面啊? 卡死啦.
+于是加了个triggerCount. 麻烦死了.
+然后想想觉得没对, 肯定能直接改某个元素啊. 仔细看看document.
+Typeset([element[, callback]])
+对啊ovo可以直接指定element. 而且还各种类型都资瓷. 在类型这种问题上js比c高到不知道哪里去了.
+于是代码写成
+$.post(&#34;xxx&#34;, {xx}, functoin(res) { $(&#34;#xxx&#34;).html(res.content); MathJax.Hub.Typeset(getMyId()); }); 搞定啦.
+然后config里还可以指定是用$$还是$之类的玩意.
+然后似乎MathJax还自带Async一类的玩意?
+感觉很赞.</p>
+  </div>
+  <footer class="entry-footer"><span title='2016-03-20 16:53:18 +0000 UTC'>March 20, 2016</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to MathJax简单配置" href="/technical/7d45dd/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>二项分布方差公式证明
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>公式: 一枚硬币扔一次有p的概率朝上, 扔n次, 朝上次数的方差为`n * p * (1-p)\\\&#39;.
+证明: 归纳法(增量证明)
+设D(n)表示扔n次时的方差. E(n)表示扔n次时的期望. P(n, i)表示扔n次, 朝上i次的概率.
+对于n=1的情况显然成立.
+对于n&gt;1的情况
+$$D(i)=\sum_{i=0}^{n}P(n,i)*(i-E(n))^2$$
+对于D(n&#43;1)
+$$D(i&#43;1)=\sum_{i=0}^{n}P(n, i) * (p * (i &#43; 1 - E(p) - p)^2 &#43; (1-p) * (i - E(p) - p)^2)$$
+再两式相减, 式子有点麻烦, 但是可以巧妙地拆开然后用平方差化简.
+$$D(n&#43;1) - D(n) = \sum_{i=0}^{n}P(n, i) * p * (1-p)$$
+右边那坨是常数. 左边这坨和刚好为1.
+于是
+$$D(n&#43;1) - D(n) = p * (1-p)$$
+搞定.
+数学考试遇到直接背公式就好. 可以记一个简单的结论是方差与n成正比. 不知道有没有奇怪的证明方法可以直接证这个来证上面那个公式.
+思考了好久才思考出这种证法ovo.
+mathJax还没搞定所以公式全是乱码qwq. 随便喂给一个TeX编译器应该都能看.
+推荐bestcoder的这个http://bestcoder.hdu.edu.cn/latex.php</p>
+  </div>
+  <footer class="entry-footer"><span title='2016-03-09 23:00:17 +0000 UTC'>March 9, 2016</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to 二项分布方差公式证明" href="/random/47bc0e/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>shiruku.点赞
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>造出了一个功能叫点赞qwq.
+想起上周和czr讨论点赞到底应不应该重新从后端获取数据.ovo
+然而这一部分的前端写得好丑啊. 然而后端水平进步了的感觉好开心. (虽然还是丑)
+主要是前端动态渲染的方式会让js各种回调于是很讨厌. 而且$.post的异步在这种时候确实会造成麻烦.
+jquery里面一个element被clone之后要先加到document里才能再修饰它的属性, 不然会有奇怪的事情OvO.
+噢对laekov为了好玩允许一个人点0xf个赞. 为什么点赞只能点一个呢? 反正后端都写成这样了就多允许几个好了…(其实可以调成0xff或者0x3f3f3f3f什么的23333)
+另外也受到了知乎的一些启发. 评论什么的东西其实都可以加这么一个玩意, 反正都写出了通用的接口, 只是多几个接入而已. 感觉这种通用性的思路很有价值.</p>
+  </div>
+  <footer class="entry-footer"><span title='2016-02-28 10:41:28 +0000 UTC'>February 28, 2016</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to shiruku.点赞" href="/technical/07f888/"></a>
+</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="prev" href="/page/9/">
+      «&nbsp;Prev&nbsp;
+    </a>
+    <a class="next" href="/page/11/">Next&nbsp;&nbsp;»
+    </a>
+  </nav>
+</footer>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

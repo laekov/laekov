@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>greedy on The Site of laekov</title>
+    <link>/tags/greedy/</link>
+    <description>Recent content in greedy on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Tue, 09 Jun 2015 21:05:32 +0000</lastBuildDate><atom:link href="/tags/greedy/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>bzoj4004 [JLOI2015]装备购买</title>
+      <link>/oi/dbimport_226/</link>
+      <pubDate>Tue, 09 Jun 2015 21:05:32 +0000</pubDate>
+      
+      <guid>/oi/dbimport_226/</guid>
+      <description>比较郁闷的题ovo拍了老久.最后还是找Po神要来了数据.
+首先这个矩阵的基就是一个拟阵,所以可以贪心.
+然后发现就是要O(n^2)判断是否线性无关.
+其他人的做法是强行顺序.我觉得没辣么麻烦啊.先把原来消出来的东西备份一下.如果发现不行再备份回来就好了啊ovoovo
+那么直接高消会有非常严重的精度问题(似乎是).
+于是我想直接用整数搞.然后发现会有变成负数的问题和越界的问题,强行re+wa.非常不开心.
+于是直接取模yeah.然后由于用了辗转相除之类的东西所以常数巨大.而且bzoj上开了O2比本机没开O2竟然慢了6倍.ovoovo</description>
+    </item>
+    
+  </channel>
+</rss>

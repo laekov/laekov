@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>BZOJ3598 [Scoi2014]方伯伯的商场之旅 | The Site of laekov</title>
+<meta name="keywords" content="bzoj, dp, digitDP, oi">
+<meta name="description" content="&lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt; 题目名字好长。&lt;/p&gt; &nbsp;
+当年在考场上只会分块打表的题。
+&nbsp;
+前几天有人讲之后觉得大概可做。而且好像那个方法很优秀。
+&nbsp;
+于是我难得地去写了一回不用记搜且不记上界的数位dp。感觉这个玩意写出来很短，但是思考和调试的复杂度变高了。我觉得是状态定义变得不明确的原因。也许再补一些题就好了。
+&nbsp;
+考虑先让所有都合并到最低位，一个基础数位dp。（然后写丑了好久）
+&nbsp;
+然后考虑如果把一个数字的集合位置从p移动到p&#43;1，设这个数字从低位到高位是a[0]..a[n-1]，那么贡献就是∑a[0..p]-∑a[p&#43;1..n-1]。显然当p从右往左移动的时候它是会先负后正的。如果它负的话就减，否则就不玩了。可以发现它们互相不影响。于是对于每一个p单独计算一遍贡献就行了。
+&nbsp;
+然后还是没有原版跑得快。OTL。
+&nbsp;
+#define PROC &#34;shop&#34; #include &lt;cstdio&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+typedef long long dint; #ifdef WIN32 #define lld &ldquo;%I64d&rdquo; #else #define lld &ldquo;%lld&rdquo; #endif #define _l (long long int)
+const int maxn = 53; const int maxm = 509; const int mb = 253;
+dint l, r; int n, m, bs, a[maxn];">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/i11rimport_002/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="BZOJ3598 [Scoi2014]方伯伯的商场之旅" />
+<meta property="og:description" content="&lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt; 题目名字好长。&lt;/p&gt; &nbsp;
+当年在考场上只会分块打表的题。
+&nbsp;
+前几天有人讲之后觉得大概可做。而且好像那个方法很优秀。
+&nbsp;
+于是我难得地去写了一回不用记搜且不记上界的数位dp。感觉这个玩意写出来很短，但是思考和调试的复杂度变高了。我觉得是状态定义变得不明确的原因。也许再补一些题就好了。
+&nbsp;
+考虑先让所有都合并到最低位，一个基础数位dp。（然后写丑了好久）
+&nbsp;
+然后考虑如果把一个数字的集合位置从p移动到p&#43;1，设这个数字从低位到高位是a[0]..a[n-1]，那么贡献就是∑a[0..p]-∑a[p&#43;1..n-1]。显然当p从右往左移动的时候它是会先负后正的。如果它负的话就减，否则就不玩了。可以发现它们互相不影响。于是对于每一个p单独计算一遍贡献就行了。
+&nbsp;
+然后还是没有原版跑得快。OTL。
+&nbsp;
+#define PROC &#34;shop&#34; #include &lt;cstdio&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+typedef long long dint; #ifdef WIN32 #define lld &ldquo;%I64d&rdquo; #else #define lld &ldquo;%lld&rdquo; #endif #define _l (long long int)
+const int maxn = 53; const int maxm = 509; const int mb = 253;
+dint l, r; int n, m, bs, a[maxn];" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/i11rimport_002/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2015-03-11T19:16:41+00:00" />
+<meta property="article:modified_time" content="2015-03-11T19:16:41+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BZOJ3598 [Scoi2014]方伯伯的商场之旅"/>
+<meta name="twitter:description" content="&lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt; 题目名字好长。&lt;/p&gt; &nbsp;
+当年在考场上只会分块打表的题。
+&nbsp;
+前几天有人讲之后觉得大概可做。而且好像那个方法很优秀。
+&nbsp;
+于是我难得地去写了一回不用记搜且不记上界的数位dp。感觉这个玩意写出来很短，但是思考和调试的复杂度变高了。我觉得是状态定义变得不明确的原因。也许再补一些题就好了。
+&nbsp;
+考虑先让所有都合并到最低位，一个基础数位dp。（然后写丑了好久）
+&nbsp;
+然后考虑如果把一个数字的集合位置从p移动到p&#43;1，设这个数字从低位到高位是a[0]..a[n-1]，那么贡献就是∑a[0..p]-∑a[p&#43;1..n-1]。显然当p从右往左移动的时候它是会先负后正的。如果它负的话就减，否则就不玩了。可以发现它们互相不影响。于是对于每一个p单独计算一遍贡献就行了。
+&nbsp;
+然后还是没有原版跑得快。OTL。
+&nbsp;
+#define PROC &#34;shop&#34; #include &lt;cstdio&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+typedef long long dint; #ifdef WIN32 #define lld &ldquo;%I64d&rdquo; #else #define lld &ldquo;%lld&rdquo; #endif #define _l (long long int)
+const int maxn = 53; const int maxm = 509; const int mb = 253;
+dint l, r; int n, m, bs, a[maxn];"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "BZOJ3598 [Scoi2014]方伯伯的商场之旅",
+      "item": "/oi/i11rimport_002/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BZOJ3598 [Scoi2014]方伯伯的商场之旅",
+  "name": "BZOJ3598 [Scoi2014]方伯伯的商场之旅",
+  "description": "\u0026lt;div class=\u0026quot;post_brief\u0026quot;\u0026gt;\u0026lt;p\u0026gt; 题目名字好长。\u0026lt;/p\u0026gt; \u0026nbsp;\n当年在考场上只会分块打表的题。\n\u0026nbsp;\n前几天有人讲之后觉得大概可做。而且好像那个方法很优秀。\n\u0026nbsp;\n于是我难得地去写了一回不用记搜且不记上界的数位dp。感觉这个玩意写出来很短，但是思考和调试的复杂度变高了。我觉得是状态定义变得不明确的原因。也许再补一些题就好了。\n\u0026nbsp;\n考虑先让所有都合并到最低位，一个基础数位dp。（然后写丑了好久）\n\u0026nbsp;\n然后考虑如果把一个数字的集合位置从p移动到p+1，设这个数字从低位到高位是a[0]..a[n-1]，那么贡献就是∑a[0..p]-∑a[p+1..n-1]。显然当p从右往左移动的时候它是会先负后正的。如果它负的话就减，否则就不玩了。可以发现它们互相不影响。于是对于每一个p单独计算一遍贡献就行了。\n\u0026nbsp;\n然后还是没有原版跑得快。OTL。\n\u0026nbsp;\n#define PROC \"shop\" #include \u0026lt;cstdio\u0026gt; #include \u0026lt;cstring\u0026gt; #include \u0026lt;algorithm\u0026gt; using namespace std;\ntypedef long long dint; #ifdef WIN32 #define lld \u0026ldquo;%I64d\u0026rdquo; #else #define lld \u0026ldquo;%lld\u0026rdquo; #endif #define _l (long long int)\nconst int maxn = 53; const int maxm = 509; const int mb = 253;\ndint l, r; int n, m, bs, a[maxn];",
+  "keywords": [
+    "bzoj", "dp", "digitDP", "oi"
+  ],
+  "articleBody": "\t题目名字好长。\n当年在考场上只会分块打表的题。\n前几天有人讲之后觉得大概可做。而且好像那个方法很优秀。\n于是我难得地去写了一回不用记搜且不记上界的数位dp。感觉这个玩意写出来很短，但是思考和调试的复杂度变高了。我觉得是状态定义变得不明确的原因。也许再补一些题就好了。\n考虑先让所有都合并到最低位，一个基础数位dp。（然后写丑了好久）\n然后考虑如果把一个数字的集合位置从p移动到p+1，设这个数字从低位到高位是a[0]..a[n-1]，那么贡献就是∑a[0..p]-∑a[p+1..n-1]。显然当p从右往左移动的时候它是会先负后正的。如果它负的话就减，否则就不玩了。可以发现它们互相不影响。于是对于每一个p单独计算一遍贡献就行了。\n然后还是没有原版跑得快。OTL。\n#define PROC \"shop\" #include #include #include using namespace std;\ntypedef long long dint; #ifdef WIN32 #define lld “%I64d” #else #define lld “%lld” #endif #define _l (long long int)\nconst int maxn = 53; const int maxm = 509; const int mb = 253;\ndint l, r; int n, m, bs, a[maxn];\ndint dpBeginning() { static dint f[maxn], c[maxn], g[maxn], cr[maxn]; c[0] = bs; f[0] = 0; for (int i = 1; i \u003c n; ++ i) { c[i] = c[i - 1] * bs; f[i] = f[i - 1] * bs; for (int j = 1; j \u003c bs; ++ j) f[i] = f[i] + c[i - 1] * i * j; } cr[0] = g[0] = 0; cr[1] = a[0] + 1; g[1] = a[1] * cr[1]; for (int i = 2; i \u003c= n; ++ i) { cr[i] = g[i] = 0; for (int d = 0; d \u003c a[i - 1]; ++ d) { cr[i] += c[i - 2]; g[i] += f[i - 2] + c[i - 2] * (d * (i - 1) + a[i] * i); } cr[i] += cr[i - 1]; g[i] += cr[i - 1] * a[i] * i + g[i - 1]; } return g[n]; }\ndint dp(dint v) { static dint c[maxn][maxm]; static dint cr[maxn][maxm]; m = 0; for (n = 0; v; v /= bs) a[n ++] = v % bs; a[n] = 0; m = n * bs; dint ans(dpBeginning()); //printf(lld “\\n”, ans); for (int p = 1; p \u003c n; ++ p) { memset(c, 0, sizeof(c)); for (int i = 0; i \u003c bs; ++ i) c[0][mb - i] = 1; for (int i = 1; i \u003c n; ++ i) for (int j = mb - m; j \u003c= mb + m; ++ j) if (c[i - 1][j]) for (int d = 0; d \u003c bs; ++ d) { int t((i \u003c p) ? j - d : j + d); c[i][t] += c[i - 1][j]; } memset(cr, 0, sizeof(cr)); cr[0][mb - a[0]] = 1; for (int i = 1; i \u003c= n; ++ i) { for (int d = 0; d \u003c a[i - 1]; ++ d) if (i \u003e 1) { for (int j = mb - m; j \u003c= mb + m; ++ j) if (c[i - 2][j]) { int t((i - 1 \u003c p) ? j - d : j + d); t = (i \u003c p) ? t - a[i] : t + a[i]; cr[i][t] += c[i - 2][j]; } } else { int t((i \u003c p) ? mb - d - a[i] : mb - d + a[i]); ++ cr[i][t]; } for (int j = mb - m; j \u003c= mb + m; ++ j) if (cr[i - 1][j]) { int t((i \u003c p) ? j - a[i] : j + a[i]); cr[i][t] += cr[i - 1][j]; } } for (int i = 1; i \u003c= m; ++ i) ans -= cr[n][i + mb] * i; } return ans; }\nint main() { #ifndef ONLINE_JUDGE freopen(PROC “.in”, “r”, stdin); freopen(PROC “.out”, “w”, stdout); #endif\nscanf(lld lld \"%d\", \u0026amp;l, \u0026amp;r, \u0026amp;bs); printf(lld \"\\n\", dp(r) - dp(l - 1)); } ",
+  "wordCount" : "546",
+  "inLanguage": "en",
+  "datePublished": "2015-03-11T19:16:41Z",
+  "dateModified": "2015-03-11T19:16:41Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/i11rimport_002/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      BZOJ3598 [Scoi2014]方伯伯的商场之旅
+    </h1>
+    <div class="post-meta"><span title='2015-03-11 19:16:41 +0000 UTC'>March 11, 2015</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><pre><code>			    &lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt;
+题目名字好长。&lt;/p&gt;
+</code></pre>
+<p>
+	&nbsp;</p>
+<p>
+	当年在考场上只会分块打表的题。</p>
+<p>
+	&nbsp;</p>
+<p>
+	前几天有人讲之后觉得大概可做。而且好像那个方法很优秀。</p>
+<p>
+	&nbsp;</p>
+<p>
+	于是我难得地去写了一回不用记搜且不记上界的数位dp。感觉这个玩意写出来很短，但是思考和调试的复杂度变高了。我觉得是状态定义变得不明确的原因。也许再补一些题就好了。</p>
+<p>
+	&nbsp;</p>
+<p>
+	考虑先让所有都合并到最低位，一个基础数位dp。（然后写丑了好久）</p>
+<p>
+	&nbsp;</p>
+<p>
+	然后考虑如果把一个数字的集合位置从p移动到p+1，设这个数字从低位到高位是a[0]..a[n-1]，那么贡献就是∑a[0..p]-∑a[p+1..n-1]。显然当p从右往左移动的时候它是会先负后正的。如果它负的话就减，否则就不玩了。可以发现它们互相不影响。于是对于每一个p单独计算一遍贡献就行了。</p>
+<p>
+	&nbsp;</p>
+<p>
+	然后还是没有原版跑得快。OTL。</p>
+<p>
+	&nbsp;</p>
+<pre class="bcode">#define PROC "shop"
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+<p>using namespace std;</p>
+<p>typedef long long dint;
+#ifdef WIN32
+#define lld &ldquo;%I64d&rdquo;
+#else
+#define lld &ldquo;%lld&rdquo;
+#endif
+#define _l (long long int)</p>
+<p>const int maxn = 53;
+const int maxm = 509;
+const int mb = 253;</p>
+<p>dint l, r;
+int n, m, bs, a[maxn];</p>
+<p>dint dpBeginning() {
+static dint f[maxn], c[maxn], g[maxn], cr[maxn];
+c[0] = bs;
+f[0] = 0;
+for (int i = 1; i &lt; n; ++ i) {
+c[i] = c[i - 1] * bs;
+f[i] = f[i - 1] * bs;
+for (int j = 1; j &lt; bs; ++ j)
+f[i] = f[i] + c[i - 1] * i * j;
+}
+cr[0] = g[0] = 0;
+cr[1] = a[0] + 1;
+g[1] = a[1] * cr[1];
+for (int i = 2; i &lt;= n; ++ i)  {
+cr[i] = g[i] = 0;
+for (int d = 0; d &lt; a[i - 1]; ++ d) {
+cr[i] += c[i - 2];
+g[i] += f[i - 2] + c[i - 2] * (d * (i - 1) + a[i] * i);
+}
+cr[i] += cr[i - 1];
+g[i] += cr[i - 1] * a[i] * i + g[i - 1];
+}
+return g[n];
+}</p>
+<p>dint dp(dint v) {
+static dint c[maxn][maxm];
+static dint cr[maxn][maxm];
+m = 0;
+for (n = 0; v; v /= bs)
+a[n ++] = v % bs;
+a[n] = 0;
+m = n * bs;
+dint ans(dpBeginning());
+//printf(lld &ldquo;\n&rdquo;, ans);
+for (int p = 1; p &lt; n; ++ p) {
+memset(c, 0, sizeof(c));
+for (int i = 0; i &lt; bs; ++ i)
+c[0][mb - i] = 1;
+for (int i = 1; i &lt; n; ++ i)
+for (int j = mb - m; j &lt;= mb + m; ++ j)
+if (c[i - 1][j])
+for (int d = 0; d &lt; bs; ++ d) {
+int t((i &lt; p) ? j - d : j + d);
+c[i][t] += c[i - 1][j];
+}
+memset(cr, 0, sizeof(cr));
+cr[0][mb - a[0]] = 1;
+for (int i = 1; i &lt;= n; ++ i) {
+for (int d = 0; d &lt; a[i - 1]; ++ d)
+if (i &gt; 1) {
+for (int j = mb - m; j &lt;= mb + m; ++ j)
+if (c[i - 2][j]) {
+int t((i - 1 &lt; p) ? j - d : j + d);
+t = (i &lt; p) ? t - a[i] : t + a[i];
+cr[i][t] += c[i - 2][j];
+}
+}
+else  {
+int t((i &lt; p) ? mb - d - a[i] : mb - d + a[i]);
+++ cr[i][t];
+}
+for (int j = mb - m; j &lt;= mb + m; ++ j)
+if (cr[i - 1][j]) {
+int t((i &lt; p) ? j - a[i] : j + a[i]);
+cr[i][t] += cr[i - 1][j];
+}
+}
+for (int i = 1; i &lt;= m; ++ i)
+ans -= cr[n][i + mb] * i;
+}
+return ans;
+}</p>
+<p>int main() {
+#ifndef ONLINE_JUDGE
+freopen(PROC &ldquo;.in&rdquo;, &ldquo;r&rdquo;, stdin);
+freopen(PROC &ldquo;.out&rdquo;, &ldquo;w&rdquo;, stdout);
+#endif</p>
+<pre><code>scanf(lld lld &quot;%d&quot;, &amp;amp;l, &amp;amp;r, &amp;amp;bs);
+printf(lld &quot;\n&quot;, dp(r) - dp(l - 1));
+</code></pre>
+<p>}
+</pre></p>
+</div>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/bzoj/">bzoj</a></li>
+      <li><a href="/tags/dp/">dp</a></li>
+      <li><a href="/tags/digitdp/">digitDP</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/dbimport_252/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>hdu5189 zhx&#39;s tree</span>
+  </a>
+  <a class="next" href="/oi/i11rimport_003/">
+    <span class="title">Next »</span>
+    <br>
+    <span>BZOJ1604 [Usaco2008 Open]Cow Neighborhoods 奶牛的邻居</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

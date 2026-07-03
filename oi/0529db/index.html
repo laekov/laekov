@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Leetcode1129  颜色交替的最短路径 | The Site of laekov</title>
+<meta name="keywords" content="oi">
+<meta name="description" content="很基础的 BFS 题目.
+BFS 和 DFS 是相对应的两种算法. 其区别在于对于新发现的可能性, BFS 将其放入队列末尾, 稍后进行探索, 而 DFS 立即探索这种新情况, 等探索完之后再回到之前的状态继续枚举.
+对于这道题目来说, 具体来讲, 状况可以用 (位置, 距离, 颜色) 这么一个 tuple 来表示. 最开始的时候, 有 (0, 0, blue) 和 (0, 0, red) 这两种情况. 假设 0到1 有一条蓝边, 0到2 有一条红边, 那么新的情况是 (1, 1, red) 和 (2, 1, blue).
+如果我们使用 DFS, 那么当新发现 (1, 1, red) 这个状态的时候, 我会立即以 (1, 1, red) 为起点, 继续探索 1 号点的邻居, 比如找到了 (3, 2, blue) &hellip; 直到找完所有通过 (1, 1, red) 可以达到的状态之后, 再继续以 (2, 1, blue) 为基础进行枚举.">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/0529db/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="Leetcode1129  颜色交替的最短路径" />
+<meta property="og:description" content="很基础的 BFS 题目.
+BFS 和 DFS 是相对应的两种算法. 其区别在于对于新发现的可能性, BFS 将其放入队列末尾, 稍后进行探索, 而 DFS 立即探索这种新情况, 等探索完之后再回到之前的状态继续枚举.
+对于这道题目来说, 具体来讲, 状况可以用 (位置, 距离, 颜色) 这么一个 tuple 来表示. 最开始的时候, 有 (0, 0, blue) 和 (0, 0, red) 这两种情况. 假设 0到1 有一条蓝边, 0到2 有一条红边, 那么新的情况是 (1, 1, red) 和 (2, 1, blue).
+如果我们使用 DFS, 那么当新发现 (1, 1, red) 这个状态的时候, 我会立即以 (1, 1, red) 为起点, 继续探索 1 号点的邻居, 比如找到了 (3, 2, blue) &hellip; 直到找完所有通过 (1, 1, red) 可以达到的状态之后, 再继续以 (2, 1, blue) 为基础进行枚举." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/0529db/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2019-07-24T02:51:30+00:00" />
+<meta property="article:modified_time" content="2019-07-24T02:51:30+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Leetcode1129  颜色交替的最短路径"/>
+<meta name="twitter:description" content="很基础的 BFS 题目.
+BFS 和 DFS 是相对应的两种算法. 其区别在于对于新发现的可能性, BFS 将其放入队列末尾, 稍后进行探索, 而 DFS 立即探索这种新情况, 等探索完之后再回到之前的状态继续枚举.
+对于这道题目来说, 具体来讲, 状况可以用 (位置, 距离, 颜色) 这么一个 tuple 来表示. 最开始的时候, 有 (0, 0, blue) 和 (0, 0, red) 这两种情况. 假设 0到1 有一条蓝边, 0到2 有一条红边, 那么新的情况是 (1, 1, red) 和 (2, 1, blue).
+如果我们使用 DFS, 那么当新发现 (1, 1, red) 这个状态的时候, 我会立即以 (1, 1, red) 为起点, 继续探索 1 号点的邻居, 比如找到了 (3, 2, blue) &hellip; 直到找完所有通过 (1, 1, red) 可以达到的状态之后, 再继续以 (2, 1, blue) 为基础进行枚举."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Leetcode1129  颜色交替的最短路径",
+      "item": "/oi/0529db/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Leetcode1129  颜色交替的最短路径",
+  "name": "Leetcode1129  颜色交替的最短路径",
+  "description": "很基础的 BFS 题目.\nBFS 和 DFS 是相对应的两种算法. 其区别在于对于新发现的可能性, BFS 将其放入队列末尾, 稍后进行探索, 而 DFS 立即探索这种新情况, 等探索完之后再回到之前的状态继续枚举.\n对于这道题目来说, 具体来讲, 状况可以用 (位置, 距离, 颜色) 这么一个 tuple 来表示. 最开始的时候, 有 (0, 0, blue) 和 (0, 0, red) 这两种情况. 假设 0到1 有一条蓝边, 0到2 有一条红边, 那么新的情况是 (1, 1, red) 和 (2, 1, blue).\n如果我们使用 DFS, 那么当新发现 (1, 1, red) 这个状态的时候, 我会立即以 (1, 1, red) 为起点, 继续探索 1 号点的邻居, 比如找到了 (3, 2, blue) \u0026hellip; 直到找完所有通过 (1, 1, red) 可以达到的状态之后, 再继续以 (2, 1, blue) 为基础进行枚举.",
+  "keywords": [
+    "oi"
+  ],
+  "articleBody": "很基础的 BFS 题目.\nBFS 和 DFS 是相对应的两种算法. 其区别在于对于新发现的可能性, BFS 将其放入队列末尾, 稍后进行探索, 而 DFS 立即探索这种新情况, 等探索完之后再回到之前的状态继续枚举.\n对于这道题目来说, 具体来讲, 状况可以用 (位置, 距离, 颜色) 这么一个 tuple 来表示. 最开始的时候, 有 (0, 0, blue) 和 (0, 0, red) 这两种情况. 假设 0到1 有一条蓝边, 0到2 有一条红边, 那么新的情况是 (1, 1, red) 和 (2, 1, blue).\n如果我们使用 DFS, 那么当新发现 (1, 1, red) 这个状态的时候, 我会立即以 (1, 1, red) 为起点, 继续探索 1 号点的邻居, 比如找到了 (3, 2, blue) … 直到找完所有通过 (1, 1, red) 可以达到的状态之后, 再继续以 (2, 1, blue) 为基础进行枚举.\n而 BFS 不同. BFS 会将 (3, 2, blue) 放到一个队列 q 的 末尾, 然后假装什么都没发生过, 继续从 q 的 队首 拿一个状态出来, 枚举它的邻居, 以此往复.\n这样做的好处是, BFS 队列 q 中的所有状态一定是按距离升序排列的. 一但某个 (顶点, 颜色) 对出现在 q 中, 那么它一定是从起点到该顶点且下一步是该颜色的最短距离. 所以如果后面再遇到该 (顶点, 颜色) 对, 就可以不进行枚举了. 从而节省极大的时间.\n下面是一个例子 如果使用 DFS, 那么一个搜索顺序如下:\n(0, 0, blue) (1, 1, red) (3, 2, blue) 回到(1, 1, red) (4, 2, blue) 回到(1, 1, red) 回到(0, 0, blue) 继续 (0, 0, red) (2, 1, blue) (4, 2, red) 回到(2, 1, blue) (5, 2, red) 回到(2, 1, blue) 回到(0, 0, red) 结束 如果使用 BFS, 那么一个搜索顺序如下:\n(0, 0, blue) # 使 (1, 1, red) 加入到队尾 (0, 0, red) # 使 (2, 1, blue) 加入到队尾 (1, 1, red) # 使 (3, 2, blue), (3, 4, blue) 加入到队尾 (2, 1, blue) # 使 (4, 2, red), (5, 2, red) 加入到队尾 (3, 2, blue) # 没新的状态可加了 下同 (3, 4, blue) (4, 2, red) (5, 2, red) 结束 下面是代码链接 在代码中, 我使用节点编号 k 和 k+n 分别代表下一步该走蓝边还是红边.\n代码链接\n",
+  "wordCount" : "232",
+  "inLanguage": "en",
+  "datePublished": "2019-07-24T02:51:30Z",
+  "dateModified": "2019-07-24T02:51:30Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/0529db/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      Leetcode1129  颜色交替的最短路径
+    </h1>
+    <div class="post-meta"><span title='2019-07-24 02:51:30 +0000 UTC'>July 24, 2019</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e4%b8%8b%e9%9d%a2%e6%98%af%e4%b8%80%e4%b8%aa%e4%be%8b%e5%ad%90" aria-label="下面是一个例子">下面是一个例子</a></li>
+                <li>
+                    <a href="#%e4%b8%8b%e9%9d%a2%e6%98%af%e4%bb%a3%e7%a0%81%e9%93%be%e6%8e%a5" aria-label="下面是代码链接">下面是代码链接</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p>很基础的 BFS 题目.</p>
+<p>BFS 和 DFS 是相对应的两种算法. 其区别在于对于新发现的可能性, BFS 将其放入队列末尾, 稍后进行探索, 而 DFS 立即探索这种新情况, 等探索完之后再回到之前的状态继续枚举.</p>
+<p>对于这道题目来说, 具体来讲, 状况可以用 (位置, 距离, 颜色) 这么一个 tuple 来表示. 最开始的时候, 有 (0, 0, blue) 和 (0, 0, red) 这两种情况. 假设 0到1 有一条蓝边, 0到2 有一条红边, 那么新的情况是 (1, 1, red) 和 (2, 1, blue).</p>
+<p>如果我们使用 DFS, 那么当新发现 (1, 1, red) 这个状态的时候, 我会立即以 (1, 1, red) 为起点, 继续探索 1 号点的邻居, 比如找到了 (3, 2, blue) &hellip; 直到找完所有通过 (1, 1, red) 可以达到的状态之后, 再继续以 (2, 1, blue) 为基础进行枚举.</p>
+<p>而 BFS 不同. BFS 会将 (3, 2, blue) 放到一个队列 <code>q</code> 的 <strong>末尾</strong>, 然后假装什么都没发生过, 继续从 <code>q</code> 的 <strong>队首</strong> 拿一个状态出来, 枚举它的邻居, 以此往复.</p>
+<p>这样做的好处是, BFS 队列 <code>q</code> 中的所有状态一定是按距离升序排列的. 一但某个 (顶点, 颜色) 对出现在 <code>q</code> 中, 那么它一定是从起点到该顶点且下一步是该颜色的最短距离. 所以如果后面再遇到该 (顶点, 颜色) 对, 就可以不进行枚举了. 从而节省极大的时间.</p>
+<h3 id="下面是一个例子">下面是一个例子<a hidden class="anchor" aria-hidden="true" href="#下面是一个例子">#</a></h3>
+<style> img { width: 90%; } </style>
+<p><img loading="lazy" src="/l/1129.png" alt=""  />
+</p>
+<p>如果使用 DFS, 那么一个搜索顺序如下:</p>
+<pre tabindex="0"><code>(0, 0, blue) 
+    (1, 1, red) 
+        (3, 2, blue)
+    回到(1, 1, red) 
+        (4, 2, blue) 
+    回到(1, 1, red)
+回到(0, 0, blue) 
+继续 (0, 0, red) 
+   (2, 1, blue) 
+       (4, 2, red) 
+    回到(2, 1, blue) 
+       (5, 2, red) 
+    回到(2, 1, blue) 
+回到(0, 0, red) 
+结束
+</code></pre><p>如果使用 BFS, 那么一个搜索顺序如下:</p>
+<pre tabindex="0"><code>(0, 0, blue) # 使 (1, 1, red) 加入到队尾
+(0, 0, red)  # 使 (2, 1, blue) 加入到队尾
+(1, 1, red) # 使 (3, 2, blue), (3, 4, blue) 加入到队尾
+(2, 1, blue) # 使 (4, 2, red), (5, 2, red) 加入到队尾
+(3, 2, blue) # 没新的状态可加了 下同
+(3, 4, blue)
+(4, 2, red)
+(5, 2, red)
+结束
+</code></pre><h3 id="下面是代码链接">下面是代码链接<a hidden class="anchor" aria-hidden="true" href="#下面是代码链接">#</a></h3>
+<p>在代码中, 我使用节点编号 <code>k</code> 和 <code>k+n</code> 分别代表下一步该走蓝边还是红边.</p>
+<p><a href="https://gist.github.com/laekov/9516394b42988a9891aaf3767543d8ee">代码链接</a></p>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/967d6b/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>Leetcode1130 叶值最小代价生成树</span>
+  </a>
+  <a class="next" href="/oi/51d1b4/">
+    <span class="title">Next »</span>
+    <br>
+    <span>Leetcode5129</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

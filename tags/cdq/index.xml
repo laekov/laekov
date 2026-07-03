@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>cdq on The Site of laekov</title>
+    <link>/tags/cdq/</link>
+    <description>Recent content in cdq on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Fri, 20 Mar 2015 20:26:17 +0000</lastBuildDate><atom:link href="/tags/cdq/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>bzoj2683 简单题</title>
+      <link>/oi/dbimport_153/</link>
+      <pubDate>Fri, 20 Mar 2015 20:26:17 +0000</pubDate>
+      
+      <guid>/oi/dbimport_153/</guid>
+      <description>水水的cdq。久了不写练一下手。然后发现犯了一堆逗错。幸好没过样例不然就do big die了。</description>
+    </item>
+    
+  </channel>
+</rss>

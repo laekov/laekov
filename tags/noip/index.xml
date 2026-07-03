@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>noip on The Site of laekov</title>
+    <link>/tags/noip/</link>
+    <description>Recent content in noip on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Tue, 17 Nov 2015 22:34:39 +0000</lastBuildDate><atom:link href="/tags/noip/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>noip2015 transport</title>
+      <link>/oi/dbimport_267/</link>
+      <pubDate>Tue, 17 Nov 2015 22:34:39 +0000</pubDate>
+      
+      <guid>/oi/dbimport_267/</guid>
+      <description>唯一一道有点麻烦的题.似乎是Picks出的?orz.于是窝就90辣.
+据说可以链剖然而退役的laekov已经搞忘了那是啥.
+laekov思考了五分钟.
+把所有链按长度排序.答案必定是这个路径序列的某个前缀的并集上的最长边.
+然后并集只会减小不会增大.于是暴力判断当前并集端点是否在下一条路径上就可以了.
+于是会被卡常数ovo窝也不知道怎么破.在uoj上加了个读入优化炸糊过去了.
+然后窝程序在最长路径长度为0的时候会因为数据结构写丑而死循环ovo
+反正还是挺水的啊.noip的压轴题怎么能这么水.</description>
+    </item>
+    
+    <item>
+      <title>noip2015 substring</title>
+      <link>/oi/dbimport_266/</link>
+      <pubDate>Tue, 17 Nov 2015 22:30:52 +0000</pubDate>
+      
+      <guid>/oi/dbimport_266/</guid>
+      <description>水水的dp.压一维状态表示上一个字母到底有没有被用就可以算出子串数了.
+然后会mle就滚一维呗.有高一小朋友不知道2333.
+似乎会卡常数23333.</description>
+    </item>
+    
+    <item>
+      <title>noip2015 stone</title>
+      <link>/oi/dbimport_265/</link>
+      <pubDate>Tue, 17 Nov 2015 22:29:14 +0000</pubDate>
+      
+      <guid>/oi/dbimport_265/</guid>
+      <description>水水的二分答案.
+想四年前classroom还属于思考题.现在就已经沦落到开场题的地步了.oi界发展迅速啊.
+然而真的不是3分钟搞定?</description>
+    </item>
+    
+    <item>
+      <title>noip2015 landlords</title>
+      <link>/oi/dbimport_262/</link>
+      <pubDate>Tue, 17 Nov 2015 22:27:41 +0000</pubDate>
+      
+      <guid>/oi/dbimport_262/</guid>
+      <description>day1考的农业题.据说可以状压然而退役的laekov已经不会写状压了(雾.
+于是直接dfs就好了啊23333
+每次搜索的时候强制把当前点数最小的牌出掉至少一张.这样时间复杂度/=答案!.然后就完辣.</description>
+    </item>
+    
+    <item>
+      <title>noip2015 message</title>
+      <link>/oi/dbimport_264/</link>
+      <pubDate>Tue, 17 Nov 2015 22:25:20 +0000</pubDate>
+      
+      <guid>/oi/dbimport_264/</guid>
+      <description>依然是水水的题.
+基环内向树.从任意点开走要么是o型环要么是ρ型环.
+那些写bfs的是啥心态.非要展示代码能力么.
+以及谁说没考数论的?这题不就是&amp;quot;泼辣的肉&amp;quot;的推广(雾.</description>
+    </item>
+    
+    <item>
+      <title>noip2015 magic</title>
+      <link>/oi/dbimport_263/</link>
+      <pubDate>Tue, 17 Nov 2015 22:21:43 +0000</pubDate>
+      
+      <guid>/oi/dbimport_263/</guid>
+      <description>noip成绩终于出来辣可以水水地写个题解辣.假装窝还是在更新窝的网站嘛.
+&amp;ldquo;这么水的题还要写题解?&amp;rdquo;
+&amp;ldquo;对不起嘛,laekov是noi才ag弱渣嘛.&amp;rdquo;
+3分钟题ovo.</description>
+    </item>
+    
+  </channel>
+</rss>

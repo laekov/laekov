@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>FastDecode: 一种很大胆的分布式 LLM 推理系统架构 | The Site of laekov</title>
+<meta name="keywords" content="research, distributed, LLM">
+<meta name="description" content="这是一篇 arxiv 文章 的中文简要版本.
+摘要 这篇文章主要介绍了一种大语言模型的推理系统. 在自回归生成过程中, 序列中的元素 (token) 被挨个生成, 因此模型推理的序列长度 (sequence length) 为 1. 因此, 增大 batch size 对于 GPU 利用率的提升十分重要. 然而 KV-Cache 体积很大, 且与 batch size 成正比. 其大小阻止了 batch size 和 GPU 利用率的提升.
+相比 vLLM 提出的 page attention 技术, FastDecode 对于 CPU 的利用进行了更加大胆的尝试. 其不仅利用了 CPU 的内存容量, 还利用了其计算能力和多机扩展能力, 从而达到了提升 batch size, 提升 GPU 利用率的目的, 并实现了端到端的推理吞吐量提升.
+背景 在自回归生成过程中做 attention 时, 一个 token i 的特征向量 (feature vector) 会线性映射拆成 Qi, Ki, Vi 三个特征向量.">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/technical/fastdecode/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="FastDecode: 一种很大胆的分布式 LLM 推理系统架构" />
+<meta property="og:description" content="这是一篇 arxiv 文章 的中文简要版本.
+摘要 这篇文章主要介绍了一种大语言模型的推理系统. 在自回归生成过程中, 序列中的元素 (token) 被挨个生成, 因此模型推理的序列长度 (sequence length) 为 1. 因此, 增大 batch size 对于 GPU 利用率的提升十分重要. 然而 KV-Cache 体积很大, 且与 batch size 成正比. 其大小阻止了 batch size 和 GPU 利用率的提升.
+相比 vLLM 提出的 page attention 技术, FastDecode 对于 CPU 的利用进行了更加大胆的尝试. 其不仅利用了 CPU 的内存容量, 还利用了其计算能力和多机扩展能力, 从而达到了提升 batch size, 提升 GPU 利用率的目的, 并实现了端到端的推理吞吐量提升.
+背景 在自回归生成过程中做 attention 时, 一个 token i 的特征向量 (feature vector) 会线性映射拆成 Qi, Ki, Vi 三个特征向量." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/technical/fastdecode/" /><meta property="article:section" content="technical" />
+<meta property="article:published_time" content="2024-03-21T00:00:00+00:00" />
+<meta property="article:modified_time" content="2024-03-21T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="FastDecode: 一种很大胆的分布式 LLM 推理系统架构"/>
+<meta name="twitter:description" content="这是一篇 arxiv 文章 的中文简要版本.
+摘要 这篇文章主要介绍了一种大语言模型的推理系统. 在自回归生成过程中, 序列中的元素 (token) 被挨个生成, 因此模型推理的序列长度 (sequence length) 为 1. 因此, 增大 batch size 对于 GPU 利用率的提升十分重要. 然而 KV-Cache 体积很大, 且与 batch size 成正比. 其大小阻止了 batch size 和 GPU 利用率的提升.
+相比 vLLM 提出的 page attention 技术, FastDecode 对于 CPU 的利用进行了更加大胆的尝试. 其不仅利用了 CPU 的内存容量, 还利用了其计算能力和多机扩展能力, 从而达到了提升 batch size, 提升 GPU 利用率的目的, 并实现了端到端的推理吞吐量提升.
+背景 在自回归生成过程中做 attention 时, 一个 token i 的特征向量 (feature vector) 会线性映射拆成 Qi, Ki, Vi 三个特征向量."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Technicals",
+      "item": "/technical/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "FastDecode: 一种很大胆的分布式 LLM 推理系统架构",
+      "item": "/technical/fastdecode/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "FastDecode: 一种很大胆的分布式 LLM 推理系统架构",
+  "name": "FastDecode: 一种很大胆的分布式 LLM 推理系统架构",
+  "description": "这是一篇 arxiv 文章 的中文简要版本.\n摘要 这篇文章主要介绍了一种大语言模型的推理系统. 在自回归生成过程中, 序列中的元素 (token) 被挨个生成, 因此模型推理的序列长度 (sequence length) 为 1. 因此, 增大 batch size 对于 GPU 利用率的提升十分重要. 然而 KV-Cache 体积很大, 且与 batch size 成正比. 其大小阻止了 batch size 和 GPU 利用率的提升.\n相比 vLLM 提出的 page attention 技术, FastDecode 对于 CPU 的利用进行了更加大胆的尝试. 其不仅利用了 CPU 的内存容量, 还利用了其计算能力和多机扩展能力, 从而达到了提升 batch size, 提升 GPU 利用率的目的, 并实现了端到端的推理吞吐量提升.\n背景 在自回归生成过程中做 attention 时, 一个 token i 的特征向量 (feature vector) 会线性映射拆成 Qi, Ki, Vi 三个特征向量.",
+  "keywords": [
+    "research", "distributed", "LLM"
+  ],
+  "articleBody": " 这是一篇 arxiv 文章 的中文简要版本.\n摘要 这篇文章主要介绍了一种大语言模型的推理系统. 在自回归生成过程中, 序列中的元素 (token) 被挨个生成, 因此模型推理的序列长度 (sequence length) 为 1. 因此, 增大 batch size 对于 GPU 利用率的提升十分重要. 然而 KV-Cache 体积很大, 且与 batch size 成正比. 其大小阻止了 batch size 和 GPU 利用率的提升.\n相比 vLLM 提出的 page attention 技术, FastDecode 对于 CPU 的利用进行了更加大胆的尝试. 其不仅利用了 CPU 的内存容量, 还利用了其计算能力和多机扩展能力, 从而达到了提升 batch size, 提升 GPU 利用率的目的, 并实现了端到端的推理吞吐量提升.\n背景 在自回归生成过程中做 attention 时, 一个 token i 的特征向量 (feature vector) 会线性映射拆成 Qi, Ki, Vi 三个特征向量. 其中, Qi 用于与序列中之前所有的 Kj, Vj 向量做 attention, 从而得出输出特征向量 Oi. 而 Ki, Vi 则会被留存下来, 以便之后的 token 在做 attention 时不再重复计算. 用于留存序列中 Ki, Vi 的存储空间 (或者是这个张量) 被称为 KV-Cache.\n众所周知, GPU 的利用率取决于 batch size 的大小. 因此, 在自回归生成时, 如果能有成百上千的序列一起生成, 那么 GPU 才能被利用得比较好. 然而对于一个 7b 的模型来说, 一个长度为 1024 的序列的 KV-Cache 就有 0.4GB. 200 个序列就是 80GB. 这对于 GPU 显存来说是不友好的.\n如果使用 vLLM 提出的 page attention 技术, 将 KV-Cache 分页卸载 (offload) 到主存, 由于 KV-Cache 需要在生成每个 token 的时候都被使用到, 那么这 80GB 的数据会反复在 CPU 和 GPU 之间腾挪. 这对于并不富余的 PCIe 带宽来说无疑是一个沉重的负担.\n译注: PPoPP'24 会上 Nir Shavit 的 keynote 演讲中 background 部分和这里完全一样. 但是他接下来就开始讲如何在 attention 上做稀疏化的算法来解决这一问题. 而这篇文章提出的解决方案更为直接, 在不修改任何模型和算法的前提下优化这件事情.\nFastDecode 设计方案 拆分 Attention 注意到, 生成了 Qi, Ki, Vi 之后到获得 Oi 之前这段计算是不需要任何模型参数参与计算的. 而这里也包含了占用了海量内存的 KV-Cache. 另外值得注意的是, 当 batch size 增大的时候, KV-Cache 的计算效率并不会随之提升, 因为对于每个序列来说, 它们的 KV-Cache 是互相独立的. 因此, 扩大 batch size 对于 KV-Cache 来说只是将原来的一份工作量变成了多份工作量, 而其本质上还是对于 KV-Cache 的一次内存遍历, 是一个内存密集型任务. 我们把这一段计算称作 R-Part.\n相对应的, Transformer 模型里的其它部分的计算基本都是参数矩阵和特征向量之间的矩阵-向量乘法. 大扩大 batch size 之后就变成了被大量优化过的矩阵-矩阵乘法 (GeMM). 我们把这部分称作 S-Part.\n把 R-Part 的计算和内存一起挪到 CPU R-Part 的计算吞吐量本质上是和访存吞吐量基本相同的. (注: share KV 会导致这里有一些不同, 但不改变其访存密集的本质) 因此, 把 R-Part 的计算也放到 CPU 上做, 并不会对其效率产生太大影响. 额外地, 把 KV-Cache 从主存倒腾到 GPU 显存的带宽也一定不大于主存的带宽, 所以这种做法是严格比把 KV-Cache 给 offload 更优的.\n而传递 Qi, Ki, Vi, Oi 的通信量相比于 KV-Cache 的大小是 2/S (S 表示序列长度). 所以这种做法额外产生的通信开销也是相对较小的.\n一个新的问题是主存带宽相比昂贵的 GPU HBM 还是慢的. 这个问题的解决方案是: 主存的带宽和容量是好扩展的! 相比焊死在 GPU 上的 HBM 颗粒, 不论是往机箱里插更多的内存条, 还是直接使用更多的 CPU 节点, 都可以很好的扩充主存的聚合带宽和容量, 从而提升 R-Part 的计算性能.\n这样一来, 就得到了如下的 FastDecode 系统.\n相比于一个纯使用 GPU 推理的系统, FastDecode 劫持了 R-Part 的计算, 使用多个远程的 CPU 节点来存储不同序列所对应的 KV-Cache, 并利用它们来计算相应的 R-Part. 最终返回一个和在 GPU 上计算相同的结果 Oi.\n异构流水线及其调度 现在 GPU 和 CPU 轮流工作, 所以必然要用一个二级流水同时处理两个小 batch, 从而使得两个硬件都被充分利用. 如下图所示.\n一个新的挑战在于: 这种流水线要求 S-Part 和 R-Part 的工作时间尽量相等, 否则效率会变低. 然而 S-Part 的延迟只和 batch size 相关, R-Part 的延迟却是和所有序列的总长度正相关. 如果处理同一个 batch, 这就会导致 R-Part 的时间从短逐步变长, 从而导致一些时间的浪费.\n如上图所示, 我们要想办法让 R-Part 延迟超出 S-Part 的部分填到 R-Part 比较快的部分里. 这就引入了一种新的调度方法.\n简单来讲, 每隔一段时间向流水线里加入一个小 batch, 这样就可以使得正在处理的序列总是有长有短, 而它们的总长度保持相对稳定.\n在匹配 GPU 和 CPU 数量的时候, 使用这个相对稳定的延迟作为参考, 就可以让流水线尽量被填满了.\n系统实现及实验结果 FastDecode 基于 PyTorch 实现. 对于模型并行, 量化等都具备天生的兼容性.\n文章中使用一到两块 A10 GPU 和 4 台双路 AMD Epyc CPU 服务器进行了实验, 机器之间使用 Infiniband 连接. 在使用相同的 GPU 时, FastDecode 比 TensorRT-LLM, vLLM 等系统获得了 1.88 - 8.7 倍的吞吐量提升.\n虽然提升的 batch size 对延迟有一定影响, 但也在可接受范围内. 相比于 vLLM, 其提供的服务延迟更加稳定, 没有 swap 所带来的极高的长尾延迟.\n(具体实验数据详见原文)\n总结和讨论 笔者愿称此文为一种 “大胆” 的尝试. 在神经网络训练/推理领域, 使用主存来进行 offload 的工作并不少见. 但使用 CPU 的计算能力来替代一部分 GPU 上的运算, 初听起来实属天方夜谭. 而 FastDecode 挖掘并解耦出了 Transformer 模型自回归生成任务中最适合 CPU 的部分, 并利用 CPU 服务器的易得性和可扩展性来实现与 GPU 相当的吞吐量, 从而将 GPU 从繁重的内存密集型任务中解放出来, 使其能更专注且高效地完成它擅长的 GeMM, 最终实现了端到端的推理吞吐量提升.\n现实中, 目前 GPU 是十分紧俏的资源, 而 CPU 作为一种传统且大量部署的硬件, 其易得性无疑是更好的. 虽然本文对于成本的计算并不那么精准, 但笔者相信这个系统能在一些场景中找到存在的意义, 并发挥它的价值.\n另外, 文章也提到, 其实 CPU 并非计算 R-Part 的终极解决方案. 如能力较弱的 GPU, FPGA, 甚至是专用加速器, 使用 CXL 连接的内存池, 都有用作 R-Worker 的潜力. 而文中提出的分布式设计和在异构硬件上实现流水线的技术在这些场景中是通用的.\n",
+  "wordCount" : "450",
+  "inLanguage": "en",
+  "datePublished": "2024-03-21T00:00:00Z",
+  "dateModified": "2024-03-21T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/technical/fastdecode/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/technical/">Technicals</a></div>
+    <h1 class="post-title">
+      FastDecode: 一种很大胆的分布式 LLM 推理系统架构
+    </h1>
+    <div class="post-meta"><span title='2024-03-21 00:00:00 +0000 UTC'>March 21, 2024</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e6%91%98%e8%a6%81" aria-label="摘要">摘要</a></li>
+                <li>
+                    <a href="#%e8%83%8c%e6%99%af" aria-label="背景">背景</a></li>
+                <li>
+                    <a href="#fastdecode-%e8%ae%be%e8%ae%a1%e6%96%b9%e6%a1%88" aria-label="FastDecode 设计方案">FastDecode 设计方案</a><ul>
+                        
+                <li>
+                    <a href="#%e6%8b%86%e5%88%86-attention" aria-label="拆分 Attention">拆分 Attention</a></li>
+                <li>
+                    <a href="#%e6%8a%8a-r-part-%e7%9a%84%e8%ae%a1%e7%ae%97%e5%92%8c%e5%86%85%e5%ad%98%e4%b8%80%e8%b5%b7%e6%8c%aa%e5%88%b0-cpu" aria-label="把 R-Part 的计算和内存一起挪到 CPU">把 R-Part 的计算和内存一起挪到 CPU</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e5%bc%82%e6%9e%84%e6%b5%81%e6%b0%b4%e7%ba%bf%e5%8f%8a%e5%85%b6%e8%b0%83%e5%ba%a6" aria-label="异构流水线及其调度">异构流水线及其调度</a></li>
+                <li>
+                    <a href="#%e7%b3%bb%e7%bb%9f%e5%ae%9e%e7%8e%b0%e5%8f%8a%e5%ae%9e%e9%aa%8c%e7%bb%93%e6%9e%9c" aria-label="系统实现及实验结果">系统实现及实验结果</a></li>
+                <li>
+                    <a href="#%e6%80%bb%e7%bb%93%e5%92%8c%e8%ae%a8%e8%ae%ba" aria-label="总结和讨论">总结和讨论</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><blockquote>
+<p>这是一篇 <a href="https://arxiv.org/abs/2403.11421">arxiv 文章</a> 的中文简要版本.</p>
+</blockquote>
+<h2 id="摘要">摘要<a hidden class="anchor" aria-hidden="true" href="#摘要">#</a></h2>
+<p>这篇文章主要介绍了一种大语言模型的推理系统. 在自回归生成过程中, 序列中的元素 (token) 被挨个生成, 因此模型推理的序列长度 (sequence length) 为 <code>1</code>.
+因此, 增大 batch size 对于 GPU 利用率的提升十分重要. 然而 KV-Cache 体积很大, 且与 batch size 成正比.
+其大小阻止了 batch size 和 GPU 利用率的提升.</p>
+<p>相比 vLLM 提出的 page attention 技术, FastDecode 对于 CPU 的利用进行了更加大胆的尝试.
+其不仅利用了 CPU 的内存容量, 还利用了其计算能力和多机扩展能力, 从而达到了提升 batch size, 提升 GPU 利用率的目的, 并实现了端到端的推理吞吐量提升.</p>
+<h2 id="背景">背景<a hidden class="anchor" aria-hidden="true" href="#背景">#</a></h2>
+<p>在自回归生成过程中做 attention 时, 一个 token <code>i</code> 的特征向量 (feature vector) 会线性映射拆成 <code>Qi, Ki, Vi</code> 三个特征向量.
+其中, <code>Qi</code> 用于与序列中之前所有的 <code>Kj, Vj</code> 向量做 attention, 从而得出输出特征向量 <code>Oi</code>.
+而 <code>Ki, Vi</code> 则会被留存下来, 以便之后的 token 在做 attention 时不再重复计算.
+用于留存序列中 <code>Ki, Vi</code> 的存储空间 (或者是这个张量) 被称为 KV-Cache.</p>
+<p>众所周知, GPU 的利用率取决于 batch size 的大小. 因此, 在自回归生成时, 如果能有成百上千的序列一起生成, 那么 GPU 才能被利用得比较好.
+然而对于一个 7b 的模型来说, 一个长度为 <code>1024</code> 的序列的 KV-Cache 就有 <code>0.4GB</code>. <code>200</code> 个序列就是 <code>80GB</code>. 这对于 GPU 显存来说是不友好的.</p>
+<p>如果使用 vLLM 提出的 page attention 技术, 将 KV-Cache 分页卸载 (offload) 到主存, 由于 KV-Cache 需要在生成每个 token 的时候都被使用到, 那么这 <code>80GB</code> 的数据会反复在 CPU 和 GPU 之间腾挪.
+这对于并不富余的 PCIe 带宽来说无疑是一个沉重的负担.</p>
+<blockquote>
+<p>译注: PPoPP'24 会上 Nir Shavit 的 keynote 演讲中 background 部分和这里完全一样.
+但是他接下来就开始讲如何在 attention 上做稀疏化的算法来解决这一问题.
+而这篇文章提出的解决方案更为直接, 在不修改任何模型和算法的前提下优化这件事情.</p>
+</blockquote>
+<h2 id="fastdecode-设计方案">FastDecode 设计方案<a hidden class="anchor" aria-hidden="true" href="#fastdecode-设计方案">#</a></h2>
+<h3 id="拆分-attention">拆分 Attention<a hidden class="anchor" aria-hidden="true" href="#拆分-attention">#</a></h3>
+<p><img loading="lazy" src="https://laekov.com.cn/l/figures/attn-decompose.png" alt=""  />
+</p>
+<p>注意到, 生成了 <code>Qi, Ki, Vi</code> 之后到获得 <code>Oi</code> 之前这段计算是不需要任何模型参数参与计算的.
+而这里也包含了占用了海量内存的 KV-Cache.
+另外值得注意的是, 当 batch size 增大的时候, KV-Cache 的计算效率并不会随之提升, 因为对于每个序列来说, 它们的 KV-Cache 是互相独立的.
+因此, 扩大 batch size 对于 KV-Cache 来说只是将原来的一份工作量变成了多份工作量, 而其本质上还是对于 KV-Cache 的一次内存遍历, 是一个内存密集型任务.
+我们把这一段计算称作 R-Part.</p>
+<p>相对应的, Transformer 模型里的其它部分的计算基本都是参数矩阵和特征向量之间的矩阵-向量乘法.
+大扩大 batch size 之后就变成了被大量优化过的矩阵-矩阵乘法 (GeMM).
+我们把这部分称作 S-Part.</p>
+<h3 id="把-r-part-的计算和内存一起挪到-cpu">把 R-Part 的计算和内存一起挪到 CPU<a hidden class="anchor" aria-hidden="true" href="#把-r-part-的计算和内存一起挪到-cpu">#</a></h3>
+<p>R-Part 的计算吞吐量本质上是和访存吞吐量基本相同的. (注: share KV 会导致这里有一些不同, 但不改变其访存密集的本质)
+因此, 把 R-Part 的计算也放到 CPU 上做, 并不会对其效率产生太大影响.
+额外地, 把 KV-Cache 从主存倒腾到 GPU 显存的带宽也一定不大于主存的带宽, 所以这种做法是严格比把 KV-Cache 给 offload 更优的.</p>
+<p>而传递 <code>Qi, Ki, Vi, Oi</code> 的通信量相比于 KV-Cache 的大小是 <code>2/S</code> (<code>S</code> 表示序列长度).
+所以这种做法额外产生的通信开销也是相对较小的.</p>
+<p>一个新的问题是主存带宽相比昂贵的 GPU HBM 还是慢的.
+这个问题的解决方案是: 主存的带宽和容量是好扩展的!
+相比焊死在 GPU 上的 HBM 颗粒, 不论是往机箱里插更多的内存条, 还是直接使用更多的 CPU 节点, 都可以很好的扩充主存的<strong>聚合带宽</strong>和容量, 从而提升 R-Part 的计算性能.</p>
+<p>这样一来, 就得到了如下的 FastDecode 系统.</p>
+<p><img loading="lazy" src="https://laekov.com.cn/l/figures/fastdecode.png" alt=""  />
+</p>
+<p>相比于一个纯使用 GPU 推理的系统, FastDecode 劫持了 R-Part 的计算, 使用多个远程的 CPU 节点来存储不同序列所对应的 KV-Cache, 并利用它们来计算相应的 R-Part. 最终返回一个和在 GPU 上计算相同的结果 <code>Oi</code>.</p>
+<h2 id="异构流水线及其调度">异构流水线及其调度<a hidden class="anchor" aria-hidden="true" href="#异构流水线及其调度">#</a></h2>
+<p>现在 GPU 和 CPU 轮流工作, 所以必然要用一个二级流水同时处理两个小 batch, 从而使得两个硬件都被充分利用. 如下图所示.</p>
+<p><img loading="lazy" src="https://laekov.com.cn/l/figures/2spipeline.png" alt=""  />
+</p>
+<p>一个新的挑战在于: 这种流水线要求 S-Part 和 R-Part 的工作时间尽量相等, 否则效率会变低.
+然而 S-Part 的延迟只和 batch size 相关, R-Part 的延迟却是和所有序列的总长度正相关.
+如果处理同一个 batch, 这就会导致 R-Part 的时间从短逐步变长, 从而导致一些时间的浪费.</p>
+<p><img loading="lazy" src="https://laekov.com.cn/l/figures/temporalhetero.png" alt=""  />
+</p>
+<p>如上图所示, 我们要想办法让 R-Part 延迟超出 S-Part 的部分填到 R-Part 比较快的部分里.
+这就引入了一种新的调度方法.</p>
+<p><img loading="lazy" src="https://laekov.com.cn/l/figures/slsch.png" alt=""  />
+</p>
+<p>简单来讲, 每隔一段时间向流水线里加入一个小 batch, 这样就可以使得正在处理的序列总是有长有短, 而它们的总长度保持相对稳定.</p>
+<p>在匹配 GPU 和 CPU 数量的时候, 使用这个相对稳定的延迟作为参考, 就可以让流水线尽量被填满了.</p>
+<h2 id="系统实现及实验结果">系统实现及实验结果<a hidden class="anchor" aria-hidden="true" href="#系统实现及实验结果">#</a></h2>
+<p>FastDecode 基于 PyTorch 实现.
+对于模型并行, 量化等都具备天生的兼容性.</p>
+<p>文章中使用一到两块 A10 GPU 和 4 台双路 AMD Epyc CPU 服务器进行了实验, 机器之间使用 Infiniband 连接.
+在使用相同的 GPU 时, FastDecode 比 TensorRT-LLM, vLLM 等系统获得了 1.88 - 8.7 倍的吞吐量提升.</p>
+<p>虽然提升的 batch size 对延迟有一定影响, 但也在可接受范围内.
+相比于 vLLM, 其提供的服务延迟更加稳定, 没有 swap 所带来的极高的长尾延迟.</p>
+<p>(具体实验数据详见原文)</p>
+<h2 id="总结和讨论">总结和讨论<a hidden class="anchor" aria-hidden="true" href="#总结和讨论">#</a></h2>
+<p>笔者愿称此文为一种 &ldquo;大胆&rdquo; 的尝试.
+在神经网络训练/推理领域, 使用主存来进行 offload 的工作并不少见.
+但使用 CPU 的计算能力来替代一部分 GPU 上的运算, 初听起来实属天方夜谭.
+而 FastDecode 挖掘并解耦出了 Transformer 模型自回归生成任务中最适合 CPU 的部分, 并利用 CPU 服务器的易得性和可扩展性来实现与 GPU 相当的吞吐量,
+从而将 GPU 从繁重的内存密集型任务中解放出来, 使其能更专注且高效地完成它擅长的 GeMM, 最终实现了端到端的推理吞吐量提升.</p>
+<p>现实中, 目前 GPU 是十分紧俏的资源, 而 CPU 作为一种传统且大量部署的硬件, 其易得性无疑是更好的.
+虽然本文对于成本的计算并不那么精准, 但笔者相信这个系统能在一些场景中找到存在的意义, 并发挥它的价值.</p>
+<p>另外, 文章也提到, 其实 CPU 并非计算 R-Part 的终极解决方案.
+如能力较弱的 GPU, FPGA, 甚至是专用加速器, 使用 CXL 连接的内存池, 都有用作 R-Worker 的潜力.
+而文中提出的分布式设计和在异构硬件上实现流水线的技术在这些场景中是通用的.</p>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/research/">research</a></li>
+      <li><a href="/tags/distributed/">distributed</a></li>
+      <li><a href="/tags/llm/">LLM</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/technical/pytorch-distributed-hybrid-mpi-backend/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>在 PyTorch Distributed 中混合使用 mpi 和其它 backend</span>
+  </a>
+  <a class="next" href="/technical/pacman-machine-setup/">
+    <span class="title">Next »</span>
+    <br>
+    <span>实验室新机器安装步骤检查单</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

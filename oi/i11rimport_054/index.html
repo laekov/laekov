@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>HDU5173 GTY&#39;s game II | The Site of laekov</title>
+<meta name="keywords" content="hdu, bc, ds, oi">
+<meta name="description" content="&lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt; bc的题。今天bc又挂了。这题没有写完，然后b题fst了。伤心啊。&lt;/p&gt; &nbsp;
+其实思路比较简单。直接链剖dfs序上把所有区间找出来swap就好了。不过代码实现起来还是比较麻烦的，很容易绕晕。加上smt久了没写手生了，于是就调了一晚上。唉，我还是太年轻了。
+&nbsp;
+#include &lt;cstdio&gt; #include &lt;cstdlib&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+struct node { int v, s, sz, w, rv; node ls, rs; inline void update() { sz = 1; s = v; if (ls) { sz &#43;= ls-&gt; sz; s &#43;= ls-&gt; s; } if (rs) { sz &#43;= rs-&gt; sz; s &#43;= rs-&gt; s; } } inline void fix() { if (rv) { swap(ls, rs); if (ls) ls-&gt; rv ^= 1; if (rs) rs-&gt; rv ^= 1; rv = 0; } } }; typedef pair &lt;node, node&gt; npr;">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/i11rimport_054/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="HDU5173 GTY&#39;s game II" />
+<meta property="og:description" content="&lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt; bc的题。今天bc又挂了。这题没有写完，然后b题fst了。伤心啊。&lt;/p&gt; &nbsp;
+其实思路比较简单。直接链剖dfs序上把所有区间找出来swap就好了。不过代码实现起来还是比较麻烦的，很容易绕晕。加上smt久了没写手生了，于是就调了一晚上。唉，我还是太年轻了。
+&nbsp;
+#include &lt;cstdio&gt; #include &lt;cstdlib&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+struct node { int v, s, sz, w, rv; node ls, rs; inline void update() { sz = 1; s = v; if (ls) { sz &#43;= ls-&gt; sz; s &#43;= ls-&gt; s; } if (rs) { sz &#43;= rs-&gt; sz; s &#43;= rs-&gt; s; } } inline void fix() { if (rv) { swap(ls, rs); if (ls) ls-&gt; rv ^= 1; if (rs) rs-&gt; rv ^= 1; rv = 0; } } }; typedef pair &lt;node, node&gt; npr;" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/i11rimport_054/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2015-02-06T23:10:41+00:00" />
+<meta property="article:modified_time" content="2015-02-06T23:10:41+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="HDU5173 GTY&#39;s game II"/>
+<meta name="twitter:description" content="&lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt; bc的题。今天bc又挂了。这题没有写完，然后b题fst了。伤心啊。&lt;/p&gt; &nbsp;
+其实思路比较简单。直接链剖dfs序上把所有区间找出来swap就好了。不过代码实现起来还是比较麻烦的，很容易绕晕。加上smt久了没写手生了，于是就调了一晚上。唉，我还是太年轻了。
+&nbsp;
+#include &lt;cstdio&gt; #include &lt;cstdlib&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+struct node { int v, s, sz, w, rv; node ls, rs; inline void update() { sz = 1; s = v; if (ls) { sz &#43;= ls-&gt; sz; s &#43;= ls-&gt; s; } if (rs) { sz &#43;= rs-&gt; sz; s &#43;= rs-&gt; s; } } inline void fix() { if (rv) { swap(ls, rs); if (ls) ls-&gt; rv ^= 1; if (rs) rs-&gt; rv ^= 1; rv = 0; } } }; typedef pair &lt;node, node&gt; npr;"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "HDU5173 GTY's game II",
+      "item": "/oi/i11rimport_054/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "HDU5173 GTY's game II",
+  "name": "HDU5173 GTY\u0027s game II",
+  "description": "\u0026lt;div class=\u0026quot;post_brief\u0026quot;\u0026gt;\u0026lt;p\u0026gt; bc的题。今天bc又挂了。这题没有写完，然后b题fst了。伤心啊。\u0026lt;/p\u0026gt; \u0026nbsp;\n其实思路比较简单。直接链剖dfs序上把所有区间找出来swap就好了。不过代码实现起来还是比较麻烦的，很容易绕晕。加上smt久了没写手生了，于是就调了一晚上。唉，我还是太年轻了。\n\u0026nbsp;\n#include \u0026lt;cstdio\u0026gt; #include \u0026lt;cstdlib\u0026gt; #include \u0026lt;cstring\u0026gt; #include \u0026lt;algorithm\u0026gt; using namespace std;\nstruct node { int v, s, sz, w, rv; node ls, rs; inline void update() { sz = 1; s = v; if (ls) { sz += ls-\u0026gt; sz; s += ls-\u0026gt; s; } if (rs) { sz += rs-\u0026gt; sz; s += rs-\u0026gt; s; } } inline void fix() { if (rv) { swap(ls, rs); if (ls) ls-\u0026gt; rv ^= 1; if (rs) rs-\u0026gt; rv ^= 1; rv = 0; } } }; typedef pair \u0026lt;node, node\u0026gt; npr;",
+  "keywords": [
+    "hdu", "bc", "ds", "oi"
+  ],
+  "articleBody": "\tbc的题。今天bc又挂了。这题没有写完，然后b题fst了。伤心啊。\n其实思路比较简单。直接链剖dfs序上把所有区间找出来swap就好了。不过代码实现起来还是比较麻烦的，很容易绕晕。加上smt久了没写手生了，于是就调了一晚上。唉，我还是太年轻了。\n#include #include #include #include using namespace std;\nstruct node { int v, s, sz, w, rv; node ls, rs; inline void update() { sz = 1; s = v; if (ls) { sz += ls-\u003e sz; s += ls-\u003e s; } if (rs) { sz += rs-\u003e sz; s += rs-\u003e s; } } inline void fix() { if (rv) { swap(ls, rs); if (ls) ls-\u003e rv ^= 1; if (rs) rs-\u003e rv ^= 1; rv = 0; } } }; typedef pair ",
+  "wordCount" : "1149",
+  "inLanguage": "en",
+  "datePublished": "2015-02-06T23:10:41Z",
+  "dateModified": "2015-02-06T23:10:41Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/i11rimport_054/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      HDU5173 GTY&#39;s game II
+    </h1>
+    <div class="post-meta"><span title='2015-02-06 23:10:41 +0000 UTC'>February 6, 2015</span>&nbsp;·&nbsp;6 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><pre><code>			    &lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt;
+bc的题。今天bc又挂了。这题没有写完，然后b题fst了。伤心啊。&lt;/p&gt;
+</code></pre>
+<p>
+	&nbsp;</p>
+<p>
+	其实思路比较简单。直接链剖dfs序上把所有区间找出来swap就好了。不过代码实现起来还是比较麻烦的，很容易绕晕。加上smt久了没写手生了，于是就调了一晚上。唉，我还是太年轻了。</p>
+<p>
+	&nbsp;</p>
+<pre class="bcode">#include &lt;cstdio&gt;
+#include &lt;cstdlib&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+<p>using namespace std;</p>
+<p>struct node {
+int v, s, sz, w, rv;
+node <em>ls, <em>rs;
+inline void update() {
+sz = 1;
+s = v;
+if (ls) {
+sz += ls-&gt; sz;
+s += ls-&gt; s;
+}
+if (rs) {
+sz += rs-&gt; sz;
+s += rs-&gt; s;
+}
+}
+inline void fix() {
+if (rv) {
+swap(ls, rs);
+if (ls)
+ls-&gt; rv ^= 1;
+if (rs)
+rs-&gt; rv ^= 1;
+rv = 0;
+}
+}
+};
+typedef pair &lt;node</em>, node</em>&gt; npr;</p>
+<p>const int maxn = 80009;</p>
+<p>#define szof(p) ((p)?(p-&gt;sz):0)
+#define sof(p) ((p)?(p-&gt;s):0)
+node nlst[maxn &lt;&lt; 1], <em>np(nlst);
+node</em> newNode(int v) {
+np-&gt; ls = np-&gt; rs = 0;
+np-&gt; v = np-&gt; s = v;
+np-&gt; sz = 1;
+np-&gt; rv = 0;
+#ifdef WIN32
+np-&gt; w = (rand() &lt;&lt; 16) | rand();
+#else
+np-&gt; w = rand();
+#endif
+return np ++;
+}
+node* merge(node* p, node* q) {
+if (p)
+p-&gt; fix();
+else
+return q;
+if (q)
+q-&gt; fix();
+else
+return p;
+if (p-&gt; w &gt; q-&gt; w) {
+p-&gt; rs = merge(p-&gt; rs, q);
+p-&gt; update();
+return p;
+}
+else {
+q-&gt; ls = merge(p, q-&gt; ls);
+q-&gt; update();
+return q;
+}
+}
+npr split(node* p, int k) {
+if (!k)
+return npr(0, p);
+else if (!p || p-&gt; sz == k)
+return npr(p, 0);
+else {
+p-&gt; fix();
+if (k &lt;= szof(p-&gt; ls)) {
+npr g(split(p-&gt; ls, k));
+p-&gt; ls = g. second;
+p-&gt; update();
+return npr(g. first, p);
+}
+else {
+npr g(split(p-&gt; rs, k - szof(p-&gt; ls) - 1));
+p-&gt; rs = g. first;
+p-&gt; update();
+return npr(p, g. second);
+}
+}
+}
+int smtQry(node* p, int k) {
+int s(0);
+while (p &amp;&amp; k) {
+p-&gt; fix();
+if (k &lt;= szof(p-&gt; ls))
+p = p-&gt; ls;
+else
+s += sof(p-&gt; ls) + p-&gt; v, k -= szof(p-&gt; ls) + 1, p = p-&gt; rs;
+}
+return s;
+}</p>
+<p>struct edge {
+int t;
+edge *next;
+};
+edge *head[maxn], elst[maxn &lt;&lt; 1], *ep(elst);
+inline void addEdge(int u, int v) {
+ep-&gt; t = v;
+ep-&gt; next = head[u];
+head[u] = ep ++;
+}</p>
+<p>int v[maxn], n, m;
+int tc, fa[maxn], d[maxn], sz[maxn], fs[maxn], fc[maxn], ch[maxn];
+int dfb[maxn], dfo[maxn];
+node *rt, *remp;</p>
+<p>void divide() {
+static int stc[maxn];
+int tst(1), dfn(0);
+memset(fa, 0, sizeof(fa));
+stc[tst] = 1;
+while (tst) {
+int p(stc[tst &ndash;]);
+dfo[++ dfn] = p;
+for (edge* e = head[p]; e; e = e-&gt; next)
+if (e-&gt; t ^ fa[p]) {
+fa[e-&gt; t] = p;
+d[e-&gt; t] = d[p] + 1;
+stc[++ tst] = e-&gt; t;
+}
+}
+tc = 0;
+for (int i = n; i; &ndash; i) {
+int p(dfo[i]);
+fs[p] = -1;
+sz[p] = 1;
+for (edge* e = head[p]; e; e = e-&gt; next)
+if (fa[e-&gt; t] == p) {
+sz[p] += sz[e-&gt; t];
+if (fs[p] == -1 || sz[e-&gt; t] &gt; sz[fs[p]])
+fs[p] = e-&gt; t;
+}
+if (fs[p] == -1)
+fc[p] = ++ tc;
+else
+fc[p] = fc[fs[p]];
+ch[fc[p]] = p;
+}
+stc[tst = 1] = 1;
+dfn = 0;
+while (tst) {
+int p(stc[tst &ndash;]);
+dfo[++ dfn] = p;
+dfb[p] = dfn;
+for (edge* e = head[p]; e; e = e-&gt; next)
+if (fa[e-&gt; t] == p &amp;&amp; e-&gt; t != fs[p])
+stc[++ tst] = e-&gt; t;
+if (fs[p] != -1)
+stc[++ tst] = fs[p];
+}
+rt = 0;
+for (int i = 1; i &lt;= n; ++ i)
+rt = merge(rt, newNode(v[dfo[i]]));
+remp = 0;
+for (int i = 1; i &lt;= n; ++ i)
+remp = merge(remp, newNode(-1));
+}</p>
+<p>int query(int u, int v) {
+int s(0);
+while (fc[u] ^ fc[v])
+if (d[ch[fc[u]]] &gt; d[ch[fc[v]]]) {
+s += smtQry(rt, dfb[u]) - smtQry(rt, dfb[ch[fc[u]]] - 1);
+u = fa[ch[fc[u]]];
+}
+else {
+s += smtQry(rt, dfb[v]) - smtQry(rt, dfb[ch[fc[v]]] - 1);
+v = fa[ch[fc[v]]];
+}
+if (d[u] &lt; d[v])
+s += smtQry(rt, dfb[v]) - smtQry(rt, dfb[u] - 1);
+else
+s += smtQry(rt, dfb[u]) - smtQry(rt, dfb[v] - 1);
+return s;
+}</p>
+<p>bool checkTree(node* p, char e) {
+if (p) {
+if (p-&gt; rv) {
+checkTree(p-&gt; rs, 32);
+printf(&quot;%d%c&quot;, p-&gt; v, e);
+checkTree(p-&gt; ls, 32);
+}
+else {
+checkTree(p-&gt; ls, 32);
+printf(&quot;%d%c&quot;, p-&gt; v, e);
+checkTree(p-&gt; rs, 32);
+}
+}
+return 0;
+}</p>
+<p>typedef pair &lt;int, int&gt; rpr;
+rpr ra[maxn], rb[maxn];
+void flip(int u, int v) {
+int tra(0), trb(0);
+while (fc[u] ^ fc[v]) {
+if (d[ch[fc[u]]] &gt; d[ch[fc[v]]]) {
+ra[tra ++] = rpr(dfb[ch[fc[u]]], dfb[u]);
+u = fa[ch[fc[u]]];
+}
+else {
+rb[trb ++] = rpr(dfb[ch[fc[v]]], dfb[v]);
+v = fa[ch[fc[v]]];
+}
+}
+if (d[u] &lt; d[v])
+rb[trb ++] = rpr(dfb[u], dfb[v]);
+else
+ra[tra ++] = rpr(dfb[v], dfb[u]);
+node *cr(0);
+for (int i = 0; i &lt; tra; ++ i) {
+npr x = split(rt, ra[i]. first - 1);
+npr y = split(x. second, ra[i]. second - ra[i]. first + 1);
+cr = merge(y. first, cr);
+npr z = split(remp, ra[i]. second - ra[i]. first + 1);
+remp = z. second;
+x. second = merge(z. first, y. second);
+rt = merge(x. first, x. second);
+}
+if (cr)
+cr-&gt; rv ^= 1;
+for (int i = trb - 1; i &gt;= 0; &ndash; i) {
+npr x = split(rt, rb[i]. first - 1);
+npr y = split(x. second, rb[i]. second - rb[i]. first + 1);
+cr = merge(cr, y. first);
+npr z = split(remp, rb[i]. second - rb[i]. first + 1);
+remp = z. second;
+x. second = merge(z. first, y. second);
+rt = merge(x. first, x. second);
+}
+if (cr)
+cr-&gt; rv ^= 1;
+for (int i = 0; i &lt; tra; ++ i) {
+npr x = split(rt, ra[i]. first - 1);
+npr y = split(x. second, ra[i]. second - ra[i]. first + 1);
+npr z = split(cr, ra[i]. second - ra[i]. first + 1);
+cr = z. second;
+if (z. first)
+z. first-&gt; rv ^= 1;
+x. second = merge(z. first, y. second);
+rt = merge(x. first, x. second);
+remp = merge(remp, y. first);
+}
+if (cr)
+cr-&gt; rv ^= 1;
+for (int i = 0; i &lt; trb; ++ i) {
+npr x = split(rt, rb[i]. first - 1);
+npr y = split(x. second, rb[i]. second - rb[i]. first + 1);
+npr z = split(cr, rb[i]. second - rb[i]. first + 1);
+cr = z. second;
+if (z. first)
+z. first-&gt; rv ^= 1;
+x. second = merge(z. first, y. second);
+rt = merge(x. first, x. second);
+remp = merge(remp, y. first);
+}
+}</p>
+<p>int main() {
+#ifndef ONLINE_JUDGE
+freopen(&ldquo;in.txt&rdquo;, &ldquo;r&rdquo;, stdin);
+#endif</p>
+<pre><code>memset(head, 0, sizeof(head));
+scanf(&quot;%d%d&quot;, &amp;amp;n, &amp;amp;m);
+for (int i = 1; i &amp;lt;= n; ++ i)
+	scanf(&quot;%d&quot;, v + i);
+for (int i = 1; i &amp;lt; n; ++ i) {
+	int u, v;
+	scanf(&quot;%d%d&quot;, &amp;amp;u, &amp;amp;v);
+	addEdge(u, v);
+	addEdge(v, u);
+}
+divide();
+while (m --) {
+	int opt, u, v;
+	scanf(&quot;%d%d%d&quot;, &amp;amp;opt, &amp;amp;u, &amp;amp;v);
+	if (opt == 0)
+		printf(&quot;%d\n&quot;, query(u, v));
+	else
+		flip(u, v);
+}
+</code></pre>
+<p>}
+</pre></p>
+</div>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/hdu/">hdu</a></li>
+      <li><a href="/tags/bc/">bc</a></li>
+      <li><a href="/tags/ds/">ds</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/i11rimport_052/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>BZOJ1453 [Wc]Dface双面棋盘</span>
+  </a>
+  <a class="next" href="/oi/i11rimport_056/">
+    <span class="title">Next »</span>
+    <br>
+    <span>BZOJ2642 Pku3968 Jungle Outpost</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

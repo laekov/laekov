@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>bzoj4071.cc | The Site of laekov</title>
+<meta name="keywords" content="code">
+<meta name="description" content="#include #include #include #include #include using namespace std;
+typedef long long dint; #ifdef WIN32 #define lld &ldquo;%I64d&rdquo; #else #define lld &ldquo;%lld&rdquo; #endif #define _l (long long int)
+struct range { int l, r; }; inline bool operator &lt;(const range&amp; a, const range&amp; b) { return a. l &#43; a. r &lt; b. l &#43; b. r; }
+struct bridge { static const int maxn = 200009; int ha[maxn], hb[maxn], ta, tb; dint sa, sb; inline void clr() { ta = tb = sa = sb = 0; } bridge() { clr(); } void balance() { while (ta &gt; tb &#43; 1) { hb[tb] = -ha[0]; sa -= ha[0]; sb &#43;= hb[tb]; pop_heap(ha, ha &#43; ta &ndash;); push_heap(hb, hb &#43; &#43;&#43; tb); } while (ta &lt; tb &#43; 1) { ha[ta] = -hb[0]; sb -= hb[0]; sa &#43;= ha[ta]; pop_heap(hb, hb &#43; tb &ndash;); push_heap(ha, ha &#43; &#43;&#43; ta); } } inline void ins(int x) { if (x &lt;= ha[0]) { sa &#43;= x; ha[ta] = x; push_heap(ha, ha &#43; &#43;&#43; ta); } else { sb -= x; hb[tb] = -x; push_heap(hb, hb &#43; &#43;&#43; tb); } balance(); } inline dint qry() { return _l ha[0] * (ta - tb) - sa - sb; } };">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/code/dbimport_239/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="bzoj4071.cc" />
+<meta property="og:description" content="#include #include #include #include #include using namespace std;
+typedef long long dint; #ifdef WIN32 #define lld &ldquo;%I64d&rdquo; #else #define lld &ldquo;%lld&rdquo; #endif #define _l (long long int)
+struct range { int l, r; }; inline bool operator &lt;(const range&amp; a, const range&amp; b) { return a. l &#43; a. r &lt; b. l &#43; b. r; }
+struct bridge { static const int maxn = 200009; int ha[maxn], hb[maxn], ta, tb; dint sa, sb; inline void clr() { ta = tb = sa = sb = 0; } bridge() { clr(); } void balance() { while (ta &gt; tb &#43; 1) { hb[tb] = -ha[0]; sa -= ha[0]; sb &#43;= hb[tb]; pop_heap(ha, ha &#43; ta &ndash;); push_heap(hb, hb &#43; &#43;&#43; tb); } while (ta &lt; tb &#43; 1) { ha[ta] = -hb[0]; sb -= hb[0]; sa &#43;= ha[ta]; pop_heap(hb, hb &#43; tb &ndash;); push_heap(ha, ha &#43; &#43;&#43; ta); } } inline void ins(int x) { if (x &lt;= ha[0]) { sa &#43;= x; ha[ta] = x; push_heap(ha, ha &#43; &#43;&#43; ta); } else { sb -= x; hb[tb] = -x; push_heap(hb, hb &#43; &#43;&#43; tb); } balance(); } inline dint qry() { return _l ha[0] * (ta - tb) - sa - sb; } };" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/code/dbimport_239/" /><meta property="article:section" content="code" />
+<meta property="article:published_time" content="2015-05-13T18:37:39+00:00" />
+<meta property="article:modified_time" content="2015-05-13T18:37:39+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="bzoj4071.cc"/>
+<meta name="twitter:description" content="#include #include #include #include #include using namespace std;
+typedef long long dint; #ifdef WIN32 #define lld &ldquo;%I64d&rdquo; #else #define lld &ldquo;%lld&rdquo; #endif #define _l (long long int)
+struct range { int l, r; }; inline bool operator &lt;(const range&amp; a, const range&amp; b) { return a. l &#43; a. r &lt; b. l &#43; b. r; }
+struct bridge { static const int maxn = 200009; int ha[maxn], hb[maxn], ta, tb; dint sa, sb; inline void clr() { ta = tb = sa = sb = 0; } bridge() { clr(); } void balance() { while (ta &gt; tb &#43; 1) { hb[tb] = -ha[0]; sa -= ha[0]; sb &#43;= hb[tb]; pop_heap(ha, ha &#43; ta &ndash;); push_heap(hb, hb &#43; &#43;&#43; tb); } while (ta &lt; tb &#43; 1) { ha[ta] = -hb[0]; sb -= hb[0]; sa &#43;= ha[ta]; pop_heap(hb, hb &#43; tb &ndash;); push_heap(ha, ha &#43; &#43;&#43; ta); } } inline void ins(int x) { if (x &lt;= ha[0]) { sa &#43;= x; ha[ta] = x; push_heap(ha, ha &#43; &#43;&#43; ta); } else { sb -= x; hb[tb] = -x; push_heap(hb, hb &#43; &#43;&#43; tb); } balance(); } inline dint qry() { return _l ha[0] * (ta - tb) - sa - sb; } };"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Codes",
+      "item": "/code/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "bzoj4071.cc",
+      "item": "/code/dbimport_239/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "bzoj4071.cc",
+  "name": "bzoj4071.cc",
+  "description": "#include #include #include #include #include using namespace std;\ntypedef long long dint; #ifdef WIN32 #define lld \u0026ldquo;%I64d\u0026rdquo; #else #define lld \u0026ldquo;%lld\u0026rdquo; #endif #define _l (long long int)\nstruct range { int l, r; }; inline bool operator \u0026lt;(const range\u0026amp; a, const range\u0026amp; b) { return a. l + a. r \u0026lt; b. l + b. r; }\nstruct bridge { static const int maxn = 200009; int ha[maxn], hb[maxn], ta, tb; dint sa, sb; inline void clr() { ta = tb = sa = sb = 0; } bridge() { clr(); } void balance() { while (ta \u0026gt; tb + 1) { hb[tb] = -ha[0]; sa -= ha[0]; sb += hb[tb]; pop_heap(ha, ha + ta \u0026ndash;); push_heap(hb, hb + ++ tb); } while (ta \u0026lt; tb + 1) { ha[ta] = -hb[0]; sb -= hb[0]; sa += ha[ta]; pop_heap(hb, hb + tb \u0026ndash;); push_heap(ha, ha + ++ ta); } } inline void ins(int x) { if (x \u0026lt;= ha[0]) { sa += x; ha[ta] = x; push_heap(ha, ha + ++ ta); } else { sb -= x; hb[tb] = -x; push_heap(hb, hb + ++ tb); } balance(); } inline dint qry() { return _l ha[0] * (ta - tb) - sa - sb; } };",
+  "keywords": [
+    "code"
+  ],
+  "articleBody": "#include #include #include #include #include using namespace std;\ntypedef long long dint; #ifdef WIN32 #define lld “%I64d” #else #define lld “%lld” #endif #define _l (long long int)\nstruct range { int l, r; }; inline bool operator \u003c(const range\u0026 a, const range\u0026 b) { return a. l + a. r \u003c b. l + b. r; }\nstruct bridge { static const int maxn = 200009; int ha[maxn], hb[maxn], ta, tb; dint sa, sb; inline void clr() { ta = tb = sa = sb = 0; } bridge() { clr(); } void balance() { while (ta \u003e tb + 1) { hb[tb] = -ha[0]; sa -= ha[0]; sb += hb[tb]; pop_heap(ha, ha + ta –); push_heap(hb, hb + ++ tb); } while (ta \u003c tb + 1) { ha[ta] = -hb[0]; sb -= hb[0]; sa += ha[ta]; pop_heap(hb, hb + tb –); push_heap(ha, ha + ++ ta); } } inline void ins(int x) { if (x \u003c= ha[0]) { sa += x; ha[ta] = x; push_heap(ha, ha + ++ ta); } else { sb -= x; hb[tb] = -x; push_heap(hb, hb + ++ tb); } balance(); } inline dint qry() { return _l ha[0] * (ta - tb) - sa - sb; } };\nconst int maxn = 100009; const dint dinf = 0x3f3f3f3f3f3f3f3fll;\nint n, t, c, a[maxn « 1]; dint sa[maxn], sb[maxn]; range b[maxn]; bridge rb;\ndint oneBridge() { dint ans(0); t = 0; for (int i = 0; i \u003c n; ++ i) { char xp[3], yp[3]; int u, v; scanf(\"%s%d%s%d\", xp, \u0026u, yp, \u0026v); if (xp[0] != yp[0]) { a[t ++] = u; a[t ++] = v; } else ans += abs(v - u); } sort(a, a + t); int m(a[t » 1]); for (int i = 0; i \u003c t; ++ i) ans += abs(m - a[i]); return ans + (t » 1); }\ninline dint dist(const range\u0026 a, const int\u0026 p) { return abs(a. l - p) + abs(a. r - p); }\ndint twoBridge() { dint ans(0); t = 0; for (int i = 0; i \u003c n; ++ i) { char xp[3], yp[3]; int u, v; scanf(\"%s%d%s%d\", xp, \u0026u, yp, \u0026v); if (xp[0] != yp[0]) { if (u \u003e v) swap(u, v); b[t]. l = u, b[t]. r = v; ++ t; } else ans += abs(v - u); } if (!t) return ans; sort(b, b + t); rb. clr(); for (int i = 0; i \u003c t; ++ i) { rb. ins(b[i]. l); rb. ins(b[i]. r); sa[i] = rb. qry(); } rb. clr(); sb[t] = 0; for (int i = t - 1; i \u003e= 0; – i) { rb. ins(b[i]. l); rb. ins(b[i]. r); sb[i] = rb. qry(); } dint sx(sb[0]); //for (int i = 0; i \u003c t; ++ i) //fprintf(stderr, “%d %d\\n”, b[i]. l, b[i]. r); // for (int i = 0; i \u003c t; ++ i) //fprintf(stderr, “%lld %lld %lld\\n”, sa[i], sb[i + 1], sa[i] + sb[i + 1]); for (int i = 0; i \u003c t; ++ i) sx = min(sx, sa[i] + sb[i + 1]); return ans + t + sx; }\nint main() { int t; scanf(\"%d%d\", \u0026t, \u0026n); dint ans; if (t == 1) ans = oneBridge(); else ans = twoBridge(); printf(lld “\\n”, ans); }\n",
+  "wordCount" : "543",
+  "inLanguage": "en",
+  "datePublished": "2015-05-13T18:37:39Z",
+  "dateModified": "2015-05-13T18:37:39Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/code/dbimport_239/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/code/">Codes</a></div>
+    <h1 class="post-title">
+      bzoj4071.cc
+    </h1>
+    <div class="post-meta"><span title='2015-05-13 18:37:39 +0000 UTC'>May 13, 2015</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <algorithm>
+#include <set></p>
+<p>using namespace std;</p>
+<p>typedef long long dint;
+#ifdef WIN32
+#define lld &ldquo;%I64d&rdquo;
+#else
+#define lld &ldquo;%lld&rdquo;
+#endif
+#define _l (long long int)</p>
+<p>struct range {
+int l, r;
+};
+inline bool operator &lt;(const range&amp; a, const range&amp; b) {
+return a. l + a. r &lt; b. l + b. r;
+}</p>
+<p>struct bridge {
+static const int maxn = 200009;
+int ha[maxn], hb[maxn], ta, tb;
+dint sa, sb;
+inline void clr() {
+ta = tb = sa = sb = 0;
+}
+bridge() {
+clr();
+}
+void balance() {
+while (ta &gt; tb + 1) {
+hb[tb] = -ha[0];
+sa -= ha[0];
+sb += hb[tb];
+pop_heap(ha, ha + ta &ndash;);
+push_heap(hb, hb + ++ tb);
+}
+while (ta &lt; tb + 1) {
+ha[ta] = -hb[0];
+sb -= hb[0];
+sa += ha[ta];
+pop_heap(hb, hb + tb &ndash;);
+push_heap(ha, ha + ++ ta);
+}
+}
+inline void ins(int x) {
+if (x &lt;= ha[0]) {
+sa += x;
+ha[ta] = x;
+push_heap(ha, ha + ++ ta);
+}
+else {
+sb -= x;
+hb[tb] = -x;
+push_heap(hb, hb + ++ tb);
+}
+balance();
+}
+inline dint qry() {
+return _l ha[0] * (ta - tb) - sa - sb;
+}
+};</p>
+<p>const int maxn = 100009;
+const dint dinf = 0x3f3f3f3f3f3f3f3fll;</p>
+<p>int n, t, c, a[maxn &laquo; 1];
+dint sa[maxn], sb[maxn];
+range b[maxn];
+bridge rb;</p>
+<p>dint oneBridge() {
+dint ans(0);
+t = 0;
+for (int i = 0; i &lt; n; ++ i) {
+char xp[3], yp[3];
+int u, v;
+scanf(&quot;%s%d%s%d&quot;, xp, &amp;u, yp, &amp;v);
+if (xp[0] != yp[0]) {
+a[t ++] = u;
+a[t ++] = v;
+}
+else
+ans += abs(v - u);
+}
+sort(a, a + t);
+int m(a[t &raquo; 1]);
+for (int i = 0; i &lt; t; ++ i)
+ans += abs(m - a[i]);
+return ans + (t &raquo; 1);
+}</p>
+<p>inline dint dist(const range&amp; a, const int&amp; p) {
+return abs(a. l - p) + abs(a. r - p);
+}</p>
+<p>dint twoBridge() {
+dint ans(0);
+t = 0;
+for (int i = 0; i &lt; n; ++ i) {
+char xp[3], yp[3];
+int u, v;
+scanf(&quot;%s%d%s%d&quot;, xp, &amp;u, yp, &amp;v);
+if (xp[0] != yp[0]) {
+if (u &gt; v)
+swap(u, v);
+b[t]. l = u, b[t]. r = v;
+++ t;
+}
+else
+ans += abs(v - u);
+}
+if (!t)
+return ans;
+sort(b, b + t);
+rb. clr();
+for (int i = 0; i &lt; t; ++ i) {
+rb. ins(b[i]. l);
+rb. ins(b[i]. r);
+sa[i] = rb. qry();
+}
+rb. clr();
+sb[t] = 0;
+for (int i = t - 1; i &gt;= 0; &ndash; i) {
+rb. ins(b[i]. l);
+rb. ins(b[i]. r);
+sb[i] = rb. qry();
+}
+dint sx(sb[0]);
+//for (int i = 0; i &lt; t; ++ i)
+//fprintf(stderr, &ldquo;%d %d\n&rdquo;, b[i]. l, b[i]. r);
+//  for (int i = 0; i &lt; t; ++ i)
+//fprintf(stderr, &ldquo;%lld %lld %lld\n&rdquo;, sa[i], sb[i + 1], sa[i] + sb[i + 1]);
+for (int i = 0; i &lt; t; ++ i)
+sx = min(sx, sa[i] + sb[i + 1]);
+return ans + t + sx;
+}</p>
+<p>int main() {
+int t;
+scanf(&quot;%d%d&quot;, &amp;t, &amp;n);
+dint ans;
+if (t == 1)
+ans = oneBridge();
+else
+ans = twoBridge();
+printf(lld &ldquo;\n&rdquo;, ans);
+}</p>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/code/">code</a></li>
+    </ul>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

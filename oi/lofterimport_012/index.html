@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>BZOJ2870 最长道路 | The Site of laekov</title>
+<meta name="keywords" content="bzoj, oi">
+<meta name="description" content="最初觉得挺麻烦的一道题没思路。有点像并查集直接搞但是不好维护直径。
+然后发现树上到任意一点的最远点一定是直径的两个端点之一。于是直接把直径是哪俩点记下来就好了。然后按点权从大到小往树里插。
+然后莫名其妙地抢到了第二快。这么老的题也是蛮欣慰的。大概是读入优化2333
+#include &lt;bits/stdc&#43;&#43;.h&gt;
+using namespace std;
+void setRand()&nbsp;{
+FILE* pf = fopen(&quot;.rs&quot;,&nbsp;&quot;r&quot;);
+int hsv;
+if (pf)&nbsp;{
+fscanf(pf,&nbsp;&quot;%d&quot;,&nbsp;&amp;hsv);
+fclose(pf);
+}
+srand(hsv);
+printf(&quot;Seed =&nbsp;%d\n&quot;, hsv);
+pf = fopen(&quot;.rs&quot;,&nbsp;&quot;w&quot;);
+fprintf(pf,&nbsp;&quot;%d&quot;,&nbsp;(hsv &lt;&lt; 1)&nbsp;|&nbsp;(rand()&nbsp;&amp; 1));
+fclose(pf);
+}
+#define readArg(a,b)&nbsp;{ if (argc&nbsp;&gt; a) sscanf(args[a],&nbsp;&quot;%d&quot;,&nbsp;&amp;b);&nbsp;}
+void mklr(int m, char s)&nbsp;{
+int l, r;
+do
+l = rand()&nbsp;% m &#43; 1, r = rand()&nbsp;% m &#43; 1;
+while (l&nbsp;&gt; r);
+printf(&quot;%d %d%c&quot;, l, r, s);
+}">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/lofterimport_012/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="BZOJ2870 最长道路" />
+<meta property="og:description" content="最初觉得挺麻烦的一道题没思路。有点像并查集直接搞但是不好维护直径。
+然后发现树上到任意一点的最远点一定是直径的两个端点之一。于是直接把直径是哪俩点记下来就好了。然后按点权从大到小往树里插。
+然后莫名其妙地抢到了第二快。这么老的题也是蛮欣慰的。大概是读入优化2333
+#include &lt;bits/stdc&#43;&#43;.h&gt;
+using namespace std;
+void setRand()&nbsp;{
+FILE* pf = fopen(&quot;.rs&quot;,&nbsp;&quot;r&quot;);
+int hsv;
+if (pf)&nbsp;{
+fscanf(pf,&nbsp;&quot;%d&quot;,&nbsp;&amp;hsv);
+fclose(pf);
+}
+srand(hsv);
+printf(&quot;Seed =&nbsp;%d\n&quot;, hsv);
+pf = fopen(&quot;.rs&quot;,&nbsp;&quot;w&quot;);
+fprintf(pf,&nbsp;&quot;%d&quot;,&nbsp;(hsv &lt;&lt; 1)&nbsp;|&nbsp;(rand()&nbsp;&amp; 1));
+fclose(pf);
+}
+#define readArg(a,b)&nbsp;{ if (argc&nbsp;&gt; a) sscanf(args[a],&nbsp;&quot;%d&quot;,&nbsp;&amp;b);&nbsp;}
+void mklr(int m, char s)&nbsp;{
+int l, r;
+do
+l = rand()&nbsp;% m &#43; 1, r = rand()&nbsp;% m &#43; 1;
+while (l&nbsp;&gt; r);
+printf(&quot;%d %d%c&quot;, l, r, s);
+}" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/lofterimport_012/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2015-01-05T20:14:31+00:00" />
+<meta property="article:modified_time" content="2015-01-05T20:14:31+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BZOJ2870 最长道路"/>
+<meta name="twitter:description" content="最初觉得挺麻烦的一道题没思路。有点像并查集直接搞但是不好维护直径。
+然后发现树上到任意一点的最远点一定是直径的两个端点之一。于是直接把直径是哪俩点记下来就好了。然后按点权从大到小往树里插。
+然后莫名其妙地抢到了第二快。这么老的题也是蛮欣慰的。大概是读入优化2333
+#include &lt;bits/stdc&#43;&#43;.h&gt;
+using namespace std;
+void setRand()&nbsp;{
+FILE* pf = fopen(&quot;.rs&quot;,&nbsp;&quot;r&quot;);
+int hsv;
+if (pf)&nbsp;{
+fscanf(pf,&nbsp;&quot;%d&quot;,&nbsp;&amp;hsv);
+fclose(pf);
+}
+srand(hsv);
+printf(&quot;Seed =&nbsp;%d\n&quot;, hsv);
+pf = fopen(&quot;.rs&quot;,&nbsp;&quot;w&quot;);
+fprintf(pf,&nbsp;&quot;%d&quot;,&nbsp;(hsv &lt;&lt; 1)&nbsp;|&nbsp;(rand()&nbsp;&amp; 1));
+fclose(pf);
+}
+#define readArg(a,b)&nbsp;{ if (argc&nbsp;&gt; a) sscanf(args[a],&nbsp;&quot;%d&quot;,&nbsp;&amp;b);&nbsp;}
+void mklr(int m, char s)&nbsp;{
+int l, r;
+do
+l = rand()&nbsp;% m &#43; 1, r = rand()&nbsp;% m &#43; 1;
+while (l&nbsp;&gt; r);
+printf(&quot;%d %d%c&quot;, l, r, s);
+}"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "BZOJ2870 最长道路",
+      "item": "/oi/lofterimport_012/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BZOJ2870 最长道路",
+  "name": "BZOJ2870 最长道路",
+  "description": "最初觉得挺麻烦的一道题没思路。有点像并查集直接搞但是不好维护直径。\n然后发现树上到任意一点的最远点一定是直径的两个端点之一。于是直接把直径是哪俩点记下来就好了。然后按点权从大到小往树里插。\n然后莫名其妙地抢到了第二快。这么老的题也是蛮欣慰的。大概是读入优化2333\n#include \u0026lt;bits/stdc++.h\u0026gt;\nusing namespace std;\nvoid setRand()\u0026nbsp;{\nFILE* pf = fopen(\u0026quot;.rs\u0026quot;,\u0026nbsp;\u0026quot;r\u0026quot;);\nint hsv;\nif (pf)\u0026nbsp;{\nfscanf(pf,\u0026nbsp;\u0026quot;%d\u0026quot;,\u0026nbsp;\u0026amp;hsv);\nfclose(pf);\n}\nsrand(hsv);\nprintf(\u0026quot;Seed =\u0026nbsp;%d\\n\u0026quot;, hsv);\npf = fopen(\u0026quot;.rs\u0026quot;,\u0026nbsp;\u0026quot;w\u0026quot;);\nfprintf(pf,\u0026nbsp;\u0026quot;%d\u0026quot;,\u0026nbsp;(hsv \u0026lt;\u0026lt; 1)\u0026nbsp;|\u0026nbsp;(rand()\u0026nbsp;\u0026amp; 1));\nfclose(pf);\n}\n#define readArg(a,b)\u0026nbsp;{ if (argc\u0026nbsp;\u0026gt; a) sscanf(args[a],\u0026nbsp;\u0026quot;%d\u0026quot;,\u0026nbsp;\u0026amp;b);\u0026nbsp;}\nvoid mklr(int m, char s)\u0026nbsp;{\nint l, r;\ndo\nl = rand()\u0026nbsp;% m + 1, r = rand()\u0026nbsp;% m + 1;\nwhile (l\u0026nbsp;\u0026gt; r);\nprintf(\u0026quot;%d %d%c\u0026quot;, l, r, s);\n}",
+  "keywords": [
+    "bzoj", "oi"
+  ],
+  "articleBody": "最初觉得挺麻烦的一道题没思路。有点像并查集直接搞但是不好维护直径。\n然后发现树上到任意一点的最远点一定是直径的两个端点之一。于是直接把直径是哪俩点记下来就好了。然后按点权从大到小往树里插。\n然后莫名其妙地抢到了第二快。这么老的题也是蛮欣慰的。大概是读入优化2333\n#include using namespace std;\nvoid setRand() {\nFILE* pf = fopen(\".rs\", \"r\");\nint hsv;\nif (pf) {\nfscanf(pf, \"%d\", \u0026hsv);\nfclose(pf);\n}\nsrand(hsv);\nprintf(\"Seed = %d\\n\", hsv);\npf = fopen(\".rs\", \"w\");\nfprintf(pf, \"%d\", (hsv \u003c\u003c 1) | (rand() \u0026 1));\nfclose(pf);\n}\n#define readArg(a,b) { if (argc \u003e a) sscanf(args[a], \"%d\", \u0026b); }\nvoid mklr(int m, char s) {\nint l, r;\ndo\nl = rand() % m + 1, r = rand() % m + 1;\nwhile (l \u003e r);\nprintf(\"%d %d%c\", l, r, s);\n}\nint main(int argc, char* args[]) {\nsetRand();\nint n = 10, m = 10, k = 10;\nreadArg(1, n);\nreadArg(2, m);\nreadArg(3, k);\nfreopen(\"in.txt\", \"w\", stdout);\nprintf(\"%d\\n\", n);\nfor (int i = 1; i \u003c= n; ++ i)\nprintf(\"%d \", rand() % k + 1);\nputchar(10);\nfor (int i = 2; i \u003c= n; ++ i)\nprintf(\"%d %d\\n\", i - rand() % min(i - 1, m) - 1, i);\n/*for (int i = 1; i \u003c= n; ++ i) {\nmklr(m, 32);\nmklr(m, 10);\n}*/\n}\n",
+  "wordCount" : "147",
+  "inLanguage": "en",
+  "datePublished": "2015-01-05T20:14:31Z",
+  "dateModified": "2015-01-05T20:14:31Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/lofterimport_012/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      BZOJ2870 最长道路
+    </h1>
+    <div class="post-meta"><span title='2015-01-05 20:14:31 +0000 UTC'>January 5, 2015</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>最初觉得挺麻烦的一道题没思路。有点像并查集直接搞但是不好维护直径。</p> 
+<p><br /></p> 
+<p>然后发现树上到任意一点的最远点一定是直径的两个端点之一。于是直接把直径是哪俩点记下来就好了。然后按点权从大到小往树里插。</p> 
+<p><br /></p> 
+<p>然后莫名其妙地抢到了第二快。这么老的题也是蛮欣慰的。大概是读入优化2333</p> 
+<p><br /></p> 
+<p>#include &lt;bits/stdc++.h&gt;</p> 
+<p><br /></p> 
+<p>using namespace std;</p> 
+<p><br /></p> 
+<p>void setRand()&nbsp;{</p> 
+<p>FILE* pf = fopen(&quot;.rs&quot;,&nbsp;&quot;r&quot;);</p> 
+<p>int hsv;</p> 
+<p>if (pf)&nbsp;{</p> 
+<p>fscanf(pf,&nbsp;&quot;%d&quot;,&nbsp;&amp;hsv);</p> 
+<p>fclose(pf);</p> 
+<p>}</p> 
+<p>srand(hsv);</p> 
+<p>printf(&quot;Seed =&nbsp;%d\n&quot;, hsv);</p> 
+<p>pf = fopen(&quot;.rs&quot;,&nbsp;&quot;w&quot;);</p> 
+<p>fprintf(pf,&nbsp;&quot;%d&quot;,&nbsp;(hsv &lt;&lt; 1)&nbsp;|&nbsp;(rand()&nbsp;&amp; 1));</p> 
+<p>fclose(pf);</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>#define readArg(a,b)&nbsp;{ if (argc&nbsp;&gt; a) sscanf(args[a],&nbsp;&quot;%d&quot;,&nbsp;&amp;b);&nbsp;}</p> 
+<p><br /></p> 
+<p>void mklr(int m, char s)&nbsp;{</p> 
+<p>int l, r;</p> 
+<p>do</p> 
+<p>l = rand()&nbsp;% m + 1, r = rand()&nbsp;% m + 1;</p> 
+<p>while (l&nbsp;&gt; r);</p> 
+<p>printf(&quot;%d %d%c&quot;, l, r, s);</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int main(int argc, char* args[])&nbsp;{</p> 
+<p>setRand();</p> 
+<p>int n = 10, m = 10, k = 10;</p> 
+<p>readArg(1, n);</p> 
+<p>readArg(2, m);</p> 
+<p>readArg(3, k);</p> 
+<p>freopen(&quot;in.txt&quot;,&nbsp;&quot;w&quot;, stdout);</p> 
+<p>printf(&quot;%d\n&quot;, n);</p> 
+<p>for (int i = 1; i &lt;= n;&nbsp;++ i)</p> 
+<p>printf(&quot;%d &quot;, rand()&nbsp;% k + 1);</p> 
+<p>putchar(10);</p> 
+<p>for (int i = 2; i &lt;= n;&nbsp;++ i)</p> 
+<p>printf(&quot;%d %d\n&quot;, i - rand()&nbsp;% min(i - 1, m)&nbsp;- 1, i);</p> 
+<p>/*for (int i = 1; i &lt;= n;&nbsp;++ i)&nbsp;{</p> 
+<p>mklr(m, 32);</p> 
+<p>mklr(m, 10);</p> 
+<p>}*/</p> 
+<p>}</p> 
+<p><br /></p>
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/bzoj/">bzoj</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/lofterimport_011/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>BZOJ3858 Number Transformation</span>
+  </a>
+  <a class="next" href="/oi/lofterimport_013/">
+    <span class="title">Next »</span>
+    <br>
+    <span>BZOJ3834 [Poi2014]Solar Panels</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

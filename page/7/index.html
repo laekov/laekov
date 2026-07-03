@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head>
+	<meta name="generator" content="Hugo 0.111.3"><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>The Site of laekov</title>
+
+<meta name="description" content="">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="/index.xml">
+<link rel="alternate" type="application/json" href="/index.json">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="The Site of laekov" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="The Site of laekov"/>
+<meta name="twitter:description" content=""/>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "The Site of laekov",
+  "url": "/",
+  "description": "",
+  "thumbnailUrl": "/favicon.ico",
+  "sameAs": [
+      "https://github.com/laekov", "/cv", "/not-easily-available", "/not-easily-available", "/not-easily-available", "/not-easily-available", "index.xml"
+  ]
+}
+</script>
+</head>
+
+<body class="list" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>Leetcode5130
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>状压动态规划.
+dp[x] 表示 x 状态下的最少人数. 其中 x 是二进制数, 第 i 位表示第 i 项技能是否有人已经拥有. 例如 ( x = (10010)_2 ) 从右往左第 1, 4 位是 1, 表示技能 1, 4 已有人掌握, 而 0, 2, 3 无人掌握.
+假设一个人的技巧是 p, 现在的状态是 x, 则加入后的状态是 x|p. 其中 | 即 python/cpp 中的 | 运算符, 意义是取二进制或.
+运算过程为最初时只有 dp[0] = 0. 对于每个人的技能集合 p, 可以更新 dp 数组 dp[x | p] = min(dp[x | p], dp[x] &#43; 1)
+最后的答案是 dp[((111\dots 1)_2)] 即 dp[(1 « len(skills)) - 1]...</p>
+  </div>
+  <footer class="entry-footer"><span title='2019-07-16 12:14:30 +0000 UTC'>July 16, 2019</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to Leetcode5130" href="/oi/63d337/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>ISC&#39;19 马后炮
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>ISC&#39;19. 一场大概是退役失败的超算比赛.
+我负责的 part 是 AI, 还有万年大锅 HPL, 以及神秘应用. 还有就是订保险订酒店联系赞助商blabla.
+本来想帮忙搞 HPCC 的但是没有精力搞不动 ovo
+AI AI 题是去年的 GB 论文 &#43; 精调模型. 在解决了组委会提供的脚本里的一些性能上的 bug 之后顺利地训了起来. 而且按照原文里在上千个节点上并行训还能收敛来讲, 是可以在现有机器条件下随便数据并行的. (事实证明直接把整个训练集切成 10 个batch 也没有问题)
+因为最终要求是精度, 所以请教了一些人, 得到的思路是 数据增强, ensemble. 数据增强不太写得动, 于是改脚本做了 ensemble 的 inference, 效果还不错. 比原文高了几个点. 但也没有特别闪亮的突破性进展. 唯一发现是 bn 用的是 training mode. (原因应该是 tf 的 bn 一直自带 bug, 如果用推理模式精度就是会炸掉) 于是推理的时候也应该 bs 越大越好. 于是就有了 dummy sample inference &#43; unique 的一个脚本. 然后因为没有处理好 “//” 于是组委会还怀疑了半天为什么我的脚本有锅. 哭.
+然后就是现场出了一个锅: unseen dataset 发下来一看居然是事前给出的 test set....</p>
+  </div>
+  <footer class="entry-footer"><span title='2019-07-01 09:54:58 +0000 UTC'>July 1, 2019</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to ISC&#39;19 马后炮" href="/technical/6a12b3/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>Mac微信Bug修复手记
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>前段时间遇到 mac 微信出了一个锅.
+部分微信群和联系人在电脑上收不到消息, 可以发消息, 但发出去一直显示转圈圈 (其实对方已经收到了), 切换窗口再切回来就连之前自己发的消息都不见了ovo
+然而因为不太影响使用(可以在手机上看消息, 电脑盲回) 所以没太管. 但是作为一个强迫症还是不太能忍, 于是过了好久还是决定动手修一下.
+mac下微信的本地数据文件在 /Users/laekov/Library/Containers/com.tencent.xinWeChat/Data/Library/Application Support/com.tencent.xinWeChat/2.0b4.0.9. 初步估计是本地文件出锅了, 于是对它动手.
+首先在mac端不上线的情况下手机拉了一个不影响别人的群, 然后用mac登录, 果然这个群属于bug群.
+把 Message 目录移动为 Message_bak, 重新登录, 失去了所有聊天记录. 再次尝试使用上面那个群, 发现可以正常使用. 定位到问题文件在 Message 目录里.
+发现 Message 目录下有 msg_[0-9]十种前缀的文件, 估计是对聊天记录进行了分桶. 大胆猜测是某个桶坏了.
+于是等了一分钟后在群里发了一条消息, 发现只有 msg_6 开头文件被更新了. 大胆猜想是 msg_6 这个桶炸了.
+另有有一个 MessageTemp 目录较大, 目测是数据文件. (比如消息, 图片, 视频) 猜想这里放的是元数据. 于是把旧的 MessageTemp 先拷回来.
+然后恢复了 msg_1 开头的几个文件, 发现果然聊天记录回来了一部分.
+挨个恢复除了 msg_6 以外的所有 msg_x 文件, 于是除了之前炸掉的记录以外, 聊天记录都回来了.
+坏掉的文件就确实没法修了. 鬼知道.data格式是啥玩意. 完结撒花....</p>
+  </div>
+  <footer class="entry-footer"><span title='2019-05-10 16:42:41 +0000 UTC'>May 10, 2019</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to Mac微信Bug修复手记" href="/technical/f93221/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>行走的事故现场 -- ASC19 赛记
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>许久没写过博客了.
+看到 harry 写了赛记才想起我还有个博客.
+随便写一点东西吧.
+ASC19. 拿了 “大满贯” 之后第一场比赛, 拿了个亚军. @大连理工
+Sec 0 赛前给自己的定位大概就是, 学学配机器和benchmark这种看上去比较底层的东西. 应用上就划划水好好干别的事.
+于是初赛成为了写 proposal 选手 &#43; 装机器选手. 最初装机器闹了很多笑话 比如在R730上把 V100 的挡板拆了然后导致显卡悬空. 感谢戴尔和 NVIDIA 的 PCIe 槽足够结实没有直接坏掉让我赔20万的机器的卡.
+然后 proposal 也是写到崩溃 ovo.
+然后跑 HPL 发现各种玄学, 以及 32G 的 V100 性能和 16G 的不太一样. 单卡跑不上去, 多卡也有各种问题. 然后 P, Q, NB 有很多玄妙的组合. (后来知道 N 也有很多玄学). 以及连续跑和单独跑是不一样的. 这还是不考虑功耗在四台 R730 上插上 8 张卡裸跑的情况.
+HPCG 单卡不压功率也只有 125 的样子.
+另一个神奇的情况是直接跑HPL会报 MPI Error: Illegal address. 解决它的方法是, 跑一次HPCG....</p>
+  </div>
+  <footer class="entry-footer"><span title='2019-04-28 16:20:43 +0000 UTC'>April 28, 2019</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to 行走的事故现场 -- ASC19 赛记" href="/random/34dd44/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>愿望
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>我的愿望真的很简单
+如果有一天我变成骨灰了的话
+我不想被装进盒子里</p>
+  </div>
+  <footer class="entry-footer"><span title='2019-01-27 14:07:53 +0000 UTC'>January 27, 2019</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to 愿望" href="/random/a3a526/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>北大毕业生去送外卖了, 我呢
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>看了一篇文章叫 “北大毕业生去送外卖”
+以前北大毕业生好像还有去卖猪肉的.
+这篇就是, 很真实噢
+我们活成了什么样?
+我们自己希望活成什么样?
+我们被别人希望活成什么样?
+我们凭什么要活成别人希望的那样?
+再问下去就应该问 “我们为什么要活着” 了
+怎么活着不是活着?
+人生苦短, 为什么要干这么多不喜欢干的事?
+所谓 “幸福” 的 “未来”, “前途”, 谁知道是不是扯淡?
+我大胆猜想, 都是一个更大的坑
+因为投入多
+期待有收益
+但现在没有得到应有的收益
+出于愚蠢/拖延
+只能天真地期望未来的收益/下一代带来收益
+切
+还不如活得洒脱一点呢
+Historical Comments AInoob at 2019-07-18T13:36:31 活得快乐就不错吧。虽然我还没想好搞什么。
+laekov at 2019-07-24T04:49:21 @Alnoob 快乐也没有那么简单吧..</p>
+  </div>
+  <footer class="entry-footer"><span title='2019-01-26 09:46:31 +0000 UTC'>January 26, 2019</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to 北大毕业生去送外卖了, 我呢" href="/random/d00a5b/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>Cena 用户指南
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p> </p>
+  </div>
+  <footer class="entry-footer"><span title='2019-01-25 16:19:17 +0000 UTC'>January 25, 2019</span>&nbsp;·&nbsp;0 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to Cena 用户指南" href="/post/fbf425/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>DyNet 代码笔记
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>API角度 Python 功能没有 pytorch 完善. 参数收集等都需要手写.
+CPP API 同 Python.
+设计理念 类名为 Expression: 表达式 -&gt; 明确定义 未执行.
+Graph @xl nodes, parameter_nodes
+inplace: forward_inplace_state { NOPE } 完全没支持inplace.
+immediate_compute 立即执行.
+提供backward方法, 但传入了loss的index.
+Tensor 暴力绑定内存. (直接就是一个裸指针)
+Expression (Variable) value() 方法真正执行expression并获取值. 调用ee(ExecutionEngine).
+Autobatching 在执行cg的时候做. 具体代码在 exec.cc 里一个叫 incremental_forward_no_update的函数里.
+使用 signiture 机制. 不同功能的function对应不同的signiture. 相同signiture的 合并.
+Optimize 没有做. 只有一个找关键路径的简单算法.
+Node(Functions) Spec推断 DimForward 专门维护 shape 信息.
+forward 和 backward 放在一个子类里.
+所有控制都由 Graph 接管. 包括所有 Variable 和 Nodes (Function)...</p>
+  </div>
+  <footer class="entry-footer"><span title='2018-09-01 20:52:52 +0000 UTC'>September 1, 2018</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to DyNet 代码笔记" href="/technical/bb68d3/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>汇编 CSAPP Attack Lab
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>最近做 attack lab 感到虽然很头大但是很好玩.
+主要分为两个 target: code injection 和 return hack
+两个实验的原理都是栈向上溢出之后抹掉了一些 return address, 从而可以改写, 做任何你想做的事.
+ctarget 比较简单粗暴, 可以直接跳到用户上传的字符串里面, 把用户数据直接当代码执行.
+第一个子任务 可以直接跳转.
+第二个子任务 需要把 cookie 找出来并写进 %rdi. 我最开始以为cookie是随机的, 于是去gdb里把 cookie 的内存地址给弄出来强行读了. 后来才发现可以直接 hardcode.
+第三个子任务 同上, 没有发现这个 trick, 于是就从内存里读之后, 调用它提供的 sprintf 函数. 这个函数有很多的陷阱, 比如一定要把 %rax 设成 0, 不然会跳错. 然后打印的地址也得自己在栈里找. 更坑的是栈空间会被 sprintf 函数给抹掉, 所以必需得先把 %rsp 放低到很远的位置去, 不然就算打对了字符串, 注入的代码段也没有了, 还是会 segmentation fault.
+好了现在问题又来了, 注入的栈只有 56 个字节. 如何把上面一长串代码塞进去. 其实有个简单的方法是继续向上溢出, 中间加一条 jmp. 但是懒惰的我强行使用各种办法把代码给压进去了. 比如 subl 比 subq 少一个字节, 于是可以只减 rsp 的低32位 esp....</p>
+  </div>
+  <footer class="entry-footer"><span title='2018-08-30 08:59:09 +0000 UTC'>August 30, 2018</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to 汇编 CSAPP Attack Lab" href="/technical/6788d3/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>DyNet 论文笔记
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>DYNET 1701.03980
+ABS cpp backend
+lw graph representation
+Problems easier debugging / maintaining large proj. express naturally Static vs Dynamic static pre-written model transfered to computation graph
+graph can be well optimized
+cannot deal with variable input size. NLP RNN
+cannot deal with variable input structure. Tree NN, Graph NN
+hard for complex flow-contronl logic (interface design)
+nontrivial interface.
+debug difficulty during execution
+dynamic do computation on the fly
+can be expensiveo flow control and variable sized inputs are in host language (python?...</p>
+  </div>
+  <footer class="entry-footer"><span title='2018-07-09 11:38:28 +0000 UTC'>July 9, 2018</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to DyNet 论文笔记" href="/technical/e51049/"></a>
+</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="prev" href="/page/6/">
+      «&nbsp;Prev&nbsp;
+    </a>
+    <a class="next" href="/page/8/">Next&nbsp;&nbsp;»
+    </a>
+  </nav>
+</footer>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

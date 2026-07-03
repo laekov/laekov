@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>digit\xa0dp on The Site of laekov</title>
+    <link>/tags/digit%5Cxa0dp/</link>
+    <description>Recent content in digit\xa0dp on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Sun, 23 Nov 2014 16:45:32 +0000</lastBuildDate><atom:link href="/tags/digit%5Cxa0dp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>BZOJ1833 [ZJOI2010]count 数字计数</title>
+      <link>/oi/lofterimport_075/</link>
+      <pubDate>Sun, 23 Nov 2014 16:45:32 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_075/</guid>
+      <description>数位DP好麻烦啊不想写啊怎么办啊。
+利用trie树思想直接做好了。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+typedef long long qw;
+#ifdef WIN32
+#define lld &amp;quot;%I64d&amp;quot;
+#else
+#define lld &amp;quot;%lld&amp;quot;
+#endif
+const int maxn = 15;
+qw p10[maxn];
+qw x, y, ans[10], c[10];
+int n;
+char a[maxn];
+void calc(qw val, int sgn)&amp;nbsp;{
+if (!val)
+return;
+sprintf(a + 1, lld, val);
+int n = strlen(a + 1);
+memset(c, 0, sizeof(c));
+qw cz, cm, cr;
+cz = 1;</description>
+    </item>
+    
+  </channel>
+</rss>

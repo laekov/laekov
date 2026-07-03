@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>FasterMoE: 对大 MoE 模型训练的性能建模及优化 | The Site of laekov</title>
+<meta name="keywords" content="developing">
+<meta name="description" content="版权声明: 如需转载请先与 laekov 联系, 侵权必究. 序 Jiaao He 在 24 岁生日那一天收到邮件, 他在 ppopp 投稿的这篇文章被接收了. 这是他以一作身份投的第一篇 A 类会文章.
+laekov 当时脑子一热, 开了一个坑, 决定把这篇文章的主要内容用中文写出来, somehow 地促进中文学术. (虽然多半并没有什么帮助)
+在过去的小半年里他又经历了 artifact evaluation, camera ready, 制作 presentation slides 和录制视频 (很遗憾因为疫情没法去韩国开会了) 等等一系列事情, 对这个项目也有了更多的理解. 在 4 月的第一天终于把写文章时候的 prototype 变成了看起来还不错的代码, 并准备合并进 FastMoE. 正好写完这篇文章, 也当作是在 FastMoE 里使用 FasterMoE 的中文版文档了.
+这篇文章的 pdf 正文在 ACM DL 上可以找到. (有 open access, 在任何地方都可以下载, 并用于非商业目的) 开会的时候用的 slides 和视频链接 在这里.
+背景和简介 我假设看这篇文章的人已经知道什么是 MoE 模型了, 大规模的 MoE 模型现在有多重要 (也可能并不).">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/technical/181401/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="FasterMoE: 对大 MoE 模型训练的性能建模及优化" />
+<meta property="og:description" content="版权声明: 如需转载请先与 laekov 联系, 侵权必究. 序 Jiaao He 在 24 岁生日那一天收到邮件, 他在 ppopp 投稿的这篇文章被接收了. 这是他以一作身份投的第一篇 A 类会文章.
+laekov 当时脑子一热, 开了一个坑, 决定把这篇文章的主要内容用中文写出来, somehow 地促进中文学术. (虽然多半并没有什么帮助)
+在过去的小半年里他又经历了 artifact evaluation, camera ready, 制作 presentation slides 和录制视频 (很遗憾因为疫情没法去韩国开会了) 等等一系列事情, 对这个项目也有了更多的理解. 在 4 月的第一天终于把写文章时候的 prototype 变成了看起来还不错的代码, 并准备合并进 FastMoE. 正好写完这篇文章, 也当作是在 FastMoE 里使用 FasterMoE 的中文版文档了.
+这篇文章的 pdf 正文在 ACM DL 上可以找到. (有 open access, 在任何地方都可以下载, 并用于非商业目的) 开会的时候用的 slides 和视频链接 在这里.
+背景和简介 我假设看这篇文章的人已经知道什么是 MoE 模型了, 大规模的 MoE 模型现在有多重要 (也可能并不)." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/technical/181401/" /><meta property="article:section" content="technical" />
+<meta property="article:published_time" content="2021-11-16T11:16:21+00:00" />
+<meta property="article:modified_time" content="2021-11-16T11:16:21+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="FasterMoE: 对大 MoE 模型训练的性能建模及优化"/>
+<meta name="twitter:description" content="版权声明: 如需转载请先与 laekov 联系, 侵权必究. 序 Jiaao He 在 24 岁生日那一天收到邮件, 他在 ppopp 投稿的这篇文章被接收了. 这是他以一作身份投的第一篇 A 类会文章.
+laekov 当时脑子一热, 开了一个坑, 决定把这篇文章的主要内容用中文写出来, somehow 地促进中文学术. (虽然多半并没有什么帮助)
+在过去的小半年里他又经历了 artifact evaluation, camera ready, 制作 presentation slides 和录制视频 (很遗憾因为疫情没法去韩国开会了) 等等一系列事情, 对这个项目也有了更多的理解. 在 4 月的第一天终于把写文章时候的 prototype 变成了看起来还不错的代码, 并准备合并进 FastMoE. 正好写完这篇文章, 也当作是在 FastMoE 里使用 FasterMoE 的中文版文档了.
+这篇文章的 pdf 正文在 ACM DL 上可以找到. (有 open access, 在任何地方都可以下载, 并用于非商业目的) 开会的时候用的 slides 和视频链接 在这里.
+背景和简介 我假设看这篇文章的人已经知道什么是 MoE 模型了, 大规模的 MoE 模型现在有多重要 (也可能并不)."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Technicals",
+      "item": "/technical/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "FasterMoE: 对大 MoE 模型训练的性能建模及优化",
+      "item": "/technical/181401/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "FasterMoE: 对大 MoE 模型训练的性能建模及优化",
+  "name": "FasterMoE: 对大 MoE 模型训练的性能建模及优化",
+  "description": "版权声明: 如需转载请先与 laekov 联系, 侵权必究. 序 Jiaao He 在 24 岁生日那一天收到邮件, 他在 ppopp 投稿的这篇文章被接收了. 这是他以一作身份投的第一篇 A 类会文章.\nlaekov 当时脑子一热, 开了一个坑, 决定把这篇文章的主要内容用中文写出来, somehow 地促进中文学术. (虽然多半并没有什么帮助)\n在过去的小半年里他又经历了 artifact evaluation, camera ready, 制作 presentation slides 和录制视频 (很遗憾因为疫情没法去韩国开会了) 等等一系列事情, 对这个项目也有了更多的理解. 在 4 月的第一天终于把写文章时候的 prototype 变成了看起来还不错的代码, 并准备合并进 FastMoE. 正好写完这篇文章, 也当作是在 FastMoE 里使用 FasterMoE 的中文版文档了.\n这篇文章的 pdf 正文在 ACM DL 上可以找到. (有 open access, 在任何地方都可以下载, 并用于非商业目的) 开会的时候用的 slides 和视频链接 在这里.\n背景和简介 我假设看这篇文章的人已经知道什么是 MoE 模型了, 大规模的 MoE 模型现在有多重要 (也可能并不).",
+  "keywords": [
+    "developing"
+  ],
+  "articleBody": " 版权声明: 如需转载请先与 laekov 联系, 侵权必究. 序 Jiaao He 在 24 岁生日那一天收到邮件, 他在 ppopp 投稿的这篇文章被接收了. 这是他以一作身份投的第一篇 A 类会文章.\nlaekov 当时脑子一热, 开了一个坑, 决定把这篇文章的主要内容用中文写出来, somehow 地促进中文学术. (虽然多半并没有什么帮助)\n在过去的小半年里他又经历了 artifact evaluation, camera ready, 制作 presentation slides 和录制视频 (很遗憾因为疫情没法去韩国开会了) 等等一系列事情, 对这个项目也有了更多的理解. 在 4 月的第一天终于把写文章时候的 prototype 变成了看起来还不错的代码, 并准备合并进 FastMoE. 正好写完这篇文章, 也当作是在 FastMoE 里使用 FasterMoE 的中文版文档了.\n这篇文章的 pdf 正文在 ACM DL 上可以找到. (有 open access, 在任何地方都可以下载, 并用于非商业目的) 开会的时候用的 slides 和视频链接 在这里.\n背景和简介 我假设看这篇文章的人已经知道什么是 MoE 模型了, 大规模的 MoE 模型现在有多重要 (也可能并不). 专家并行模式 (即 gshard 模式) 是如何把 expert 们分布式地放在所有 worker 上, 并使用 all-to-all 通信方式把输入发送到 expert 上的.\n如果你不知道, 一言以蔽之, 负载如下图.\n这里面就有三个性能问题:\n负载不均衡. 不同的 expert 收到的输入数目不同, 因此处理时间不同. 处理得快的要花很长的时间等处理得慢的. 集合通信算子效率低: 要等整个 all-to-all 操作发完所有数据之后才能继续进行操作, 对于计算和通信的硬件资源都有比较大的浪费. 网络负载比较重: all-to-all 数据量不小. 针对这三个挑战, 我们 (laekov) 发明了三个优化方式, 并引入了一个 DDL-Roofline 模型来从理论上刻画这个负载的特点.\n优化点 影子专家 (Expert Shadowing) 针对负载不均衡的问题, 进一步观察真实模型中的专家选择情况, 可以发现一些专家显著地比另一些专家更热门, 但是其趋势也是每轮 / 每层都不一样的.\n影子专家技术的核心是将热门专家的参数进行广播. 对于需要该专家处理的输入, 不再发送到对应的 worker 上进行计算, 而是在本地使用广播出来的参数进行计算. 这样, 虽然广播引入了额外的通信开销, 但是可以摊热门专家带来的更严重的负载不均的问题, 从而给性能带来好处.\n具体来讲, 我们使用了一个性能预测器来帮助决定每一轮迭代中影子专家的选择. 将所有专家按照热度排序后, 从高到低依次判断将其设为影子专家是否会带来性能收益.\n细粒度调度 (Smart Scheduling) 前面提到 all-to-all 集合通信是一个粗粒度的算子, 阻碍了将计算和通信进行重叠. 因此, 需要将其打碎为若干小的操作, 然后再进行细粒度调度. 参考 pair-wise exchange 算法, 我们使用 group-wise exchange 算法来拆分 all-to-all, 然后再重排, 如下图. (其中 S 代表第一次 all-to-all 的一部分, C 代表对于对应的输入进行的计算, R 代表第二次 all-to-all 的一部分)\n通过这样的重排, 通信时间和计算时间就有效地减少了. 对于影子专家的计算和通信, 也可以很好地整合进这个调度里面.\n考虑网络拓扑的门网络 (Topology-aware Gate) 不同于上两个优化点, 这个优化点对算法进行了一些改变. 此外, 我们强调,针对不同的网络拓扑结构, 需要进行专门的设计. 此处我们的设计仅作为一个例子来展示这样的系统-模型联合设计的方法.\n考虑多台机器, 每台机器里有多个 GPU 的情况, 一机内的 GPU 之间网络带宽显著地比机器之间快. 但是如果对专家选择不加以限制, 那么显然更多的输入会被发送到不同机器上的 GPU 上, 那么机器之间的网络就拥塞了, 而机器内 GPU 之间的网络比较空闲.\n参考 GShard 和 BASE Layers 的做法, 我们也对专家的选择进行人为干预, 但更进一步, 我们考虑硬件连接的拓扑关系. 我们限制跨机器选择专家的输入数量. 不同于 GShard, 我们让多余的输入按照分数重新在本节点内选择一个喜欢的专家来进行处理. 这样, 我们不仅降低了通信开销, 还更充分地利用了训练数据 (GShard 扔掉了它们).\n如何在 FastMoE 中使用这些优化 Expert Shaodwing 为了方便 (因为 laekov 懒), 这个特性必需和 Smart Scheduling 一起使用. 每个专家必需结构完全相同.\n使用环境变量 FMOE_FASTER_SHADOW_ENABLE=1 或 ON 来使能这个特性.\n源代码 fmoe/fastermoe/shadow_policy.py 中定义了默认的影子专家选择算法, 它假设用户的专家是一个两层前馈网络 (MLP). 用户可以自定义这个算法, 记得在修改后需要重新安装一次 FastMoE.\n在默认的算法中, 可以使用以下一些环境变量来控制专家选择算法.\nFMOE_FASTER_GLBPLC_NETBW 是 GPU 之间的连接带宽, 以 GBps 为单位. FMOE_FASTER_GLBPLC_GPUTP 是 GPU 进行矩阵乘的吞吐量, 以 FLOPs 为单位. 例如 NVIDIA V100 的单精度浮点性能约为 13e12. FMOE_FASTER_GLBPLC_ALPHA 是每个 MLP 层的中间激活向量长度与输入或输入向量长度的比值. 在 Transformers 模型里通常是 2 或者 4. FMOE_FASTER_GLBPLC_DMODEL 是输入或输出特征向量的长度. FastMoE 可以自动从输入中判断这个值, 不必特别设置. Smart Scheduling 这个特性也有一些限制. num_expert必需设为1. (还是因为 laekov 懒. 期待来自开源社区的贡献能够把其它情况给支持了) 专家的输入和输出的向量长度必需等.\n用环境变量 FMOE_FASTER_SCHEDULE_ENABLE=ON 来开启这个特性. 用 FMOE_FASTER_GROUP_SIZE 这个环境变量可以调 Group-wise exchange 的 group 大小, 从而在流水任务太少导致气泡和粒度太细低效之间找一个平衡.\nTopology-aware Gate 这个模块在 FastMoE 里面被改名叫了 FasterGate, 和其它 gate 的使用方式一致. FMOE_TOPO_GPUS_PER_NODE 环境变量控制每节点内的 GPU 数. FMOE_TOPO_OUTGOING_FRACTION 表示允许被发到其它节点的输入条目的比例.\nDDL-Roofline 模型 DDL 的意思不是 Deadline, 而是 Distributed Deep Learning.\n这个 Roofline 和传统的 Roofline 不太一样. 画出来如下.\n其中横轴是计算时间与通信时间的比值 (传统 Roofline 的是访存量), 纵轴是每加速器的平均计算吞吐量.\n实线是理想线, 是真正的屋檐线. 但它的前提条件是通信能够完美地被计算所遮盖. 虚线是一条半理想线, 表示计算和通信完全不做重叠. 事实上, 在很多现在的 DL 框架里面, 这样的重叠都是需要特定条件或者手工进行的. 比如在原来的 FastMoE 里, 因为各种问题, 就没有做这样的重叠. 这种时候, 峰值性能就会被这条半理想线所限制.\n一个例子是数据并行的两个点. 蓝点表示的是不重叠的数据并行, 因为没有负载不均衡的问题, 所以它可以达到半理想的线. 而橙点表示数据并行的反向计算可以和梯度同步所重叠, 所以它在虚线上面. 但数据并行的问题是在 MoE 模型中, 参数量相对比较大, 而计算量因为被稀疏化过了, 所以相对比较小. 因此它在横轴上的位置很靠左, 优化再好性能也不会怎么好. 实验中我们的系统也确实暴打了使用 DeepSpeed 的 ZeRO Optimizer 来训 MoE 的 baseline. (而彼时 DeepSpeed 的专家并行模式还远未诞生)\n绿色是专家并行. 在 MoE 中, 专家并行的通信量是远小于数据并行的, 但它的问题是负载不均, 所以它虽然在右边, 但比较靠下. 我们的 Expert Shadowing 正好缓解了负载不均的问题, 因此计算延迟变小了, 但性能却变高了. 进一步的, Smart Scheduling 使得计算和通信可以重叠在一起, 于是我们超过了半理想线. 而 Topology-aware Gate 直接通过改变负载来减小了通信量, 从而性能更好.\n实验结果 略了. 见原文.\n题外话: PPoPP'22 的另一篇文章: 八卦炉 BaGuaLu ACM DL 链接 (同样有 open access)\n这是一篇 Jiaao He 作为二作的文章, 是一个巨大的工作 (其实是试图冲击 GB, 失败). 合作方有之江实验室, 清华的 KEG 实验室, 阿里达摩院, 北京智源研究院. 其主要贡献是在中国国产的神威超级大规模的计算机上训练了一个史无前例的 130 万亿的大模型. 其中 Jiaao 的主要贡献是在分布式方面, 包括开发和移植 FastMoE, 设计并行方案, 准备和跑大规模 (大几万个进程的那种) 实验. 因为和 FastMoE 相关, 故也在这里也将 Jiaao 贡献了的部分顺带一提.\n与 FasterMoE 不同, BaGuaLu 解决主要问题是在特定平台训练特定模型, 因此在分布式的设计上也更加特化.\n具体来讲, BaGuaLu 使用了数据并行和专家并行混合的方案, 并进行了 topology-aware 的设计.\n在数据并行的维度上使用了改进过的 ZeRO Optimizer 的思路, 来存储大模型.\n发明了 SWIPE 这样一个又快又能保证 完美负载均衡 的 Gate, 虽然它并不 topology-aware. 这个 Gate 也被用到了后来提出的 AIPerf-MoE 中.\n事实上, 这个工作更大的难度是在国产的完全不同的体系结构上构筑出一套完整的深度学习环境, 包括算子库, DL 库等等. 而这里面 Zixuan 和其他同学做出了更加艰巨且重要的贡献. 在文章里这一部分也有详细展开.\nHistorical Comments laekov at 2022-03-24T12:04:03 昨天刚录完英文版视频, 感觉自己已经不会说英文了… 以及这个坑大概率要咕了.\n",
+  "wordCount" : "492",
+  "inLanguage": "en",
+  "datePublished": "2021-11-16T11:16:21Z",
+  "dateModified": "2021-11-16T11:16:21Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/technical/181401/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/technical/">Technicals</a></div>
+    <h1 class="post-title">
+      FasterMoE: 对大 MoE 模型训练的性能建模及优化
+    </h1>
+    <div class="post-meta"><span title='2021-11-16 11:16:21 +0000 UTC'>November 16, 2021</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e5%ba%8f" aria-label="序">序</a></li>
+                <li>
+                    <a href="#%e8%83%8c%e6%99%af%e5%92%8c%e7%ae%80%e4%bb%8b" aria-label="背景和简介">背景和简介</a></li>
+                <li>
+                    <a href="#%e4%bc%98%e5%8c%96%e7%82%b9" aria-label="优化点">优化点</a><ul>
+                        
+                <li>
+                    <a href="#%e5%bd%b1%e5%ad%90%e4%b8%93%e5%ae%b6-expert-shadowing" aria-label="影子专家 (Expert Shadowing)">影子专家 (Expert Shadowing)</a></li>
+                <li>
+                    <a href="#%e7%bb%86%e7%b2%92%e5%ba%a6%e8%b0%83%e5%ba%a6-smart-scheduling" aria-label="细粒度调度 (Smart Scheduling)">细粒度调度 (Smart Scheduling)</a></li>
+                <li>
+                    <a href="#%e8%80%83%e8%99%91%e7%bd%91%e7%bb%9c%e6%8b%93%e6%89%91%e7%9a%84%e9%97%a8%e7%bd%91%e7%bb%9c-topology-aware-gate" aria-label="考虑网络拓扑的门网络 (Topology-aware Gate)">考虑网络拓扑的门网络 (Topology-aware Gate)</a></li>
+                <li>
+                    <a href="#%e5%a6%82%e4%bd%95%e5%9c%a8-fastmoehttpsgithubcomlaekovfastmoe-%e4%b8%ad%e4%bd%bf%e7%94%a8%e8%bf%99%e4%ba%9b%e4%bc%98%e5%8c%96-a-namehowtoa" aria-label="如何在 FastMoE 中使用这些优化 ">如何在 <a href="https://github.com/laekov/fastmoe">FastMoE</a> 中使用这些优化 <a name='howto'></a></a><ul>
+                        
+                <li>
+                    <a href="#expert-shaodwing" aria-label="Expert Shaodwing">Expert Shaodwing</a></li>
+                <li>
+                    <a href="#smart-scheduling" aria-label="Smart Scheduling">Smart Scheduling</a></li>
+                <li>
+                    <a href="#topology-aware-gate" aria-label="Topology-aware Gate">Topology-aware Gate</a></li></ul>
+                </li></ul>
+                </li>
+                <li>
+                    <a href="#ddl-roofline-%e6%a8%a1%e5%9e%8b" aria-label="DDL-Roofline 模型">DDL-Roofline 模型</a></li>
+                <li>
+                    <a href="#%e5%ae%9e%e9%aa%8c%e7%bb%93%e6%9e%9c" aria-label="实验结果">实验结果</a></li>
+                <li>
+                    <a href="#%e9%a2%98%e5%a4%96%e8%af%9d-ppopp22-%e7%9a%84%e5%8f%a6%e4%b8%80%e7%af%87%e6%96%87%e7%ab%a0-%e5%85%ab%e5%8d%a6%e7%82%89-bagualu" aria-label="题外话: PPoPP&#39;22 的另一篇文章: 八卦炉 BaGuaLu">题外话: PPoPP'22 的另一篇文章: 八卦炉 BaGuaLu</a><ul>
+                        
+                <li>
+                    <a href="#historical-comments" aria-label="Historical Comments">Historical Comments</a><ul>
+                        <ul>
+                        
+                <li>
+                    <a href="#laekov-at-2022-03-24t120403" aria-label="laekov at 2022-03-24T12:04:03">laekov at 2022-03-24T12:04:03</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><style>
+img {
+max-width: 100%;
+};
+</style>
+<p style='color: red'>版权声明: 如需转载请先与 laekov 联系, 侵权必究. </p>
+<h2 id="序">序<a hidden class="anchor" aria-hidden="true" href="#序">#</a></h2>
+<p>Jiaao He 在 24 岁生日那一天收到邮件, 他在 ppopp 投稿的这篇文章被接收了. 这是他以一作身份投的第一篇 A 类会文章.</p>
+<p>laekov 当时脑子一热, 开了一个坑, 决定把这篇文章的主要内容用中文写出来, somehow 地促进中文学术. (虽然多半并没有什么帮助)</p>
+<p>在过去的小半年里他又经历了 artifact evaluation, camera ready, 制作 presentation slides 和录制视频 (很遗憾因为疫情没法去韩国开会了) 等等一系列事情, 对这个项目也有了更多的理解. 在 4 月的第一天终于把写文章时候的 prototype 变成了看起来还不错的代码, 并准备合并进 FastMoE. 正好写完这篇文章, 也当作是在 FastMoE 里使用 FasterMoE 的中文版文档了.</p>
+<p>这篇文章的 pdf 正文在 <a href="https://dl.acm.org/doi/10.1145/3503221.3508418">ACM DL</a> 上可以找到. (有 open access, 在任何地方都可以下载, 并用于非商业目的) 开会的时候用的 <a href="/l/slides/fastermoe.pdf">slides</a> 和<a href="https://www.youtube.com/watch?v=XgAur2glmZ4">视频链接</a> 在这里.</p>
+<h2 id="背景和简介">背景和简介<a hidden class="anchor" aria-hidden="true" href="#背景和简介">#</a></h2>
+<p>我假设看这篇文章的人已经知道什么是 MoE 模型了, 大规模的 MoE 模型现在有多重要 (也可能并不). 专家并行模式 (即 gshard 模式) 是如何把 expert 们分布式地放在所有 worker 上, 并使用 all-to-all 通信方式把输入发送到 expert 上的.</p>
+<p>如果你不知道, 一言以蔽之, 负载如下图.</p>
+<p><img loading="lazy" src="/l/figures/fastermoe/expertpara.png" alt=""  />
+</p>
+<p>这里面就有三个性能问题:</p>
+<ul>
+<li>负载不均衡. 不同的 expert 收到的输入数目不同, 因此处理时间不同. 处理得快的要花很长的时间等处理得慢的.</li>
+<li>集合通信算子效率低: 要等整个 all-to-all 操作发完所有数据之后才能继续进行操作, 对于计算和通信的硬件资源都有比较大的浪费.</li>
+<li>网络负载比较重: <code>all-to-all</code> 数据量不小.</li>
+</ul>
+<p>针对这三个挑战, 我们 (laekov) 发明了三个优化方式, 并引入了一个 DDL-Roofline 模型来从理论上刻画这个负载的特点.</p>
+<h2 id="优化点">优化点<a hidden class="anchor" aria-hidden="true" href="#优化点">#</a></h2>
+<h3 id="影子专家-expert-shadowing">影子专家 (Expert Shadowing)<a hidden class="anchor" aria-hidden="true" href="#影子专家-expert-shadowing">#</a></h3>
+<p>针对负载不均衡的问题, 进一步观察真实模型中的专家选择情况, 可以发现一些专家显著地比另一些专家更热门, 但是其趋势也是每轮 / 每层都不一样的.</p>
+<p>影子专家技术的核心是将热门专家的参数进行广播. 对于需要该专家处理的输入, 不再发送到对应的 worker 上进行计算, 而是在本地使用广播出来的参数进行计算. 这样, 虽然广播引入了额外的通信开销, 但是可以摊热门专家带来的更严重的负载不均的问题, 从而给性能带来好处.</p>
+<p>具体来讲, 我们使用了一个性能预测器来帮助决定每一轮迭代中影子专家的选择. 将所有专家按照热度排序后, 从高到低依次判断将其设为影子专家是否会带来性能收益.</p>
+<h3 id="细粒度调度-smart-scheduling">细粒度调度 (Smart Scheduling)<a hidden class="anchor" aria-hidden="true" href="#细粒度调度-smart-scheduling">#</a></h3>
+<p>前面提到 all-to-all 集合通信是一个粗粒度的算子, 阻碍了将计算和通信进行重叠. 因此, 需要将其打碎为若干小的操作, 然后再进行细粒度调度. 参考 pair-wise exchange 算法, 我们使用 group-wise exchange 算法来拆分 all-to-all, 然后再重排, 如下图. (其中 <code>S</code> 代表第一次 all-to-all 的一部分, <code>C</code> 代表对于对应的输入进行的计算, <code>R</code> 代表第二次 all-to-all 的一部分)</p>
+<p><img loading="lazy" src="/l/figures/fastermoe/smartsch.png" alt=""  />
+</p>
+<p>通过这样的重排, 通信时间和计算时间就有效地减少了. 对于影子专家的计算和通信, 也可以很好地整合进这个调度里面.</p>
+<h3 id="考虑网络拓扑的门网络-topology-aware-gate">考虑网络拓扑的门网络 (Topology-aware Gate)<a hidden class="anchor" aria-hidden="true" href="#考虑网络拓扑的门网络-topology-aware-gate">#</a></h3>
+<p>不同于上两个优化点, 这个优化点对算法进行了一些改变. 此外, 我们强调,<strong>针对不同的网络拓扑结构, 需要进行专门的设计</strong>. 此处我们的设计仅作为一个例子来展示这样的系统-模型联合设计的方法.</p>
+<p>考虑多台机器, 每台机器里有多个 GPU 的情况, 一机内的 GPU 之间网络带宽显著地比机器之间快. 但是如果对专家选择不加以限制, 那么显然更多的输入会被发送到不同机器上的 GPU 上, 那么机器之间的网络就拥塞了, 而机器内 GPU 之间的网络比较空闲.</p>
+<p>参考 GShard 和 BASE Layers 的做法, 我们也对专家的选择进行人为干预, 但更进一步, 我们考虑硬件连接的拓扑关系. 我们限制跨机器选择专家的输入数量. 不同于 GShard, 我们让多余的输入按照分数重新在本节点内选择一个喜欢的专家来进行处理. 这样, 我们不仅降低了通信开销, 还更充分地利用了训练数据 (GShard 扔掉了它们).</p>
+<h3 id="如何在-fastmoehttpsgithubcomlaekovfastmoe-中使用这些优化-a-namehowtoa">如何在 <a href="https://github.com/laekov/fastmoe">FastMoE</a> 中使用这些优化 <a name='howto'></a><a hidden class="anchor" aria-hidden="true" href="#如何在-fastmoehttpsgithubcomlaekovfastmoe-中使用这些优化-a-namehowtoa">#</a></h3>
+<h4 id="expert-shaodwing">Expert Shaodwing<a hidden class="anchor" aria-hidden="true" href="#expert-shaodwing">#</a></h4>
+<p>为了方便 (因为 laekov 懒), <strong>这个特性必需和 Smart Scheduling 一起使用</strong>. 每个专家必需结构完全相同.</p>
+<p>使用环境变量 <code>FMOE_FASTER_SHADOW_ENABLE=1</code> 或 <code>ON</code> 来使能这个特性.</p>
+<p>源代码 <code>fmoe/fastermoe/shadow_policy.py</code> 中定义了默认的影子专家选择算法, 它假设用户的专家是一个两层前馈网络 (MLP). 用户可以自定义这个算法, 记得在修改后需要重新安装一次 FastMoE.</p>
+<p>在默认的算法中, 可以使用以下一些环境变量来控制专家选择算法.</p>
+<ul>
+<li><code>FMOE_FASTER_GLBPLC_NETBW</code> 是 GPU 之间的连接带宽, 以 <code>GBps</code> 为单位.</li>
+<li><code>FMOE_FASTER_GLBPLC_GPUTP</code> 是 GPU 进行矩阵乘的吞吐量, 以 <code>FLOPs</code> 为单位. 例如 NVIDIA V100 的单精度浮点性能约为 <code>13e12</code>.</li>
+<li><code>FMOE_FASTER_GLBPLC_ALPHA</code> 是每个 MLP 层的中间激活向量长度与输入或输入向量长度的比值. 在 Transformers 模型里通常是 <code>2</code> 或者 <code>4</code>.</li>
+<li><code>FMOE_FASTER_GLBPLC_DMODEL</code> 是输入或输出特征向量的长度. FastMoE 可以自动从输入中判断这个值, 不必特别设置.</li>
+</ul>
+<h4 id="smart-scheduling">Smart Scheduling<a hidden class="anchor" aria-hidden="true" href="#smart-scheduling">#</a></h4>
+<p>这个特性也有一些限制. <code>num_expert</code><strong>必需设为</strong><code>1</code>. (还是因为 laekov 懒. 期待来自开源社区的贡献能够把其它情况给支持了) <strong>专家的输入和输出的向量长度必需等</strong>.</p>
+<p>用环境变量 <code>FMOE_FASTER_SCHEDULE_ENABLE=ON</code> 来开启这个特性. 用 <code>FMOE_FASTER_GROUP_SIZE</code> 这个环境变量可以调 <em>Group-wise exchange</em> 的 group 大小, 从而在流水任务太少导致气泡和粒度太细低效之间找一个平衡.</p>
+<h4 id="topology-aware-gate">Topology-aware Gate<a hidden class="anchor" aria-hidden="true" href="#topology-aware-gate">#</a></h4>
+<p>这个模块在 FastMoE 里面被改名叫了 <code>FasterGate</code>, 和其它 gate 的使用方式一致. <code>FMOE_TOPO_GPUS_PER_NODE</code> 环境变量控制每节点内的 GPU 数. <code>FMOE_TOPO_OUTGOING_FRACTION</code> 表示允许被发到其它节点的输入条目的比例.</p>
+<h2 id="ddl-roofline-模型">DDL-Roofline 模型<a hidden class="anchor" aria-hidden="true" href="#ddl-roofline-模型">#</a></h2>
+<p>DDL 的意思不是 Deadline, 而是 Distributed Deep Learning.</p>
+<p>这个 Roofline 和传统的 Roofline 不太一样. 画出来如下.</p>
+<p><img loading="lazy" src="/l/figures/fastermoe/ddlroofline.png" alt=""  />
+</p>
+<p>其中横轴是计算时间与通信时间的比值 (传统 Roofline 的是访存量), 纵轴是每加速器的平均计算吞吐量.</p>
+<p>实线是理想线, 是真正的屋檐线. 但它的前提条件是通信能够完美地被计算所遮盖. 虚线是一条半理想线, 表示计算和通信完全不做重叠. 事实上, 在很多现在的 DL 框架里面, 这样的重叠都是需要特定条件或者手工进行的. 比如在原来的 FastMoE 里, 因为各种问题, 就没有做这样的重叠. 这种时候, 峰值性能就会被这条半理想线所限制.</p>
+<p>一个例子是数据并行的两个点. 蓝点表示的是不重叠的数据并行, 因为没有负载不均衡的问题, 所以它可以达到半理想的线. 而橙点表示数据并行的反向计算可以和梯度同步所重叠, 所以它在虚线上面. 但数据并行的问题是在 MoE 模型中, 参数量相对比较大, 而计算量因为被稀疏化过了, 所以相对比较小. 因此它在横轴上的位置很靠左, 优化再好性能也不会怎么好. 实验中我们的系统也确实暴打了使用 DeepSpeed 的 ZeRO Optimizer 来训 MoE 的 baseline. (而彼时 DeepSpeed 的专家并行模式还远未诞生)</p>
+<p>绿色是专家并行. 在 MoE 中, 专家并行的通信量是远小于数据并行的, 但它的问题是负载不均, 所以它虽然在右边, 但比较靠下. 我们的 Expert Shadowing 正好缓解了负载不均的问题, 因此计算延迟变小了, 但性能却变高了. 进一步的, Smart Scheduling 使得计算和通信可以重叠在一起, 于是我们超过了半理想线. 而 Topology-aware Gate 直接通过改变负载来减小了通信量, 从而性能更好.</p>
+<h2 id="实验结果">实验结果<a hidden class="anchor" aria-hidden="true" href="#实验结果">#</a></h2>
+<p>略了. 见原文.</p>
+<h2 id="题外话-ppopp22-的另一篇文章-八卦炉-bagualu">题外话: PPoPP'22 的另一篇文章: 八卦炉 BaGuaLu<a hidden class="anchor" aria-hidden="true" href="#题外话-ppopp22-的另一篇文章-八卦炉-bagualu">#</a></h2>
+<p><a href="https://dl.acm.org/doi/10.1145/3503221.3508417">ACM DL 链接</a> (同样有 open access)</p>
+<p>这是一篇 Jiaao He 作为二作的文章, 是一个巨大的工作 (其实是试图冲击 GB, 失败). 合作方有之江实验室, 清华的 KEG 实验室, 阿里达摩院, 北京智源研究院. 其主要贡献是在中国国产的神威超级大规模的计算机上训练了一个史无前例的 130 万亿的大模型. 其中 Jiaao 的主要贡献是在分布式方面, 包括开发和移植 FastMoE, 设计并行方案, 准备和跑大规模 (大几万个进程的那种) 实验. 因为和 FastMoE 相关, 故也在这里也将 Jiaao 贡献了的部分顺带一提.</p>
+<p>与 FasterMoE 不同, BaGuaLu 解决主要问题是在特定平台训练特定模型, 因此在分布式的设计上也更加特化.</p>
+<p>具体来讲, BaGuaLu 使用了数据并行和专家并行混合的方案, 并进行了 topology-aware 的设计.</p>
+<p>在数据并行的维度上使用了改进过的 ZeRO Optimizer 的思路, 来存储大模型.</p>
+<p>发明了 SWIPE 这样一个又快又能保证 <strong>完美负载均衡</strong> 的 Gate, 虽然它并不 topology-aware. 这个 Gate 也被用到了后来提出的 <a href="https://github.com/thu-pacman/AIPerf-MoE">AIPerf-MoE</a> 中.</p>
+<p>事实上, 这个工作更大的难度是在国产的完全不同的体系结构上构筑出一套完整的深度学习环境, 包括算子库, DL 库等等. 而这里面 Zixuan 和其他同学做出了更加艰巨且重要的贡献. 在文章里这一部分也有详细展开.</p>
+<hr/>
+<h3 id="historical-comments">Historical Comments<a hidden class="anchor" aria-hidden="true" href="#historical-comments">#</a></h3>
+<h5 id="laekov-at-2022-03-24t120403">laekov at 2022-03-24T12:04:03<a hidden class="anchor" aria-hidden="true" href="#laekov-at-2022-03-24t120403">#</a></h5>
+<p>昨天刚录完英文版视频, 感觉自己已经不会说英文了&hellip; 以及这个坑大概率要咕了.</p>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/developing/">developing</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/technical/dadc0a/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>Assetto Corsa G值球只有半个 bug 修复</span>
+  </a>
+  <a class="next" href="/technical/5c630d/">
+    <span class="title">Next »</span>
+    <br>
+    <span>slurmdbd 配置失败的坑</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

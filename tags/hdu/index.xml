@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>hdu on The Site of laekov</title>
+    <link>/tags/hdu/</link>
+    <description>Recent content in hdu on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Sun, 07 Jun 2015 21:24:11 +0000</lastBuildDate><atom:link href="/tags/hdu/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>hdu5267 pog loves szh IV</title>
+      <link>/oi/dbimport_254/</link>
+      <pubDate>Sun, 07 Jun 2015 21:24:11 +0000</pubDate>
+      
+      <guid>/oi/dbimport_254/</guid>
+      <description>bc fst爽翻.然后这题差二十分钟没调出来不然我就是rank1.还是应该直接敲而不是去和队友商量.
+静态做的话直接按位树分就好了.然后资瓷修改的时候也是一样.只是把之前求的信息在树分后的dfs序上用线段树记下来.也就是要随时知道某个分治层里的某个子树上有多少个0或者1.
+然后就是讨论某个修改对当前答案的贡献.要注意分治根的值,以及有贡献的是哪些位置.中间打错了外层的dfs序范围,导致调试了很久.明明想清楚了但是打错了,不应该的.
+只有完了之后交了然后怒虐标程好开心啊.</description>
+    </item>
+    
+    <item>
+      <title>hdu5189 zhx&#39;s tree</title>
+      <link>/oi/dbimport_252/</link>
+      <pubDate>Mon, 16 Mar 2015 22:35:14 +0000</pubDate>
+      
+      <guid>/oi/dbimport_252/</guid>
+      <description>自己出的题还要写题解。
+就是化成可以二分的形式，然后发现是找凸壳上x=x0的时候的最大值的和，看它是否大于0。
+于是就写呗。据说很难写。我觉得写起来还行啊。
+其实主要是为了测试系统用的。</description>
+    </item>
+    
+    <item>
+      <title>HDU5173 GTY&#39;s game II</title>
+      <link>/oi/i11rimport_054/</link>
+      <pubDate>Fri, 06 Feb 2015 23:10:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_054/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; bc的题。今天bc又挂了。这题没有写完，然后b题fst了。伤心啊。&amp;lt;/p&amp;gt; &amp;nbsp;
+其实思路比较简单。直接链剖dfs序上把所有区间找出来swap就好了。不过代码实现起来还是比较麻烦的，很容易绕晕。加上smt久了没写手生了，于是就调了一晚上。唉，我还是太年轻了。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstdlib&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+struct node { int v, s, sz, w, rv; node ls, rs; inline void update() { sz = 1; s = v; if (ls) { sz += ls-&amp;gt; sz; s += ls-&amp;gt; s; } if (rs) { sz += rs-&amp;gt; sz; s += rs-&amp;gt; s; } } inline void fix() { if (rv) { swap(ls, rs); if (ls) ls-&amp;gt; rv ^= 1; if (rs) rs-&amp;gt; rv ^= 1; rv = 0; } } }; typedef pair &amp;lt;node, node&amp;gt; npr;</description>
+    </item>
+    
+    <item>
+      <title>Bestcoder #20 题解&amp;&amp;总结</title>
+      <link>/diary/lofterimport_060/</link>
+      <pubDate>Sat, 29 Nov 2014 22:49:53 +0000</pubDate>
+      
+      <guid>/diary/lofterimport_060/</guid>
+      <description>人生第一次AK网赛。之前cf和bc总是fst。
+第一题水，比谁手速快。好像我手速也比较慢啊。
+第二题离散一下，然后直接用前缀和找最大。手速又有点慢。
+第三题树状数组优化DP，有点像SCOI2014的玉米田。然后写挫了好几次。
+第四题比较有含金量。前两天才做了cdq的mokia，于是想了一会决定用cdq套树状数组套平衡树。然后花了20分钟写30分钟把平衡树里ins的时候把点的编号改对和++size。我觉得我没有抢救的必要了。
+然后所以虽然AK但是排名还是低。上次虽然只过了两题还是RANK1，难度差距有点大啊。
+不过终于超过jason_yu了。
+看来我还是比较年轻，还要再努力啊。</description>
+    </item>
+    
+  </channel>
+</rss>

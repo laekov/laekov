@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>BZOJ2506 calc | The Site of laekov</title>
+<meta name="keywords" content="bzoj, data\xa0structure, oi">
+<meta name="description" content="看到取模瞬间想到了昨天的bc。
+应该这是取模然后求啥玩意的时候的比较通用的解法吧。p&lt;=sqrt(maxv)的预处理，剩下的直接暴力。结果预处理又写丑了一回。
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+const int maxn = 100009;
+const int maxv = 10000;
+const int bsz = 100;
+const int maxb = 103;
+int n, m;
+int a[maxn], vb[maxb][maxb], ve[maxb][maxb];
+int xb[maxn], xe[maxn];
+int i_buf[maxn * maxb * 2], tib;
+void pre()&nbsp;{
+memset(ve, 0, sizeof(ve));
+memset(xe, 0, sizeof(xe));
+for (int i = 1; i &lt;= n;&nbsp;&#43;&#43; i)
+&#43;&#43; xe[a[i]];
+for (int i = 0; i &lt;= maxv;&nbsp;&#43;&#43; i)&nbsp;{">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/lofterimport_074/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="BZOJ2506 calc" />
+<meta property="og:description" content="看到取模瞬间想到了昨天的bc。
+应该这是取模然后求啥玩意的时候的比较通用的解法吧。p&lt;=sqrt(maxv)的预处理，剩下的直接暴力。结果预处理又写丑了一回。
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+const int maxn = 100009;
+const int maxv = 10000;
+const int bsz = 100;
+const int maxb = 103;
+int n, m;
+int a[maxn], vb[maxb][maxb], ve[maxb][maxb];
+int xb[maxn], xe[maxn];
+int i_buf[maxn * maxb * 2], tib;
+void pre()&nbsp;{
+memset(ve, 0, sizeof(ve));
+memset(xe, 0, sizeof(xe));
+for (int i = 1; i &lt;= n;&nbsp;&#43;&#43; i)
+&#43;&#43; xe[a[i]];
+for (int i = 0; i &lt;= maxv;&nbsp;&#43;&#43; i)&nbsp;{" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/lofterimport_074/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2014-11-23T17:32:59+00:00" />
+<meta property="article:modified_time" content="2014-11-23T17:32:59+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BZOJ2506 calc"/>
+<meta name="twitter:description" content="看到取模瞬间想到了昨天的bc。
+应该这是取模然后求啥玩意的时候的比较通用的解法吧。p&lt;=sqrt(maxv)的预处理，剩下的直接暴力。结果预处理又写丑了一回。
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+const int maxn = 100009;
+const int maxv = 10000;
+const int bsz = 100;
+const int maxb = 103;
+int n, m;
+int a[maxn], vb[maxb][maxb], ve[maxb][maxb];
+int xb[maxn], xe[maxn];
+int i_buf[maxn * maxb * 2], tib;
+void pre()&nbsp;{
+memset(ve, 0, sizeof(ve));
+memset(xe, 0, sizeof(xe));
+for (int i = 1; i &lt;= n;&nbsp;&#43;&#43; i)
+&#43;&#43; xe[a[i]];
+for (int i = 0; i &lt;= maxv;&nbsp;&#43;&#43; i)&nbsp;{"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "BZOJ2506 calc",
+      "item": "/oi/lofterimport_074/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BZOJ2506 calc",
+  "name": "BZOJ2506 calc",
+  "description": "看到取模瞬间想到了昨天的bc。\n应该这是取模然后求啥玩意的时候的比较通用的解法吧。p\u0026lt;=sqrt(maxv)的预处理，剩下的直接暴力。结果预处理又写丑了一回。\n#include \u0026lt;cstdio\u0026gt;\n#include \u0026lt;cstring\u0026gt;\n#include \u0026lt;algorithm\u0026gt;\nusing namespace std;\nconst int maxn = 100009;\nconst int maxv = 10000;\nconst int bsz = 100;\nconst int maxb = 103;\nint n, m;\nint a[maxn], vb[maxb][maxb], ve[maxb][maxb];\nint xb[maxn], xe[maxn];\nint i_buf[maxn * maxb * 2], tib;\nvoid pre()\u0026nbsp;{\nmemset(ve, 0, sizeof(ve));\nmemset(xe, 0, sizeof(xe));\nfor (int i = 1; i \u0026lt;= n;\u0026nbsp;++ i)\n++ xe[a[i]];\nfor (int i = 0; i \u0026lt;= maxv;\u0026nbsp;++ i)\u0026nbsp;{",
+  "keywords": [
+    "bzoj", "data\\xa0structure", "oi"
+  ],
+  "articleBody": "看到取模瞬间想到了昨天的bc。\n应该这是取模然后求啥玩意的时候的比较通用的解法吧。p\u003c=sqrt(maxv)的预处理，剩下的直接暴力。结果预处理又写丑了一回。\n#include #include #include using namespace std;\nconst int maxn = 100009;\nconst int maxv = 10000;\nconst int bsz = 100;\nconst int maxb = 103;\nint n, m;\nint a[maxn], vb[maxb][maxb], ve[maxb][maxb];\nint xb[maxn], xe[maxn];\nint i_buf[maxn * maxb * 2], tib;\nvoid pre() {\nmemset(ve, 0, sizeof(ve));\nmemset(xe, 0, sizeof(xe));\nfor (int i = 1; i \u003c= n; ++ i)\n++ xe[a[i]];\nfor (int i = 0; i \u003c= maxv; ++ i) {\nxb[i] = tib;\ntib += xe[i];\nxe[i] = xb[i];\n}\nfor (int i = 1; i \u003c= n; ++ i)\ni_buf[xe[a[i]] ++] = i;\nfor (int m = 1; m \u003c= bsz; ++ m) {\nfor (int i = 1; i \u003c= n; ++ i)\n++ ve[m][a[i] % m];\nfor (int i = 0; i \u003c m; ++ i) {\nvb[m][i] = tib;\ntib += ve[m][i];\nve[m][i] = vb[m][i];\n}\nfor (int i = 1; i \u003c= n; ++ i)\ni_buf[ve[m][a[i] % m] ++] = i;\n}\n}\nint queryb(int l0, int r0, int p, int k) {\nif (vb[p][k] == ve[p][k])\nreturn 0;\nint *x1 = lower_bound(i_buf + vb[p][k], i_buf + ve[p][k], l0);\nint *x2 = upper_bound(i_buf + vb[p][k], i_buf + ve[p][k], r0);\nreturn x2 - x1;\n}\nint querys(int v, int l0, int r0) {\nif (xb[v] == xe[v])\nreturn 0;\nint *x1 = lower_bound(i_buf + xb[v], i_buf + xe[v], l0);\nint *x2 = upper_bound(i_buf + xb[v], i_buf + xe[v], r0);\nreturn x2 - x1;\n}\nint querya(int l0, int r0, int p, int k) {\nint ans = 0;\nfor (int i = k; i \u003c= maxv; i += p)\nans += querys(i, l0, r0);\nreturn ans;\n}\nint main() {\n#ifndef ONLINE_JUDGE\nfreopen(\"in.txt\", \"r\", stdin);\n#endif\nscanf(\"%d%d\", \u0026n, \u0026m);\ntib = 0;\nfor (int i = 1; i \u003c= n; ++ i)\nscanf(\"%d\", a + i);\npre();\nwhile (m --) {\nint l, r, p, k;\nscanf(\"%d%d%d%d\", \u0026l, \u0026r, \u0026p, \u0026k);\nif (p \u003c= bsz)\nprintf(\"%d\\n\", queryb(l, r, p, k));\nelse\nprintf(\"%d\\n\", querya(l, r, p, k));\n}\n}\n",
+  "wordCount" : "300",
+  "inLanguage": "en",
+  "datePublished": "2014-11-23T17:32:59Z",
+  "dateModified": "2014-11-23T17:32:59Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/lofterimport_074/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      BZOJ2506 calc
+    </h1>
+    <div class="post-meta"><span title='2014-11-23 17:32:59 +0000 UTC'>November 23, 2014</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>看到取模瞬间想到了昨天的bc。</p> 
+<p><br /></p> 
+<p>应该这是取模然后求啥玩意的时候的比较通用的解法吧。p&lt;=sqrt(maxv)的预处理，剩下的直接暴力。结果预处理又写丑了一回。</p> 
+<p><br /></p> 
+<p>#include &lt;cstdio&gt;</p> 
+<p>#include &lt;cstring&gt;</p> 
+<p>#include &lt;algorithm&gt;</p> 
+<p><br /></p> 
+<p>using namespace std;</p> 
+<p><br /></p> 
+<p>const int maxn = 100009;</p> 
+<p>const int maxv = 10000;</p> 
+<p>const int bsz = 100;</p> 
+<p>const int maxb = 103;</p> 
+<p><br /></p> 
+<p>int n, m;</p> 
+<p>int a[maxn], vb[maxb][maxb], ve[maxb][maxb];</p> 
+<p>int xb[maxn], xe[maxn];</p> 
+<p>int i_buf[maxn * maxb * 2], tib;</p> 
+<p><br /></p> 
+<p>void pre()&nbsp;{</p> 
+<p>memset(ve, 0, sizeof(ve));</p> 
+<p>memset(xe, 0, sizeof(xe));</p> 
+<p>for (int i = 1; i &lt;= n;&nbsp;++ i)</p> 
+<p>++ xe[a[i]];</p> 
+<p>for (int i = 0; i &lt;= maxv;&nbsp;++ i)&nbsp;{</p> 
+<p>xb[i]&nbsp;= tib;</p> 
+<p>tib += xe[i];</p> 
+<p>xe[i]&nbsp;= xb[i];</p> 
+<p>}</p> 
+<p>for (int i = 1; i &lt;= n;&nbsp;++ i)</p> 
+<p>i_buf[xe[a[i]]&nbsp;++]&nbsp;= i;</p> 
+<p>for (int m = 1; m &lt;= bsz;&nbsp;++ m)&nbsp;{</p> 
+<p>for (int i = 1; i &lt;= n;&nbsp;++ i)</p> 
+<p>++ ve[m][a[i]&nbsp;% m];</p> 
+<p>for (int i = 0; i &lt; m;&nbsp;++ i)&nbsp;{</p> 
+<p>vb[m][i]&nbsp;= tib;</p> 
+<p>tib += ve[m][i];</p> 
+<p>ve[m][i]&nbsp;= vb[m][i];</p> 
+<p>}</p> 
+<p>for (int i = 1; i &lt;= n;&nbsp;++ i)</p> 
+<p>i_buf[ve[m][a[i]&nbsp;% m]&nbsp;++]&nbsp;= i;</p> 
+<p>}</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int queryb(int l0, int r0, int p, int k)&nbsp;{</p> 
+<p>if (vb[p][k]&nbsp;== ve[p][k])</p> 
+<p>return 0;</p> 
+<p>int *x1&nbsp;= lower_bound(i_buf + vb[p][k], i_buf + ve[p][k], l0);</p> 
+<p>int *x2&nbsp;= upper_bound(i_buf + vb[p][k], i_buf + ve[p][k], r0);</p> 
+<p>return x2 - x1;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int querys(int v, int l0, int r0)&nbsp;{</p> 
+<p>if (xb[v]&nbsp;== xe[v])</p> 
+<p>return 0;</p> 
+<p>int *x1&nbsp;= lower_bound(i_buf + xb[v], i_buf + xe[v], l0);</p> 
+<p>int *x2&nbsp;= upper_bound(i_buf + xb[v], i_buf + xe[v], r0);</p> 
+<p>return x2 - x1;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int querya(int l0, int r0, int p, int k)&nbsp;{</p> 
+<p>int ans = 0;</p> 
+<p>for (int i = k; i &lt;= maxv; i += p)</p> 
+<p>ans += querys(i, l0, r0);</p> 
+<p>return ans;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int main()&nbsp;{</p> 
+<p>#ifndef ONLINE_JUDGE</p> 
+<p>freopen(&quot;in.txt&quot;,&nbsp;&quot;r&quot;, stdin);</p> 
+<p>#endif</p> 
+<p><br /></p> 
+<p>scanf(&quot;%d%d&quot;,&nbsp;&amp;n,&nbsp;&amp;m);</p> 
+<p>tib = 0;</p> 
+<p>for (int i = 1; i &lt;= n;&nbsp;++ i)</p> 
+<p>scanf(&quot;%d&quot;, a + i);</p> 
+<p>pre();</p> 
+<p>while (m&nbsp;--)&nbsp;{</p> 
+<p>int l, r, p, k;</p> 
+<p>scanf(&quot;%d%d%d%d&quot;,&nbsp;&amp;l,&nbsp;&amp;r,&nbsp;&amp;p,&nbsp;&amp;k);</p> 
+<p>if (p&nbsp;&lt;= bsz)</p> 
+<p>printf(&quot;%d\n&quot;, queryb(l, r, p, k));</p> 
+<p>else</p> 
+<p>printf(&quot;%d\n&quot;, querya(l, r, p, k));</p> 
+<p>}</p> 
+<p>}</p> 
+<p><br /></p>
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/bzoj/">bzoj</a></li>
+      <li><a href="/tags/data%5Cxa0structure/">data\xa0structure</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/lofterimport_073/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>BZOJ2716 [Violet 3]天使玩偶</span>
+  </a>
+  <a class="next" href="/oi/lofterimport_075/">
+    <span class="title">Next »</span>
+    <br>
+    <span>BZOJ1833 [ZJOI2010]count 数字计数</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

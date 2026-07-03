@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>serving on The Site of laekov</title>
+    <link>/tags/serving/</link>
+    <description>Recent content in serving on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Fri, 12 Jul 2024 00:00:00 +0000</lastBuildDate><atom:link href="/tags/serving/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LLM Serving 文章阅读笔记</title>
+      <link>/technical/llm-serving-papers/</link>
+      <pubDate>Fri, 12 Jul 2024 00:00:00 +0000</pubDate>
+      
+      <guid>/technical/llm-serving-papers/</guid>
+      <description>经典老文 orca Continuous batching: 把 prefill 和 decode 里的每个 token 打散重新做 batching.
+vllm 用 page attention 来管理 kv cache 来应对碎片化, 以及利用 cpu memory 来 offload (这部分好像不是重点)。
+OSDI&#39;24 一个会有一个 session 一篇文章讲同一个事，可怕。
+Taming Throughput-Latency Tradeoff in LLM Inference with Sarathi-Serve 背景是现有 llm serving 系统（TRT-LLM, vLLM）要么等 decode 完了再 prefill, 要么有 prefill 就先做完整个 prefill, 导致 latency to first token 或者 decoding latency 不稳定。一个额外的坏处是这个事情影响 pp，因为 pp 里面有多个任务，每个任务时长不一样，就会有比较多的 bubble。
+这文章把 prefill 任务 chunk 掉，这样调度的时候可以更好地复合 prefill 和 decode，控制 pp 里每个任务的 latency，从而对 decode 的 latency 也有保障了 (stall-free batching）。</description>
+    </item>
+    
+  </channel>
+</rss>

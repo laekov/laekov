@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>sam on The Site of laekov</title>
+    <link>/tags/sam/</link>
+    <description>Recent content in sam on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Fri, 03 Apr 2015 10:39:33 +0000</lastBuildDate><atom:link href="/tags/sam/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>bzoj3238 [Ahoi2013]差异</title>
+      <link>/oi/dbimport_184/</link>
+      <pubDate>Fri, 03 Apr 2015 10:39:33 +0000</pubDate>
+      
+      <guid>/oi/dbimport_184/</guid>
+      <description>考试的时候do big die去刷bzoj.大概下午会hug zero.
+sam的第二题.其实这个玩意是应该用sa做的,不过现在我觉得sa没有sam简单.虽然sam的构造和性质还是一团大雾.
+这个题可以做出原串的后缀树,然后在上面dp一下.每个点对答案的贡献为任意两个不在同一子树的终态对数*深度.
+然后倒过来建sam,它的parent树就是原串的后缀树.虽然我还没有成功理解这个东西.
+然后坑了一会的一件事情是新建的nq节点的right集合为空.因为它只是一个扩展点,但是不是一个接受态ovo
+我还是太弱啊怎么办.</description>
+    </item>
+    
+    <item>
+      <title>bzoj2806 ctsc2012 Cheat</title>
+      <link>/oi/dbimport_161/</link>
+      <pubDate>Wed, 25 Mar 2015 20:13:37 +0000</pubDate>
+      
+      <guid>/oi/dbimport_161/</guid>
+      <description>我的SAM第一题。按照惯例几乎是照着std抄的OVO。本来以为是要在SAM上DP，后来发现好像是并列的，于是比较开心。
+SAM这个东西主要就是用来匹配子串用的。建法详见clj的课件，然后现在我还处于消化状态中。
+SAM匹配多个串的话也比较好弄，直接在串末再加一个字符集里没有的元素就好了。
+现在假设已经用SAM匹配出了第i个位置往左ml[i]个位置都是可以匹配的，那么可以二分一个答案，然后用单调队列来DP判断。写法比较简单，虽然我急着去写SAM所以这部分也是蒙过去的。
+然后网上的2个std就有2种不同的答案还和我不一样。最后还是wd学长的代码靠谱orz。
+现在我可以说我是写过SAM的人了哈哈。</description>
+    </item>
+    
+  </channel>
+</rss>

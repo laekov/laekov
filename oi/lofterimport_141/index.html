@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>SPOJ4487 GSS6 | The Site of laekov</title>
+<meta name="keywords" content="data\xa0structure, spoj, oi">
+<meta name="description" content="看上去挺水水水水水水水水的一道平衡树维护序列的数据结构题啊。
+先用split-merge tree写，tle。
+然后改用splay，tle。
+最后据说把splay的裸数组改到struct node里就能过。于是再写了一个程序来改代码。
+不&nbsp;带&nbsp;这&nbsp;么&nbsp;坑&nbsp;的&nbsp;！
+#include &lt;cstdio&gt;
+#include &lt;cstdlib&gt;
+#include &lt;cctype&gt;
+#include &lt;memory.h&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+/*#define readInt(_s_)&nbsp;{\
+int _d_;\
+bool _nag_ = 0;\
+_s_ = 0;\
+while (!isdigit(_d_&nbsp;= getchar()))\
+if (_d_&nbsp;==&nbsp;&#39;-&#39;)\
+_nag_ = 1;\
+while ((_s_&nbsp;= _s_ * 10 &#43; _d_ - 48), isdigit(_d_ = getchar()));\
+if (_nag_)\
+_s_ =&nbsp;- _s_;\
+}*/
+#define readInt(_s_) scanf(&quot;%d&quot;,&amp;_s_);
+#define readOpt(_s_)&nbsp;{\
+do\
+_s_ = getchar();\
+while (_s_&nbsp;!=&nbsp;&#39;I&#39;&nbsp;&amp;&amp; _s_ !=&nbsp;&#39;D&#39;&nbsp;&amp;&amp; _s_ !">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/lofterimport_141/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="SPOJ4487 GSS6" />
+<meta property="og:description" content="看上去挺水水水水水水水水的一道平衡树维护序列的数据结构题啊。
+先用split-merge tree写，tle。
+然后改用splay，tle。
+最后据说把splay的裸数组改到struct node里就能过。于是再写了一个程序来改代码。
+不&nbsp;带&nbsp;这&nbsp;么&nbsp;坑&nbsp;的&nbsp;！
+#include &lt;cstdio&gt;
+#include &lt;cstdlib&gt;
+#include &lt;cctype&gt;
+#include &lt;memory.h&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+/*#define readInt(_s_)&nbsp;{\
+int _d_;\
+bool _nag_ = 0;\
+_s_ = 0;\
+while (!isdigit(_d_&nbsp;= getchar()))\
+if (_d_&nbsp;==&nbsp;&#39;-&#39;)\
+_nag_ = 1;\
+while ((_s_&nbsp;= _s_ * 10 &#43; _d_ - 48), isdigit(_d_ = getchar()));\
+if (_nag_)\
+_s_ =&nbsp;- _s_;\
+}*/
+#define readInt(_s_) scanf(&quot;%d&quot;,&amp;_s_);
+#define readOpt(_s_)&nbsp;{\
+do\
+_s_ = getchar();\
+while (_s_&nbsp;!=&nbsp;&#39;I&#39;&nbsp;&amp;&amp; _s_ !=&nbsp;&#39;D&#39;&nbsp;&amp;&amp; _s_ !" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/lofterimport_141/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2014-10-17T19:48:32+00:00" />
+<meta property="article:modified_time" content="2014-10-17T19:48:32+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="SPOJ4487 GSS6"/>
+<meta name="twitter:description" content="看上去挺水水水水水水水水的一道平衡树维护序列的数据结构题啊。
+先用split-merge tree写，tle。
+然后改用splay，tle。
+最后据说把splay的裸数组改到struct node里就能过。于是再写了一个程序来改代码。
+不&nbsp;带&nbsp;这&nbsp;么&nbsp;坑&nbsp;的&nbsp;！
+#include &lt;cstdio&gt;
+#include &lt;cstdlib&gt;
+#include &lt;cctype&gt;
+#include &lt;memory.h&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+/*#define readInt(_s_)&nbsp;{\
+int _d_;\
+bool _nag_ = 0;\
+_s_ = 0;\
+while (!isdigit(_d_&nbsp;= getchar()))\
+if (_d_&nbsp;==&nbsp;&#39;-&#39;)\
+_nag_ = 1;\
+while ((_s_&nbsp;= _s_ * 10 &#43; _d_ - 48), isdigit(_d_ = getchar()));\
+if (_nag_)\
+_s_ =&nbsp;- _s_;\
+}*/
+#define readInt(_s_) scanf(&quot;%d&quot;,&amp;_s_);
+#define readOpt(_s_)&nbsp;{\
+do\
+_s_ = getchar();\
+while (_s_&nbsp;!=&nbsp;&#39;I&#39;&nbsp;&amp;&amp; _s_ !=&nbsp;&#39;D&#39;&nbsp;&amp;&amp; _s_ !"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "SPOJ4487 GSS6",
+      "item": "/oi/lofterimport_141/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "SPOJ4487 GSS6",
+  "name": "SPOJ4487 GSS6",
+  "description": "看上去挺水水水水水水水水的一道平衡树维护序列的数据结构题啊。\n先用split-merge tree写，tle。\n然后改用splay，tle。\n最后据说把splay的裸数组改到struct node里就能过。于是再写了一个程序来改代码。\n不\u0026nbsp;带\u0026nbsp;这\u0026nbsp;么\u0026nbsp;坑\u0026nbsp;的\u0026nbsp;！\n#include \u0026lt;cstdio\u0026gt;\n#include \u0026lt;cstdlib\u0026gt;\n#include \u0026lt;cctype\u0026gt;\n#include \u0026lt;memory.h\u0026gt;\n#include \u0026lt;algorithm\u0026gt;\nusing namespace std;\n/*#define readInt(_s_)\u0026nbsp;{\\\nint _d_;\\\nbool _nag_ = 0;\\\n_s_ = 0;\\\nwhile (!isdigit(_d_\u0026nbsp;= getchar()))\\\nif (_d_\u0026nbsp;==\u0026nbsp;'-')\\\n_nag_ = 1;\\\nwhile ((_s_\u0026nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\\\nif (_nag_)\\\n_s_ =\u0026nbsp;- _s_;\\\n}*/\n#define readInt(_s_) scanf(\u0026quot;%d\u0026quot;,\u0026amp;_s_);\n#define readOpt(_s_)\u0026nbsp;{\\\ndo\\\n_s_ = getchar();\\\nwhile (_s_\u0026nbsp;!=\u0026nbsp;'I'\u0026nbsp;\u0026amp;\u0026amp; _s_ !=\u0026nbsp;'D'\u0026nbsp;\u0026amp;\u0026amp; _s_ !",
+  "keywords": [
+    "data\\xa0structure", "spoj", "oi"
+  ],
+  "articleBody": "看上去挺水水水水水水水水的一道平衡树维护序列的数据结构题啊。\n先用split-merge tree写，tle。\n然后改用splay，tle。\n最后据说把splay的裸数组改到struct node里就能过。于是再写了一个程序来改代码。\n不 带 这 么 坑 的 ！\n#include #include #include #include #include using namespace std;\n/*#define readInt(_s_) {\\\nint _d_;\\\nbool _nag_ = 0;\\\n_s_ = 0;\\\nwhile (!isdigit(_d_ = getchar()))\\\nif (_d_ == '-')\\\n_nag_ = 1;\\\nwhile ((_s_ = _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\\\nif (_nag_)\\\n_s_ = - _s_;\\\n}*/\n#define readInt(_s_) scanf(\"%d\",\u0026_s_);\n#define readOpt(_s_) {\\\ndo\\\n_s_ = getchar();\\\nwhile (_s_ != 'I' \u0026\u0026 _s_ != 'D' \u0026\u0026 _s_ != 'R' \u0026\u0026 _s_ != 'Q');\\\n}\nconst int maxn = 200009;\nstruct node {\nint vl, ls, rs, pt, sz, sl, sr, sm, s;\n};\nint v0[maxn];\nint n, m, rt, tn, cr;\nnode tree[maxn];\ninline void initDat(const int\u0026 p, const int\u0026 v0) {\ntree[p]. sl = v0;\ntree[p]. sr = v0;\ntree[p]. sm = v0;\ntree[p]. s = v0;\n}\ninline void mergeDat(const int\u0026 p, const int\u0026 a, const int\u0026 b) {\nint nl = max(tree[a]. sl, tree[a]. sm + tree[b]. sl);\nint nr = max(tree[b]. sr, tree[b]. sm + tree[a]. sr);\nint nm = tree[a]. sm + tree[b]. sm;\nint nx = max(max(tree[a]. s, tree[b]. s), tree[a]. sr + tree[b]. sl);\ntree[p]. sl = nl;\ntree[p]. sr = nr;\ntree[p]. sm = nm;\ntree[p]. s = nx;\n}\nint newNode(int v0) {\n++ tn;\ntree[tn]. vl = v0;\ntree[tn]. ls = 0;\ntree[tn]. rs = 0;\ntree[tn]. sz = 1;\ninitDat(tn, v0);\nreturn tn;\n}\n#define update(_p_) {\\\ntree[_p_]. sz = tree[tree[_p_]. ls]. sz + tree[tree[_p_]. rs]. sz + 1;\\\ninitDat(_p_, tree[_p_]. vl);\\\nif (tree[_p_]. ls)\\\nmergeDat(_p_, tree[_p_]. ls, _p_);\\\nif (tree[_p_]. rs)\\\nmergeDat(_p_, _p_, tree[_p_]. rs);\\\n}\ninline void lRot(int q) {\nint p = tree[q]. pt, a = tree[p]. pt;\nif (tree[q]. rs)\ntree[tree[q]. rs]. pt = p;\ntree[p]. ls = tree[q]. rs;\ntree[q]. rs = p;\ntree[q]. pt = a;\ntree[p]. pt = q;\nif (a) {\nif (p == tree[a]. ls)\ntree[a]. ls = q;\nelse\ntree[a]. rs = q;\n}\nupdate(p);\nupdate(q);\n}\ninline void rRot(int q) {\nint p = tree[q]. pt, a = tree[p]. pt;\nif (tree[q]. ls)\ntree[tree[q]. ls]. pt = p;\ntree[p]. rs = tree[q]. ls;\ntree[q]. ls = p;\ntree[q]. pt = a;\ntree[p]. pt = q;\nif (a) {\nif (p == tree[a]. ls)\ntree[a]. ls = q;\nelse\ntree[a]. rs = q;\n}\nupdate(p);\nupdate(q);\n}\nvoid splay(int q) {\nwhile (tree[q]. pt) {\nint p = tree[q]. pt, a = tree[p]. pt;\nif (!a || !tree[a]. pt) {\nif (q == tree[p]. ls)\nlRot(q);\nelse\nrRot(q);\n}\nelse {\nif (p == tree[a]. ls) {\nif (q == tree[p]. ls) {\nlRot(p);\nlRot(q);\n}\nelse {\nrRot(q);\nlRot(q);\n}\n}\nelse {\nif (q == tree[p]. rs) {\nrRot(p);\nrRot(q);\n}\nelse {\nlRot(q);\nrRot(q);\n}\n}\n}\n}\n}\nint makeTree(int l, int r) {\nif (l \u003e r)\nreturn 0;\nint x = (l + r) \u003e\u003e 1;\nint p = newNode(v0[x]);\ntree[p]. ls = makeTree(l, x - 1);\ntree[tree[p]. ls]. pt = p;\ntree[p]. rs = makeTree(x + 1, r);\ntree[tree[p]. rs]. pt = p;\nupdate(p);\nreturn p;\n}\nint kth(int p, int k) {\nwhile (p)\nif (tree[tree[p]. ls]. sz + 1 == k)\nbreak;\nelse if (tree[tree[p]. ls]. sz \u003e= k)\np = tree[p]. ls;\nelse\nk -= tree[tree[p]. ls]. sz + 1, p = tree[p]. rs;\nreturn p;\n}\nint query(int rt, int l, int r) {\nint p = kth(rt, l), q = kth(rt, r + 2);\nsplay(p);\nsplay(q);\ncr = q;\nreturn tree[tree[p]. rs]. s;\n}\nvoid dispTree(int p, bool ed = 1) {\nif (!p)\nreturn;\ndispTree(tree[p]. ls, 0);\nprintf(\"%d \", tree[p]. vl);\ndispTree(tree[p]. rs, 0);\nif (ed)\nputchar(10);\n}\nint main() {\n#ifndef ONLINE_JUDGE\nfreopen(\"in.txt\", \"r\", stdin);\n#endif\nreadInt(n);\nrt = 0;\ntn = 0;\nfor (int i = 1; i \u003c= n; ++ i)\nreadInt(v0[i]);\nv0[0] = 0;\nv0[n + 1] = 0;\ncr = makeTree(0, n + 1);\nreadInt(m);\nwhile (m --) {\nchar opt;\nint p, v, l, r, rt = cr;\nreadOpt(opt);\n//dispTree(cr);\nif (opt == 'I') {\nreadInt(p);\nreadInt(v);\nint q = kth(rt, p), u = newNode(v);\nsplay(q);\ncr = q;\nif (tree[q]. rs)\ntree[tree[q]. rs]. pt = u;\ntree[u]. rs = tree[q]. rs;\nupdate(u);\ntree[q]. rs = u;\ntree[u]. pt = q;\nupdate(q);\nif (tree[u]. rs) {\ncr = tree[u]. rs;\nsplay(cr);\n}\n++ n;\n}\nelse if (opt == 'D') {\nreadInt(p);\nint q = kth(rt, p + 1);\nsplay(q);\ncr = q;\nif (!tree[q]. rs)\ntree[tree[q]. ls]. pt = 0;\nelse {\nint x = kth(tree[q]. rs, 1);\ntree[tree[q]. rs]. pt = 0;\nsplay(x);\ncr = x;\ntree[x]. ls = tree[q]. ls;\nif (tree[q]. ls)\ntree[tree[q]. ls]. pt = x;\nupdate(x);\ncr = kth(x, tree[x]. sz \u003e\u003e 1);\nsplay(cr);\n}\n-- n;\n}\nelse if (opt == 'R') {\nreadInt(p);\nreadInt(v);\nint q = kth(rt, p + 1);\nsplay(q);\ncr = q;\ntree[q]. vl = v;\nupdate(q);\n}\nelse if (opt == 'Q') {\nreadInt(l);\nreadInt(r);\nprintf(\"%d\\n\", query(rt, l, r));\n}\n}\n}\n",
+  "wordCount" : "775",
+  "inLanguage": "en",
+  "datePublished": "2014-10-17T19:48:32Z",
+  "dateModified": "2014-10-17T19:48:32Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/lofterimport_141/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      SPOJ4487 GSS6
+    </h1>
+    <div class="post-meta"><span title='2014-10-17 19:48:32 +0000 UTC'>October 17, 2014</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>看上去挺水水水水水水水水的一道平衡树维护序列的数据结构题啊。<br /></p> 
+<p><br /></p> 
+<p>先用split-merge tree写，tle。</p> 
+<p><br /></p> 
+<p>然后改用splay，tle。</p> 
+<p><br /></p> 
+<p>最后据说把splay的裸数组改到struct node里就能过。于是再写了一个程序来改代码。</p> 
+<p><br /></p> 
+<p>不&nbsp;带&nbsp;这&nbsp;么&nbsp;坑&nbsp;的&nbsp;！</p> 
+<p><br /></p> 
+<p><br /></p> 
+<p>#include &lt;cstdio&gt;</p> 
+<p>#include &lt;cstdlib&gt;</p> 
+<p>#include &lt;cctype&gt;</p> 
+<p>#include &lt;memory.h&gt;</p> 
+<p>#include &lt;algorithm&gt;</p> 
+<p><br /></p> 
+<p>using namespace std;</p> 
+<p><br /></p> 
+<p>/*#define readInt(_s_)&nbsp;{\</p> 
+<p>int _d_;\</p> 
+<p>bool _nag_ = 0;\</p> 
+<p>_s_ = 0;\</p> 
+<p>while (!isdigit(_d_&nbsp;= getchar()))\</p> 
+<p>if (_d_&nbsp;==&nbsp;'-')\</p> 
+<p>_nag_ = 1;\</p> 
+<p>while ((_s_&nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\</p> 
+<p>if (_nag_)\</p> 
+<p>_s_ =&nbsp;- _s_;\</p> 
+<p>}*/</p> 
+<p>#define readInt(_s_) scanf(&quot;%d&quot;,&amp;_s_);</p> 
+<p>#define readOpt(_s_)&nbsp;{\</p> 
+<p>do\</p> 
+<p>_s_ = getchar();\</p> 
+<p>while (_s_&nbsp;!=&nbsp;'I'&nbsp;&amp;&amp; _s_ !=&nbsp;'D'&nbsp;&amp;&amp; _s_ !=&nbsp;'R'&nbsp;&amp;&amp; _s_ !=&nbsp;'Q');\</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>const int maxn = 200009;</p> 
+<p><br /></p> 
+<p>struct node {</p> 
+<p>int vl, ls, rs, pt, sz, sl, sr, sm, s;</p> 
+<p>};</p> 
+<p><br /></p> 
+<p>int v0[maxn];</p> 
+<p>int n, m, rt, tn, cr;</p> 
+<p>node tree[maxn];</p> 
+<p><br /></p> 
+<p>inline void initDat(const int&amp; p, const int&amp; v0)&nbsp;{</p> 
+<p>tree[p]. sl = v0;</p> 
+<p>tree[p]. sr = v0;</p> 
+<p>tree[p]. sm = v0;</p> 
+<p>tree[p]. s = v0;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>inline void mergeDat(const int&amp; p, const int&amp; a, const int&amp; b)&nbsp;{</p> 
+<p>int nl = max(tree[a]. sl, tree[a]. sm + tree[b]. sl);</p> 
+<p>int nr = max(tree[b]. sr, tree[b]. sm + tree[a]. sr);</p> 
+<p>int nm = tree[a]. sm + tree[b]. sm;</p> 
+<p>int nx = max(max(tree[a]. s, tree[b]. s), tree[a]. sr + tree[b]. sl);</p> 
+<p>tree[p]. sl = nl;</p> 
+<p>tree[p]. sr = nr;</p> 
+<p>tree[p]. sm = nm;</p> 
+<p>tree[p]. s = nx;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int newNode(int v0)&nbsp;{</p> 
+<p>++ tn;</p> 
+<p>tree[tn]. vl = v0;</p> 
+<p>tree[tn]. ls = 0;</p> 
+<p>tree[tn]. rs = 0;</p> 
+<p>tree[tn]. sz = 1;</p> 
+<p>initDat(tn, v0);</p> 
+<p>return tn;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>#define update(_p_)&nbsp;{\</p> 
+<p>tree[_p_]. sz = tree[tree[_p_]. ls]. sz + tree[tree[_p_]. rs]. sz + 1;\</p> 
+<p>initDat(_p_, tree[_p_]. vl);\</p> 
+<p>if (tree[_p_]. ls)\</p> 
+<p>mergeDat(_p_, tree[_p_]. ls, _p_);\</p> 
+<p>if (tree[_p_]. rs)\</p> 
+<p>mergeDat(_p_, _p_, tree[_p_]. rs);\</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>inline void lRot(int q)&nbsp;{</p> 
+<p>int p = tree[q]. pt, a = tree[p]. pt;</p> 
+<p>if (tree[q]. rs)</p> 
+<p>tree[tree[q]. rs]. pt = p;</p> 
+<p>tree[p]. ls = tree[q]. rs;</p> 
+<p>tree[q]. rs = p;</p> 
+<p>tree[q]. pt = a;</p> 
+<p>tree[p]. pt = q;</p> 
+<p>if (a)&nbsp;{</p> 
+<p>if (p&nbsp;== tree[a]. ls)</p> 
+<p>tree[a]. ls = q;</p> 
+<p>else</p> 
+<p>tree[a]. rs = q;</p> 
+<p>}</p> 
+<p>update(p);</p> 
+<p>update(q);</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>inline void rRot(int q)&nbsp;{</p> 
+<p>int p = tree[q]. pt, a = tree[p]. pt;</p> 
+<p>if (tree[q]. ls)</p> 
+<p>tree[tree[q]. ls]. pt = p;</p> 
+<p>tree[p]. rs = tree[q]. ls;</p> 
+<p>tree[q]. ls = p;</p> 
+<p>tree[q]. pt = a;</p> 
+<p>tree[p]. pt = q;</p> 
+<p>if (a)&nbsp;{</p> 
+<p>if (p&nbsp;== tree[a]. ls)</p> 
+<p>tree[a]. ls = q;</p> 
+<p>else</p> 
+<p>tree[a]. rs = q;</p> 
+<p>}</p> 
+<p>update(p);</p> 
+<p>update(q);</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>void splay(int q)&nbsp;{</p> 
+<p>while (tree[q]. pt)&nbsp;{</p> 
+<p>int p = tree[q]. pt, a = tree[p]. pt;</p> 
+<p>if (!a&nbsp;||&nbsp;!tree[a]. pt)&nbsp;{</p> 
+<p>if (q&nbsp;== tree[p]. ls)</p> 
+<p>lRot(q);</p> 
+<p>else</p> 
+<p>rRot(q);</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>if (p&nbsp;== tree[a]. ls)&nbsp;{</p> 
+<p>if (q&nbsp;== tree[p]. ls)&nbsp;{</p> 
+<p>lRot(p);</p> 
+<p>lRot(q);</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>rRot(q);</p> 
+<p>lRot(q);</p> 
+<p>}</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>if (q&nbsp;== tree[p]. rs)&nbsp;{</p> 
+<p>rRot(p);</p> 
+<p>rRot(q);</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>lRot(q);</p> 
+<p>rRot(q);</p> 
+<p>}</p> 
+<p>}</p> 
+<p>}</p> 
+<p>}</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int makeTree(int l, int r)&nbsp;{</p> 
+<p>if (l&nbsp;&gt; r)</p> 
+<p>return 0;</p> 
+<p>int x =&nbsp;(l&nbsp;+ r)&nbsp;&gt;&gt; 1;</p> 
+<p>int p = newNode(v0[x]);</p> 
+<p>tree[p]. ls = makeTree(l, x - 1);</p> 
+<p>tree[tree[p]. ls]. pt = p;</p> 
+<p>tree[p]. rs = makeTree(x + 1, r);</p> 
+<p>tree[tree[p]. rs]. pt = p;</p> 
+<p>update(p);</p> 
+<p>return p;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int kth(int p, int k)&nbsp;{</p> 
+<p>while (p)</p> 
+<p>if (tree[tree[p]. ls]. sz + 1 == k)</p> 
+<p>break;</p> 
+<p>else if (tree[tree[p]. ls]. sz &gt;= k)</p> 
+<p>p = tree[p]. ls;</p> 
+<p>else</p> 
+<p>k -= tree[tree[p]. ls]. sz + 1, p = tree[p]. rs;</p> 
+<p>return p;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int query(int rt, int l, int r)&nbsp;{</p> 
+<p>int p = kth(rt, l), q = kth(rt, r + 2);</p> 
+<p>splay(p);</p> 
+<p>splay(q);</p> 
+<p>cr = q;</p> 
+<p>return tree[tree[p]. rs]. s;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>void dispTree(int p, bool ed = 1)&nbsp;{</p> 
+<p>if (!p)</p> 
+<p>return;</p> 
+<p>dispTree(tree[p]. ls, 0);</p> 
+<p>printf(&quot;%d &quot;, tree[p]. vl);</p> 
+<p>dispTree(tree[p]. rs, 0);</p> 
+<p>if (ed)</p> 
+<p>putchar(10);</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int main()&nbsp;{</p> 
+<p>#ifndef ONLINE_JUDGE</p> 
+<p>freopen(&quot;in.txt&quot;,&nbsp;&quot;r&quot;, stdin);</p> 
+<p>#endif</p> 
+<p><br /></p> 
+<p>readInt(n);</p> 
+<p>rt = 0;</p> 
+<p>tn = 0;</p> 
+<p>for (int i = 1; i &lt;= n;&nbsp;++ i)</p> 
+<p>readInt(v0[i]);</p> 
+<p>v0[0]&nbsp;= 0;</p> 
+<p>v0[n + 1]&nbsp;= 0;</p> 
+<p>cr = makeTree(0, n + 1);</p> 
+<p>readInt(m);</p> 
+<p>while (m&nbsp;--)&nbsp;{</p> 
+<p>char opt;</p> 
+<p>int p, v, l, r, rt = cr;</p> 
+<p>readOpt(opt);</p> 
+<p>//dispTree(cr);</p> 
+<p>if (opt&nbsp;==&nbsp;'I')&nbsp;{</p> 
+<p>readInt(p);</p> 
+<p>readInt(v);</p> 
+<p>int q = kth(rt, p), u = newNode(v);</p> 
+<p>splay(q);</p> 
+<p>cr = q;</p> 
+<p>if (tree[q]. rs)</p> 
+<p>tree[tree[q]. rs]. pt = u;</p> 
+<p>tree[u]. rs = tree[q]. rs;</p> 
+<p>update(u);</p> 
+<p>tree[q]. rs = u;</p> 
+<p>tree[u]. pt = q;</p> 
+<p>update(q);</p> 
+<p>if (tree[u]. rs)&nbsp;{</p> 
+<p>cr = tree[u]. rs;</p> 
+<p>splay(cr);</p> 
+<p>}</p> 
+<p>++ n;</p> 
+<p>}</p> 
+<p>else if (opt&nbsp;==&nbsp;'D')&nbsp;{</p> 
+<p>readInt(p);</p> 
+<p>int q = kth(rt, p + 1);</p> 
+<p>splay(q);</p> 
+<p>cr = q;</p> 
+<p>if (!tree[q]. rs)</p> 
+<p>tree[tree[q]. ls]. pt = 0;</p> 
+<p>else {</p> 
+<p>int x = kth(tree[q]. rs, 1);</p> 
+<p>tree[tree[q]. rs]. pt = 0;</p> 
+<p>splay(x);</p> 
+<p>cr = x;</p> 
+<p>tree[x]. ls = tree[q]. ls;</p> 
+<p>if (tree[q]. ls)</p> 
+<p>tree[tree[q]. ls]. pt = x;</p> 
+<p>update(x);</p> 
+<p>cr = kth(x, tree[x]. sz &gt;&gt; 1);</p> 
+<p>splay(cr);</p> 
+<p>}</p> 
+<p>-- n;</p> 
+<p>}</p> 
+<p>else if (opt&nbsp;==&nbsp;'R')&nbsp;{</p> 
+<p>readInt(p);</p> 
+<p>readInt(v);</p> 
+<p>int q = kth(rt, p + 1);</p> 
+<p>splay(q);</p> 
+<p>cr = q;</p> 
+<p>tree[q]. vl = v;</p> 
+<p>update(q);</p> 
+<p>}</p> 
+<p>else if (opt&nbsp;==&nbsp;'Q')&nbsp;{</p> 
+<p>readInt(l);</p> 
+<p>readInt(r);</p> 
+<p>printf(&quot;%d\n&quot;, query(rt, l, r));</p> 
+<p>}</p> 
+<p>}</p> 
+<p>}</p> 
+<p><br /></p> 
+<p><br /></p>
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/data%5Cxa0structure/">data\xa0structure</a></li>
+      <li><a href="/tags/spoj/">spoj</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/lofterimport_139/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>20141018 计划</span>
+  </a>
+  <a class="next" href="/oi/lofterimport_142/">
+    <span class="title">Next »</span>
+    <br>
+    <span>20141017 计划</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

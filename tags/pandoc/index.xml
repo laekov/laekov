@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>pandoc on The Site of laekov</title>
+    <link>/tags/pandoc/</link>
+    <description>Recent content in pandoc on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Tue, 15 Mar 2022 15:37:07 +0000</lastBuildDate><atom:link href="/tags/pandoc/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Pandoc 的 short author 字段缺失 fix</title>
+      <link>/technical/f86b57/</link>
+      <pubDate>Tue, 15 Mar 2022 15:37:07 +0000</pubDate>
+      
+      <guid>/technical/f86b57/</guid>
+      <description>laekov 搞了一个在 overleaf 里写 pandoc 的东西叫 panleaf, 并用它做一些愉快的 beamer slides.
+但是 laekov 在做一个作者有七个人的 slides 的时候发现如果把七个人塞在正文的每页的底下, 就会巨长无比, overflow. latex 提供了 short author 功能, 在 beamer 里面正文的页脚只显示 short, 而 titlepage 显示全文. 但左右看了一圈发现 pandoc 的 author 字段并没有这样的支持. 而且即使不填 author 字段, 生成的 tex 文件里面还是会蹦出一个 \author{}, 且在自定义 latex template 的后面, 所以无法在 template 里面插 author 来解决.
+laekov 于是找来了 pandoc 的 beamer writer (default.beamer, 也可能是 default.latex), 在里面找 author, 果然找到这么一段.
+\author{$for(author)$ $author$ $sep$ \and $endfor$} 这么暴力怎么行, 于是加上一个 if 变成酱紫.</description>
+    </item>
+    
+  </channel>
+</rss>

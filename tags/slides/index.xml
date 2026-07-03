@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>slides on The Site of laekov</title>
+    <link>/tags/slides/</link>
+    <description>Recent content in slides on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Tue, 14 Jul 2020 09:17:00 +0000</lastBuildDate><atom:link href="/tags/slides/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Pipedream </title>
+      <link>/post/5554ae/</link>
+      <pubDate>Tue, 14 Jul 2020 09:17:00 +0000</pubDate>
+      
+      <guid>/post/5554ae/</guid>
+      <description>% Pipedream - Generalized Pipeline Parallelism for DNN Training % Authors from MSR + CMU + Stanford; Presentation &amp;amp; Interpretation by laekov % July 14
+DNN Training 的三种并行模式 Data Parallel (DP) 沿 batch 维度进行切分 通信: 同步 weight Model Parallel (MP) 沿 weight 维度进行切分 通信: feature tensor 的求和或者拼装 Pipeline Parallel (PP) Inter-layer partition 通信: 切口处的 feature tensor 及它们的梯度 (在部分模型中通信更少) Overlap 通信和计算 (DP 的 lazy update 也算 pipeline 的一种) Inter-batch Parallelism 无并行的 pipeline 分摊 weight 所需显存 支持不同规格加速器混用 在 homogeneous 环境下毫无加速 GPipe 并行: 批处理模式 Pipedream 并行 多发射 forward 和 backwoard 交错进行 可填满流水线 计算通信 overlap 由 pytorch 框架实现.</description>
+    </item>
+    
+    <item>
+      <title>JAX Reading Log</title>
+      <link>/post/7990d5/</link>
+      <pubDate>Mon, 13 Jul 2020 21:49:51 +0000</pubDate>
+      
+      <guid>/post/7990d5/</guid>
+      <description>% JAX: Autograd and XLA % Jiaao Ho % July 9, 2020
+功能和组成 Autograd: 自动求导, numpy 自动求导 JIT: 把 numpy 运算移植到 GPU 和 TPU 上 vmap: 自动 vectorize pmap: 自动 SPMD 自动求导和训练 使用 grad 函数实现 from jax import grad import jax.numpy as np def tanh(x): # Define a function y = np.exp(-2.0 * x) return (1.0 - y) / (1.0 + y) grad_tanh = grad(tanh) # Obtain its gradient function print(grad_tanh(1.</description>
+    </item>
+    
+  </channel>
+</rss>

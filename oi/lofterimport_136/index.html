@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>BZOJ1977 次小生成树 | The Site of laekov</title>
+<meta name="keywords" content="bzoj, data\xa0structure, oi">
+<meta name="description" content="题意是严格次小生成树。
+想了一下发现应该是一条不在最小生成树上的边构成的环上替换一条边就行了。感觉好想noi那道lct，哈。其实不用那么复杂的。
+就用倍增就可以了。不过我还是比较倾向于用链剖。感觉链剖空间小而且写起来倍爽。不像倍增写挂了不只一次了。
+要注意的是不仅要找最大值还要找严格次大值，因为要找严格次小。
+#include &lt;cstdio&gt;
+#include &lt;cctype&gt;
+#include &lt;memory.h&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+typedef long long qw;
+#ifdef WIN32
+#define lld &quot;%I64d&quot;
+#else
+#define lld &quot;%lld&quot;
+#endif
+struct edge_g {
+int a, b, v, mk;
+};
+struct edge_t {
+int t, v;
+edge_t *next;
+};
+struct dat {
+int a, b;
+dat(int v0 =&nbsp;-1)&nbsp;{
+a = v0, b =&nbsp;-1;
+}
+dat(int a0, int b0)&nbsp;{
+a = a0, b = b0;">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/lofterimport_136/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="BZOJ1977 次小生成树" />
+<meta property="og:description" content="题意是严格次小生成树。
+想了一下发现应该是一条不在最小生成树上的边构成的环上替换一条边就行了。感觉好想noi那道lct，哈。其实不用那么复杂的。
+就用倍增就可以了。不过我还是比较倾向于用链剖。感觉链剖空间小而且写起来倍爽。不像倍增写挂了不只一次了。
+要注意的是不仅要找最大值还要找严格次大值，因为要找严格次小。
+#include &lt;cstdio&gt;
+#include &lt;cctype&gt;
+#include &lt;memory.h&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+typedef long long qw;
+#ifdef WIN32
+#define lld &quot;%I64d&quot;
+#else
+#define lld &quot;%lld&quot;
+#endif
+struct edge_g {
+int a, b, v, mk;
+};
+struct edge_t {
+int t, v;
+edge_t *next;
+};
+struct dat {
+int a, b;
+dat(int v0 =&nbsp;-1)&nbsp;{
+a = v0, b =&nbsp;-1;
+}
+dat(int a0, int b0)&nbsp;{
+a = a0, b = b0;" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/lofterimport_136/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2014-10-19T11:51:51+00:00" />
+<meta property="article:modified_time" content="2014-10-19T11:51:51+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BZOJ1977 次小生成树"/>
+<meta name="twitter:description" content="题意是严格次小生成树。
+想了一下发现应该是一条不在最小生成树上的边构成的环上替换一条边就行了。感觉好想noi那道lct，哈。其实不用那么复杂的。
+就用倍增就可以了。不过我还是比较倾向于用链剖。感觉链剖空间小而且写起来倍爽。不像倍增写挂了不只一次了。
+要注意的是不仅要找最大值还要找严格次大值，因为要找严格次小。
+#include &lt;cstdio&gt;
+#include &lt;cctype&gt;
+#include &lt;memory.h&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+typedef long long qw;
+#ifdef WIN32
+#define lld &quot;%I64d&quot;
+#else
+#define lld &quot;%lld&quot;
+#endif
+struct edge_g {
+int a, b, v, mk;
+};
+struct edge_t {
+int t, v;
+edge_t *next;
+};
+struct dat {
+int a, b;
+dat(int v0 =&nbsp;-1)&nbsp;{
+a = v0, b =&nbsp;-1;
+}
+dat(int a0, int b0)&nbsp;{
+a = a0, b = b0;"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "BZOJ1977 次小生成树",
+      "item": "/oi/lofterimport_136/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BZOJ1977 次小生成树",
+  "name": "BZOJ1977 次小生成树",
+  "description": "题意是严格次小生成树。\n想了一下发现应该是一条不在最小生成树上的边构成的环上替换一条边就行了。感觉好想noi那道lct，哈。其实不用那么复杂的。\n就用倍增就可以了。不过我还是比较倾向于用链剖。感觉链剖空间小而且写起来倍爽。不像倍增写挂了不只一次了。\n要注意的是不仅要找最大值还要找严格次大值，因为要找严格次小。\n#include \u0026lt;cstdio\u0026gt;\n#include \u0026lt;cctype\u0026gt;\n#include \u0026lt;memory.h\u0026gt;\n#include \u0026lt;algorithm\u0026gt;\nusing namespace std;\ntypedef long long qw;\n#ifdef WIN32\n#define lld \u0026quot;%I64d\u0026quot;\n#else\n#define lld \u0026quot;%lld\u0026quot;\n#endif\nstruct edge_g {\nint a, b, v, mk;\n};\nstruct edge_t {\nint t, v;\nedge_t *next;\n};\nstruct dat {\nint a, b;\ndat(int v0 =\u0026nbsp;-1)\u0026nbsp;{\na = v0, b =\u0026nbsp;-1;\n}\ndat(int a0, int b0)\u0026nbsp;{\na = a0, b = b0;",
+  "keywords": [
+    "bzoj", "data\\xa0structure", "oi"
+  ],
+  "articleBody": "题意是严格次小生成树。\n想了一下发现应该是一条不在最小生成树上的边构成的环上替换一条边就行了。感觉好想noi那道lct，哈。其实不用那么复杂的。\n就用倍增就可以了。不过我还是比较倾向于用链剖。感觉链剖空间小而且写起来倍爽。不像倍增写挂了不只一次了。\n要注意的是不仅要找最大值还要找严格次大值，因为要找严格次小。\n#include #include #include #include using namespace std;\ntypedef long long qw;\n#ifdef WIN32\n#define lld \"%I64d\"\n#else\n#define lld \"%lld\"\n#endif\nstruct edge_g {\nint a, b, v, mk;\n};\nstruct edge_t {\nint t, v;\nedge_t *next;\n};\nstruct dat {\nint a, b;\ndat(int v0 = -1) {\na = v0, b = -1;\n}\ndat(int a0, int b0) {\na = a0, b = b0;\n}\n};\nstruct seg {\nint l, r;\ndat d;\nseg *ls, *rs;\n};\ninline bool cmpEG(const edge_g\u0026 a, const edge_g\u0026 b) {\nreturn a. v \u003c b. v;\n}\n#define readInt(_s_) {\\\nint _d_;\\\n_s_ = 0;\\\nwhile (!isdigit(_d_ = getchar()));\\\nwhile ((_s_ = _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\\\n}\nconst int maxn = 100009;\nconst int maxe = 300009;\nint n, m, r[maxn];\nedge_g g[maxe];\nedge_t *head[maxn], *ep;\nint d[maxn], fa[maxn], sz[maxn], fc[maxn], ch[maxn], cl[maxn], df[maxn], tc;\nseg *rt[maxn], *sp;\nint getRoot(int x) {\nstatic int stc[maxn];\nint tstc = 1;\nstc[1] = x;\nwhile (r[stc[tstc]] ^ stc[tstc])\nstc[tstc + 1] = r[stc[tstc]], ++ tstc;\nwhile (-- tstc)\nr[stc[tstc]] = r[stc[tstc + 1]];\nreturn r[x];\n}\ninline void addEdge(int u, int v, int w) {\nep-\u003e t = v;\nep-\u003e v = w;\nep-\u003e next = head[u];\nhead[u] = ep ++;\n}\nqw kruskal() {\nqw s = 0;\nep = new edge_t[maxn * 2];\nsort(g, g + m, cmpEG);\nfor (int i = 1; i \u003c= n; ++ i)\nr[i] = i;\nfor (int i = 0; i \u003c m; ++ i)\nif (getRoot(g[i]. a) ^ getRoot(g[i]. b)) {\naddEdge(g[i]. a, g[i]. b, g[i]. v);\naddEdge(g[i]. b, g[i]. a, g[i]. v);\ng[i]. mk = 1;\ns += g[i]. v;\nr[getRoot(g[i]. a)] = getRoot(g[i]. b);\n}\nreturn s;\n}\n#define cpos(x) (d[x]-d[ch[fc[x]]])\n#define mid(p) ((p-\u003el+p-\u003er)\u003e\u003e1)\ninline dat ind(int v0) {\nreturn dat(v0);\n}\ninline dat mkd(const dat\u0026 a, const dat\u0026 b) {\ndat r;\nif (a. a \u003e b. a) {\nr. a = a. a;\nif (b. a == a. a)\nr. b = max(a. b, b. b);\nelse\nr. b = max(a. b, b. a);\n}\nelse {\nr. a = b. a;\nif (b. b == a. a)\nr. b = max(a. b, b. b);\nelse\nr. b = max(a. a, b. b);\n}\nreturn r;\n}\nseg* sgtBuild(int l, int r) {\nseg *p = sp ++;\np-\u003e l = l;\np-\u003e r = r;\nif (l + 1 \u003c r) {\np-\u003e ls = sgtBuild(l, mid(p));\np-\u003e rs = sgtBuild(mid(p), r);\n}\nreturn p;\n}\nvoid sgtChg(seg* p, int p0, int v0) {\nif (p-\u003e l + 1 == p-\u003e r)\np-\u003e d = ind(v0);\nelse {\nif (p0 \u003c mid(p))\nsgtChg(p-\u003e ls, p0, v0);\nelse\nsgtChg(p-\u003e rs, p0, v0);\np-\u003e d = mkd(p-\u003e ls-\u003e d, p-\u003e rs-\u003e d);\n}\n}\ndat sgtQry(seg* p, int l, int r) {\nif (l \u003e= r)\nreturn dat();\nelse if (p-\u003e l == l \u0026\u0026 p-\u003e r == r)\nreturn p-\u003e d;\nelse if (r \u003c= mid(p))\nreturn sgtQry(p-\u003e ls, l, r);\nelse if (l \u003e= mid(p))\nreturn sgtQry(p-\u003e rs, l, r);\nelse\nreturn mkd(sgtQry(p-\u003e ls, l, mid(p)), sgtQry(p-\u003e rs, mid(p), r));\n}\nvoid divide() {\nstatic int q[maxn];\nint hd = 0, tl = 1;\nmemset(d, 0, sizeof(d));\nq[hd] = 1;\nd[1] = 1;\nwhile (hd \u003c tl) {\nint p = q[hd ++];\nfor (edge_t *e = head[p]; e; e = e-\u003e next)\nif (!d[e-\u003e t]) {\nd[e-\u003e t] = d[p] + 1;\nfa[e-\u003e t] = p;\ndf[e-\u003e t] = e-\u003e v;\nq[tl ++] = e-\u003e t;\n}\n}\ntc = 0;\nfor (int ti = tl - 1; ti \u003e= 0; -- ti) {\nint p = q[ti], fs = -1;\nsz[p] = 1;\nfor (edge_t *e = head[p]; e; e = e-\u003e next)\nif (fa[e-\u003e t] == p) {\nsz[p] += sz[e-\u003e t];\nif (fs == -1 || sz[e-\u003e t] \u003e sz[fs])\nfs = e-\u003e t;\n}\nif (fs == -1) {\nfc[p] = tc ++;\nch[fc[p]] = p;\ncl[fc[p]] = 1;\n}\nelse {\nfc[p] = fc[fs];\nch[fc[p]] = p;\n++ cl[fc[p]];\n}\n}\nsp = new seg[maxn * 5];\nfor (int i = 0; i \u003c tc; ++ i)\nrt[i] = sgtBuild(0, cl[i]);\nfor (int p = 1; p \u003c= n; ++ p)\nsgtChg(rt[fc[p]], cpos(p), df[p]);\n}\ndat query(int u, int v) {\ndat s;\nwhile (fc[u] ^ fc[v])\nif (d[ch[fc[u]]] \u003e d[ch[fc[v]]]) {\ns = mkd(s, sgtQry(rt[fc[u]], 0, cpos(u) + 1));\nu = fa[ch[fc[u]]];\n}\nelse {\ns = mkd(s, sgtQry(rt[fc[v]], 0, cpos(v) + 1));\nv = fa[ch[fc[v]]];\n}\nif (d[u] \u003e d[v])\ns = mkd(s, sgtQry(rt[fc[u]], cpos(v) + 1, cpos(u) + 1));\nelse if (d[v] \u003e d[u])\ns = mkd(s, sgtQry(rt[fc[v]], cpos(u) + 1, cpos(v) + 1));\nreturn s;\n}\nint main() {\n#ifndef ONLINE_JUDGE\nfreopen(\"in.txt\", \"r\", stdin);\n#endif\nreadInt(n);\nreadInt(m);\nfor (int i = 0; i \u003c m; ++ i) {\nreadInt(g[i]. a);\nreadInt(g[i]. b);\nreadInt(g[i]. v);\ng[i]. mk = 0;\n}\nqw v0 = kruskal();\ndivide();\nint v1 = 0x3f3f3f3f;\nfor (int i = 0; i \u003c m; ++ i)\nif (!g[i]. mk) {\ndat h = query(g[i]. a, g[i]. b);\nif (g[i]. v \u003e h. b \u0026\u0026 h. b \u003e -1)\nv1 = min(v1, g[i]. v - h. b);\nif (g[i]. v \u003e h. a \u0026\u0026 h. a \u003e -1)\nv1 = min(v1, g[i]. v - h. a);\n}\nprintf(lld \"\\n\", v0 + v1);\n}\n",
+  "wordCount" : "813",
+  "inLanguage": "en",
+  "datePublished": "2014-10-19T11:51:51Z",
+  "dateModified": "2014-10-19T11:51:51Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/lofterimport_136/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      BZOJ1977 次小生成树
+    </h1>
+    <div class="post-meta"><span title='2014-10-19 11:51:51 +0000 UTC'>October 19, 2014</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>题意是严格次小生成树。</p> 
+<p><br /></p> 
+<p>想了一下发现应该是一条不在最小生成树上的边构成的环上替换一条边就行了。感觉好想noi那道lct，哈。其实不用那么复杂的。</p> 
+<p><br /></p> 
+<p>就用倍增就可以了。不过我还是比较倾向于用链剖。感觉链剖空间小而且写起来倍爽。不像倍增写挂了不只一次了。</p> 
+<p><br /></p> 
+<p>要注意的是不仅要找最大值还要找严格次大值，因为要找严格次小。</p> 
+<p><br /></p> 
+<p>#include &lt;cstdio&gt;</p> 
+<p>#include &lt;cctype&gt;</p> 
+<p>#include &lt;memory.h&gt;</p> 
+<p>#include &lt;algorithm&gt;</p> 
+<p><br /></p> 
+<p>using namespace std;</p> 
+<p><br /></p> 
+<p>typedef long long qw;</p> 
+<p><br /></p> 
+<p>#ifdef WIN32</p> 
+<p>#define lld &quot;%I64d&quot;</p> 
+<p>#else</p> 
+<p>#define lld &quot;%lld&quot;</p> 
+<p>#endif</p> 
+<p><br /></p> 
+<p>struct edge_g {</p> 
+<p>int a, b, v, mk;</p> 
+<p>};</p> 
+<p>struct edge_t {</p> 
+<p>int t, v;</p> 
+<p>edge_t *next;</p> 
+<p>};</p> 
+<p>struct dat {</p> 
+<p>int a, b;</p> 
+<p>dat(int v0 =&nbsp;-1)&nbsp;{</p> 
+<p>a = v0, b =&nbsp;-1;</p> 
+<p>}</p> 
+<p>dat(int a0, int b0)&nbsp;{</p> 
+<p>a = a0, b = b0;</p> 
+<p>}</p> 
+<p>};</p> 
+<p>struct seg {</p> 
+<p>int l, r;</p> 
+<p>dat d;</p> 
+<p>seg *ls,&nbsp;*rs;</p> 
+<p>};</p> 
+<p><br /></p> 
+<p>inline bool cmpEG(const edge_g&amp; a, const edge_g&amp; b)&nbsp;{</p> 
+<p>return a. v &lt; b. v;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>#define readInt(_s_)&nbsp;{\</p> 
+<p>int _d_;\</p> 
+<p>_s_ = 0;\</p> 
+<p>while (!isdigit(_d_&nbsp;= getchar()));\</p> 
+<p>while ((_s_&nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>const int maxn = 100009;</p> 
+<p>const int maxe = 300009;</p> 
+<p><br /></p> 
+<p>int n, m, r[maxn];</p> 
+<p>edge_g g[maxe];</p> 
+<p>edge_t *head[maxn],&nbsp;*ep;</p> 
+<p>int d[maxn], fa[maxn], sz[maxn], fc[maxn], ch[maxn], cl[maxn], df[maxn], tc;</p> 
+<p>seg *rt[maxn],&nbsp;*sp;</p> 
+<p><br /></p> 
+<p>int getRoot(int x)&nbsp;{</p> 
+<p>static int stc[maxn];</p> 
+<p>int tstc = 1;</p> 
+<p>stc[1]&nbsp;= x;</p> 
+<p>while (r[stc[tstc]]&nbsp;^ stc[tstc])</p> 
+<p>stc[tstc + 1]&nbsp;= r[stc[tstc]],&nbsp;++ tstc;</p> 
+<p>while (-- tstc)</p> 
+<p>r[stc[tstc]]&nbsp;= r[stc[tstc + 1]];</p> 
+<p>return r[x];</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>inline void addEdge(int u, int v, int w)&nbsp;{</p> 
+<p>ep-&gt; t = v;</p> 
+<p>ep-&gt; v = w;</p> 
+<p>ep-&gt; next = head[u];</p> 
+<p>head[u]&nbsp;= ep ++;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>qw kruskal()&nbsp;{</p> 
+<p>qw s = 0;</p> 
+<p>ep = new edge_t[maxn * 2];</p> 
+<p>sort(g, g + m, cmpEG);</p> 
+<p>for (int i = 1; i &lt;= n;&nbsp;++ i)</p> 
+<p>r[i]&nbsp;= i;</p> 
+<p>for (int i = 0; i &lt; m;&nbsp;++ i)</p> 
+<p>if (getRoot(g[i]. a)&nbsp;^ getRoot(g[i]. b))&nbsp;{</p> 
+<p>addEdge(g[i]. a, g[i]. b, g[i]. v);</p> 
+<p>addEdge(g[i]. b, g[i]. a, g[i]. v);</p> 
+<p>g[i]. mk = 1;</p> 
+<p>s += g[i]. v;</p> 
+<p>r[getRoot(g[i]. a)]&nbsp;= getRoot(g[i]. b);</p> 
+<p>}</p> 
+<p>return s;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>#define cpos(x)&nbsp;(d[x]-d[ch[fc[x]]])</p> 
+<p>#define mid(p)&nbsp;((p-&gt;l+p-&gt;r)&gt;&gt;1)</p> 
+<p><br /></p> 
+<p>inline dat ind(int v0)&nbsp;{</p> 
+<p>return dat(v0);</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>inline dat mkd(const dat&amp; a, const dat&amp; b)&nbsp;{</p> 
+<p>dat r;</p> 
+<p>if (a. a &gt; b. a)&nbsp;{</p> 
+<p>r. a = a. a;</p> 
+<p>if (b. a == a. a)</p> 
+<p>r. b = max(a. b, b. b);</p> 
+<p>else</p> 
+<p>r. b = max(a. b, b. a);</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>r. a = b. a;</p> 
+<p>if (b. b == a. a)</p> 
+<p>r. b = max(a. b, b. b);</p> 
+<p>else</p> 
+<p>r. b = max(a. a, b. b);</p> 
+<p>}</p> 
+<p>return r;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>seg* sgtBuild(int l, int r)&nbsp;{</p> 
+<p>seg *p&nbsp;= sp ++;</p> 
+<p>p-&gt; l = l;</p> 
+<p>p-&gt; r = r;</p> 
+<p>if (l&nbsp;+ 1 &lt; r)&nbsp;{</p> 
+<p>p-&gt; ls = sgtBuild(l, mid(p));</p> 
+<p>p-&gt; rs = sgtBuild(mid(p), r);</p> 
+<p>}</p> 
+<p>return p;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>void sgtChg(seg* p, int p0, int v0)&nbsp;{</p> 
+<p>if (p-&gt; l + 1 == p-&gt; r)</p> 
+<p>p-&gt; d = ind(v0);</p> 
+<p>else {</p> 
+<p>if (p0&nbsp;&lt; mid(p))</p> 
+<p>sgtChg(p-&gt; ls, p0, v0);</p> 
+<p>else</p> 
+<p>sgtChg(p-&gt; rs, p0, v0);</p> 
+<p>p-&gt; d = mkd(p-&gt; ls-&gt; d, p-&gt; rs-&gt; d);</p> 
+<p>}</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>dat sgtQry(seg* p, int l, int r)&nbsp;{</p> 
+<p>if (l&nbsp;&gt;= r)</p> 
+<p>return dat();</p> 
+<p>else if (p-&gt; l == l &amp;&amp; p-&gt; r == r)</p> 
+<p>return p-&gt; d;</p> 
+<p>else if (r&nbsp;&lt;= mid(p))</p> 
+<p>return sgtQry(p-&gt; ls, l, r);</p> 
+<p>else if (l&nbsp;&gt;= mid(p))</p> 
+<p>return sgtQry(p-&gt; rs, l, r);</p> 
+<p>else</p> 
+<p>return mkd(sgtQry(p-&gt; ls, l, mid(p)), sgtQry(p-&gt; rs, mid(p), r));</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>void divide()&nbsp;{</p> 
+<p>static int q[maxn];</p> 
+<p>int hd = 0, tl = 1;</p> 
+<p>memset(d, 0, sizeof(d));</p> 
+<p>q[hd]&nbsp;= 1;</p> 
+<p>d[1]&nbsp;= 1;</p> 
+<p>while (hd&nbsp;&lt; tl)&nbsp;{</p> 
+<p>int p = q[hd ++];</p> 
+<p>for (edge_t&nbsp;*e&nbsp;= head[p]; e; e = e-&gt; next)</p> 
+<p>if (!d[e-&gt; t])&nbsp;{</p> 
+<p>d[e-&gt; t]&nbsp;= d[p]&nbsp;+ 1;</p> 
+<p>fa[e-&gt; t]&nbsp;= p;</p> 
+<p>df[e-&gt; t]&nbsp;= e-&gt; v;</p> 
+<p>q[tl ++]&nbsp;= e-&gt; t;</p> 
+<p>}</p> 
+<p>}</p> 
+<p>tc = 0;</p> 
+<p>for (int ti = tl - 1; ti &gt;= 0;&nbsp;-- ti)&nbsp;{</p> 
+<p>int p = q[ti], fs =&nbsp;-1;</p> 
+<p>sz[p]&nbsp;= 1;</p> 
+<p>for (edge_t&nbsp;*e&nbsp;= head[p]; e; e = e-&gt; next)</p> 
+<p>if (fa[e-&gt; t]&nbsp;== p)&nbsp;{</p> 
+<p>sz[p]&nbsp;+= sz[e-&gt; t];</p> 
+<p>if (fs&nbsp;==&nbsp;-1&nbsp;|| sz[e-&gt; t]&nbsp;&gt; sz[fs])</p> 
+<p>fs = e-&gt; t;</p> 
+<p>}</p> 
+<p>if (fs&nbsp;==&nbsp;-1)&nbsp;{</p> 
+<p>fc[p]&nbsp;= tc ++;</p> 
+<p>ch[fc[p]]&nbsp;= p;</p> 
+<p>cl[fc[p]]&nbsp;= 1;</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>fc[p]&nbsp;= fc[fs];</p> 
+<p>ch[fc[p]]&nbsp;= p;</p> 
+<p>++ cl[fc[p]];</p> 
+<p>}</p> 
+<p>}</p> 
+<p>sp = new seg[maxn * 5];</p> 
+<p>for (int i = 0; i &lt; tc;&nbsp;++ i)</p> 
+<p>rt[i]&nbsp;= sgtBuild(0, cl[i]);</p> 
+<p>for (int p = 1; p &lt;= n;&nbsp;++ p)</p> 
+<p>sgtChg(rt[fc[p]], cpos(p), df[p]);</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>dat query(int u, int v)&nbsp;{</p> 
+<p>dat s;</p> 
+<p>while (fc[u]&nbsp;^ fc[v])</p> 
+<p>if (d[ch[fc[u]]]&nbsp;&gt; d[ch[fc[v]]])&nbsp;{</p> 
+<p>s = mkd(s, sgtQry(rt[fc[u]], 0, cpos(u)&nbsp;+ 1));</p> 
+<p>u = fa[ch[fc[u]]];</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>s = mkd(s, sgtQry(rt[fc[v]], 0, cpos(v)&nbsp;+ 1));</p> 
+<p>v = fa[ch[fc[v]]];</p> 
+<p>}</p> 
+<p>if (d[u]&nbsp;&gt; d[v])</p> 
+<p>s = mkd(s, sgtQry(rt[fc[u]], cpos(v)&nbsp;+ 1, cpos(u)&nbsp;+ 1));</p> 
+<p>else if (d[v]&nbsp;&gt; d[u])</p> 
+<p>s = mkd(s, sgtQry(rt[fc[v]], cpos(u)&nbsp;+ 1, cpos(v)&nbsp;+ 1));</p> 
+<p>return s;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int main()&nbsp;{</p> 
+<p>#ifndef ONLINE_JUDGE</p> 
+<p>freopen(&quot;in.txt&quot;,&nbsp;&quot;r&quot;, stdin);</p> 
+<p>#endif</p> 
+<p><br /></p> 
+<p>readInt(n);</p> 
+<p>readInt(m);</p> 
+<p>for (int i = 0; i &lt; m;&nbsp;++ i)&nbsp;{</p> 
+<p>readInt(g[i]. a);</p> 
+<p>readInt(g[i]. b);</p> 
+<p>readInt(g[i]. v);</p> 
+<p>g[i]. mk = 0;</p> 
+<p>}</p> 
+<p>qw v0 = kruskal();</p> 
+<p>divide();</p> 
+<p>int v1 = 0x3f3f3f3f;</p> 
+<p>for (int i = 0; i &lt; m;&nbsp;++ i)</p> 
+<p>if (!g[i]. mk)&nbsp;{</p> 
+<p>dat h = query(g[i]. a, g[i]. b);</p> 
+<p>if (g[i]. v &gt; h. b &amp;&amp; h. b &gt;&nbsp;-1)</p> 
+<p>v1 = min(v1, g[i]. v - h. b);</p> 
+<p>if (g[i]. v &gt; h. a &amp;&amp; h. a &gt;&nbsp;-1)</p> 
+<p>v1 = min(v1, g[i]. v - h. a);</p> 
+<p>}</p> 
+<p>printf(lld &quot;\n&quot;, v0 + v1);</p> 
+<p>}</p> 
+<p><br /></p>
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/bzoj/">bzoj</a></li>
+      <li><a href="/tags/data%5Cxa0structure/">data\xa0structure</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/lofterimport_135/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>20141020 计划</span>
+  </a>
+  <a class="next" href="/oi/lofterimport_138/">
+    <span class="title">Next »</span>
+    <br>
+    <span>CodeVS3147 矩阵乘法2</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

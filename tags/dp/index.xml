@@ -1,0 +1,793 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>dp on The Site of laekov</title>
+    <link>/tags/dp/</link>
+    <description>Recent content in dp on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Sun, 07 Aug 2016 09:46:02 +0000</lastBuildDate><atom:link href="/tags/dp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CF703E Mishka and Divisors</title>
+      <link>/oi/7a9bc3/</link>
+      <pubDate>Sun, 07 Aug 2016 09:46:02 +0000</pubDate>
+      
+      <guid>/oi/7a9bc3/</guid>
+      <description>题意:
+给你n个数和一个k. 求这n个数的一个最小子集, 使得元素乘积为k的倍数, 且元素之和最小.
+要输出方案.
+\( n \leq 10^3, k \leq 10^{12} \)
+结局:
+死在输出方案上了.
+思路:
+首先发现k的质因数不会很多, 最多有14个.
+然后k的因数也不会很多.
+所以就dp一下. \(f_i\)表示当前积与k的gcd为i的时候的元素个数.
+然后就像个背包一样嘛. 输出方案? 记录从哪里转移来的不就好了.
+然后.
+考虑这个例子.
+3 9 3 24 21 你会先拿24从3更新到9.
+然后21就会把3和9的转移都更新.
+然后就炸了.
+因为3应该是从原来的状态更新的. 但是现在被覆盖了.
+然后发现状态是棵树. 可以把状态可持久化记下来.
+更新一个状态的时候, 不是直接覆盖, 而是新建一个状态来保证从原来的状态转移出去的情况不会出错.
+这样空间复杂度应该和转移次数有关?
+然后怎么就糊过去了.
+另一个细节是k=1是答案不能是0. woc.
+依然感觉很鬼蓄.
+代码</description>
+    </item>
+    
+    <item>
+      <title>bzoj3329 Xorequ</title>
+      <link>/oi/dbimport_192/</link>
+      <pubDate>Tue, 23 Jun 2015 15:52:12 +0000</pubDate>
+      
+      <guid>/oi/dbimport_192/</guid>
+      <description>还不错的题ovoovo
+发现其实要求x的二进制表示中没有相邻的1就行了.
+第一问水水的数位dp.从未写得如此愉快.
+第二问就是前面的g.然后发现是fib数列.矩阵快速幂搞定.</description>
+    </item>
+    
+    <item>
+      <title>bzoj4145 [AMPPZ2014]The Prices</title>
+      <link>/oi/dbimport_248/</link>
+      <pubDate>Mon, 22 Jun 2015 10:55:59 +0000</pubDate>
+      
+      <guid>/oi/dbimport_248/</guid>
+      <description>最近总是被一些水题虐智商啊&amp;hellip;怎么回事Ovo
+无脑地状压dp一下就好了.
+每个物品分开dp,这样可以降到O(2m * n * m)级别.
+我还是太弱了.</description>
+    </item>
+    
+    <item>
+      <title>bzoj4123 [Baltic2015]Hacker</title>
+      <link>/oi/dbimport_242/</link>
+      <pubDate>Thu, 04 Jun 2015 22:31:15 +0000</pubDate>
+      
+      <guid>/oi/dbimport_242/</guid>
+      <description>还比较有意思的一题.
+考虑如果Alice选了某一个位置,那么Bob的策略一定是选使得Alice的和最小的一段.也就是对于所有位置,求包含它的所有区间中和最小的一个,再求个max.
+这个东西先要展开一倍,然后可以比较方便地用单调队列搞定.</description>
+    </item>
+    
+    <item>
+      <title>bzoj3864 Hero meet devil</title>
+      <link>/oi/dbimport_210/</link>
+      <pubDate>Sun, 24 May 2015 10:01:57 +0000</pubDate>
+      
+      <guid>/oi/dbimport_210/</guid>
+      <description>立杰的dp套dp.之前在hwadee培训的时候讲过的题啊.
+考虑求lcs时候的f数组的一列,发现相邻两个数要么差1要么不差.于是15就是拿来状压这个东西的.
+然后很愉快地写了一个然后很愉快地tle了.妈妈,剧本里没这一节啊.
+仔细思考了一下发现每次在计数dp转移的时候去找lcs dp非常慢.而且只要给定状态和转移,目标是确定的.跑1000次浪费了.于是改成预处理转移.就好了.</description>
+    </item>
+    
+    <item>
+      <title>bzoj1225 [HNOI2001] 求正整数</title>
+      <link>/oi/dbimport_121/</link>
+      <pubDate>Thu, 14 May 2015 09:43:59 +0000</pubDate>
+      
+      <guid>/oi/dbimport_121/</guid>
+      <description>ioi好神啊,居然写搜索.我显然是不想写高精的啦于是用java于是花费了整整两节课TT
+我的想法是dp.设答案为f[m],那么f[m]只与fd有关.设f[i][j]表示i为m的第i小的约数,且已经用了前j个素数的答案.然后就可以转移辣.
+然后得二分一下用多大的素数可以卡过.毕竟java自带大常数.而且bzoj坑爹在不管有多少组数据都只多给2秒总时限ovo</description>
+    </item>
+    
+    <item>
+      <title>bzoj4069 [Apio2015]巴厘岛的雕塑</title>
+      <link>/oi/dbimport_236/</link>
+      <pubDate>Wed, 13 May 2015 18:32:07 +0000</pubDate>
+      
+      <guid>/oi/dbimport_236/</guid>
+      <description>看上去apio的成绩都出来了,那我就可以写题解喽.
+这题比较水啊,尤其是在考试的时候允许多次提交,服务器还跑得飞快.强行bitset压位就好了.
+按位从高向低贪心.
+对于l=1的情况直接求最少的覆盖区间就好了.
+对于剩下的情况,用f[i][j]表示前i个数能否用j个区间覆盖.
+完了辣</description>
+    </item>
+    
+    <item>
+      <title>bzoj4011 [HNOI2015]落忆枫音</title>
+      <link>/oi/dbimport_230/</link>
+      <pubDate>Wed, 29 Apr 2015 09:24:11 +0000</pubDate>
+      
+      <guid>/oi/dbimport_230/</guid>
+      <description>题目好长啊,像个阅读题一样.还是比较有意思的一道题.有点像gorgeous和我说的那个原创题的感觉啊.
+首先如果没有加边的话那么答案就是∏indegreeu.
+如果加了边之后还是dag那么无影响.
+如果加了边之后存在一个scc,那么答案就要减去∑(环*∏其它点的indegree).这个东西可以用随随便便的dp来解决.</description>
+    </item>
+    
+    <item>
+      <title>bzoj3992 [Sdoi2015]序列统计</title>
+      <link>/oi/dbimport_220/</link>
+      <pubDate>Thu, 16 Apr 2015 17:25:12 +0000</pubDate>
+      
+      <guid>/oi/dbimport_220/</guid>
+      <description>好玩的数论题。想想发现可以像快速幂一样跑。然后就是思考如何转移优化。
+发现模数比较奇怪。居然是fnt的模数ovo那就要用fft喽？可是这里是乘啊。木有关系喽，因为m是素数，所以它一定有原根。于是可以取原根的幂次，就变成加辣。
+这种东西我自己当然想不出来ovo
+同余系下的东西真有趣ovo</description>
+    </item>
+    
+    <item>
+      <title>bzoj2466 [中山市选2009]树</title>
+      <link>/oi/dbimport_144/</link>
+      <pubDate>Wed, 15 Apr 2015 20:30:02 +0000</pubDate>
+      
+      <guid>/oi/dbimport_144/</guid>
+      <description>之前听说是异或高消？好神的感觉。
+然后可以树形dp嘛！为啥网上题解这么误导ovo
+就是f[u][i][j]表示u这个点有没有亮，有没有被按开关。完了嘛。
+无语了辣。</description>
+    </item>
+    
+    <item>
+      <title>bzoj3549 [ONTAK2010]Tower</title>
+      <link>/oi/dbimport_200/</link>
+      <pubDate>Sat, 11 Apr 2015 15:08:19 +0000</pubDate>
+      
+      <guid>/oi/dbimport_200/</guid>
+      <description>比较神奇的dp题.其实也不能算dp辣ovo
+有一个神奇的事情是,塔的高度与底层的宽度是负相关的.
+所以就变成了问塔底最窄的时候塔有多高.
+用f[i]来表示用从第i个砖块到第n个砖块搭起来的塔的最窄底层宽度.用s[i]来表示宽度的前缀和,然后得到一个式子:
+f[i] = min(s[j-1]) - s[i - 1] (f[j] ≤ s[j - 1] - s[i - 1], j &amp;gt; i)
+s是单调的.看上去很像是dp呢.
+然后就变成了求s[j - 1] - f[j] ≥ s[i - 1]时的最大的s[j - 1].于是开单调队列搞吧ovo</description>
+    </item>
+    
+    <item>
+      <title>bzoj2216 [Poi2011]Lightning Conductor</title>
+      <link>/oi/dbimport_130/</link>
+      <pubDate>Thu, 09 Apr 2015 07:40:46 +0000</pubDate>
+      
+      <guid>/oi/dbimport_130/</guid>
+      <description>idy居然会开1d-1d这个坑ovo之前听讲的时候也只是觉得很神奇,没有真正手写过,所以不明觉厉.
+这个东西需要实际问题实际分析.总的思路就是利用决策的单调性.
+对于这题,设f(x)=sqrt(x-j)+a[j].那么显然它是凸的.然后若干个它还可以拼成一个奇怪的凸壳状的分段函数.然后我们要取每段的极值.怎么有种半平面交的变形的感觉.
+然后发现每次插入的函数的j单增,既x单增.于是只需要开一个双端出的队列就好了.然后每次二分一下两个函数的交的x坐标.其它时候可以完全单调性搞定.
+然后算的时候用double会方便很多.
+似乎很有意思啊hhh</description>
+    </item>
+    
+    <item>
+      <title>bzoj3163 [Heoi2013]Eden的新背包问题</title>
+      <link>/oi/dbimport_178/</link>
+      <pubDate>Mon, 06 Apr 2015 21:08:25 +0000</pubDate>
+      
+      <guid>/oi/dbimport_178/</guid>
+      <description>似乎是去年省选集训的时候见过啊ovo还记得当年因为把背包写错了所以被唱歌了ovo
+比较有意思的题.这个题询问数是骗人的ovo其实是预处理然后O(1)询问.
+把如果强行预处理的话时间是O(n3)的.于是考虑一些奇怪的黑暗.把物品强行分块.对于每一个块,可以知道它左边的总答案,右边的总答案.这个是可以O(n2)的.(二进制背包的log就忽略了)然后把左边和右边合并一下,这个是平方的.然后对于块内的每个物品,把其它的物品拿来强行跑一遍背包,这个对于一个物品的复杂度是O(n1.5)的.于是就奇妙地少了O(n0.5)的复杂度.然后就可过了ovo
+我当年是怎么想到的ovo还是我当年黑暗过去了ovo</description>
+    </item>
+    
+    <item>
+      <title>bzoj3611 [Heoi2014]大工程</title>
+      <link>/oi/dbimport_204/</link>
+      <pubDate>Mon, 06 Apr 2015 11:17:41 +0000</pubDate>
+      
+      <guid>/oi/dbimport_204/</guid>
+      <description>继续填idy的坑ovo
+这个题就是比sdoi那个题要麻烦一些.于是我决定把虚树建成真正的树来跑dp.然后这个树形dp似乎没啥麻烦的东西.就是给你一棵有关键点的树求所有点对的距离和,距离min和max.
+常数又被吊打ovo无语喽.</description>
+    </item>
+    
+    <item>
+      <title>bzoj2286 [Sdoi2011]消耗战</title>
+      <link>/oi/dbimport_134/</link>
+      <pubDate>Mon, 06 Apr 2015 10:11:26 +0000</pubDate>
+      
+      <guid>/oi/dbimport_134/</guid>
+      <description>idy又开坑辣.居然开的是虚树.
+然后发现我好像还是不会ovo我太弱了ovo而且idy自带常数优化+代码长度优化根本打不过ovo
+这个题算是相对比较容易的虚树吧.强行模拟一遍缩掉所有没有用的边之后的dfs就好了.中间要讨论一下几个点的祖先关系.yy起来还比较清晰.
+然后似乎就没有啥要说的了ovo
+Upd:早上起来脑洞一开发现似乎不需要讨论当前的点已经在栈里的情况啊ovo</description>
+    </item>
+    
+    <item>
+      <title>bzoj3238 [Ahoi2013]差异</title>
+      <link>/oi/dbimport_184/</link>
+      <pubDate>Fri, 03 Apr 2015 10:39:33 +0000</pubDate>
+      
+      <guid>/oi/dbimport_184/</guid>
+      <description>考试的时候do big die去刷bzoj.大概下午会hug zero.
+sam的第二题.其实这个玩意是应该用sa做的,不过现在我觉得sa没有sam简单.虽然sam的构造和性质还是一团大雾.
+这个题可以做出原串的后缀树,然后在上面dp一下.每个点对答案的贡献为任意两个不在同一子树的终态对数*深度.
+然后倒过来建sam,它的parent树就是原串的后缀树.虽然我还没有成功理解这个东西.
+然后坑了一会的一件事情是新建的nq节点的right集合为空.因为它只是一个扩展点,但是不是一个接受态ovo
+我还是太弱啊怎么办.</description>
+    </item>
+    
+    <item>
+      <title>bzoj2700 聚会</title>
+      <link>/oi/dbimport_157/</link>
+      <pubDate>Fri, 20 Mar 2015 22:40:35 +0000</pubDate>
+      
+      <guid>/oi/dbimport_157/</guid>
+      <description>比较基础的dp。不过因为权限的原因好像做的人不多。
+首先肯定先泡便宜的茶再泡贵的茶。
+然后记一下上一种茶是啥，连续泡了几次。
+于是用f[i][j][k][l]表示泡了i个红茶，j个绿茶，上一种茶是k，连续泡了l次的最小花费。转移是O(1)的。然后后两个反正都要手拆开，所以干脆压下来了。
+似乎很水的样子。</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3598 [Scoi2014]方伯伯的商场之旅</title>
+      <link>/oi/i11rimport_002/</link>
+      <pubDate>Wed, 11 Mar 2015 19:16:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_002/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 题目名字好长。&amp;lt;/p&amp;gt; &amp;nbsp;
+当年在考场上只会分块打表的题。
+&amp;nbsp;
+前几天有人讲之后觉得大概可做。而且好像那个方法很优秀。
+&amp;nbsp;
+于是我难得地去写了一回不用记搜且不记上界的数位dp。感觉这个玩意写出来很短，但是思考和调试的复杂度变高了。我觉得是状态定义变得不明确的原因。也许再补一些题就好了。
+&amp;nbsp;
+考虑先让所有都合并到最低位，一个基础数位dp。（然后写丑了好久）
+&amp;nbsp;
+然后考虑如果把一个数字的集合位置从p移动到p+1，设这个数字从低位到高位是a[0]..a[n-1]，那么贡献就是∑a[0..p]-∑a[p+1..n-1]。显然当p从右往左移动的时候它是会先负后正的。如果它负的话就减，否则就不玩了。可以发现它们互相不影响。于是对于每一个p单独计算一遍贡献就行了。
+&amp;nbsp;
+然后还是没有原版跑得快。OTL。
+&amp;nbsp;
+#define PROC &#34;shop&#34; #include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+typedef long long dint; #ifdef WIN32 #define lld &amp;ldquo;%I64d&amp;rdquo; #else #define lld &amp;ldquo;%lld&amp;rdquo; #endif #define _l (long long int)
+const int maxn = 53; const int maxm = 509; const int mb = 253;
+dint l, r; int n, m, bs, a[maxn];</description>
+    </item>
+    
+    <item>
+      <title>BZOJ1814 Ural 1519 Formula 1</title>
+      <link>/oi/i11rimport_008/</link>
+      <pubDate>Sat, 07 Mar 2015 17:02:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_008/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 插头dp的练手题么。虽然之前还没写过哈密顿回路的题。&amp;lt;/p&amp;gt; &amp;nbsp;
+学习了一下广义括号法。发现状态数比之前记连通性的方法要少。仔细想想发现，两个连通的插头的顺序有关。不能存在1212这种东西。所以连通性的方法记了很多废状态。那把连通性方法改进一下会不会变得更快呢？可以研究一下。我觉得应该是等效了吧。
+&amp;nbsp;
+今天的debug时间明显缩短了。虽然还是debug了老半天。然后怎么代码还是那么长。想起我每次都觉得把东西挤到一起看起来很不雅观，于是去写一堆找转移的函数。晕。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+typedef long long dint; #ifdef WIN32 #define lld &amp;ldquo;%I64d&amp;rdquo; #else #define lld &amp;ldquo;%lld&amp;rdquo; #endif #define _l (long long int)
+const int maxn = 15; const int maxst = 50009;
+#define mbit(x,y) ((x)&amp;lt;&amp;lt;((y)&amp;lt;&amp;lt;1)) #define gbit(x,y) (((x)&amp;gt;&amp;gt;((y)&amp;lt;&amp;lt;1))&amp;amp;3) #define cbit(x,y) ((x)&amp;amp;(~(3&amp;lt;&amp;lt;((y)&amp;lt;&amp;lt;1))))
+int n, m, tots, slst[maxst]; bool mp[maxn][maxn]; dint f[2][maxst];
+void dfsState(int l, int c, int z) { if (l == m + 1) { if (!</description>
+    </item>
+    
+    <item>
+      <title>BZOJ2704 旅游</title>
+      <link>/oi/i11rimport_011/</link>
+      <pubDate>Fri, 06 Mar 2015 14:02:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_011/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 居然网上都没有找到程序来和我拍。好吧其实它是一道权限题而且过的人也不多。&amp;lt;/p&amp;gt; &amp;nbsp;
+其实就是裸的插头DP。本来想学一下广义括号的然后被状态数吓到了于是只好还是写最小表示。连通性。
+&amp;nbsp;
+然后我发现最小表示连通性很容易写挂。而在findstate的时候检查一下是个不错的办法。至少这道题靠这个就可以直接debug出来问题了。
+&amp;nbsp;
+比上次写插头要好许多了。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+typedef long long dint; #define _l (long long int) #define mbit(x,y) ((_l x)&amp;lt;&amp;lt;((y)&amp;lt;&amp;lt;2)) #define gbit(x,y) (((x)&amp;gt;&amp;gt;((y)&amp;lt;&amp;lt;2))&amp;amp;0xf)
+const int maxn = 13; const int maxst = 570009;
+dint slst[maxst]; int n, m, v[maxn][maxn], tots, f[2][maxst], cnt[17]; bool av[2][maxst];
+void dfsState(int l, int tot, dint z) { if (l == m) { for (int i = 1; i &amp;lt;= tot; ++ i) if (cnt[i] !</description>
+    </item>
+    
+    <item>
+      <title>BZOJ1223 [HNOI2002]Kathy函数</title>
+      <link>/oi/i11rimport_014/</link>
+      <pubDate>Wed, 04 Mar 2015 18:36:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_014/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 比较神奇的数学题。首先你要知道这个函数的意思是把它的二进制flip。至于怎么来的我也是听说的。然后推一下发现的确是这么回事。&amp;lt;/p&amp;gt; &amp;nbsp;
+于是就变成数位dp了。然后我发现数位dp常常可以用奇奇怪怪的方法水过去。然后又发现数组从0开始标号也会造成麻烦。+1-1啥的最讨厌了。
+&amp;nbsp;
+于是这题就变成高精度练习题了。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+const int maxn = 409;
+struct BigInt { int l, a[maxn], base; BigInt(int b = 10) { l = 0; base = b; } void push() { for (int i = 0; i &amp;lt; l - 1; ++ i) { a[i + 1] += a[i] / base; a[i] %= base; } for (; a[l - 1] &amp;gt;= base; ++ l) { a[l] = a[l - 1] / base; a[l - 1] %= base; } } void pull() { for (; l &amp;amp;&amp;amp; !</description>
+    </item>
+    
+    <item>
+      <title>BZOJ1023 [SHOI2008]cactus仙人掌图</title>
+      <link>/oi/i11rimport_015/</link>
+      <pubDate>Wed, 04 Mar 2015 15:40:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_015/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 第六百道题一定要不水！虽然离第一页还有几十道题的距离。&amp;lt;/p&amp;gt; &amp;nbsp;
+很早之前见过的题吧。然后一直觉得特别难写所以都没写。以前写点不重复的仙人掌都觉得挺痛苦，更不要说这个了。
+&amp;nbsp;
+现在想想还行，因为我yy出了化简的方法。先搞出dfs树。然后一个顶点如果是一个环里深度最浅的，那么称它为这个环的头。可以证明一个顶点最多在一个不以它为头的环上。把这个环记下来，其它的环都从这个顶点去找边来找就行了。这样的话可以比较节省代码量，写起来也比较明了。虽然还是比mhy长。
+&amp;nbsp;
+然后因为我在最后一步dp的时候写了一个static的f数组，所以光荣了。debug了好久。晕。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+struct edge { int t, av; edge *next, *rv; }; struct ball { int l, *a, h; };
+const int maxn = 50009; const int maxm = 200009; const int maxarr = 400009;
+int n, m, cb, fb[maxn], d[maxn]; int f[maxn], ans, fd[maxn], fe[maxn]; int stc[maxn], tst; int ibuf_arr[maxarr], *ibuf(ibuf_arr); bool vis[maxn]; edge elst[maxm], *ep(elst), *head[maxn]; ball b[maxm];</description>
+    </item>
+    
+    <item>
+      <title>BZOJ2734 [HNOI2012]集合选数</title>
+      <link>/oi/i11rimport_016/</link>
+      <pubDate>Wed, 04 Mar 2015 09:00:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_016/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 最初感觉好多状态怎么做。&amp;lt;/p&amp;gt; &amp;nbsp;
+然后发现（其实是瞟了一下题解）如果把一个数分成2a*3b*c，那么c只影响上界。2a*3b中a最大是16，b最大是10，列一张17*11的表出来，然后发现右下方还有很多空东西。于是直接像插头一样状压一下轮廓线呗。反正对一个数有影响的只有它的上面和左边。最近写插头写得有点疯啊。其实它的很多思想都是可以推广出来用的。比如最小表示啥的。
+&amp;nbsp;
+于是如果直接这样写的话大概要跑30000多次dp，还是比较悬。然后再想想发现只有表里能取的数的形状发生改变的时候才会改变dp的答案。表里面的数很少所以改变次数也应该很少。所以记一下上一次的形状是什么然后比较相不相同，相同就直接沿用。
+&amp;nbsp;
+然后跑得飞快。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+#define _l (long long int) #define pow2(x) (1&amp;lt;&amp;lt;(x))
+const int maxn = 19; const int maxm = 15; const int maxv = 100000; const int maxst = pow2(11) + 9; const int mod = 1e9 + 1;
+int f[2][maxst], vl[maxn][maxm], n, m, v; int dis[maxn], ldis[maxn], lans, ans;
+void pre() { for (int i = 0; i &amp;lt; maxn; ++ i) { vl[i][0] = (1 &amp;lt;&amp;lt; i); if (vl[i][0] &amp;gt; maxv) vl[i][0] = -1; for (int j = 1; j &amp;lt; maxm; ++ j) if (vl[i][j - 1] &amp;gt; -1) { vl[i][j] = vl[i][j - 1] * 3; if (vl[i][j] &amp;gt; maxv) vl[i][j] = -1; } else vl[i][j] = -1; } }</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3242 [Noi2013]快餐店</title>
+      <link>/oi/i11rimport_017/</link>
+      <pubDate>Tue, 03 Mar 2015 21:18:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_017/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 好吧我的本意是想学习一下dp的。然后发现了这道纠结了一年半还多的题。&amp;lt;/p&amp;gt; &amp;nbsp;
+首先把环找出来。然后环上会长一些树。先把树的答案求了，因为它很好求。
+&amp;nbsp;
+然后考虑环，那么答案应该是随便断一条边之后答案的最小值（而不是最大值）。于是乎记录一下每个点按某个方向到起点的距离，记为d[i]。算一下每个点的树的深度，记为l[i]。于是每次要最大化l[i]+l[j]+|d[i]-d[j]|。反正是最大化所以顺序是没有关系的，但是不能自交。这是个比较容易错的地方。于是就去写个线段树来维护吧。只查询不修改让我总有能线性搞的想法，虽然没想清楚具体怎么实现。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; #include &amp;lt;set&amp;gt; using namespace std;
+struct edge { int t, v; edge *next; };
+typedef long long dint; #ifdef WIN32 #define lld &amp;ldquo;%I64d&amp;rdquo; #else #define lld &amp;ldquo;%lld&amp;rdquo; #endif #define _l (long long int)
+const int maxn = 100009;
+edge elst[maxn &amp;lt;&amp;lt; 1], *ep(elst), *head[maxn]; int n, fa[maxn], df[maxn], ol[maxn], d[maxn]; int tlp, lp[maxn &amp;lt;&amp;lt; 1]; dint lv[maxn &amp;lt;&amp;lt; 1], le[maxn &amp;lt;&amp;lt; 1], md[maxn], ans;</description>
+    </item>
+    
+    <item>
+      <title>BZOJ1079 [SCOI2008]着色方案</title>
+      <link>/oi/i11rimport_019/</link>
+      <pubDate>Mon, 02 Mar 2015 21:31:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_019/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 看上去比较不可做的DP。好像别人写的记搜跑得飞快。&amp;lt;/p&amp;gt; &amp;nbsp;
+我看我是写最小表示写上瘾了。
+&amp;nbsp;
+压一下状态，有点像今天第二题。算每种值的有多少。然后直接跑。
+&amp;nbsp;
+感觉废状态比较多啊，跑得好慢。另外用memset清空高维数组会比较快。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+const int mod = 1e9 + 7; const int maxn = 17; const int maxst = 16009;
+#define mbit(a,b) ((a)&amp;lt;&amp;lt;((b)&amp;lt;&amp;lt;2)) #define gbit(a,b) (((a)&amp;gt;&amp;gt;((b)&amp;lt;&amp;lt;2))&amp;amp;0xf) #define _l (long long int)
+int m, c[maxn], n, mt, tots, slst[maxst]; int f[2][7][maxst];
+void dfsState(int t, int l, int v) { if (l == mt + 1) { slst[tots ++] = v | t; } else { for (int i = 0; i &amp;lt;= t; ++ i) dfsState(t - i, l + 1, v | mbit(i, l)); } }</description>
+    </item>
+    
+    <item>
+      <title>BZOJ1187 [HNOI2007]神奇游乐园</title>
+      <link>/oi/i11rimport_023/</link>
+      <pubDate>Sun, 01 Mar 2015 23:22:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_023/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 我的第二道插头DP。差不多纠结了一天。&amp;lt;/p&amp;gt; &amp;nbsp;
+这道题网上的题解都讲的好简略啊。最后还得自己yy。没有用括号序列法让我觉得自己比较厉害。
+&amp;nbsp;
+考虑轮廓线上的m个格子，有3种情况：没有插头，有且只能往一边走，有且要往两边走。对于第二种，要用最多3个不同的值来记录连通性。还要有两个不同的值来表示第一种情况和第三种情况。我比较懒，所以直接用一个八进制数去表示，然后每次二分找编号。
+&amp;nbsp;
+考虑转移，分一堆情况进行讨论。默认从左上朝右下走。
+&amp;nbsp;
+首先是要走当前格子的情况。
+&amp;nbsp;
+如果左边和上面都有插头，那么看它们是否连通。如果不连通则把它们连通，如果已经连通，看是否还有其它插头。没有就更新答案，否则忽略。
+&amp;nbsp;
+如果只有左边有插头，再分类。如果它是第二种，那么这个格子可以新建一个第三种插头，或者把左边格子的插头接过来。如果它是第三种那么它必需把左边格子接过来。
+&amp;nbsp;
+如果只有上面有插头，那么必需把上面的插头接上来。
+&amp;nbsp;
+如果左边和上面都没有插头，那么可以新建一个第三种插头。
+&amp;nbsp;
+然后如果不走这个格子的话，要求上面没有插头，且左边不是第三种插头。
+&amp;nbsp;
+按mhy的话说，插头dp就是写起来很麻烦。的确。不过写出来也还是挺高兴的。
+&amp;nbsp;
+然后代码丑到不能看了。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+const int maxn = 109; const int maxm = 9; const int maxst = 50009; const int inf = 0x3f3f3f3f;
+#define pow8(x) (1&amp;lt;&amp;lt;(x)&amp;lt;&amp;lt;(x)&amp;lt;&amp;lt;(x)) #define mbit(x,y) ((x)&amp;lt;&amp;lt;(y)&amp;lt;&amp;lt;(y)&amp;lt;&amp;lt;(y)) #define gbit(x,y) (((x)&amp;gt;&amp;gt;(y)&amp;gt;&amp;gt;(y)&amp;gt;&amp;gt;(y))&amp;amp;7)
+int f[2][maxst], n, m, a[maxn][maxm], ans; int slst[maxst], tots;</description>
+    </item>
+    
+    <item>
+      <title>BZOJ1415 [Noi2005]聪聪和可可</title>
+      <link>/oi/i11rimport_032/</link>
+      <pubDate>Wed, 25 Feb 2015 20:19:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_032/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 最近很颓啊。&amp;lt;/p&amp;gt; &amp;nbsp;
+这题很久之前看过。当时以为是高消就没管。然后开坑之神idy做了之后仔细一想才知道不是。
+&amp;nbsp;
+这题的做法是dp。首先因为边数少所以不用floyd，直接bfs预处理出所有t[i][j]表狼在i，兔子在j的时候狼下一步去哪。然后有一个结论是每一步两个玩意的距离至少缩短1，所以状态是不会有环的，这也是为啥可以不用高消。然后坑点是不能直接开状态队列，因为那不是拓补序。要先把每个点的入度算出来再跑dp。结局是我的代码超长。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+struct edge { int t; edge *next; };
+#define mkword(x,y) (((x)&amp;lt;&amp;lt;16)|(y)) #define hiword(x) ((x)&amp;gt;&amp;gt;16) #define loword(x) ((x)&amp;amp;0x0000ffff)
+const int maxn = 1009; const int maxst = 1000009; const int inf = 0x3f3f3f3f;
+int n, m, st, te, deg[maxn], d[maxn], t[maxn][maxn], ind[maxn][maxn]; edge elst[maxn &amp;lt;&amp;lt; 1], *ep(elst), *head[maxn]; double f[maxn][maxn], g[maxn][maxn], c[maxn], ans;</description>
+    </item>
+    
+    <item>
+      <title>BZOJ1040 [ZJOI2008]骑士</title>
+      <link>/oi/i11rimport_040/</link>
+      <pubDate>Sun, 22 Feb 2015 11:48:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_040/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 多少年前的坑了。&amp;lt;/p&amp;gt; &amp;nbsp;
+用mac写的第一篇题解呢。
+&amp;nbsp;
+环套树DP。先把树上的情况处理了，然后枚举取不取环上的第一个。
+&amp;nbsp;
+要注意会有重边的情况，比较恶心。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cctype&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+const int buf_len = 4000; char buf[buf_len], *bufb(buf), *bufe(buf + 1); #define readBuf() { if (++ bufb == bufe) bufe = (bufb = buf) + fread(buf, 1, sizeof(buf), stdin); } #define readInt(x) { register int s(0); do { readBuf(); } while (!isdigit(*bufb)); do { s = s * 10 + *bufb - 48; readBuf(); } while (isdigit(*bufb)); x = s; }</description>
+    </item>
+    
+    <item>
+      <title>BZOJ1017 [JSOI2008]魔兽地图DotR</title>
+      <link>/oi/i11rimport_041/</link>
+      <pubDate>Sat, 21 Feb 2015 12:41:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_041/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 数据水。填坑。语文阅读题，看到都不想做。&amp;lt;/p&amp;gt; &amp;nbsp;
+就一树形dp。f[i][j][k]表示第i个物品，上供j个，花k块钱的代价。背包转移是O(m2)的，因为是一棵树所以转移次数是O(n)的，但是还要考虑j最大为100。一个技巧是合并完所有的东西之后再考虑把上供的烧掉。虽然这样的复杂度还是有点高。
+&amp;nbsp;
+毕竟我还是太弱啊，居然又花了一个上午。（虽然睡到十点）
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+struct edge { int t, v; edge *next; };
+const int maxm = 2009; const int maxn = 53; const int maxa = 103;
+int n, m, f[maxn][maxa][maxm], ans[maxm], vl[maxn], vmax[maxn]; bool lf[maxn], ir[maxn]; edge elst[maxn], *ep(elst), *head[maxn];
+inline void addEdge(int u, int v, int w) { ep-&amp;gt; t = v; ep-&amp;gt; v = w; ep-&amp;gt; next = head[u]; head[u] = ep ++; }</description>
+    </item>
+    
+    <item>
+      <title>BZOJ2331 [SCOI2011]地板</title>
+      <link>/oi/i11rimport_042/</link>
+      <pubDate>Fri, 20 Feb 2015 17:20:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_042/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 插头DP的基础题。想插头DP都是将军没走的时候给我讲的了，距今有大半年了吧。mhy已经写了无数道了，我才开始写。唉，还是效率太低。&amp;lt;/p&amp;gt; &amp;nbsp;
+插头DP的意思是把已经处理的部分的轮廓线上对后面状态有影响的东西状压下来，然后挨着处理每个格子的状态（比如方向，或者这里的地板怎么铺之类的）。
+&amp;nbsp;
+具体到这道题来说，考虑一个相邻格子之前的边，那么它可能没有连接两个相同的磁砖，有可能连接了两个还没有拐过弯的磁砖，有可能连接了两个已经拐过弯的磁砖，一共是3种情况，所以用一个三进制数把它压下来。然后直接一路转移过去就行了。要注意的是每行都处理完了之后要把最边上的那一条从右移动到左，所以还需要把所有的状态都改一下。
+&amp;nbsp;
+今天效率比较低，心不在焉，然后在最后一个转移的地方wa了大半天。插头DP的调试也比较麻烦。所以我还是naive。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+const int maxn = 13; const int maxa = 109; const int maxs = 200009; const int mod = 20110520;
+bool mp[maxa][maxa]; int n, m, a[maxn], b[maxn], f[2][maxs];
+#define fc f[cur] #define fp f[prv] #define doNothing ; inline void mInc(int&amp;amp; a, int b) { a += b; if (a &amp;gt;= mod) a %= mod; }</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3769 SPOJ8549 BST again</title>
+      <link>/oi/i11rimport_044/</link>
+      <pubDate>Mon, 16 Feb 2015 22:16:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_044/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 什么鬼。&amp;lt;/p&amp;gt; &amp;nbsp;
+很好想的dp。f[i][j]表示深度不超过i且大小为j的二叉树的个数。转移是f[i][j] = ∑(f[i - 1][k] * f[i - 1][j - k - 1])。
+&amp;nbsp;
+然后直接暴力是O(n3)的。在spoj上能过在bzoj上不能过。在bzoj上得用记忆化搜索来减掉一些无用的东西。虽然我觉得很烦。
+&amp;nbsp;
+然后试图用fft，发现fft比暴力还慢。然后试图用fnt，然后发现fnt好像不能对1e9+7这种质数用。因为1e9+6只有来一个2。真悲伤。我还是太弱啊。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;cmath&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+const int maxn = 609; const int mod = 1000000007;
+#define _l (long long int)
+int f[maxn][maxn];
+int getf(int i, int j) { if (i == 0) return j &amp;lt;= 1; else if (j == 0) return 1; else if (f[i][j] == -1) { f[i][j] = 0; for (int k = 0; k &amp;lt; j; ++ k) f[i][j] = (f[i][j] + _l getf(i - 1, k) * getf(i - 1, j - k - 1)) % mod; } return f[i][j]; }</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3870 Our happy ending</title>
+      <link>/oi/i11rimport_073/</link>
+      <pubDate>Tue, 27 Jan 2015 20:48:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_073/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 立杰出的题，orz。&amp;lt;/p&amp;gt; &amp;nbsp;
+一个时间比较微妙的状压DP。用一个二进制状态表示0~k中哪些数已经可以被表示出来了，然后大于k的数直接乘，因为对状态不产生影响。
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+#define pow2(x) (1&amp;lt;&amp;lt;(x)) #define _l (long long int)
+const int maxn = 21; const int maxb = pow2(maxn) + 9; const int mod = 1e9 + 7;
+int n, k, l, f[2][maxb], zu, va;
+#define incm(a,b) { a += b; if (a &amp;gt;= mod) a %= mod; }
+int sov() { int prv(0), cur(1); memset(f, 0, sizeof(f)); va = max(0, l - k) + 1; zu = pow2(k + 1) - 1; f[cur][1] = 1; for (int ti = 0; ti &amp;lt; n; ++ ti) { swap(cur, prv); for (int i = zu; i; &amp;ndash; i) f[cur][i] = 0; for (int i = zu; i; &amp;ndash; i) if (f[prv][i]) { for (int j = 1; j &amp;lt;= k; ++ j) { int zn((i | (i &amp;lt;&amp;lt; j)) &amp;amp; zu); incm(f[cur][zn], f[prv][i]); } incm(f[cur][i], _l f[prv][i] * va % mod); } } int ans(0); for (int i = zu, e = pow2(k); i &amp;gt;= e; &amp;ndash; i) incm(ans, f[cur][i]); return ans; }</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3136 [Baltic2013]brunhilda</title>
+      <link>/oi/i11rimport_080/</link>
+      <pubDate>Fri, 23 Jan 2015 21:32:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_080/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 决心写一道usaco之外的题，于是就挑中了这道。&amp;lt;/p&amp;gt; &amp;nbsp;
+为啥这编辑器有BUG，每次按回车要向下跳？
+&amp;nbsp;
+发现可以预处理DP。f_i表示第i个数被砍完需要最少多少刀。对于每一个i，设p_i是它的质因子里最大的一个在给定集合里的，那么它可以转移到(i+1,i+p_i)这个范围。然后f_i显然不减，所以用单调队列之类的玩意。
+&amp;nbsp;
+然后卡着时间限制过了。不知道前面那些秒跑的人是怎么搞的。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+const int maxn = 10000009; const int maxm = 100009;
+int k[maxn], f[maxn], n, m, q, p[maxm], v[maxm];
+void pre(int n) { sort(p, p + m); memset(k, 0, sizeof(k)); for (int i = 0; i &amp;lt; m; ++ i) if (!i || p[i] != p[i - 1]) for (int j = 0; j &amp;lt;= n; j += p[i]) k[j] = p[i];</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3851 2048</title>
+      <link>/oi/lofterimport_007/</link>
+      <pubDate>Thu, 08 Jan 2015 15:00:21 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_007/</guid>
+      <description>题号是3851，题目名称是2048。
+比较厉害的DP。最初没有想到怎么表示状态。其实就是一个≤2048的自然数就可以表示状态了。
+然后转移不能一个一个来，每个值要一起来，&amp;nbsp;然后拿组合数来算。然后就行了。
+虽然hdu上还是过不到。好慢的说。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+#define _l (long long int)
+const int maxn = 100009;
+const int mod = 998244353;
+int n, f[2][2051], c[2051];
+int fac[maxn], finv[maxn], p2[maxn];
+int modPow(int a, int x)&amp;nbsp;{
+int s(1);
+for (; x; x &amp;gt;&amp;gt;= 1, a = _l a * a % mod)
+if (x&amp;nbsp;&amp;amp; 1)
+s = _l s * a % mod;
+return s;</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3831 [Poi2014]Little Bird</title>
+      <link>/oi/lofterimport_015/</link>
+      <pubDate>Sun, 04 Jan 2015 13:37:14 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_015/</guid>
+      <description>一血yeah yeah。
+第一眼觉得是比较麻烦的单调队列。
+然后发现转移的时候只会加1或者不加。
+那么取的时候只用取队首，队里首先fi单不降然后hi单减。那么一定没有方案比取队首差。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cctype&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+int _d_;&amp;nbsp;
+#define readInt(_x_)&amp;nbsp;{&amp;nbsp;\
+int&amp;amp; _s_ =&amp;nbsp;(_x_&amp;nbsp;= 0);&amp;nbsp;\
+while (!isdigit(_d_&amp;nbsp;= getchar()));&amp;nbsp;\
+while (_s_&amp;nbsp;= _s_ * 10 + _d_ - 48, isdigit(_d_ = getchar()));&amp;nbsp;\
+}
+const int maxn = 1000009;
+int n, m, a[maxn], f[maxn], q[maxn];
+int getTrans(int l, int r)&amp;nbsp;{
+int v0 = f[q[l]];
+while (l&amp;nbsp;&amp;lt; r)&amp;nbsp;{
+int mid =&amp;nbsp;(l&amp;nbsp;+ r + 1)&amp;nbsp;&amp;gt;&amp;gt; 1;</description>
+    </item>
+    
+    <item>
+      <title>BZOJ1171 大sz的游戏</title>
+      <link>/oi/lofterimport_023/</link>
+      <pubDate>Sat, 27 Dec 2014 10:00:25 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_023/</guid>
+      <description>大概是今天不宜刷题来着。应该好好做作业。
+用线段树套单调队列可以把复杂度降到O(nlogn)。然后deque严重不靠谱，得用list才行。
+然后还是跑得巨慢。前面的人是排序搞定的么？表示不明觉厉。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cctype&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;deque&amp;gt;
+#include &amp;lt;list&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+int _d_;
+#define readInt(_x_)&amp;nbsp;{&amp;nbsp;\
+int&amp;amp; _s_ = _x_;&amp;nbsp;\
+while (!isdigit(_d_&amp;nbsp;= getchar()));&amp;nbsp;\
+_s_ = 0;&amp;nbsp;\
+while ((_s_&amp;nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));&amp;nbsp;\
+}
+//typedef deque &amp;lt;int&amp;gt; dque_i;
+typedef list &amp;lt;int&amp;gt; dque_i;
+struct seg {
+int l, r;
+dque_i u, d;
+seg *ls,&amp;nbsp;*rs;
+};
+const int maxn = 250009;</description>
+    </item>
+    
+    <item>
+      <title>BZOJ1933 [Shoi2007]Bookcase 书柜的尺寸</title>
+      <link>/oi/lofterimport_027/</link>
+      <pubDate>Mon, 22 Dec 2014 23:32:06 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_027/</guid>
+      <description>老早之前就听说过的题。好像讲过不只一遍。不过才从bzoj上翻出来。
+记得是神奇的dp优化。为啥这年头卡常数的题这么多。
+首先肯定这玩意多项式可解。六维状态肯定能搞定。然后会mle+tle。
+首先考虑从高到低放书，那么后面的如果不新开一行的话对高度没有影响。瞬间少了3维状态。
+然后发现只要知道两维的总宽度和当前是第几位，就能知道第三维的宽度。于是一维2100缩70，开滚动可过。
+当然还是需要一些常数优化的技艺。比如用宽度直接判断这一行有没有书。这样可以省下不少时间，而且好像只能这样才存得下。64MB太紧了点。另外把函数里的int改成const int&amp;amp;会变慢，不知为何。
+居然花了这么久才搞出来。我太年轻了。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+struct book {
+int w, h;
+};
+inline bool cmpBook(const book&amp;amp; a, const book&amp;amp; b)&amp;nbsp;{
+return a. h &amp;gt; b. h;
+}
+const int maxn = 71;
+const int maxw = 2109;
+const int inf = 0x3f3f3f3f;
+int n, f[2][maxw][maxw], sw;
+book a[maxn];
+inline void upmin(int&amp;amp; _a_, int _b_)&amp;nbsp;{
+if (_a_&amp;nbsp;&amp;gt; _b_)
+_a_ = _b_;</description>
+    </item>
+    
+    <item>
+      <title>BZOJ1875 [SDOI2009]HH去散步</title>
+      <link>/oi/lofterimport_031/</link>
+      <pubDate>Sun, 21 Dec 2014 14:55:35 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_031/</guid>
+      <description>乍一看矩阵水题，然后发现不能走回头路。
+于是改一下把边当做点，把点当作转移，转移的时候就可以避免走过去就走回来的情况了。
+说好的复习会考呢？
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+#define _l (long long int)
+const int mod = 45989;
+const int maxn = 123;
+class matrix {
+public:
+int n, a[maxn][maxn];
+inline matrix()&amp;nbsp;{
+}
+inline matrix(int n0, bool one = 0)&amp;nbsp;{
+n = n0;
+memset(a, 0, sizeof(a));
+if (one)
+for (int i = 0; i &amp;lt; n;&amp;nbsp;++ i)
+a[i][i]&amp;nbsp;= 1;
+}
+void operator =(const matrix&amp;amp; x)&amp;nbsp;{
+n = x.</description>
+    </item>
+    
+    <item>
+      <title>BZOJ1037 生日聚会</title>
+      <link>/oi/lofterimport_046/</link>
+      <pubDate>Mon, 08 Dec 2014 15:04:52 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_046/</guid>
+      <description>好久没做过数据范围这么小的题了。
+看来我是有点偏科了。
+这么前面的题居然都不做。
+dp就好。状态是前面男-女的最大值和最小值还有现在有多少男。然后滚动。
+我毕竟太年轻。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+const int maxn = 159;
+const int maxk = 49;
+const int kbase = 23;
+const int mod = 12345678;
+int n, m, c, f[2][maxn][maxk][maxk];
+#define incm(_x_,_b_)&amp;nbsp;{&amp;nbsp;\
+int&amp;amp; _a_ = _x_;&amp;nbsp;\
+_a_ += _b_;&amp;nbsp;\
+if (_a_&amp;nbsp;&amp;gt;= mod)&amp;nbsp;\
+_a_ %= mod;&amp;nbsp;\
+}
+int main()&amp;nbsp;{
+#ifndef ONLINE_JUDGE
+freopen(&amp;quot;in.txt&amp;quot;,&amp;nbsp;&amp;quot;r&amp;quot;, stdin);
+#endif
+scanf(&amp;quot;%d%d%d&amp;quot;,&amp;nbsp;&amp;amp;n,&amp;nbsp;&amp;amp;m,&amp;nbsp;&amp;amp;c);
+if (c&amp;nbsp;== 0)&amp;nbsp;{
+puts(&amp;quot;0&amp;quot;);
+}
+else {</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3672 [NOI2014]购票</title>
+      <link>/oi/lofterimport_150/</link>
+      <pubDate>Tue, 14 Oct 2014 18:01:23 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_150/</guid>
+      <description>考场上只想到暴力。
+如果只是一条链的话怎么乱搞一搞？
+如果没有深度限制的话简单的斜率优化+链剖就行了。
+有深度限制就把hull扔到线段树里用可持久化栈来维护一下。DFS的时候塞进线段树里，然后完了再扔出来。总的复杂度O(n*log^2(n))，
+代码也不怎么复杂。
+#include &amp;lt;cstdio&amp;gt;
+#include&amp;nbsp;&amp;lt;cctype&amp;gt;
+#include&amp;nbsp;&amp;lt;memory.h&amp;gt;
+#include&amp;nbsp;&amp;lt;vector&amp;gt;
+#include&amp;nbsp;&amp;lt;algorithm&amp;gt;
+using namespace std;
+struct edge {
+int t;
+edge* next;
+};
+typedef long long qw;
+typedef long double exf;
+#ifdef WIN32
+#define lld &amp;quot;%I64d&amp;quot;
+#else
+#define lld &amp;quot;%lld&amp;quot;
+#endif
+#define _l (qw)
+#define readInt(_s_)&amp;nbsp;{\
+int _d_;\
+_s_ = 0;\
+while (!isdigit(_d_&amp;nbsp;= getchar()));\
+while ((_s_&amp;nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\
+}
+struct oper {
+int p, v, t;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Scoi2013多项式的运算 | The Site of laekov</title>
+<meta name="keywords" content="bzoj, data\xa0structure, scoi, oi">
+<meta name="description" content="平衡树维护序列的老题。之前用SMT写过，不过在bzoj上就tle了。splay大法好。
+#include &lt;cstdio&gt;
+#include &lt;cctype&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+int _d_;
+#define readInt(_x_)&nbsp;{&nbsp;\
+int&amp; _s_ = _x_;&nbsp;\
+while (!isdigit(_d_&nbsp;= getchar()));&nbsp;\
+_s_ = 0;&nbsp;\
+while ((_s_&nbsp;= _s_ * 10 &#43; _d_ - 48), isdigit(_d_ = getchar()));&nbsp;\
+}
+#define readStr(_s_)&nbsp;{&nbsp;\
+char* _i_ = _s_;&nbsp;\
+while (!islower(_d_&nbsp;= getchar()));&nbsp;\
+while ((*(_i_&nbsp;&#43;&#43;)&nbsp;= _d_), islower(_d_ = getchar()));&nbsp;\
+*(_i_)&nbsp;= 0;&nbsp;\
+}
+#define _l (long long int)
+const int maxn = 300009;
+const int mod = 20130426;">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/lofterimport_065/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="Scoi2013多项式的运算" />
+<meta property="og:description" content="平衡树维护序列的老题。之前用SMT写过，不过在bzoj上就tle了。splay大法好。
+#include &lt;cstdio&gt;
+#include &lt;cctype&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+int _d_;
+#define readInt(_x_)&nbsp;{&nbsp;\
+int&amp; _s_ = _x_;&nbsp;\
+while (!isdigit(_d_&nbsp;= getchar()));&nbsp;\
+_s_ = 0;&nbsp;\
+while ((_s_&nbsp;= _s_ * 10 &#43; _d_ - 48), isdigit(_d_ = getchar()));&nbsp;\
+}
+#define readStr(_s_)&nbsp;{&nbsp;\
+char* _i_ = _s_;&nbsp;\
+while (!islower(_d_&nbsp;= getchar()));&nbsp;\
+while ((*(_i_&nbsp;&#43;&#43;)&nbsp;= _d_), islower(_d_ = getchar()));&nbsp;\
+*(_i_)&nbsp;= 0;&nbsp;\
+}
+#define _l (long long int)
+const int maxn = 300009;
+const int mod = 20130426;" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/lofterimport_065/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2014-11-26T16:04:09+00:00" />
+<meta property="article:modified_time" content="2014-11-26T16:04:09+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Scoi2013多项式的运算"/>
+<meta name="twitter:description" content="平衡树维护序列的老题。之前用SMT写过，不过在bzoj上就tle了。splay大法好。
+#include &lt;cstdio&gt;
+#include &lt;cctype&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+int _d_;
+#define readInt(_x_)&nbsp;{&nbsp;\
+int&amp; _s_ = _x_;&nbsp;\
+while (!isdigit(_d_&nbsp;= getchar()));&nbsp;\
+_s_ = 0;&nbsp;\
+while ((_s_&nbsp;= _s_ * 10 &#43; _d_ - 48), isdigit(_d_ = getchar()));&nbsp;\
+}
+#define readStr(_s_)&nbsp;{&nbsp;\
+char* _i_ = _s_;&nbsp;\
+while (!islower(_d_&nbsp;= getchar()));&nbsp;\
+while ((*(_i_&nbsp;&#43;&#43;)&nbsp;= _d_), islower(_d_ = getchar()));&nbsp;\
+*(_i_)&nbsp;= 0;&nbsp;\
+}
+#define _l (long long int)
+const int maxn = 300009;
+const int mod = 20130426;"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Scoi2013多项式的运算",
+      "item": "/oi/lofterimport_065/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Scoi2013多项式的运算",
+  "name": "Scoi2013多项式的运算",
+  "description": "平衡树维护序列的老题。之前用SMT写过，不过在bzoj上就tle了。splay大法好。\n#include \u0026lt;cstdio\u0026gt;\n#include \u0026lt;cctype\u0026gt;\n#include \u0026lt;cstring\u0026gt;\n#include \u0026lt;algorithm\u0026gt;\nusing namespace std;\nint _d_;\n#define readInt(_x_)\u0026nbsp;{\u0026nbsp;\\\nint\u0026amp; _s_ = _x_;\u0026nbsp;\\\nwhile (!isdigit(_d_\u0026nbsp;= getchar()));\u0026nbsp;\\\n_s_ = 0;\u0026nbsp;\\\nwhile ((_s_\u0026nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\u0026nbsp;\\\n}\n#define readStr(_s_)\u0026nbsp;{\u0026nbsp;\\\nchar* _i_ = _s_;\u0026nbsp;\\\nwhile (!islower(_d_\u0026nbsp;= getchar()));\u0026nbsp;\\\nwhile ((*(_i_\u0026nbsp;++)\u0026nbsp;= _d_), islower(_d_ = getchar()));\u0026nbsp;\\\n*(_i_)\u0026nbsp;= 0;\u0026nbsp;\\\n}\n#define _l (long long int)\nconst int maxn = 300009;\nconst int mod = 20130426;",
+  "keywords": [
+    "bzoj", "data\\xa0structure", "scoi", "oi"
+  ],
+  "articleBody": "平衡树维护序列的老题。之前用SMT写过，不过在bzoj上就tle了。splay大法好。\n#include #include #include #include using namespace std;\nint _d_;\n#define readInt(_x_) { \\\nint\u0026 _s_ = _x_; \\\nwhile (!isdigit(_d_ = getchar())); \\\n_s_ = 0; \\\nwhile ((_s_ = _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar())); \\\n}\n#define readStr(_s_) { \\\nchar* _i_ = _s_; \\\nwhile (!islower(_d_ = getchar())); \\\nwhile ((*(_i_ ++) = _d_), islower(_d_ = getchar())); \\\n*(_i_) = 0; \\\n}\n#define _l (long long int)\nconst int maxn = 300009;\nconst int mod = 20130426;\nstruct node {\nint ls, rs, pt, sz;\nint val, mul, add;\n};\nstruct splay_tree {\nnode t[maxn];\nint cr, tn;\nvoid init() {\nt[0]. sz = 0;\nt[0]. val = 0;\ntn = 0;\ncr = 0;\n}\ninline void update(int p) {\nt[p]. sz = t[t[p]. ls]. sz + t[t[p]. rs]. sz + 1;\n}\ninline void pushDown(int p) {\nif (t[p]. ls) {\nt[t[p]. ls]. val = (_l t[t[p]. ls]. val * t[p]. mul + t[p]. add) % mod;\nt[t[p]. ls]. mul = (_l t[t[p]. ls]. mul * t[p]. mul) % mod;\nt[t[p]. ls]. add = (_l t[t[p]. ls]. add * t[p]. mul + t[p]. add) % mod;\n}\nif (t[p]. rs) {\nt[t[p]. rs]. val = (_l t[t[p]. rs]. val * t[p]. mul + t[p]. add) % mod;\nt[t[p]. rs]. mul = (_l t[t[p]. rs]. mul * t[p]. mul) % mod;\nt[t[p]. rs]. add = (_l t[t[p]. rs]. add * t[p]. mul + t[p]. add) % mod;\n}\nt[p]. mul = 1;\nt[p]. add = 0;\n}\ninline void lRot(int q) {\nint p = t[q]. pt, a = t[p]. pt;\nif (t[q]. rs)\nt[t[q]. rs]. pt = p;\nt[p]. ls = t[q]. rs;\nt[q]. rs = p;\nt[p]. pt = q;\nt[q]. pt = a;\nif (a) {\nif (p == t[a]. ls)\nt[a]. ls = q;\nelse\nt[a]. rs = q;\n}\nupdate(p);\nupdate(q);\n}\ninline void rRot(int q) {\nint p = t[q]. pt, a = t[p]. pt;\nif (t[q]. ls)\nt[t[q]. ls]. pt = p;\nt[p]. rs = t[q]. ls;\nt[q]. ls = p;\nt[p]. pt = q;\nt[q]. pt = a;\nif (a) {\nif (p == t[a]. ls)\nt[a]. ls = q;\nelse\nt[a]. rs = q;\n}\nupdate(p);\nupdate(q);\n}\nvoid upath(int q) {\nfor (; q; q = t[q]. pt)\nupdate(q);\n}\nvoid dpath(int q) {\nstatic int stc[maxn];\nint tst = 0;\nfor (int u = q; u; u = t[u]. pt)\nstc[++ tst] = u;\nfor (; tst; -- tst) {\nupdate(stc[tst]);\npushDown(stc[tst]);\n}\n}\nvoid splay(int q) {\ndpath(q);\nwhile (t[q]. pt) {\nint p = t[q]. pt, a = t[p]. pt;\nif (!a || !t[a]. pt) {\nif (q == t[p]. ls)\nlRot(q);\nelse\nrRot(q);\n}\nelse {\nif (p == t[a]. ls) {\nif (q == t[p]. ls)\nlRot(p), lRot(q);\nelse\nrRot(q), lRot(q);\n}\nelse {\nif (q == t[p]. ls)\nlRot(q), rRot(q);\nelse\nrRot(p), rRot(q);\n}\n}\n}\ncr = q;\n}\nint kth(int k) {\nint p = cr;\nwhile (p)\nif (t[t[p]. ls]. sz == k)\nbreak;\nelse if (t[t[p]. ls]. sz \u003e k)\np = t[p]. ls;\nelse\nk -= t[t[p]. ls]. sz + 1, p = t[p]. rs;\nreturn p;\n}\nint build(int l, int r) {\nif (l \u003e r)\nreturn 0;\nint p = ++ tn, mid = (l + r) \u003e\u003e 1;\nt[p]. val = 0;\nt[p]. add = 0;\nt[p]. mul = 1;\nt[p]. ls = build(l, mid - 1);\nif (t[p]. ls)\nt[t[p]. ls]. pt = p;\nt[p]. rs = build(mid + 1, r);\nif (t[p]. rs)\nt[t[p]. rs]. pt = p;\nupdate(p);\nreturn p;\n}\nint getRange(int l, int r) {\nif (!cr)\ncr = build(0, r);\nif (r \u003e= t[cr]. sz) {\nint x = kth(t[cr]. sz - 1);\nint z = build(t[cr]. sz, r);\nsplay(x);\npushDown(x);\nt[x]. rs = z;\nt[z]. pt = x;\nupdate(x);\n}\nif (!l \u0026\u0026 r == t[cr]. sz - 1)\nreturn cr;\nelse if (!l) {\nint x = kth(r + 1);\nsplay(x);\nreturn t[x]. ls;\n}\nelse if (r == t[cr]. sz - 1) {\nint x = kth(l - 1);\nsplay(x);\nreturn t[x]. rs;\n}\nelse {\nint x = kth(l - 1);\nint y = kth(r + 1);\nsplay(x);\nsplay(y);\nreturn t[x]. rs;\n}\n}\nvoid add(int p, int v) {\ndpath(p);\nt[p]. val = (_l t[p]. val + v) % mod;\nt[p]. add = (_l t[p]. add + v) % mod;\n}\nvoid mul(int p, int v) {\ndpath(p);\nt[p]. val = _l t[p]. val * v % mod;\nt[p]. add = _l t[p]. add * v % mod;\nt[p]. mul = _l t[p]. mul * v % mod;\n}\nint rmvKth(int k) {\nint x = getRange(k, k);\nif (t[cr]. sz == 1)\nreturn cr = 0, t[x]. val;\ndpath(x);\nint ret = t[x]. val;\nif (t[x]. pt) {\nif (x == t[t[x]. pt]. ls)\nt[t[x]. pt]. ls = 0; else\nt[t[x]. pt]. rs = 0; upath(t[x]. pt);\n}\nreturn ret;\n}\nvoid ins(int k) {\nint x = getRange(k, k);\nwhile (t[x]. ls)\nx = t[x]. ls;\ndpath(x);\n++ tn;\nt[tn]. ls = 0;\nt[tn]. rs = 0;\nt[tn]. pt = x;\nt[tn]. sz = 1;\nt[tn]. val = 0;\nt[tn]. mul = 1;\nt[tn]. add = 0;\nt[x]. ls = tn;\nupath(tn);\nsplay(tn);\n}\nint dfsAns(int p, int\u0026 x, int x0) {\nint ret = 0;\npushDown(p);\nif (t[p]. ls)\nret = dfsAns(t[p]. ls, x, x0);\nret = (_l ret + _l x * t[p]. val) % mod;\nx = _l x * x0 % mod;\nif (t[p]. rs)\nret = (ret + dfsAns(t[p]. rs, x, x0)) % mod;\nreturn ret;\n}\nint getAns(int x) {\nint tmp = 1;\nreturn dfsAns(cr, tmp, x);\n}\n};\nint n;\nsplay_tree t;\nint main() {\n#ifndef ONLINE_JUDGE\nfreopen(\"in.txt\", \"r\", stdin);\n#endif\nt. init();\nreadInt(n);\nwhile (n --) {\nchar opt[7];\nint l, r, v;\nreadStr(opt);\nif (opt[0] == 'm' \u0026\u0026 opt[3] == 0) {\nreadInt(l);\nreadInt(r);\nreadInt(v);\nint x = t. getRange(l, r);\nt. mul(x, v);\n}\nelse if (opt[0] == 'a') {\nreadInt(l);\nreadInt(r);\nreadInt(v);\nint x = t. getRange(l, r);\nt. add(x, v);\n}\nelse if (opt[3] == 'x') {\nreadInt(l);\nreadInt(r);\nint v = t. rmvKth(r);\nint x = t. getRange(r, r);\nt. add(x, v);\nt. ins(l);\n}\nelse {\nreadInt(v);\nprintf(\"%d\\n\", t. getAns(v));\n}\n}\n}\n",
+  "wordCount" : "968",
+  "inLanguage": "en",
+  "datePublished": "2014-11-26T16:04:09Z",
+  "dateModified": "2014-11-26T16:04:09Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/lofterimport_065/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      Scoi2013多项式的运算
+    </h1>
+    <div class="post-meta"><span title='2014-11-26 16:04:09 +0000 UTC'>November 26, 2014</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>平衡树维护序列的老题。之前用SMT写过，不过在bzoj上就tle了。splay大法好。</p> 
+<p><br /></p> 
+<p>#include &lt;cstdio&gt;</p> 
+<p>#include &lt;cctype&gt;</p> 
+<p>#include &lt;cstring&gt;</p> 
+<p>#include &lt;algorithm&gt;</p> 
+<p><br /></p> 
+<p>using namespace std;</p> 
+<p><br /></p> 
+<p>int _d_;</p> 
+<p>#define readInt(_x_)&nbsp;{&nbsp;\</p> 
+<p>int&amp; _s_ = _x_;&nbsp;\</p> 
+<p>while (!isdigit(_d_&nbsp;= getchar()));&nbsp;\</p> 
+<p>_s_ = 0;&nbsp;\</p> 
+<p>while ((_s_&nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));&nbsp;\</p> 
+<p>}</p> 
+<p>#define readStr(_s_)&nbsp;{&nbsp;\</p> 
+<p>char* _i_ = _s_;&nbsp;\</p> 
+<p>while (!islower(_d_&nbsp;= getchar()));&nbsp;\</p> 
+<p>while ((*(_i_&nbsp;++)&nbsp;= _d_), islower(_d_ = getchar()));&nbsp;\</p> 
+<p>*(_i_)&nbsp;= 0;&nbsp;\</p> 
+<p>}</p> 
+<p>#define _l (long long int)</p> 
+<p><br /></p> 
+<p>const int maxn = 300009;</p> 
+<p>const int mod = 20130426;</p> 
+<p><br /></p> 
+<p>struct node {</p> 
+<p>int ls, rs, pt, sz;</p> 
+<p>int val, mul, add;</p> 
+<p>};</p> 
+<p>struct splay_tree {</p> 
+<p>node t[maxn];</p> 
+<p>int cr, tn;</p> 
+<p>void init()&nbsp;{</p> 
+<p>t[0]. sz = 0;</p> 
+<p>t[0]. val = 0;</p> 
+<p>tn = 0;</p> 
+<p>cr = 0;</p> 
+<p>}</p> 
+<p>inline void update(int p)&nbsp;{</p> 
+<p>t[p]. sz = t[t[p]. ls]. sz + t[t[p]. rs]. sz + 1;</p> 
+<p>}</p> 
+<p>inline void pushDown(int p)&nbsp;{</p> 
+<p>if (t[p]. ls)&nbsp;{</p> 
+<p>t[t[p]. ls]. val =&nbsp;(_l t[t[p]. ls]. val * t[p]. mul + t[p]. add)&nbsp;% mod;</p> 
+<p>t[t[p]. ls]. mul =&nbsp;(_l t[t[p]. ls]. mul * t[p]. mul)&nbsp;% mod;</p> 
+<p>t[t[p]. ls]. add =&nbsp;(_l t[t[p]. ls]. add * t[p]. mul + t[p]. add)&nbsp;% mod;</p> 
+<p>}</p> 
+<p>if (t[p]. rs)&nbsp;{</p> 
+<p>t[t[p]. rs]. val =&nbsp;(_l t[t[p]. rs]. val * t[p]. mul + t[p]. add)&nbsp;% mod;</p> 
+<p>t[t[p]. rs]. mul =&nbsp;(_l t[t[p]. rs]. mul * t[p]. mul)&nbsp;% mod;</p> 
+<p>t[t[p]. rs]. add =&nbsp;(_l t[t[p]. rs]. add * t[p]. mul + t[p]. add)&nbsp;% mod;</p> 
+<p>}</p> 
+<p>t[p]. mul = 1;</p> 
+<p>t[p]. add = 0;</p> 
+<p>}</p> 
+<p>inline void lRot(int q)&nbsp;{</p> 
+<p>int p = t[q]. pt, a = t[p]. pt;</p> 
+<p>if (t[q]. rs)</p> 
+<p>t[t[q]. rs]. pt = p;</p> 
+<p>t[p]. ls = t[q]. rs;</p> 
+<p>t[q]. rs = p;</p> 
+<p>t[p]. pt = q;</p> 
+<p>t[q]. pt = a;</p> 
+<p>if (a)&nbsp;{</p> 
+<p>if (p&nbsp;== t[a]. ls)</p> 
+<p>t[a]. ls = q;</p> 
+<p>else</p> 
+<p>t[a]. rs = q;</p> 
+<p>}</p> 
+<p>update(p);</p> 
+<p>update(q);</p> 
+<p>}</p> 
+<p>inline void rRot(int q)&nbsp;{</p> 
+<p>int p = t[q]. pt, a = t[p]. pt;</p> 
+<p>if (t[q]. ls)</p> 
+<p>t[t[q]. ls]. pt = p;</p> 
+<p>t[p]. rs = t[q]. ls;</p> 
+<p>t[q]. ls = p;</p> 
+<p>t[p]. pt = q;</p> 
+<p>t[q]. pt = a;</p> 
+<p>if (a)&nbsp;{</p> 
+<p>if (p&nbsp;== t[a]. ls)</p> 
+<p>t[a]. ls = q;</p> 
+<p>else</p> 
+<p>t[a]. rs = q;</p> 
+<p>}</p> 
+<p>update(p);</p> 
+<p>update(q);</p> 
+<p>}</p> 
+<p>void upath(int q)&nbsp;{</p> 
+<p>for (; q; q = t[q]. pt)</p> 
+<p>update(q);</p> 
+<p>}</p> 
+<p>void dpath(int q)&nbsp;{</p> 
+<p>static int stc[maxn];</p> 
+<p>int tst = 0;</p> 
+<p>for (int u = q; u; u = t[u]. pt)</p> 
+<p>stc[++ tst]&nbsp;= u;</p> 
+<p>for (; tst;&nbsp;-- tst)&nbsp;{</p> 
+<p>update(stc[tst]);</p> 
+<p>pushDown(stc[tst]);</p> 
+<p>}</p> 
+<p>}</p> 
+<p>void splay(int q)&nbsp;{</p> 
+<p>dpath(q);</p> 
+<p>while (t[q]. pt)&nbsp;{</p> 
+<p>int p = t[q]. pt, a = t[p]. pt;</p> 
+<p>if (!a&nbsp;||&nbsp;!t[a]. pt)&nbsp;{</p> 
+<p>if (q&nbsp;== t[p]. ls)</p> 
+<p>lRot(q);</p> 
+<p>else</p> 
+<p>rRot(q);</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>if (p&nbsp;== t[a]. ls)&nbsp;{</p> 
+<p>if (q&nbsp;== t[p]. ls)</p> 
+<p>lRot(p), lRot(q);</p> 
+<p>else</p> 
+<p>rRot(q), lRot(q);</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>if (q&nbsp;== t[p]. ls)</p> 
+<p>lRot(q), rRot(q);</p> 
+<p>else</p> 
+<p>rRot(p), rRot(q);</p> 
+<p>}</p> 
+<p>}</p> 
+<p>}</p> 
+<p>cr = q;</p> 
+<p>}</p> 
+<p>int kth(int k)&nbsp;{</p> 
+<p>int p = cr;</p> 
+<p>while (p)</p> 
+<p>if (t[t[p]. ls]. sz == k)</p> 
+<p>break;</p> 
+<p>else if (t[t[p]. ls]. sz &gt; k)</p> 
+<p>p = t[p]. ls;</p> 
+<p>else</p> 
+<p>k -= t[t[p]. ls]. sz + 1, p = t[p]. rs;</p> 
+<p>return p;</p> 
+<p>}</p> 
+<p>int build(int l, int r)&nbsp;{</p> 
+<p>if (l&nbsp;&gt; r)</p> 
+<p>return 0;</p> 
+<p>int p =&nbsp;++ tn, mid =&nbsp;(l&nbsp;+ r)&nbsp;&gt;&gt; 1;</p> 
+<p>t[p]. val = 0;</p> 
+<p>t[p]. add = 0;</p> 
+<p>t[p]. mul = 1;</p> 
+<p>t[p]. ls = build(l, mid - 1);</p> 
+<p>if (t[p]. ls)</p> 
+<p>t[t[p]. ls]. pt = p;</p> 
+<p>t[p]. rs = build(mid + 1, r);</p> 
+<p>if (t[p]. rs)</p> 
+<p>t[t[p]. rs]. pt = p;</p> 
+<p>update(p);</p> 
+<p>return p;</p> 
+<p>}</p> 
+<p>int getRange(int l, int r)&nbsp;{</p> 
+<p>if (!cr)</p> 
+<p>cr = build(0, r);</p> 
+<p>if (r&nbsp;&gt;= t[cr]. sz)&nbsp;{</p> 
+<p>int x = kth(t[cr]. sz - 1);</p> 
+<p>int z = build(t[cr]. sz, r);</p> 
+<p>splay(x);</p> 
+<p>pushDown(x);</p> 
+<p>t[x]. rs = z;</p> 
+<p>t[z]. pt = x;</p> 
+<p>update(x);</p> 
+<p>}</p> 
+<p>if (!l&nbsp;&amp;&amp; r == t[cr]. sz - 1)</p> 
+<p>return cr;</p> 
+<p>else if (!l)&nbsp;{</p> 
+<p>int x = kth(r + 1);</p> 
+<p>splay(x);</p> 
+<p>return t[x]. ls;</p> 
+<p>}</p> 
+<p>else if (r&nbsp;== t[cr]. sz - 1)&nbsp;{</p> 
+<p>int x = kth(l - 1);</p> 
+<p>splay(x);</p> 
+<p>return t[x]. rs;</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>int x = kth(l - 1);</p> 
+<p>int y = kth(r + 1);</p> 
+<p>splay(x);</p> 
+<p>splay(y);</p> 
+<p>return t[x]. rs;</p> 
+<p>}</p> 
+<p>}</p> 
+<p>void add(int p, int v)&nbsp;{</p> 
+<p>dpath(p);</p> 
+<p>t[p]. val =&nbsp;(_l t[p]. val + v)&nbsp;% mod;</p> 
+<p>t[p]. add =&nbsp;(_l t[p]. add + v)&nbsp;% mod;</p> 
+<p>}</p> 
+<p>void mul(int p, int v)&nbsp;{</p> 
+<p>dpath(p);</p> 
+<p>t[p]. val = _l t[p]. val * v % mod;</p> 
+<p>t[p]. add = _l t[p]. add * v % mod;</p> 
+<p>t[p]. mul = _l t[p]. mul * v % mod;</p> 
+<p>}</p> 
+<p>int rmvKth(int k)&nbsp;{</p> 
+<p>int x = getRange(k, k);</p> 
+<p>if (t[cr]. sz == 1)</p> 
+<p>return cr = 0, t[x]. val;</p> 
+<p>dpath(x);</p> 
+<p>int ret = t[x]. val;</p> 
+<p>if (t[x]. pt)&nbsp;{</p> 
+<p>if (x&nbsp;== t[t[x]. pt]. ls)</p> 
+<p>t[t[x]. pt]. ls = 0;&nbsp;</p> 
+<p>else</p> 
+<p>t[t[x]. pt]. rs = 0;&nbsp;</p> 
+<p>upath(t[x]. pt);</p> 
+<p>}</p> 
+<p>return ret;</p> 
+<p>}</p> 
+<p>void ins(int k)&nbsp;{</p> 
+<p>int x = getRange(k, k);</p> 
+<p>while (t[x]. ls)</p> 
+<p>x = t[x]. ls;</p> 
+<p>dpath(x);</p> 
+<p>++ tn;</p> 
+<p>t[tn]. ls = 0;</p> 
+<p>t[tn]. rs = 0;</p> 
+<p>t[tn]. pt = x;</p> 
+<p>t[tn]. sz = 1;</p> 
+<p>t[tn]. val = 0;</p> 
+<p>t[tn]. mul = 1;</p> 
+<p>t[tn]. add = 0;</p> 
+<p>t[x]. ls = tn;</p> 
+<p>upath(tn);</p> 
+<p>splay(tn);</p> 
+<p>}</p> 
+<p>int dfsAns(int p, int&amp; x, int x0)&nbsp;{</p> 
+<p>int ret = 0;</p> 
+<p>pushDown(p);</p> 
+<p>if (t[p]. ls)</p> 
+<p>ret = dfsAns(t[p]. ls, x, x0);</p> 
+<p>ret =&nbsp;(_l ret + _l x * t[p]. val)&nbsp;% mod;</p> 
+<p>x = _l x * x0 % mod;</p> 
+<p>if (t[p]. rs)</p> 
+<p>ret =&nbsp;(ret&nbsp;+ dfsAns(t[p]. rs, x, x0))&nbsp;% mod;</p> 
+<p>return ret;</p> 
+<p>}</p> 
+<p>int getAns(int x)&nbsp;{</p> 
+<p>int tmp = 1;</p> 
+<p>return dfsAns(cr, tmp, x);</p> 
+<p>}</p> 
+<p>};</p> 
+<p><br /></p> 
+<p>int n;</p> 
+<p>splay_tree t;</p> 
+<p><br /></p> 
+<p>int main()&nbsp;{</p> 
+<p>#ifndef ONLINE_JUDGE</p> 
+<p>freopen(&quot;in.txt&quot;,&nbsp;&quot;r&quot;, stdin);</p> 
+<p>#endif</p> 
+<p>t. init();</p> 
+<p>readInt(n);</p> 
+<p>while (n&nbsp;--)&nbsp;{</p> 
+<p>char opt[7];</p> 
+<p>int l, r, v;</p> 
+<p>readStr(opt);</p> 
+<p>if (opt[0]&nbsp;==&nbsp;'m'&nbsp;&amp;&amp; opt[3]&nbsp;== 0)&nbsp;{</p> 
+<p>readInt(l);</p> 
+<p>readInt(r);</p> 
+<p>readInt(v);</p> 
+<p>int x = t. getRange(l, r);</p> 
+<p>t. mul(x, v);</p> 
+<p>}</p> 
+<p>else if (opt[0]&nbsp;==&nbsp;'a')&nbsp;{</p> 
+<p>readInt(l);</p> 
+<p>readInt(r);</p> 
+<p>readInt(v);</p> 
+<p>int x = t. getRange(l, r);</p> 
+<p>t. add(x, v);</p> 
+<p>}</p> 
+<p>else if (opt[3]&nbsp;==&nbsp;'x')&nbsp;{</p> 
+<p>readInt(l);</p> 
+<p>readInt(r);</p> 
+<p>int v = t. rmvKth(r);</p> 
+<p>int x = t. getRange(r, r);</p> 
+<p>t. add(x, v);</p> 
+<p>t. ins(l);</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>readInt(v);</p> 
+<p>printf(&quot;%d\n&quot;, t. getAns(v));</p> 
+<p>}</p> 
+<p>}</p> 
+<p>}</p> 
+<p><br /></p>
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/bzoj/">bzoj</a></li>
+      <li><a href="/tags/data%5Cxa0structure/">data\xa0structure</a></li>
+      <li><a href="/tags/scoi/">scoi</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/lofterimport_063/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>BZOJ1954 Pku3764 The xor-longest Path</span>
+  </a>
+  <a class="next" href="/oi/lofterimport_066/">
+    <span class="title">Next »</span>
+    <br>
+    <span>BZOJ3237 [Ahoi2013]连通图</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

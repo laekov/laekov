@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>BZOJ1513 [POI2006]Tet-Tetris 3D | The Site of laekov</title>
+<meta name="keywords" content="bzoj, ds, oi">
+<meta name="description" content="&lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt; 这么水的题居然还要写题解。要不要说我写了半个下午&#43;半个晚上。&lt;/p&gt; &nbsp;
+丧心病狂想写一发zkw去抢速度rank。然后发现zkw怎么支持区间修改查询TT。课件根本没讲懂。而且max怎么区间加。
+&nbsp;
+想了很久终于想出了来了。然后交上去发现常数巨大比普通线段树还要慢TT。到头来想想如果我直接写普通线段树说不定十多分钟就能过，而且代码量还会小一些。因为那个是可以直接通用的，但是这个比较麻烦。
+&nbsp;
+其实写这个就题解就是想记录一下我yy出来的zkw区间修改区间查询的方法。
+&nbsp;
+这道题是区间查询最大值&#43;区间修改。如果是写一般的线段树，需要记录两个值a和v（至于为啥我用了这俩神奇的字母我也不知道），分别表示当前区间被完整覆盖的修改的最大值（又称lazy标记）和当前区间的最大值。然后所以zkw也要记这两个东西。
+&nbsp;
+如果我们把zkw看作一棵树，那么每次修改和询问操作的时候都是对一些线段的a和v进行操作。（废话）
+&nbsp;
+首先考虑修改。zkw经典的变为开区间取中间能处理a值的改变，但是不能处理v值的改变。因为v值改变的线段不一定会被当前区间包含。然后仔细考虑发现a值没有变但是v值变了的点只可能存在于两个端点到根的路径上。那就直接强行更新一发就好了啊。然后更新的区域就变成了一个有点像倒置漏斗的形状。
+&nbsp;
+再考虑询问。a要覆盖当前区间，v要被当前区间覆盖。那不就是修改把a和v的做法反一下么。
+&nbsp;
+然后好像也不是很麻烦的样子哈。
+&nbsp;
+然后常数很大哈。
+&nbsp;
+那还拿zkw做何用。
+&nbsp;
+晕。
+&nbsp;
+#include &lt;cstdio&gt; #include &lt;cctype&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+const int buf_len = 4567; char buf[buf_len], *bufb(buf), *bufe(buf &#43; 1); #define readBuf() { if (&#43;&#43; bufb == bufe) bufe = (bufb = buf) &#43; fread(buf, 1, sizeof(buf), stdin); } #define readInt(x) { register int s(0); do { readBuf(); } while (!">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/i11rimport_010/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="BZOJ1513 [POI2006]Tet-Tetris 3D" />
+<meta property="og:description" content="&lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt; 这么水的题居然还要写题解。要不要说我写了半个下午&#43;半个晚上。&lt;/p&gt; &nbsp;
+丧心病狂想写一发zkw去抢速度rank。然后发现zkw怎么支持区间修改查询TT。课件根本没讲懂。而且max怎么区间加。
+&nbsp;
+想了很久终于想出了来了。然后交上去发现常数巨大比普通线段树还要慢TT。到头来想想如果我直接写普通线段树说不定十多分钟就能过，而且代码量还会小一些。因为那个是可以直接通用的，但是这个比较麻烦。
+&nbsp;
+其实写这个就题解就是想记录一下我yy出来的zkw区间修改区间查询的方法。
+&nbsp;
+这道题是区间查询最大值&#43;区间修改。如果是写一般的线段树，需要记录两个值a和v（至于为啥我用了这俩神奇的字母我也不知道），分别表示当前区间被完整覆盖的修改的最大值（又称lazy标记）和当前区间的最大值。然后所以zkw也要记这两个东西。
+&nbsp;
+如果我们把zkw看作一棵树，那么每次修改和询问操作的时候都是对一些线段的a和v进行操作。（废话）
+&nbsp;
+首先考虑修改。zkw经典的变为开区间取中间能处理a值的改变，但是不能处理v值的改变。因为v值改变的线段不一定会被当前区间包含。然后仔细考虑发现a值没有变但是v值变了的点只可能存在于两个端点到根的路径上。那就直接强行更新一发就好了啊。然后更新的区域就变成了一个有点像倒置漏斗的形状。
+&nbsp;
+再考虑询问。a要覆盖当前区间，v要被当前区间覆盖。那不就是修改把a和v的做法反一下么。
+&nbsp;
+然后好像也不是很麻烦的样子哈。
+&nbsp;
+然后常数很大哈。
+&nbsp;
+那还拿zkw做何用。
+&nbsp;
+晕。
+&nbsp;
+#include &lt;cstdio&gt; #include &lt;cctype&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+const int buf_len = 4567; char buf[buf_len], *bufb(buf), *bufe(buf &#43; 1); #define readBuf() { if (&#43;&#43; bufb == bufe) bufe = (bufb = buf) &#43; fread(buf, 1, sizeof(buf), stdin); } #define readInt(x) { register int s(0); do { readBuf(); } while (!" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/i11rimport_010/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2015-03-06T22:25:41+00:00" />
+<meta property="article:modified_time" content="2015-03-06T22:25:41+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BZOJ1513 [POI2006]Tet-Tetris 3D"/>
+<meta name="twitter:description" content="&lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt; 这么水的题居然还要写题解。要不要说我写了半个下午&#43;半个晚上。&lt;/p&gt; &nbsp;
+丧心病狂想写一发zkw去抢速度rank。然后发现zkw怎么支持区间修改查询TT。课件根本没讲懂。而且max怎么区间加。
+&nbsp;
+想了很久终于想出了来了。然后交上去发现常数巨大比普通线段树还要慢TT。到头来想想如果我直接写普通线段树说不定十多分钟就能过，而且代码量还会小一些。因为那个是可以直接通用的，但是这个比较麻烦。
+&nbsp;
+其实写这个就题解就是想记录一下我yy出来的zkw区间修改区间查询的方法。
+&nbsp;
+这道题是区间查询最大值&#43;区间修改。如果是写一般的线段树，需要记录两个值a和v（至于为啥我用了这俩神奇的字母我也不知道），分别表示当前区间被完整覆盖的修改的最大值（又称lazy标记）和当前区间的最大值。然后所以zkw也要记这两个东西。
+&nbsp;
+如果我们把zkw看作一棵树，那么每次修改和询问操作的时候都是对一些线段的a和v进行操作。（废话）
+&nbsp;
+首先考虑修改。zkw经典的变为开区间取中间能处理a值的改变，但是不能处理v值的改变。因为v值改变的线段不一定会被当前区间包含。然后仔细考虑发现a值没有变但是v值变了的点只可能存在于两个端点到根的路径上。那就直接强行更新一发就好了啊。然后更新的区域就变成了一个有点像倒置漏斗的形状。
+&nbsp;
+再考虑询问。a要覆盖当前区间，v要被当前区间覆盖。那不就是修改把a和v的做法反一下么。
+&nbsp;
+然后好像也不是很麻烦的样子哈。
+&nbsp;
+然后常数很大哈。
+&nbsp;
+那还拿zkw做何用。
+&nbsp;
+晕。
+&nbsp;
+#include &lt;cstdio&gt; #include &lt;cctype&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+const int buf_len = 4567; char buf[buf_len], *bufb(buf), *bufe(buf &#43; 1); #define readBuf() { if (&#43;&#43; bufb == bufe) bufe = (bufb = buf) &#43; fread(buf, 1, sizeof(buf), stdin); } #define readInt(x) { register int s(0); do { readBuf(); } while (!"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "BZOJ1513 [POI2006]Tet-Tetris 3D",
+      "item": "/oi/i11rimport_010/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BZOJ1513 [POI2006]Tet-Tetris 3D",
+  "name": "BZOJ1513 [POI2006]Tet-Tetris 3D",
+  "description": "\u0026lt;div class=\u0026quot;post_brief\u0026quot;\u0026gt;\u0026lt;p\u0026gt; 这么水的题居然还要写题解。要不要说我写了半个下午+半个晚上。\u0026lt;/p\u0026gt; \u0026nbsp;\n丧心病狂想写一发zkw去抢速度rank。然后发现zkw怎么支持区间修改查询TT。课件根本没讲懂。而且max怎么区间加。\n\u0026nbsp;\n想了很久终于想出了来了。然后交上去发现常数巨大比普通线段树还要慢TT。到头来想想如果我直接写普通线段树说不定十多分钟就能过，而且代码量还会小一些。因为那个是可以直接通用的，但是这个比较麻烦。\n\u0026nbsp;\n其实写这个就题解就是想记录一下我yy出来的zkw区间修改区间查询的方法。\n\u0026nbsp;\n这道题是区间查询最大值+区间修改。如果是写一般的线段树，需要记录两个值a和v（至于为啥我用了这俩神奇的字母我也不知道），分别表示当前区间被完整覆盖的修改的最大值（又称lazy标记）和当前区间的最大值。然后所以zkw也要记这两个东西。\n\u0026nbsp;\n如果我们把zkw看作一棵树，那么每次修改和询问操作的时候都是对一些线段的a和v进行操作。（废话）\n\u0026nbsp;\n首先考虑修改。zkw经典的变为开区间取中间能处理a值的改变，但是不能处理v值的改变。因为v值改变的线段不一定会被当前区间包含。然后仔细考虑发现a值没有变但是v值变了的点只可能存在于两个端点到根的路径上。那就直接强行更新一发就好了啊。然后更新的区域就变成了一个有点像倒置漏斗的形状。\n\u0026nbsp;\n再考虑询问。a要覆盖当前区间，v要被当前区间覆盖。那不就是修改把a和v的做法反一下么。\n\u0026nbsp;\n然后好像也不是很麻烦的样子哈。\n\u0026nbsp;\n然后常数很大哈。\n\u0026nbsp;\n那还拿zkw做何用。\n\u0026nbsp;\n晕。\n\u0026nbsp;\n#include \u0026lt;cstdio\u0026gt; #include \u0026lt;cctype\u0026gt; #include \u0026lt;cstring\u0026gt; #include \u0026lt;algorithm\u0026gt; using namespace std;\nconst int buf_len = 4567; char buf[buf_len], *bufb(buf), *bufe(buf + 1); #define readBuf() { if (++ bufb == bufe) bufe = (bufb = buf) + fread(buf, 1, sizeof(buf), stdin); } #define readInt(x) { register int s(0); do { readBuf(); } while (!",
+  "keywords": [
+    "bzoj", "ds", "oi"
+  ],
+  "articleBody": "\t这么水的题居然还要写题解。要不要说我写了半个下午+半个晚上。\n丧心病狂想写一发zkw去抢速度rank。然后发现zkw怎么支持区间修改查询TT。课件根本没讲懂。而且max怎么区间加。\n想了很久终于想出了来了。然后交上去发现常数巨大比普通线段树还要慢TT。到头来想想如果我直接写普通线段树说不定十多分钟就能过，而且代码量还会小一些。因为那个是可以直接通用的，但是这个比较麻烦。\n其实写这个就题解就是想记录一下我yy出来的zkw区间修改区间查询的方法。\n这道题是区间查询最大值+区间修改。如果是写一般的线段树，需要记录两个值a和v（至于为啥我用了这俩神奇的字母我也不知道），分别表示当前区间被完整覆盖的修改的最大值（又称lazy标记）和当前区间的最大值。然后所以zkw也要记这两个东西。\n如果我们把zkw看作一棵树，那么每次修改和询问操作的时候都是对一些线段的a和v进行操作。（废话）\n首先考虑修改。zkw经典的变为开区间取中间能处理a值的改变，但是不能处理v值的改变。因为v值改变的线段不一定会被当前区间包含。然后仔细考虑发现a值没有变但是v值变了的点只可能存在于两个端点到根的路径上。那就直接强行更新一发就好了啊。然后更新的区域就变成了一个有点像倒置漏斗的形状。\n再考虑询问。a要覆盖当前区间，v要被当前区间覆盖。那不就是修改把a和v的做法反一下么。\n然后好像也不是很麻烦的样子哈。\n然后常数很大哈。\n那还拿zkw做何用。\n晕。\n#include #include #include #include using namespace std;\nconst int buf_len = 4567; char buf[buf_len], *bufb(buf), *bufe(buf + 1); #define readBuf() { if (++ bufb == bufe) bufe = (bufb = buf) + fread(buf, 1, sizeof(buf), stdin); } #define readInt(x) { register int s(0); do { readBuf(); } while (!isdigit(*bufb)); do { s = s * 10 + *bufb - 48; readBuf(); } while (isdigit(*bufb)); x = s; }\nconst int maxn = 2049;\nint q, n, m, bn, bm;\ninline void upMax(int\u0026 a, int b) { if (a \u003c b) a = b; } #define upMax_d(a,b) { if (a \u003c b) a = b; }\nstruct zkw_tree_y { int v[maxn], a[maxn]; zkw_tree_y() { memset(v, 0, sizeof(v)); memset(a, 0, sizeof(a)); } int qry(int lo, int ro) { int s(0), l, r; for (l = lo + bm; l; l \u003e\u003e= 1) upMax_d(s, a[l]); for (r = ro + bm; r; r \u003e\u003e= 1) upMax_d(s, a[r]); for (l = lo + bm - 1, r = ro + bm + 1; l ^ r ^ 1; l \u003e\u003e= 1, r \u003e\u003e= 1) { if (!(l \u0026 1)) upMax_d(s, v[l ^ 1]); if (r \u0026 1) upMax_d(s, v[r ^ 1]); } return s; } void chg(int lo, int ro, int h) { int l, r; for (l = lo + bm; l; l \u003e\u003e= 1) upMax_d(v[l], h); for (r = ro + bm; r; r \u003e\u003e= 1) upMax_d(v[r], h); for (l = lo + bm - 1, r += ro + bm + 1; l ^ r ^ 1; l \u003e\u003e= 1, r \u003e\u003e= 1) { if (!(l \u0026 1)) { upMax_d(a[l ^ 1], h); upMax_d(v[l ^ 1], h); } if (r \u0026 1) { upMax_d(a[r ^ 1], h); upMax_d(v[r ^ 1], h); } } } };\nzkw_tree_y v[maxn], a[maxn];\nint zkwQryX(int lo, int ro, int yl, int yr) { int s(0), l, r; for (l = lo + bn; l; l \u003e\u003e= 1) upMax(s, a[l]. qry(yl, yr)); for (r = ro + bn; r; r \u003e\u003e= 1) upMax(s, a[r]. qry(yl, yr)); for (l = lo + bn - 1, r = ro + bn + 1; l ^ r ^ 1; l \u003e\u003e= 1, r \u003e\u003e= 1) { if (!(l \u0026 1)) upMax(s, v[l ^ 1]. qry(yl, yr)); if (r \u0026 1) upMax(s, v[r ^ 1]. qry(yl, yr)); } return s; } void zkwChgX(int lo, int ro, int yl, int yr, int h) { int l, r; for (l = lo + bn; l; l \u003e\u003e= 1) v[l]. chg(yl, yr, h); for (r = ro + bn; r; r \u003e\u003e= 1) v[r]. chg(yl, yr, h); for (l = lo + bn - 1, r = ro + bn + 1; l ^ r ^ 1; l \u003e\u003e= 1, r \u003e\u003e= 1) { if (!(l \u0026 1)) { a[l ^ 1]. chg(yl, yr, h); v[l ^ 1]. chg(yl, yr, h); } if (r \u0026 1) { a[r ^ 1]. chg(yl, yr, h); v[r ^ 1]. chg(yl, yr, h); } } }\nint main() { #ifndef ONLINE_JUDGE //\tfreopen(“in.txt”, “r”, stdin); #endif\nreadInt(n); readInt(m); readInt(q); memset(a, 0, sizeof(a)); memset(v, 0, sizeof(v)); for (bn = 1; bn \u0026lt; n + 2; bn \u0026lt;\u0026lt;= 1); for (bm = 1; bm \u0026lt; m + 2; bm \u0026lt;\u0026lt;= 1); while (q --) { int x, y, p, q, h; readInt(p); readInt(q); readInt(h); readInt(x); readInt(y); p += x ++, q += y ++; h += zkwQryX(x, p, y, q); zkwChgX(x, p, y, q, h); } printf(\"%d\\n\", zkwQryX(1, n, 1, m)); } ",
+  "wordCount" : "612",
+  "inLanguage": "en",
+  "datePublished": "2015-03-06T22:25:41Z",
+  "dateModified": "2015-03-06T22:25:41Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/i11rimport_010/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      BZOJ1513 [POI2006]Tet-Tetris 3D
+    </h1>
+    <div class="post-meta"><span title='2015-03-06 22:25:41 +0000 UTC'>March 6, 2015</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><pre><code>			    &lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt;
+这么水的题居然还要写题解。要不要说我写了半个下午+半个晚上。&lt;/p&gt;
+</code></pre>
+<p>
+	&nbsp;</p>
+<p>
+	丧心病狂想写一发zkw去抢速度rank。然后发现zkw怎么支持区间修改查询TT。课件根本没讲懂。而且max怎么区间加。</p>
+<p>
+	&nbsp;</p>
+<p>
+	想了很久终于想出了来了。然后交上去发现常数巨大比普通线段树还要慢TT。到头来想想如果我直接写普通线段树说不定十多分钟就能过，而且代码量还会小一些。因为那个是可以直接通用的，但是这个比较麻烦。</p>
+<p>
+	&nbsp;</p>
+<p>
+	其实写这个就题解就是想记录一下我yy出来的zkw区间修改区间查询的方法。</p>
+<p>
+	&nbsp;</p>
+<p>
+	这道题是区间查询最大值+区间修改。如果是写一般的线段树，需要记录两个值a和v（至于为啥我用了这俩神奇的字母我也不知道），分别表示当前区间被完整覆盖的修改的最大值（又称lazy标记）和当前区间的最大值。然后所以zkw也要记这两个东西。</p>
+<p>
+	&nbsp;</p>
+<p>
+	如果我们把zkw看作一棵树，那么每次修改和询问操作的时候都是对一些线段的a和v进行操作。（废话）</p>
+<p>
+	&nbsp;</p>
+<p>
+	首先考虑修改。zkw经典的变为开区间取中间能处理a值的改变，但是不能处理v值的改变。因为v值改变的线段不一定会被当前区间包含。然后仔细考虑发现a值没有变但是v值变了的点只可能存在于两个端点到根的路径上。那就直接强行更新一发就好了啊。然后更新的区域就变成了一个有点像倒置漏斗的形状。</p>
+<p>
+	&nbsp;</p>
+<p>
+	再考虑询问。a要覆盖当前区间，v要被当前区间覆盖。那不就是修改把a和v的做法反一下么。</p>
+<p>
+	&nbsp;</p>
+<p>
+	然后好像也不是很麻烦的样子哈。</p>
+<p>
+	&nbsp;</p>
+<p>
+	然后常数很大哈。</p>
+<p>
+	&nbsp;</p>
+<p>
+	那还拿zkw做何用。</p>
+<p>
+	&nbsp;</p>
+<p>
+	晕。</p>
+<p>
+	&nbsp;</p>
+<pre class="bcode">#include &lt;cstdio&gt;
+#include &lt;cctype&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+<p>using namespace std;</p>
+<p>const int buf_len = 4567;
+char buf[buf_len], *bufb(buf), *bufe(buf + 1);
+#define readBuf() { <br>
+if (++ bufb == bufe) <br>
+bufe = (bufb = buf) + fread(buf, 1, sizeof(buf), stdin); <br>
+}
+#define readInt(<em>x</em>) { <br>
+register int <em>s</em>(0); <br>
+do { <br>
+readBuf(); <br>
+} while (!isdigit(*bufb)); <br>
+do { <br>
+<em>s</em> = <em>s</em> * 10 + *bufb - 48; <br>
+readBuf(); <br>
+} while (isdigit(*bufb)); <br>
+<em>x</em> = <em>s</em>; <br>
+}</p>
+<p>const int maxn = 2049;</p>
+<p>int q, n, m, bn, bm;</p>
+<p>inline void upMax(int&amp; a, int b) {
+if (a &lt; b)
+a = b;
+}
+#define upMax_d(<em>a</em>,<em>b</em>) { <br>
+if (<em>a</em> &lt; <em>b</em>) <br>
+<em>a</em> = <em>b</em>; <br>
+}</p>
+<p>struct zkw_tree_y {
+int v[maxn], a[maxn];
+zkw_tree_y() {
+memset(v, 0, sizeof(v));
+memset(a, 0, sizeof(a));
+}
+int qry(int lo, int ro) {
+int s(0), l, r;
+for (l = lo + bm; l; l &gt;&gt;= 1)
+upMax_d(s, a[l]);
+for (r = ro + bm; r; r &gt;&gt;= 1)
+upMax_d(s, a[r]);
+for (l = lo + bm - 1, r = ro + bm + 1; l ^ r ^ 1; l &gt;&gt;= 1, r &gt;&gt;= 1) {
+if (!(l &amp; 1))
+upMax_d(s, v[l ^ 1]);
+if (r &amp; 1)
+upMax_d(s, v[r ^ 1]);
+}
+return s;
+}
+void chg(int lo, int ro, int h) {
+int l, r;
+for (l = lo + bm; l; l &gt;&gt;= 1)
+upMax_d(v[l], h);
+for (r = ro + bm; r; r &gt;&gt;= 1)
+upMax_d(v[r], h);
+for (l = lo + bm - 1, r += ro + bm + 1; l ^ r ^ 1; l &gt;&gt;= 1, r &gt;&gt;= 1) {
+if (!(l &amp; 1)) {
+upMax_d(a[l ^ 1], h);
+upMax_d(v[l ^ 1], h);
+}
+if (r &amp; 1) {
+upMax_d(a[r ^ 1], h);
+upMax_d(v[r ^ 1], h);
+}
+}
+}
+};</p>
+<p>zkw_tree_y v[maxn], a[maxn];</p>
+<p>int zkwQryX(int lo, int ro, int yl, int yr) {
+int s(0), l, r;
+for (l = lo + bn; l; l &gt;&gt;= 1)
+upMax(s, a[l]. qry(yl, yr));
+for (r = ro + bn; r; r &gt;&gt;= 1)
+upMax(s, a[r]. qry(yl, yr));
+for (l = lo + bn - 1, r = ro + bn + 1; l ^ r ^ 1; l &gt;&gt;= 1, r &gt;&gt;= 1) {
+if (!(l &amp; 1))
+upMax(s, v[l ^ 1]. qry(yl, yr));
+if (r &amp; 1)
+upMax(s, v[r ^ 1]. qry(yl, yr));
+}
+return s;
+}
+void zkwChgX(int lo, int ro, int yl, int yr, int h) {
+int l, r;
+for (l = lo + bn; l; l &gt;&gt;= 1)
+v[l]. chg(yl, yr, h);
+for (r = ro + bn; r; r &gt;&gt;= 1)
+v[r]. chg(yl, yr, h);
+for (l = lo + bn - 1, r = ro + bn + 1; l ^ r ^ 1; l &gt;&gt;= 1, r &gt;&gt;= 1) {
+if (!(l &amp; 1)) {
+a[l ^ 1]. chg(yl, yr, h);
+v[l ^ 1]. chg(yl, yr, h);
+}
+if (r &amp; 1) {
+a[r ^ 1]. chg(yl, yr, h);
+v[r ^ 1]. chg(yl, yr, h);
+}
+}
+}</p>
+<p>int main() {
+#ifndef ONLINE_JUDGE
+//	freopen(&ldquo;in.txt&rdquo;, &ldquo;r&rdquo;, stdin);
+#endif</p>
+<pre><code>readInt(n);
+readInt(m);
+readInt(q);
+memset(a, 0, sizeof(a));
+memset(v, 0, sizeof(v));
+for (bn = 1; bn &amp;lt; n + 2; bn &amp;lt;&amp;lt;= 1);
+for (bm = 1; bm &amp;lt; m + 2; bm &amp;lt;&amp;lt;= 1);
+while (q --) {
+	int x, y, p, q, h;
+	readInt(p);
+	readInt(q);
+	readInt(h);
+	readInt(x);
+	readInt(y);
+	p += x ++, q += y ++;
+	h += zkwQryX(x, p, y, q);
+	zkwChgX(x, p, y, q, h);
+}
+printf(&quot;%d\n&quot;, zkwQryX(1, n, 1, m));
+</code></pre>
+<p>}
+</pre></p>
+</div>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/bzoj/">bzoj</a></li>
+      <li><a href="/tags/ds/">ds</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/i11rimport_009/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>BZOJ2402 陶陶的难题II</span>
+  </a>
+  <a class="next" href="/oi/i11rimport_011/">
+    <span class="title">Next »</span>
+    <br>
+    <span>BZOJ2704 旅游</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

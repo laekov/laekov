@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>BZOJ2178 圆的面积并 | The Site of laekov</title>
+<meta name="keywords" content="geometry, bzoj, oi">
+<meta name="description" content="&lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt; 计算几何题。别人都用simpson搞。然后我决定不水一发，用hwd神犇在wc上讲的关键点法做。&lt;/p&gt; &nbsp;
+然后就搞到了12点半。发现坑数次。还专门用js写了个画圆的。当然我现在知道怎么画圆了。过两天去把oj7的统计图改一改。
+&nbsp;
+思路是把所有圆的左右端点和所有圆的两两交的x提出来，unique一发（不然会tle显然的）。这样两个x之间的部分的圆弧是不会有交的。那么就可以视为一堆弓形和梯形了。然后扫描一下中位线的有效长度算梯形。每次新进入一个连通区域和出来的时候加相应弓形的面积。
+&nbsp;
+需要注意按y排序的时候是按弓形与竖线的交点的y，而不是梯形的y，否则会有非常神奇的精度误差。另外算弓形面积必需要用反三角函数（至少我没研究出怎么不用）。如果用acos的话会暴精度暴得很惨。要用atan2来提高精度。
+&nbsp;
+然后这样写连样例都会tle。仔细感受一下发现好像如果有一堆同心圆的话都会tle。然后考虑去掉包含的圆之后似乎就快了。然后就交了，然后居然跑过了。
+&nbsp;
+然后来欣赏一下我的时间巨大，空间巨大，长度巨大。挤在一堆simpson里显得特别郁闷的代码。
+&nbsp;
+#include &lt;cstdio&gt; #include &lt;cmath&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+const double eps = 1e-8; const double pi = acos(-1);
+inline int sgn(double x) { return (x &gt; eps) - (x &lt; -eps); } inline double sqr(double x) { return x * x; }
+typedef struct geo_obj { double x, y; geo_obj() {} geo_obj(double xo, double yo) { x = xo, y = yo; } inline void read() { scanf(&quot;%lf%lf&quot;, &amp;x, &amp;y); } inline geo_obj vertical() { return geo_obj(-y, x); } inline double len() { return sqrt(sqr(x) &#43; sqr(y)); } } point, vect; inline geo_obj operator &#43;(const geo_obj&amp; a, const geo_obj&amp; b) { return geo_obj(a.">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/i11rimport_012/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="BZOJ2178 圆的面积并" />
+<meta property="og:description" content="&lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt; 计算几何题。别人都用simpson搞。然后我决定不水一发，用hwd神犇在wc上讲的关键点法做。&lt;/p&gt; &nbsp;
+然后就搞到了12点半。发现坑数次。还专门用js写了个画圆的。当然我现在知道怎么画圆了。过两天去把oj7的统计图改一改。
+&nbsp;
+思路是把所有圆的左右端点和所有圆的两两交的x提出来，unique一发（不然会tle显然的）。这样两个x之间的部分的圆弧是不会有交的。那么就可以视为一堆弓形和梯形了。然后扫描一下中位线的有效长度算梯形。每次新进入一个连通区域和出来的时候加相应弓形的面积。
+&nbsp;
+需要注意按y排序的时候是按弓形与竖线的交点的y，而不是梯形的y，否则会有非常神奇的精度误差。另外算弓形面积必需要用反三角函数（至少我没研究出怎么不用）。如果用acos的话会暴精度暴得很惨。要用atan2来提高精度。
+&nbsp;
+然后这样写连样例都会tle。仔细感受一下发现好像如果有一堆同心圆的话都会tle。然后考虑去掉包含的圆之后似乎就快了。然后就交了，然后居然跑过了。
+&nbsp;
+然后来欣赏一下我的时间巨大，空间巨大，长度巨大。挤在一堆simpson里显得特别郁闷的代码。
+&nbsp;
+#include &lt;cstdio&gt; #include &lt;cmath&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+const double eps = 1e-8; const double pi = acos(-1);
+inline int sgn(double x) { return (x &gt; eps) - (x &lt; -eps); } inline double sqr(double x) { return x * x; }
+typedef struct geo_obj { double x, y; geo_obj() {} geo_obj(double xo, double yo) { x = xo, y = yo; } inline void read() { scanf(&quot;%lf%lf&quot;, &amp;x, &amp;y); } inline geo_obj vertical() { return geo_obj(-y, x); } inline double len() { return sqrt(sqr(x) &#43; sqr(y)); } } point, vect; inline geo_obj operator &#43;(const geo_obj&amp; a, const geo_obj&amp; b) { return geo_obj(a." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/i11rimport_012/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2015-03-06T00:39:41+00:00" />
+<meta property="article:modified_time" content="2015-03-06T00:39:41+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BZOJ2178 圆的面积并"/>
+<meta name="twitter:description" content="&lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt; 计算几何题。别人都用simpson搞。然后我决定不水一发，用hwd神犇在wc上讲的关键点法做。&lt;/p&gt; &nbsp;
+然后就搞到了12点半。发现坑数次。还专门用js写了个画圆的。当然我现在知道怎么画圆了。过两天去把oj7的统计图改一改。
+&nbsp;
+思路是把所有圆的左右端点和所有圆的两两交的x提出来，unique一发（不然会tle显然的）。这样两个x之间的部分的圆弧是不会有交的。那么就可以视为一堆弓形和梯形了。然后扫描一下中位线的有效长度算梯形。每次新进入一个连通区域和出来的时候加相应弓形的面积。
+&nbsp;
+需要注意按y排序的时候是按弓形与竖线的交点的y，而不是梯形的y，否则会有非常神奇的精度误差。另外算弓形面积必需要用反三角函数（至少我没研究出怎么不用）。如果用acos的话会暴精度暴得很惨。要用atan2来提高精度。
+&nbsp;
+然后这样写连样例都会tle。仔细感受一下发现好像如果有一堆同心圆的话都会tle。然后考虑去掉包含的圆之后似乎就快了。然后就交了，然后居然跑过了。
+&nbsp;
+然后来欣赏一下我的时间巨大，空间巨大，长度巨大。挤在一堆simpson里显得特别郁闷的代码。
+&nbsp;
+#include &lt;cstdio&gt; #include &lt;cmath&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+const double eps = 1e-8; const double pi = acos(-1);
+inline int sgn(double x) { return (x &gt; eps) - (x &lt; -eps); } inline double sqr(double x) { return x * x; }
+typedef struct geo_obj { double x, y; geo_obj() {} geo_obj(double xo, double yo) { x = xo, y = yo; } inline void read() { scanf(&quot;%lf%lf&quot;, &amp;x, &amp;y); } inline geo_obj vertical() { return geo_obj(-y, x); } inline double len() { return sqrt(sqr(x) &#43; sqr(y)); } } point, vect; inline geo_obj operator &#43;(const geo_obj&amp; a, const geo_obj&amp; b) { return geo_obj(a."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "BZOJ2178 圆的面积并",
+      "item": "/oi/i11rimport_012/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BZOJ2178 圆的面积并",
+  "name": "BZOJ2178 圆的面积并",
+  "description": "\u0026lt;div class=\u0026quot;post_brief\u0026quot;\u0026gt;\u0026lt;p\u0026gt; 计算几何题。别人都用simpson搞。然后我决定不水一发，用hwd神犇在wc上讲的关键点法做。\u0026lt;/p\u0026gt; \u0026nbsp;\n然后就搞到了12点半。发现坑数次。还专门用js写了个画圆的。当然我现在知道怎么画圆了。过两天去把oj7的统计图改一改。\n\u0026nbsp;\n思路是把所有圆的左右端点和所有圆的两两交的x提出来，unique一发（不然会tle显然的）。这样两个x之间的部分的圆弧是不会有交的。那么就可以视为一堆弓形和梯形了。然后扫描一下中位线的有效长度算梯形。每次新进入一个连通区域和出来的时候加相应弓形的面积。\n\u0026nbsp;\n需要注意按y排序的时候是按弓形与竖线的交点的y，而不是梯形的y，否则会有非常神奇的精度误差。另外算弓形面积必需要用反三角函数（至少我没研究出怎么不用）。如果用acos的话会暴精度暴得很惨。要用atan2来提高精度。\n\u0026nbsp;\n然后这样写连样例都会tle。仔细感受一下发现好像如果有一堆同心圆的话都会tle。然后考虑去掉包含的圆之后似乎就快了。然后就交了，然后居然跑过了。\n\u0026nbsp;\n然后来欣赏一下我的时间巨大，空间巨大，长度巨大。挤在一堆simpson里显得特别郁闷的代码。\n\u0026nbsp;\n#include \u0026lt;cstdio\u0026gt; #include \u0026lt;cmath\u0026gt; #include \u0026lt;cstring\u0026gt; #include \u0026lt;algorithm\u0026gt; using namespace std;\nconst double eps = 1e-8; const double pi = acos(-1);\ninline int sgn(double x) { return (x \u0026gt; eps) - (x \u0026lt; -eps); } inline double sqr(double x) { return x * x; }\ntypedef struct geo_obj { double x, y; geo_obj() {} geo_obj(double xo, double yo) { x = xo, y = yo; } inline void read() { scanf(\u0026quot;%lf%lf\u0026quot;, \u0026amp;x, \u0026amp;y); } inline geo_obj vertical() { return geo_obj(-y, x); } inline double len() { return sqrt(sqr(x) + sqr(y)); } } point, vect; inline geo_obj operator +(const geo_obj\u0026amp; a, const geo_obj\u0026amp; b) { return geo_obj(a.",
+  "keywords": [
+    "geometry", "bzoj", "oi"
+  ],
+  "articleBody": "\t计算几何题。别人都用simpson搞。然后我决定不水一发，用hwd神犇在wc上讲的关键点法做。\n然后就搞到了12点半。发现坑数次。还专门用js写了个画圆的。当然我现在知道怎么画圆了。过两天去把oj7的统计图改一改。\n思路是把所有圆的左右端点和所有圆的两两交的x提出来，unique一发（不然会tle显然的）。这样两个x之间的部分的圆弧是不会有交的。那么就可以视为一堆弓形和梯形了。然后扫描一下中位线的有效长度算梯形。每次新进入一个连通区域和出来的时候加相应弓形的面积。\n需要注意按y排序的时候是按弓形与竖线的交点的y，而不是梯形的y，否则会有非常神奇的精度误差。另外算弓形面积必需要用反三角函数（至少我没研究出怎么不用）。如果用acos的话会暴精度暴得很惨。要用atan2来提高精度。\n然后这样写连样例都会tle。仔细感受一下发现好像如果有一堆同心圆的话都会tle。然后考虑去掉包含的圆之后似乎就快了。然后就交了，然后居然跑过了。\n然后来欣赏一下我的时间巨大，空间巨大，长度巨大。挤在一堆simpson里显得特别郁闷的代码。\n#include #include #include #include using namespace std;\nconst double eps = 1e-8; const double pi = acos(-1);\ninline int sgn(double x) { return (x \u003e eps) - (x \u003c -eps); } inline double sqr(double x) { return x * x; }\ntypedef struct geo_obj { double x, y; geo_obj() {} geo_obj(double xo, double yo) { x = xo, y = yo; } inline void read() { scanf(\"%lf%lf\", \u0026x, \u0026y); } inline geo_obj vertical() { return geo_obj(-y, x); } inline double len() { return sqrt(sqr(x) + sqr(y)); } } point, vect; inline geo_obj operator +(const geo_obj\u0026 a, const geo_obj\u0026 b) { return geo_obj(a. x + b. x, a. y + b. y); } inline geo_obj operator -(const geo_obj\u0026 a, const geo_obj\u0026 b) { return geo_obj(a. x - b. x, a. y - b. y); } inline geo_obj operator *(const geo_obj\u0026 a, const double\u0026 b) { return geo_obj(a. x * b, a. y * b); } inline double operator *(const geo_obj\u0026 a, const geo_obj\u0026 b) { return a. x * b. y - a. y * b. x; } inline double operator \u0026(const geo_obj\u0026 a, const geo_obj\u0026 b) { return a. x * b. x + a. y * b. y; } inline double sqDist(const geo_obj\u0026 a, const geo_obj\u0026 b) { return sqr(a. x - b. x) + sqr(a. y - b. y); }\nstruct circle { point o; double r, sr; inline void read() { o. read(); scanf(\"%lf\", \u0026r); sr = sqr(r); } };\ninline double helenSqr(double a, double b, double c) { double p((a + b + c) / 2.0); return sqrt(p * (p - a) * (p - b) * (p - c)); }\nstruct ypr { double y, s, yv; int v; }; inline bool operator \u003c(const ypr\u0026 a, const ypr\u0026 b) { return (a. yv \u003c b. yv) || (a. yv == b. yv \u0026\u0026 a. v \u003e b. v); }\nconst int maxn = 1009; const int maxx = 1002009;\nint n, totx; double x[maxx], ans; circle a[maxn]; ypr y[maxn \u003c\u003c 1];\ndouble arcSqr(circle c, point a, point b) { vect x(a - c. o), y(b - c. o); double sqt(fabs(x * y)); double d(sqrt(sqDist(a, b))); double tht(atan2(d / 2, sqt / d) * 2); //double tht(acos((x \u0026 y) / c. sr)); sqt /= 2; return tht * c. sr / 2 - sqt; }\nint main() { #ifndef ONLINE_JUDGE freopen(“in.txt”, “r”, stdin); #endif\nscanf(\"%d\", \u0026amp;n); totx = 0; for (int i = 0; i \u0026lt; n; ++ i) { a[i]. read(); bool thr(0); for (int j = 0; j \u0026lt; i \u0026amp;\u0026amp; !thr; ++ j) if (sqDist(a[i]. o, a[j]. o) \u0026lt;= sqr(a[i]. r - a[j]. r)) { if (a[i]. r \u0026gt; a[j]. r) swap(a[i], a[j]); thr = 1; } if (thr) { -- i; -- n; } } for (int i = 0; i \u0026lt; n; ++ i) { x[totx ++] = a[i]. o. x - a[i]. r; x[totx ++] = a[i]. o. x + a[i]. r; } for (int i = 1; i \u0026lt; n; ++ i) for (int j = 0; j \u0026lt; i; ++ j) { double sd(sqDist(a[i]. o, a[j]. o)); if (sd \u0026lt;= sqr(a[i]. r + a[j]. r) \u0026amp;\u0026amp; sd \u0026gt;= sqr(a[i]. r - a[j]. r)) { double d(sqrt(sd)); double s(helenSqr(a[i]. r, a[j]. r, d)); double h(s * 2 / d); double l(sqrt(a[i]. sr - sqr(h))); if (sqr(a[j]. r) \u0026gt; sd + sqr(a[i]. r)) l = -l; point p(a[i]. o + (a[j]. o - a[i]. o) * (l / d)); vect v((a[j]. o - a[i]. o). vertical()); v = v * (h / v. len()); x[totx ++] = p. x + v. x; x[totx ++] = p. x - v. x; } } sort(x, x + totx); totx = unique(x, x + totx) - x; ans = 0; for (int i = 0; i \u0026lt; totx - 1; ++ i) { double xl(x[i]), xr(x[i + 1]); int cy(0); for (int j = 0; j \u0026lt; n; ++ j) if (a[j]. o. x - a[j]. r \u0026lt; xr \u0026amp;\u0026amp; a[j]. o. x + a[j]. r \u0026gt; xl) { double yl(sqrt(a[j]. sr - sqr(a[j]. o. x - xl))); double yv(sqrt(a[j]. sr - sqr(a[j]. o. x - (xl + xr) / 2.0))); double yr(sqrt(a[j]. sr - sqr(a[j]. o. x - xr))); double ar(arcSqr(a[j], point(xl, a[j]. o. y - yl), point(xr, a[j]. o. y - yr))); double ym((yl + yr) / 2); y[cy]. y = a[j]. o. y - ym; y[cy]. yv = a[j]. o. y - yv; y[cy]. v = 1; y[cy]. s = ar; ++ cy; y[cy]. y = a[j]. o. y + ym; y[cy]. yv = a[j]. o. y + yv; y[cy]. v = -1; y[cy]. s = ar; ++ cy; } double ml(0); sort(y, y + cy); for (int j = 0, cnt = 0; j \u0026lt; cy - 1; ++ j) { if ((y[j]. v == 1 \u0026amp;\u0026amp; !cnt) || (y[j]. v == -1 \u0026amp;\u0026amp; cnt == 1)) ans += y[j]. s; cnt += y[j]. v; if (cnt) ml += y[j + 1]. y - y[j]. y; } ans += y[cy - 1]. s; ans += ml * (xr - xl); } printf(\"%.3lf\\n\", ans); } ",
+  "wordCount" : "873",
+  "inLanguage": "en",
+  "datePublished": "2015-03-06T00:39:41Z",
+  "dateModified": "2015-03-06T00:39:41Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/i11rimport_012/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      BZOJ2178 圆的面积并
+    </h1>
+    <div class="post-meta"><span title='2015-03-06 00:39:41 +0000 UTC'>March 6, 2015</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><pre><code>			    &lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt;
+计算几何题。别人都用simpson搞。然后我决定不水一发，用hwd神犇在wc上讲的关键点法做。&lt;/p&gt;
+</code></pre>
+<p>
+	&nbsp;</p>
+<p>
+	然后就搞到了12点半。发现坑数次。还专门用js写了个画圆的。当然我现在知道怎么画圆了。过两天去把oj7的统计图改一改。</p>
+<p>
+	&nbsp;</p>
+<p>
+	思路是把所有圆的左右端点和所有圆的两两交的x提出来，unique一发（不然会tle显然的）。这样两个x之间的部分的圆弧是不会有交的。那么就可以视为一堆弓形和梯形了。然后扫描一下中位线的有效长度算梯形。每次新进入一个连通区域和出来的时候加相应弓形的面积。</p>
+<p>
+	&nbsp;</p>
+<p>
+	需要注意按y排序的时候是按弓形与竖线的交点的y，而不是梯形的y，否则会有非常神奇的精度误差。另外算弓形面积必需要用反三角函数（至少我没研究出怎么不用）。如果用acos的话会暴精度暴得很惨。要用atan2来提高精度。</p>
+<p>
+	&nbsp;</p>
+<p>
+	然后这样写连样例都会tle。仔细感受一下发现好像如果有一堆同心圆的话都会tle。然后考虑去掉包含的圆之后似乎就快了。然后就交了，然后居然跑过了。</p>
+<p>
+	&nbsp;</p>
+<p>
+	然后来欣赏一下我的时间巨大，空间巨大，长度巨大。挤在一堆simpson里显得特别郁闷的代码。</p>
+<p>
+	&nbsp;</p>
+<pre class="bcode">#include &lt;cstdio&gt;
+#include &lt;cmath&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+<p>using namespace std;</p>
+<p>const double eps = 1e-8;
+const double pi = acos(-1);</p>
+<p>inline int sgn(double x) {
+return (x &gt; eps) - (x &lt; -eps);
+}
+inline double sqr(double x) {
+return x * x;
+}</p>
+<p>typedef struct geo_obj {
+double x, y;
+geo_obj() {}
+geo_obj(double xo, double yo) {
+x = xo, y = yo;
+}
+inline void read() {
+scanf(&quot;%lf%lf&quot;, &amp;x, &amp;y);
+}
+inline geo_obj vertical() {
+return geo_obj(-y, x);
+}
+inline double len() {
+return sqrt(sqr(x) + sqr(y));
+}
+} point, vect;
+inline geo_obj operator +(const geo_obj&amp; a, const geo_obj&amp; b) {
+return geo_obj(a. x + b. x, a. y + b. y);
+}
+inline geo_obj operator -(const geo_obj&amp; a, const geo_obj&amp; b) {
+return geo_obj(a. x - b. x, a. y - b. y);
+}
+inline geo_obj operator *(const geo_obj&amp; a, const double&amp; b) {
+return geo_obj(a. x * b, a. y * b);
+}
+inline double operator *(const geo_obj&amp; a, const geo_obj&amp; b) {
+return a. x * b. y - a. y * b. x;
+}
+inline double operator &amp;(const geo_obj&amp; a, const geo_obj&amp; b) {
+return a. x * b. x + a. y * b. y;
+}
+inline double sqDist(const geo_obj&amp; a, const geo_obj&amp; b) {
+return sqr(a. x - b. x) + sqr(a. y - b. y);
+}</p>
+<p>struct circle {
+point o;
+double r, sr;
+inline void read() {
+o. read();
+scanf(&quot;%lf&quot;, &amp;r);
+sr = sqr(r);
+}
+};</p>
+<p>inline double helenSqr(double a, double b, double c) {
+double p((a + b + c) / 2.0);
+return sqrt(p * (p - a) * (p - b) * (p - c));
+}</p>
+<p>struct ypr {
+double y, s, yv;
+int v;
+};
+inline bool operator &lt;(const ypr&amp; a, const ypr&amp; b) {
+return (a. yv &lt; b. yv) || (a. yv == b. yv &amp;&amp; a. v &gt; b. v);
+}</p>
+<p>const int maxn = 1009;
+const int maxx = 1002009;</p>
+<p>int n, totx;
+double x[maxx], ans;
+circle a[maxn];
+ypr y[maxn &lt;&lt; 1];</p>
+<p>double arcSqr(circle c, point a, point b) {
+vect x(a - c. o), y(b - c. o);
+double sqt(fabs(x * y));
+double d(sqrt(sqDist(a, b)));
+double tht(atan2(d / 2, sqt / d) * 2);
+//double tht(acos((x &amp; y) / c. sr));
+sqt /= 2;
+return tht * c. sr / 2 - sqt;
+}</p>
+<p>int main() {
+#ifndef ONLINE_JUDGE
+freopen(&ldquo;in.txt&rdquo;, &ldquo;r&rdquo;, stdin);
+#endif</p>
+<pre><code>scanf(&quot;%d&quot;, &amp;amp;n);
+totx = 0;
+for (int i = 0; i &amp;lt; n; ++ i) { 
+	a[i]. read();
+	bool thr(0);
+	for (int j = 0; j &amp;lt; i &amp;amp;&amp;amp; !thr; ++ j)
+		if (sqDist(a[i]. o, a[j]. o) &amp;lt;= sqr(a[i]. r - a[j]. r)) {
+			if (a[i]. r &amp;gt; a[j]. r)
+				swap(a[i], a[j]);
+			thr = 1;
+		}
+	if (thr) {
+		-- i;
+		-- n;
+	}
+}
+for (int i = 0; i &amp;lt; n; ++ i) {
+	x[totx ++] = a[i]. o. x - a[i]. r;
+	x[totx ++] = a[i]. o. x + a[i]. r;
+}
+for (int i = 1; i &amp;lt; n; ++ i)
+	for (int j = 0; j &amp;lt; i; ++ j) {
+		double sd(sqDist(a[i]. o, a[j]. o));
+		if (sd &amp;lt;= sqr(a[i]. r + a[j]. r) &amp;amp;&amp;amp; sd &amp;gt;= sqr(a[i]. r - a[j]. r)) {
+			double d(sqrt(sd));
+			double s(helenSqr(a[i]. r, a[j]. r, d));
+			double h(s * 2 / d);
+			double l(sqrt(a[i]. sr - sqr(h)));
+			if (sqr(a[j]. r) &amp;gt; sd + sqr(a[i]. r))
+				l = -l;
+			point p(a[i]. o + (a[j]. o - a[i]. o) * (l / d));
+			vect v((a[j]. o - a[i]. o). vertical());
+			v = v * (h / v. len());
+			x[totx ++] = p. x + v. x;
+			x[totx ++] = p. x - v. x;
+		}
+	}
+sort(x, x + totx);
+totx = unique(x, x + totx) - x;
+ans = 0;
+for (int i = 0; i &amp;lt; totx - 1; ++ i) {
+	double xl(x[i]), xr(x[i + 1]);
+	int cy(0);
+	for (int j = 0; j &amp;lt; n; ++ j) 
+		if (a[j]. o. x - a[j]. r &amp;lt; xr &amp;amp;&amp;amp; a[j]. o. x + a[j]. r &amp;gt; xl) {
+			double yl(sqrt(a[j]. sr - sqr(a[j]. o. x - xl)));
+			double yv(sqrt(a[j]. sr - sqr(a[j]. o. x - (xl + xr) / 2.0)));
+			double yr(sqrt(a[j]. sr - sqr(a[j]. o. x - xr)));
+			double ar(arcSqr(a[j], point(xl, a[j]. o. y - yl), point(xr, a[j]. o. y - yr)));
+			double ym((yl + yr) / 2);
+			y[cy]. y = a[j]. o. y - ym;
+			y[cy]. yv = a[j]. o. y - yv;
+			y[cy]. v = 1;
+			y[cy]. s = ar;
+			++ cy;
+			y[cy]. y = a[j]. o. y + ym;
+			y[cy]. yv = a[j]. o. y + yv;
+			y[cy]. v = -1;
+			y[cy]. s = ar;
+			++ cy;
+		}
+	double ml(0);
+	sort(y, y + cy);
+	for (int j = 0, cnt = 0; j &amp;lt; cy - 1; ++ j) {
+		if ((y[j]. v == 1 &amp;amp;&amp;amp; !cnt) || (y[j]. v == -1 &amp;amp;&amp;amp; cnt == 1))
+			ans += y[j]. s;
+		cnt += y[j]. v;
+		if (cnt)
+			ml += y[j + 1]. y - y[j]. y;
+	}
+	ans += y[cy - 1]. s;
+	ans += ml * (xr - xl);
+}
+printf(&quot;%.3lf\n&quot;, ans);
+</code></pre>
+<p>}
+</pre></p>
+</div>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/geometry/">geometry</a></li>
+      <li><a href="/tags/bzoj/">bzoj</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/i11rimport_011/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>BZOJ2704 旅游</span>
+  </a>
+  <a class="next" href="/oi/i11rimport_014/">
+    <span class="title">Next »</span>
+    <br>
+    <span>BZOJ1223 [HNOI2002]Kathy函数</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

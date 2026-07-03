@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>hash on The Site of laekov</title>
+    <link>/tags/hash/</link>
+    <description>Recent content in hash on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Wed, 17 Dec 2014 16:03:47 +0000</lastBuildDate><atom:link href="/tags/hash/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>BZOJ2105 增强型LCP</title>
+      <link>/oi/lofterimport_037/</link>
+      <pubDate>Wed, 17 Dec 2014 16:03:47 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_037/</guid>
+      <description>最初以为是splay维护Hash的简单题。顺手开心地敲了个splay还是指针版的。
+然后发现tle了。
+然后知道了可以暴力重新建串。
+然后拿splay暴力重新建串。
+然后又tle了。
+然后不得已改成了随机线性存取表，过之。
+我还是太naive了啊。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+typedef unsigned long long qw;
+#define _l (long long int)
+const int maxn = 200009;
+const int base = 233;
+struct str {
+char a[maxn];
+int len;
+inline str()&amp;nbsp;{
+len = 0;
+}
+inline void read()&amp;nbsp;{
+scanf(&amp;quot;%s&amp;quot;, a + 1);
+len = strlen(a + 1);
+}
+inline char operator [](const int&amp;amp; x) const {</description>
+    </item>
+    
+    <item>
+      <title>BZOJ2351/2462 [BeiJing2011]Matrix</title>
+      <link>/oi/lofterimport_079/</link>
+      <pubDate>Sat, 22 Nov 2014 22:58:45 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_079/</guid>
+      <description>好像要用二维AC自动机的样子！？不对，还要优化不然还会MLE！？
+naive。
+哈希水过之。
+中途某处忘强转导致调了良久。
+2462丧心病狂卡stl常数，差点写平衡树了，然后想了想二分水之。
+#include &amp;lt;cstdio&amp;gt;
+#include&amp;nbsp;&amp;lt;cstring&amp;gt;
+#include&amp;nbsp;&amp;lt;set&amp;gt;
+#include&amp;nbsp;&amp;lt;algorithm&amp;gt;
+using namespace std;
+typedef long long qw;
+typedef unsigned long long uqw;
+#define _l (qw)
+const int rmod = 345379;
+const int b1 = 3;
+const int b2 = 3153131;
+const int maxn = 1009;
+int pb1[maxn];
+int n, m, x, y, q, hr[maxn][maxn], t;
+uqw hl[maxn][maxn], pb2[maxn];
+char g[maxn];
+uqw th[maxn * maxn];
+void pre()&amp;nbsp;{
+pb1[0]&amp;nbsp;= 1;
+pb2[0]&amp;nbsp;= 1;</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3751 [NOIP2014]解方程</title>
+      <link>/oi/lofterimport_083/</link>
+      <pubDate>Fri, 21 Nov 2014 09:11:40 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_083/</guid>
+      <description>BZOJ里的第二道noip题，今年防ak题，OTZ。
+最初直接用大素数取模的方法要TLE，虽然本机不会。
+用几个小质数pni，算出在模pni的同余系里0~pni-1的答案。如果x为原方程的解的话x%pni在模pni意义下也应该为0。
+然后还是会TLE，最后发现小质数乘的时候不用取模了。bzoj上这题纯粹是丧心病狂卡常数啊。
+ORZMHY
+#define PROC &amp;quot;equation&amp;quot;
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+typedef unsigned long long uqw;
+typedef long long qw;
+const int maxn = 109;
+const int maxl = 10009;
+const int maxm = 1000009;
+const int cp = 5;
+//const int pn[cp]&amp;nbsp;=&amp;nbsp;{111119, 23333, 11113, 23251, 33329};
+const int pn[]&amp;nbsp;=&amp;nbsp;{22861, 22871, 22877, 22901, 22907, 22921};
+const int p10[]&amp;nbsp;=&amp;nbsp;{1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000};</description>
+    </item>
+    
+  </channel>
+</rss>

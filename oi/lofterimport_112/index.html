@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>BZOJ3585 mex | The Site of laekov</title>
+<meta name="keywords" content="bzoj, data\xa0structure, oi">
+<meta name="description" content="很久之前就看过的题。不过一直没有勇气去做。爱真的需要勇气。
+mex这个函数的性质比较奇妙。一端确定的话一定是单增的。两段和起来也一定是增加的。
+可以很方便地求出从1到任何一个位置的mex。考虑把询问离线。按左端点排序。如果去掉一个数，那么对于右端点在（从这个数到下一个等于这个数的位置）这一段里的询问，它的值至多是这个数。
+所以用线段树维护区修单查维护一下区间最小值就好了。注意如果没有下一个数了那么右端点是n。
+据说要离散不过被我用map给水过去了。
+#include &lt;cstdio&gt;
+#include &lt;cctype&gt;
+#include &lt;memory.h&gt;
+#include &lt;map&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+#define readInt(_s_)&nbsp;{\
+int _d_;\
+_s_ = 0;\
+while (!isdigit(_d_&nbsp;= getchar()));\
+while ((_s_&nbsp;= _s_ * 10 &#43; _d_ - 48), isdigit(_d_ = getchar()));\
+}
+struct seg {
+int l, r, z;
+seg *ls,&nbsp;*rs;
+};
+struct query {
+int l, r, n;
+};
+inline bool cmpQuery(const query&amp; a, const query&amp; b)&nbsp;{
+return a. l &lt; b.">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/lofterimport_112/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="BZOJ3585 mex" />
+<meta property="og:description" content="很久之前就看过的题。不过一直没有勇气去做。爱真的需要勇气。
+mex这个函数的性质比较奇妙。一端确定的话一定是单增的。两段和起来也一定是增加的。
+可以很方便地求出从1到任何一个位置的mex。考虑把询问离线。按左端点排序。如果去掉一个数，那么对于右端点在（从这个数到下一个等于这个数的位置）这一段里的询问，它的值至多是这个数。
+所以用线段树维护区修单查维护一下区间最小值就好了。注意如果没有下一个数了那么右端点是n。
+据说要离散不过被我用map给水过去了。
+#include &lt;cstdio&gt;
+#include &lt;cctype&gt;
+#include &lt;memory.h&gt;
+#include &lt;map&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+#define readInt(_s_)&nbsp;{\
+int _d_;\
+_s_ = 0;\
+while (!isdigit(_d_&nbsp;= getchar()));\
+while ((_s_&nbsp;= _s_ * 10 &#43; _d_ - 48), isdigit(_d_ = getchar()));\
+}
+struct seg {
+int l, r, z;
+seg *ls,&nbsp;*rs;
+};
+struct query {
+int l, r, n;
+};
+inline bool cmpQuery(const query&amp; a, const query&amp; b)&nbsp;{
+return a. l &lt; b." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/lofterimport_112/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2014-10-30T15:58:58+00:00" />
+<meta property="article:modified_time" content="2014-10-30T15:58:58+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BZOJ3585 mex"/>
+<meta name="twitter:description" content="很久之前就看过的题。不过一直没有勇气去做。爱真的需要勇气。
+mex这个函数的性质比较奇妙。一端确定的话一定是单增的。两段和起来也一定是增加的。
+可以很方便地求出从1到任何一个位置的mex。考虑把询问离线。按左端点排序。如果去掉一个数，那么对于右端点在（从这个数到下一个等于这个数的位置）这一段里的询问，它的值至多是这个数。
+所以用线段树维护区修单查维护一下区间最小值就好了。注意如果没有下一个数了那么右端点是n。
+据说要离散不过被我用map给水过去了。
+#include &lt;cstdio&gt;
+#include &lt;cctype&gt;
+#include &lt;memory.h&gt;
+#include &lt;map&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+#define readInt(_s_)&nbsp;{\
+int _d_;\
+_s_ = 0;\
+while (!isdigit(_d_&nbsp;= getchar()));\
+while ((_s_&nbsp;= _s_ * 10 &#43; _d_ - 48), isdigit(_d_ = getchar()));\
+}
+struct seg {
+int l, r, z;
+seg *ls,&nbsp;*rs;
+};
+struct query {
+int l, r, n;
+};
+inline bool cmpQuery(const query&amp; a, const query&amp; b)&nbsp;{
+return a. l &lt; b."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "BZOJ3585 mex",
+      "item": "/oi/lofterimport_112/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BZOJ3585 mex",
+  "name": "BZOJ3585 mex",
+  "description": "很久之前就看过的题。不过一直没有勇气去做。爱真的需要勇气。\nmex这个函数的性质比较奇妙。一端确定的话一定是单增的。两段和起来也一定是增加的。\n可以很方便地求出从1到任何一个位置的mex。考虑把询问离线。按左端点排序。如果去掉一个数，那么对于右端点在（从这个数到下一个等于这个数的位置）这一段里的询问，它的值至多是这个数。\n所以用线段树维护区修单查维护一下区间最小值就好了。注意如果没有下一个数了那么右端点是n。\n据说要离散不过被我用map给水过去了。\n#include \u0026lt;cstdio\u0026gt;\n#include \u0026lt;cctype\u0026gt;\n#include \u0026lt;memory.h\u0026gt;\n#include \u0026lt;map\u0026gt;\n#include \u0026lt;algorithm\u0026gt;\nusing namespace std;\n#define readInt(_s_)\u0026nbsp;{\\\nint _d_;\\\n_s_ = 0;\\\nwhile (!isdigit(_d_\u0026nbsp;= getchar()));\\\nwhile ((_s_\u0026nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\\\n}\nstruct seg {\nint l, r, z;\nseg *ls,\u0026nbsp;*rs;\n};\nstruct query {\nint l, r, n;\n};\ninline bool cmpQuery(const query\u0026amp; a, const query\u0026amp; b)\u0026nbsp;{\nreturn a. l \u0026lt; b.",
+  "keywords": [
+    "bzoj", "data\\xa0structure", "oi"
+  ],
+  "articleBody": "很久之前就看过的题。不过一直没有勇气去做。爱真的需要勇气。\nmex这个函数的性质比较奇妙。一端确定的话一定是单增的。两段和起来也一定是增加的。\n可以很方便地求出从1到任何一个位置的mex。考虑把询问离线。按左端点排序。如果去掉一个数，那么对于右端点在（从这个数到下一个等于这个数的位置）这一段里的询问，它的值至多是这个数。\n所以用线段树维护区修单查维护一下区间最小值就好了。注意如果没有下一个数了那么右端点是n。\n据说要离散不过被我用map给水过去了。\n#include #include #include #include #include using namespace std;\n#define readInt(_s_) {\\\nint _d_;\\\n_s_ = 0;\\\nwhile (!isdigit(_d_ = getchar()));\\\nwhile ((_s_ = _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\\\n}\nstruct seg {\nint l, r, z;\nseg *ls, *rs;\n};\nstruct query {\nint l, r, n;\n};\ninline bool cmpQuery(const query\u0026 a, const query\u0026 b) {\nreturn a. l \u003c b. l;\n}\ntypedef pair rpair;\nconst int maxn = 200009;\nconst int inf = 0x3f3f3f3f;\nint n, m, a[maxn], tmp[maxn], nv[maxn], m0[maxn], ans[maxn];\nbool fv[maxn];\nseg *rt, *sp;\nquery q[maxn];\nmap rp;\ninline bool cmpTmp(const int\u0026 x, const int\u0026 y) {\nreturn (a[x] \u003c a[y]) || (a[x] == a[y] \u0026\u0026 x \u003c y);\n}\n#define mid(p) ((p-\u003el+p-\u003er)\u003e\u003e1)\nseg* sgtBuild(int l, int r) {\nseg* p = sp ++;\np-\u003e l = l;\np-\u003e r = r;\np-\u003e z = inf;\nif (l + 1 \u003c r) {\np-\u003e ls = sgtBuild(l, mid(p));\np-\u003e rs = sgtBuild(mid(p), r);\n}\nelse\np-\u003e z = m0[l];\nreturn p;\n}\nvoid sgtChg(seg* p, int l, int r, int v) {\nif (p-\u003e l == l \u0026\u0026 p-\u003e r == r)\np-\u003e z = min(p-\u003e z, v);\nelse if (r \u003c= mid(p))\nsgtChg(p-\u003e ls, l, r, v);\nelse if (l \u003e= mid(p))\nsgtChg(p-\u003e rs, l, r, v);\nelse {\nsgtChg(p-\u003e ls, l, mid(p), v);\nsgtChg(p-\u003e rs, mid(p), r, v);\n}\n}\nint sgtQry(seg* p, int p0) {\nif (p-\u003e l + 1 == p-\u003e r)\nreturn p-\u003e z;\nelse if (p0 \u003c mid(p))\nreturn min(sgtQry(p-\u003e ls, p0), p-\u003e z);\nelse\nreturn min(sgtQry(p-\u003e rs, p0), p-\u003e z);\n}\nvoid preSeq() {\na[0] = -1;\nfor (int i = 0; i \u003c= n; ++ i)\ntmp[i] = i;\nsort(tmp, tmp + n + 1, cmpTmp);\nm0[n] = 0;\nfor (int i = 0; i \u003c= n; ++ i) {\nif (a[tmp[i]] == m0[n])\n++ m0[n];\nif (i \u0026\u0026 a[tmp[i]] \u003e a[tmp[i - 1]])\nfv[tmp[i]] = 1;\nelse\nfv[tmp[i]] = 0;\n}\nnv[n] = -1;\nfor (int i = n; i; -- i) {\nif (!fv[i] || a[i] \u003e m0[i])\nm0[i - 1] = m0[i];\nelse\nm0[i - 1] = a[i];\nmap :: iterator it = rp. find(a[i]);\nif (it == rp. end()) {\nnv[i] = -1;\nrp. insert(rpair(a[i], i));\n}\nelse {\nnv[i] = it-\u003e second;\nit-\u003e second = i;\n}\n}\nsp = new seg[maxn * 3];\nrt = sgtBuild(1, n + 1);\n}\nvoid rmvNum(int i) {\nif (nv[i] \u003e -1)\nsgtChg(rt, i, nv[i], a[i]);\nelse\nsgtChg(rt, i, n + 1, a[i]);\n}\nint main() {\n#ifndef ONLINE_JUDGE\nfreopen(\"in.txt\", \"r\", stdin);\n#endif\nreadInt(n);\nreadInt(m);\nfor (int i = 1; i \u003c= n; ++ i)\nreadInt(a[i]);\nfor (int i = 0; i \u003c m; ++ i) {\nreadInt(q[i]. l);\nreadInt(q[i]. r);\nq[i]. n = i;\n}\nsort(q, q + m, cmpQuery);\npreSeq();\nfor (int i = 0, j = 1; i \u003c m; ++ i) {\nfor (; j \u003c q[i]. l; ++ j)\nrmvNum(j);\nans[q[i]. n] = sgtQry(rt, q[i]. r);\n}\nfor (int i = 0; i \u003c m; ++ i)\nprintf(\"%d\\n\", ans[i]);\n}\n",
+  "wordCount" : "471",
+  "inLanguage": "en",
+  "datePublished": "2014-10-30T15:58:58Z",
+  "dateModified": "2014-10-30T15:58:58Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/lofterimport_112/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      BZOJ3585 mex
+    </h1>
+    <div class="post-meta"><span title='2014-10-30 15:58:58 +0000 UTC'>October 30, 2014</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>很久之前就看过的题。不过一直没有勇气去做。爱真的需要勇气。</p> 
+<p><br /></p> 
+<p>mex这个函数的性质比较奇妙。一端确定的话一定是单增的。两段和起来也一定是增加的。</p> 
+<p><br /></p> 
+<p>可以很方便地求出从1到任何一个位置的mex。考虑把询问离线。按左端点排序。如果去掉一个数，那么对于右端点在（从这个数到下一个等于这个数的位置）这一段里的询问，它的值至多是这个数。</p> 
+<p><br /></p> 
+<p>所以用线段树维护区修单查维护一下区间最小值就好了。注意如果没有下一个数了那么右端点是n。</p> 
+<p><br /></p> 
+<p>据说要离散不过被我用map给水过去了。</p> 
+<p><br /></p> 
+<p>#include &lt;cstdio&gt;</p> 
+<p>#include &lt;cctype&gt;</p> 
+<p>#include &lt;memory.h&gt;</p> 
+<p>#include &lt;map&gt;</p> 
+<p>#include &lt;algorithm&gt;</p> 
+<p><br /></p> 
+<p>using namespace std;</p> 
+<p><br /></p> 
+<p>#define readInt(_s_)&nbsp;{\</p> 
+<p>int _d_;\</p> 
+<p>_s_ = 0;\</p> 
+<p>while (!isdigit(_d_&nbsp;= getchar()));\</p> 
+<p>while ((_s_&nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>struct seg {</p> 
+<p>int l, r, z;</p> 
+<p>seg *ls,&nbsp;*rs;</p> 
+<p>};</p> 
+<p>struct query {</p> 
+<p>int l, r, n;</p> 
+<p>};</p> 
+<p><br /></p> 
+<p>inline bool cmpQuery(const query&amp; a, const query&amp; b)&nbsp;{</p> 
+<p>return a. l &lt; b. l;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>typedef pair &lt;int, int&gt; rpair;</p> 
+<p><br /></p> 
+<p>const int maxn = 200009;</p> 
+<p>const int inf = 0x3f3f3f3f;</p> 
+<p><br /></p> 
+<p>int n, m, a[maxn], tmp[maxn], nv[maxn], m0[maxn], ans[maxn];</p> 
+<p>bool fv[maxn];</p> 
+<p>seg *rt,&nbsp;*sp;</p> 
+<p>query q[maxn];</p> 
+<p>map &lt;int, int&gt; rp;</p> 
+<p><br /></p> 
+<p>inline bool cmpTmp(const int&amp; x, const int&amp; y)&nbsp;{</p> 
+<p>return (a[x]&nbsp;&lt; a[y])&nbsp;||&nbsp;(a[x]&nbsp;== a[y]&nbsp;&amp;&amp; x &lt; y);</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>#define mid(p)&nbsp;((p-&gt;l+p-&gt;r)&gt;&gt;1)</p> 
+<p><br /></p> 
+<p>seg* sgtBuild(int l, int r)&nbsp;{</p> 
+<p>seg* p = sp ++;</p> 
+<p>p-&gt; l = l;</p> 
+<p>p-&gt; r = r;</p> 
+<p>p-&gt; z = inf;</p> 
+<p>if (l&nbsp;+ 1 &lt; r)&nbsp;{</p> 
+<p>p-&gt; ls = sgtBuild(l, mid(p));</p> 
+<p>p-&gt; rs = sgtBuild(mid(p), r);</p> 
+<p>}</p> 
+<p>else</p> 
+<p>p-&gt; z = m0[l];</p> 
+<p>return p;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>void sgtChg(seg* p, int l, int r, int v)&nbsp;{</p> 
+<p>if (p-&gt; l == l &amp;&amp; p-&gt; r == r)</p> 
+<p>p-&gt; z = min(p-&gt; z, v);</p> 
+<p>else if (r&nbsp;&lt;= mid(p))</p> 
+<p>sgtChg(p-&gt; ls, l, r, v);</p> 
+<p>else if (l&nbsp;&gt;= mid(p))</p> 
+<p>sgtChg(p-&gt; rs, l, r, v);</p> 
+<p>else {</p> 
+<p>sgtChg(p-&gt; ls, l, mid(p), v);</p> 
+<p>sgtChg(p-&gt; rs, mid(p), r, v);</p> 
+<p>}</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int sgtQry(seg* p, int p0)&nbsp;{</p> 
+<p>if (p-&gt; l + 1 == p-&gt; r)</p> 
+<p>return p-&gt; z;</p> 
+<p>else if (p0&nbsp;&lt; mid(p))</p> 
+<p>return min(sgtQry(p-&gt; ls, p0), p-&gt; z);</p> 
+<p>else</p> 
+<p>return min(sgtQry(p-&gt; rs, p0), p-&gt; z);</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>void preSeq()&nbsp;{</p> 
+<p>a[0]&nbsp;=&nbsp;-1;</p> 
+<p>for (int i = 0; i &lt;= n;&nbsp;++ i)</p> 
+<p>tmp[i]&nbsp;= i;</p> 
+<p>sort(tmp, tmp + n + 1, cmpTmp);</p> 
+<p>m0[n]&nbsp;= 0;</p> 
+<p>for (int i = 0; i &lt;= n;&nbsp;++ i)&nbsp;{</p> 
+<p>if (a[tmp[i]]&nbsp;== m0[n])</p> 
+<p>++ m0[n];</p> 
+<p>if (i&nbsp;&amp;&amp; a[tmp[i]]&nbsp;&gt; a[tmp[i - 1]])</p> 
+<p>fv[tmp[i]]&nbsp;= 1;</p> 
+<p>else</p> 
+<p>fv[tmp[i]]&nbsp;= 0;</p> 
+<p>}</p> 
+<p>nv[n]&nbsp;=&nbsp;-1;</p> 
+<p>for (int i = n; i;&nbsp;-- i)&nbsp;{</p> 
+<p>if (!fv[i]&nbsp;|| a[i]&nbsp;&gt; m0[i])</p> 
+<p>m0[i - 1]&nbsp;= m0[i];</p> 
+<p>else</p> 
+<p>m0[i - 1]&nbsp;= a[i];</p> 
+<p>map &lt;int, int&gt;&nbsp;:: iterator it = rp. find(a[i]);</p> 
+<p>if (it&nbsp;== rp. end())&nbsp;{</p> 
+<p>nv[i]&nbsp;=&nbsp;-1;</p> 
+<p>rp. insert(rpair(a[i], i));</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>nv[i]&nbsp;= it-&gt; second;</p> 
+<p>it-&gt; second = i;</p> 
+<p>}</p> 
+<p>}</p> 
+<p>sp = new seg[maxn * 3];</p> 
+<p>rt = sgtBuild(1, n + 1);</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>void rmvNum(int i)&nbsp;{</p> 
+<p>if (nv[i]&nbsp;&gt;&nbsp;-1)</p> 
+<p>sgtChg(rt, i, nv[i], a[i]);</p> 
+<p>else</p> 
+<p>sgtChg(rt, i, n + 1, a[i]);</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int main()&nbsp;{</p> 
+<p>#ifndef ONLINE_JUDGE</p> 
+<p>freopen(&quot;in.txt&quot;,&nbsp;&quot;r&quot;, stdin);</p> 
+<p>#endif</p> 
+<p><br /></p> 
+<p>readInt(n);</p> 
+<p>readInt(m);</p> 
+<p>for (int i = 1; i &lt;= n;&nbsp;++ i)</p> 
+<p>readInt(a[i]);</p> 
+<p>for (int i = 0; i &lt; m;&nbsp;++ i)&nbsp;{</p> 
+<p>readInt(q[i]. l);</p> 
+<p>readInt(q[i]. r);</p> 
+<p>q[i]. n = i;</p> 
+<p>}</p> 
+<p>sort(q, q + m, cmpQuery);</p> 
+<p>preSeq();</p> 
+<p>for (int i = 0, j = 1; i &lt; m;&nbsp;++ i)&nbsp;{</p> 
+<p>for (; j &lt; q[i]. l;&nbsp;++ j)</p> 
+<p>rmvNum(j);</p> 
+<p>ans[q[i]. n]&nbsp;= sgtQry(rt, q[i]. r);</p> 
+<p>}</p> 
+<p>for (int i = 0; i &lt; m;&nbsp;++ i)</p> 
+<p>printf(&quot;%d\n&quot;, ans[i]);</p> 
+<p>}</p> 
+<p><br /></p>
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/bzoj/">bzoj</a></li>
+      <li><a href="/tags/data%5Cxa0structure/">data\xa0structure</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/lofterimport_110/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>BZOJ3513 [MUTC2013]idiots</span>
+  </a>
+  <a class="next" href="/oi/lofterimport_116/">
+    <span class="title">Next »</span>
+    <br>
+    <span>BZOJ3626 LCA</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

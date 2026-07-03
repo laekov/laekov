@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>BZOJ1227 [SDOI2009]虔诚的墓主人 | The Site of laekov</title>
+<meta name="keywords" content="bzoj, data\xa0structure, math, oi">
+<meta name="description" content="写完Kdtree感觉整个人都要离散了。
+这题比较神，之前连题都没看懂。每个位置的方案数就是上下左右的数量的组合数的乘积。把x离散之后维护区间中左&times;右的和，上下y相同的扫一遍搞定。（感觉说了像没说）
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+struct point {
+int x, y;
+};
+const int maxn = 100009;
+const int maxk = 13;
+inline bool cmpP(int* a, int* b)&nbsp;{
+return *a&nbsp;&lt;&nbsp;*b;
+}
+inline bool cmpy(const point&amp; a, const point&amp; b)&nbsp;{
+return (a. y &lt; b. y)&nbsp;||&nbsp;(a. y == b. y &amp;&amp; a. x &lt; b. x);
+}
+point a[maxn];
+int n, m, c[maxn][maxk], cx[maxn], tx[maxn], t[maxn], maxx, ans;">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/lofterimport_070/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="BZOJ1227 [SDOI2009]虔诚的墓主人" />
+<meta property="og:description" content="写完Kdtree感觉整个人都要离散了。
+这题比较神，之前连题都没看懂。每个位置的方案数就是上下左右的数量的组合数的乘积。把x离散之后维护区间中左&times;右的和，上下y相同的扫一遍搞定。（感觉说了像没说）
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+struct point {
+int x, y;
+};
+const int maxn = 100009;
+const int maxk = 13;
+inline bool cmpP(int* a, int* b)&nbsp;{
+return *a&nbsp;&lt;&nbsp;*b;
+}
+inline bool cmpy(const point&amp; a, const point&amp; b)&nbsp;{
+return (a. y &lt; b. y)&nbsp;||&nbsp;(a. y == b. y &amp;&amp; a. x &lt; b. x);
+}
+point a[maxn];
+int n, m, c[maxn][maxk], cx[maxn], tx[maxn], t[maxn], maxx, ans;" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/lofterimport_070/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2014-11-24T10:59:07+00:00" />
+<meta property="article:modified_time" content="2014-11-24T10:59:07+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BZOJ1227 [SDOI2009]虔诚的墓主人"/>
+<meta name="twitter:description" content="写完Kdtree感觉整个人都要离散了。
+这题比较神，之前连题都没看懂。每个位置的方案数就是上下左右的数量的组合数的乘积。把x离散之后维护区间中左&times;右的和，上下y相同的扫一遍搞定。（感觉说了像没说）
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+struct point {
+int x, y;
+};
+const int maxn = 100009;
+const int maxk = 13;
+inline bool cmpP(int* a, int* b)&nbsp;{
+return *a&nbsp;&lt;&nbsp;*b;
+}
+inline bool cmpy(const point&amp; a, const point&amp; b)&nbsp;{
+return (a. y &lt; b. y)&nbsp;||&nbsp;(a. y == b. y &amp;&amp; a. x &lt; b. x);
+}
+point a[maxn];
+int n, m, c[maxn][maxk], cx[maxn], tx[maxn], t[maxn], maxx, ans;"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "BZOJ1227 [SDOI2009]虔诚的墓主人",
+      "item": "/oi/lofterimport_070/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BZOJ1227 [SDOI2009]虔诚的墓主人",
+  "name": "BZOJ1227 [SDOI2009]虔诚的墓主人",
+  "description": "写完Kdtree感觉整个人都要离散了。\n这题比较神，之前连题都没看懂。每个位置的方案数就是上下左右的数量的组合数的乘积。把x离散之后维护区间中左\u0026times;右的和，上下y相同的扫一遍搞定。（感觉说了像没说）\n#include \u0026lt;cstdio\u0026gt;\n#include \u0026lt;cstring\u0026gt;\n#include \u0026lt;algorithm\u0026gt;\nusing namespace std;\nstruct point {\nint x, y;\n};\nconst int maxn = 100009;\nconst int maxk = 13;\ninline bool cmpP(int* a, int* b)\u0026nbsp;{\nreturn *a\u0026nbsp;\u0026lt;\u0026nbsp;*b;\n}\ninline bool cmpy(const point\u0026amp; a, const point\u0026amp; b)\u0026nbsp;{\nreturn (a. y \u0026lt; b. y)\u0026nbsp;||\u0026nbsp;(a. y == b. y \u0026amp;\u0026amp; a. x \u0026lt; b. x);\n}\npoint a[maxn];\nint n, m, c[maxn][maxk], cx[maxn], tx[maxn], t[maxn], maxx, ans;",
+  "keywords": [
+    "bzoj", "data\\xa0structure", "math", "oi"
+  ],
+  "articleBody": "写完Kdtree感觉整个人都要离散了。\n这题比较神，之前连题都没看懂。每个位置的方案数就是上下左右的数量的组合数的乘积。把x离散之后维护区间中左×右的和，上下y相同的扫一遍搞定。（感觉说了像没说）\n#include #include #include using namespace std;\nstruct point {\nint x, y;\n};\nconst int maxn = 100009;\nconst int maxk = 13;\ninline bool cmpP(int* a, int* b) {\nreturn *a \u003c *b;\n}\ninline bool cmpy(const point\u0026 a, const point\u0026 b) {\nreturn (a. y \u003c b. y) || (a. y == b. y \u0026\u0026 a. x \u003c b. x);\n}\npoint a[maxn];\nint n, m, c[maxn][maxk], cx[maxn], tx[maxn], t[maxn], maxx, ans;\nint *r[maxn];\nvoid prec() {\nc[0][0] = 1;\nfor (int i = 0; i \u003c= n; ++ i)\nc[i][0] = 1;\nfor (int i = 1; i \u003c= m; ++ i) {\nfor (int j = 0; j \u003c i; ++ j)\nc[j][i] = 0;\nfor (int j = i; j \u003c= n; ++ j)\nc[j][i] = c[j - 1][i] + c[j - 1][i - 1];\n}\n}\nvoid dispx() {\nfor (int i = 0; i \u003c n; ++ i)\nr[i] = \u0026a[i]. x;\nsort(r, r + n, cmpP);\nmaxx = 0;\nfor (int i = 0, l = *r[0] - 1; i \u003c n; ++ i)\nif (*r[i] == l)\n*r[i] = maxx;\nelse\nl = *r[i], *r[i] = ++ maxx;\nmemset(tx, 0, sizeof(tx));\nfor (int i = 0; i \u003c n; ++ i)\n++ tx[a[i]. x];\n}\nvoid btChg(int* t, int p, int v) {\nfor (; p \u003c= maxx; p += (p \u0026 -p))\nt[p] += v;\n}\nint btQry(int* t, int p) {\nint s = 0;\nfor (; p; p -= (p \u0026 -p))\ns += t[p];\nreturn s;\n}\nint main() {\n#ifndef ONLINE_JUDGE\nfreopen(\"in.txt\", \"r\", stdin);\n#endif\nmemset(t, 0, sizeof(t));\nmemset(cx, 0, sizeof(cx));\nscanf(\"%*d%*d%d\\n\", \u0026n);\nfor (int i = 0; i \u003c n; ++ i)\nscanf(\"%d%d\", \u0026a[i]. x, \u0026a[i]. y);\nscanf(\"%d\", \u0026m);\nprec();\ndispx();\nsort(a, a + n, cmpy);\nans = 0;\nfor (int i = 0, j; i \u003c n; i = j) {\nfor (j = i; j \u003c n \u0026\u0026 a[j]. y == a[i]. y; ++ j);\nfor (int k = i + m - 1; k + m \u003c j; ++ k)\nif (a[k]. x \u003c a[k + 1]. x)\nans += (btQry(t, a[k + 1]. x - 1) - btQry(t, a[k]. x)) * c[k - i + 1][m] * c[j - k - 1][m];\nfor (int k = i; k \u003c j; ++ k) {\nint x = a[k]. x;\nbtChg(t, x, -c[cx[x]][m] * c[tx[x] - cx[x]][m]);\n++ cx[x];\nbtChg(t, x, c[cx[x]][m] * c[tx[x] - cx[x]][m]);\n}\n}\nprintf(\"%d\\n\", ans \u0026 0x7fffffff);\n}\n",
+  "wordCount" : "364",
+  "inLanguage": "en",
+  "datePublished": "2014-11-24T10:59:07Z",
+  "dateModified": "2014-11-24T10:59:07Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/lofterimport_070/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      BZOJ1227 [SDOI2009]虔诚的墓主人
+    </h1>
+    <div class="post-meta"><span title='2014-11-24 10:59:07 +0000 UTC'>November 24, 2014</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>写完Kdtree感觉整个人都要离散了。</p> 
+<p><br /></p> 
+<p>这题比较神，之前连题都没看懂。每个位置的方案数就是上下左右的数量的组合数的乘积。把x离散之后维护区间中左&times;右的和，上下y相同的扫一遍搞定。（感觉说了像没说）</p> 
+<p><br /></p> 
+<p>#include &lt;cstdio&gt;</p> 
+<p>#include &lt;cstring&gt;</p> 
+<p>#include &lt;algorithm&gt;</p> 
+<p><br /></p> 
+<p>using namespace std;</p> 
+<p><br /></p> 
+<p>struct point {</p> 
+<p>int x, y;</p> 
+<p>};</p> 
+<p><br /></p> 
+<p>const int maxn = 100009;</p> 
+<p>const int maxk = 13;</p> 
+<p><br /></p> 
+<p>inline bool cmpP(int* a, int* b)&nbsp;{</p> 
+<p>return *a&nbsp;&lt;&nbsp;*b;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>inline bool cmpy(const point&amp; a, const point&amp; b)&nbsp;{</p> 
+<p>return (a. y &lt; b. y)&nbsp;||&nbsp;(a. y == b. y &amp;&amp; a. x &lt; b. x);</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>point a[maxn];</p> 
+<p>int n, m, c[maxn][maxk], cx[maxn], tx[maxn], t[maxn], maxx, ans;</p> 
+<p>int *r[maxn];</p> 
+<p><br /></p> 
+<p>void prec()&nbsp;{</p> 
+<p>c[0][0]&nbsp;= 1;</p> 
+<p>for (int i = 0; i &lt;= n;&nbsp;++ i)</p> 
+<p>c[i][0]&nbsp;= 1;</p> 
+<p>for (int i = 1; i &lt;= m;&nbsp;++ i)&nbsp;{</p> 
+<p>for (int j = 0; j &lt; i;&nbsp;++ j)</p> 
+<p>c[j][i]&nbsp;= 0;</p> 
+<p>for (int j = i; j &lt;= n;&nbsp;++ j)</p> 
+<p>c[j][i]&nbsp;= c[j - 1][i]&nbsp;+ c[j - 1][i - 1];</p> 
+<p>}</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>void dispx()&nbsp;{</p> 
+<p>for (int i = 0; i &lt; n;&nbsp;++ i)</p> 
+<p>r[i]&nbsp;=&nbsp;&amp;a[i]. x;</p> 
+<p>sort(r, r + n, cmpP);</p> 
+<p>maxx = 0;</p> 
+<p>for (int i = 0, l =&nbsp;*r[0]&nbsp;- 1; i &lt; n;&nbsp;++ i)</p> 
+<p>if (*r[i]&nbsp;== l)</p> 
+<p>*r[i]&nbsp;= maxx;</p> 
+<p>else</p> 
+<p>l =&nbsp;*r[i],&nbsp;*r[i]&nbsp;=&nbsp;++ maxx;</p> 
+<p>memset(tx, 0, sizeof(tx));</p> 
+<p>for (int i = 0; i &lt; n;&nbsp;++ i)</p> 
+<p>++ tx[a[i]. x];</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>void btChg(int* t, int p, int v)&nbsp;{</p> 
+<p>for (; p &lt;= maxx; p +=&nbsp;(p&nbsp;&amp;&nbsp;-p))</p> 
+<p>t[p]&nbsp;+= v;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int btQry(int* t, int p)&nbsp;{</p> 
+<p>int s = 0;</p> 
+<p>for (; p; p -=&nbsp;(p&nbsp;&amp;&nbsp;-p))</p> 
+<p>s += t[p];</p> 
+<p>return s;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int main()&nbsp;{</p> 
+<p>#ifndef ONLINE_JUDGE</p> 
+<p>freopen(&quot;in.txt&quot;,&nbsp;&quot;r&quot;, stdin);</p> 
+<p>#endif</p> 
+<p><br /></p> 
+<p>memset(t, 0, sizeof(t));</p> 
+<p>memset(cx, 0, sizeof(cx));</p> 
+<p>scanf(&quot;%*d%*d%d\n&quot;,&nbsp;&amp;n);</p> 
+<p>for (int i = 0; i &lt; n;&nbsp;++ i)</p> 
+<p>scanf(&quot;%d%d&quot;,&nbsp;&amp;a[i]. x,&nbsp;&amp;a[i]. y);</p> 
+<p>scanf(&quot;%d&quot;,&nbsp;&amp;m);</p> 
+<p>prec();</p> 
+<p>dispx();</p> 
+<p>sort(a, a + n, cmpy);</p> 
+<p>ans = 0;</p> 
+<p>for (int i = 0, j; i &lt; n; i = j)&nbsp;{</p> 
+<p>for (j&nbsp;= i; j &lt; n &amp;&amp; a[j]. y == a[i]. y;&nbsp;++ j);</p> 
+<p>for (int k = i + m - 1; k + m &lt; j;&nbsp;++ k)</p> 
+<p>if (a[k]. x &lt; a[k + 1]. x)</p> 
+<p>ans +=&nbsp;(btQry(t, a[k + 1]. x - 1)&nbsp;- btQry(t, a[k]. x))&nbsp;</p> 
+<p>* c[k - i + 1][m]&nbsp;* c[j - k - 1][m];</p> 
+<p>for (int k = i; k &lt; j;&nbsp;++ k)&nbsp;{</p> 
+<p>int x = a[k]. x;</p> 
+<p>btChg(t, x,&nbsp;-c[cx[x]][m]&nbsp;* c[tx[x]&nbsp;- cx[x]][m]);</p> 
+<p>++ cx[x];</p> 
+<p>btChg(t, x, c[cx[x]][m]&nbsp;* c[tx[x]&nbsp;- cx[x]][m]);</p> 
+<p>}</p> 
+<p>}</p> 
+<p>printf(&quot;%d\n&quot;, ans &amp; 0x7fffffff);</p> 
+<p>}</p> 
+<p><br /></p>
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/bzoj/">bzoj</a></li>
+      <li><a href="/tags/data%5Cxa0structure/">data\xa0structure</a></li>
+      <li><a href="/tags/math/">math</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/lofterimport_069/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>BZOJ2626 JZPFAR</span>
+  </a>
+  <a class="next" href="/oi/lofterimport_071/">
+    <span class="title">Next »</span>
+    <br>
+    <span>BZOJ2648 SJY摆棋子</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

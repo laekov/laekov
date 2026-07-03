@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>BZOJ2704 旅游 | The Site of laekov</title>
+<meta name="keywords" content="bzoj, dp, plugDP, oi">
+<meta name="description" content="&lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt; 居然网上都没有找到程序来和我拍。好吧其实它是一道权限题而且过的人也不多。&lt;/p&gt; &nbsp;
+其实就是裸的插头DP。本来想学一下广义括号的然后被状态数吓到了于是只好还是写最小表示。连通性。
+&nbsp;
+然后我发现最小表示连通性很容易写挂。而在findstate的时候检查一下是个不错的办法。至少这道题靠这个就可以直接debug出来问题了。
+&nbsp;
+比上次写插头要好许多了。
+&nbsp;
+#include &lt;cstdio&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+typedef long long dint; #define _l (long long int) #define mbit(x,y) ((_l x)&lt;&lt;((y)&lt;&lt;2)) #define gbit(x,y) (((x)&gt;&gt;((y)&lt;&lt;2))&amp;0xf)
+const int maxn = 13; const int maxst = 570009;
+dint slst[maxst]; int n, m, v[maxn][maxn], tots, f[2][maxst], cnt[17]; bool av[2][maxst];
+void dfsState(int l, int tot, dint z) { if (l == m) { for (int i = 1; i &lt;= tot; &#43;&#43; i) if (cnt[i] !">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/i11rimport_011/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="BZOJ2704 旅游" />
+<meta property="og:description" content="&lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt; 居然网上都没有找到程序来和我拍。好吧其实它是一道权限题而且过的人也不多。&lt;/p&gt; &nbsp;
+其实就是裸的插头DP。本来想学一下广义括号的然后被状态数吓到了于是只好还是写最小表示。连通性。
+&nbsp;
+然后我发现最小表示连通性很容易写挂。而在findstate的时候检查一下是个不错的办法。至少这道题靠这个就可以直接debug出来问题了。
+&nbsp;
+比上次写插头要好许多了。
+&nbsp;
+#include &lt;cstdio&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+typedef long long dint; #define _l (long long int) #define mbit(x,y) ((_l x)&lt;&lt;((y)&lt;&lt;2)) #define gbit(x,y) (((x)&gt;&gt;((y)&lt;&lt;2))&amp;0xf)
+const int maxn = 13; const int maxst = 570009;
+dint slst[maxst]; int n, m, v[maxn][maxn], tots, f[2][maxst], cnt[17]; bool av[2][maxst];
+void dfsState(int l, int tot, dint z) { if (l == m) { for (int i = 1; i &lt;= tot; &#43;&#43; i) if (cnt[i] !" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/i11rimport_011/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2015-03-06T14:02:41+00:00" />
+<meta property="article:modified_time" content="2015-03-06T14:02:41+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BZOJ2704 旅游"/>
+<meta name="twitter:description" content="&lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt; 居然网上都没有找到程序来和我拍。好吧其实它是一道权限题而且过的人也不多。&lt;/p&gt; &nbsp;
+其实就是裸的插头DP。本来想学一下广义括号的然后被状态数吓到了于是只好还是写最小表示。连通性。
+&nbsp;
+然后我发现最小表示连通性很容易写挂。而在findstate的时候检查一下是个不错的办法。至少这道题靠这个就可以直接debug出来问题了。
+&nbsp;
+比上次写插头要好许多了。
+&nbsp;
+#include &lt;cstdio&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+typedef long long dint; #define _l (long long int) #define mbit(x,y) ((_l x)&lt;&lt;((y)&lt;&lt;2)) #define gbit(x,y) (((x)&gt;&gt;((y)&lt;&lt;2))&amp;0xf)
+const int maxn = 13; const int maxst = 570009;
+dint slst[maxst]; int n, m, v[maxn][maxn], tots, f[2][maxst], cnt[17]; bool av[2][maxst];
+void dfsState(int l, int tot, dint z) { if (l == m) { for (int i = 1; i &lt;= tot; &#43;&#43; i) if (cnt[i] !"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "BZOJ2704 旅游",
+      "item": "/oi/i11rimport_011/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BZOJ2704 旅游",
+  "name": "BZOJ2704 旅游",
+  "description": "\u0026lt;div class=\u0026quot;post_brief\u0026quot;\u0026gt;\u0026lt;p\u0026gt; 居然网上都没有找到程序来和我拍。好吧其实它是一道权限题而且过的人也不多。\u0026lt;/p\u0026gt; \u0026nbsp;\n其实就是裸的插头DP。本来想学一下广义括号的然后被状态数吓到了于是只好还是写最小表示。连通性。\n\u0026nbsp;\n然后我发现最小表示连通性很容易写挂。而在findstate的时候检查一下是个不错的办法。至少这道题靠这个就可以直接debug出来问题了。\n\u0026nbsp;\n比上次写插头要好许多了。\n\u0026nbsp;\n#include \u0026lt;cstdio\u0026gt; #include \u0026lt;cstring\u0026gt; #include \u0026lt;algorithm\u0026gt; using namespace std;\ntypedef long long dint; #define _l (long long int) #define mbit(x,y) ((_l x)\u0026lt;\u0026lt;((y)\u0026lt;\u0026lt;2)) #define gbit(x,y) (((x)\u0026gt;\u0026gt;((y)\u0026lt;\u0026lt;2))\u0026amp;0xf)\nconst int maxn = 13; const int maxst = 570009;\ndint slst[maxst]; int n, m, v[maxn][maxn], tots, f[2][maxst], cnt[17]; bool av[2][maxst];\nvoid dfsState(int l, int tot, dint z) { if (l == m) { for (int i = 1; i \u0026lt;= tot; ++ i) if (cnt[i] !",
+  "keywords": [
+    "bzoj", "dp", "plugDP", "oi"
+  ],
+  "articleBody": "\t居然网上都没有找到程序来和我拍。好吧其实它是一道权限题而且过的人也不多。\n其实就是裸的插头DP。本来想学一下广义括号的然后被状态数吓到了于是只好还是写最小表示。连通性。\n然后我发现最小表示连通性很容易写挂。而在findstate的时候检查一下是个不错的办法。至少这道题靠这个就可以直接debug出来问题了。\n比上次写插头要好许多了。\n#include #include #include using namespace std;\ntypedef long long dint; #define _l (long long int) #define mbit(x,y) ((_l x)\u003c\u003c((y)\u003c\u003c2)) #define gbit(x,y) (((x)\u003e\u003e((y)\u003c\u003c2))\u00260xf)\nconst int maxn = 13; const int maxst = 570009;\ndint slst[maxst]; int n, m, v[maxn][maxn], tots, f[2][maxst], cnt[17]; bool av[2][maxst];\nvoid dfsState(int l, int tot, dint z) { if (l == m) { for (int i = 1; i \u003c= tot; ++ i) if (cnt[i] != 2) return; slst[tots ++] = z; } else { for (int i = 0; i \u003c= tot; ++ i) if (!i || cnt[i] == 1) { ++ cnt[i]; dfsState(l + 1, tot, z | mbit(i, l)); – cnt[i]; } ++ cnt[tot + 1]; dfsState(l + 1, tot + 1, z | mbit(tot + 1, l)); – cnt[tot + 1]; if (!cnt[15] \u0026\u0026 l \u003c m - 1) { ++ cnt[15]; dfsState(l + 1, tot, z | mbit(15, l)); – cnt[15]; }\n} }\nvoid preState() { tots = 0; memset(cnt, 0, sizeof(cnt)); dfsState(0, 0, 0); sort(slst, slst + tots); }\ninline int fState(dint x) { return lower_bound(slst, slst + tots, x) - slst; //if (slst[ret] != x) //puts(“naive”); //return ret; }\n#define fUpMax(sa,sv) { register int a(sa), v(sv); if (!av[cur][a]) { av[cur][a] = 1; f[cur][a] = v; } else if (v \u003e f[cur][a]) f[cur][a] = v; } #define upMax(a,b) { if (a \u003c b) a = b; }\nvoid unzipState(dint z, int* a) { for (int i = 0; i \u003c m; ++ i) a[i] = gbit(z, i); }\ndint zipState(int* a) { dint s(0); for (int i = 0; i \u003c m; ++ i) s |= mbit(a[i], i); return s; }\nbool isFinalPlug(int *a, int y) { for (int i = 0; i \u003c y - 1; ++ i) if (a[i]) return 0; for (int i = y + 1; i ",
+  "wordCount" : "761",
+  "inLanguage": "en",
+  "datePublished": "2015-03-06T14:02:41Z",
+  "dateModified": "2015-03-06T14:02:41Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/i11rimport_011/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      BZOJ2704 旅游
+    </h1>
+    <div class="post-meta"><span title='2015-03-06 14:02:41 +0000 UTC'>March 6, 2015</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><pre><code>			    &lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt;
+居然网上都没有找到程序来和我拍。好吧其实它是一道权限题而且过的人也不多。&lt;/p&gt;
+</code></pre>
+<p>
+	&nbsp;</p>
+<p>
+	其实就是裸的插头DP。本来想学一下广义括号的然后被状态数吓到了于是只好还是写最小表示。连通性。</p>
+<p>
+	&nbsp;</p>
+<p>
+	然后我发现最小表示连通性很容易写挂。而在findstate的时候检查一下是个不错的办法。至少这道题靠这个就可以直接debug出来问题了。</p>
+<p>
+	&nbsp;</p>
+<p>
+	比上次写插头要好许多了。</p>
+<p>
+	&nbsp;</p>
+<pre class="bcode">#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+<p>using namespace std;</p>
+<p>typedef long long dint;
+#define _l (long long int)
+#define mbit(<em>x</em>,<em>y</em>) ((_l <em>x</em>)&lt;&lt;((<em>y</em>)&lt;&lt;2))
+#define gbit(<em>x</em>,<em>y</em>) (((<em>x</em>)&gt;&gt;((<em>y</em>)&lt;&lt;2))&amp;0xf)</p>
+<p>const int maxn = 13;
+const int maxst = 570009;</p>
+<p>dint slst[maxst];
+int n, m, v[maxn][maxn], tots, f[2][maxst], cnt[17];
+bool av[2][maxst];</p>
+<p>void dfsState(int l, int tot, dint z) {
+if (l == m) {
+for (int i = 1; i &lt;= tot; ++ i)
+if (cnt[i] != 2)
+return;
+slst[tots ++] = z;
+}
+else {
+for (int i = 0; i &lt;= tot; ++ i)
+if (!i || cnt[i] == 1) {
+++ cnt[i];
+dfsState(l + 1, tot, z | mbit(i, l));
+&ndash; cnt[i];
+}
+++ cnt[tot + 1];
+dfsState(l + 1, tot + 1, z | mbit(tot + 1, l));
+&ndash; cnt[tot + 1];
+if (!cnt[15] &amp;&amp; l &lt; m - 1) {
+++ cnt[15];
+dfsState(l + 1, tot, z | mbit(15, l));
+&ndash; cnt[15];
+}</p>
+<pre><code>}
+</code></pre>
+<p>}</p>
+<p>void preState() {
+tots = 0;
+memset(cnt, 0, sizeof(cnt));
+dfsState(0, 0, 0);
+sort(slst, slst + tots);
+}</p>
+<p>inline int fState(dint x) {
+return lower_bound(slst, slst + tots, x) - slst;
+//if (slst[ret] != x)
+//puts(&ldquo;naive&rdquo;);
+//return ret;
+}</p>
+<p>#define fUpMax(<em>sa</em>,<em>sv</em>) { <br>
+register int <em>a</em>(<em>sa</em>), <em>v</em>(<em>sv</em>); <br>
+if (!av[cur][<em>a</em>]) { <br>
+av[cur][<em>a</em>] = 1; <br>
+f[cur][<em>a</em>] = <em>v</em>; <br>
+} <br>
+else if (<em>v</em> &gt; f[cur][<em>a</em>]) <br>
+f[cur][<em>a</em>] = <em>v</em>; <br>
+}
+#define upMax(<em>a</em>,<em>b</em>) { <br>
+if (<em>a</em> &lt; <em>b</em>) <br>
+<em>a</em> = <em>b</em>; <br>
+}</p>
+<p>void unzipState(dint z, int* a) {
+for (int i = 0; i &lt; m; ++ i)
+a[i] = gbit(z, i);
+}</p>
+<p>dint zipState(int* a) {
+dint s(0);
+for (int i = 0; i &lt; m; ++ i)
+s |= mbit(a[i], i);
+return s;
+}</p>
+<p>bool isFinalPlug(int *a, int y) {
+for (int i = 0; i &lt; y - 1; ++ i)
+if (a[i])
+return 0;
+for (int i = y + 1; i &lt;m; ++ i)
+if (a[i])
+return 0;
+return 1;
+}</p>
+<p>int mergePlug(int* a, int y) {
+static int b[maxn], c[17];
+memcpy(b, a, sizeof(b));
+if (a[y - 1] == 15) {
+b[y - 1] = b[y];
+b[y] = 0;
+}
+else {
+int f(a[y - 1]), t(a[y]);
+for (int i = 0; i &lt; m; ++ i)
+if (b[i] == f)
+b[i] = t;
+b[y - 1] = b[y] = 0;
+memset(c, 0, sizeof(c));
+f = 0;
+for (int i = 0; i &lt; m; ++ i)
+if (b[i]) {
+if (c[b[i]])
+b[i] = c[b[i]];
+else
+b[i] = c[b[i]] = ++ f;
+}
+}
+return fState(zipState(b));
+}</p>
+<p>int extendPlugRight(int* a, int y) {
+static int b[maxn];
+memcpy(b, a, sizeof(b));
+if (a[y - 1] == 15) {
+int t(1);
+for (int i = 0; i &lt; y - 1; ++ i)
+if (a[i] &lt; 15 &amp;&amp; a[i] + 1 &gt; t)
+t = a[i] + 1;
+for (int i = y + 1; i &lt; m; ++ i)
+if (a[i] &lt; 15 &amp;&amp; a[i] &gt;= t)
+++ b[i];
+b[y - 1] = b[y] = t;
+}
+else {
+b[y] = b[y - 1];
+b[y - 1] = 0;
+}
+return fState(zipState(b));
+}</p>
+<p>int newPlug(int* a, int y) {
+static int b[maxn];
+memcpy(b, a, sizeof(b));
+b[y] = 15;
+return fState(zipState(b));
+}</p>
+<p>int dp() {
+int prv(0), cur(1), so(fState(15)), ans(0);
+memset(av, 0, sizeof(av));
+av[cur][so] = 1;
+f[cur][so] = v[0][0];
+for (int x = 0; x &lt; n; ++ x)
+for (int y = !x ? 1 : 0; y &lt; m; ++ y) {
+swap(prv, cur);
+memset(av[cur], 0, sizeof(av[cur]));
+for (int i = 0; i &lt; tots; ++ i)
+if (av[prv][i]) {
+dint s(slst[i]);
+static int a[maxn];
+unzipState(s, a);
+if (v[x][y]) {
+if (y &amp;&amp; a[y - 1] &amp;&amp; a[y]) {
+if (a[y - 1] == a[y]) {
+if (isFinalPlug(a, y))
+upMax(ans, f[prv][i] + v[x][y]);
+}
+else {
+fUpMax(mergePlug(a, y), f[prv][i] + v[x][y]);
+}
+}
+if (y &amp;&amp; a[y - 1] &amp;&amp; !a[y])
+fUpMax(extendPlugRight(a, y), f[prv][i] + v[x][y]);
+if (a[y] &amp;&amp; (!y || a[y - 1] != 15))
+fUpMax(i, f[prv][i] + v[x][y]);
+if (!a[y] &amp;&amp; (!y || a[y - 1] != 15) &amp;&amp; y &lt; m - 1)
+fUpMax(newPlug(a, y), f[prv][i] + v[x][y]);
+}
+if (!a[y] &amp;&amp; (!y || a[y - 1] != 15))
+fUpMax(i, f[prv][i]);
+}
+}
+return ans;
+}</p>
+<p>int main() {
+#ifndef ONLINE_JUDGE
+freopen(&ldquo;in.txt&rdquo;, &ldquo;r&rdquo;, stdin);
+#endif</p>
+<pre><code>bool sw(0);
+scanf(&quot;%d%d&quot;, &amp;amp;n, &amp;amp;m);
+if (n &amp;lt; m)
+	sw = 1;
+for (int i = 0; i &amp;lt; n; ++ i)
+	for (int j = 0; j &amp;lt; m; ++ j)
+		if (sw)
+			scanf(&quot;%d&quot;, v[j] + i);
+		else
+			scanf(&quot;%d&quot;, v[i] + j);
+if (sw)
+	swap(n, m);
+preState();
+printf(&quot;%d\n&quot;, dp());
+</code></pre>
+<p>}
+</pre></p>
+</div>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/bzoj/">bzoj</a></li>
+      <li><a href="/tags/dp/">dp</a></li>
+      <li><a href="/tags/plugdp/">plugDP</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/i11rimport_010/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>BZOJ1513 [POI2006]Tet-Tetris 3D</span>
+  </a>
+  <a class="next" href="/oi/i11rimport_012/">
+    <span class="title">Next »</span>
+    <br>
+    <span>BZOJ2178 圆的面积并</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

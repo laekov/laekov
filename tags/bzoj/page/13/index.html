@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>bzoj | The Site of laekov</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/tags/bzoj/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="/tags/bzoj/index.xml">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="bzoj" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="/tags/bzoj/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="bzoj"/>
+<meta name="twitter:description" content=""/>
+
+</head>
+
+<body class="list" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+<header class="page-header"><div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/tags/">Tags</a></div>
+  <h1>
+    bzoj
+    <a href="/tags/bzoj/index.xml" title="RSS" aria-label="RSS">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" height="23">
+        <path d="M4 11a9 9 0 0 1 9 9" />
+        <path d="M4 4a16 16 0 0 1 16 16" />
+        <circle cx="5" cy="19" r="1" />
+      </svg>
+    </a>
+  </h1>
+</header>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>BZOJ3851 2048
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>题号是3851，题目名称是2048。
+比较厉害的DP。最初没有想到怎么表示状态。其实就是一个≤2048的自然数就可以表示状态了。
+然后转移不能一个一个来，每个值要一起来， 然后拿组合数来算。然后就行了。
+虽然hdu上还是过不到。好慢的说。
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+#define _l (long long int)
+const int maxn = 100009;
+const int mod = 998244353;
+int n, f[2][2051], c[2051];
+int fac[maxn], finv[maxn], p2[maxn];
+int modPow(int a, int x) {
+int s(1);
+for (; x; x &gt;&gt;= 1, a = _l a * a % mod)
+if (x &amp; 1)
+s = _l s * a % mod;
+return s;...</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-01-08 15:00:21 +0000 UTC'>January 8, 2015</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to BZOJ3851 2048" href="/oi/lofterimport_007/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>BZOJ2527 [Poi2011]Meteors
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>全局二分&#43;树状数组，其实还是比较水。
+比较坑的一点是直接求和会暴long long。如果≥Pi了要直接break掉。好坑啊。
+#include &lt;cstdio&gt;
+#include &lt;cctype&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std; 
+int _d_;
+#define readInt(_x_) { \
+int&amp; _s_ = (_x_ = 0); \
+while (!isdigit(_d_ = getchar())); \
+while (_s_ = (_s_ &lt;&lt; 3) &#43; (_s_ &lt;&lt; 1) &#43; _d_ - 48, isdigit(_d_ = getchar())); \
+}
+typedef long long dint;
+const int maxn = 300009;
+struct node {
+int v;
+node *next;
+};
+struct rain {
+int l, r, a;
+};
+struct bintree {
+dint t[maxn];
+int n;
+bintree() {...</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-01-08 11:46:07 +0000 UTC'>January 8, 2015</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to BZOJ2527 [Poi2011]Meteors" href="/oi/lofterimport_008/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>BZOJ1112 [POI2008]砖块
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>水一发。
+本来可以直接拿主席树找中位数的，但是因为main上只有32MB，所以只好写了个splay。感觉现在是爱上指针了。然后kth的时候少打个等号又wa又re好爽。
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+typedef long long dint;
+#ifdef WIN32
+#define lld &#34;%I64d&#34;
+#else
+#define lld &#34;%lld&#34;
+#endif
+#define _l (long long int)
+const int maxn = 100009;
+#define nsz(p) ((p)?(p-&gt;sz):0)
+#define sof(p) ((p)?(p-&gt;s):0)
+struct splay_node {
+   int v, sz;
+   dint s;
+   splay_node *ls, *rs, *pt;
+   inline void init(int v0) {
+   v = v0;
+   sz = 1;
+   s = v0;
+   pt = ls = rs = 0;...</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-01-07 22:26:51 +0000 UTC'>January 7, 2015</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to BZOJ1112 [POI2008]砖块" href="/oi/lofterimport_009/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>BZOJ1097 [POI2007]旅游景点
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>比较简单易懂的状压。
+最初想懒一下把起点和终点也压进来然后发现刚好会超一点空间。然后不压进来的话就是100MB左右，很好奇MAIN上面64MB的内存应该怎么做。拿MAP么？
+代码各种难看啊郁闷。
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+struct edge {
+int t, v;
+edge *next;
+};
+#define pow2(x) (1&lt;&lt;(x))
+typedef pair &lt;int, int&gt; dspr;
+const int maxn = 20009;
+const int maxe = 400009;
+const int maxk = 20;
+const int maxz = pow2(20) &#43; 3;
+int n, m, k, d[maxn];
+int f[maxz][maxk], ds[maxk], dt[maxk], dk[maxk][maxk], ans;
+int g, pr[maxk];
+edge *ep, *head[maxn];
+dspr hp[maxe];
+inline void addEdge(int u, int v, int w) {...</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-01-07 21:30:50 +0000 UTC'>January 7, 2015</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to BZOJ1097 [POI2007]旅游景点" href="/oi/lofterimport_010/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>BZOJ3858 Number Transformation
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>yy了一个sqrt的玩意，不过因为n在变所以没有保障啊。
+肯定不是正解了。
+1s的题跑了1.3s居然AC，好厉害。
+#include &lt;cstdio&gt;
+typedef long long dint;
+#ifdef WIN32
+#define lld &#34;%I64d&#34;
+#else
+#define lld &#34;%lld&#34;
+#endif
+dint calc(dint n, dint k) {
+if (n &lt;= 1)
+return k;
+for (dint i = 1, j; i &lt;= k; i = j &#43; 1) {
+if (n &lt;= i)
+return k;
+j = (n - 1) / ((n - 1) / i);
+if (j &gt; k)
+j = k;
+n = ((n - 1) / i &#43; 1) * j;
+}
+return n;...</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-01-06 21:10:22 +0000 UTC'>January 6, 2015</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to BZOJ3858 Number Transformation" href="/oi/lofterimport_011/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>BZOJ2870 最长道路
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>最初觉得挺麻烦的一道题没思路。有点像并查集直接搞但是不好维护直径。
+然后发现树上到任意一点的最远点一定是直径的两个端点之一。于是直接把直径是哪俩点记下来就好了。然后按点权从大到小往树里插。
+然后莫名其妙地抢到了第二快。这么老的题也是蛮欣慰的。大概是读入优化2333
+#include &lt;bits/stdc&#43;&#43;.h&gt;
+using namespace std;
+void setRand() {
+FILE* pf = fopen(&#34;.rs&#34;, &#34;r&#34;);
+int hsv;
+if (pf) {
+fscanf(pf, &#34;%d&#34;, &amp;hsv);
+fclose(pf);
+}
+srand(hsv);
+printf(&#34;Seed = %d\n&#34;, hsv);
+pf = fopen(&#34;.rs&#34;, &#34;w&#34;);
+fprintf(pf, &#34;%d&#34;, (hsv &lt;&lt; 1) | (rand() &amp; 1));
+fclose(pf);
+}
+#define readArg(a,b) { if (argc &gt; a) sscanf(args[a], &#34;%d&#34;, &amp;b); }
+void mklr(int m, char s) {
+int l, r;
+do
+l = rand() % m &#43; 1, r = rand() % m &#43; 1;
+while (l &gt; r);
+printf(&#34;%d %d%c&#34;, l, r, s);
+}...</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-01-05 20:14:31 +0000 UTC'>January 5, 2015</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to BZOJ2870 最长道路" href="/oi/lofterimport_012/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>BZOJ3834 [Poi2014]Solar Panels
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>orz jason_yu提醒了我一句“最简单的优化”，才想起来。
+如果d合法的话那么b/d-(a-1)/d&gt;0。然后用整除优化到sqrt就可过。虽然比较慢。
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+int main() {
+int t, a, b, c, d, s, e;
+scanf(&#34;%d&#34;, &amp;t);
+while (t --) {
+scanf(&#34;%d%d%d%d&#34;, &amp;a, &amp;b, &amp;c, &amp;d);
+-- a;
+-- c;
+s = 1;
+e = min(b, d);
+for (int i = 1, j; i &lt;= e; i = j &#43; 1) {
+j = min(b / (b / i), d / (d / i));
+if (a / i)
+j = min(j, a / (a / i));
+if (c / i)...</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-01-05 12:04:52 +0000 UTC'>January 5, 2015</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to BZOJ3834 [Poi2014]Solar Panels" href="/oi/lofterimport_013/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>BZOJ3829 [Poi2014]FarmCraft
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>树型贪心orz
+写丑了。调了半个晚上，然后发现是起点最耗时的时候的情况搞错了，只用走n-1条路而不是n条。晕。
+对于每个节点贪心按f[p]-2*sz[p]排序或者用原式也行。不过巨慢。
+#include &lt;cstdio&gt;
+#include &lt;cctype&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+int _d_; 
+#define readInt(_x_) { \
+int&amp; _s_ = (_x_ = 0); \
+while (!isdigit(_d_ = getchar())); \
+while (_s_ = _s_ * 10 &#43; _d_ - 48, isdigit(_d_ = getchar())); \
+}
+struct edge {
+int t;
+edge *next;
+};
+const int maxn = 500009;
+int n, v[maxn], t, f[maxn], sz[maxn], dfo[maxn], st[maxn];
+edge *ep, *head[maxn];
+inline void addEdge(int u, int v) {
+ep-&gt; t = v;...</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-01-04 23:05:42 +0000 UTC'>January 4, 2015</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to BZOJ3829 [Poi2014]FarmCraft" href="/oi/lofterimport_014/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>BZOJ3831 [Poi2014]Little Bird
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>一血yeah yeah。
+第一眼觉得是比较麻烦的单调队列。
+然后发现转移的时候只会加1或者不加。
+那么取的时候只用取队首，队里首先fi单不降然后hi单减。那么一定没有方案比取队首差。
+#include &lt;cstdio&gt;
+#include &lt;cctype&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+int _d_; 
+#define readInt(_x_) { \
+int&amp; _s_ = (_x_ = 0); \
+while (!isdigit(_d_ = getchar())); \
+while (_s_ = _s_ * 10 &#43; _d_ - 48, isdigit(_d_ = getchar())); \
+}
+const int maxn = 1000009;
+int n, m, a[maxn], f[maxn], q[maxn];
+int getTrans(int l, int r) {
+int v0 = f[q[l]];
+while (l &lt; r) {
+int mid = (l &#43; r &#43; 1) &gt;&gt; 1;...</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-01-04 13:37:14 +0000 UTC'>January 4, 2015</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to BZOJ3831 [Poi2014]Little Bird" href="/oi/lofterimport_015/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>BZOJ3401 [Usaco2009 Mar]Look Up 仰望
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>签到题。表示今天虽然废了一天但是还是坚持写了题的。
+单调栈搞定。
+因为打球把小指头打残了所以不想敲include所以写了pascal，然后发现include不用小指。
+const
+maxn = 100009;
+var
+n, i, t: longint;
+a, st, ans: array[0 .. maxn] of longint;
+begin
+readln(n);
+for i := 1 to n do
+readln(a[i]);
+t := 0;
+for i := n downto 1 do begin
+while (t &gt; 0) and (a[i] &gt;= a[st[t]]) do
+dec(t);
+if t = 0 then
+ans[i] := 0
+else
+ans[i] := st[t];
+inc(t);
+st[t] := i;
+end;
+for i := 1 to n do...</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-01-02 21:46:13 +0000 UTC'>January 2, 2015</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to BZOJ3401 [Usaco2009 Mar]Look Up 仰望" href="/oi/lofterimport_016/"></a>
+</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="prev" href="/tags/bzoj/page/12/">
+      «&nbsp;Prev&nbsp;
+    </a>
+    <a class="next" href="/tags/bzoj/page/14/">Next&nbsp;&nbsp;»
+    </a>
+  </nav>
+</footer>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

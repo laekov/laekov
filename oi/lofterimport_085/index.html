@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>BZOJ3123 [Sdoi2013]森林 | The Site of laekov</title>
+<meta name="keywords" content="bzoj, data\xa0structure, oi">
+<meta name="description" content="数据结构题神马的最开心了。
+乍一看动态树，其实不然。复杂度可以再乘一个log的。
+启发式合并。然后合并的时候直接暴力重构整棵子树，建主席树只和父亲节点有关，所以还是能搞定。
+写了一个机智的垃圾回收把log^2的空间变成了log。然后发现空间有512MB。
+#include &lt;cstdio&gt;
+#include &lt;cctype&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+struct edge {
+int t;
+edge* next;
+};
+struct seg {
+int v, c;
+seg *ls,&nbsp;*rs;
+};
+#define readInt(_s_)&nbsp;{\
+int _d_;\
+_s_ = 0;\
+while (!isdigit(_d_&nbsp;= getchar()));\
+while ((_s_&nbsp;= _s_ * 10 &#43; _d_ - 48), isdigit(_d_ = getchar()));\
+}
+const int maxn = 80009;
+const int maxl = 33;
+const int maxnd = maxn * maxl;">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/lofterimport_085/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="BZOJ3123 [Sdoi2013]森林" />
+<meta property="og:description" content="数据结构题神马的最开心了。
+乍一看动态树，其实不然。复杂度可以再乘一个log的。
+启发式合并。然后合并的时候直接暴力重构整棵子树，建主席树只和父亲节点有关，所以还是能搞定。
+写了一个机智的垃圾回收把log^2的空间变成了log。然后发现空间有512MB。
+#include &lt;cstdio&gt;
+#include &lt;cctype&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+struct edge {
+int t;
+edge* next;
+};
+struct seg {
+int v, c;
+seg *ls,&nbsp;*rs;
+};
+#define readInt(_s_)&nbsp;{\
+int _d_;\
+_s_ = 0;\
+while (!isdigit(_d_&nbsp;= getchar()));\
+while ((_s_&nbsp;= _s_ * 10 &#43; _d_ - 48), isdigit(_d_ = getchar()));\
+}
+const int maxn = 80009;
+const int maxl = 33;
+const int maxnd = maxn * maxl;" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/lofterimport_085/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2014-11-20T15:49:34+00:00" />
+<meta property="article:modified_time" content="2014-11-20T15:49:34+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BZOJ3123 [Sdoi2013]森林"/>
+<meta name="twitter:description" content="数据结构题神马的最开心了。
+乍一看动态树，其实不然。复杂度可以再乘一个log的。
+启发式合并。然后合并的时候直接暴力重构整棵子树，建主席树只和父亲节点有关，所以还是能搞定。
+写了一个机智的垃圾回收把log^2的空间变成了log。然后发现空间有512MB。
+#include &lt;cstdio&gt;
+#include &lt;cctype&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+struct edge {
+int t;
+edge* next;
+};
+struct seg {
+int v, c;
+seg *ls,&nbsp;*rs;
+};
+#define readInt(_s_)&nbsp;{\
+int _d_;\
+_s_ = 0;\
+while (!isdigit(_d_&nbsp;= getchar()));\
+while ((_s_&nbsp;= _s_ * 10 &#43; _d_ - 48), isdigit(_d_ = getchar()));\
+}
+const int maxn = 80009;
+const int maxl = 33;
+const int maxnd = maxn * maxl;"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "BZOJ3123 [Sdoi2013]森林",
+      "item": "/oi/lofterimport_085/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BZOJ3123 [Sdoi2013]森林",
+  "name": "BZOJ3123 [Sdoi2013]森林",
+  "description": "数据结构题神马的最开心了。\n乍一看动态树，其实不然。复杂度可以再乘一个log的。\n启发式合并。然后合并的时候直接暴力重构整棵子树，建主席树只和父亲节点有关，所以还是能搞定。\n写了一个机智的垃圾回收把log^2的空间变成了log。然后发现空间有512MB。\n#include \u0026lt;cstdio\u0026gt;\n#include \u0026lt;cctype\u0026gt;\n#include \u0026lt;cstring\u0026gt;\n#include \u0026lt;algorithm\u0026gt;\nusing namespace std;\nstruct edge {\nint t;\nedge* next;\n};\nstruct seg {\nint v, c;\nseg *ls,\u0026nbsp;*rs;\n};\n#define readInt(_s_)\u0026nbsp;{\\\nint _d_;\\\n_s_ = 0;\\\nwhile (!isdigit(_d_\u0026nbsp;= getchar()));\\\nwhile ((_s_\u0026nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\\\n}\nconst int maxn = 80009;\nconst int maxl = 33;\nconst int maxnd = maxn * maxl;",
+  "keywords": [
+    "bzoj", "data\\xa0structure", "oi"
+  ],
+  "articleBody": "数据结构题神马的最开心了。\n乍一看动态树，其实不然。复杂度可以再乘一个log的。\n启发式合并。然后合并的时候直接暴力重构整棵子树，建主席树只和父亲节点有关，所以还是能搞定。\n写了一个机智的垃圾回收把log^2的空间变成了log。然后发现空间有512MB。\n#include #include #include #include using namespace std;\nstruct edge {\nint t;\nedge* next;\n};\nstruct seg {\nint v, c;\nseg *ls, *rs;\n};\n#define readInt(_s_) {\\\nint _d_;\\\n_s_ = 0;\\\nwhile (!isdigit(_d_ = getchar()));\\\nwhile ((_s_ = _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\\\n}\nconst int maxn = 80009;\nconst int maxl = 33;\nconst int maxnd = maxn * maxl;\nint n, m, q, v[maxn], r[maxn], sz[maxn], tsst, maxv;\nint vis[maxn], tvis;\nint d[maxn], ath[maxn][maxl];\nedge *head[maxn], *ep;\nseg *rt[maxn], *slst[maxnd];\nvoid init() {\nep = new edge[maxn * 2];\nmemset(head, 0, sizeof(head));\nmemset(rt, 0, sizeof(rt));\nseg *sp = new seg[maxnd + 9];\nfor (int i = 0; i \u003c maxnd; ++i) {\nsp-\u003e ls = 0;\nsp-\u003e rs = 0;\nslst[i] = sp ++;\n}\ntsst = maxnd;\ntvis = 0;\nmemset(vis, 0, sizeof(vis));\nd[0] = 0;\nfor (int i = 0; i \u003c maxl; ++ i)\nath[0][i] = 0;\n}\ninline seg* newSeg() {\nseg* r = slst[-- tsst];\nif (r-\u003e ls)\nif (!(-- r-\u003e ls-\u003e c))\nslst[tsst ++] = r-\u003e ls;\nif (r-\u003e rs)\nif (!(-- r-\u003e rs-\u003e c))\nslst[tsst ++] = r-\u003e rs;\nreturn r;\n}\ninline void addEdge(int u, int v) {\nep-\u003e t = v;\nep-\u003e next = head[u];\nhead[u] = ep ++;\n}\n#define vof(p) ((p)?(p-\u003ev):0)\n#define lson(p) ((p)?(p-\u003els):0)\n#define rson(p) ((p)?(p-\u003ers):0)\nseg* sgtIns(seg* q, int p0) {\nseg *s = newSeg(), *p = s;\nint l = 0, r = maxv + 1;\nwhile (l + 1 \u003c r) {\nint mid = (l + r) \u003e\u003e 1;\np-\u003e v = vof(q) + 1;\np-\u003e c = 1;\nif (p0 \u003c mid) {\np-\u003e rs = rson(q);\nif (rson(q))\n++ q-\u003e rs-\u003e c;\nq = lson(q);\np-\u003e ls = newSeg();\np = p-\u003e ls;\nr = mid;\n}\nelse {\np-\u003e ls = lson(q);\nif (lson(q))\n++ q-\u003e ls-\u003e c;\nq = rson(q);\np-\u003e rs = newSeg();\np = p-\u003e rs;\nl = mid;\n}\n}\np-\u003e v = vof(q) + 1;\np-\u003e c = 1;\np-\u003e ls = 0;\np-\u003e rs = 0;\nreturn s;\n}\nint sgtKth(seg* a1, seg* a2, seg* b1, seg* b2, int k) {\nint l = 0, r = maxv + 1;\nwhile (l + 1 \u003c r) {\nint mid = (l + r) \u003e\u003e 1;\nint t = vof(lson(a1)) + vof(lson(a2)) - vof(lson(b1)) - vof(lson(b2));\nif (t \u003e= k) {\nr = mid;\na1 = lson(a1);\na2 = lson(a2);\nb1 = lson(b1);\nb2 = lson(b2);\n}\nelse {\nk -= t;\nl = mid;\na1 = rson(a1);\na2 = rson(a2);\nb1 = rson(b1);\nb2 = rson(b2);\n}\n}\nreturn l;\n}\nint getRoot(int x) {\nstatic int stc[maxn];\nint tst = 1;\nstc[tst] = x;\nwhile (stc[tst] ^ r[stc[tst]]) {\nstc[tst + 1] = r[stc[tst]];\n++ tst;\n}\nwhile (-- tst)\nr[stc[tst]] = r[stc[tst + 1]];\nreturn r[x];\n}\nvoid rebuild(int p0, int a) {\nstatic int q[maxn];\nint hd = 0, tl = 1;\nvis[p0] = ++ tvis;\nath[p0][0] = a;\nd[p0] = d[a] + 1;\nq[0] = p0;\nwhile (hd \u003c tl) {\nint p = q[hd ++];\nif (rt[p])\nslst[tsst ++] = rt[p], rt[p] = 0;\nfor (int i = 1; i \u003c maxl; ++ i)\nath[p][i] = ath[ath[p][i - 1]][i - 1];\nfor (edge* e = head[p]; e; e = e-\u003e next)\nif (vis[e-\u003e t] \u003c tvis) {\nvis[e-\u003e t] = tvis;\nd[e-\u003e t] = d[p] + 1;\nath[e-\u003e t][0] = p;\nq[tl ++] = e-\u003e t;\n}\n}\nfor (int ti = 0; ti \u003c tl; ++ ti)\nrt[q[ti]] = sgtIns(rt[ath[q[ti]][0]], v[q[ti]]);\n}\nint LCA(int u, int v) {\nif (d[u] \u003c d[v])\nswap(u, v);\nfor (int i = maxl - 1; i \u003e= 0; -- i)\nif (d[ath[u][i]] \u003e= d[v])\nu = ath[u][i];\nif (u == v)\nreturn u;\nfor (int i = maxl - 1; i \u003e= 0; -- i)\nif (ath[u][i] ^ ath[v][i]) {\nu = ath[u][i];\nv = ath[v][i];\n}\nreturn ath[u][0];\n}\nint main() {\n#ifndef ONLINE_JUDGE\nfreopen(\"in.txt\", \"r\", stdin);\n#endif\ninit();\nreadInt(maxv);\nreadInt(n);\nreadInt(m);\nreadInt(q);\nmaxv = 0;\nfor (int i = 1; i \u003c= n; ++ i) {\nreadInt(v[i]);\nmaxv = max(maxv, v[i]);\n}\nfor (int i = 1; i \u003c= n; ++ i)\nr[i] = i, sz[i] = 1;\nfor (int i = 0; i \u003c m; ++ i) {\nint u, v;\nreadInt(u);\nreadInt(v);\naddEdge(u, v);\naddEdge(v, u);\nu = getRoot(u);\nv = getRoot(v);\nsz[v] += sz[u];\nr[u] = v;\n}\nfor (int i = 1; i \u003c= n; ++ i)\nif (!rt[i])\nrebuild(i, 0);\nint lans = 0;\nwhile (q --) {\nchar opt[2];\nint u, v, k;\nscanf(\"%s\", opt);\nreadInt(u);\nreadInt(v);\nu ^= lans;\nv ^= lans;\nif (opt[0] == 'L') {\nint ru = getRoot(u), rv = getRoot(v);\nif (sz[ru] \u003c sz[rv])\nswap(ru, rv), swap(u, v);\nr[rv] = ru;\nsz[ru] += sz[rv];\nrebuild(v, u);\naddEdge(u, v);\naddEdge(v, u);\n}\nelse {\nreadInt(k);\nk ^= lans;\nint a = LCA(u, v);\nprintf(\"%d\\n\", (lans = sgtKth(rt[u], rt[v], rt[a], rt[ath[a][0]], k)));\n}\n}\n}\n",
+  "wordCount" : "748",
+  "inLanguage": "en",
+  "datePublished": "2014-11-20T15:49:34Z",
+  "dateModified": "2014-11-20T15:49:34Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/lofterimport_085/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      BZOJ3123 [Sdoi2013]森林
+    </h1>
+    <div class="post-meta"><span title='2014-11-20 15:49:34 +0000 UTC'>November 20, 2014</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>数据结构题神马的最开心了。</p> 
+<p><br /></p> 
+<p>乍一看动态树，其实不然。复杂度可以再乘一个log的。</p> 
+<p><br /></p> 
+<p>启发式合并。然后合并的时候直接暴力重构整棵子树，建主席树只和父亲节点有关，所以还是能搞定。</p> 
+<p><br /></p> 
+<p>写了一个机智的垃圾回收把log^2的空间变成了log。然后发现空间有512MB。</p> 
+<p><br /></p> 
+<p>#include &lt;cstdio&gt;</p> 
+<p>#include &lt;cctype&gt;</p> 
+<p>#include &lt;cstring&gt;</p> 
+<p>#include &lt;algorithm&gt;</p> 
+<p><br /></p> 
+<p>using namespace std;</p> 
+<p><br /></p> 
+<p>struct edge {</p> 
+<p>int t;</p> 
+<p>edge* next;</p> 
+<p>};</p> 
+<p>struct seg {</p> 
+<p>int v, c;</p> 
+<p>seg *ls,&nbsp;*rs;</p> 
+<p>};</p> 
+<p><br /></p> 
+<p>#define readInt(_s_)&nbsp;{\</p> 
+<p>int _d_;\</p> 
+<p>_s_ = 0;\</p> 
+<p>while (!isdigit(_d_&nbsp;= getchar()));\</p> 
+<p>while ((_s_&nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>const int maxn = 80009;</p> 
+<p>const int maxl = 33;</p> 
+<p>const int maxnd = maxn * maxl;</p> 
+<p><br /></p> 
+<p>int n, m, q, v[maxn], r[maxn], sz[maxn], tsst, maxv;</p> 
+<p>int vis[maxn], tvis;</p> 
+<p>int d[maxn], ath[maxn][maxl];</p> 
+<p>edge *head[maxn],&nbsp;*ep;</p> 
+<p>seg *rt[maxn],&nbsp;*slst[maxnd];</p> 
+<p><br /></p> 
+<p>void init()&nbsp;{</p> 
+<p>ep = new edge[maxn * 2];</p> 
+<p>memset(head, 0, sizeof(head));</p> 
+<p>memset(rt, 0, sizeof(rt));</p> 
+<p>seg *sp&nbsp;= new seg[maxnd + 9];</p> 
+<p>for (int i = 0; i &lt; maxnd;&nbsp;++i)&nbsp;{</p> 
+<p>sp-&gt; ls = 0;</p> 
+<p>sp-&gt; rs = 0;</p> 
+<p>slst[i]&nbsp;= sp ++;</p> 
+<p>}</p> 
+<p>tsst = maxnd;</p> 
+<p>tvis = 0;</p> 
+<p>memset(vis, 0, sizeof(vis));</p> 
+<p>d[0]&nbsp;= 0;</p> 
+<p>for (int i = 0; i &lt; maxl;&nbsp;++ i)</p> 
+<p>ath[0][i]&nbsp;= 0;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>inline seg* newSeg()&nbsp;{</p> 
+<p>seg* r = slst[-- tsst];</p> 
+<p>if (r-&gt; ls)</p> 
+<p>if (!(-- r-&gt; ls-&gt; c))</p> 
+<p>slst[tsst ++]&nbsp;= r-&gt; ls;</p> 
+<p>if (r-&gt; rs)</p> 
+<p>if (!(-- r-&gt; rs-&gt; c))</p> 
+<p>slst[tsst ++]&nbsp;= r-&gt; rs;</p> 
+<p>return r;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>inline void addEdge(int u, int v)&nbsp;{</p> 
+<p>ep-&gt; t = v;</p> 
+<p>ep-&gt; next = head[u];</p> 
+<p>head[u]&nbsp;= ep ++;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>#define vof(p)&nbsp;((p)?(p-&gt;v):0)</p> 
+<p>#define lson(p)&nbsp;((p)?(p-&gt;ls):0)</p> 
+<p>#define rson(p)&nbsp;((p)?(p-&gt;rs):0)</p> 
+<p><br /></p> 
+<p>seg* sgtIns(seg* q, int p0)&nbsp;{</p> 
+<p>seg *s&nbsp;= newSeg(),&nbsp;*p = s;</p> 
+<p>int l = 0, r = maxv + 1;</p> 
+<p>while (l&nbsp;+ 1 &lt; r)&nbsp;{</p> 
+<p>int mid =&nbsp;(l&nbsp;+ r)&nbsp;&gt;&gt; 1;</p> 
+<p>p-&gt; v = vof(q)&nbsp;+ 1;</p> 
+<p>p-&gt; c = 1;</p> 
+<p>if (p0&nbsp;&lt; mid)&nbsp;{</p> 
+<p>p-&gt; rs = rson(q);</p> 
+<p>if (rson(q))</p> 
+<p>++ q-&gt; rs-&gt; c;</p> 
+<p>q = lson(q);</p> 
+<p>p-&gt; ls = newSeg();</p> 
+<p>p = p-&gt; ls;</p> 
+<p>r = mid;</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>p-&gt; ls = lson(q);</p> 
+<p>if (lson(q))</p> 
+<p>++ q-&gt; ls-&gt; c;</p> 
+<p>q = rson(q);</p> 
+<p>p-&gt; rs = newSeg();</p> 
+<p>p = p-&gt; rs;</p> 
+<p>l = mid;</p> 
+<p>}</p> 
+<p>}</p> 
+<p>p-&gt; v = vof(q)&nbsp;+ 1;</p> 
+<p>p-&gt; c = 1;</p> 
+<p>p-&gt; ls = 0;</p> 
+<p>p-&gt; rs = 0;</p> 
+<p>return s;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int sgtKth(seg* a1, seg* a2, seg* b1, seg* b2, int k)&nbsp;{</p> 
+<p>int l = 0, r = maxv + 1;</p> 
+<p>while (l&nbsp;+ 1 &lt; r)&nbsp;{</p> 
+<p>int mid =&nbsp;(l&nbsp;+ r)&nbsp;&gt;&gt; 1;</p> 
+<p>int t = vof(lson(a1))&nbsp;+ vof(lson(a2))&nbsp;- vof(lson(b1))&nbsp;- vof(lson(b2));</p> 
+<p>if (t&nbsp;&gt;= k)&nbsp;{</p> 
+<p>r = mid;</p> 
+<p>a1 = lson(a1);</p> 
+<p>a2 = lson(a2);</p> 
+<p>b1 = lson(b1);</p> 
+<p>b2 = lson(b2);</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>k -= t;</p> 
+<p>l = mid;</p> 
+<p>a1 = rson(a1);</p> 
+<p>a2 = rson(a2);</p> 
+<p>b1 = rson(b1);</p> 
+<p>b2 = rson(b2);</p> 
+<p>}</p> 
+<p>}</p> 
+<p>return l;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int getRoot(int x)&nbsp;{</p> 
+<p>static int stc[maxn];</p> 
+<p>int tst = 1;</p> 
+<p>stc[tst]&nbsp;= x;</p> 
+<p>while (stc[tst]&nbsp;^ r[stc[tst]])&nbsp;{</p> 
+<p>stc[tst + 1]&nbsp;= r[stc[tst]];</p> 
+<p>++ tst;</p> 
+<p>}</p> 
+<p>while (-- tst)</p> 
+<p>r[stc[tst]]&nbsp;= r[stc[tst + 1]];</p> 
+<p>return r[x];</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>void rebuild(int p0, int a)&nbsp;{</p> 
+<p>static int q[maxn];</p> 
+<p>int hd = 0, tl = 1;</p> 
+<p>vis[p0]&nbsp;=&nbsp;++ tvis;</p> 
+<p>ath[p0][0]&nbsp;= a;</p> 
+<p>d[p0]&nbsp;= d[a]&nbsp;+ 1;</p> 
+<p>q[0]&nbsp;= p0;</p> 
+<p>while (hd&nbsp;&lt; tl)&nbsp;{</p> 
+<p>int p = q[hd ++];</p> 
+<p>if (rt[p])</p> 
+<p>slst[tsst ++]&nbsp;= rt[p], rt[p]&nbsp;= 0;</p> 
+<p>for (int i = 1; i &lt; maxl;&nbsp;++ i)</p> 
+<p>ath[p][i]&nbsp;= ath[ath[p][i - 1]][i - 1];</p> 
+<p>for (edge* e = head[p]; e; e = e-&gt; next)</p> 
+<p>if (vis[e-&gt; t]&nbsp;&lt; tvis)&nbsp;{</p> 
+<p>vis[e-&gt; t]&nbsp;= tvis;</p> 
+<p>d[e-&gt; t]&nbsp;= d[p]&nbsp;+ 1;</p> 
+<p>ath[e-&gt; t][0]&nbsp;= p;</p> 
+<p>q[tl ++]&nbsp;= e-&gt; t;</p> 
+<p>}</p> 
+<p>}</p> 
+<p>for (int ti = 0; ti &lt; tl;&nbsp;++ ti)</p> 
+<p>rt[q[ti]]&nbsp;= sgtIns(rt[ath[q[ti]][0]], v[q[ti]]);</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int LCA(int u, int v)&nbsp;{</p> 
+<p>if (d[u]&nbsp;&lt; d[v])</p> 
+<p>swap(u, v);</p> 
+<p>for (int i = maxl - 1; i &gt;= 0;&nbsp;-- i)</p> 
+<p>if (d[ath[u][i]]&nbsp;&gt;= d[v])</p> 
+<p>u = ath[u][i];</p> 
+<p>if (u&nbsp;== v)</p> 
+<p>return u;</p> 
+<p>for (int i = maxl - 1; i &gt;= 0;&nbsp;-- i)</p> 
+<p>if (ath[u][i]&nbsp;^ ath[v][i])&nbsp;{</p> 
+<p>u = ath[u][i];</p> 
+<p>v = ath[v][i];</p> 
+<p>}</p> 
+<p>return ath[u][0];</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int main()&nbsp;{</p> 
+<p>#ifndef ONLINE_JUDGE</p> 
+<p>freopen(&quot;in.txt&quot;,&nbsp;&quot;r&quot;, stdin);</p> 
+<p>#endif</p> 
+<p><br /></p> 
+<p>init();</p> 
+<p>readInt(maxv);</p> 
+<p>readInt(n);</p> 
+<p>readInt(m);</p> 
+<p>readInt(q);</p> 
+<p>maxv = 0;</p> 
+<p>for (int i = 1; i &lt;= n;&nbsp;++ i)&nbsp;{</p> 
+<p>readInt(v[i]);</p> 
+<p>maxv = max(maxv, v[i]);</p> 
+<p>}</p> 
+<p>for (int i = 1; i &lt;= n;&nbsp;++ i)</p> 
+<p>r[i]&nbsp;= i, sz[i]&nbsp;= 1;</p> 
+<p>for (int i = 0; i &lt; m;&nbsp;++ i)&nbsp;{</p> 
+<p>int u, v;</p> 
+<p>readInt(u);</p> 
+<p>readInt(v);</p> 
+<p>addEdge(u, v);</p> 
+<p>addEdge(v, u);</p> 
+<p>u = getRoot(u);</p> 
+<p>v = getRoot(v);</p> 
+<p>sz[v]&nbsp;+= sz[u];</p> 
+<p>r[u]&nbsp;= v;</p> 
+<p>}</p> 
+<p>for (int i = 1; i &lt;= n;&nbsp;++ i)</p> 
+<p>if (!rt[i])</p> 
+<p>rebuild(i, 0);</p> 
+<p>int lans = 0;</p> 
+<p>while (q&nbsp;--)&nbsp;{</p> 
+<p>char opt[2];</p> 
+<p>int u, v, k;</p> 
+<p>scanf(&quot;%s&quot;, opt);</p> 
+<p>readInt(u);</p> 
+<p>readInt(v);</p> 
+<p>u ^= lans;</p> 
+<p>v ^= lans;</p> 
+<p>if (opt[0]&nbsp;==&nbsp;'L')&nbsp;{</p> 
+<p>int ru = getRoot(u), rv = getRoot(v);</p> 
+<p>if (sz[ru]&nbsp;&lt; sz[rv])</p> 
+<p>swap(ru, rv), swap(u, v);</p> 
+<p>r[rv]&nbsp;= ru;</p> 
+<p>sz[ru]&nbsp;+= sz[rv];</p> 
+<p>rebuild(v, u);</p> 
+<p>addEdge(u, v);</p> 
+<p>addEdge(v, u);</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>readInt(k);</p> 
+<p>k ^= lans;</p> 
+<p>int a = LCA(u, v);</p> 
+<p>printf(&quot;%d\n&quot;,&nbsp;(lans = sgtKth(rt[u], rt[v], rt[a], rt[ath[a][0]], k)));</p> 
+<p>}</p> 
+<p>}</p> 
+<p>}</p> 
+<p><br /></p>
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/bzoj/">bzoj</a></li>
+      <li><a href="/tags/data%5Cxa0structure/">data\xa0structure</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/lofterimport_084/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>BZOJ1486 [HNOI2009]最小圈</span>
+  </a>
+  <a class="next" href="/oi/lofterimport_086/">
+    <span class="title">Next »</span>
+    <br>
+    <span>11月下旬计划</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

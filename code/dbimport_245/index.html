@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>bzoj4134.cc | The Site of laekov</title>
+<meta name="keywords" content="code">
+<meta name="description" content="#include #include #include using namespace std;
+struct edge { int t; edge *ne; };
+struct node { int sz, rv; node *ch[2]; };
+const int maxn = 100003; const int maxnd = maxn * 46; const int maxl = 19;
+int n, vo[maxn], f[maxn], sp[maxn], tsp; node nbuf_arr[maxnd], *nbuf(nbuf_arr), *rt[maxn]; edge ebuf_arr[maxn &laquo; 1], *ebuf(ebuf_arr), *head[maxn];
+#define szof(p) (p?p-&gt;sz:0)
+inline void pushDown(node* q, int l) { if ((q-&gt; rv &raquo; l) &amp; 1) swap(q-&gt; ch[0], q-&gt; ch[1]); if (q-&gt; ch[0]) q-&gt; ch[0]-&gt; rv ^= q-&gt; rv; if (q-&gt; ch[1]) q-&gt; ch[1]-&gt; rv ^= q-&gt; rv; q-&gt; rv = 0; }">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/code/dbimport_245/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="bzoj4134.cc" />
+<meta property="og:description" content="#include #include #include using namespace std;
+struct edge { int t; edge *ne; };
+struct node { int sz, rv; node *ch[2]; };
+const int maxn = 100003; const int maxnd = maxn * 46; const int maxl = 19;
+int n, vo[maxn], f[maxn], sp[maxn], tsp; node nbuf_arr[maxnd], *nbuf(nbuf_arr), *rt[maxn]; edge ebuf_arr[maxn &laquo; 1], *ebuf(ebuf_arr), *head[maxn];
+#define szof(p) (p?p-&gt;sz:0)
+inline void pushDown(node* q, int l) { if ((q-&gt; rv &raquo; l) &amp; 1) swap(q-&gt; ch[0], q-&gt; ch[1]); if (q-&gt; ch[0]) q-&gt; ch[0]-&gt; rv ^= q-&gt; rv; if (q-&gt; ch[1]) q-&gt; ch[1]-&gt; rv ^= q-&gt; rv; q-&gt; rv = 0; }" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/code/dbimport_245/" /><meta property="article:section" content="code" />
+<meta property="article:published_time" content="2015-06-27T21:39:37+00:00" />
+<meta property="article:modified_time" content="2015-06-27T21:39:37+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="bzoj4134.cc"/>
+<meta name="twitter:description" content="#include #include #include using namespace std;
+struct edge { int t; edge *ne; };
+struct node { int sz, rv; node *ch[2]; };
+const int maxn = 100003; const int maxnd = maxn * 46; const int maxl = 19;
+int n, vo[maxn], f[maxn], sp[maxn], tsp; node nbuf_arr[maxnd], *nbuf(nbuf_arr), *rt[maxn]; edge ebuf_arr[maxn &laquo; 1], *ebuf(ebuf_arr), *head[maxn];
+#define szof(p) (p?p-&gt;sz:0)
+inline void pushDown(node* q, int l) { if ((q-&gt; rv &raquo; l) &amp; 1) swap(q-&gt; ch[0], q-&gt; ch[1]); if (q-&gt; ch[0]) q-&gt; ch[0]-&gt; rv ^= q-&gt; rv; if (q-&gt; ch[1]) q-&gt; ch[1]-&gt; rv ^= q-&gt; rv; q-&gt; rv = 0; }"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Codes",
+      "item": "/code/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "bzoj4134.cc",
+      "item": "/code/dbimport_245/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "bzoj4134.cc",
+  "name": "bzoj4134.cc",
+  "description": "#include #include #include using namespace std;\nstruct edge { int t; edge *ne; };\nstruct node { int sz, rv; node *ch[2]; };\nconst int maxn = 100003; const int maxnd = maxn * 46; const int maxl = 19;\nint n, vo[maxn], f[maxn], sp[maxn], tsp; node nbuf_arr[maxnd], *nbuf(nbuf_arr), *rt[maxn]; edge ebuf_arr[maxn \u0026laquo; 1], *ebuf(ebuf_arr), *head[maxn];\n#define szof(p) (p?p-\u0026gt;sz:0)\ninline void pushDown(node* q, int l) { if ((q-\u0026gt; rv \u0026raquo; l) \u0026amp; 1) swap(q-\u0026gt; ch[0], q-\u0026gt; ch[1]); if (q-\u0026gt; ch[0]) q-\u0026gt; ch[0]-\u0026gt; rv ^= q-\u0026gt; rv; if (q-\u0026gt; ch[1]) q-\u0026gt; ch[1]-\u0026gt; rv ^= q-\u0026gt; rv; q-\u0026gt; rv = 0; }",
+  "keywords": [
+    "code"
+  ],
+  "articleBody": "#include #include #include using namespace std;\nstruct edge { int t; edge *ne; };\nstruct node { int sz, rv; node *ch[2]; };\nconst int maxn = 100003; const int maxnd = maxn * 46; const int maxl = 19;\nint n, vo[maxn], f[maxn], sp[maxn], tsp; node nbuf_arr[maxnd], *nbuf(nbuf_arr), *rt[maxn]; edge ebuf_arr[maxn « 1], *ebuf(ebuf_arr), *head[maxn];\n#define szof(p) (p?p-\u003esz:0)\ninline void pushDown(node* q, int l) { if ((q-\u003e rv » l) \u0026 1) swap(q-\u003e ch[0], q-\u003e ch[1]); if (q-\u003e ch[0]) q-\u003e ch[0]-\u003e rv ^= q-\u003e rv; if (q-\u003e ch[1]) q-\u003e ch[1]-\u003e rv ^= q-\u003e rv; q-\u003e rv = 0; }\nnode* trieIns(int v) { node s(nbuf ++), p(s); for (int i = maxl; i \u003e= 0; – i) { int d((v » i)\u0026 1); p-\u003e sz = 1, p-\u003e rv = 0; p-\u003e ch[d ^ 1] = 0; p-\u003e ch[d] = nbuf ++; p = p-\u003e ch[d]; } p-\u003e sz = 1; return s; } node trieMerge(node p, node* q, int l, int x) { if (!p) { if (q) q-\u003e rv ^= x; return q; } else if (!q) { return p; } node r(nbuf ++); if (l == -1) { r-\u003e ch[0] = r-\u003e ch[1] = 0; r-\u003e sz = 1, r-\u003e rv = 0; } else { int d((x » l) \u0026 1); pushDown(p, l); pushDown(q, l); r-\u003e ch[0] = trieMerge(p-\u003e ch[0], q-\u003e ch[d], l - 1, x); r-\u003e ch[1] = trieMerge(p-\u003e ch[1], q-\u003e ch[d ^ 1], l - 1, x); r-\u003e sz = szof(r-\u003e ch[0]) + szof(r-\u003e ch[1]); } return r; } int trieMex(node p) { int ans(0); for (int i = maxl; i \u003e= 0 \u0026\u0026 p; – i) { pushDown(p, i); if (szof(p-\u003e ch[0]) == (1 « i)) { p = p-\u003e ch[1]; ans |= 1 « i; } else p = p-\u003e ch[0]; } return ans; }\nvoid triePrint(node* p, int l, int v) { if (l == -1) { fprintf(stderr, “%d “, v); } else { pushDown(p, l); if (p-\u003e ch[0]) triePrint(p-\u003e ch[0], l - 1, v); if (p-\u003e ch[1]) triePrint(p-\u003e ch[1], l - 1, v | (1 « l)); } }\nvoid sgDFS(int p, int fr) { rt[p] = 0; int xs(0); for (edge* e = head[p]; e; e = e-\u003e ne) if (e-\u003e t != fr) { sgDFS(e-\u003e t, p); xs ^= f[e-\u003e t]; } if (!vo[p]) rt[p] = trieIns(xs); for (edge* e = head[p]; e; e = e-\u003e ne) if (e-\u003e t != fr) rt[p] = trieMerge(rt[p], rt[e-\u003e t], maxl, xs ^ f[e-\u003e t]); f[p] = trieMex(rt[p]); }\nvoid ansDFS(int p, int fr, int xf) { int xs(0); for (edge* e = head[p]; e; e = e-\u003e ne) if (e-\u003e t != fr) xs ^= f[e-\u003e t]; if (vo[p] == 0 \u0026\u0026 (xs ^ xf) == 0) sp[tsp ++] = p; for (edge* e = head[p]; e; e = e-\u003e ne) if (e-\u003e t != fr) ansDFS(e-\u003e t, p, xf ^ xs ^ f[e-\u003e t]); }\ninline void addEdge(int u, int v) { ebuf-\u003e t = v; ebuf-\u003e ne = head[u]; head[u] = ebuf ++; }\nint main() { #ifdef LAEKOV_LOCAL freopen(\".in”, “r”, stdin); #endif\nscanf(\"%d\", \u0026n); for (int i = 1; i \u003c= n; ++ i) scanf(\"%d\", vo + i); memset(head, 0, sizeof(head)); for (int i = 1; i \u003c n; ++ i) { int u, v; scanf(\"%d%d\", \u0026u, \u0026v); addEdge(u, v); addEdge(v, u); } sgDFS(1, 0); if (f[1]) { tsp = 0; ansDFS(1, 0, 0); sort(sp, sp + tsp); for (int i = 0; i \u003c tsp; ++ i) printf(\"%d%c\", sp[i], 10); } else puts(\"-1\"); }\n",
+  "wordCount" : "589",
+  "inLanguage": "en",
+  "datePublished": "2015-06-27T21:39:37Z",
+  "dateModified": "2015-06-27T21:39:37Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/code/dbimport_245/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/code/">Codes</a></div>
+    <h1 class="post-title">
+      bzoj4134.cc
+    </h1>
+    <div class="post-meta"><span title='2015-06-27 21:39:37 +0000 UTC'>June 27, 2015</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>#include <cstdio>
+#include <cstring>
+#include <algorithm></p>
+<p>using namespace std;</p>
+<p>struct edge {
+int t;
+edge *ne;
+};</p>
+<p>struct node {
+int sz, rv;
+node *ch[2];
+};</p>
+<p>const int maxn = 100003;
+const int maxnd = maxn * 46;
+const int maxl = 19;</p>
+<p>int n, vo[maxn], f[maxn], sp[maxn], tsp;
+node nbuf_arr[maxnd], *nbuf(nbuf_arr), *rt[maxn];
+edge ebuf_arr[maxn &laquo; 1], *ebuf(ebuf_arr), *head[maxn];</p>
+<p>#define szof(<em>p</em>) (<em>p</em>?<em>p</em>-&gt;sz:0)</p>
+<p>inline void pushDown(node* q, int l) {
+if ((q-&gt; rv &raquo; l) &amp; 1)
+swap(q-&gt; ch[0], q-&gt; ch[1]);
+if (q-&gt; ch[0])
+q-&gt; ch[0]-&gt; rv ^= q-&gt; rv;
+if (q-&gt; ch[1])
+q-&gt; ch[1]-&gt; rv ^= q-&gt; rv;
+q-&gt; rv = 0;
+}</p>
+<p>node* trieIns(int v) {
+node <em>s(nbuf ++), <em>p(s);
+for (int i = maxl; i &gt;= 0; &ndash; i) {
+int d((v &raquo; i)&amp; 1);
+p-&gt; sz = 1, p-&gt; rv = 0;
+p-&gt; ch[d ^ 1] = 0;
+p-&gt; ch[d] = nbuf ++;
+p = p-&gt; ch[d];
+}
+p-&gt; sz = 1;
+return s;
+}
+node</em> trieMerge(node</em> p, node* q, int l, int x) {
+if (!p) {
+if (q)
+q-&gt; rv ^= x;
+return q;
+}
+else if (!q) {
+return p;
+}
+node <em>r(nbuf ++);
+if (l == -1) {
+r-&gt; ch[0] = r-&gt; ch[1] = 0;
+r-&gt; sz = 1, r-&gt; rv = 0;
+}
+else {
+int d((x &raquo; l) &amp; 1);
+pushDown(p, l);
+pushDown(q, l);
+r-&gt; ch[0] = trieMerge(p-&gt; ch[0], q-&gt; ch[d], l - 1, x);
+r-&gt; ch[1] = trieMerge(p-&gt; ch[1], q-&gt; ch[d ^ 1], l - 1, x);
+r-&gt; sz = szof(r-&gt; ch[0]) + szof(r-&gt; ch[1]);
+}
+return r;
+}
+int trieMex(node</em> p) {
+int ans(0);
+for (int i = maxl; i &gt;= 0 &amp;&amp; p; &ndash; i) {
+pushDown(p, i);
+if (szof(p-&gt; ch[0]) == (1 &laquo; i)) {
+p = p-&gt; ch[1];
+ans |= 1 &laquo; i;
+}
+else
+p = p-&gt; ch[0];
+}
+return ans;
+}</p>
+<p>void triePrint(node* p, int l, int v) {
+if (l == -1) {
+fprintf(stderr, &ldquo;%d &ldquo;, v);
+}
+else {
+pushDown(p, l);
+if (p-&gt; ch[0])
+triePrint(p-&gt; ch[0], l - 1, v);
+if (p-&gt; ch[1])
+triePrint(p-&gt; ch[1], l - 1, v | (1 &laquo; l));
+}
+}</p>
+<p>void sgDFS(int p, int fr) {
+rt[p] = 0;
+int xs(0);
+for (edge* e = head[p]; e; e = e-&gt; ne)
+if (e-&gt; t != fr) {
+sgDFS(e-&gt; t, p);
+xs ^= f[e-&gt; t];
+}
+if (!vo[p])
+rt[p] = trieIns(xs);
+for (edge* e = head[p]; e; e = e-&gt; ne)
+if (e-&gt; t != fr)
+rt[p] = trieMerge(rt[p], rt[e-&gt; t], maxl, xs ^ f[e-&gt; t]);
+f[p] = trieMex(rt[p]);
+}</p>
+<p>void ansDFS(int p, int fr, int xf) {
+int xs(0);
+for (edge* e = head[p]; e; e = e-&gt; ne)
+if (e-&gt; t != fr)
+xs ^= f[e-&gt; t];
+if (vo[p] == 0 &amp;&amp; (xs ^ xf) == 0)
+sp[tsp ++] = p;
+for (edge* e = head[p]; e; e = e-&gt; ne)
+if (e-&gt; t != fr)
+ansDFS(e-&gt; t, p, xf ^ xs ^ f[e-&gt; t]);
+}</p>
+<p>inline void addEdge(int u, int v) {
+ebuf-&gt; t = v;
+ebuf-&gt; ne = head[u];
+head[u] = ebuf ++;
+}</p>
+<p>int main() {
+#ifdef LAEKOV_LOCAL
+freopen(&quot;.in&rdquo;, &ldquo;r&rdquo;, stdin);
+#endif</p>
+<pre><code>scanf(&quot;%d&quot;, &amp;n);
+for (int i = 1; i &lt;= n; ++ i)
+	scanf(&quot;%d&quot;, vo + i);
+memset(head, 0, sizeof(head));
+for (int i = 1; i &lt; n; ++ i) {
+	int u, v;
+	scanf(&quot;%d%d&quot;, &amp;u, &amp;v);
+	addEdge(u, v);
+	addEdge(v, u);
+}
+sgDFS(1, 0);
+if (f[1]) {
+	tsp = 0;
+	ansDFS(1, 0, 0);
+	sort(sp, sp + tsp);
+	for (int i = 0; i &lt; tsp; ++ i)
+		printf(&quot;%d%c&quot;, sp[i], 10);
+}
+else
+	puts(&quot;-1&quot;);
+</code></pre>
+<p>}</p>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/code/">code</a></li>
+    </ul>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

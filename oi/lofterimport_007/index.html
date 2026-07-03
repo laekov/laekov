@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>BZOJ3851 2048 | The Site of laekov</title>
+<meta name="keywords" content="bzoj, dp, oi">
+<meta name="description" content="题号是3851，题目名称是2048。
+比较厉害的DP。最初没有想到怎么表示状态。其实就是一个≤2048的自然数就可以表示状态了。
+然后转移不能一个一个来，每个值要一起来，&nbsp;然后拿组合数来算。然后就行了。
+虽然hdu上还是过不到。好慢的说。
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+#define _l (long long int)
+const int maxn = 100009;
+const int mod = 998244353;
+int n, f[2][2051], c[2051];
+int fac[maxn], finv[maxn], p2[maxn];
+int modPow(int a, int x)&nbsp;{
+int s(1);
+for (; x; x &gt;&gt;= 1, a = _l a * a % mod)
+if (x&nbsp;&amp; 1)
+s = _l s * a % mod;
+return s;">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/lofterimport_007/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="BZOJ3851 2048" />
+<meta property="og:description" content="题号是3851，题目名称是2048。
+比较厉害的DP。最初没有想到怎么表示状态。其实就是一个≤2048的自然数就可以表示状态了。
+然后转移不能一个一个来，每个值要一起来，&nbsp;然后拿组合数来算。然后就行了。
+虽然hdu上还是过不到。好慢的说。
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+#define _l (long long int)
+const int maxn = 100009;
+const int mod = 998244353;
+int n, f[2][2051], c[2051];
+int fac[maxn], finv[maxn], p2[maxn];
+int modPow(int a, int x)&nbsp;{
+int s(1);
+for (; x; x &gt;&gt;= 1, a = _l a * a % mod)
+if (x&nbsp;&amp; 1)
+s = _l s * a % mod;
+return s;" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/lofterimport_007/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2015-01-08T15:00:21+00:00" />
+<meta property="article:modified_time" content="2015-01-08T15:00:21+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BZOJ3851 2048"/>
+<meta name="twitter:description" content="题号是3851，题目名称是2048。
+比较厉害的DP。最初没有想到怎么表示状态。其实就是一个≤2048的自然数就可以表示状态了。
+然后转移不能一个一个来，每个值要一起来，&nbsp;然后拿组合数来算。然后就行了。
+虽然hdu上还是过不到。好慢的说。
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+#define _l (long long int)
+const int maxn = 100009;
+const int mod = 998244353;
+int n, f[2][2051], c[2051];
+int fac[maxn], finv[maxn], p2[maxn];
+int modPow(int a, int x)&nbsp;{
+int s(1);
+for (; x; x &gt;&gt;= 1, a = _l a * a % mod)
+if (x&nbsp;&amp; 1)
+s = _l s * a % mod;
+return s;"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "BZOJ3851 2048",
+      "item": "/oi/lofterimport_007/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BZOJ3851 2048",
+  "name": "BZOJ3851 2048",
+  "description": "题号是3851，题目名称是2048。\n比较厉害的DP。最初没有想到怎么表示状态。其实就是一个≤2048的自然数就可以表示状态了。\n然后转移不能一个一个来，每个值要一起来，\u0026nbsp;然后拿组合数来算。然后就行了。\n虽然hdu上还是过不到。好慢的说。\n#include \u0026lt;cstdio\u0026gt;\n#include \u0026lt;cstring\u0026gt;\n#include \u0026lt;algorithm\u0026gt;\nusing namespace std;\n#define _l (long long int)\nconst int maxn = 100009;\nconst int mod = 998244353;\nint n, f[2][2051], c[2051];\nint fac[maxn], finv[maxn], p2[maxn];\nint modPow(int a, int x)\u0026nbsp;{\nint s(1);\nfor (; x; x \u0026gt;\u0026gt;= 1, a = _l a * a % mod)\nif (x\u0026nbsp;\u0026amp; 1)\ns = _l s * a % mod;\nreturn s;",
+  "keywords": [
+    "bzoj", "dp", "oi"
+  ],
+  "articleBody": "题号是3851，题目名称是2048。\n比较厉害的DP。最初没有想到怎么表示状态。其实就是一个≤2048的自然数就可以表示状态了。\n然后转移不能一个一个来，每个值要一起来， 然后拿组合数来算。然后就行了。\n虽然hdu上还是过不到。好慢的说。\n#include #include #include using namespace std;\n#define _l (long long int)\nconst int maxn = 100009;\nconst int mod = 998244353;\nint n, f[2][2051], c[2051];\nint fac[maxn], finv[maxn], p2[maxn];\nint modPow(int a, int x) {\nint s(1);\nfor (; x; x \u003e\u003e= 1, a = _l a * a % mod)\nif (x \u0026 1)\ns = _l s * a % mod;\nreturn s;\n}\nvoid pre() {\nfac[0] = 1;\nfinv[0] = 1;\np2[0] = 1;\nfor (int i = 1; i \u003c maxn; ++ i) {\nfac[i] = _l fac[i - 1] * i % mod;\nfinv[i] = modPow(fac[i], mod - 2);\np2[i] = _l p2[i - 1] * 2 % mod;\n}\n}\ninline int comb(int n, int m) {\nreturn _l fac[n] * finv[m] % mod * finv[n - m] % mod;\n}\ninline void incm(int\u0026 a, int x) {\na += x;\nif (a \u003e= mod)\na %= mod;\n}\nint main() {\n#ifndef ONLINE_JUDGE\nfreopen(\"in.txt\", \"r\", stdin);\n#endif\nint tc = 0;\npre();\nwhile (scanf(\"%d\", \u0026n) ^ EOF) {\nif (!n)\nbreak;\nint cn = 0, cur = 0, prv = 1;\nmemset(f, 0, sizeof(f));\nmemset(c, 0, sizeof(c));\nfor (int i = 0; i \u003c n; ++ i) {\nint a;\nscanf(\"%d\", \u0026a);\nif ((a \u0026 -a) == a \u0026\u0026 a \u003e= 1)\n++ c[a];\nelse\n++ cn;\n}\nf[cur][0] = 1;\nfor (int i = 1; i \u003c= 2048; i \u003c\u003c= 1)\nif (c[i]) {\nswap(cur, prv);\nfor (int j = 0; j \u003c= 2048; ++ j)\nf[cur][j] = f[prv][j];\nint tc = (p2[c[i]] - 1 + mod) % mod;\nfor (int j = 1; j \u003c= c[i] \u0026\u0026 j * i \u003c 2048; ++ j) {\nint cc = comb(c[i], j);\nfor (int k = 0; k \u003c= 2048; ++ k)\nif (f[prv][k])\nincm(f[cur][min(k + j * i, 2048)], _l f[prv][k] * cc % mod);\ntc = (tc + mod - cc) % mod;\n}\nfor (int k = 0; k \u003c= 2048; ++ k)\nif (f[prv][k])\nincm(f[cur][2048], _l f[prv][k] * tc % mod);\n}\nprintf(\"Case #%d: %d\\n\", ++ tc, (int)(_l f[cur][2048] * p2[cn] % mod));\n}\n}\n",
+  "wordCount" : "312",
+  "inLanguage": "en",
+  "datePublished": "2015-01-08T15:00:21Z",
+  "dateModified": "2015-01-08T15:00:21Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/lofterimport_007/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      BZOJ3851 2048
+    </h1>
+    <div class="post-meta"><span title='2015-01-08 15:00:21 +0000 UTC'>January 8, 2015</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>题号是3851，题目名称是2048。</p> 
+<p><br /></p> 
+<p>比较厉害的DP。最初没有想到怎么表示状态。其实就是一个≤2048的自然数就可以表示状态了。</p> 
+<p><br /></p> 
+<p>然后转移不能一个一个来，每个值要一起来，&nbsp;然后拿组合数来算。然后就行了。</p> 
+<p><br /></p> 
+<p>虽然hdu上还是过不到。好慢的说。</p> 
+<p><br /></p> 
+<p>#include &lt;cstdio&gt;</p> 
+<p>#include &lt;cstring&gt;</p> 
+<p>#include &lt;algorithm&gt;</p> 
+<p><br /></p> 
+<p>using namespace std;</p> 
+<p><br /></p> 
+<p>#define _l (long long int)</p> 
+<p><br /></p> 
+<p>const int maxn = 100009;</p> 
+<p>const int mod = 998244353;</p> 
+<p><br /></p> 
+<p>int n, f[2][2051], c[2051];</p> 
+<p>int fac[maxn], finv[maxn], p2[maxn];</p> 
+<p><br /></p> 
+<p>int modPow(int a, int x)&nbsp;{</p> 
+<p>int s(1);</p> 
+<p>for (; x; x &gt;&gt;= 1, a = _l a * a % mod)</p> 
+<p>if (x&nbsp;&amp; 1)</p> 
+<p>s = _l s * a % mod;</p> 
+<p>return s;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>void pre()&nbsp;{</p> 
+<p>fac[0]&nbsp;= 1;</p> 
+<p>finv[0]&nbsp;= 1;</p> 
+<p>p2[0]&nbsp;= 1;</p> 
+<p>for (int i = 1; i &lt; maxn;&nbsp;++ i)&nbsp;{</p> 
+<p>fac[i]&nbsp;= _l fac[i - 1]&nbsp;* i % mod;</p> 
+<p>finv[i]&nbsp;= modPow(fac[i], mod - 2);</p> 
+<p>p2[i]&nbsp;= _l p2[i - 1]&nbsp;* 2 % mod;</p> 
+<p>}</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>inline int comb(int n, int m)&nbsp;{</p> 
+<p>return _l fac[n]&nbsp;* finv[m]&nbsp;% mod * finv[n - m]&nbsp;% mod;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>inline void incm(int&amp; a, int x)&nbsp;{</p> 
+<p>a += x;</p> 
+<p>if (a&nbsp;&gt;= mod)</p> 
+<p>a %= mod;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int main()&nbsp;{</p> 
+<p>#ifndef ONLINE_JUDGE</p> 
+<p>freopen(&quot;in.txt&quot;,&nbsp;&quot;r&quot;, stdin);</p> 
+<p>#endif</p> 
+<p><br /></p> 
+<p>int tc = 0;</p> 
+<p>pre();</p> 
+<p>while (scanf(&quot;%d&quot;,&nbsp;&amp;n)&nbsp;^ EOF)&nbsp;{</p> 
+<p>if (!n)</p> 
+<p>break;</p> 
+<p>int cn = 0, cur = 0, prv = 1;</p> 
+<p>memset(f, 0, sizeof(f));</p> 
+<p>memset(c, 0, sizeof(c));</p> 
+<p>for (int i = 0; i &lt; n;&nbsp;++ i)&nbsp;{</p> 
+<p>int a;</p> 
+<p>scanf(&quot;%d&quot;,&nbsp;&amp;a);</p> 
+<p>if ((a&nbsp;&amp;&nbsp;-a)&nbsp;== a &amp;&amp; a &gt;= 1)</p> 
+<p>++ c[a];</p> 
+<p>else</p> 
+<p>++ cn;</p> 
+<p>}</p> 
+<p>f[cur][0]&nbsp;= 1;</p> 
+<p>for (int i = 1; i &lt;= 2048; i &lt;&lt;= 1)</p> 
+<p>if (c[i])&nbsp;{</p> 
+<p>swap(cur, prv);</p> 
+<p>for (int j = 0; j &lt;= 2048;&nbsp;++ j)</p> 
+<p>f[cur][j]&nbsp;= f[prv][j];</p> 
+<p>int tc =&nbsp;(p2[c[i]]&nbsp;- 1 + mod)&nbsp;% mod;</p> 
+<p>for (int j = 1; j &lt;= c[i]&nbsp;&amp;&amp; j * i &lt; 2048;&nbsp;++ j)&nbsp;{</p> 
+<p>int cc = comb(c[i], j);</p> 
+<p>for (int k = 0; k &lt;= 2048;&nbsp;++ k)</p> 
+<p>if (f[prv][k])</p> 
+<p>incm(f[cur][min(k + j * i, 2048)], _l f[prv][k]&nbsp;* cc % mod);</p> 
+<p>tc =&nbsp;(tc&nbsp;+ mod - cc)&nbsp;% mod;</p> 
+<p>}</p> 
+<p>for (int k = 0; k &lt;= 2048;&nbsp;++ k)</p> 
+<p>if (f[prv][k])</p> 
+<p>incm(f[cur][2048], _l f[prv][k]&nbsp;* tc % mod);</p> 
+<p>}</p> 
+<p>printf(&quot;Case #%d:&nbsp;%d\n&quot;,&nbsp;++ tc,&nbsp;(int)(_l f[cur][2048]&nbsp;* p2[cn]&nbsp;% mod));</p> 
+<p>}</p> 
+<p>}</p> 
+<p><br /></p>
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/bzoj/">bzoj</a></li>
+      <li><a href="/tags/dp/">dp</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/lofterimport_006/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>BZOJ3522 [Poi2014]Hotel</span>
+  </a>
+  <a class="next" href="/oi/lofterimport_008/">
+    <span class="title">Next »</span>
+    <br>
+    <span>BZOJ2527 [Poi2011]Meteors</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

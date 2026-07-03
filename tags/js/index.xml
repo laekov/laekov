@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>js on The Site of laekov</title>
+    <link>/tags/js/</link>
+    <description>Recent content in js on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Fri, 15 Sep 2017 16:13:51 +0000</lastBuildDate><atom:link href="/tags/js/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Web 爬虫二三事</title>
+      <link>/technical/e522cb/</link>
+      <pubDate>Fri, 15 Sep 2017 16:13:51 +0000</pubDate>
+      
+      <guid>/technical/e522cb/</guid>
+      <description>最近 get 了一个技能叫爬虫. (可能早就 get 了只是没有实践过?)
+然而我是用 js 写的. 毕竟自带异步而且瓶颈是延迟.
+任务大概是说抓 wiki 的 list of people 上的人的 info.
+然后发现可能它是一个不规则的索引结构.
+每个二级索引都长得不太一样.
+没事我们直接当作它就是二级索引结构.
+然后发现有的企业也有 infobox. 这就很无语了?
+没事我们判断一下它是不是有 occupation, born 这样的关键字吧.
+然后大概就比较能看了? (才怪)
+另外在看资料的时候才发现一种把 html plain 化的方式. 直接把所有的标签去了.
+之前沉迷剥标签的我突然觉得自己真是蠢哭了.
+嗯就是这么愉快.</description>
+    </item>
+    
+  </channel>
+</rss>

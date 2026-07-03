@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>实验室新机器安装步骤检查单 | The Site of laekov</title>
+<meta name="keywords" content="op, cluster">
+<meta name="description" content="本检查单适用于在 PACMAN 实验室 安装新的服务器. 对于其它使用场景, 可视情况进行参考.
+购买前 根据使用需求确定型号 PCIe 的连接方式是否符合预期 内存通道是否充足 在机房寻找一个合适的位置来放置机器, 需考虑如下因素 机柜的空位与承重能力 电源是否充足 网络 (如需使用 IB 网, 与需要的交换机是否足够近) 根据 CPU arch 确定是否接入某个 slurm 进行管理 现有的 slurm clusters: ja (AMD Epyc), nico (Intel Skylake) 注意: 除非这台机器永远只有一个人使用, 否则强烈建议接入 slurm 进行管理 起一个合适的 Hostname 向网络管理员申请一个合适的固定 ip 机器上架与硬件配置 (机房内) 检查机器完好 正确安装导轨 对机器的整体外观, 序列号进行拍照 插入系统盘和必要的存储, PCIE 设备 注意: 插入额外的 GPU 资产也需要事先对序列号和整体进行拍照 根据分配的固定 IP 配置 BMC 机器基础配置 (可远程) 在 NetBox 上更新相应信息, 包括但不限于序列号, 资产号, GPU 在 BIOS 中配置 CPU Sub-numa Clustering 以确保访存性能正确 Intel 简称 SNC, AMD 简称 NPS 可能在 ACPI 或 North Bridge 选项中 (视型号不同) PXE 引导安装 OS 机器软件配置 安装必要的基础软件 htop iotop iftop vim-common numactl rsync psutils ipmitool g&#43;&#43; 根据 Harry 的教程 配置 LDAP Client 安装 libnss-ldapd 和 libpam-ldapd 配置正确的服务器地址, base dn 和 LDAP 数据项 安装 nfs 客户端 安装 nfs-client nfs-common 挂载对应的 /home 配置 slurm 客户端 安装 libmunge-dev libmunge2 munge slurmd slurm-wlm libpam-slurm-adopt libpam-slurm libpmix-dev libpmi2-0 libpmi0-dev libpmi0 将主节点的 munge key 同步到新机器 /etc/munge/munge.">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/technical/pacman-machine-setup/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="实验室新机器安装步骤检查单" />
+<meta property="og:description" content="本检查单适用于在 PACMAN 实验室 安装新的服务器. 对于其它使用场景, 可视情况进行参考.
+购买前 根据使用需求确定型号 PCIe 的连接方式是否符合预期 内存通道是否充足 在机房寻找一个合适的位置来放置机器, 需考虑如下因素 机柜的空位与承重能力 电源是否充足 网络 (如需使用 IB 网, 与需要的交换机是否足够近) 根据 CPU arch 确定是否接入某个 slurm 进行管理 现有的 slurm clusters: ja (AMD Epyc), nico (Intel Skylake) 注意: 除非这台机器永远只有一个人使用, 否则强烈建议接入 slurm 进行管理 起一个合适的 Hostname 向网络管理员申请一个合适的固定 ip 机器上架与硬件配置 (机房内) 检查机器完好 正确安装导轨 对机器的整体外观, 序列号进行拍照 插入系统盘和必要的存储, PCIE 设备 注意: 插入额外的 GPU 资产也需要事先对序列号和整体进行拍照 根据分配的固定 IP 配置 BMC 机器基础配置 (可远程) 在 NetBox 上更新相应信息, 包括但不限于序列号, 资产号, GPU 在 BIOS 中配置 CPU Sub-numa Clustering 以确保访存性能正确 Intel 简称 SNC, AMD 简称 NPS 可能在 ACPI 或 North Bridge 选项中 (视型号不同) PXE 引导安装 OS 机器软件配置 安装必要的基础软件 htop iotop iftop vim-common numactl rsync psutils ipmitool g&#43;&#43; 根据 Harry 的教程 配置 LDAP Client 安装 libnss-ldapd 和 libpam-ldapd 配置正确的服务器地址, base dn 和 LDAP 数据项 安装 nfs 客户端 安装 nfs-client nfs-common 挂载对应的 /home 配置 slurm 客户端 安装 libmunge-dev libmunge2 munge slurmd slurm-wlm libpam-slurm-adopt libpam-slurm libpmix-dev libpmi2-0 libpmi0-dev libpmi0 将主节点的 munge key 同步到新机器 /etc/munge/munge." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/technical/pacman-machine-setup/" /><meta property="article:section" content="technical" />
+<meta property="article:published_time" content="2023-12-13T00:00:00+00:00" />
+<meta property="article:modified_time" content="2023-12-13T00:00:00+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="实验室新机器安装步骤检查单"/>
+<meta name="twitter:description" content="本检查单适用于在 PACMAN 实验室 安装新的服务器. 对于其它使用场景, 可视情况进行参考.
+购买前 根据使用需求确定型号 PCIe 的连接方式是否符合预期 内存通道是否充足 在机房寻找一个合适的位置来放置机器, 需考虑如下因素 机柜的空位与承重能力 电源是否充足 网络 (如需使用 IB 网, 与需要的交换机是否足够近) 根据 CPU arch 确定是否接入某个 slurm 进行管理 现有的 slurm clusters: ja (AMD Epyc), nico (Intel Skylake) 注意: 除非这台机器永远只有一个人使用, 否则强烈建议接入 slurm 进行管理 起一个合适的 Hostname 向网络管理员申请一个合适的固定 ip 机器上架与硬件配置 (机房内) 检查机器完好 正确安装导轨 对机器的整体外观, 序列号进行拍照 插入系统盘和必要的存储, PCIE 设备 注意: 插入额外的 GPU 资产也需要事先对序列号和整体进行拍照 根据分配的固定 IP 配置 BMC 机器基础配置 (可远程) 在 NetBox 上更新相应信息, 包括但不限于序列号, 资产号, GPU 在 BIOS 中配置 CPU Sub-numa Clustering 以确保访存性能正确 Intel 简称 SNC, AMD 简称 NPS 可能在 ACPI 或 North Bridge 选项中 (视型号不同) PXE 引导安装 OS 机器软件配置 安装必要的基础软件 htop iotop iftop vim-common numactl rsync psutils ipmitool g&#43;&#43; 根据 Harry 的教程 配置 LDAP Client 安装 libnss-ldapd 和 libpam-ldapd 配置正确的服务器地址, base dn 和 LDAP 数据项 安装 nfs 客户端 安装 nfs-client nfs-common 挂载对应的 /home 配置 slurm 客户端 安装 libmunge-dev libmunge2 munge slurmd slurm-wlm libpam-slurm-adopt libpam-slurm libpmix-dev libpmi2-0 libpmi0-dev libpmi0 将主节点的 munge key 同步到新机器 /etc/munge/munge."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Technicals",
+      "item": "/technical/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "实验室新机器安装步骤检查单",
+      "item": "/technical/pacman-machine-setup/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "实验室新机器安装步骤检查单",
+  "name": "实验室新机器安装步骤检查单",
+  "description": "本检查单适用于在 PACMAN 实验室 安装新的服务器. 对于其它使用场景, 可视情况进行参考.\n购买前 根据使用需求确定型号 PCIe 的连接方式是否符合预期 内存通道是否充足 在机房寻找一个合适的位置来放置机器, 需考虑如下因素 机柜的空位与承重能力 电源是否充足 网络 (如需使用 IB 网, 与需要的交换机是否足够近) 根据 CPU arch 确定是否接入某个 slurm 进行管理 现有的 slurm clusters: ja (AMD Epyc), nico (Intel Skylake) 注意: 除非这台机器永远只有一个人使用, 否则强烈建议接入 slurm 进行管理 起一个合适的 Hostname 向网络管理员申请一个合适的固定 ip 机器上架与硬件配置 (机房内) 检查机器完好 正确安装导轨 对机器的整体外观, 序列号进行拍照 插入系统盘和必要的存储, PCIE 设备 注意: 插入额外的 GPU 资产也需要事先对序列号和整体进行拍照 根据分配的固定 IP 配置 BMC 机器基础配置 (可远程) 在 NetBox 上更新相应信息, 包括但不限于序列号, 资产号, GPU 在 BIOS 中配置 CPU Sub-numa Clustering 以确保访存性能正确 Intel 简称 SNC, AMD 简称 NPS 可能在 ACPI 或 North Bridge 选项中 (视型号不同) PXE 引导安装 OS 机器软件配置 安装必要的基础软件 htop iotop iftop vim-common numactl rsync psutils ipmitool g++ 根据 Harry 的教程 配置 LDAP Client 安装 libnss-ldapd 和 libpam-ldapd 配置正确的服务器地址, base dn 和 LDAP 数据项 安装 nfs 客户端 安装 nfs-client nfs-common 挂载对应的 /home 配置 slurm 客户端 安装 libmunge-dev libmunge2 munge slurmd slurm-wlm libpam-slurm-adopt libpam-slurm libpmix-dev libpmi2-0 libpmi0-dev libpmi0 将主节点的 munge key 同步到新机器 /etc/munge/munge.",
+  "keywords": [
+    "op", "cluster"
+  ],
+  "articleBody": " 本检查单适用于在 PACMAN 实验室 安装新的服务器. 对于其它使用场景, 可视情况进行参考.\n购买前 根据使用需求确定型号 PCIe 的连接方式是否符合预期 内存通道是否充足 在机房寻找一个合适的位置来放置机器, 需考虑如下因素 机柜的空位与承重能力 电源是否充足 网络 (如需使用 IB 网, 与需要的交换机是否足够近) 根据 CPU arch 确定是否接入某个 slurm 进行管理 现有的 slurm clusters: ja (AMD Epyc), nico (Intel Skylake) 注意: 除非这台机器永远只有一个人使用, 否则强烈建议接入 slurm 进行管理 起一个合适的 Hostname 向网络管理员申请一个合适的固定 ip 机器上架与硬件配置 (机房内) 检查机器完好 正确安装导轨 对机器的整体外观, 序列号进行拍照 插入系统盘和必要的存储, PCIE 设备 注意: 插入额外的 GPU 资产也需要事先对序列号和整体进行拍照 根据分配的固定 IP 配置 BMC 机器基础配置 (可远程) 在 NetBox 上更新相应信息, 包括但不限于序列号, 资产号, GPU 在 BIOS 中配置 CPU Sub-numa Clustering 以确保访存性能正确 Intel 简称 SNC, AMD 简称 NPS 可能在 ACPI 或 North Bridge 选项中 (视型号不同) PXE 引导安装 OS 机器软件配置 安装必要的基础软件 htop iotop iftop vim-common numactl rsync psutils ipmitool g++ 根据 Harry 的教程 配置 LDAP Client 安装 libnss-ldapd 和 libpam-ldapd 配置正确的服务器地址, base dn 和 LDAP 数据项 安装 nfs 客户端 安装 nfs-client nfs-common 挂载对应的 /home 配置 slurm 客户端 安装 libmunge-dev libmunge2 munge slurmd slurm-wlm libpam-slurm-adopt libpam-slurm libpmix-dev libpmi2-0 libpmi0-dev libpmi0 将主节点的 munge key 同步到新机器 /etc/munge/munge.key 在 /etc/pam.d/sshd 中加入 pam-slurm-adopt 的条目. 可以这样白名单一些用户 account sufficient pam_listfile.so item=user sense=allow file=/etc/ssh/allowed_users onerr=fail 在主节点上更新 slurm 配置文件并进行分发 安装 nvidia 驱动, mellanox 驱动等 ",
+  "wordCount" : "168",
+  "inLanguage": "en",
+  "datePublished": "2023-12-13T00:00:00Z",
+  "dateModified": "2023-12-13T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/technical/pacman-machine-setup/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/technical/">Technicals</a></div>
+    <h1 class="post-title">
+      实验室新机器安装步骤检查单
+    </h1>
+    <div class="post-meta"><span title='2023-12-13 00:00:00 +0000 UTC'>December 13, 2023</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e8%b4%ad%e4%b9%b0%e5%89%8d" aria-label="购买前">购买前</a></li>
+                <li>
+                    <a href="#%e6%9c%ba%e5%99%a8%e4%b8%8a%e6%9e%b6%e4%b8%8e%e7%a1%ac%e4%bb%b6%e9%85%8d%e7%bd%ae-%e6%9c%ba%e6%88%bf%e5%86%85" aria-label="机器上架与硬件配置 (机房内)">机器上架与硬件配置 (机房内)</a></li>
+                <li>
+                    <a href="#%e6%9c%ba%e5%99%a8%e5%9f%ba%e7%a1%80%e9%85%8d%e7%bd%ae-%e5%8f%af%e8%bf%9c%e7%a8%8b" aria-label="机器基础配置 (可远程)">机器基础配置 (可远程)</a></li>
+                <li>
+                    <a href="#%e6%9c%ba%e5%99%a8%e8%bd%af%e4%bb%b6%e9%85%8d%e7%bd%ae" aria-label="机器软件配置">机器软件配置</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><blockquote>
+<p>本检查单适用于在 <a href="https://pacman.cs.tsinghua.edu.cn/guide/">PACMAN 实验室</a> 安装新的服务器.
+对于其它使用场景, 可视情况进行参考.</p>
+</blockquote>
+<h2 id="购买前">购买前<a hidden class="anchor" aria-hidden="true" href="#购买前">#</a></h2>
+<ul>
+<li>根据使用需求确定型号
+<ul>
+<li>PCIe 的连接方式是否符合预期</li>
+<li>内存通道是否充足</li>
+</ul>
+</li>
+<li>在机房寻找一个合适的位置来放置机器, 需考虑如下因素
+<ul>
+<li>机柜的空位与承重能力</li>
+<li>电源是否充足</li>
+<li>网络 (如需使用 IB 网, 与需要的交换机是否足够近)</li>
+</ul>
+</li>
+<li>根据 CPU arch 确定是否接入某个 slurm 进行管理
+<ul>
+<li>现有的 slurm clusters: ja (AMD Epyc), nico (Intel Skylake)</li>
+<li><strong>注意: 除非这台机器永远只有一个人使用, 否则强烈建议接入 slurm 进行管理</strong></li>
+</ul>
+</li>
+<li>起一个合适的 Hostname</li>
+<li>向网络管理员申请一个合适的固定 ip</li>
+</ul>
+<h2 id="机器上架与硬件配置-机房内">机器上架与硬件配置 (机房内)<a hidden class="anchor" aria-hidden="true" href="#机器上架与硬件配置-机房内">#</a></h2>
+<ul>
+<li>检查机器完好</li>
+<li>正确安装导轨</li>
+<li>对机器的整体外观, 序列号进行拍照</li>
+<li>插入系统盘和必要的存储, PCIE 设备
+<ul>
+<li><strong>注意: 插入额外的 GPU 资产也需要事先对序列号和整体进行拍照</strong></li>
+</ul>
+</li>
+<li>根据分配的固定 IP 配置 BMC</li>
+</ul>
+<h2 id="机器基础配置-可远程">机器基础配置 (可远程)<a hidden class="anchor" aria-hidden="true" href="#机器基础配置-可远程">#</a></h2>
+<ul>
+<li>在 NetBox 上更新相应信息, 包括但不限于序列号, 资产号, GPU</li>
+<li>在 BIOS 中配置 CPU Sub-numa Clustering 以确保访存性能正确
+<ul>
+<li>Intel 简称 SNC, AMD 简称 NPS</li>
+<li>可能在 ACPI 或 North Bridge 选项中 (视型号不同)</li>
+</ul>
+</li>
+<li>PXE 引导安装 OS</li>
+</ul>
+<h2 id="机器软件配置">机器软件配置<a hidden class="anchor" aria-hidden="true" href="#机器软件配置">#</a></h2>
+<ul>
+<li>安装必要的基础软件
+<ul>
+<li><code>htop iotop iftop vim-common numactl rsync psutils ipmitool g++</code></li>
+</ul>
+</li>
+<li>根据 <a href="https://harrychen.xyz/2021/01/17/openldap-linux-auth/">Harry 的教程</a> 配置 LDAP Client
+<ul>
+<li>安装 <code>libnss-ldapd</code> 和 <code>libpam-ldapd</code></li>
+<li>配置正确的服务器地址, <code>base dn</code> 和 LDAP 数据项</li>
+</ul>
+</li>
+<li>安装 nfs 客户端
+<ul>
+<li>安装 <code>nfs-client nfs-common</code></li>
+<li>挂载对应的 <code>/home</code></li>
+</ul>
+</li>
+<li>配置 slurm 客户端
+<ul>
+<li>安装 <code>libmunge-dev libmunge2 munge slurmd slurm-wlm libpam-slurm-adopt libpam-slurm libpmix-dev libpmi2-0 libpmi0-dev libpmi0</code></li>
+<li>将主节点的 munge key 同步到新机器 <code>/etc/munge/munge.key</code></li>
+<li>在 <code>/etc/pam.d/sshd</code> 中加入 pam-slurm-adopt 的条目. 可以这样白名单一些用户 <code>account sufficient pam_listfile.so item=user sense=allow file=/etc/ssh/allowed_users onerr=fail</code></li>
+<li>在主节点上更新 slurm 配置文件并进行分发</li>
+</ul>
+</li>
+<li>安装 nvidia 驱动, mellanox 驱动等</li>
+</ul>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/op/">op</a></li>
+      <li><a href="/tags/cluster/">cluster</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/technical/fastdecode/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>FastDecode: 一种很大胆的分布式 LLM 推理系统架构</span>
+  </a>
+  <a class="next" href="/post/2023-server-failure-recovery/">
+    <span class="title">Next »</span>
+    <br>
+    <span>本网站的崩溃与重建</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

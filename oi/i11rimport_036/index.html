@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>BZOJ1822 [JSOI2010]Frozen Nova 冷冻波 | The Site of laekov</title>
+<meta name="keywords" content="geometry, bzoj, flow, oi">
+<meta name="description" content="&lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt; 简单的算几&#43;网络流么。然后花了将近两天。最近总和算几过不去啊。&lt;/p&gt; &nbsp;
+判断线段和圆是否有交还是比较简单的。反正不要让我用解析。先找下垂线，然后找下垂足，然后点乘一下搞定。然后错得不知道怎么死的。搞了很久。
+&nbsp;
+然后二分网络流水水水水水水水水。
+&nbsp;
+感觉mac好卡啊，gdb巨卡，bash也非常卡。难道我又没有搞对打开方式？
+&nbsp;
+#include &lt;cstdio&gt; #include &lt;cmath&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+inline long double sqr(long double x) { return x * x; }
+typedef struct geo_obj { double x, y; geo_obj() {} geo_obj(double x0, double y0) { x = x0, y = y0; } inline void read() { scanf(&quot;%lf%lf&quot;, &amp;x, &amp;y); } inline geo_obj rev() { return geo_obj(-y, x); } inline double len() { return sqrt(sqr(x) &#43; sqr(y)); } inline double sqLen() { return sqr(x) &#43; sqr(y); } } point, vect; inline geo_obj operator &#43;(const geo_obj&amp; a, const geo_obj&amp; b) { return geo_obj(a.">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/i11rimport_036/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="BZOJ1822 [JSOI2010]Frozen Nova 冷冻波" />
+<meta property="og:description" content="&lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt; 简单的算几&#43;网络流么。然后花了将近两天。最近总和算几过不去啊。&lt;/p&gt; &nbsp;
+判断线段和圆是否有交还是比较简单的。反正不要让我用解析。先找下垂线，然后找下垂足，然后点乘一下搞定。然后错得不知道怎么死的。搞了很久。
+&nbsp;
+然后二分网络流水水水水水水水水。
+&nbsp;
+感觉mac好卡啊，gdb巨卡，bash也非常卡。难道我又没有搞对打开方式？
+&nbsp;
+#include &lt;cstdio&gt; #include &lt;cmath&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+inline long double sqr(long double x) { return x * x; }
+typedef struct geo_obj { double x, y; geo_obj() {} geo_obj(double x0, double y0) { x = x0, y = y0; } inline void read() { scanf(&quot;%lf%lf&quot;, &amp;x, &amp;y); } inline geo_obj rev() { return geo_obj(-y, x); } inline double len() { return sqrt(sqr(x) &#43; sqr(y)); } inline double sqLen() { return sqr(x) &#43; sqr(y); } } point, vect; inline geo_obj operator &#43;(const geo_obj&amp; a, const geo_obj&amp; b) { return geo_obj(a." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/i11rimport_036/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2015-02-24T16:08:41+00:00" />
+<meta property="article:modified_time" content="2015-02-24T16:08:41+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BZOJ1822 [JSOI2010]Frozen Nova 冷冻波"/>
+<meta name="twitter:description" content="&lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt; 简单的算几&#43;网络流么。然后花了将近两天。最近总和算几过不去啊。&lt;/p&gt; &nbsp;
+判断线段和圆是否有交还是比较简单的。反正不要让我用解析。先找下垂线，然后找下垂足，然后点乘一下搞定。然后错得不知道怎么死的。搞了很久。
+&nbsp;
+然后二分网络流水水水水水水水水。
+&nbsp;
+感觉mac好卡啊，gdb巨卡，bash也非常卡。难道我又没有搞对打开方式？
+&nbsp;
+#include &lt;cstdio&gt; #include &lt;cmath&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+inline long double sqr(long double x) { return x * x; }
+typedef struct geo_obj { double x, y; geo_obj() {} geo_obj(double x0, double y0) { x = x0, y = y0; } inline void read() { scanf(&quot;%lf%lf&quot;, &amp;x, &amp;y); } inline geo_obj rev() { return geo_obj(-y, x); } inline double len() { return sqrt(sqr(x) &#43; sqr(y)); } inline double sqLen() { return sqr(x) &#43; sqr(y); } } point, vect; inline geo_obj operator &#43;(const geo_obj&amp; a, const geo_obj&amp; b) { return geo_obj(a."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "BZOJ1822 [JSOI2010]Frozen Nova 冷冻波",
+      "item": "/oi/i11rimport_036/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BZOJ1822 [JSOI2010]Frozen Nova 冷冻波",
+  "name": "BZOJ1822 [JSOI2010]Frozen Nova 冷冻波",
+  "description": "\u0026lt;div class=\u0026quot;post_brief\u0026quot;\u0026gt;\u0026lt;p\u0026gt; 简单的算几+网络流么。然后花了将近两天。最近总和算几过不去啊。\u0026lt;/p\u0026gt; \u0026nbsp;\n判断线段和圆是否有交还是比较简单的。反正不要让我用解析。先找下垂线，然后找下垂足，然后点乘一下搞定。然后错得不知道怎么死的。搞了很久。\n\u0026nbsp;\n然后二分网络流水水水水水水水水。\n\u0026nbsp;\n感觉mac好卡啊，gdb巨卡，bash也非常卡。难道我又没有搞对打开方式？\n\u0026nbsp;\n#include \u0026lt;cstdio\u0026gt; #include \u0026lt;cmath\u0026gt; #include \u0026lt;cstring\u0026gt; #include \u0026lt;algorithm\u0026gt; using namespace std;\ninline long double sqr(long double x) { return x * x; }\ntypedef struct geo_obj { double x, y; geo_obj() {} geo_obj(double x0, double y0) { x = x0, y = y0; } inline void read() { scanf(\u0026quot;%lf%lf\u0026quot;, \u0026amp;x, \u0026amp;y); } inline geo_obj rev() { return geo_obj(-y, x); } inline double len() { return sqrt(sqr(x) + sqr(y)); } inline double sqLen() { return sqr(x) + sqr(y); } } point, vect; inline geo_obj operator +(const geo_obj\u0026amp; a, const geo_obj\u0026amp; b) { return geo_obj(a.",
+  "keywords": [
+    "geometry", "bzoj", "flow", "oi"
+  ],
+  "articleBody": "\t简单的算几+网络流么。然后花了将近两天。最近总和算几过不去啊。\n判断线段和圆是否有交还是比较简单的。反正不要让我用解析。先找下垂线，然后找下垂足，然后点乘一下搞定。然后错得不知道怎么死的。搞了很久。\n然后二分网络流水水水水水水水水。\n感觉mac好卡啊，gdb巨卡，bash也非常卡。难道我又没有搞对打开方式？\n#include #include #include #include using namespace std;\ninline long double sqr(long double x) { return x * x; }\ntypedef struct geo_obj { double x, y; geo_obj() {} geo_obj(double x0, double y0) { x = x0, y = y0; } inline void read() { scanf(\"%lf%lf\", \u0026x, \u0026y); } inline geo_obj rev() { return geo_obj(-y, x); } inline double len() { return sqrt(sqr(x) + sqr(y)); } inline double sqLen() { return sqr(x) + sqr(y); } } point, vect; inline geo_obj operator +(const geo_obj\u0026 a, const geo_obj\u0026 b) { return geo_obj(a. x + b. x, a. y + b. y); } inline geo_obj operator -(const geo_obj\u0026 a, const geo_obj\u0026 b) { return geo_obj(a. x - b. x, a. y - b. y); } inline geo_obj operator *(const geo_obj\u0026 a, const double\u0026 b) { return geo_obj(a. x * b, a. y * b); } inline double operator *(const geo_obj\u0026 a, const geo_obj\u0026 b) { return a. x * b. y - a. y * b. x; } inline double operator \u0026(const geo_obj\u0026 a, const geo_obj\u0026 b) { return a. x * b. x + a. y * b. y; }\nstruct line { point p; vect v; line(point a, point b) { p = a; v = b - a; } }; struct circle { point o; double r; void read() { o. read(); scanf(\"%lf\", \u0026r); } };\ninline point lineCross(const line\u0026 a, const line\u0026 b) { vect w(b. p - a. p); double rat((w * a. v) / (a. v * b. v)); return b. p + b. v * rat; }\nbool segInCircle(point a, point b, circle c) { line l(a, b); vect u(l. v. rev()); line r(c. o, c. o + u); point p(lineCross(l, r)); double x = (p - c. o). sqLen(); double sr(sqr(c. r)); if (x \u003e= sr) return 0; if (((a - p) \u0026 (b - p)) \u003c= 0) return 1; if ((a - c. o). sqLen() \u003c= sr) return 1; if ((b - c. o). sqLen() \u003c= sr) return 1; return 0; }\nstruct edge { int t, c; edge *next, *rv; };\nstruct wiz { point p; int r, t; void read() { p. read(); scanf(\"%d%d\", \u0026r, \u0026t); } };\nconst int maxn = 409; const int maxe = 80409; const int inf = 0x3f3f3f3f;\nint n, m, c, t, ea[maxe], eb[maxe], ou[maxn]; int d[maxn], st, te; wiz w[maxn]; circle tree[maxn]; point spi[maxn]; edge elst[maxe], *ep, *head[maxn \u003c\u003c 1];\ninline edge* newEdge(int u, int v, int c) { ep-\u003e t = v; ep-\u003e c = c; ep-\u003e next = head[u]; head[u] = ep; return ep ++; } inline void addEdge(int u, int v, int c) { edge *a = newEdge(u, v, c); edge *b = newEdge(v, u, 0); a-\u003e rv = b; b-\u003e rv = a; }\nbool bfsBuild() { static int q[maxn]; int hd(0), tl(1); memset(d, 0, sizeof(d)); d[q[0] = st] = 1; while (hd \u003c tl \u0026\u0026 !d[te]) { int p(q[hd ++]); for (edge* e = head[p]; e; e = e-\u003e next) if (e-\u003e c \u0026\u0026 !d[e-\u003e t]) { d[e-\u003e t] = d[p] + 1; q[tl ++] = e-\u003e t; } } return d[te]; } int dfsFind(int p, int c) { if (p == te) return c; int s(0); edge* e; for (e = head[p]; e \u0026\u0026 c; e = e-\u003e next) if (e-\u003e c \u0026\u0026 d[e-\u003e t] == d[p] + 1) { int x(dfsFind(e-\u003e t, min(e-\u003e c, c))); s += x; c -= x; e-\u003e c -= x; e-\u003e rv-\u003e c += x; } if (!e) d[p] = -1; return s; }\nint binSearch() { int l(0), r(5000000); st = n + m; te = st + 1; while (l \u003c r) { int mid((l + r) \u003e\u003e 1); ep = elst; memset(head, 0, sizeof(head)); for (int i = 0; i \u003c t; ++ i) addEdge(ea[i], eb[i] + n, 1); for (int i = 0; i \u003c n; ++ i) addEdge(st, i, (mid + w[i]. t) / w[i]. t); for (int i = 0; i \u003c m; ++ i) addEdge(i + n, te, 1); int s(0); while (bfsBuild()) s += dfsFind(st, inf); if (s == m) r = mid; else l = mid + 1; } return l; }\nint main() { #ifndef ONLINE_JUDGE freopen(“in.txt”, “r”, stdin); #endif\nscanf(\"%d%d%d\", \u0026amp;n, \u0026amp;m, \u0026amp;c); for (int i = 0; i \u0026lt; n; ++ i) w[i]. read(); for (int i = 0; i \u0026lt; m; ++ i) spi[i]. read(); for (int i = 0; i \u0026lt; c; ++ i) tree[i]. read(); memset(ou, 0, sizeof(ou)); t = 0; for (int i = 0; i \u0026lt; n; ++ i) for (int j = 0; j \u0026lt; m; ++ j) { bool f(1); double ds(sqr(w[i]. p. x - spi[j]. x) + sqr(w[i]. p. y - spi[j]. y)); if (ds \u0026gt; sqr(w[i]. r)) f = 0; for (int k = 0; k \u0026lt; c \u0026amp;\u0026amp; f; ++ k) if (segInCircle(w[i]. p, spi[j], tree[k])) f = 0; if (f) { ea[t] = i; eb[t] = j; ++ t; ou[j] = 1; } } bool hs(1); for (int i = 0; i \u0026lt; m \u0026amp;\u0026amp; hs; ++ i) if (!ou[i]) hs = 0; if (!hs || !n) puts(\"-1\"); else printf(\"%d\\n\", binSearch()); } ",
+  "wordCount" : "875",
+  "inLanguage": "en",
+  "datePublished": "2015-02-24T16:08:41Z",
+  "dateModified": "2015-02-24T16:08:41Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/i11rimport_036/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      BZOJ1822 [JSOI2010]Frozen Nova 冷冻波
+    </h1>
+    <div class="post-meta"><span title='2015-02-24 16:08:41 +0000 UTC'>February 24, 2015</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><pre><code>			    &lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt;
+简单的算几+网络流么。然后花了将近两天。最近总和算几过不去啊。&lt;/p&gt;
+</code></pre>
+<p>
+	&nbsp;</p>
+<p>
+	判断线段和圆是否有交还是比较简单的。反正不要让我用解析。先找下垂线，然后找下垂足，然后点乘一下搞定。然后错得不知道怎么死的。搞了很久。</p>
+<p>
+	&nbsp;</p>
+<p>
+	然后二分网络流水水水水水水水水。</p>
+<p>
+	&nbsp;</p>
+<p>
+	感觉mac好卡啊，gdb巨卡，bash也非常卡。难道我又没有搞对打开方式？</p>
+<p>
+	&nbsp;</p>
+<pre class="bcode">#include &lt;cstdio&gt;
+#include &lt;cmath&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+<p>using namespace std;</p>
+<p>inline long double sqr(long double x) {
+return x * x;
+}</p>
+<p>typedef struct geo_obj {
+double x, y;
+geo_obj() {}
+geo_obj(double x0, double y0) {
+x = x0, y = y0;
+}
+inline void read() {
+scanf(&quot;%lf%lf&quot;, &amp;x, &amp;y);
+}
+inline geo_obj rev() {
+return geo_obj(-y, x);
+}
+inline double len() {
+return sqrt(sqr(x) + sqr(y));
+}
+inline double sqLen() {
+return sqr(x) + sqr(y);
+}
+} point, vect;
+inline geo_obj operator +(const geo_obj&amp; a, const geo_obj&amp; b) {
+return geo_obj(a. x + b. x, a. y + b. y);
+}
+inline geo_obj operator -(const geo_obj&amp; a, const geo_obj&amp; b) {
+return geo_obj(a. x - b. x, a. y - b. y);
+}
+inline geo_obj operator *(const geo_obj&amp; a, const double&amp; b) {
+return geo_obj(a. x * b, a. y * b);
+}
+inline double operator *(const geo_obj&amp; a, const geo_obj&amp; b) {
+return a. x * b. y - a. y * b. x;
+}
+inline double operator &amp;(const geo_obj&amp; a, const geo_obj&amp; b) {
+return a. x * b. x + a. y * b. y;
+}</p>
+<p>struct line {
+point p;
+vect v;
+line(point a, point b) {
+p = a;
+v = b - a;
+}
+};
+struct circle {
+point o;
+double r;
+void read() {
+o. read();
+scanf(&quot;%lf&quot;, &amp;r);
+}
+};</p>
+<p>inline point lineCross(const line&amp; a, const line&amp; b) {
+vect w(b. p - a. p);
+double rat((w * a. v) / (a. v * b. v));
+return b. p + b. v * rat;
+}</p>
+<p>bool segInCircle(point a, point b, circle c) {
+line l(a, b);
+vect u(l. v. rev());
+line r(c. o, c. o + u);
+point p(lineCross(l, r));
+double x = (p - c. o). sqLen();
+double sr(sqr(c. r));
+if (x &gt;= sr)
+return 0;
+if (((a - p) &amp; (b - p)) &lt;= 0)
+return 1;
+if ((a - c. o). sqLen() &lt;= sr)
+return 1;
+if ((b - c. o). sqLen() &lt;= sr)
+return 1;
+return 0;
+}</p>
+<p>struct edge {
+int t, c;
+edge *next, *rv;
+};</p>
+<p>struct wiz {
+point p;
+int r, t;
+void read() {
+p. read();
+scanf(&quot;%d%d&quot;, &amp;r, &amp;t);
+}
+};</p>
+<p>const int maxn = 409;
+const int maxe = 80409;
+const int inf = 0x3f3f3f3f;</p>
+<p>int n, m, c, t, ea[maxe], eb[maxe], ou[maxn];
+int d[maxn], st, te;
+wiz w[maxn];
+circle tree[maxn];
+point spi[maxn];
+edge elst[maxe], *ep, *head[maxn &lt;&lt; 1];</p>
+<p>inline edge* newEdge(int u, int v, int c) {
+ep-&gt; t = v;
+ep-&gt; c = c;
+ep-&gt; next = head[u];
+head[u] = ep;
+return ep ++;
+}
+inline void addEdge(int u, int v, int c) {
+edge *a = newEdge(u, v, c);
+edge *b = newEdge(v, u, 0);
+a-&gt; rv = b;
+b-&gt; rv = a;
+}</p>
+<p>bool bfsBuild() {
+static int q[maxn];
+int hd(0), tl(1);
+memset(d, 0, sizeof(d));
+d[q[0] = st] = 1;
+while (hd &lt; tl &amp;&amp; !d[te]) {
+int p(q[hd ++]);
+for (edge* e = head[p]; e; e = e-&gt; next)
+if (e-&gt; c &amp;&amp; !d[e-&gt; t]) {
+d[e-&gt; t] = d[p] + 1;
+q[tl ++] = e-&gt; t;
+}
+}
+return d[te];
+}
+int dfsFind(int p, int c) {
+if (p == te)
+return c;
+int s(0);
+edge* e;
+for (e = head[p]; e &amp;&amp; c; e = e-&gt; next)
+if (e-&gt; c &amp;&amp; d[e-&gt; t] == d[p] + 1) {
+int x(dfsFind(e-&gt; t, min(e-&gt; c, c)));
+s += x;
+c -= x;
+e-&gt; c -= x;
+e-&gt; rv-&gt; c += x;
+}
+if (!e)
+d[p] = -1;
+return s;
+}</p>
+<p>int binSearch() {
+int l(0), r(5000000);
+st = n + m;
+te = st + 1;
+while (l &lt; r) {
+int mid((l + r) &gt;&gt; 1);
+ep = elst;
+memset(head, 0, sizeof(head));
+for (int i = 0; i &lt; t; ++ i)
+addEdge(ea[i], eb[i] + n, 1);
+for (int i = 0; i &lt; n; ++ i)
+addEdge(st, i, (mid + w[i]. t) / w[i]. t);
+for (int i = 0; i &lt; m; ++ i)
+addEdge(i + n, te, 1);
+int s(0);
+while (bfsBuild())
+s += dfsFind(st, inf);
+if (s == m)
+r = mid;
+else
+l = mid + 1;
+}
+return l;
+}</p>
+<p>int main() {
+#ifndef ONLINE_JUDGE
+freopen(&ldquo;in.txt&rdquo;, &ldquo;r&rdquo;, stdin);
+#endif</p>
+<pre><code>scanf(&quot;%d%d%d&quot;, &amp;amp;n, &amp;amp;m, &amp;amp;c);
+for (int i = 0; i &amp;lt; n; ++ i)
+	w[i]. read();
+for (int i = 0; i &amp;lt; m; ++ i)
+	spi[i]. read();
+for (int i = 0; i &amp;lt; c; ++ i)
+	tree[i]. read();
+memset(ou, 0, sizeof(ou));
+t = 0;
+for (int i = 0; i &amp;lt; n; ++ i)
+	for (int j = 0; j &amp;lt; m; ++ j) {
+		bool f(1);
+		double ds(sqr(w[i]. p. x - spi[j]. x) + sqr(w[i]. p. y - spi[j]. y));
+		if (ds &amp;gt; sqr(w[i]. r))
+			f = 0;
+		for (int k = 0; k &amp;lt; c &amp;amp;&amp;amp; f; ++ k)
+			if (segInCircle(w[i]. p, spi[j], tree[k]))
+				f = 0;
+		if (f) {
+			ea[t] = i;
+			eb[t] = j;
+			++ t;
+			ou[j] = 1;
+		}
+	}
+bool hs(1);
+for (int i = 0; i &amp;lt; m &amp;amp;&amp;amp; hs; ++ i)
+	if (!ou[i])
+		hs = 0;
+if (!hs || !n)
+	puts(&quot;-1&quot;);
+else
+	printf(&quot;%d\n&quot;, binSearch());
+</code></pre>
+<p>}
+</pre></p>
+</div>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/geometry/">geometry</a></li>
+      <li><a href="/tags/bzoj/">bzoj</a></li>
+      <li><a href="/tags/flow/">flow</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/i11rimport_035/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>BZOJ1180 [CROATIAN2009]OTOCI &amp;amp; BZOJ2843 极地旅行社</span>
+  </a>
+  <a class="next" href="/oi/i11rimport_037/">
+    <span class="title">Next »</span>
+    <br>
+    <span>BZOJ2157 旅游</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

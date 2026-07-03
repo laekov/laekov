@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>noip2015_transport.cc | The Site of laekov</title>
+<meta name="keywords" content="code">
+<meta name="description" content="// Source code from laekov at noip 2015 day2 #define PRID &ldquo;transport&rdquo; #include #include #include #include using namespace std;
+const int maxn = 300003; const int maxl = 21;
+const int buf_len = 45678; char buf[buf_len], *bufb(buf), *bufe(buf &#43; 1); #define readBuf() { if (&#43;&#43; bufb == bufe) bufe = (bufb = buf) &#43; fread(buf, 1, sizeof(buf), stdin); } #define readInt(x) { register int s(0), neg(0); while (!isdigit(*bufb)) { if (*bufb == &lsquo;-&rsquo;) neg = 1; readBuf(); } do { s = s * 10 &#43; *bufb - 48; readBuf(); } while (isdigit(*bufb)); if (neg) x = -s; else x = s; }">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/code/dbimport_261/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="noip2015_transport.cc" />
+<meta property="og:description" content="// Source code from laekov at noip 2015 day2 #define PRID &ldquo;transport&rdquo; #include #include #include #include using namespace std;
+const int maxn = 300003; const int maxl = 21;
+const int buf_len = 45678; char buf[buf_len], *bufb(buf), *bufe(buf &#43; 1); #define readBuf() { if (&#43;&#43; bufb == bufe) bufe = (bufb = buf) &#43; fread(buf, 1, sizeof(buf), stdin); } #define readInt(x) { register int s(0), neg(0); while (!isdigit(*bufb)) { if (*bufb == &lsquo;-&rsquo;) neg = 1; readBuf(); } do { s = s * 10 &#43; *bufb - 48; readBuf(); } while (isdigit(*bufb)); if (neg) x = -s; else x = s; }" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/code/dbimport_261/" /><meta property="article:section" content="code" />
+<meta property="article:published_time" content="2015-11-17T22:35:03+00:00" />
+<meta property="article:modified_time" content="2015-11-17T22:35:03+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="noip2015_transport.cc"/>
+<meta name="twitter:description" content="// Source code from laekov at noip 2015 day2 #define PRID &ldquo;transport&rdquo; #include #include #include #include using namespace std;
+const int maxn = 300003; const int maxl = 21;
+const int buf_len = 45678; char buf[buf_len], *bufb(buf), *bufe(buf &#43; 1); #define readBuf() { if (&#43;&#43; bufb == bufe) bufe = (bufb = buf) &#43; fread(buf, 1, sizeof(buf), stdin); } #define readInt(x) { register int s(0), neg(0); while (!isdigit(*bufb)) { if (*bufb == &lsquo;-&rsquo;) neg = 1; readBuf(); } do { s = s * 10 &#43; *bufb - 48; readBuf(); } while (isdigit(*bufb)); if (neg) x = -s; else x = s; }"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Codes",
+      "item": "/code/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "noip2015_transport.cc",
+      "item": "/code/dbimport_261/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "noip2015_transport.cc",
+  "name": "noip2015_transport.cc",
+  "description": "// Source code from laekov at noip 2015 day2 #define PRID \u0026ldquo;transport\u0026rdquo; #include #include #include #include using namespace std;\nconst int maxn = 300003; const int maxl = 21;\nconst int buf_len = 45678; char buf[buf_len], *bufb(buf), *bufe(buf + 1); #define readBuf() { if (++ bufb == bufe) bufe = (bufb = buf) + fread(buf, 1, sizeof(buf), stdin); } #define readInt(x) { register int s(0), neg(0); while (!isdigit(*bufb)) { if (*bufb == \u0026lsquo;-\u0026rsquo;) neg = 1; readBuf(); } do { s = s * 10 + *bufb - 48; readBuf(); } while (isdigit(*bufb)); if (neg) x = -s; else x = s; }",
+  "keywords": [
+    "code"
+  ],
+  "articleBody": "// Source code from laekov at noip 2015 day2 #define PRID “transport” #include #include #include #include using namespace std;\nconst int maxn = 300003; const int maxl = 21;\nconst int buf_len = 45678; char buf[buf_len], *bufb(buf), *bufe(buf + 1); #define readBuf() { if (++ bufb == bufe) bufe = (bufb = buf) + fread(buf, 1, sizeof(buf), stdin); } #define readInt(x) { register int s(0), neg(0); while (!isdigit(*bufb)) { if (*bufb == ‘-’) neg = 1; readBuf(); } do { s = s * 10 + *bufb - 48; readBuf(); } while (isdigit(*bufb)); if (neg) x = -s; else x = s; }\nstruct edge { int t, l; edge *ne; };\nstruct path { int u, v, a, l; }; inline bool cmpPath(const path\u0026 a, const path\u0026 b) { return a. l \u003e b. l; }\nstruct heapM { int n, a[maxn]; heapM() { n = 0; } inline void push(int x) { a[n] = x; push_heap(a, a + (++ n)); } inline int top() { return n ? a[0] : -1; } inline void pop() { if (n) pop_heap(a, a + (n –)); } };\nstruct setR { heapM a, r; inline void insert(int x) { a. push(x); } inline void remove(int x) { r. push(x); } int query() { while (a. n \u0026\u0026 a. top() == r. top()) { a. pop(); r. pop(); } return a. top(); } };\nint n, m; int ut[maxn][maxl], d[maxn], df[maxn], dr[maxn]; path a[maxn]; edge ebuf_arr[maxn « 1], *ebuf(ebuf_arr), *head[maxn]; setR rs;\ninline void addEdge(int u, int v, int w) { ebuf-\u003e t = v; ebuf-\u003e l = w; ebuf-\u003e ne = head[u]; head[u] = ebuf ++; }\nvoid buildBFS() { static int q[maxn]; int hd(0), tl(1); memset(d, 0, sizeof(d)); d[0] = 0; d[q[hd] = 1] = 1; dr[1] = df[1] = 0; for (int i = 0; i \u003c maxl; ++ i) ut[0][i] = ut[1][i] = 0; while (hd \u003c tl) { int p(q[hd ++]); for (int i = 1; i \u003c maxl; ++ i) ut[p][i] = ut[ut[p][i - 1]][i - 1]; for (edge *e = head[p]; e; e = e-\u003e ne) if (!d[e-\u003e t]) { d[e-\u003e t] = d[p] + 1; ut[e-\u003e t][0] = p; df[e-\u003e t] = e-\u003e l; dr[e-\u003e t] = dr[p] + e-\u003e l; q[tl ++] = e-\u003e t; } } }\nint LCA(int u, int v) { if (d[u] \u003c d[v]) swap(u, v); for (int i = maxl - 1; i \u003e= 0; – i) if (d[ut[u][i]] \u003e= d[v]) u = ut[u][i]; if (u == v) return u; for (int i = maxl - 1; i \u003e= 0; – i) if (ut[u][i] ^ ut[v][i]) { u = ut[u][i]; v = ut[v][i]; } return ut[u][0]; }\ninline bool onPath(int u, const path\u0026 p) { return LCA(u, p. a) == p. a \u0026\u0026 (LCA(u, p. u) == u || LCA(u, p. v) == u); }\nint dqEnum() { static int q[maxn]; int hd(0), tl(d[a[0]. u] + d[a[0]. v] - d[a[0]. a] * 2 + 1); int ans; for (int i = 0, u = a[0]. u; u != a[0]. a; ++ i, u = ut[u][0]) { q[i] = u; rs. insert(df[u]); } q[d[a[0]. u] - d[a[0]. a]] = a[0]. a; for (int j = tl - 1, v = a[0]. v; v != a[0]. a; – j, v = ut[v][0]) { q[j] = v; rs. insert(df[v]); } a[m]. l = 0; if (!a[0]. l) return 0; ans = max(a[1]. l, a[0]. l - rs. query()); for (int i = 1; i \u003c m \u0026\u0026 hd + 1 \u003c tl; ++ i) { while (hd \u003c tl \u0026\u0026 !onPath(q[hd], a[i])) { if (hd + 1 \u003c tl) { if (d[q[hd]] \u003e d[q[hd + 1]]) rs. remove(df[q[hd]]); else rs. remove(df[q[hd + 1]]); } ++ hd; } while (hd \u003c tl \u0026\u0026 !onPath(q[tl - 1], a[i])) { if (hd + 1 \u003c tl) { if (d[q[tl - 1]] \u003e d[q[tl - 2]]) rs. remove(df[q[tl - 1]]); else rs. remove(df[q[tl - 2]]); } – tl; } if (hd + 1 \u003c tl) ans = min(ans, max(a[0]. l - rs. query(), a[i + 1]. l)); } return ans; }\nint main() { freopen(PRID “.in”, “r”, stdin); freopen(PRID “.out”, “w”, stdout);\nmemset(head, 0, sizeof(head)); readInt(n); readInt(m); for (int i = 1; i \u003c n; ++ i) { int u, v, w; readInt(u); readInt(v); readInt(w); addEdge(u, v, w); addEdge(v, u, w); } buildBFS(); for (int i = 0; i \u003c m; ++ i) { readInt(a[i]. u); readInt(a[i]. v); a[i]. a = LCA(a[i]. u, a[i]. v); a[i]. l = dr[a[i]. u] + dr[a[i]. v] - dr[a[i]. a] * 2; } sort(a, a + m, cmpPath); printf(\"%d\\n\", dqEnum()); }\n",
+  "wordCount" : "772",
+  "inLanguage": "en",
+  "datePublished": "2015-11-17T22:35:03Z",
+  "dateModified": "2015-11-17T22:35:03Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/code/dbimport_261/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/code/">Codes</a></div>
+    <h1 class="post-title">
+      noip2015_transport.cc
+    </h1>
+    <div class="post-meta"><span title='2015-11-17 22:35:03 +0000 UTC'>November 17, 2015</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>// Source code from laekov at noip 2015 day2
+#define PRID &ldquo;transport&rdquo;
+#include <cstdio>
+#include <cctype>
+#include <cstring>
+#include <algorithm></p>
+<p>using namespace std;</p>
+<p>const int maxn = 300003;
+const int maxl = 21;</p>
+<p>const int buf_len = 45678;
+char buf[buf_len], *bufb(buf), *bufe(buf + 1);
+#define readBuf() { <br>
+if (++ bufb == bufe) <br>
+bufe = (bufb = buf) + fread(buf, 1, sizeof(buf), stdin); <br>
+}
+#define readInt(<em>x</em>) { <br>
+register int <em>s</em>(0), <em>neg</em>(0); <br>
+while (!isdigit(*bufb)) { <br>
+if (*bufb == &lsquo;-&rsquo;) <br>
+<em>neg</em> = 1; <br>
+readBuf(); <br>
+} <br>
+do { <br>
+<em>s</em> = <em>s</em> * 10 + *bufb - 48; <br>
+readBuf(); <br>
+} while (isdigit(*bufb)); <br>
+if (<em>neg</em>) <br>
+<em>x</em> = -<em>s</em>; <br>
+else <br>
+<em>x</em> = <em>s</em>; <br>
+}</p>
+<p>struct edge {
+int t, l;
+edge *ne;
+};</p>
+<p>struct path {
+int u, v, a, l;
+};
+inline bool cmpPath(const path&amp; a, const path&amp; b) {
+return a. l &gt; b. l;
+}</p>
+<p>struct heapM {
+int n, a[maxn];
+heapM() {
+n = 0;
+}
+inline void push(int x) {
+a[n] = x;
+push_heap(a, a + (++ n));
+}
+inline int top() {
+return n ? a[0] : -1;
+}
+inline void pop() {
+if (n)
+pop_heap(a, a + (n &ndash;));
+}
+};</p>
+<p>struct setR {
+heapM a, r;
+inline void insert(int x) {
+a. push(x);
+}
+inline void remove(int x) {
+r. push(x);
+}
+int query() {
+while (a. n &amp;&amp; a. top() == r. top()) {
+a. pop();
+r. pop();
+}
+return a. top();
+}
+};</p>
+<p>int n, m;
+int ut[maxn][maxl], d[maxn], df[maxn], dr[maxn];
+path a[maxn];
+edge ebuf_arr[maxn &laquo; 1], *ebuf(ebuf_arr), *head[maxn];
+setR rs;</p>
+<p>inline void addEdge(int u, int v, int w) {
+ebuf-&gt; t = v;
+ebuf-&gt; l = w;
+ebuf-&gt; ne = head[u];
+head[u] = ebuf ++;
+}</p>
+<p>void buildBFS() {
+static int q[maxn];
+int hd(0), tl(1);
+memset(d, 0, sizeof(d));
+d[0] = 0;
+d[q[hd] = 1] = 1;
+dr[1] = df[1] = 0;
+for (int i = 0; i &lt; maxl; ++ i)
+ut[0][i] = ut[1][i] = 0;
+while (hd &lt; tl) {
+int p(q[hd ++]);
+for (int i = 1; i &lt; maxl; ++ i)
+ut[p][i] = ut[ut[p][i - 1]][i - 1];
+for (edge *e = head[p]; e; e = e-&gt; ne)
+if (!d[e-&gt; t]) {
+d[e-&gt; t] = d[p] + 1;
+ut[e-&gt; t][0] = p;
+df[e-&gt; t] = e-&gt; l;
+dr[e-&gt; t] = dr[p] + e-&gt; l;
+q[tl ++] = e-&gt; t;
+}
+}
+}</p>
+<p>int LCA(int u, int v) {
+if (d[u] &lt; d[v])
+swap(u, v);
+for (int i = maxl - 1; i &gt;= 0; &ndash; i)
+if (d[ut[u][i]] &gt;= d[v])
+u = ut[u][i];
+if (u == v)
+return u;
+for (int i = maxl - 1; i &gt;= 0; &ndash; i)
+if (ut[u][i] ^ ut[v][i]) {
+u = ut[u][i];
+v = ut[v][i];
+}
+return ut[u][0];
+}</p>
+<p>inline bool onPath(int u, const path&amp; p) {
+return LCA(u, p. a) == p. a &amp;&amp; (LCA(u, p. u) == u || LCA(u, p. v) == u);
+}</p>
+<p>int dqEnum() {
+static int q[maxn];
+int hd(0), tl(d[a[0]. u] + d[a[0]. v] - d[a[0]. a] * 2 + 1);
+int ans;
+for (int i = 0, u = a[0]. u; u != a[0]. a; ++ i, u = ut[u][0]) {
+q[i] = u;
+rs. insert(df[u]);
+}
+q[d[a[0]. u] - d[a[0]. a]] = a[0]. a;
+for (int j = tl - 1, v = a[0]. v; v != a[0]. a; &ndash; j, v = ut[v][0]) {
+q[j] = v;
+rs. insert(df[v]);
+}
+a[m]. l = 0;
+if (!a[0]. l)
+return 0;
+ans = max(a[1]. l, a[0]. l - rs. query());
+for (int i = 1; i &lt; m &amp;&amp; hd + 1 &lt; tl; ++ i) {
+while (hd &lt; tl &amp;&amp; !onPath(q[hd], a[i])) {
+if (hd + 1 &lt; tl) {
+if (d[q[hd]] &gt; d[q[hd + 1]])
+rs. remove(df[q[hd]]);
+else
+rs. remove(df[q[hd + 1]]);
+}
+++ hd;
+}
+while (hd &lt; tl &amp;&amp; !onPath(q[tl - 1], a[i])) {
+if (hd + 1 &lt; tl) {
+if (d[q[tl - 1]] &gt; d[q[tl - 2]])
+rs. remove(df[q[tl - 1]]);
+else
+rs. remove(df[q[tl - 2]]);
+}
+&ndash; tl;
+}
+if (hd + 1 &lt; tl)
+ans = min(ans, max(a[0]. l - rs. query(), a[i + 1]. l));
+}
+return ans;
+}</p>
+<p>int main() {
+freopen(PRID &ldquo;.in&rdquo;, &ldquo;r&rdquo;, stdin);
+freopen(PRID &ldquo;.out&rdquo;, &ldquo;w&rdquo;, stdout);</p>
+<pre><code>memset(head, 0, sizeof(head));
+readInt(n);
+readInt(m);
+for (int i = 1; i &lt; n; ++ i) {
+	int u, v, w;
+	readInt(u);
+	readInt(v);
+	readInt(w);
+	addEdge(u, v, w);
+	addEdge(v, u, w);
+}
+buildBFS();
+for (int i = 0; i &lt; m; ++ i) {
+	readInt(a[i]. u);
+	readInt(a[i]. v);
+	a[i]. a = LCA(a[i]. u, a[i]. v);
+	a[i]. l = dr[a[i]. u] + dr[a[i]. v] - dr[a[i]. a] * 2;
+}
+sort(a, a + m, cmpPath);
+printf(&quot;%d\n&quot;, dqEnum());
+</code></pre>
+<p>}</p>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/code/">code</a></li>
+    </ul>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

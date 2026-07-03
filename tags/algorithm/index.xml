@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>algorithm on The Site of laekov</title>
+    <link>/tags/algorithm/</link>
+    <description>Recent content in algorithm on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Sun, 22 Apr 2018 17:59:13 +0000</lastBuildDate><atom:link href="/tags/algorithm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LIRS Plus</title>
+      <link>/technical/3e470a/</link>
+      <pubDate>Sun, 22 Apr 2018 17:59:13 +0000</pubDate>
+      
+      <guid>/technical/3e470a/</guid>
+      <description>最近在做一个 Cache 替换算法的 PA. 系统结构课.
+给的 Baseline 是 2010 年的一个 championship.
+看了看现在用得比较多的通用算法叫 LIRS.
+在 LIRS 基础上想方法优化.
+瞎搞的东西把单核 miss 率降低得有点 surprising.
+还没有更多的 benchmark 测试.
+感觉有点意思.</description>
+    </item>
+    
+  </channel>
+</rss>

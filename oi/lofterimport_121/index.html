@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>BZOJ1146 [CTSC2008]网络管理Network | The Site of laekov</title>
+<meta name="keywords" content="bzoj, data\xa0structure, oi">
+<meta name="description" content="数据结构题总是很令人开心的。
+这题据说可以主席树？好麻烦的说。
+树链剖分&#43;线段树&#43;treap就好了吧。
+#include &lt;cstdio&gt;
+#include &lt;cstdlib&gt;
+#include &lt;cctype&gt;
+#include &lt;memory.h&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+struct edge {
+int t;
+edge *next;
+};
+struct seg {
+int l, r, v;
+seg *ls,&nbsp;*rs;
+};
+#define readInt(_s_)&nbsp;{\
+int _d_;\
+_s_ = 0;\
+while (!isdigit(_d_&nbsp;= getchar()));\
+while ((_s_&nbsp;= _s_ * 10 &#43; _d_ - 48), isdigit(_d_ = getchar()));\
+}
+const int maxn = 80009;
+const int maxv = 1e8;
+namespace treap {">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/lofterimport_121/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="BZOJ1146 [CTSC2008]网络管理Network" />
+<meta property="og:description" content="数据结构题总是很令人开心的。
+这题据说可以主席树？好麻烦的说。
+树链剖分&#43;线段树&#43;treap就好了吧。
+#include &lt;cstdio&gt;
+#include &lt;cstdlib&gt;
+#include &lt;cctype&gt;
+#include &lt;memory.h&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+struct edge {
+int t;
+edge *next;
+};
+struct seg {
+int l, r, v;
+seg *ls,&nbsp;*rs;
+};
+#define readInt(_s_)&nbsp;{\
+int _d_;\
+_s_ = 0;\
+while (!isdigit(_d_&nbsp;= getchar()));\
+while ((_s_&nbsp;= _s_ * 10 &#43; _d_ - 48), isdigit(_d_ = getchar()));\
+}
+const int maxn = 80009;
+const int maxv = 1e8;
+namespace treap {" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/lofterimport_121/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2014-10-23T12:09:56+00:00" />
+<meta property="article:modified_time" content="2014-10-23T12:09:56+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BZOJ1146 [CTSC2008]网络管理Network"/>
+<meta name="twitter:description" content="数据结构题总是很令人开心的。
+这题据说可以主席树？好麻烦的说。
+树链剖分&#43;线段树&#43;treap就好了吧。
+#include &lt;cstdio&gt;
+#include &lt;cstdlib&gt;
+#include &lt;cctype&gt;
+#include &lt;memory.h&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+struct edge {
+int t;
+edge *next;
+};
+struct seg {
+int l, r, v;
+seg *ls,&nbsp;*rs;
+};
+#define readInt(_s_)&nbsp;{\
+int _d_;\
+_s_ = 0;\
+while (!isdigit(_d_&nbsp;= getchar()));\
+while ((_s_&nbsp;= _s_ * 10 &#43; _d_ - 48), isdigit(_d_ = getchar()));\
+}
+const int maxn = 80009;
+const int maxv = 1e8;
+namespace treap {"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "BZOJ1146 [CTSC2008]网络管理Network",
+      "item": "/oi/lofterimport_121/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BZOJ1146 [CTSC2008]网络管理Network",
+  "name": "BZOJ1146 [CTSC2008]网络管理Network",
+  "description": "数据结构题总是很令人开心的。\n这题据说可以主席树？好麻烦的说。\n树链剖分+线段树+treap就好了吧。\n#include \u0026lt;cstdio\u0026gt;\n#include \u0026lt;cstdlib\u0026gt;\n#include \u0026lt;cctype\u0026gt;\n#include \u0026lt;memory.h\u0026gt;\n#include \u0026lt;algorithm\u0026gt;\nusing namespace std;\nstruct edge {\nint t;\nedge *next;\n};\nstruct seg {\nint l, r, v;\nseg *ls,\u0026nbsp;*rs;\n};\n#define readInt(_s_)\u0026nbsp;{\\\nint _d_;\\\n_s_ = 0;\\\nwhile (!isdigit(_d_\u0026nbsp;= getchar()));\\\nwhile ((_s_\u0026nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\\\n}\nconst int maxn = 80009;\nconst int maxv = 1e8;\nnamespace treap {",
+  "keywords": [
+    "bzoj", "data\\xa0structure", "oi"
+  ],
+  "articleBody": "数据结构题总是很令人开心的。\n这题据说可以主席树？好麻烦的说。\n树链剖分+线段树+treap就好了吧。\n#include #include #include #include #include using namespace std;\nstruct edge {\nint t;\nedge *next;\n};\nstruct seg {\nint l, r, v;\nseg *ls, *rs;\n};\n#define readInt(_s_) {\\\nint _d_;\\\n_s_ = 0;\\\nwhile (!isdigit(_d_ = getchar()));\\\nwhile ((_s_ = _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\\\n}\nconst int maxn = 80009;\nconst int maxv = 1e8;\nnamespace treap {\nstruct node {\nint ls, rs, v, w, sz;\n};\nconst int maxnd = 80009 * 19;\nnode a[maxnd];\nint tn, nst[maxnd];\nvoid init() {\nsrand(239407234);\na[0]. sz = 0;\ntn = 0;\nfor (int i = 1; i \u003c maxnd; ++ i)\nnst[++ tn] = i;\n}\ninline int newNode(int v) {\nint p = nst[tn --];\na[p]. ls = 0;\na[p]. rs = 0;\na[p]. v = v;\na[p]. w = rand() | (rand() \u003c\u003c 16);\na[p]. sz = 1;\nreturn p;\n}\ninline void update(const int\u0026 p) {\na[p]. sz = a[a[p]. ls]. sz + a[a[p]. rs]. sz + 1;\n}\ninline void lRot(int\u0026 p) {\nint q = a[p]. rs;\na[p]. rs = a[q]. ls;\na[q]. ls = p;\nupdate(p);\nupdate(q);\np = q;\n}\ninline void rRot(int\u0026 p) {\nint q = a[p]. ls;\na[p]. ls = a[q]. rs;\na[q]. rs = p;\nupdate(p);\nupdate(q);\np = q;\n}\ninline void maintain(int\u0026 p, bool d) {\nif (d) {\nif (a[a[p]. ls]. w \u003e a[p]. w)\nrRot(p);\n}\nelse\nif (a[a[p]. rs]. w \u003e a[p]. w)\nlRot(p);\n}\ninline void ins(int\u0026 p, int v) {\nif (!p)\np = newNode(v);\nelse {\nif (v \u003c a[p]. v)\nins(a[p]. ls, v);\nelse\nins(a[p]. rs, v);\nupdate(p);\nmaintain(p, v \u003c a[p]. v);\n}\n}\ninline void ers(int\u0026 p, int v) {\nif (!p)\nreturn;\nelse if (a[p]. v == v) {\nif (!a[p]. ls)\np = a[p]. rs;\nelse if (!a[p]. rs)\np = a[p]. ls;\nelse {\nint q = a[p]. ls;\nwhile (a[q]. rs)\nq = a[q]. rs;\na[p]. v = a[q]. v;\ners(a[p]. ls, a[p]. v);\nupdate(p);\n}\n}\nelse {\nif (v \u003c a[p]. v)\ners(a[p]. ls, v);\nelse\ners(a[p]. rs, v);\nupdate(p);\n}\n}\ninline int cnt(int p, int v) {\nif (!p)\nreturn 0;\nelse if (v \u003c= a[p]. v)\nreturn cnt(a[p]. ls, v);\nelse\nreturn a[a[p]. ls]. sz + 1 + cnt(a[p]. rs, v);\n}\n};\nint n, q, v[maxn];\nint tc, d[maxn], fa[maxn], sz[maxn], ch[maxn], fc[maxn], cl[maxn];\nseg *rt[maxn], *sp;\nedge *ep, *head[maxn];\ninline void addEdge(int u, int v) {\nep-\u003e t = v;\nep-\u003e next = head[u];\nhead[u] = ep ++;\n}\n#define mid(p) ((p-\u003el+p-\u003er)\u003e\u003e1)\ninline seg* sgtBuild(int l, int r) {\nseg* p = sp ++;\np-\u003e l = l;\np-\u003e r = r;\np-\u003e v = 0;\nif (l + 1 \u003c r) {\np-\u003e ls = sgtBuild(l, mid(p));\np-\u003e rs = sgtBuild(mid(p), r);\n}\nreturn p;\n}\ninline void sgtChg(seg* p, int p0, int v, int ty) {\nif (ty == 1)\ntreap :: ins(p-\u003e v, v);\nelse\ntreap :: ers(p-\u003e v, v);\nif (p-\u003e l + 1 == p-\u003e r)\nreturn;\nelse if (p0 \u003c mid(p))\nsgtChg(p-\u003e ls, p0, v, ty);\nelse\nsgtChg(p-\u003e rs, p0, v, ty);\n}\ninline int sgtQry(seg* p, int l, int r, int v) {\nif (l \u003e= r)\nreturn 0;\nelse if (p-\u003e l == l \u0026\u0026 p-\u003e r == r)\nreturn treap :: cnt(p-\u003e v, v);\nelse if (r \u003c= mid(p))\nreturn sgtQry(p-\u003e ls, l, r, v);\nelse if (l \u003e= mid(p))\nreturn sgtQry(p-\u003e rs, l, r, v);\nelse\nreturn sgtQry(p-\u003e ls, l, mid(p), v) + sgtQry(p-\u003e rs, mid(p), r, v);\n}\n#define cpos(_p_) (d[_p_]-d[ch[fc[_p_]]])\nvoid divide() {\nstatic int q[maxn];\nint hd = 0, tl = 1;\nmemset(d, 0, sizeof(d));\nd[1] = 1;\nfa[1] = 0;\nq[0] = 1;\nwhile (hd \u003c tl) {\nint p = q[hd ++];\nfor (edge* e = head[p]; e; e = e-\u003e next)\nif (!d[e-\u003e t]) {\nd[e-\u003e t] = d[p] + 1;\nfa[e-\u003e t] = p;\nq[tl ++] = e-\u003e t;\n}\n}\ntc = 0;\nfor (int ti = tl - 1; ti \u003e= 0; -- ti) {\nint p = q[ti], x = -1;\nsz[p] = 1;\nfor (edge* e = head[p]; e; e = e-\u003e next)\nif (fa[e-\u003e t] == p) {\nsz[p] += sz[e-\u003e t];\nif (x == -1 || sz[e-\u003e t] \u003e sz[x])\nx = e-\u003e t;\n}\nif (x == -1) {\nfc[p] = ++ tc;\nch[fc[p]] = p;\ncl[fc[p]] = 1;\n}\nelse {\nfc[p] = fc[x];\nch[fc[p]] = p;\n++ cl[fc[p]];\n}\n}\nsp = new seg[maxn * 4];\nfor (int i = 1; i \u003c= tc; ++ i)\nrt[i] = sgtBuild(0, cl[i]);\nfor (int i = 1; i \u003c= n; ++ i)\nsgtChg(rt[fc[i]], cpos(i), v[i], 1);\n}\nint LCA(int u, int v) {\nwhile (fc[u] ^ fc[v])\nif (d[ch[fc[u]]] \u003e d[ch[fc[v]]])\nu = fa[ch[fc[u]]];\nelse\nv = fa[ch[fc[v]]];\nif (d[u] \u003c d[v])\nreturn u;\nelse\nreturn v;\n}\nint cntChain(int u, int a, int v) {\nint s = 0;\nwhile (fc[u] ^ fc[a]) {\ns += sgtQry(rt[fc[u]], 0, cpos(u) + 1, v);\nu = fa[ch[fc[u]]];\n}\nif (u ^ a)\ns += sgtQry(rt[fc[u]], cpos(a) + 1, cpos(u) + 1, v);\nreturn s;\n}\nint main() {\n#ifndef ONLINE_JUDGE\nfreopen(\"in.txt\", \"r\", stdin);\n#endif\ntreap :: init();\nmemset(head, 0, sizeof(head));\nep = new edge[maxn * 2];\nreadInt(n);\nreadInt(q);\nfor (int i = 1; i \u003c= n; ++ i)\nreadInt(v[i]);\nfor (int i = 0; i \u003c n - 1; ++ i) {\nint u, v;\nreadInt(u);\nreadInt(v);\naddEdge(u, v);\naddEdge(v, u);\n}\ndivide();\nwhile (q --) {\nint k, a, b;\nreadInt(k);\nreadInt(a);\nreadInt(b);\nif (!k) {\nsgtChg(rt[fc[a]], cpos(a), v[a], -1);\nv[a] = b;\nsgtChg(rt[fc[a]], cpos(a), v[a], 1);\n}\nelse {\nint l = 0, r = maxv, c = LCA(a, b);\nif (d[a] + d[b] - d[c] * 2 + 1 \u003c k)\nputs(\"invalid request!\");\nelse {\nk = d[a] + d[b] - d[c] * 2 + 2 - k;\nwhile (l \u003c r) {\nint mid = (l + r + 1) \u003e\u003e 1;\nif (cntChain(a, c, mid) + cntChain(b, fa[c], mid) \u003e= k)\nr = mid - 1;\nelse\nl = mid;\n}\nprintf(\"%d\\n\", l);\n}\n}\n}\n}\n",
+  "wordCount" : "936",
+  "inLanguage": "en",
+  "datePublished": "2014-10-23T12:09:56Z",
+  "dateModified": "2014-10-23T12:09:56Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/lofterimport_121/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      BZOJ1146 [CTSC2008]网络管理Network
+    </h1>
+    <div class="post-meta"><span title='2014-10-23 12:09:56 +0000 UTC'>October 23, 2014</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>数据结构题总是很令人开心的。</p> 
+<p><br /></p> 
+<p>这题据说可以主席树？好麻烦的说。</p> 
+<p><br /></p> 
+<p>树链剖分+线段树+treap就好了吧。</p> 
+<p><br /></p> 
+<p>#include &lt;cstdio&gt;</p> 
+<p>#include &lt;cstdlib&gt;</p> 
+<p>#include &lt;cctype&gt;</p> 
+<p>#include &lt;memory.h&gt;</p> 
+<p>#include &lt;algorithm&gt;</p> 
+<p><br /></p> 
+<p>using namespace std;</p> 
+<p><br /></p> 
+<p>struct edge {</p> 
+<p>int t;</p> 
+<p>edge *next;</p> 
+<p>};</p> 
+<p>struct seg {</p> 
+<p>int l, r, v;</p> 
+<p>seg *ls,&nbsp;*rs;</p> 
+<p>};</p> 
+<p><br /></p> 
+<p>#define readInt(_s_)&nbsp;{\</p> 
+<p>int _d_;\</p> 
+<p>_s_ = 0;\</p> 
+<p>while (!isdigit(_d_&nbsp;= getchar()));\</p> 
+<p>while ((_s_&nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>const int maxn = 80009;</p> 
+<p>const int maxv = 1e8;</p> 
+<p><br /></p> 
+<p>namespace treap {</p> 
+<p>struct node {</p> 
+<p>int ls, rs, v, w, sz;</p> 
+<p>};</p> 
+<p>const int maxnd = 80009 * 19;</p> 
+<p>node a[maxnd];</p> 
+<p>int tn, nst[maxnd];</p> 
+<p>void init()&nbsp;{</p> 
+<p>srand(239407234);</p> 
+<p>a[0]. sz = 0;</p> 
+<p>tn = 0;</p> 
+<p>for (int i = 1; i &lt; maxnd;&nbsp;++ i)</p> 
+<p>nst[++ tn]&nbsp;= i;</p> 
+<p>}</p> 
+<p>inline int newNode(int v)&nbsp;{</p> 
+<p>int p = nst[tn --];</p> 
+<p>a[p]. ls = 0;</p> 
+<p>a[p]. rs = 0;</p> 
+<p>a[p]. v = v;</p> 
+<p>a[p]. w = rand()&nbsp;|&nbsp;(rand()&nbsp;&lt;&lt; 16);</p> 
+<p>a[p]. sz = 1;</p> 
+<p>return p;</p> 
+<p>}</p> 
+<p>inline void update(const int&amp; p)&nbsp;{</p> 
+<p>a[p]. sz = a[a[p]. ls]. sz + a[a[p]. rs]. sz + 1;</p> 
+<p>}</p> 
+<p>inline void lRot(int&amp; p)&nbsp;{</p> 
+<p>int q = a[p]. rs;</p> 
+<p>a[p]. rs = a[q]. ls;</p> 
+<p>a[q]. ls = p;</p> 
+<p>update(p);</p> 
+<p>update(q);</p> 
+<p>p = q;</p> 
+<p>}</p> 
+<p>inline void rRot(int&amp; p)&nbsp;{</p> 
+<p>int q = a[p]. ls;</p> 
+<p>a[p]. ls = a[q]. rs;</p> 
+<p>a[q]. rs = p;</p> 
+<p>update(p);</p> 
+<p>update(q);</p> 
+<p>p = q;</p> 
+<p>}</p> 
+<p>inline void maintain(int&amp; p, bool d)&nbsp;{</p> 
+<p>if (d)&nbsp;{</p> 
+<p>if (a[a[p]. ls]. w &gt; a[p]. w)</p> 
+<p>rRot(p);</p> 
+<p>}</p> 
+<p>else</p> 
+<p>if (a[a[p]. rs]. w &gt; a[p]. w)</p> 
+<p>lRot(p);</p> 
+<p>}</p> 
+<p>inline void ins(int&amp; p, int v)&nbsp;{</p> 
+<p>if (!p)</p> 
+<p>p = newNode(v);</p> 
+<p>else {</p> 
+<p>if (v&nbsp;&lt; a[p]. v)</p> 
+<p>ins(a[p]. ls, v);</p> 
+<p>else</p> 
+<p>ins(a[p]. rs, v);</p> 
+<p>update(p);</p> 
+<p>maintain(p, v &lt; a[p]. v);</p> 
+<p>}</p> 
+<p>}</p> 
+<p>inline void ers(int&amp; p, int v)&nbsp;{</p> 
+<p>if (!p)</p> 
+<p>return;</p> 
+<p>else if (a[p]. v == v)&nbsp;{</p> 
+<p>if (!a[p]. ls)</p> 
+<p>p = a[p]. rs;</p> 
+<p>else if (!a[p]. rs)</p> 
+<p>p = a[p]. ls;</p> 
+<p>else {</p> 
+<p>int q = a[p]. ls;</p> 
+<p>while (a[q]. rs)</p> 
+<p>q = a[q]. rs;</p> 
+<p>a[p]. v = a[q]. v;</p> 
+<p>ers(a[p]. ls, a[p]. v);</p> 
+<p>update(p);</p> 
+<p>}</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>if (v&nbsp;&lt; a[p]. v)</p> 
+<p>ers(a[p]. ls, v);</p> 
+<p>else</p> 
+<p>ers(a[p]. rs, v);</p> 
+<p>update(p);</p> 
+<p>}</p> 
+<p>}</p> 
+<p>inline int cnt(int p, int v)&nbsp;{</p> 
+<p>if (!p)</p> 
+<p>return 0;</p> 
+<p>else if (v&nbsp;&lt;= a[p]. v)</p> 
+<p>return cnt(a[p]. ls, v);</p> 
+<p>else</p> 
+<p>return a[a[p]. ls]. sz + 1 + cnt(a[p]. rs, v);</p> 
+<p>}</p> 
+<p>};</p> 
+<p><br /></p> 
+<p>int n, q, v[maxn];</p> 
+<p>int tc, d[maxn], fa[maxn], sz[maxn], ch[maxn], fc[maxn], cl[maxn];</p> 
+<p>seg *rt[maxn],&nbsp;*sp;</p> 
+<p>edge *ep,&nbsp;*head[maxn];</p> 
+<p><br /></p> 
+<p>inline void addEdge(int u, int v)&nbsp;{</p> 
+<p>ep-&gt; t = v;</p> 
+<p>ep-&gt; next = head[u];</p> 
+<p>head[u]&nbsp;= ep ++;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>#define mid(p)&nbsp;((p-&gt;l+p-&gt;r)&gt;&gt;1)</p> 
+<p><br /></p> 
+<p>inline seg* sgtBuild(int l, int r)&nbsp;{</p> 
+<p>seg* p = sp ++;</p> 
+<p>p-&gt; l = l;</p> 
+<p>p-&gt; r = r;</p> 
+<p>p-&gt; v = 0;</p> 
+<p>if (l&nbsp;+ 1 &lt; r)&nbsp;{</p> 
+<p>p-&gt; ls = sgtBuild(l, mid(p));</p> 
+<p>p-&gt; rs = sgtBuild(mid(p), r);</p> 
+<p>}</p> 
+<p>return p;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>inline void sgtChg(seg* p, int p0, int v, int ty)&nbsp;{</p> 
+<p>if (ty&nbsp;== 1)</p> 
+<p>treap :: ins(p-&gt; v, v);</p> 
+<p>else</p> 
+<p>treap :: ers(p-&gt; v, v);</p> 
+<p>if (p-&gt; l + 1 == p-&gt; r)</p> 
+<p>return;</p> 
+<p>else if (p0&nbsp;&lt; mid(p))</p> 
+<p>sgtChg(p-&gt; ls, p0, v, ty);</p> 
+<p>else</p> 
+<p>sgtChg(p-&gt; rs, p0, v, ty);</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>inline int sgtQry(seg* p, int l, int r, int v)&nbsp;{</p> 
+<p>if (l&nbsp;&gt;= r)</p> 
+<p>return 0;</p> 
+<p>else if (p-&gt; l == l &amp;&amp; p-&gt; r == r)</p> 
+<p>return treap :: cnt(p-&gt; v, v);</p> 
+<p>else if (r&nbsp;&lt;= mid(p))</p> 
+<p>return sgtQry(p-&gt; ls, l, r, v);</p> 
+<p>else if (l&nbsp;&gt;= mid(p))</p> 
+<p>return sgtQry(p-&gt; rs, l, r, v);</p> 
+<p>else</p> 
+<p>return sgtQry(p-&gt; ls, l, mid(p), v)&nbsp;+ sgtQry(p-&gt; rs, mid(p), r, v);</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>#define cpos(_p_)&nbsp;(d[_p_]-d[ch[fc[_p_]]])</p> 
+<p><br /></p> 
+<p>void divide()&nbsp;{</p> 
+<p>static int q[maxn];</p> 
+<p>int hd = 0, tl = 1;</p> 
+<p>memset(d, 0, sizeof(d));</p> 
+<p>d[1]&nbsp;= 1;</p> 
+<p>fa[1]&nbsp;= 0;</p> 
+<p>q[0]&nbsp;= 1;</p> 
+<p>while (hd&nbsp;&lt; tl)&nbsp;{</p> 
+<p>int p = q[hd ++];</p> 
+<p>for (edge* e = head[p]; e; e = e-&gt; next)</p> 
+<p>if (!d[e-&gt; t])&nbsp;{</p> 
+<p>d[e-&gt; t]&nbsp;= d[p]&nbsp;+ 1;</p> 
+<p>fa[e-&gt; t]&nbsp;= p;</p> 
+<p>q[tl ++]&nbsp;= e-&gt; t;</p> 
+<p>}</p> 
+<p>}</p> 
+<p>tc = 0;</p> 
+<p>for (int ti = tl - 1; ti &gt;= 0;&nbsp;-- ti)&nbsp;{</p> 
+<p>int p = q[ti], x =&nbsp;-1;</p> 
+<p>sz[p]&nbsp;= 1;</p> 
+<p>for (edge* e = head[p]; e; e = e-&gt; next)</p> 
+<p>if (fa[e-&gt; t]&nbsp;== p)&nbsp;{</p> 
+<p>sz[p]&nbsp;+= sz[e-&gt; t];</p> 
+<p>if (x&nbsp;==&nbsp;-1&nbsp;|| sz[e-&gt; t]&nbsp;&gt; sz[x])</p> 
+<p>x = e-&gt; t;</p> 
+<p>}</p> 
+<p>if (x&nbsp;==&nbsp;-1)&nbsp;{</p> 
+<p>fc[p]&nbsp;=&nbsp;++ tc;</p> 
+<p>ch[fc[p]]&nbsp;= p;</p> 
+<p>cl[fc[p]]&nbsp;= 1;</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>fc[p]&nbsp;= fc[x];</p> 
+<p>ch[fc[p]]&nbsp;= p;</p> 
+<p>++ cl[fc[p]];</p> 
+<p>}</p> 
+<p>}</p> 
+<p>sp = new seg[maxn * 4];</p> 
+<p>for (int i = 1; i &lt;= tc;&nbsp;++ i)</p> 
+<p>rt[i]&nbsp;= sgtBuild(0, cl[i]);</p> 
+<p>for (int i = 1; i &lt;= n;&nbsp;++ i)</p> 
+<p>sgtChg(rt[fc[i]], cpos(i), v[i], 1);</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int LCA(int u, int v)&nbsp;{</p> 
+<p>while (fc[u]&nbsp;^ fc[v])</p> 
+<p>if (d[ch[fc[u]]]&nbsp;&gt; d[ch[fc[v]]])</p> 
+<p>u = fa[ch[fc[u]]];</p> 
+<p>else</p> 
+<p>v = fa[ch[fc[v]]];</p> 
+<p>if (d[u]&nbsp;&lt; d[v])</p> 
+<p>return u;</p> 
+<p>else</p> 
+<p>return v;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int cntChain(int u, int a, int v)&nbsp;{</p> 
+<p>int s = 0;</p> 
+<p>while (fc[u]&nbsp;^ fc[a])&nbsp;{</p> 
+<p>s += sgtQry(rt[fc[u]], 0, cpos(u)&nbsp;+ 1, v);</p> 
+<p>u = fa[ch[fc[u]]];</p> 
+<p>}</p> 
+<p>if (u&nbsp;^ a)</p> 
+<p>s += sgtQry(rt[fc[u]], cpos(a)&nbsp;+ 1, cpos(u)&nbsp;+ 1, v);</p> 
+<p>return s;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int main()&nbsp;{</p> 
+<p>#ifndef ONLINE_JUDGE</p> 
+<p>freopen(&quot;in.txt&quot;,&nbsp;&quot;r&quot;, stdin);</p> 
+<p>#endif</p> 
+<p><br /></p> 
+<p>treap :: init();</p> 
+<p>memset(head, 0, sizeof(head));</p> 
+<p>ep = new edge[maxn * 2];</p> 
+<p>readInt(n);</p> 
+<p>readInt(q);</p> 
+<p>for (int i = 1; i &lt;= n;&nbsp;++ i)</p> 
+<p>readInt(v[i]);</p> 
+<p>for (int i = 0; i &lt; n - 1;&nbsp;++ i)&nbsp;{</p> 
+<p>int u, v;</p> 
+<p>readInt(u);</p> 
+<p>readInt(v);</p> 
+<p>addEdge(u, v);</p> 
+<p>addEdge(v, u);</p> 
+<p>}</p> 
+<p>divide();</p> 
+<p>while (q&nbsp;--)&nbsp;{</p> 
+<p>int k, a, b;</p> 
+<p>readInt(k);</p> 
+<p>readInt(a);</p> 
+<p>readInt(b);</p> 
+<p>if (!k)&nbsp;{</p> 
+<p>sgtChg(rt[fc[a]], cpos(a), v[a],&nbsp;-1);</p> 
+<p>v[a]&nbsp;= b;</p> 
+<p>sgtChg(rt[fc[a]], cpos(a), v[a], 1);</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>int l = 0, r = maxv, c = LCA(a, b);</p> 
+<p>if (d[a]&nbsp;+ d[b]&nbsp;- d[c]&nbsp;* 2 + 1 &lt; k)</p> 
+<p>puts(&quot;invalid request!&quot;);</p> 
+<p>else {</p> 
+<p>k = d[a]&nbsp;+ d[b]&nbsp;- d[c]&nbsp;* 2 + 2 - k;</p> 
+<p>while (l&nbsp;&lt; r)&nbsp;{</p> 
+<p>int mid =&nbsp;(l&nbsp;+ r + 1)&nbsp;&gt;&gt; 1;</p> 
+<p>if (cntChain(a, c, mid)&nbsp;+ cntChain(b, fa[c], mid)&nbsp;&gt;= k)</p> 
+<p>r = mid - 1;</p> 
+<p>else</p> 
+<p>l = mid;</p> 
+<p>}</p> 
+<p>printf(&quot;%d\n&quot;, l);</p> 
+<p>}</p> 
+<p>}</p> 
+<p>}</p> 
+<p>}</p> 
+<p><br /></p>
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/bzoj/">bzoj</a></li>
+      <li><a href="/tags/data%5Cxa0structure/">data\xa0structure</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/lofterimport_120/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>BZOJ1858 序列操作</span>
+  </a>
+  <a class="next" href="/oi/lofterimport_122/">
+    <span class="title">Next »</span>
+    <br>
+    <span>BZOJ3589 动态树</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

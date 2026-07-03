@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head>
+	<meta name="generator" content="Hugo 0.111.3"><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>The Site of laekov</title>
+
+<meta name="description" content="">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="/index.xml">
+<link rel="alternate" type="application/json" href="/index.json">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="The Site of laekov" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="The Site of laekov"/>
+<meta name="twitter:description" content=""/>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "The Site of laekov",
+  "url": "/",
+  "description": "",
+  "thumbnailUrl": "/favicon.ico",
+  "sameAs": [
+      "https://github.com/laekov", "/cv", "/not-easily-available", "/not-easily-available", "/not-easily-available", "/not-easily-available", "index.xml"
+  ]
+}
+</script>
+</head>
+
+<body class="list" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>BZOJ1845 [Cqoi2005] 三角形面积并
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>&lt;div class=&#34;post_brief&#34;&gt;&lt;p&gt; 比较基础的算几。当是hwd在wc的时候讲的东西拿来练练吧。（都过去多久了）&lt;/p&gt;  
+算几的板比较长。然后记得还有道半平面交精度题至今没过！？什么效率。
+ 
+这题的思路比较简单。找出所有的关键x，分段。每段内都是一堆边不相交的梯形，那么答案=∑(▵x*∑中位线并的长度)。总时间复杂度到了O(n3)。不过n才100显然可过。至于n等于1000的题暂时不会啊。我太弱了。
+ 
+然后这题也有神奇的精度误差，答案要-1e-7才能过。
+#include &lt;cstdio&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+const double eps = 1e-7; inline int sgn(double x) { return (x &gt; eps) - (x &lt; -eps); } inline double sqr(double x) { return x * x; }
+typedef struct geo_obj { double x, y; inline geo_obj() {} inline geo_obj(double x0, double y0) { x = x0, y = y0; } inline void read() { scanf(&#34;%lf%lf&#34;, &amp;x, &amp;y); } } point, vect; inline geo_obj operator &#43;(const geo_obj&amp; a, const geo_obj&amp; b) { return geo_obj(a....</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-02-22 21:48:41 +0000 UTC'>February 22, 2015</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to BZOJ1845 [Cqoi2005] 三角形面积并" href="/oi/i11rimport_038/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>BZOJ2342 [Shoi2011]双倍回文
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>&lt;div class=&#34;post_brief&#34;&gt;&lt;p&gt; 久了不写manacher又手生了只好抄红书了。&lt;/p&gt;  
+后面的过程就是对每个位置i找一个最远的位置j满足j在i为中心的回文子串的一半以内且j最小。然后直接拿个set就能搞定。
+ 
+#include &lt;cstdio&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; #include &lt;set&gt; using namespace std;
+const int maxn = 500009;
+char a[maxn]; int d[maxn &lt;&lt; 1], n;
+void manacher() { d[0] = 1; for (int i = 1, j = 0; i &lt; (n &lt;&lt; 1) - 1; &#43;&#43; i) { int p(i &gt;&gt; 1), q(i - p), r(((j &#43; 1) &gt;&gt; 1) &#43; d[j] - 1); if (r &lt; q) d[i] = 0; else d[i] = min(r - q &#43; 1, d[(j &lt;&lt; 1) - i]); while (p - d[i] &gt;= 0 &amp;&amp; q &#43; d[i] &lt; n &amp;&amp; a[p - d[i]] == a[q &#43; d[i]]) &#43;&#43; d[i]; if (q &#43; d[i] - 1 &gt; r) j = i; } }...</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-02-22 16:52:41 +0000 UTC'>February 22, 2015</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to BZOJ2342 [Shoi2011]双倍回文" href="/oi/i11rimport_039/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>BZOJ1040 [ZJOI2008]骑士
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>&lt;div class=&#34;post_brief&#34;&gt;&lt;p&gt; 多少年前的坑了。&lt;/p&gt;  
+用mac写的第一篇题解呢。
+ 
+环套树DP。先把树上的情况处理了，然后枚举取不取环上的第一个。
+ 
+要注意会有重边的情况，比较恶心。
+ 
+#include &lt;cstdio&gt; #include &lt;cctype&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+const int buf_len = 4000; char buf[buf_len], *bufb(buf), *bufe(buf &#43; 1); #define readBuf() { if (&#43;&#43; bufb == bufe) bufe = (bufb = buf) &#43; fread(buf, 1, sizeof(buf), stdin); } #define readInt(x) { register int s(0); do { readBuf(); } while (!isdigit(*bufb)); do { s = s * 10 &#43; *bufb - 48; readBuf(); } while (isdigit(*bufb)); x = s; }...</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-02-22 11:48:41 +0000 UTC'>February 22, 2015</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to BZOJ1040 [ZJOI2008]骑士" href="/oi/i11rimport_040/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>BZOJ1017 [JSOI2008]魔兽地图DotR
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>&lt;div class=&#34;post_brief&#34;&gt;&lt;p&gt; 数据水。填坑。语文阅读题，看到都不想做。&lt;/p&gt;  
+就一树形dp。f[i][j][k]表示第i个物品，上供j个，花k块钱的代价。背包转移是O(m2)的，因为是一棵树所以转移次数是O(n)的，但是还要考虑j最大为100。一个技巧是合并完所有的东西之后再考虑把上供的烧掉。虽然这样的复杂度还是有点高。
+ 
+毕竟我还是太弱啊，居然又花了一个上午。（虽然睡到十点）
+ 
+#include &lt;cstdio&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+struct edge { int t, v; edge *next; };
+const int maxm = 2009; const int maxn = 53; const int maxa = 103;
+int n, m, f[maxn][maxa][maxm], ans[maxm], vl[maxn], vmax[maxn]; bool lf[maxn], ir[maxn]; edge elst[maxn], *ep(elst), *head[maxn];
+inline void addEdge(int u, int v, int w) { ep-&gt; t = v; ep-&gt; v = w; ep-&gt; next = head[u]; head[u] = ep &#43;&#43;; }...</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-02-21 12:41:41 +0000 UTC'>February 21, 2015</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to BZOJ1017 [JSOI2008]魔兽地图DotR" href="/oi/i11rimport_041/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>BZOJ2331 [SCOI2011]地板
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>&lt;div class=&#34;post_brief&#34;&gt;&lt;p&gt; 插头DP的基础题。想插头DP都是将军没走的时候给我讲的了，距今有大半年了吧。mhy已经写了无数道了，我才开始写。唉，还是效率太低。&lt;/p&gt;  
+插头DP的意思是把已经处理的部分的轮廓线上对后面状态有影响的东西状压下来，然后挨着处理每个格子的状态（比如方向，或者这里的地板怎么铺之类的）。
+ 
+具体到这道题来说，考虑一个相邻格子之前的边，那么它可能没有连接两个相同的磁砖，有可能连接了两个还没有拐过弯的磁砖，有可能连接了两个已经拐过弯的磁砖，一共是3种情况，所以用一个三进制数把它压下来。然后直接一路转移过去就行了。要注意的是每行都处理完了之后要把最边上的那一条从右移动到左，所以还需要把所有的状态都改一下。
+ 
+今天效率比较低，心不在焉，然后在最后一个转移的地方wa了大半天。插头DP的调试也比较麻烦。所以我还是naive。
+ 
+#include &lt;cstdio&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+const int maxn = 13; const int maxa = 109; const int maxs = 200009; const int mod = 20110520;
+bool mp[maxa][maxa]; int n, m, a[maxn], b[maxn], f[2][maxs];
+#define fc f[cur] #define fp f[prv] #define doNothing ; inline void mInc(int&amp; a, int b) { a &#43;= b; if (a &gt;= mod) a %= mod; }...</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-02-20 17:20:41 +0000 UTC'>February 20, 2015</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to BZOJ2331 [SCOI2011]地板" href="/oi/i11rimport_042/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>BZOJ3769 SPOJ8549 BST again
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>&lt;div class=&#34;post_brief&#34;&gt;&lt;p&gt; 什么鬼。&lt;/p&gt;  
+很好想的dp。f[i][j]表示深度不超过i且大小为j的二叉树的个数。转移是f[i][j] = ∑(f[i - 1][k] * f[i - 1][j - k - 1])。
+ 
+然后直接暴力是O(n3)的。在spoj上能过在bzoj上不能过。在bzoj上得用记忆化搜索来减掉一些无用的东西。虽然我觉得很烦。
+ 
+然后试图用fft，发现fft比暴力还慢。然后试图用fnt，然后发现fnt好像不能对1e9&#43;7这种质数用。因为1e9&#43;6只有来一个2。真悲伤。我还是太弱啊。
+ 
+#include &lt;cstdio&gt; #include &lt;cstring&gt; #include &lt;cmath&gt; #include &lt;algorithm&gt; using namespace std;
+const int maxn = 609; const int mod = 1000000007;
+#define _l (long long int)
+int f[maxn][maxn];
+int getf(int i, int j) { if (i == 0) return j &lt;= 1; else if (j == 0) return 1; else if (f[i][j] == -1) { f[i][j] = 0; for (int k = 0; k &lt; j; &#43;&#43; k) f[i][j] = (f[i][j] &#43; _l getf(i - 1, k) * getf(i - 1, j - k - 1)) % mod; } return f[i][j]; }...</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-02-16 22:16:41 +0000 UTC'>February 16, 2015</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to BZOJ3769 SPOJ8549 BST again" href="/oi/i11rimport_044/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>BZOJ3105 [cqoi2013]新Nim游戏
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>&lt;div class=&#34;post_brief&#34;&gt;&lt;p&gt; 今天wc讲的题。主要其实是用拟阵来证明贪心的正确性。就构造一下就好了。不选的集合构成一个拟阵的基，如果基不能异或出0就是线性无关的。然后按照拟阵的贪心方法挨个加。&lt;/p&gt;  
+策略是从大到小排个序能不选就不选，用异或消元来判断一下就好了。许久没有写了，还好没有搞忘。
+ 
+代码还是比较短的，开心ing。
+ 
+#include &lt;cstdio&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+typedef long long dint; #ifdef WIN32 #define lld “%I64d” #else #define lld “%lld” #endif #define _l (long long int)
+const int maxn = 109;
+int n, a[maxn], b[maxn], c[maxn], t; dint s;
+bool hasZero() { for (int i = 0; i &lt; t; &#43;&#43; i) b[i] = c[i]; for (int i = 31, j = 0; i &gt;= 0 &amp;&amp; j &lt; t; – i) { for (int k = j; k &lt; n; &#43;&#43; k) if ((b[k] &gt;&gt; i) &amp; 1) { swap(b[k], b[j]); break; } if ((b[j] &gt;&gt; i) &amp; 1) { for (int k = j &#43; 1; k &lt; n; &#43;&#43; k) if ((b[k] &gt;&gt; i) &amp; 1) { b[k] ^= b[j]; if (!...</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-02-09 21:57:41 +0000 UTC'>February 9, 2015</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to BZOJ3105 [cqoi2013]新Nim游戏" href="/oi/i11rimport_050/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>BZOJ1453 [Wc]Dface双面棋盘
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>&lt;div class=&#34;post_brief&#34;&gt;&lt;p&gt; 有离线镜像还是能省不少流量。开心。不过流量还是用得飞快啊。&lt;/p&gt;  
+这就是个cdq重构的题。学习了前几天xyz大爷讲的扔线段树的做法，省了不少代码。
+ 
+#include &lt;cstdio&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+struct node { int v, c; node *next; }; struct seg { int l, r; node *head; seg *ls, *rs; };
+const int maxa = 209; const int maxn = 40009; const int maxm = 10009; const int maxnd = maxn * 23; const int mov[4][2] = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};...</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-02-07 15:07:41 +0000 UTC'>February 7, 2015</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to BZOJ1453 [Wc]Dface双面棋盘" href="/oi/i11rimport_052/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>HDU5173 GTY&#39;s game II
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>&lt;div class=&#34;post_brief&#34;&gt;&lt;p&gt; bc的题。今天bc又挂了。这题没有写完，然后b题fst了。伤心啊。&lt;/p&gt;  
+其实思路比较简单。直接链剖dfs序上把所有区间找出来swap就好了。不过代码实现起来还是比较麻烦的，很容易绕晕。加上smt久了没写手生了，于是就调了一晚上。唉，我还是太年轻了。
+ 
+#include &lt;cstdio&gt; #include &lt;cstdlib&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+struct node { int v, s, sz, w, rv; node ls, rs; inline void update() { sz = 1; s = v; if (ls) { sz &#43;= ls-&gt; sz; s &#43;= ls-&gt; s; } if (rs) { sz &#43;= rs-&gt; sz; s &#43;= rs-&gt; s; } } inline void fix() { if (rv) { swap(ls, rs); if (ls) ls-&gt; rv ^= 1; if (rs) rs-&gt; rv ^= 1; rv = 0; } } }; typedef pair &lt;node, node&gt; npr;...</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-02-06 23:10:41 +0000 UTC'>February 6, 2015</span>&nbsp;·&nbsp;6 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to HDU5173 GTY&#39;s game II" href="/oi/i11rimport_054/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>BZOJ2642 Pku3968 Jungle Outpost
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>&lt;div class=&#34;post_brief&#34;&gt;&lt;p&gt; 看mhy写了好几天了啊。然后研究了一下，居然过得比他早。&lt;/p&gt;  
+首先敌人一定可以炸连续的一段。然后就是要看炸掉任意连续一段之后还有没有剩下的公共部分，既半平面交。
+ 
+然后我yy出了一个半平面交的做法。找出一条基准直线，按方向顺时针方向排序。然后按照正常半平面交的方法根据栈顶两个元素和当前直线的位置关系判断是否需要退栈。然后当找到一条与基准直线的角度大于等于π的直线（直线是有向的，也可以说是成负角）且它把栈里退到只剩基准直线一条的时候，这些半平面没有交。否则这些半平面有交。
+ 
+至于证明嘛，我也不会（挠头），毕竟是感受出来的。然后感觉这次代码写得比较漂亮，开心。
+ 
+#include &lt;cstdio&gt; #include &lt;cmath&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+inline double sqr(double x) { return x * x; }
+struct point { double x, y; inline point() {} inline point(double x0, double y0) { x = x0, y = y0; } inline void read() { scanf(&#34;%lf%lf&#34;, &amp;x, &amp;y); } }; struct vect { double x, y; inline vect() {} inline vect(double x0, double y0) { x = x0, y = y0; } inline vect(point a, point b) { x = b....</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-02-04 21:28:41 +0000 UTC'>February 4, 2015</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to BZOJ2642 Pku3968 Jungle Outpost" href="/oi/i11rimport_056/"></a>
+</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="prev" href="/page/22/">
+      «&nbsp;Prev&nbsp;
+    </a>
+    <a class="next" href="/page/24/">Next&nbsp;&nbsp;»
+    </a>
+  </nav>
+</footer>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>弱省互测 on The Site of laekov</title>
+    <link>/tags/%E5%BC%B1%E7%9C%81%E4%BA%92%E6%B5%8B/</link>
+    <description>Recent content in 弱省互测 on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Thu, 11 Jun 2015 20:03:25 +0000</lastBuildDate><atom:link href="/tags/%E5%BC%B1%E7%9C%81%E4%BA%92%E6%B5%8B/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>弱省互测Round5 Count</title>
+      <link>/oi/dbimport_275/</link>
+      <pubDate>Thu, 11 Jun 2015 20:03:25 +0000</pubDate>
+      
+      <guid>/oi/dbimport_275/</guid>
+      <description>这题我的做法不太一样.所以mark一下.首先我把题里的n和m看反了,所以下面的m和n都与原题里的m和n相反.
+首先考虑一行的方案.在不考虑顺序(即只考虑题中要求􏰍􏱫􏴈􏴉􏰕􏱫􏰍􏱫􏴈􏴉􏰕􏱫􏲙每个颜色个数这个条件一定时)的方案数.
+n是50,刚好可以正整数拆分,把n拆成不超过k个正整数时,可行的方案数为n! / c1! / c2! / &amp;hellip; / s1! / s2! / &amp;hellip;这个样子.其中cx表示正整数拆分中的第x个数(后面补0可以不管),s1表示第一种相同的cx的个数.
+其实就是说怎么把k个颜色分配到我拆分出的这些整数里.
+然后对于一种这样的方案的排列数也比较好求.
+然后就是求m行的情况.我的思考方法是先按上面固定顺序,再乘m!.其实这样有问题虽然我没出事.也有可以补救的方法.
+上面拆出来的一种拆分,设它有t个不同的颜色分配方案,一种方案有c种排列.这里用一个类似于背包的转移,f[i] = f[j] + 一坨东西.
+这坨东西就是把(i - j)个方案按顺序排列的答案.(都叫方案啊好晕ovo)当然这里排列的话会用到判断t是否大于等于(i - j),但是t被模过ovoovo.我偷了个懒假设t如果被模过不会正好小到影响统计.果然也没有.
+其实也可以不去除,而是乘组合数吧.不过写起来好麻烦.
+咦写了这么多了.然而感觉还是没说清楚啊.ovoovo结合代码理解吧.</description>
+    </item>
+    
+  </channel>
+</rss>

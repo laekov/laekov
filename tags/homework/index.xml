@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>homework on The Site of laekov</title>
+    <link>/tags/homework/</link>
+    <description>Recent content in homework on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Sun, 22 Apr 2018 17:59:13 +0000</lastBuildDate><atom:link href="/tags/homework/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LIRS Plus</title>
+      <link>/technical/3e470a/</link>
+      <pubDate>Sun, 22 Apr 2018 17:59:13 +0000</pubDate>
+      
+      <guid>/technical/3e470a/</guid>
+      <description>最近在做一个 Cache 替换算法的 PA. 系统结构课.
+给的 Baseline 是 2010 年的一个 championship.
+看了看现在用得比较多的通用算法叫 LIRS.
+在 LIRS 基础上想方法优化.
+瞎搞的东西把单核 miss 率降低得有点 surprising.
+还没有更多的 benchmark 测试.
+感觉有点意思.</description>
+    </item>
+    
+    <item>
+      <title>人智作业展示, 手把手教写拼音输入法</title>
+      <link>/technical/fdd853/</link>
+      <pubDate>Sat, 14 Apr 2018 20:59:25 +0000</pubDate>
+      
+      <guid>/technical/fdd853/</guid>
+      <description>这篇讲义都是五笔打的
+laekov 2018.04.12
+Overview 作业要求 写一个拼音输入法, 一行一行地读拼音, 输出对应的汉语句子
+84: 两小时就能写完
+给出的数据 GBK编码的拼音-&amp;gt;汉字对应表 新浪新闻一年的文章 评分 基础2字模型 扩展3字模型 四字, 双词, 三词&amp;hellip; 需要写什么东西 拼音 2 汉字的 map 快速查找某个字/词词频的 map 估值函数和 infer 的算法 训练数据处理 最常用的16位编码是utf-8, 但是 Python 默认是 ASCII 的
+所以在程序第一行写上
+# -*- coding:utf-8 -*- Py 内部的 u&#39;一个字符串&#39; 可以用来表示 unicode 格式的字符串. 但是好像用不到.
+创建 pinyin to 汉字的 map 读 GBK 文件的最简单的方法 with open(&amp;#39;somefile.txt&amp;#39;, &amp;#39;r&amp;#39;, encoding = &amp;#39;gbk&amp;#39;) as f: for (lineno, content) in enumerate(f): dealWithALine(content) content 的格式 wo 窝 我 握 渥 (五笔党词穷了) python 自带分割 py2ch_map = {} def dealWithALine(c): d = c.</description>
+    </item>
+    
+  </channel>
+</rss>

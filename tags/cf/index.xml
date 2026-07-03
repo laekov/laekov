@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>cf on The Site of laekov</title>
+    <link>/tags/cf/</link>
+    <description>Recent content in cf on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Sun, 01 Mar 2015 23:29:41 +0000</lastBuildDate><atom:link href="/tags/cf/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>20150302</title>
+      <link>/diary/i11rimport_022/</link>
+      <pubDate>Sun, 01 Mar 2015 23:29:41 +0000</pubDate>
+      
+      <guid>/diary/i11rimport_022/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 算是新学期开始的第一天吧。&amp;lt;/p&amp;gt; &amp;nbsp;
+上午写了道水题，然后开始纠结插头。一上午都没有写出一道插头来。
+&amp;nbsp;
+下午有cf。状态还是和昨天一样比较差。写挫了好多次。各种WA一时爽还导致罚时很多。
+&amp;nbsp;
+第一题逗你玩。就看最多的字母有几种。然后乘一下都不用快速幂，虽然我顺手就写了一个。已经不会用非快速幂了么。
+&amp;nbsp;
+第二题用map来存位置，然后用两个堆搞一下就完了。可以证明状态变化量是线性的所以不会出事。
+&amp;nbsp;
+第三题逗你玩。每个位置在第j位的贡献可以用组合数算出来。然后用前缀和就行。然后各种细节导致WA傻了。
+&amp;nbsp;
+后面两道神题不可做。
+&amp;nbsp;
+ORZ xyz大爷。然后看到jcvb又在我上面很近的地方。
+&amp;nbsp;
+晚上写了道水题继续纠结插头，一直纠结到回家终于在11:05:56的时候过了。开心中。
+&amp;nbsp;
+看来还是就怕写长代码啊。怎么能这样呢。
+&amp;nbsp;
+看来我还是太年轻了。</description>
+    </item>
+    
+    <item>
+      <title>20150218 CF292</title>
+      <link>/diary/i11rimport_043/</link>
+      <pubDate>Tue, 17 Feb 2015 03:42:41 +0000</pubDate>
+      
+      <guid>/diary/i11rimport_043/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 凌晨的cf到底算头天的还是当天的是个严重的问题。理论上说应该用睡觉作为两天的分界线啊。那万一今天我心情好不睡觉了怎么办。&amp;lt;/p&amp;gt; &amp;nbsp;
+虽然我还是太弱。弃b保c暴手速抢到了一个rank22，于是直接从紫变橙了。
+&amp;nbsp;
+a题是个简单的贪心，把阶乘拆成2,3,5,7的幂的乘积，然后按7532的顺序贪心。至于为啥是对的不知道。
+&amp;nbsp;
+b题是个简单的贪心，找有没有度数为1的点，然后一直这样连下去看能不能连完。至于为啥是对的不知道。
+&amp;nbsp;
+c题是个简单的线段树，把区间复制一倍然后推个简单的式子每次只询问不修改。
+&amp;nbsp;
+d题e题神题不会完全没思路放弃了。然后发现jcvb和xyz111都过了d，看代码像是虚树一样的玩意？没懂。明天去看题解。
+&amp;nbsp;
+所以有两道题都是凭感觉蒙对的么？太神奇了。
+&amp;nbsp;
+然后今天只交了3次，比较欣慰，说明代码状态好些了。
+&amp;nbsp;
+虽然我还是太年轻。</description>
+    </item>
+    
+  </channel>
+</rss>

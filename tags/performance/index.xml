@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>performance on The Site of laekov</title>
+    <link>/tags/performance/</link>
+    <description>Recent content in performance on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Mon, 20 Dec 2021 22:14:48 +0000</lastBuildDate><atom:link href="/tags/performance/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Assetto Corsa G值球只有半个 bug 修复</title>
+      <link>/technical/dadc0a/</link>
+      <pubDate>Mon, 20 Dec 2021 22:14:48 +0000</pubDate>
+      
+      <guid>/technical/dadc0a/</guid>
+      <description>laekov 最近在玩 assetto corsa 并试图学习循迹刹车, 因此需要一个加速度轨迹显示插件. 在 GitHub 上发现了一个上古仓库 竟然还能用, 但是卖家秀是
+而 laekov 这里是
+为啥参考线只剩小半个了？？？
+由于 assetto corsa 的插件都是 python, 于是 laekov 愉快地看起了代码, 并发现了如下一段.
+def drawCircumference(self, radius, center): ac.glBegin(1) nlines = max(4, int(100.*radius)) for i in range(nlines+1): x, y = self.gPlotter.plotG(center[&amp;#39;x&amp;#39;] + (sin(2*pi*i/nlines)*radius), center[&amp;#39;z&amp;#39;] + (cos(2*pi*i/nlines)*radius)) ac.glVertex2f(x, y) ac.glEnd() 大胆猜想是 python 或者 ac.gl 性能不足以支撑在一个渲染周期内画完整个圆. 于是想找一个 native 的 circle 的 api. 然而翻阅了一下上古的 python plugin document (竟然还是 google docs) 发现 ac 的 gl 只支持画点和多边形 (挠头).</description>
+    </item>
+    
+  </channel>
+</rss>

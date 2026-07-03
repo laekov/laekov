@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>paper on The Site of laekov</title>
+    <link>/tags/paper/</link>
+    <description>Recent content in paper on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Mon, 09 Jul 2018 11:38:28 +0000</lastBuildDate><atom:link href="/tags/paper/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>DyNet 论文笔记</title>
+      <link>/technical/e51049/</link>
+      <pubDate>Mon, 09 Jul 2018 11:38:28 +0000</pubDate>
+      
+      <guid>/technical/e51049/</guid>
+      <description>DYNET 1701.03980
+ABS cpp backend
+lw graph representation
+Problems easier debugging / maintaining large proj. express naturally Static vs Dynamic static pre-written model transfered to computation graph
+graph can be well optimized
+cannot deal with variable input size. NLP RNN
+cannot deal with variable input structure. Tree NN, Graph NN
+hard for complex flow-contronl logic (interface design)
+nontrivial interface.
+debug difficulty during execution
+dynamic do computation on the fly
+can be expensiveo flow control and variable sized inputs are in host language (python?</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>divide on The Site of laekov</title>
+    <link>/tags/divide/</link>
+    <description>Recent content in divide on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Fri, 21 Nov 2014 21:42:33 +0000</lastBuildDate><atom:link href="/tags/divide/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>BZOJ1176 [Balkan2007]Mokia</title>
+      <link>/oi/lofterimport_081/</link>
+      <pubDate>Fri, 21 Nov 2014 21:42:33 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_081/</guid>
+      <description>cdq分治第一题。
+最近的主题是数据结构，这玩意应该也算一种和莫队一样厉害的黑暗大法吧。有些需要你把在线写得足够厉害的题可以用这玩意来水。
+写起来很像归并排序，按时间分治，然后再按某个坐标之类的玩意归并一下，归并的时候像求逆序对一样做，计算一边对另一边的贡献，顺便用点啥数据结构维护一下之类的。
+这题有点像上帝造题七分钟。不过w的范围显然不是让你写二维树状数组。感觉那题可以用cdq水过，不过cdq好像不能用简单的二维树状数组，至少要动态一下啥的，然后空间就bye了。
+这题就是按x排序查询y。课件上的原题。
+另外依然不会迗代，还是写的递归。（找到了fft的感觉）
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cctype&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+typedef long long qw;
+#ifdef WIN32
+#define lld &amp;quot;%I64d&amp;quot;
+#else
+#define lld &amp;quot;%lld&amp;quot;
+#endif
+struct query {
+int t, x, y, v;
+inline query(int t0 = 0, int x0 = 0, int y0 = 0, int v0 = 0)&amp;nbsp;{
+t = t0, x = x0, y = y0, v = v0;
+}
+};</description>
+    </item>
+    
+  </channel>
+</rss>

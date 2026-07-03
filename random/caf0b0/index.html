@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>北京骑行路线及爬坡大赏 | The Site of laekov</title>
+<meta name="keywords" content="cycling, brainhole">
+<meta name="description" content="本文及图片版权归 laekov 所有, 谢绝转载
+前言, 符号及约定 本文总结了 aoao 骑过的北京周边的骑行路线, 以爬山为主. 对于坡度的描述可参考如下列表.
+超缓: 坡度不超过 3%. 缓坡: 3-5% 普通: 不太缓也不太陡, 没有给 aoao 留下深刻印象. 陡: 7% 及以上. 对于坡度, 难度和风景好坏的评价较为主观, 且受到当时季节, 天气, 状态等影响. aoao 本人偏好不缓的爬坡, 不喜缓上缓下和平路. 喜欢壮丽的高山大川景象, 对人文风光 (比如寺庙) 没有兴趣.
+故请谨慎参考本文的内容. 欢迎在评论区讨论批评指正.
+本文配图使用的脚本开源在 GitHub, 主要使用 Matplotlib. 有能力的看官可以自行使用脚本绘制自己的轨迹.
+西边和北边群山, 以及市区 国道, 省道的坡度多半不会超过 10%, 多数在 5% 左右. 路面通常为柏油路, 可以放心前往. 但乡道, 防火道等的坡度和路况就很难有保障了.
+(0) 清华大学新民路大坡 搞笑的
+西边系列 以 108, 109 两条国道为主线展开. 国道本身较平, 向西缓上. 其间有众多支线, 包含了很多大小爬坡.
+(1) 灵山 北京公路爬坡最高峰 (指绝对海拔), 长度约 20km, 最高海拔快到 2k.">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/random/caf0b0/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="北京骑行路线及爬坡大赏" />
+<meta property="og:description" content="本文及图片版权归 laekov 所有, 谢绝转载
+前言, 符号及约定 本文总结了 aoao 骑过的北京周边的骑行路线, 以爬山为主. 对于坡度的描述可参考如下列表.
+超缓: 坡度不超过 3%. 缓坡: 3-5% 普通: 不太缓也不太陡, 没有给 aoao 留下深刻印象. 陡: 7% 及以上. 对于坡度, 难度和风景好坏的评价较为主观, 且受到当时季节, 天气, 状态等影响. aoao 本人偏好不缓的爬坡, 不喜缓上缓下和平路. 喜欢壮丽的高山大川景象, 对人文风光 (比如寺庙) 没有兴趣.
+故请谨慎参考本文的内容. 欢迎在评论区讨论批评指正.
+本文配图使用的脚本开源在 GitHub, 主要使用 Matplotlib. 有能力的看官可以自行使用脚本绘制自己的轨迹.
+西边和北边群山, 以及市区 国道, 省道的坡度多半不会超过 10%, 多数在 5% 左右. 路面通常为柏油路, 可以放心前往. 但乡道, 防火道等的坡度和路况就很难有保障了.
+(0) 清华大学新民路大坡 搞笑的
+西边系列 以 108, 109 两条国道为主线展开. 国道本身较平, 向西缓上. 其间有众多支线, 包含了很多大小爬坡.
+(1) 灵山 北京公路爬坡最高峰 (指绝对海拔), 长度约 20km, 最高海拔快到 2k." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/random/caf0b0/" /><meta property="article:section" content="random" />
+<meta property="article:published_time" content="2022-03-10T08:32:48+00:00" />
+<meta property="article:modified_time" content="2022-03-10T08:32:48+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="北京骑行路线及爬坡大赏"/>
+<meta name="twitter:description" content="本文及图片版权归 laekov 所有, 谢绝转载
+前言, 符号及约定 本文总结了 aoao 骑过的北京周边的骑行路线, 以爬山为主. 对于坡度的描述可参考如下列表.
+超缓: 坡度不超过 3%. 缓坡: 3-5% 普通: 不太缓也不太陡, 没有给 aoao 留下深刻印象. 陡: 7% 及以上. 对于坡度, 难度和风景好坏的评价较为主观, 且受到当时季节, 天气, 状态等影响. aoao 本人偏好不缓的爬坡, 不喜缓上缓下和平路. 喜欢壮丽的高山大川景象, 对人文风光 (比如寺庙) 没有兴趣.
+故请谨慎参考本文的内容. 欢迎在评论区讨论批评指正.
+本文配图使用的脚本开源在 GitHub, 主要使用 Matplotlib. 有能力的看官可以自行使用脚本绘制自己的轨迹.
+西边和北边群山, 以及市区 国道, 省道的坡度多半不会超过 10%, 多数在 5% 左右. 路面通常为柏油路, 可以放心前往. 但乡道, 防火道等的坡度和路况就很难有保障了.
+(0) 清华大学新民路大坡 搞笑的
+西边系列 以 108, 109 两条国道为主线展开. 国道本身较平, 向西缓上. 其间有众多支线, 包含了很多大小爬坡.
+(1) 灵山 北京公路爬坡最高峰 (指绝对海拔), 长度约 20km, 最高海拔快到 2k."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Randoms",
+      "item": "/random/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "北京骑行路线及爬坡大赏",
+      "item": "/random/caf0b0/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "北京骑行路线及爬坡大赏",
+  "name": "北京骑行路线及爬坡大赏",
+  "description": "本文及图片版权归 laekov 所有, 谢绝转载\n前言, 符号及约定 本文总结了 aoao 骑过的北京周边的骑行路线, 以爬山为主. 对于坡度的描述可参考如下列表.\n超缓: 坡度不超过 3%. 缓坡: 3-5% 普通: 不太缓也不太陡, 没有给 aoao 留下深刻印象. 陡: 7% 及以上. 对于坡度, 难度和风景好坏的评价较为主观, 且受到当时季节, 天气, 状态等影响. aoao 本人偏好不缓的爬坡, 不喜缓上缓下和平路. 喜欢壮丽的高山大川景象, 对人文风光 (比如寺庙) 没有兴趣.\n故请谨慎参考本文的内容. 欢迎在评论区讨论批评指正.\n本文配图使用的脚本开源在 GitHub, 主要使用 Matplotlib. 有能力的看官可以自行使用脚本绘制自己的轨迹.\n西边和北边群山, 以及市区 国道, 省道的坡度多半不会超过 10%, 多数在 5% 左右. 路面通常为柏油路, 可以放心前往. 但乡道, 防火道等的坡度和路况就很难有保障了.\n(0) 清华大学新民路大坡 搞笑的\n西边系列 以 108, 109 两条国道为主线展开. 国道本身较平, 向西缓上. 其间有众多支线, 包含了很多大小爬坡.\n(1) 灵山 北京公路爬坡最高峰 (指绝对海拔), 长度约 20km, 最高海拔快到 2k.",
+  "keywords": [
+    "cycling", "brainhole"
+  ],
+  "articleBody": "本文及图片版权归 laekov 所有, 谢绝转载\n前言, 符号及约定 本文总结了 aoao 骑过的北京周边的骑行路线, 以爬山为主. 对于坡度的描述可参考如下列表.\n超缓: 坡度不超过 3%. 缓坡: 3-5% 普通: 不太缓也不太陡, 没有给 aoao 留下深刻印象. 陡: 7% 及以上. 对于坡度, 难度和风景好坏的评价较为主观, 且受到当时季节, 天气, 状态等影响. aoao 本人偏好不缓的爬坡, 不喜缓上缓下和平路. 喜欢壮丽的高山大川景象, 对人文风光 (比如寺庙) 没有兴趣.\n故请谨慎参考本文的内容. 欢迎在评论区讨论批评指正.\n本文配图使用的脚本开源在 GitHub, 主要使用 Matplotlib. 有能力的看官可以自行使用脚本绘制自己的轨迹.\n西边和北边群山, 以及市区 国道, 省道的坡度多半不会超过 10%, 多数在 5% 左右. 路面通常为柏油路, 可以放心前往. 但乡道, 防火道等的坡度和路况就很难有保障了.\n(0) 清华大学新民路大坡 搞笑的\n西边系列 以 108, 109 两条国道为主线展开. 国道本身较平, 向西缓上. 其间有众多支线, 包含了很多大小爬坡.\n(1) 灵山 北京公路爬坡最高峰 (指绝对海拔), 长度约 20km, 最高海拔快到 2k. 坡度普通, 风光壮丽, 前段爬坡为树林和峡谷崖壁, 后段行进在高山草甸之间.\n(2) 241 省道爬坡 灵山爬坡绕圈路线的第二个坡, 在河北境内. 长约 5km, 风景坡度普通, 但可以体验河北道路与北京不同之风格.\n(3) 109 国道-省界坡 灵山爬坡绕圈的第三个坡, 可回到灵山爬坡起点. 自西向东爬坡比放坡短一些. 风景忘了.\n(4) 109 到野三坡的坡 可由此从 109 穿越到 108 国道, 从而完成 809 绕圈. 坡本身只有三五公里, 坡度较缓. 自北向南下坡是缓下, 很长.\n(5) 百花山 109 侧爬坡 前缓后陡, 陡段长约 5km. 风景普通. 山顶是景区大门.\n(6) 108 省界爬坡 (到蒲洼) 自西向东爬坡长达十多公里, 中间会过一些有意思的桥. 接近坡顶的路段视野开阔. 下坡风景普通, 但会经过某红色博物馆.\n(7) 蒲洼乡道 先缓后陡, 总长度约 20km, 爬升约 1k. 后段在山崖上绕行, 风景尤美且壮阔. 坡顶即 108 国道.\n(8) 红井路 南坡有秀丽的连续发卡弯, 是网红打卡圣地. 长度不长, 坡度普通, 除了发卡弯以外较为普通, 也就是山顶的烤红薯比较香了.\n(9) 六石路 连接十渡与 108 的另一条山路, 可与红井或蒲洼组成绕圈. 自南向北爬坡长约 20km, 爬升约 1k. 下山较短.\n(10) 幽州峡谷 在河北境内, 有网红壁挂公路, 路况极烂, 公路车需要一定技术与胆量来通行, 但很有越野乐趣. 自北向南缓下.\n(11) 沿河城南边的爬坡 一个平平无奇的几公里小坡.\n(12) 大安山 先缓后陡, 陡段坡度也不陡, 几公里长. 半路上有一个变形金刚巨型模型以及汽车运动公园. 可以在寺上公交站处往更高的山上爬, 有坡度超 10% 的一大段陡坡.\n(13) 横岭 从河北宫厅水库向南进入北京的一条山路. 北段坡度普通, 长度大概 10km, 颇有塞上之感, 风景与北京境内的爬坡风格甚为不同. 向南放坡为缓下, 会路过一个叫镇边城的小村子.\n(14) 南石洋大峡谷 从北向南缓下, 有神奇的峡谷风光. 路况差, 但比幽州峡谷好一点.\n(15) 大村 北京经典爬坡绕圈东大高的一部分, 自南向北七八公里, 坡度略缓. 春天会开花.\n(16) 白羊沟 自东向西十多公里, 爬升八百多, 坡度普通偏陡, 有一小段很险的连续发卡弯. 自西向东是缓上, 无聊.\n(17) 高崖口 自东向西长约 20km, 爬升接近一千, 山顶 3km 处山势变险, 可以远眺昌平.\n(18) 菩萨鹿 “山” 字形的三个坡, 爬升大几百, 坡度很缓, 无聊.\n(19) 车神殿 菩萨鹿上的一个小支路, 去往一个庙, 先下后上各 2km, 路烂且陡.\n(20) 东方红隧道 入门好坡, 3km 坡度在 3-9% 之间变化. (主要是离市区比较近)\n(21) 千军台 超长超缓坡, 终点是一处废弃煤矿, 但不让进. 终点前有一小段陡坡. 没什么风景.\n(22) 松树岭(隧道) 108 国道上和戒台寺类似的小坡, 西向东比东向西更长一点, 大概 4km.\n(23) 禅房 从东方红坡底右拐上山, 先是好几公里漂亮的柏油路, 然后是好几公里很窄的乡渞, 且坡度变陡. 山顶部分是起伏路, 在悬崖上, 可眺望群山, 适合拍照.\n(24) 妙峰山 北京最经典的爬坡, 前 7km 缓坡, 后 13km 较陡. 在 60 分钟内登顶是业余选手爬坡实力的象征. 但其实风景一般. 中间有弯道咖啡可以休息, 夏天可以在水站接山泉水. 涧沟村可以吃饭. (过于熟悉不做更多介绍了)\n(25) 阳台山 (这是 aoao 在西边最喜欢的山) 从涧沟村玫瑰谷大门处右转上山, 长约 7km, 爬升比妙更多, 坡度一度很陡, 但中间有一段下坡. 爬坡后段转变为高山草甸, 在一些回头弯处有观景台, 可以眺望海淀北部区域, 甚至能看到首都机场. 需要注意在一些季节的一些时段需要买门票进入, 花费 20 元. 在妙峰山坡顶前的大拐弯处也有一条废弃的盘山路可达山顶, 但该路已毁于塌方, 部分路段被土石覆盖.\n(26) 潭王路 “小老鼠” 路线所经过的另一经典爬坡, 连接 108 和 109 国道. 两侧均长度约 10km, 坡度普通, 某些季节风景不错. 弯道较少, 可以放坡放很快.\n(27) 定都阁 从潭王路旧线往前可上, 有一段非常陡的防火道. 向东下山是土路, 不建议公路车尝试.\n(28) 戒台寺 非常入门的缓坡, 赛段从石门营环岛开始, 长约 5km.\n(63) 双大路 一条新路, 目前车比较少, 东西两边都可以爬坡, 坡顶是两个隧道和中间的一段起伏路. 其中东侧先是三公里缓上, 然后是约十公里均匀不陡的坡, 在山崖上架了很多很高的桥, 非常壮观, 非常基建狂魔.\n(64) 珠窝/碣石村 从西北向东南是一段五公里多的烂路爬坡, 水泥路面风化严重, 有很多碎石, 对公路车比较极限, 但坡度不太陡. 东南坡路况稍微好一点, 上面一段也是水泥路,下面是沥青路.\n北边系列 向北通常沿 g6 京藏高速出城. (如果开车建议走 g7 京新, 路宽车少) 去东边也可以沿安四路出城\n(29) 水关长城 从北往南似乎有时候会封路, 只有自行车能骑. 几公里坡度适中的坡, 爬起来比较舒适. 放坡会放到八达岭爬坡半路上, 会路过长城.\n(30) 八达岭 沿 g6 一路爬, 十多公里, 坡度较缓, 除了中途可以看到长城以外没什么风景. 坡顶要么过一个巨长的隧道, 要么走景区里穿过去.\n(31) 京银路 (110国道) 也是 g7 出城方向的一部分. 大概 10km, 比较缓, 没什么风景, 有时候大车略多.\n(32) 大科庄 从铁炉村向西爬坡, 先缓后陡, 陡的部分大概不到十公里. 接近山顶的部分有一个广场, 视野还算开阔. 放坡不长, 会放到京银路上.\n(33) 双龙山 一段 2km 平均 10% 的坡, 在山谷里, 车比较少, 是一个挑战 8848 的好地方. 半路有一个口, 可以上一个巨陡的小道, 有几公里, 在上面的回头弯可以眺望到市区.\n(34) 铁炉村 从南边到铁炉村的一段烂路, 坡陡超过 10% 有大概 2km. 会经过一个小城门楼子. 然后树荫会挡住路, 别有风情.\n(35) 大梁西 烂路陡坡, 大概四五公里, 然后会在山里穿行到铁炉西边, 下坡路也超烂. 从解字石爬坡半道拐进去.\n(36) 解字石 京北常见爬坡, 从南到北爬坡是几公里起伏路加 7km 较陡的坡. 下坡分成两截. 陡段可以从上往下看, 还不错. 山顶有一个适合合影的台子.\n(37) 永宁南边的坡 无名坡, 从南到北先缓后陡, 有快十公里. 北边放坡也差不多长. 每次骑到这都很累了, 无心看风景.\n(38) 台自沟村爬坡 在上一个坡坡顶新修的一条水泥村道, 比较陡, 弯多且急, 有趣.\n(39) 燕山天池 从南往北前身白河堡水库, 大概 5km 普通陡的坡, 坡顶有个亭子可以俯览水库.\n(40) 刘干路 无名坡, 几公里, 不陡, 南往北上坡没风景, 下坡比较缓.\n(41) 百里画廊 经典骑游路线, 几十公里大平路, 西向东缓下, 很多人都觉得风景不错.\n(42) 仓米古道 百里画廊半路下车的坡, 三四公里长, 北往南坡略陡, 弯急, 路很好看. 放坡之后是一段很要命的长缓上 (南往北就是缓下了).\n(43) 永四 永宁到四海的路, 和百里画廊平行, 可绕圈. 大概 20km 的西向东缓上, 似乎很经典.\n(44) 四海南边的坡 (安四路) 南向北先缓后陡, 陡的大概有 5km 急弯, 北坡比较短. 南边山角有一家网红骑行咖啡馆, 贵. 跑山的汽车和摩托有时候比较多.\n(45) 分水岭村 连接解字石山谷和九渡河山谷的一条路, 从东向西 先是两公里坡, 然后快进村的地方有一段几百米超过 10% 的陡坡, 非常考验毅力, 经常有人推车. 但由于疫情封村, 目前只能从南边一条小路绕, 失去了原来的乐趣.\n(46) 黑山寨 南向北四公里先缓后陡的坡, 最陡差不多有 10%. 进山必经之路之一, 山顶有个观景台, 下山会经过火车路线.\n(47) 十三陵水库绕圈 入门经典起伏路, 一圈十多公里, 是玄铁(铁人三项)比赛自行车路线.\n(48) 蟒山 前往景区的断头路, 七公里三百米爬升, 是一些比赛路线. 水泥路路面比较烂. 山顶有个池子 (天池), 不过目前不让进了.\n(49) 慈悲峪 安四路北上路线, 南往北快十公里坡, 巨缓, 无聊. 北坡只有三公里, 坡度适中.\n(50) 大杨山 (百合村) 南向北也是大缓坡, 到百合村后折向西南到慈悲峪半路上, 稍陡一些.\n(51) 东北口关 京北的神. 西向东先一段缓坡, 然后 4km 在 10% 左右的坡. 不管是上还是下, 都不会有精力看风景. 东侧略缓, 视野开阔.\n(52) 范崎路 南向北有两段 10km 左右中等坡, 中间是 2km 小下坡, 有一个神奇的 270 度转弯. 第一段爬坡路边有很多农家乐, 第二段是普通的山. 再往北是缓下, 到 234 国道.\n(53) 神堂峪 和范崎路同起点, 去景区的一段无聊小坡.\n(54) 白河峡谷 234 国道的一段, 从 111 国道到密云水库, 爬升也是山字型三个坡, 类似菩萨鹿. 一些地方视野巨好, 可以看到几百米山下的河. 但也有一些比较长的没灯的隧道, 建议带前灯.\n(55) 环密云水库 起伏路, 100km 爬升 1k, 有一些好看的景区, 如不老屯大锅盖, 水库大坝拍日落也不错.\n市区 (56) 昆玉河 晨练专用线路 (因为离五道口近), 往返 12km 无红绿灯, 有一些上下隧道起伏.\n(57) 长安街 经典路线. 赛段是从复兴门到建国门 (或反向, 或往返). 问题是有红绿灯.\n(58) 奥园 夜骑团练绕圈路线, 6km 一圈. 西北东三面无红绿灯, 北侧两个角有两处起伏.\n(59) 温榆河绿道 沿河的休闲路线, 路况较差, 车多, 但没有红绿灯.\n(60) 凤凰岭 车协迎新经典路线, 终点处有一个几百米的小坡.\n(61) 七王坟 田间小坡, 长约 2km, 最后一小段坡度超 10%, 有很多减速带, 很要命.\n(62) 大觉寺后山 防火道, 一些路段较陡, 通往一些山地路线.\n没有在图上画出来 / 没骑过的已知路线 草原天路 太远了 慕田峪 四海南边坡的支路, 三公里普通坡, 开后援车去过一次后没有再去一次的想法. 园博园绕圈 市西的团练路线, 太远了. 金海湖铁三绕圈 退赛了, 没骑. 百花山108侧 更新 2022 因为懒得更新图所以就打字了.\n北边的山 海陀山/松山 一个十多公里的大坡, 坡度适中, 从一个水库底下一路爬到北京河北交界处, 俯看官厅水库(但是有点远), 会从京礼高速底下经过. 山顶附近风景绝赞. 另有一条岔路可爬到雪游龙山顶, 据说比较陡, 但平时不开放. 玉渡山 一个不到十公里的坡, 就在松山旁边, 坡度略陡于松山, 山路有点窄, 上山游客车多. 山顶是景区, 不让自行车进. 从这边远望官厅水库角度更佳. 平谷四座楼 可以从西边爬, 也可以从南边爬, 西边十公里左右适中的坡, 南边好像更陡一些, 下坡弯急, 适合练习切弯. 山顶四座楼景区关闭, 只有大铁门可看. 平谷十八弯 在四座楼东边, 坡度稍陡, 不长. 东指壶 从十八弯北侧下坡到一半的地方往东爬, 可以到河北省界, 但是去不了河北. 5km 9% 的坡, 类似于十八盘加长变缓版, 有一些非常神奇的之字型弯.但山顶风景一般. 古北水镇后山 一段不长的部分很陡的柏油路, 爬上去才能住上便宜的民宿. 马大路 从塔沟到新城子的一个坡, 后段两公里比较陡, 但是很少有人骑, 可抢 kom. 往东下坡路比较烂, 很有趣. 去古北水镇玩可以顺便爬一爬. 崇礼山地车公园 太舞 比较出名, 服务比较好, 山底有闪电的店. 离崇礼城区有半小时车程, 但是高铁直达. 车道分绿蓝黑粉, 绿线很平适合入门, 蓝线有小飞跳, 黑线较陡, 技术性强, 粉线要命, 已关闭. 整体维护不太行, 路面比较颠. 云顶 有国家级服务, 但是只有一条中高级道, 有很多大的飞跳. 路线较长, 比较有趣, 但是非常颠, 因为去的人很少. 富龙 2022 年新修的路线, 有绿蓝黑和 ALine 四条路. 绿线平, 蓝线有很多弯墙, aline 非常有意思, 有很多包, 黑线巨难. 刚修好所以路面很平. 服务态度不太好, 但是离城区很近, 比较方便. 香山专题 群山往往需要一整天甚至更多的时间来骑, 而香山由于离五道口近, 所以只需要半天甚至更少的时间 (比如两小时). 这就好比零食甜点与正餐的区别. 而香山道路其实也很复杂且有趣, 故将其单列.\n需要注意的是香山的一些地方有一些单向通行的关卡, 例如植物园大门只出不进, 黑陈路顶白房处有人禁止进入西山公园前往鬼笑石. 另一些防火道的坡由于巨陡而不适合爬或者下. 因此路线的组合规划需要多加注意.\n(101) 太舟坞 经典爬坡, 先是 3km 陡坡, 坡度不均匀, 一些回头弯处坡度高达 20%, 且水泥路面破损露出了鹅卵石. 因此下坡较为危险. 在四棵树路口 (四叉路口) 向右后转弯, 是几公里的稍缓的坡, 到达植物园下路口 (一个三叉路口) 为赛段终点. 风景普通.\n(102) (新)十八盘 (aoao 香山最爱) 3km 比较均匀的 10%+ 的坡, 十分险要, 山路很好看. 水泥路面路况比太舟坞好. 接一段缓下, 然后有神奇的五连拐, 继续爬两三公里到达憋死猫路口, 即植物园下路口往上 100m 处.\n(103) 东山贡梨园 山凹里的一个村, 没有公路上山, 但有徒步路线.\n(104) 三家店(新望京) 从憋死猫路口下山, 挺长的一个坡, 比较陡, 弯多. 下山后左转爬黑陈路, 右转爬妙.\n(105) 黑陈路 香山唯一的社会公路, 北京唯一晚上有路灯的坡, 分陡侧和缓侧, 陡侧三公里, 平均坡度 9%.\n(106) 模式口 黑陈路山顶向南下山的防火道, 不陡.\n(107) 西山公园 黑陈路山顶向东下山进城的路线, 是景区里的路, 行人很多, 现已封闭不让人走.\n(108) 新马道 防火道, 从挂甲塔下山的路线, 又直又陡, 只能出不能进.\n(108.5) 老马道 从挂甲塔后面城门楼子下山的路, 与新马道平行, 弯比较多, 整体坡度差不多.\n(109) 植物园 从植物园下路口下山的路, 坡度比太舟坞更陡一些. 一些回头弯比较难下. 半山有一处小直道视野十分开阔, 在此处可以稍事休息以冷却刹车. 到山脚后会从北京植物园中间穿过, 理论上要求下车推行穿过园区.\n(110) 老望京 从憋死猫路口上到山顶的路, 300米 连续 20% 的坡, 对分钟级腿力的巨大考验. 骑公路车爬上去可以吹一年. 天气好的时候山顶可以眺望北京城北. 如果没有腿力, 岔口东侧的路往前也有一段可以看到市区, 绕过山顶后两条路合并.\n(111) 鬼笑石 著名景点, 可眺望北京城, 看日出. 从黑陈路顶爬上去有几百米很陡的坡 (现已被禁).\n(112) 南马场水库 山地 (徒步) 路线, 也有一些防火道, 待探路.\n(113) 金山陵园 香山东坡北侧的路, 从前可以溜进西山公园, 但是岔路很多, 容易迷路. 现已被封.\nHistorical Comments zms_ at 2022-04-15T20:46:42 居然没人儿评论？！\nlaekov at 2022-04-16T16:13:53 我博客没人评论不是常态吗\n",
+  "wordCount" : "914",
+  "inLanguage": "en",
+  "datePublished": "2022-03-10T08:32:48Z",
+  "dateModified": "2022-03-10T08:32:48Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/random/caf0b0/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/random/">Randoms</a></div>
+    <h1 class="post-title">
+      北京骑行路线及爬坡大赏
+    </h1>
+    <div class="post-meta"><span title='2022-03-10 08:32:48 +0000 UTC'>March 10, 2022</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e5%89%8d%e8%a8%80-%e7%ac%a6%e5%8f%b7%e5%8f%8a%e7%ba%a6%e5%ae%9a" aria-label="前言, 符号及约定">前言, 符号及约定</a></li>
+                <li>
+                    <a href="#%e8%a5%bf%e8%be%b9%e5%92%8c%e5%8c%97%e8%be%b9%e7%be%a4%e5%b1%b1-%e4%bb%a5%e5%8f%8a%e5%b8%82%e5%8c%ba" aria-label="西边和北边群山, 以及市区">西边和北边群山, 以及市区</a><ul>
+                        
+                <li>
+                    <a href="#%e8%a5%bf%e8%be%b9%e7%b3%bb%e5%88%97" aria-label="西边系列">西边系列</a></li>
+                <li>
+                    <a href="#%e5%8c%97%e8%be%b9%e7%b3%bb%e5%88%97" aria-label="北边系列">北边系列</a></li>
+                <li>
+                    <a href="#%e5%b8%82%e5%8c%ba" aria-label="市区">市区</a></li>
+                <li>
+                    <a href="#%e6%b2%a1%e6%9c%89%e5%9c%a8%e5%9b%be%e4%b8%8a%e7%94%bb%e5%87%ba%e6%9d%a5--%e6%b2%a1%e9%aa%91%e8%bf%87%e7%9a%84%e5%b7%b2%e7%9f%a5%e8%b7%af%e7%ba%bf" aria-label="没有在图上画出来 / 没骑过的已知路线">没有在图上画出来 / 没骑过的已知路线</a></li>
+                <li>
+                    <a href="#%e6%9b%b4%e6%96%b0-2022" aria-label="更新 2022">更新 2022</a><ul>
+                        
+                <li>
+                    <a href="#%e5%8c%97%e8%be%b9%e7%9a%84%e5%b1%b1" aria-label="北边的山">北边的山</a></li>
+                <li>
+                    <a href="#%e5%b4%87%e7%a4%bc%e5%b1%b1%e5%9c%b0%e8%bd%a6%e5%85%ac%e5%9b%ad" aria-label="崇礼山地车公园">崇礼山地车公园</a></li></ul>
+                </li></ul>
+                </li>
+                <li>
+                    <a href="#%e9%a6%99%e5%b1%b1%e4%b8%93%e9%a2%98" aria-label="香山专题">香山专题</a><ul>
+                        
+                <li>
+                    <a href="#historical-comments" aria-label="Historical Comments">Historical Comments</a><ul>
+                        <ul>
+                        
+                <li>
+                    <a href="#zms_-at-2022-04-15t204642" aria-label="zms_ at 2022-04-15T20:46:42">zms_ at 2022-04-15T20:46:42</a></li>
+                <li>
+                    <a href="#laekov-at-2022-04-16t161353" aria-label="laekov at 2022-04-16T16:13:53">laekov at 2022-04-16T16:13:53</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p><strong>本文及图片版权归 laekov 所有, 谢绝转载</strong></p>
+<h2 id="前言-符号及约定">前言, 符号及约定<a hidden class="anchor" aria-hidden="true" href="#前言-符号及约定">#</a></h2>
+<p>本文总结了 aoao 骑过的北京周边的骑行路线, 以爬山为主. 对于坡度的描述可参考如下列表.</p>
+<ul>
+<li>超缓: 坡度不超过 <code>3%</code>.</li>
+<li>缓坡: <code>3-5%</code></li>
+<li>普通: 不太缓也不太陡, 没有给 aoao 留下深刻印象.</li>
+<li>陡: <code>7%</code> 及以上.</li>
+</ul>
+<p>对于坡度, 难度和风景好坏的评价较为主观, 且受到当时季节, 天气, 状态等影响. aoao 本人偏好不缓的爬坡, 不喜缓上缓下和平路. 喜欢壮丽的高山大川景象, 对人文风光 (比如寺庙) 没有兴趣.</p>
+<p>故请谨慎参考本文的内容. 欢迎在评论区讨论批评指正.</p>
+<p>本文配图使用的脚本开源在 <a href="https://github.com/laekov/gpxv">GitHub</a>, 主要使用 Matplotlib. 有能力的看官可以自行使用脚本绘制自己的轨迹.</p>
+<h2 id="西边和北边群山-以及市区">西边和北边群山, 以及市区<a hidden class="anchor" aria-hidden="true" href="#西边和北边群山-以及市区">#</a></h2>
+<p>国道, 省道的坡度多半不会超过 <code>10%</code>, 多数在 <code>5%</code> 左右. 路面通常为柏油路, 可以放心前往. 但乡道, 防火道等的坡度和路况就很难有保障了.</p>
+<style>
+img { width: 100%; }
+</style>
+<p><img loading="lazy" src="/l/figures/bjmap.png" alt=""  />
+
+(0) <strong>清华大学新民路大坡</strong> 搞笑的</p>
+<h3 id="西边系列">西边系列<a hidden class="anchor" aria-hidden="true" href="#西边系列">#</a></h3>
+<p>以 108, 109 两条国道为主线展开. 国道本身较平, 向西缓上. 其间有众多支线, 包含了很多大小爬坡.</p>
+<p>(1) <strong>灵山</strong> 北京公路爬坡最高峰 (指绝对海拔), 长度约 <code>20km</code>, 最高海拔快到 <code>2k</code>. 坡度普通, 风光壮丽, 前段爬坡为树林和峡谷崖壁, 后段行进在高山草甸之间.</p>
+<p>(2) <strong>241 省道爬坡</strong> 灵山爬坡绕圈路线的第二个坡, 在河北境内. 长约 <code>5km</code>, 风景坡度普通, 但可以体验河北道路与北京不同之风格.</p>
+<p>(3) <strong>109 国道-省界坡</strong> 灵山爬坡绕圈的第三个坡, 可回到灵山爬坡起点. 自西向东爬坡比放坡短一些. 风景忘了.</p>
+<p>(4) <strong>109 到野三坡的坡</strong> 可由此从 109 穿越到 108 国道, 从而完成  809 绕圈. 坡本身只有三五公里, 坡度较缓. 自北向南下坡是缓下, 很长.</p>
+<p>(5) <strong>百花山 109 侧爬坡</strong> 前缓后陡, 陡段长约 <code>5km</code>. 风景普通. 山顶是景区大门.</p>
+<p>(6) <strong>108 省界爬坡 (到蒲洼)</strong> 自西向东爬坡长达十多公里, 中间会过一些有意思的桥. 接近坡顶的路段视野开阔. 下坡风景普通, 但会经过某红色博物馆.</p>
+<p>(7) <strong>蒲洼乡道</strong> 先缓后陡, 总长度约 <code>20km</code>, 爬升约 <code>1k</code>. 后段在山崖上绕行, 风景尤美且壮阔. 坡顶即 108 国道.</p>
+<p>(8) <strong>红井路</strong> 南坡有秀丽的连续发卡弯, 是网红打卡圣地. 长度不长, 坡度普通, 除了发卡弯以外较为普通, 也就是山顶的烤红薯比较香了.</p>
+<p>(9) <strong>六石路</strong> 连接十渡与 108 的另一条山路, 可与红井或蒲洼组成绕圈. 自南向北爬坡长约 <code>20km</code>, 爬升约 <code>1k</code>. 下山较短.</p>
+<p>(10) <strong>幽州峡谷</strong> 在河北境内, 有网红壁挂公路, 路况极烂, 公路车需要一定技术与胆量来通行, 但很有越野乐趣. 自北向南缓下.</p>
+<p>(11) <strong>沿河城南边的爬坡</strong> 一个平平无奇的几公里小坡.</p>
+<p>(12) <strong>大安山</strong> 先缓后陡, 陡段坡度也不陡, 几公里长. 半路上有一个变形金刚巨型模型以及汽车运动公园. 可以在寺上公交站处往更高的山上爬, 有坡度超 <code>10%</code> 的一大段陡坡.</p>
+<p>(13) <strong>横岭</strong> 从河北宫厅水库向南进入北京的一条山路. 北段坡度普通, 长度大概 <code>10km</code>, 颇有塞上之感, 风景与北京境内的爬坡风格甚为不同. 向南放坡为缓下, 会路过一个叫镇边城的小村子.</p>
+<p>(14) <strong>南石洋大峡谷</strong> 从北向南缓下, 有神奇的峡谷风光. 路况差, 但比幽州峡谷好一点.</p>
+<p>(15) <strong>大村</strong> 北京经典爬坡绕圈东大高的一部分, 自南向北七八公里, 坡度略缓. 春天会开花.</p>
+<p>(16) <strong>白羊沟</strong> 自东向西十多公里, 爬升八百多, 坡度普通偏陡, 有一小段很险的连续发卡弯. 自西向东是缓上, 无聊.</p>
+<p>(17) <strong>高崖口</strong> 自东向西长约 <code>20km</code>, 爬升接近一千, 山顶 <code>3km</code> 处山势变险, 可以远眺昌平.</p>
+<p>(18) <strong>菩萨鹿</strong> &ldquo;山&rdquo; 字形的三个坡, 爬升大几百, 坡度很缓, 无聊.</p>
+<p>(19) <strong>车神殿</strong> 菩萨鹿上的一个小支路, 去往一个庙, 先下后上各 <code>2km</code>, 路烂且陡.</p>
+<p>(20) <strong>东方红隧道</strong> 入门好坡, <code>3km</code> 坡度在 <code>3-9%</code> 之间变化. (主要是离市区比较近)</p>
+<p>(21) <strong>千军台</strong> 超长超缓坡, 终点是一处废弃煤矿, 但不让进. 终点前有一小段陡坡. 没什么风景.</p>
+<p>(22) <strong>松树岭(隧道)</strong> 108 国道上和戒台寺类似的小坡, 西向东比东向西更长一点, 大概 <code>4km</code>.</p>
+<p>(23) <strong>禅房</strong> 从东方红坡底右拐上山, 先是好几公里漂亮的柏油路, 然后是好几公里很窄的乡渞, 且坡度变陡. 山顶部分是起伏路, 在悬崖上, 可眺望群山, 适合拍照.</p>
+<p>(24) <strong>妙峰山</strong> 北京最经典的爬坡, 前 <code>7km</code> 缓坡, 后 <code>13km</code> 较陡. 在 <code>60</code> 分钟内登顶是业余选手爬坡实力的象征. 但其实风景一般. 中间有弯道咖啡可以休息, 夏天可以在水站接山泉水. 涧沟村可以吃饭. (过于熟悉不做更多介绍了)</p>
+<p>(25) <strong>阳台山</strong> <em>(这是 aoao 在西边最喜欢的山)</em> 从涧沟村玫瑰谷大门处右转上山, 长约 <code>7km</code>, 爬升比妙更多, 坡度一度很陡, 但中间有一段下坡. 爬坡后段转变为高山草甸, 在一些回头弯处有观景台, 可以眺望海淀北部区域, 甚至能看到首都机场. 需要注意在一些季节的一些时段需要买门票进入, 花费 <code>20</code> 元. 在妙峰山坡顶前的大拐弯处也有一条废弃的盘山路可达山顶, 但该路已毁于塌方, 部分路段被土石覆盖.</p>
+<p>(26) <strong>潭王路</strong> &ldquo;小老鼠&rdquo; 路线所经过的另一经典爬坡, 连接 108 和 109 国道. 两侧均长度约 <code>10km</code>, 坡度普通, 某些季节风景不错. 弯道较少, 可以放坡放很快.</p>
+<p>(27) <strong>定都阁</strong> 从潭王路旧线往前可上, 有一段非常陡的防火道. 向东下山是土路, 不建议公路车尝试.</p>
+<p>(28) <strong>戒台寺</strong> 非常入门的缓坡, 赛段从石门营环岛开始, 长约 <code>5km</code>.</p>
+<p>(63) <strong>双大路</strong> 一条新路, 目前车比较少, 东西两边都可以爬坡, 坡顶是两个隧道和中间的一段起伏路. 其中东侧先是三公里缓上, 然后是约十公里均匀不陡的坡, 在山崖上架了很多很高的桥, 非常壮观, 非常基建狂魔.</p>
+<p>(64) <strong>珠窝/碣石村</strong> 从西北向东南是一段五公里多的烂路爬坡, 水泥路面风化严重, 有很多碎石, 对公路车比较极限, 但坡度不太陡. 东南坡路况稍微好一点, 上面一段也是水泥路,下面是沥青路.</p>
+<h3 id="北边系列">北边系列<a hidden class="anchor" aria-hidden="true" href="#北边系列">#</a></h3>
+<p>向北通常沿 g6 京藏高速出城. (如果开车建议走 g7 京新, 路宽车少) 去东边也可以沿安四路出城</p>
+<p>(29) <strong>水关长城</strong> 从北往南似乎有时候会封路, 只有自行车能骑. 几公里坡度适中的坡, 爬起来比较舒适. 放坡会放到八达岭爬坡半路上, 会路过长城.</p>
+<p>(30) <strong>八达岭</strong> 沿 g6 一路爬, 十多公里, 坡度较缓, 除了中途可以看到长城以外没什么风景. 坡顶要么过一个巨长的隧道, 要么走景区里穿过去.</p>
+<p>(31) <strong>京银路 (110国道)</strong> 也是 g7 出城方向的一部分. 大概 <code>10km</code>, 比较缓, 没什么风景, 有时候大车略多.</p>
+<p>(32) <strong>大科庄</strong> 从铁炉村向西爬坡, 先缓后陡, 陡的部分大概不到十公里. 接近山顶的部分有一个广场, 视野还算开阔. 放坡不长, 会放到京银路上.</p>
+<p>(33) <strong>双龙山</strong> 一段 <code>2km</code> 平均 <code>10%</code> 的坡, 在山谷里, 车比较少, 是一个挑战 8848 的好地方. 半路有一个口, 可以上一个巨陡的小道, 有几公里, 在上面的回头弯可以眺望到市区.</p>
+<p>(34) <strong>铁炉村</strong> 从南边到铁炉村的一段烂路, 坡陡超过 <code>10%</code> 有大概 <code>2km</code>. 会经过一个小城门楼子. 然后树荫会挡住路, 别有风情.</p>
+<p>(35) <strong>大梁西</strong> 烂路陡坡, 大概四五公里, 然后会在山里穿行到铁炉西边, 下坡路也超烂. 从解字石爬坡半道拐进去.</p>
+<p>(36) <strong>解字石</strong> 京北常见爬坡, 从南到北爬坡是几公里起伏路加 <code>7km</code> 较陡的坡. 下坡分成两截. 陡段可以从上往下看, 还不错. 山顶有一个适合合影的台子.</p>
+<p>(37) <strong>永宁南边的坡</strong> 无名坡, 从南到北先缓后陡, 有快十公里. 北边放坡也差不多长. 每次骑到这都很累了, 无心看风景.</p>
+<p>(38) <strong>台自沟村爬坡</strong> 在上一个坡坡顶新修的一条水泥村道, 比较陡, 弯多且急, 有趣.</p>
+<p>(39) <strong>燕山天池</strong> 从南往北前身白河堡水库, 大概 <code>5km</code> 普通陡的坡, 坡顶有个亭子可以俯览水库.</p>
+<p>(40) <strong>刘干路</strong> 无名坡, 几公里, 不陡, 南往北上坡没风景, 下坡比较缓.</p>
+<p>(41) <strong>百里画廊</strong> 经典骑游路线, 几十公里大平路, 西向东缓下, 很多人都觉得风景不错.</p>
+<p>(42) <strong>仓米古道</strong> 百里画廊半路下车的坡, 三四公里长, 北往南坡略陡, 弯急, 路很好看. 放坡之后是一段很要命的长缓上 (南往北就是缓下了).</p>
+<p>(43) <strong>永四</strong> 永宁到四海的路, 和百里画廊平行, 可绕圈. 大概 <code>20km</code> 的西向东缓上, 似乎很经典.</p>
+<p>(44) <strong>四海南边的坡 (安四路)</strong> 南向北先缓后陡, 陡的大概有 <code>5km</code> 急弯, 北坡比较短. 南边山角有一家网红骑行咖啡馆, 贵. 跑山的汽车和摩托有时候比较多.</p>
+<p>(45) <strong>分水岭村</strong> 连接解字石山谷和九渡河山谷的一条路, 从东向西 先是两公里坡, 然后快进村的地方有一段几百米超过 <code>10%</code> 的陡坡, 非常考验毅力, 经常有人推车. 但由于疫情封村, 目前只能从南边一条小路绕, 失去了原来的乐趣.</p>
+<p>(46) <strong>黑山寨</strong> 南向北四公里先缓后陡的坡, 最陡差不多有 <code>10%</code>. 进山必经之路之一, 山顶有个观景台, 下山会经过火车路线.</p>
+<p>(47) <strong>十三陵水库绕圈</strong> 入门经典起伏路, 一圈十多公里, 是玄铁(铁人三项)比赛自行车路线.</p>
+<p>(48) <strong>蟒山</strong> 前往景区的断头路, 七公里三百米爬升, 是一些比赛路线. 水泥路路面比较烂. 山顶有个池子 (天池), 不过目前不让进了.</p>
+<p>(49) <strong>慈悲峪</strong> 安四路北上路线, 南往北快十公里坡, 巨缓, 无聊. 北坡只有三公里, 坡度适中.</p>
+<p>(50) <strong>大杨山 (百合村)</strong> 南向北也是大缓坡, 到百合村后折向西南到慈悲峪半路上, 稍陡一些.</p>
+<p>(51) <strong>东北口关</strong> 京北的神. 西向东先一段缓坡, 然后 <code>4km</code> 在 <code>10%</code> 左右的坡. 不管是上还是下, 都不会有精力看风景. 东侧略缓, 视野开阔.</p>
+<p>(52) <strong>范崎路</strong> 南向北有两段 <code>10km</code> 左右中等坡, 中间是 <code>2km</code> 小下坡, 有一个神奇的 270 度转弯. 第一段爬坡路边有很多农家乐, 第二段是普通的山. 再往北是缓下, 到 234 国道.</p>
+<p>(53) <strong>神堂峪</strong> 和范崎路同起点, 去景区的一段无聊小坡.</p>
+<p>(54) <strong>白河峡谷</strong>  234 国道的一段, 从 111 国道到密云水库, 爬升也是山字型三个坡, 类似菩萨鹿. 一些地方视野巨好, 可以看到几百米山下的河. 但也有一些比较长的没灯的隧道, 建议带前灯.</p>
+<p>(55) <strong>环密云水库</strong> 起伏路, <code>100km</code> 爬升 <code>1k</code>, 有一些好看的景区, 如不老屯大锅盖, 水库大坝拍日落也不错.</p>
+<h3 id="市区">市区<a hidden class="anchor" aria-hidden="true" href="#市区">#</a></h3>
+<p>(56) <strong>昆玉河</strong> 晨练专用线路 (因为离五道口近), 往返 <code>12km</code> 无红绿灯, 有一些上下隧道起伏.</p>
+<p>(57) <strong>长安街</strong> 经典路线. 赛段是从复兴门到建国门 (或反向, 或往返). 问题是有红绿灯.</p>
+<p>(58) <strong>奥园</strong> 夜骑团练绕圈路线, <code>6km</code> 一圈. 西北东三面无红绿灯, 北侧两个角有两处起伏.</p>
+<p>(59) <strong>温榆河绿道</strong> 沿河的休闲路线, 路况较差, 车多, 但没有红绿灯.</p>
+<p>(60) <strong>凤凰岭</strong> 车协迎新经典路线, 终点处有一个几百米的小坡.</p>
+<p>(61) <strong>七王坟</strong> 田间小坡, 长约 <code>2km</code>, 最后一小段坡度超 <code>10%</code>, 有很多减速带, 很要命.</p>
+<p>(62) <strong>大觉寺后山</strong> 防火道, 一些路段较陡, 通往一些山地路线.</p>
+<h3 id="没有在图上画出来--没骑过的已知路线">没有在图上画出来 / 没骑过的已知路线<a hidden class="anchor" aria-hidden="true" href="#没有在图上画出来--没骑过的已知路线">#</a></h3>
+<ul>
+<li><em>草原天路</em> 太远了</li>
+<li><em>慕田峪</em> 四海南边坡的支路, 三公里普通坡, 开后援车去过一次后没有再去一次的想法.</li>
+<li><strong>园博园绕圈</strong> 市西的团练路线, 太远了.</li>
+<li><strong>金海湖铁三绕圈</strong> 退赛了, 没骑.</li>
+<li><strong>百花山108侧</strong></li>
+</ul>
+<h3 id="更新-2022">更新 2022<a hidden class="anchor" aria-hidden="true" href="#更新-2022">#</a></h3>
+<p>因为懒得更新图所以就打字了.</p>
+<h4 id="北边的山">北边的山<a hidden class="anchor" aria-hidden="true" href="#北边的山">#</a></h4>
+<ul>
+<li><strong>海陀山/松山</strong> 一个十多公里的大坡, 坡度适中, 从一个水库底下一路爬到北京河北交界处, 俯看官厅水库(但是有点远), 会从京礼高速底下经过. 山顶附近风景绝赞. 另有一条岔路可爬到雪游龙山顶, 据说比较陡, 但平时不开放.</li>
+<li><strong>玉渡山</strong> 一个不到十公里的坡, 就在松山旁边, 坡度略陡于松山, 山路有点窄, 上山游客车多. 山顶是景区, 不让自行车进. 从这边远望官厅水库角度更佳.</li>
+<li><strong>平谷四座楼</strong> 可以从西边爬, 也可以从南边爬, 西边十公里左右适中的坡, 南边好像更陡一些, 下坡弯急, 适合练习切弯. 山顶四座楼景区关闭, 只有大铁门可看.</li>
+<li><strong>平谷十八弯</strong> 在四座楼东边, 坡度稍陡, 不长.</li>
+<li><strong>东指壶</strong> 从十八弯北侧下坡到一半的地方往东爬, 可以到河北省界, 但是去不了河北. <code>5km 9%</code> 的坡, 类似于十八盘加长变缓版, 有一些非常神奇的之字型弯.但山顶风景一般.</li>
+<li><strong>古北水镇后山</strong> 一段不长的部分很陡的柏油路, 爬上去才能住上便宜的民宿.</li>
+<li><strong>马大路</strong> 从塔沟到新城子的一个坡, 后段两公里比较陡, 但是很少有人骑, 可抢 kom. 往东下坡路比较烂, 很有趣. 去古北水镇玩可以顺便爬一爬.</li>
+</ul>
+<h4 id="崇礼山地车公园">崇礼山地车公园<a hidden class="anchor" aria-hidden="true" href="#崇礼山地车公园">#</a></h4>
+<ul>
+<li><strong>太舞</strong> 比较出名, 服务比较好, 山底有闪电的店. 离崇礼城区有半小时车程, 但是高铁直达. 车道分绿蓝黑粉, 绿线很平适合入门, 蓝线有小飞跳, 黑线较陡, 技术性强, 粉线要命, 已关闭. 整体维护不太行, 路面比较颠.</li>
+<li><strong>云顶</strong> 有国家级服务, 但是只有一条中高级道, 有很多大的飞跳. 路线较长, 比较有趣, 但是非常颠, 因为去的人很少.</li>
+<li><strong>富龙</strong> 2022 年新修的路线, 有绿蓝黑和 ALine 四条路. 绿线平, 蓝线有很多弯墙, aline 非常有意思, 有很多包, 黑线巨难. 刚修好所以路面很平. 服务态度不太好, 但是离城区很近, 比较方便.</li>
+</ul>
+<h2 id="香山专题">香山专题<a hidden class="anchor" aria-hidden="true" href="#香山专题">#</a></h2>
+<p>群山往往需要一整天甚至更多的时间来骑, 而香山由于离五道口近, 所以只需要半天甚至更少的时间 (比如两小时). 这就好比零食甜点与正餐的区别. 而香山道路其实也很复杂且有趣, 故将其单列.</p>
+<p>需要注意的是香山的一些地方有一些单向通行的关卡, 例如植物园大门只出不进, 黑陈路顶白房处有人禁止进入西山公园前往鬼笑石. 另一些防火道的坡由于巨陡而不适合爬或者下. 因此路线的组合规划需要多加注意.</p>
+<p><img loading="lazy" src="/l/figures/xsroad.png" alt=""  />
+</p>
+<p>(101) <strong>太舟坞</strong> 经典爬坡, 先是 <code>3km</code> 陡坡, 坡度不均匀, 一些回头弯处坡度高达 <code>20%</code>, 且水泥路面破损露出了鹅卵石. 因此下坡较为危险. 在四棵树路口 (四叉路口) 向右后转弯, 是几公里的稍缓的坡, 到达植物园下路口 (一个三叉路口) 为赛段终点. 风景普通.</p>
+<p>(102) <strong>(新)十八盘</strong> <em>(aoao 香山最爱)</em> <code>3km</code> 比较均匀的 <code>10%+</code> 的坡, 十分险要, 山路很好看. 水泥路面路况比太舟坞好. 接一段缓下, 然后有神奇的五连拐, 继续爬两三公里到达憋死猫路口, 即植物园下路口往上 <code>100m</code> 处.</p>
+<p>(103) <strong>东山贡梨园</strong> 山凹里的一个村, 没有公路上山, 但有徒步路线.</p>
+<p>(104) <strong>三家店(新望京)</strong> 从憋死猫路口下山, 挺长的一个坡, 比较陡, 弯多. 下山后左转爬黑陈路, 右转爬妙.</p>
+<p>(105) <strong>黑陈路</strong> 香山唯一的社会公路, 北京唯一晚上有路灯的坡, 分陡侧和缓侧, 陡侧三公里, 平均坡度 <code>9%</code>.</p>
+<p>(106) <strong>模式口</strong> 黑陈路山顶向南下山的防火道, 不陡.</p>
+<p>(107) <strong>西山公园</strong> 黑陈路山顶向东下山进城的路线, 是景区里的路, 行人很多, 现已封闭不让人走.</p>
+<p>(108) <strong>新马道</strong> 防火道, 从挂甲塔下山的路线, 又直又陡, 只能出不能进.</p>
+<p>(108.5) <strong>老马道</strong> 从挂甲塔后面城门楼子下山的路, 与新马道平行, 弯比较多, 整体坡度差不多.</p>
+<p>(109) <strong>植物园</strong> 从植物园下路口下山的路, 坡度比太舟坞更陡一些. 一些回头弯比较难下. 半山有一处小直道视野十分开阔, 在此处可以稍事休息以冷却刹车. 到山脚后会从北京植物园中间穿过, 理论上要求下车推行穿过园区.</p>
+<p>(110) <strong>老望京</strong> 从憋死猫路口上到山顶的路, <code>300米</code> 连续 <code>20%</code> 的坡, 对分钟级腿力的巨大考验. 骑公路车爬上去可以吹一年. 天气好的时候山顶可以眺望北京城北. 如果没有腿力, 岔口东侧的路往前也有一段可以看到市区, 绕过山顶后两条路合并.</p>
+<p>(111) <strong>鬼笑石</strong> 著名景点, 可眺望北京城, 看日出. 从黑陈路顶爬上去有几百米很陡的坡 (现已被禁).</p>
+<p>(112) <strong>南马场水库</strong> 山地 (徒步) 路线, 也有一些防火道, 待探路.</p>
+<p>(113) <strong>金山陵园</strong> 香山东坡北侧的路, 从前可以溜进西山公园, 但是岔路很多, 容易迷路. 现已被封.</p>
+<hr/>
+<h3 id="historical-comments">Historical Comments<a hidden class="anchor" aria-hidden="true" href="#historical-comments">#</a></h3>
+<h5 id="zms_-at-2022-04-15t204642">zms_ at 2022-04-15T20:46:42<a hidden class="anchor" aria-hidden="true" href="#zms_-at-2022-04-15t204642">#</a></h5>
+<p>居然没人儿评论？！</p>
+<h5 id="laekov-at-2022-04-16t161353">laekov at 2022-04-16T16:13:53<a hidden class="anchor" aria-hidden="true" href="#laekov-at-2022-04-16t161353">#</a></h5>
+<p>我博客没人评论不是常态吗</p>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/cycling/">cycling</a></li>
+      <li><a href="/tags/brainhole/">brainhole</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/technical/f86b57/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>Pandoc 的 short author 字段缺失 fix</span>
+  </a>
+  <a class="next" href="/random/aafa1e/">
+    <span class="title">Next »</span>
+    <br>
+    <span>Island 剧情解析</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

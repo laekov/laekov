@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>expection on The Site of laekov</title>
+    <link>/tags/expection/</link>
+    <description>Recent content in expection on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Wed, 25 Feb 2015 20:19:41 +0000</lastBuildDate><atom:link href="/tags/expection/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>BZOJ1415 [Noi2005]聪聪和可可</title>
+      <link>/oi/i11rimport_032/</link>
+      <pubDate>Wed, 25 Feb 2015 20:19:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_032/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 最近很颓啊。&amp;lt;/p&amp;gt; &amp;nbsp;
+这题很久之前看过。当时以为是高消就没管。然后开坑之神idy做了之后仔细一想才知道不是。
+&amp;nbsp;
+这题的做法是dp。首先因为边数少所以不用floyd，直接bfs预处理出所有t[i][j]表狼在i，兔子在j的时候狼下一步去哪。然后有一个结论是每一步两个玩意的距离至少缩短1，所以状态是不会有环的，这也是为啥可以不用高消。然后坑点是不能直接开状态队列，因为那不是拓补序。要先把每个点的入度算出来再跑dp。结局是我的代码超长。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+struct edge { int t; edge *next; };
+#define mkword(x,y) (((x)&amp;lt;&amp;lt;16)|(y)) #define hiword(x) ((x)&amp;gt;&amp;gt;16) #define loword(x) ((x)&amp;amp;0x0000ffff)
+const int maxn = 1009; const int maxst = 1000009; const int inf = 0x3f3f3f3f;
+int n, m, st, te, deg[maxn], d[maxn], t[maxn][maxn], ind[maxn][maxn]; edge elst[maxn &amp;lt;&amp;lt; 1], *ep(elst), *head[maxn]; double f[maxn][maxn], g[maxn][maxn], c[maxn], ans;</description>
+    </item>
+    
+  </channel>
+</rss>

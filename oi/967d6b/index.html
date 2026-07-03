@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Leetcode1130 叶值最小代价生成树 | The Site of laekov</title>
+<meta name="keywords" content="oi">
+<meta name="description" content="首先弄清楚中序遍历是什么意思.
+中序遍历是一个序列 (list).
+不存在的节点的中序遍历是空序 ([]).
+以 u 为根的二叉树的中序遍历 = u 的左儿子的中序遍历 &#43; u &#43; u 的右儿子的中序遍历
+其中加号就是连接两个序列的意思.
+题目里说只考虑叶子节点的中序遍历, 就是把所有非叶子从中序里扔掉就好了.
+然后考虑从随便一个序列构造一个满足条件的二叉树. 其实这个二叉树上的任意一个点会对应原序列中的连续一段, 而这个点的值就是这一段的所有数的最大值.
+我们考虑自底向上的建树. 也就是说最开始是 n 个单独的点, 然后每次建一个新点, 它的两个儿子分别是原来的两个点. 然后用这个新点代替原来的两个点. 重复 &ldquo;挑选, 替代&rdquo; 的过程直到只剩一个点, 就建成了一棵完整的树.
+每次挑选的两个点一定代表原数组上相邻的两个区间. 合并后建成这棵树的 最小 代价为 左儿子的最小代价 &#43; 右儿子的最小代价 &#43; 左边最大值 * 右边最大值. 而我们的最小化目标是根的 最小 代价.
+自然想到用 f[l][i] 代表以 i 为第一个数的长度为 l 的区间所代表的点为根的树 的 最小 代价. 首先 f[1][i] == a[i], 而我们的目标是 f[n][0].
+进一步想, 最小化 f[l][i] 就是在所有该点的左右儿子分配方式 (就是各有多长, 总之加起来是 l) 中挑一个最小的.">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/967d6b/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="Leetcode1130 叶值最小代价生成树" />
+<meta property="og:description" content="首先弄清楚中序遍历是什么意思.
+中序遍历是一个序列 (list).
+不存在的节点的中序遍历是空序 ([]).
+以 u 为根的二叉树的中序遍历 = u 的左儿子的中序遍历 &#43; u &#43; u 的右儿子的中序遍历
+其中加号就是连接两个序列的意思.
+题目里说只考虑叶子节点的中序遍历, 就是把所有非叶子从中序里扔掉就好了.
+然后考虑从随便一个序列构造一个满足条件的二叉树. 其实这个二叉树上的任意一个点会对应原序列中的连续一段, 而这个点的值就是这一段的所有数的最大值.
+我们考虑自底向上的建树. 也就是说最开始是 n 个单独的点, 然后每次建一个新点, 它的两个儿子分别是原来的两个点. 然后用这个新点代替原来的两个点. 重复 &ldquo;挑选, 替代&rdquo; 的过程直到只剩一个点, 就建成了一棵完整的树.
+每次挑选的两个点一定代表原数组上相邻的两个区间. 合并后建成这棵树的 最小 代价为 左儿子的最小代价 &#43; 右儿子的最小代价 &#43; 左边最大值 * 右边最大值. 而我们的最小化目标是根的 最小 代价.
+自然想到用 f[l][i] 代表以 i 为第一个数的长度为 l 的区间所代表的点为根的树 的 最小 代价. 首先 f[1][i] == a[i], 而我们的目标是 f[n][0].
+进一步想, 最小化 f[l][i] 就是在所有该点的左右儿子分配方式 (就是各有多长, 总之加起来是 l) 中挑一个最小的." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/967d6b/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2019-07-24T05:04:14+00:00" />
+<meta property="article:modified_time" content="2019-07-24T05:04:14+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Leetcode1130 叶值最小代价生成树"/>
+<meta name="twitter:description" content="首先弄清楚中序遍历是什么意思.
+中序遍历是一个序列 (list).
+不存在的节点的中序遍历是空序 ([]).
+以 u 为根的二叉树的中序遍历 = u 的左儿子的中序遍历 &#43; u &#43; u 的右儿子的中序遍历
+其中加号就是连接两个序列的意思.
+题目里说只考虑叶子节点的中序遍历, 就是把所有非叶子从中序里扔掉就好了.
+然后考虑从随便一个序列构造一个满足条件的二叉树. 其实这个二叉树上的任意一个点会对应原序列中的连续一段, 而这个点的值就是这一段的所有数的最大值.
+我们考虑自底向上的建树. 也就是说最开始是 n 个单独的点, 然后每次建一个新点, 它的两个儿子分别是原来的两个点. 然后用这个新点代替原来的两个点. 重复 &ldquo;挑选, 替代&rdquo; 的过程直到只剩一个点, 就建成了一棵完整的树.
+每次挑选的两个点一定代表原数组上相邻的两个区间. 合并后建成这棵树的 最小 代价为 左儿子的最小代价 &#43; 右儿子的最小代价 &#43; 左边最大值 * 右边最大值. 而我们的最小化目标是根的 最小 代价.
+自然想到用 f[l][i] 代表以 i 为第一个数的长度为 l 的区间所代表的点为根的树 的 最小 代价. 首先 f[1][i] == a[i], 而我们的目标是 f[n][0].
+进一步想, 最小化 f[l][i] 就是在所有该点的左右儿子分配方式 (就是各有多长, 总之加起来是 l) 中挑一个最小的."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Leetcode1130 叶值最小代价生成树",
+      "item": "/oi/967d6b/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Leetcode1130 叶值最小代价生成树",
+  "name": "Leetcode1130 叶值最小代价生成树",
+  "description": "首先弄清楚中序遍历是什么意思.\n中序遍历是一个序列 (list).\n不存在的节点的中序遍历是空序 ([]).\n以 u 为根的二叉树的中序遍历 = u 的左儿子的中序遍历 + u + u 的右儿子的中序遍历\n其中加号就是连接两个序列的意思.\n题目里说只考虑叶子节点的中序遍历, 就是把所有非叶子从中序里扔掉就好了.\n然后考虑从随便一个序列构造一个满足条件的二叉树. 其实这个二叉树上的任意一个点会对应原序列中的连续一段, 而这个点的值就是这一段的所有数的最大值.\n我们考虑自底向上的建树. 也就是说最开始是 n 个单独的点, 然后每次建一个新点, 它的两个儿子分别是原来的两个点. 然后用这个新点代替原来的两个点. 重复 \u0026ldquo;挑选, 替代\u0026rdquo; 的过程直到只剩一个点, 就建成了一棵完整的树.\n每次挑选的两个点一定代表原数组上相邻的两个区间. 合并后建成这棵树的 最小 代价为 左儿子的最小代价 + 右儿子的最小代价 + 左边最大值 * 右边最大值. 而我们的最小化目标是根的 最小 代价.\n自然想到用 f[l][i] 代表以 i 为第一个数的长度为 l 的区间所代表的点为根的树 的 最小 代价. 首先 f[1][i] == a[i], 而我们的目标是 f[n][0].\n进一步想, 最小化 f[l][i] 就是在所有该点的左右儿子分配方式 (就是各有多长, 总之加起来是 l) 中挑一个最小的.",
+  "keywords": [
+    "oi"
+  ],
+  "articleBody": "首先弄清楚中序遍历是什么意思.\n中序遍历是一个序列 (list).\n不存在的节点的中序遍历是空序 ([]).\n以 u 为根的二叉树的中序遍历 = u 的左儿子的中序遍历 + u + u 的右儿子的中序遍历\n其中加号就是连接两个序列的意思.\n题目里说只考虑叶子节点的中序遍历, 就是把所有非叶子从中序里扔掉就好了.\n然后考虑从随便一个序列构造一个满足条件的二叉树. 其实这个二叉树上的任意一个点会对应原序列中的连续一段, 而这个点的值就是这一段的所有数的最大值.\n我们考虑自底向上的建树. 也就是说最开始是 n 个单独的点, 然后每次建一个新点, 它的两个儿子分别是原来的两个点. 然后用这个新点代替原来的两个点. 重复 “挑选, 替代” 的过程直到只剩一个点, 就建成了一棵完整的树.\n每次挑选的两个点一定代表原数组上相邻的两个区间. 合并后建成这棵树的 最小 代价为 左儿子的最小代价 + 右儿子的最小代价 + 左边最大值 * 右边最大值. 而我们的最小化目标是根的 最小 代价.\n自然想到用 f[l][i] 代表以 i 为第一个数的长度为 l 的区间所代表的点为根的树 的 最小 代价. 首先 f[1][i] == a[i], 而我们的目标是 f[n][0].\n进一步想, 最小化 f[l][i] 就是在所有该点的左右儿子分配方式 (就是各有多长, 总之加起来是 l) 中挑一个最小的. 也就是说 f[l][i] = min(f[j][i] + f[l - j][i + j] + max(a[i:i+j]) * max(a[i+j:i+l]) ) for j in [1, l).\n那么直接使用这个式子把整个 f 数组递推出来就行.\nbtw 这是经典的区间合并动态规划. 其中 f[l][i] 是状态, 那个式子是状态转移方程.\n可以参考一道2004年的经典题目 “合并果子”.\n代码链接\n",
+  "wordCount" : "104",
+  "inLanguage": "en",
+  "datePublished": "2019-07-24T05:04:14Z",
+  "dateModified": "2019-07-24T05:04:14Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/967d6b/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      Leetcode1130 叶值最小代价生成树
+    </h1>
+    <div class="post-meta"><span title='2019-07-24 05:04:14 +0000 UTC'>July 24, 2019</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>首先弄清楚中序遍历是什么意思.</p>
+<p>中序遍历是一个序列 (list).</p>
+<p>不存在的节点的中序遍历是空序 ([]).</p>
+<p><code>以 u 为根的二叉树的中序遍历 = u 的左儿子的中序遍历 + u + u 的右儿子的中序遍历</code></p>
+<p>其中加号就是连接两个序列的意思.</p>
+<p>题目里说只考虑叶子节点的中序遍历, 就是把所有非叶子从中序里扔掉就好了.</p>
+<p>然后考虑从随便一个序列构造一个满足条件的二叉树. 其实这个二叉树上的任意一个点会对应原序列中的连续一段, 而这个点的值就是这一段的所有数的最大值.</p>
+<p>我们考虑自底向上的建树. 也就是说最开始是 n 个单独的点, 然后每次建一个新点, 它的两个儿子分别是原来的两个点. 然后用这个新点代替原来的两个点. 重复 &ldquo;挑选, 替代&rdquo; 的过程直到只剩一个点, 就建成了一棵完整的树.</p>
+<p>每次挑选的两个点一定代表原数组上相邻的两个区间. 合并后建成这棵树的 <strong>最小</strong> 代价为 <code>左儿子的最小代价 + 右儿子的最小代价 + 左边最大值  * 右边最大值</code>. 而我们的最小化目标是根的 <strong>最小</strong> 代价.</p>
+<p>自然想到用 f[l][i] 代表以 <code>i</code> 为第一个数的长度为 <code>l</code> 的区间所代表的点为根的树 的 <strong>最小</strong> 代价. 首先 <code>f[1][i] == a[i]</code>, 而我们的目标是 <code>f[n][0]</code>.</p>
+<p>进一步想, 最小化 f[l][i] 就是在所有该点的左右儿子分配方式 (就是各有多长, 总之加起来是 l) 中挑一个最小的. 也就是说 <code>f[l][i] = min(f[j][i] + f[l - j][i + j] + max(a[i:i+j]) * max(a[i+j:i+l]) ) for j in [1, l)</code>.</p>
+<p>那么直接使用这个式子把整个 f 数组递推出来就行.</p>
+<p>btw 这是经典的区间合并动态规划. 其中 f[l][i] 是状态, 那个式子是状态转移方程.</p>
+<p>可以参考一道2004年的经典题目 &ldquo;合并果子&rdquo;.</p>
+<p><a href="https://gist.github.com/laekov/46ef20255f98bddfcc5d8cd45a11ef0e">代码链接</a></p>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/461caf/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>Leetcode1152 用户行为分析</span>
+  </a>
+  <a class="next" href="/oi/0529db/">
+    <span class="title">Next »</span>
+    <br>
+    <span>Leetcode1129  颜色交替的最短路径</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

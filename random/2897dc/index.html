@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>一篇理论上存在的本科毕业留念长文 | The Site of laekov</title>
+<meta name="keywords" content="brainhole">
+<meta name="description" content="这是一篇关于 laekov 在贵系本科四年的碎片式回忆.
+关于学习 没学好的基础课 laekov 高三的时候文化课成绩似乎还可以, 但是上大学之后从线性代数A的线性空间部分开始崩溃, 到微积分B半期挂科伏地膜, 再到大雾B险些挂科. 大一大二的时候一方面选了很多课, 另一方面除了课程之外还找了很多事情干, 所以并没有好好地学习这些基础的课程. 显而易见地, 成绩也非常惨淡.
+事实证明线性代数这样的课程还是非常必要的. 例如在写 Prague 的论文的时候就遇到了一个线性代数的证明, 然而不会证, 这种情况就十分惨惨. 再比如大雾里的量子物理, 热学之类的东西, 虽然凭当时的直觉觉得没啥用, 但是真的做科研的时候发现量子计算这条路想走也会更艰辛一些, 然后就会想要是当时花了更多的时间把量子搞得更懂一些该多好.
+并不划算的抢先学 laekov 在年轻的时候天真地想空出一整学期没有课 (后来几乎就做到了), 所以一直在抢先选高年级的课, 并将这个战略一直贯彻到了大三. 然而事实证明这并不是一个非常合算的战略.
+laekov 在大一下的时候就先上了 OS 课, 原因是时间不冲突 &#43; 对 os 比较感兴趣. 然而当时对 CPU 什么的完全没有正确的了解, 虽然在上完 OS 之后反倒对 CPU 的功能有了一定的认知. 然后大二上的时候就造了 CPU, 大二下才上数字电路设计. 这相当于把贵系的 &ldquo;数电 - CPU - OS&rdquo; 这个知识链完全反过来上了.
+虽然 laekov 没有挂科, 但是中间有很多不懂的知识, 会错过很多深入探究的机会. 例如在造 CPU 的时候由于缺乏数设知识, 所以对电路的延迟和流水线设计都没有太多概念. 整个 CPU 造出来也是以 &ldquo;造出来&rdquo; 为目标的, 而且为了这个目标也花费了很多的心血, 而进一步的性能调优和适配更多的功能就完全无能为力了, 所以最后得分相对来说比较低.">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/random/2897dc/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="一篇理论上存在的本科毕业留念长文" />
+<meta property="og:description" content="这是一篇关于 laekov 在贵系本科四年的碎片式回忆.
+关于学习 没学好的基础课 laekov 高三的时候文化课成绩似乎还可以, 但是上大学之后从线性代数A的线性空间部分开始崩溃, 到微积分B半期挂科伏地膜, 再到大雾B险些挂科. 大一大二的时候一方面选了很多课, 另一方面除了课程之外还找了很多事情干, 所以并没有好好地学习这些基础的课程. 显而易见地, 成绩也非常惨淡.
+事实证明线性代数这样的课程还是非常必要的. 例如在写 Prague 的论文的时候就遇到了一个线性代数的证明, 然而不会证, 这种情况就十分惨惨. 再比如大雾里的量子物理, 热学之类的东西, 虽然凭当时的直觉觉得没啥用, 但是真的做科研的时候发现量子计算这条路想走也会更艰辛一些, 然后就会想要是当时花了更多的时间把量子搞得更懂一些该多好.
+并不划算的抢先学 laekov 在年轻的时候天真地想空出一整学期没有课 (后来几乎就做到了), 所以一直在抢先选高年级的课, 并将这个战略一直贯彻到了大三. 然而事实证明这并不是一个非常合算的战略.
+laekov 在大一下的时候就先上了 OS 课, 原因是时间不冲突 &#43; 对 os 比较感兴趣. 然而当时对 CPU 什么的完全没有正确的了解, 虽然在上完 OS 之后反倒对 CPU 的功能有了一定的认知. 然后大二上的时候就造了 CPU, 大二下才上数字电路设计. 这相当于把贵系的 &ldquo;数电 - CPU - OS&rdquo; 这个知识链完全反过来上了.
+虽然 laekov 没有挂科, 但是中间有很多不懂的知识, 会错过很多深入探究的机会. 例如在造 CPU 的时候由于缺乏数设知识, 所以对电路的延迟和流水线设计都没有太多概念. 整个 CPU 造出来也是以 &ldquo;造出来&rdquo; 为目标的, 而且为了这个目标也花费了很多的心血, 而进一步的性能调优和适配更多的功能就完全无能为力了, 所以最后得分相对来说比较低." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/random/2897dc/" /><meta property="article:section" content="random" />
+<meta property="article:published_time" content="2020-06-23T15:09:04+00:00" />
+<meta property="article:modified_time" content="2020-06-23T15:09:04+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="一篇理论上存在的本科毕业留念长文"/>
+<meta name="twitter:description" content="这是一篇关于 laekov 在贵系本科四年的碎片式回忆.
+关于学习 没学好的基础课 laekov 高三的时候文化课成绩似乎还可以, 但是上大学之后从线性代数A的线性空间部分开始崩溃, 到微积分B半期挂科伏地膜, 再到大雾B险些挂科. 大一大二的时候一方面选了很多课, 另一方面除了课程之外还找了很多事情干, 所以并没有好好地学习这些基础的课程. 显而易见地, 成绩也非常惨淡.
+事实证明线性代数这样的课程还是非常必要的. 例如在写 Prague 的论文的时候就遇到了一个线性代数的证明, 然而不会证, 这种情况就十分惨惨. 再比如大雾里的量子物理, 热学之类的东西, 虽然凭当时的直觉觉得没啥用, 但是真的做科研的时候发现量子计算这条路想走也会更艰辛一些, 然后就会想要是当时花了更多的时间把量子搞得更懂一些该多好.
+并不划算的抢先学 laekov 在年轻的时候天真地想空出一整学期没有课 (后来几乎就做到了), 所以一直在抢先选高年级的课, 并将这个战略一直贯彻到了大三. 然而事实证明这并不是一个非常合算的战略.
+laekov 在大一下的时候就先上了 OS 课, 原因是时间不冲突 &#43; 对 os 比较感兴趣. 然而当时对 CPU 什么的完全没有正确的了解, 虽然在上完 OS 之后反倒对 CPU 的功能有了一定的认知. 然后大二上的时候就造了 CPU, 大二下才上数字电路设计. 这相当于把贵系的 &ldquo;数电 - CPU - OS&rdquo; 这个知识链完全反过来上了.
+虽然 laekov 没有挂科, 但是中间有很多不懂的知识, 会错过很多深入探究的机会. 例如在造 CPU 的时候由于缺乏数设知识, 所以对电路的延迟和流水线设计都没有太多概念. 整个 CPU 造出来也是以 &ldquo;造出来&rdquo; 为目标的, 而且为了这个目标也花费了很多的心血, 而进一步的性能调优和适配更多的功能就完全无能为力了, 所以最后得分相对来说比较低."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Randoms",
+      "item": "/random/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "一篇理论上存在的本科毕业留念长文",
+      "item": "/random/2897dc/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "一篇理论上存在的本科毕业留念长文",
+  "name": "一篇理论上存在的本科毕业留念长文",
+  "description": "这是一篇关于 laekov 在贵系本科四年的碎片式回忆.\n关于学习 没学好的基础课 laekov 高三的时候文化课成绩似乎还可以, 但是上大学之后从线性代数A的线性空间部分开始崩溃, 到微积分B半期挂科伏地膜, 再到大雾B险些挂科. 大一大二的时候一方面选了很多课, 另一方面除了课程之外还找了很多事情干, 所以并没有好好地学习这些基础的课程. 显而易见地, 成绩也非常惨淡.\n事实证明线性代数这样的课程还是非常必要的. 例如在写 Prague 的论文的时候就遇到了一个线性代数的证明, 然而不会证, 这种情况就十分惨惨. 再比如大雾里的量子物理, 热学之类的东西, 虽然凭当时的直觉觉得没啥用, 但是真的做科研的时候发现量子计算这条路想走也会更艰辛一些, 然后就会想要是当时花了更多的时间把量子搞得更懂一些该多好.\n并不划算的抢先学 laekov 在年轻的时候天真地想空出一整学期没有课 (后来几乎就做到了), 所以一直在抢先选高年级的课, 并将这个战略一直贯彻到了大三. 然而事实证明这并不是一个非常合算的战略.\nlaekov 在大一下的时候就先上了 OS 课, 原因是时间不冲突 + 对 os 比较感兴趣. 然而当时对 CPU 什么的完全没有正确的了解, 虽然在上完 OS 之后反倒对 CPU 的功能有了一定的认知. 然后大二上的时候就造了 CPU, 大二下才上数字电路设计. 这相当于把贵系的 \u0026ldquo;数电 - CPU - OS\u0026rdquo; 这个知识链完全反过来上了.\n虽然 laekov 没有挂科, 但是中间有很多不懂的知识, 会错过很多深入探究的机会. 例如在造 CPU 的时候由于缺乏数设知识, 所以对电路的延迟和流水线设计都没有太多概念. 整个 CPU 造出来也是以 \u0026ldquo;造出来\u0026rdquo; 为目标的, 而且为了这个目标也花费了很多的心血, 而进一步的性能调优和适配更多的功能就完全无能为力了, 所以最后得分相对来说比较低.",
+  "keywords": [
+    "brainhole"
+  ],
+  "articleBody": "这是一篇关于 laekov 在贵系本科四年的碎片式回忆.\n关于学习 没学好的基础课 laekov 高三的时候文化课成绩似乎还可以, 但是上大学之后从线性代数A的线性空间部分开始崩溃, 到微积分B半期挂科伏地膜, 再到大雾B险些挂科. 大一大二的时候一方面选了很多课, 另一方面除了课程之外还找了很多事情干, 所以并没有好好地学习这些基础的课程. 显而易见地, 成绩也非常惨淡.\n事实证明线性代数这样的课程还是非常必要的. 例如在写 Prague 的论文的时候就遇到了一个线性代数的证明, 然而不会证, 这种情况就十分惨惨. 再比如大雾里的量子物理, 热学之类的东西, 虽然凭当时的直觉觉得没啥用, 但是真的做科研的时候发现量子计算这条路想走也会更艰辛一些, 然后就会想要是当时花了更多的时间把量子搞得更懂一些该多好.\n并不划算的抢先学 laekov 在年轻的时候天真地想空出一整学期没有课 (后来几乎就做到了), 所以一直在抢先选高年级的课, 并将这个战略一直贯彻到了大三. 然而事实证明这并不是一个非常合算的战略.\nlaekov 在大一下的时候就先上了 OS 课, 原因是时间不冲突 + 对 os 比较感兴趣. 然而当时对 CPU 什么的完全没有正确的了解, 虽然在上完 OS 之后反倒对 CPU 的功能有了一定的认知. 然后大二上的时候就造了 CPU, 大二下才上数字电路设计. 这相当于把贵系的 “数电 - CPU - OS” 这个知识链完全反过来上了.\n虽然 laekov 没有挂科, 但是中间有很多不懂的知识, 会错过很多深入探究的机会. 例如在造 CPU 的时候由于缺乏数设知识, 所以对电路的延迟和流水线设计都没有太多概念. 整个 CPU 造出来也是以 “造出来” 为目标的, 而且为了这个目标也花费了很多的心血, 而进一步的性能调优和适配更多的功能就完全无能为力了, 所以最后得分相对来说比较低. 虽然这样做使得 laekov 在大三及之后课业压力没有那么大, 但是当看到厉害如 harry 的 dalao 们在各种联合大实验中搞出厉害的项目的时候, 会比较后悔自己早早地艰难地糊完了这门课.\nlaekov 还有一学期选了四门贵系的限选课, 于是在期末的半个多月里获得了四份大作业并疯狂赶作业, 这也是一种不太好的选课策略.\n失败的辅修和成功的任选课 laekov 年轻的时候选了五金的创辅, 原因是觉得有经济学原理管理学原理这种 “听上去很有用” 的课. 然而上了一节经济学原理之后发现经济学原理好无聊, 上了一节会计学原理之后发现会计学原理也挺无聊. 于是只上了一节也退了, 最后留下管理学原理上完了. 当然其中一个原因是那个学期要造机. 然后觉得这种不写代码不算算术的课好无聊, 第二学期更是一节课也不想上了, 最后就把整个辅修退掉了.\nlaekov 一直有一个学俄语的梦想, 从大一开始几乎每学期选课的时候都会选俄语, 然后因为时间不合适而退掉. 大三某次补选上了一节课然后退了. 大三下的时候终于成功地上了何老师的俄语课, очень хороший класс. 算是我上过最开心的选修课了. 虽然背单词背得死去活来, 但是入门了一门新的自然语言, 而且能读出来了, 就很开心, 甚至还去 владивосток 旅游了一番. (虽然是抱着某位上过专业俄语课的学姐的大腿去的)\n说到最后有一种感觉是自己在贵系待了四年就没上过什么正经课. 怎么回事. \u003e_\u003c\n一份开源的大作业列表 laekov 不擅长集成, 所以大作业主要靠凭空写. 于是得分向来都不高.\n但是 laekov 乐于把大作业 push 到 github 上. 所以就有了这份列表.\nRCube 大一程序设计基础课的魔方. 按照 laekov 仅会的公式转的, 不是用的神奇的群论方法, 所以步数巨多. (队友: jay gao, 子薇姐姐). RBRRM Rule-Based Regular Routing Method , 姚海龙老师的 OOP 课的组队大作业. 我使用了网络流/费用流算法 + 神奇的 rule 来生成 routing. 因为 rule 设计得过于奇怪所以 route 总长度并不优, 但是很好看 (艺术品??). 本打算发篇小文章, 但是在做文献调研的时候发现别人做得更简单效果更好??? 于是原地放弃了, 然而强如 n+e dalao 就把文章给发出去了. (队友: lr, 孙yf). QtSudoku Qt 做的数独. 贵系编程小学期第一个作业. 主要是学习使用 Qt 做 GUI. QtCheckers Qt 的跳旗, 可联网对战. 贵系编程小学期第二个作业. 主要学习 Qt 的网络模块. Celebrities 贵系小学期第三个作业, wiki 名人条目搜索. 主要是学习爬虫+简单的web开发. laekov 使用了 js 异步爬取数据比 python 的同步模式快很多. zhxpu 造计算机. laekov “创新” 地设计了四段流水. (扔掉了 mem). 怎么想都觉得天真. (队友: zhx, bakser) llim 人工智能导论第一个大作业, 拼音输入法. MNist 人工智能导论第二个大作业, 训 lenet over mnist. 用的 pytorch. 然后我又加了个 googlenet? Canyon 图形学大作业, 只做了 openmp 并行的光线跟踪和球, 面, 贝塞尔旋转体. CaPiano 数设项目, 从 ov7670 摄像头捕捉图像, 然后识别手指, 然后用电脑播放对应的声音. (队友: bakser) DGEBC 分布式遗传算法 box2d 小车. 康总分布式系统小学期大作业. (队友: saffah, yjp 的室友) ChitaiNews 痴呆新闻. 安卓新闻客户端. 贵系 java 小学期作业. internet-lab 网原路由器. 大力感谢 harry chen 告诉我 socket 的坑. (队友 bakser, hzy) EMNLPxxx 人工神经网络课大作业, 抱 84 大腿的炼丹. (队友 bakser, hzy) PolarKV 存储课小作业, 键值存储系统. BJFar 北京市建筑密度预测. 城市模型概论大作业. 使用了 GCN 和 GAT 图神经网络. Taxiii 出租车拼车匹配. 数据库专题训练大作业. 使用高德前端. Minimon 最小监视器. 嵌入式系统大作业. 使用 build 自底身上构建最小系统, 并自行加入了 openVINO 支持, 从而可以使用 intel movidus 神经网络加速棒对 DNN 推理进行加速. 详见这篇博文 兼职和实习 CloudBeaver: Web 开发重新做人 laekov 高中的时候自学 php 写了 oj, 跟 jcpwfloi 学了 expressjs, 然后抄构架用 php 写了这个博客并用 jquery + clone 写出了奇妙的前端.\n上大学第一个学期发现程设课好无聊, 于是在 zhonghaoxi 的安利下找到了人生第一份兼职, 在某创业公司干活. laekov 入职的时候的选择是在用 scala 写数据分析算法和用 javascript 做前端之间. 然后因为 laekov 说了一句 “我会写 javascript” 所以就去做前端了.\n然后发现原来世界上还有 GruntJS 和 Bower 这么先进的东西, 原来填个名字就可以获得自动更新的轮子, 原来还可以自动 watch file 并重启 node. 原来还可以自动合并前端的 js 代码生成 dist. 虽然之前自己瞎搞的时候知道可以这么干但是没有见过就不知道具体咋干, 于是学习了很多 web 开发的知识.\n然后在 cloudbeaver 还学会了使用高德前端的 api, 学会了去看不同的轮子的文档然后把轮子撸到自己的工程里. 这些确实都是挺有用的技能.\n在 cloudbeaver 的生活也很有趣. 比如每天中午大家会一起去公司负一层的食堂吃饭, 而晚上则会公费叫外卖, 然后在会议室吃. 并想起了小川学长在七中演讲的时候说 sogo 创业初期为了吸引实习生来办公室干活而免费给实习生订盒饭的故事. 然后还发现同在公司兼职的同事是二字班 (比 laekov 大四届) 正好本科的时候也睡在 laekov 宿舍的学长. 学长还教育 laekov 如果半夜买外卖又不想去四单元拿, 可以在窗户外面的台子上拿个晾衣杆把外卖钓上来. 虽然 laekov 的宿舍氛围良好从没有人干过在宿舍熬夜到半夜还点外卖这种不健康的事情. (关于 laekov 的宿舍, 引用 lr 同学的这篇微信文章) 还有第一次在异乡过生日, 碰巧公司组织团建, 然后同事们竟然记得我的生日并给我买了蛋糕过生日, 很温暖.\n还记得 zhonghaoxi 有时候会早上十一点左右叫 laekov 一起去办公室, 然后两人先骑车到东南门外吃一顿西少爷, 原因是 zhonghaoxi 觉得公司食堂太难吃了. 然后 zhonghaoxi 会给 laekov 讲当年的西少爷还是个程序员干不下去了摆的地摊, 而现在已经是家完整的店了. 然后 laekov 还会研究一下西少爷那个只能用徽信不能用支付宝的收银系统的前端做得好像还挺好. 然后两个人再骑着车从沿着学院路去上班.\n然而到了大一第一学期末, 因为期末考试的压力渐渐显现, 加上 laekov 觉得在公司暂时没有什么新的事情可做, 而 zhonghaoxi 做的那一坨东西 laekov 又不是很搞得明白, 所以就辞职跑路回去好好学习了. 总之这是 laekov 在业界打的第一份工, 并学到了一些东西. 但也在最初的一学期就牵扯了 laekov 不少的精力. 换言之 laekov 从第一学期开始就没有好好学习.\nTUOJ at THUSAAC: 抓瞎的软件开发与运维实践 因为高中的时候写了 OJSeven, laekov 刚入学的时候就被 zhonghaoxi 安利去算协 THUSAAC 写一个新的 OJ 来代替之前的清橙和找不到维护的 UOJ 并认识了 yaoyao 等一帮人. 最初的 TUOJ 是为了应对 11 月份举行的第一届 CCSP 比赛而设计的. CCSP 比赛对 OJ 的要求与以往不同之处有二, 一是它要求支持不同的评测后端来评测不同的题目, 二是对于特定题目, 要使用标准分来给分, 然后再加部分, 即需要客制化的 Ranklist. 最初的版本由当时大二的几个学长主要操刀, 用了 jade 那一套跑在后端的前端渲染引擎, 比较混乱. 虽然 aoao 和 yaoyao 熬夜几天并 24+ 小时没有离开北京理工大学良乡校区图书馆五楼, 最终成功地撑下了一场比赛, 但是还是比较难以继续开发和维护. 学会了新的知识的 aoao 于是在大一寒假的时候花一周时间重构了当时的 TUOJ web 端的整个代码, 使用了更加现代化的框架 Angular + Bower + Grunt.\n然而当年的 laekov 对于软件测试并没有什么概念, 基本上是写一个功能之后手工测试一下就完事了, 所以其实 OJ 的撸棒性并不是太强. 压力测试也是就是拿考试当测试了. 现在想来真的挺灾难的. 比较好的是至少使用了 git 进行版本管理. 后来提前上学的小朋友加入 OJ 组之后也参与了开发, 还使用上了 branch. 大一下的时候 laekov 操着 TUOJ 承接了不少比赛, 比如算协办的 ACM 校赛, 贵系的保研机试上还因为分发 OS 失败而搞跪了大半个机房并被学长们大力吐槽了. 当时为了给不同的同学发密码条还掌握了一个无用(也许有用)的技能: word 邮件合并. 其实如果当时认识 harry 的话, 我就会发现, 直接做一个一键导出密码条的功能就好了啊.\n经过了又一个学期, 来到大二上, laekov 发现一场场地接比赛 + 写 bug 补功能变得越发无聊了起来, 而且那个学期第一次面临要请一个星期的假去国外的情况, 非常方张, 于是就并不顺畅地甩了锅, 退出了 oj 组, 专心准备造机和腾出时间去蓝桥杯了.\nSenseParrots: 从零开始的新生活 经过了学习菜鸡, 进组科研划水并每周组会都觉得 huangkz 看了好多论文, xl 和 prof zhai 争论得好激烈, rd 做的事情好 solid 的大二上之后, laekov 在大二下的时候去参加一个奇妙的 Tencent ACM xxx 活动, 并表示有意向实习, 于是在一番面试, 并被面试官问了奇怪的算法没答对正解之后获得了一个实习的 offer, 做推荐算法???\nlaekov 还记得那个下午正在照澜院忘了干嘛, 接到 tencent 的电话, 然后转手打给了 zhai 老师问这个事情咋样, 然后 zhai 老师表示别去 tencent 了, 去 sensetime 吧, 并在周末的时候暴风再递了一份简历并再次被面了一个试并被面试官觉得 “既然你搞过 ACM 就不问你算法题了” 之后获得了新的 offer 并在五月的时候入职了 SenseTime.\n不得不说作为一千多号实习生, SenseTime 的员工管理制度比创业公司完善很多. 例如刚入职的时候会有严肃的培训并可以在 mba, dell laptop 和台式机之间选择, 然后 laekov 当然选择了台式机并获得了一台装备了 i5 和 1060 的台式机, 这应该是 laekov 在那之前都没用过带有 nvidia 消费级显卡的台式机 (惨兮兮). laekov 拿自己当时正好在做的 MNIST 作业尝试了一下, 发现显卡炼丹果然快了很多很多, 哪怕它只是 1060. (在那之前 laekov 已经用过了超算队的 V100, 但当时对显卡还没有这么深刻的概念). 当然公司的 PC 是不能拿来打游戏的, 而且还装有奇怪的软件 (?). laekov 尝试让 Xorg 使用集显输出视频信号, 而仅使用独显跑一些实验性的 DL 任务, 然后就把 kernel 不知怎的搞跪了, 于是 IT 无奈地帮 laekov 换了一台同配置的主机.\nlaekov 在 SenseTime 的工作内容涉及商业问题不太能多讲, 虽然 laekov 已经不记得离职的时候签的保密协议是要保多长时间了. 大概 laekov 被分配到了一些写 Python 和 C 的任务. 然而当时的 laekov 擅长的是 nodejs, 在 python 这方面完全是萌新, 只会写 hello world 那种水平. laekov 一边看文档和 tutorial 一边在在同事 xuchi 等人的带领下迅速地入门了 python 并学会了 python 里各种神奇的操作并觉得 python 某些时候比 js 更好用. 总之这种脚本语言在各自的应用场景里都是非常方便的, 在不同的应用场景下选择合适的语言, 而不是拘泥于个人对语言的好恶, 在 laekov 看来才是正道, 譬如 laekov 在后来跑各种科研的实验的时候就写了无数的 bash.\nlaekov 在 SenseTime 兼职了大约一年时间, 中途有时候会因为期末考试或者准备某些别的事情而暂时翘班一段时间, 组长 xingcheng 非常通融地允许了 laekov 在这种时候跑路. 但是 laekov 在工作时间还是非常拼的, 可能因为 debug 效率比较高(?), 所以还获得了 “实习生之星” 和组里 PM 姐姐们的良好口碑.\nlaekov 在 SenseTime 见证了一个项目从 prototype 到和用户 (也是自己公司的人) 对接试用的过程, 学习到了更多的项目管理, 敏捷开发这样的知识, 比如要使用 Confluence 来记录开发计划和内部文档, 使用 Jira 来明确每个人的任务并被项目经理在组会上对着它催锅. 以及要使用 CI 和 Unit test 来尽可能地减少项目的 bug, 同时较好地解耦合不同的模块. 以及 laekov 对 lint 印象深刻, 以至于后来再写代码时, 对于行宽都有了条件反射.\nlaekov 对 SenseTime 的记忆很多. 最初在 C8 一个的角落里干活, 十分惬意. 周末有时候还跑到办公室做作业, 比如 laekov 的 java 小学期 android 新闻客户端就用到了办公室台式机上装的 android studio, 原因是 laekov 自己的电脑实在是太菜, 跑 IDE 太卡了. 作为 vim 选手的 laekov 写写 python 和 C++ 倒是没有什么问题, 但是对于 java 这种强依赖于 IDE 的编程语言 (对, 就是在吐槽 java 变量名方法名类名太长了) 就很捉鸡了.\nlaekov 还记得那个夏天翘了 xdf 的 GRE 课 (一把辛酸泪) 待在办公室干活, 和同事们去马路对面吃 hequan 家的川菜馆和大盘鸡并抹零, 有时候一个人就去楼下买三明治或者饭团或者沙拉. laekov 觉得工作餐其实确实吃个沙拉就够了. SenseTime 还有神奇的只要在办公室待到 8 点后就可以免费吃 25 块钱的签单晚餐, 于是大家总是要在楼下的几家餐厅之间作出选择. laekov 有时候还会和 xl 一起回学校吃饭, 第一次带 xl 去南园食堂的时候 xl 表示这是啥地方咋和学校里学生区的食堂差距那么大呢. 有时候还会走路回 EMB 的实验室开组会然后再走回来.\n总之在 SenseTime 干活的接近一年里虽然 laekov 确实花了不少时间待在公司, 也没有太认真学习, 但是还是学到了不少新的姿势, 并且对于领域里常用的基础的东西有了更深刻的理解. 所以 laekov 大学四年加起来在外面实习兼职的时间可能超过了 1/3 耶.\nOI/ACM 和超算比赛的二三事 OI: 从选手到退役选手再到讲师 plus 我是如何拿到区域赛金牌的 laekov 刚入学的时候就被 zhonghaoxi 拖去一起参加了 ACM, 从暑假和秋天的多校开始搞, 最后去了青岛的区域赛, 并留下了一篇博客. 大概就是区域赛本来可能有希望拿 rank 1, 然而遇到(被安排)了和 DDF (即 wjmzmbr, 杜教, jcvb) 同场竞技, 于是被辗轧了两题变成了 rank 2. zhonghaoxi 表示 wf 没希望了, 于是 FFF 队就地解散.\n同样还被 zhonghaoxi 拉去某培训学校讲课. 因为 laekov 比较菜, 所以一般讲比较简单的 NOIP 难度的课, 基本上每个寒假假国庆五一什么的都会去讲. 最开始说话也不太利索, 课件也准备得逻辑不是很清楚, 到后来讲得比较熟练之后就可以比较好地控制讲课的节奏并且把要讲的东西讲清楚了. 虽然很多时候学生的接收程度还是不高的, 但总之能够感受到自己的进步. laekov 觉得讲课还是一个很能培养自己综合能力的事情. 至少站在台上讲话并不会紧张, 甚至会感到某种熟悉. 然而 laekov 可能最后也没有改掉在台上走来走去摇来摇去的习惯.\nSCC 的冠军之路与覆灭 后来大二跟着 zhai 老师之后发现超算比赛似乎比较有意思, 于是就加入了超算队. 最初是 ASC'18 的时候跟着 xieleilei 和 rd 调 CNTK 上 MsMarco 问答数据集上的丹, laekov 搞了一个一般疑问句直接回答 Yes 然后精度 ++. 然后好像就没别的贡献了. 作为 backup 的 laekov 也没去江西现场, 后来听说江西特别有意思.\n然后 laekov 就作为炼丹题的酱油选手去了法兰克福的 ISC'18, 并目睹 beichen 带队夺冠 兴奋得跳了起来. 可惜 ISC'19 只有第二, ISC'20 只有第三, harry 难过. 四字班毕业之后的 SC'18, laekov 终于摆脱了 AI 题, 成为了一个 interview 选手, 负责了各种 interview 和 engagement 和评委尬聊, 再加上和 cggg 一直搞复现题写复现 report. 虽然遇到了 rd 签证 gg, saffah 跑 HPL 差点没交上, laekov 半夜跑程序跑一半跑断网线暴风叫 blink 来修锅等等各种事情, 但是最后竟然还是有惊无险地拿了冠军并被 CCTV News 采访, 并上了新闻联播, 并在学校新年的时候获得了 “年度人物” 并去和 qiu 校长握了个手.\n2018 年的超算比赛大概是 laekov 熟悉各种比赛的过程, 主要觉得贵校每次都能拿到 Xeon Platium 8xxx 系列的 CPU 去比赛, 所以比较强大. 给 laekov 留下印象比较深刻的就是 frankfurt 街头内三速的共享单车和 Dallas 街头的电动共享滑板. laekov 在 Dallas 还拉上 yaoyao 在比赛之后一起去自行车店租了 Trek Madone 2.1 公路车并在一个神秘的湖边绕了一圈.\n2019 年的时候因为 saffah 要去 ACM WF, 所以 laekov 不幸直接越级成为了队长 (即负责订车票宾馆带东西的同学). ASC'19 laekov 负责跑 HPL/HPCG, 然而那场比赛有 CESM 这种搞死 harry 的东西, 还有 WTDBG2 这种完全没法看还只能单机的程序, 难度和赛点都十分鬼畜. 组委会在大连安排的学校边上的廉价奇怪宾馆也很诡异, 而且 laekov 还和 BUAA 的同学拼了一间房, 以至于 laekov 一脸茫然不敢说话. 虽然赛前在指导老师 saffah 的床上趴着拍脑袋拍出了 7 鸡 12 卡的奇怪配置, 但是贵队在现场最后疯狂翻车, 比如什么 CESM crash 之后 revert 到上一个 ckpt 接着跑什么的. 本来以为要胸牌而归了, 没想到搞了奇怪操作的 SJTU 和 SYSU 都翻车了, 于是在 NTHU 后面拿了第二.\n于是还是拿到了 Inspur 的赞助去了法兰. laekov 又负责上了 AI, 那次是用奇怪的模型做一个台风识别, 类似于某种 CV. 然后 laekov 发现代码里有各种 bug, 比如什么 BN 的 eval 模式结果完全不对之类的, 然后最后虽然做了很多工作但还是跪了, 原因是组委会发下来的 test set 和事先发的 val set 是一个东西, 然后别的队好多都对着 val set 训过了. ggg. 然后 interview 什么的又被南非吊起来打, 于是最后又拿了第二. 于是 laekov 不开心地去租了一台公主车去爬了个坡, 差点断腿 gg.\nSC 的时候老师们表示压力很大, 要是一年一个冠军都不拿就很惨了. 然而 laekov 表示去年三个冠军啊, 一定得在某一个比赛里连续两年拿冠军, 这不太行吧. 总之 laekov 和 harry 一起负责了一个叫 SST 的很有趣的计算机体系结构模拟器. laekov 发现在小测例上这程序的可扩展性不咋的. 一发 vtune 下去发现有奇怪的算法问题, 然后改了改算法快了七倍. 最后这题目也很有意思, 是要用 SST 找出一个成本合适的性能最好的 PC. 然后作为 HPL 选手 laekov 还负责了机器和面试和一些锅, 比前一年熬夜熬得更多了. 但最后就比较稳当地拿了冠军, 成功退役. 开心.\n再到疫情无限延期的 ASC'20, laekov 就真的在划水了. ISC'20 的时候 laekov 帮忙看了 Gromacs 并帮助 leenldk 学弟拿了单题第一. 可惜 AI 题大翻车了, 于是被 USTC 拿走第一, 还负于老对手南非, 遗憾地拿了第三. Harry 表示退役得十分不开心. patpat.\n超算比赛, 英文名称是 Student Clustder Competition. 相比 ACM 这样正经的大赛, 谁去谁知道. 虽然被称为 “计算机界的 F1”, laekov 也十分认可这种说法, 但其实作为学界会议的附产物, SCC 更大的意义还是让 Students 对这个领域有初步的认识, 知道这些程序都在干什么, 做 HPC 的人拿到不同的程序会从什么角度思考它的性能和优化的空间. 也在于培养同学维护拆装硬件的能力, 团队合作的能力, presentation 和 engagement 的能力. 至于其竞技性, 比如在 3000W 功耗内跑出最高的 HPL 分数, 虽然也是十分有趣的, 但对于个人来说也不是那样重要了.\n总之在 SCC 里, laekov 既收获了不错的成绩, 也收获了不同的能力和见识, 是一段很棒的经历.\n科研, PhD 的决定与申请 科研的初步探索 laekov 大一结束的时候找到了 han 导并表示想进实验室跟着干活. 于是 han 导开心地带着 laekov 去学习类脑计算的一堆东西, 什么 V1, LGN, STDP Training 啥的. 然而 laekov 发现并读不懂类脑的代码, 也读不懂类脑的 paper. 于是一个暑假过去啥也没干. 然后因为学术新星计划加入了 zhai 老师的组会豪华午餐, 于是开始看 DNN Framework, 当时大家试图 read TensorFlow Code, 但是好像也没看明白, 或者说作为一个大二的没啥时间搞科研的苣蒻也没时间看. (很久之后 laekov 因为自己科研需要倒是看了一部分). 后来也探索了一些不同的 hybrid parallelism 的可能性, 但是也只是停留在探索和 yy 阶段. 后来和洞 pro 聊天的时候洞 pro 表示他计算过不同 parallelism configuration 的理论加速上限, 发现并没有太多可搞的. 事后来看 laekov 深以为然. 然而 laekov 现在还是跳进了 pipeline 的坑. 当然这都是后话了.\n后来 laekov 就加入了 Sensetime 并在那边开始真实地写框架, 而 huangkz 则去搞了 RDMA 并成为了 RDMA 大师. laekov 在 SC'18 的时候和 cggg 一起写了算是第一篇学术的文章并投给了次年的 PARCO 期刊. 人生第一篇 Publ.\n18 年末 19 年初, 大家还一起尝试写过一个叫 Garlic 的 DNN Training 框架. 但是这个项目在大家缺乏经验 + 联调失败等各种打击下最后并没有成功. 最好的结果是能在 GPU 上跑起 MLP. rd 试图在里面做一些 sub-graph transformation 之类的工作, 但是图处理的各种 pass 也并不是那么好写. 这个方向上到底有多少可做的空间, laekov 表示茫然.\n19 年的春天 laekov 在忙于比赛, 而整个组似乎在向 compiler 这个方向进行转变. 大家开始更多地讨论起 TVM. 再后来 laekov 因为在一个文素课上炼丹而接触到了 GNN, 又在和 zhai 老师开会的时候入了 GNN 的坑. laekov 当时觉得 GNN 和 sparse 也许是新的热点, 然后发现已经有一大堆 GNN 的文章了, 而 sparse 的运算在 GNN 里并不是那么新颖, 有很多传统的文章都在做 sparse. laekov 最终毕设选题也往人少的方向走了一步, 试图做 GPU 上的 Sparse 运算性能建模, 并试图进一步地整合进 TVM 一类的编译框架里. 但是因为疫情而低效地划了半年水, 工作被 xuewei 老师评价说工作没有意义. gg.\n关于未来做什么, laekov 暂时还十分迷茫. 但是总之还是会做一些有意思的事情吧.\n暑研奇妙体验 at USC 对于暑研 laekov 早就知道有这事, 但是因为拖延所以一直没有自己去 individually 地套 offer. 报了学校的 stanford 项目然后被刷了, 报了系里的 CMU 项目, 久久不出结果, 最后问辅导员才发现是只通知了上了的人. 于是惨惨的 laekov 赶紧抱紧学院 USC 项目的大腿, 并在 zhai 老师的介绍下成为了 qian 老师的临时小弟. 又被二次分配给了 qinyi 师姐当小弟. 一查发现师姐竟然也是贵校的毕业生, 还是很优秀的那种.\n然后事先被告知要做 decentralized training, 并赶紧读了一些 paper. 获得了 alchem lab 的 server account, 然后发现竟然 16 个节点只插了 1 块 GPU? 这咋做? 师姐表示没事大实验我们可以去 bigger cluster 上做. 噫.\n于是在办完签证什么的之后来到了美丽(?)的 LA. 充满热带气息的树和低矮的城市房屋欢迎了 laekov, 然后和 kezhao 一起住进了 USC Village 的四层.\n这是 laekov 第一次在国外生活超过一个月, 感到新奇和贫穷, 因为去超市发现所有东西折算成 RMB 之后都好贵. (除了汽油, 不过那是后话) USC 的校园比较小, 红红的更像是 PKU.\n然后神奇的事情发生了: prof qian 不在 LA, 而在中国. 所以为什么要大老远来 LA 呢. 思考. 所以 project 主要是 qinyi 在做, 然后 prof qian 会时不时 zoom 同步一下并进行一下方向性的指导, 而 laekov 在去实验室发现并没有可用的工位而且 qinyi 也日常居家科研之后决定待在 usc 舒适的宿舍里, 对着 laekov 13寸的 macbook pro 屏幕和自带的键盘和 touchpad 写代码滴八哥. 于是 laekov 就这样在宿舍里宅了五周. 每天早上起来在客厅里写 bug, 对, usc 的本科生宿舍是两人一间卧室, 两间卧室共享了一个客厅, 当然这是有 scholarship 的人住的豪华房. 普通一点的房间会有微波炉, 但不会有这么大的活动空间. 然后 laekov 中午做饭的时候 kezhao 就醒了, 于是两人一起做黑暗料理午餐, 然后下午在卧室里写 bug, 然后傍晚再烤个简易晚餐, 然后继续写 bug, 然后 laekov 睡觉, huangkz 去客厅熬夜写 bug (或者去实验室和师兄一起熬夜写 bug). laekov 现在尤其想念每一袋都非常实在的乐事薯片 (laekov 尤其喜欢 bbq 味的), 以及大号的冰箱里大桶的只要 0.99 刀的可乐.\n后来学校资助的项目结束了, 但是 laekov 的文章还没投出去, 然而 USC 附近因为学生开学于是并没有合适的 airbnb 或者短租, 于是 laekov 在沿着 metro expo line 到 santa monica 半路的 westwood 附近租到了一间 studio, 然后好盆友马丁开车把 laekov 载到了新家. 失去了 kezhao 之后 laekov 变得更宅了一些, 除了出门骑车/买食物和炸鸡以外都不太会出门. 最近的超市是 1km 外的 99cent, 但是 99cent 的食物仿佛都不太新鲜, 比如买来的速食鸡腿有浓浓的奇怪的墨西哥辣椒味, 大概是为了掩盖不新鲜, 毕竟便宜. 而且 laekov 也缺乏合适的运载工具把东西从 99cent 运回家. 后来 laekov 才发现差不多距离处还有一家 trader joe’s, 这才解决了食材的新鲜问题.\n于是 laekov 窝在那间小屋里完成了第一篇正经的学术 paper 的赶实验赶文章交稿过程, 并在交稿后开心地去庆祝了一下, 和马丁一起骑了个车. 然后骑到一半被老板的电话召回 gg.\n完成了 paper 之后接下来 laekov 的工作就是多认识一些在加州的人了. 于是 laekov 租了一辆汽车, 沿海自驾到了 santa barbara 并带着自行车爬了个山并去见了 ucsb 的一众老板. 然后 laekov 还坐半夜大巴去了湾区, 然后又租了一辆车去找在 berkeley 做春研(暑研)的室友 lr 帮他搬家 + debug 并发现他的代码真的有 bug. 然后在 berkeley 没有带车所以开车出去溜了一圈骑行路线并见了很厉害的 yang you 师兄, 然后坐着 amtrak 的沿海小火车一路看风景 + 吃薯片在半夜九点回到了 LA. 行走在加州的地表感觉也很好玩, 风光很独特, 是中国所没有的西海岸呢.\n在 LA 最后的时光是和 Martin 还有 Xi 大爷一起去喝咖啡, 并被两个美国人用中文安利国籍优势和找工作很爽. 见到了从 CMU 来 LA 开会的 yaoyao 和 yaoyao 的老板 Andy, Andy 还请 laekov 吃了冰淇淋, 然而 laekov 半路被 prof qian 叫回去吃 farewell dinner 于是和师兄师姐还有 y00 一起在满是中文的 LA 的中国城吃了 LA 的正宗中餐作为告别, 然后从师兄那里借了几刀零钱坐地铁回家.\n以上大概就是 laekov 在 LA 待的两个月的经历. 总之除了物价比较高以外, 在 LA 生活确实比较自由自在, 城市里的 diversity 会比在中国大很多, 会见到更多不同的很有个性的人. 作为一个 cyclist, 在 LA 骑车是一项更普遍更被大众所接受的运动. 虽然老板不在, 但是如果要宅家做 research, 也是可以在家里方便地获得一方安宁的, 而且速食食品更方便 hhh. 总之 laekov 对 LA 的印象很不错, 所以最终将会回到 USC 去读 PhD. 虽然由于疫情影响不知道啥时候能人肉回到 LA, 但是暑研的这两个月确实是一段美好而自由的经历.\n佛系的申请季 因为觉得 USC 还不错所以 laekov 申请季的时候就很佛系. 除了比较想去 UC Berkeley 以外没有别的特别想去的学校, 于是除了 Berkeley 的老师发邮件 + 开会的时候追着套了磁并失败了以外, 没有发什么套磁邮件, 只是在老板的推荐下去和一些老师 “认识” 了一下. laekov 比较坚定地想读 PhD, 所以也没有申什么保底的 master, 想着要是全聚德了不如去工作.\n所以 laekov 最后申了八所学校, 包括四大中的两所 (抽奖), 被老板推荐去认识过的老板们的学校, 还瞎投了 System/Arch 比较强的 UIUC 和 UT Austin.\n结果嘛, 就是只收到了 USC 的 offer.\n因为 GPA 比较低, GRE 也很低, 也并没有太亮眼的 paper 列表/人脉, 所以也并不是太意外获得这个结果.\n业余生活, 运动 从 Ingress 到 Bikegress 到 Cycling laekov 大学刚入学的时候是一个疯狂的 ingress 爱好者, 绿6.\n在成都的时候周边没有太多 portal, 而贵校校园里竟然甚至可以有床 po, 非常开心.\n刚入学的时候甚至经常会出门走路刷一圈 ingress, 也是因为 ingress 所以最初走遍了贵校校园的很多地方 (尤其是紫荆雕塑园一带).\n最神奇的是遇到过一次蓝军的起八活动(?), 然后跟着一路炸, 然后就被物理地抓住了, 并且发现对方是北大的. 233333.\n后来觉得走路刷 portal 实在是有点慢, 而且又有了阿甘摇手机这个项目, 于是就开始探索骑自行车玩 ingress, 并买了一个可以把手机架在自行车车把上的支架. 依稀记得那年冬天一个寒冷的夜晚 laekov 骑着车在大礼堂一带摸 po, 然后手机被冻没电了 23333.\nlaekov 的室友变态和智障也一度被 laekov 带入了 ingress, 可是他们俩实在太宅了, 不愿意出门跑, 然后就没有然后了.\n再后来春季学期就来了, laekov 看着被高中同学安利淘宝 600 块钱买来的死飞自行车, 又在算协的某 c 姓和某 z 姓学长聊天中知道了山地自行车和公路自行车, 于是就上网学习了一下公路自行车, 然后发现公路自行车似乎很好玩耶. 然后百团大战的时候发现竟然有 “自行车协会”, 而且入会只要 5 元钱! 于是在和一个人看摊的当时的会长 trx 聊了一会并被邀请掂了一下他的超轻的 trek emonda 并得知他的车竟然要几万块钱之后果断地花 5 块钱进了群, 然后找 zgg 借了头盔和他的公爵 600, 然后就踏上了车协的迎新骑.\n我可能经历了车协最有毒的迎新骑, 出发的时候咕咕咕到只有四个老人和三个萌新. 然后刚出门, 在北体门口, 全队最闪亮的一台黄色 sworks venge (当时还不认识) 就惨遭扎胎, 钉子甚至扎坏了碳圈, 心疼2333. 然后路上 mhc 把链条踩断了, 然后他竟然还神奇地带了截链器, 于是现场修链条. 全队唯一的一个萌新妹子借来的破山地车的后拨也不好使, 于是大家还修了一会后拨然而没有修好. 最后 35km 去凤凰岭的路愣是走到中午才到.\n再然后 laekov 经过一番研究和舍不得花钱, 跟车协去团购买了一台黄绿色 merida scultra 93. 虽然因为不太懂然后一起去的猫 pro 也没告诉我于是就买了最小码的车架不是太能骑然后 93 的螳螂须也有点丑但总之它是 laekov 的车了. laekov 还开心地骑到西门超越单车去装了个狗嘴. 然后跟着车协众人去了十三陵水库环, 东方红爬坡, 然后爬了香山, 然后就跟着晗队去了东大白 140km 骑得屁股疼并被教育要买骑行裤来穿不然屁股会gg.\n总之 laekov 就这么入坑了公路车, 然后就再没玩过 ingress, 还弃坑了网球. 因为对于 laekov, 骑车比起 ingress 好像有意思得多. 骑在公路车上, 动辄几十上百公里的长距离行动, 走得更远, 见得更多. 山林, 悬崖和河谷对于 laekov 更有吸引力.\n爱上重力: 骑车的初体验 laekov 写到\n2017 年春天的时候 laekov 获得了小绿车.\n2017 年春天 laekov 很喜欢午后去爬太舟坞.\n2017 年五一节假期 laekov 在成都被 tu 哥带着跑了若干家店, 最终买到了合脚的 lake 锁鞋.\n2017 年春季学期结束的时候, laekov 在一个大雨天被闲鱼的卖家咕了, 在火器营地铁站一个人淋雨淋了一个多小时, 于是很生气的 1000 块贱卖掉了小绿车, 然后回成都装了大彩.\n2017 年暑假 laekov 和爹妈一起开车载着大彩去西昌环了邛海. 第一次 4+2.\n2017 年夏天 laekov 刚带着大彩回北京骑车就悲惨地在奥园把自己没上紧的脚踏给踩掉了并摔了车并把刚买了几个月的锁鞋给刮破了.\n2017 年十一假期 laekov 和晗队等一大帮人去单日红井路, 260km 里程, 爬升 2600m. 出发时有 12 人, 晚上十一点回到学校的仅剩三人, 而当时还很萌新的 laekov 有幸是其中之一. 于是 laekov 给车协的公众号投了一篇稿记录这次骑行.\n2017 年冬天 laekov 被北京的寒风冻得够呛, 但是还是坚强地和假pro和张阿姨众人去爬了妙, 然后坐闪电的免费摆渡车下了山. 要不是有闪电的免费摆渡车, laekov 觉得冬天放妙大概会冻成冰棍吧.\n2017 年 laekov 还发现北苑闪电车店里有神奇的骑行台活动, 于是去骑了个奥园比赛还得了个体恤作为奖品.\n2017 年 laekov 还去参加了北京高校零度骑行的活动. 出发前早晨的时候晗队把自己的后拨玩断了, 于是小假临时从贴身副将升级成了主将. 然而第二副将 laekov 因为太菜所以全程没有见到主将. 零度骑完之后大家在碎石地上围着火炉吃冰沙.\n2017 年秋季学期期末之后, laekov 决定犒劳一下自己, 于是二手淘来了一个 130bcd 的 quarq red 盘爪功率计, 并郁闷地发现只能装 39t 的小盘, 于是又淘来了付标准盘片, 然后去装车发现没有盘钉, 盘钉很贵, 于是多花了很多钱才把功率计给装上. 因为天冷, laekov 就想去离学校最近的西山爬个坡看看功率计的效果, 然后就在西山公园里迷路了, 并没有找到去鬼笑石的路. 于是 laekov 掉头原路返回, 然后在快要下到平地的时候辗上了一片冰并摔了个车. 不过因为穿得多所以并没有摔出大问题.\n2018 年春节比较晚, 因为要去毛概实践, 所以 laekov 在学校留了比较长的时间. 舍友都回家之后一个人就可以晚上在宿舍把台子摸出来骑, 看着功率边骑边看飙速宅男. laekov 去贵州实践的时候发现贵州的城市里到处都是爬坡, 表示这里骑车一定很爽, 但是没带车.\n2018 年春天 laekov 报了 sbt 环密云水库, 于是前一周本着恢复一下的想法和小假等人去骑戒潭, 然而在北四环一个转弯下坡的匝道上因为车速比较快地面洒水结了暗冰, 所以 laekov 就侧滑摔车了并骨折了, 一个人断着手骑了几公里回学校特别惨. 接下来一个月都打了固定没有骑车, 并成功错过 sbt.\n2018 年五一, 骨折刚拆了支具没多久的 laekov 买了一对 bora one 35 碳刀庆祝一下, 并发现一万块钱的碳刀果然比三千块钱的碳刀骑起来有质的飞跃, 并和小假等人一起去骑了永四, 在每个坡都被小假拉爆.\n2018 年的夏天 laekov 发现可以早晨四点过起来去爬妙峰山, 并且由于很久之前前前会长说过 laekov 应该爬妙好好练练能进 60, 于是 laekov 日常去爬妙, 有时候要 69 分钟, 有时候可以到 62 分钟, 成绩十分摇摆. 并因此翘了一些 GRE 课 (雾). 最终在车协 dalao 户 pro 的带风下进了 60, 并觉得自己及格了. 以及清晨去骑妙, 风景和心情都还是不错的.\n2018 年的秋天 laekov 因为参加了 shenyang 办的山地入门活动, 突然对山地车也产生了兴趣, 并买了一辆黄色 merida challenger 800, 入坑了山地, 偶尔在学校里飞飞台子, 下下坡什么的.\n由一次起床失败引发的故事 夏天的时候北京天亮很早, 所以就有工作日早晨起来, 五六点钟在空旷的道路上骑个车再回去接着上班上学这种操作. 2018 年的夏天车协就有了一个早晨起来刷昆玉河的群.\n在 6 月 8 号这一天, laekov 早晨本来打算去参加一个五点的局, 但是当 laekov 没有听到闹钟终于自然醒来的时候已经四点五十了, 但是惊喜地发现群里有一个学姐也起晚了, 于是学姐来加了 laekov 的好友, 并表示要不一起去组个起晚局. 于是 laekov 快如风地化了个妆以比平时快几倍的速度出了门, 然后捡到了在丁香门口已经等了半天的学姐, 然后一起刷了个河. 然后 laekov 也没等学姐就自己回去了, 然后去荷清路绕了一圈, 然后又很巧地在清华路和学堂路的路口又遇到了学姐, 然后 laekov 为了刷学堂路的爬坡王 so 地就过去了.\n再后来 laekov 会在上班摸鱼的时候和学姐有一搓没一搓地聊天. 会和学姐约游泳然后骑着自行车带学姐去游泳池然后再去五道口约个饭. 再后来学姐被 laekov 刷完奥园带的一支玫瑰花给感动了于是成为了 laekov 的女朋友.\n所以骑车和吃饭是 laekov 和学姐的日常活动. 一起去铁三比赛也是学姐和 laekov 很 enjoy 的事情.\n为会长十月 在各种因素下 laekov 在 2018 年的暑假成为了贵校车协的会长, 并一直干到了 2019 年暑假前.\n所以 laekov 拥有管理 300 人社团的经验, 虽然事实上活跃的人数并不多.\n贵校车协更像是一个纯粹的兴趣组织, 只是为校内骑车的同学提供一个约车的大群而已. 附加的一些功能包括迎新和组织一些日常活动, 社团部的年审, 冬季夏季做两次队服, 还有就是临时学校安排的一些奇怪的活动以及大家有兴趣干什么就干什么了.\nlaekov 的原则是谁提议谁负责. 会长不是背锅侠. 然而做夏季衣服的时候学姐还是主动地承担了很多的职责.\n在 laekov 之前的几任会长都是光杆司令, 除了会长以外协会没有任何干部, 和隔壁层级分明的组织形成了鲜明对比. laekov 为了省事以各种原因任命了几位可爱的副会长, 大家有事的时候, 比如发衣服的时候, 会负载均衡一下.\n但是作为一个会长, 会接触到更多神奇的人. 协会内部的人有各种各样的需求, 而协会外部的人也会有各种各样对社团的想法.\n比如协会内部会有不同的 “骑车” 的需求. 有的人骑公路车, 为的是增加自己的功率, 锻炼强大的心肺能力, 其中一部分人更是希望在比赛中取得比较好的成绩. 有的人骑山地车, 为的是安全稳当地骑行, 又能够亲近大自然. 而另一部分人骑山地车则是为了追求在土路上飞跃的刺激. 有的人希望工作日早晚也能有和大家一起骑车的机会, 另一些人则希望在寒假暑假能有有组织的长途骑车. laekov 作为会长, 对骑车也有自己的理解和玩法. 例如让 laekov 去带一队山马寒假环海南, laekov 就是难以接受的. 所以 laekov 本自由约车的原则, 如果有人去就去, 如果只是有一个人提个想法没人响应, 那就算了. ovo\n社团外有自行车商希望车协能团购他们的自行车, 或者达成某种形式的赞助. 有专业的自行车教练, 希望车协能吸引更多的人骑车, 从而有更多的人参与比赛和科学训练. 有学校从事道路建设方面的老师, 希望车协能够为北京市自行车道路建设贡献力量. laekov 本着没有工资不干活的原则, 还是增长了很多社会阅历.\n后骑车时代: 思考与简化 laekov 的大学四年, 有三年半都是以自行车运动为主要的业余活动度过的. laekov 常常不是在工作, 就是在骑车, 或者是在准备骑车.\nlaekov 在 2019 年夏季去 LA 之前一个炎热的下午, 因为心情不好而低价卖掉了大彩. 后来又组装了 DIY 涂装的大紫. 相比大彩, 大紫不是竞技的碳架, 而是古老的钢架, 大紫没有功率计, 最开始甚至没有装码表. 大紫牙盘只有一个盘片, 最高可以踩踏的速度降低了不少. 虽然省去了很多的功能, 但是这是 laekov 骑车以来对自己骑车目的的思考与探索.\n竞赛的胜利固然快乐, 征服遥远的长途固然雄壮, 但是 laekov 更享受的, 只是骑行在路上, 在自由而快速地前进和上升这件事而已.\nMisc 一些统计数据 laekov 本科期间换了 4 个新手机, 0 个新电脑.\nlaekov 本科期间去过 4 次美国, 2 次德国. 两次去德国都在 Frankfurt.\nlaekov 一共参加了 7 场超算比赛, 其中 5 场是正式队员, 4 场由 laekov 主要负责被面试.\nlaekov 本科期间一共发表了 2 篇论文.\n(根据学校统计) laekov 一共吃过学校的 15 个不同食堂中的 14 个.\nlaekov 本科期间拥有过 13 辆自行车, 其中包括 6 辆公路车 (小绿, 大彩, 小灰, 蓝车, 大紫, 大橙), 6 辆通勤车 (黑色卧凤, 大绿, 成都死飞, 大蓝, 大白, 大粉), 1 辆山地车 (大黄).\nlaekov 在 4 个国外城市和 7 个国内城市骑过自行车 (不少于 40km).\n根据 laekov 的 strava 记录, 从 2017 年到 2020 年 6 月 24 日, laekov 一共骑行了 12884.9 千米, 海拔爬升 133472 米. (相当于从海平面爬了15 次珠峰?)\nlaekov 本科期间完成了 4 场铁人三项比赛, 2 场半程马拉松比赛, 1 场越野跑比赛. 参加了 3 次自行车比赛, 其中有一次因为下雨太冷退赛了, 另有一次因为摔断了手而 DNS.\nUpdate log 6.23: 发毕业照朋友圈的时候开了这个坑 6.24: 按照现在写文章的习惯列了一个提纲, 然后慢慢填. 填了大作业列表和一些数据. 写了学习的部分, 然后觉得自己没上过什么课. 6.25: 自行车 part 1. 6.30: 实习经历. ACM 和超算比赛. 7.11: 申请. 骑车的后半部分. Historical Comments laekov at 2020-07-11T23:04:44 终于码完了这篇文章. 撒花. 本科四年, 再见.\nconstroy at 2021-07-15T01:03:19 你居然也去了2016青岛？我们队那场第四，那是我最后一场区域赛。\nlaekov at 2021-07-19T19:28:24 是啊，那也是我的最后一场\nlaekov at 2021-08-03T01:19:42 突然想起当年acm区域赛我们的队名叫 我喜欢我旁边的主持人 啊真是青春啊\n",
+  "wordCount" : "2427",
+  "inLanguage": "en",
+  "datePublished": "2020-06-23T15:09:04Z",
+  "dateModified": "2020-06-23T15:09:04Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/random/2897dc/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/random/">Randoms</a></div>
+    <h1 class="post-title">
+      一篇理论上存在的本科毕业留念长文
+    </h1>
+    <div class="post-meta"><span title='2020-06-23 15:09:04 +0000 UTC'>June 23, 2020</span>&nbsp;·&nbsp;12 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e5%85%b3%e4%ba%8e%e5%ad%a6%e4%b9%a0" aria-label="关于学习">关于学习</a><ul>
+                        
+                <li>
+                    <a href="#%e6%b2%a1%e5%ad%a6%e5%a5%bd%e7%9a%84%e5%9f%ba%e7%a1%80%e8%af%be" aria-label="没学好的基础课">没学好的基础课</a></li>
+                <li>
+                    <a href="#%e5%b9%b6%e4%b8%8d%e5%88%92%e7%ae%97%e7%9a%84%e6%8a%a2%e5%85%88%e5%ad%a6" aria-label="并不划算的抢先学">并不划算的抢先学</a></li>
+                <li>
+                    <a href="#%e5%a4%b1%e8%b4%a5%e7%9a%84%e8%be%85%e4%bf%ae%e5%92%8c%e6%88%90%e5%8a%9f%e7%9a%84%e4%bb%bb%e9%80%89%e8%af%be" aria-label="失败的辅修和成功的任选课">失败的辅修和成功的任选课</a></li>
+                <li>
+                    <a href="#%e4%b8%80%e4%bb%bd%e5%bc%80%e6%ba%90%e7%9a%84%e5%a4%a7%e4%bd%9c%e4%b8%9a%e5%88%97%e8%a1%a8" aria-label="一份开源的大作业列表">一份开源的大作业列表</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e5%85%bc%e8%81%8c%e5%92%8c%e5%ae%9e%e4%b9%a0" aria-label="兼职和实习">兼职和实习</a><ul>
+                        
+                <li>
+                    <a href="#cloudbeaver-web-%e5%bc%80%e5%8f%91%e9%87%8d%e6%96%b0%e5%81%9a%e4%ba%ba" aria-label="CloudBeaver: Web 开发重新做人">CloudBeaver: Web 开发重新做人</a></li>
+                <li>
+                    <a href="#tuoj-at-thusaac-%e6%8a%93%e7%9e%8e%e7%9a%84%e8%bd%af%e4%bb%b6%e5%bc%80%e5%8f%91%e4%b8%8e%e8%bf%90%e7%bb%b4%e5%ae%9e%e8%b7%b5" aria-label="TUOJ at THUSAAC: 抓瞎的软件开发与运维实践">TUOJ at THUSAAC: 抓瞎的软件开发与运维实践</a></li>
+                <li>
+                    <a href="#senseparrots-%e4%bb%8e%e9%9b%b6%e5%bc%80%e5%a7%8b%e7%9a%84%e6%96%b0%e7%94%9f%e6%b4%bb" aria-label="SenseParrots: 从零开始的新生活">SenseParrots: 从零开始的新生活</a></li></ul>
+                </li>
+                <li>
+                    <a href="#oiacm-%e5%92%8c%e8%b6%85%e7%ae%97%e6%af%94%e8%b5%9b%e7%9a%84%e4%ba%8c%e4%b8%89%e4%ba%8b" aria-label="OI/ACM 和超算比赛的二三事">OI/ACM 和超算比赛的二三事</a><ul>
+                        
+                <li>
+                    <a href="#oi-%e4%bb%8e%e9%80%89%e6%89%8b%e5%88%b0%e9%80%80%e5%bd%b9%e9%80%89%e6%89%8b%e5%86%8d%e5%88%b0%e8%ae%b2%e5%b8%88-plus-%e6%88%91%e6%98%af%e5%a6%82%e4%bd%95%e6%8b%bf%e5%88%b0%e5%8c%ba%e5%9f%9f%e8%b5%9b%e9%87%91%e7%89%8c%e7%9a%84" aria-label="OI: 从选手到退役选手再到讲师 plus 我是如何拿到区域赛金牌的">OI: 从选手到退役选手再到讲师 plus 我是如何拿到区域赛金牌的</a></li>
+                <li>
+                    <a href="#scc-%e7%9a%84%e5%86%a0%e5%86%9b%e4%b9%8b%e8%b7%af%e4%b8%8e%e8%a6%86%e7%81%ad" aria-label="SCC 的冠军之路与覆灭">SCC 的冠军之路与覆灭</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e7%a7%91%e7%a0%94-phd-%e7%9a%84%e5%86%b3%e5%ae%9a%e4%b8%8e%e7%94%b3%e8%af%b7" aria-label="科研, PhD 的决定与申请">科研, PhD 的决定与申请</a><ul>
+                        
+                <li>
+                    <a href="#%e7%a7%91%e7%a0%94%e7%9a%84%e5%88%9d%e6%ad%a5%e6%8e%a2%e7%b4%a2" aria-label="科研的初步探索">科研的初步探索</a></li>
+                <li>
+                    <a href="#%e6%9a%91%e7%a0%94%e5%a5%87%e5%a6%99%e4%bd%93%e9%aa%8c-at-usc" aria-label="暑研奇妙体验 at USC">暑研奇妙体验 at USC</a></li>
+                <li>
+                    <a href="#%e4%bd%9b%e7%b3%bb%e7%9a%84%e7%94%b3%e8%af%b7%e5%ad%a3" aria-label="佛系的申请季">佛系的申请季</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e4%b8%9a%e4%bd%99%e7%94%9f%e6%b4%bb-%e8%bf%90%e5%8a%a8" aria-label="业余生活, 运动">业余生活, 运动</a><ul>
+                        
+                <li>
+                    <a href="#%e4%bb%8e-ingress-%e5%88%b0-bikegress-%e5%88%b0-cycling" aria-label="从 Ingress 到 Bikegress 到 Cycling">从 Ingress 到 Bikegress 到 Cycling</a></li>
+                <li>
+                    <a href="#%e7%88%b1%e4%b8%8a%e9%87%8d%e5%8a%9b-%e9%aa%91%e8%bd%a6%e7%9a%84%e5%88%9d%e4%bd%93%e9%aa%8c" aria-label="爱上重力: 骑车的初体验">爱上重力: 骑车的初体验</a></li>
+                <li>
+                    <a href="#%e7%94%b1%e4%b8%80%e6%ac%a1%e8%b5%b7%e5%ba%8a%e5%a4%b1%e8%b4%a5%e5%bc%95%e5%8f%91%e7%9a%84%e6%95%85%e4%ba%8b" aria-label="由一次起床失败引发的故事">由一次起床失败引发的故事</a></li>
+                <li>
+                    <a href="#%e4%b8%ba%e4%bc%9a%e9%95%bf%e5%8d%81%e6%9c%88" aria-label="为会长十月">为会长十月</a></li>
+                <li>
+                    <a href="#%e5%90%8e%e9%aa%91%e8%bd%a6%e6%97%b6%e4%bb%a3-%e6%80%9d%e8%80%83%e4%b8%8e%e7%ae%80%e5%8c%96" aria-label="后骑车时代: 思考与简化">后骑车时代: 思考与简化</a></li></ul>
+                </li>
+                <li>
+                    <a href="#misc" aria-label="Misc">Misc</a><ul>
+                        
+                <li>
+                    <a href="#%e4%b8%80%e4%ba%9b%e7%bb%9f%e8%ae%a1%e6%95%b0%e6%8d%ae" aria-label="一些统计数据">一些统计数据</a></li></ul>
+                </li>
+                <li>
+                    <a href="#update-log" aria-label="Update log">Update log</a><ul>
+                        
+                <li>
+                    <a href="#historical-comments" aria-label="Historical Comments">Historical Comments</a><ul>
+                        <ul>
+                        
+                <li>
+                    <a href="#laekov-at-2020-07-11t230444" aria-label="laekov at 2020-07-11T23:04:44">laekov at 2020-07-11T23:04:44</a></li>
+                <li>
+                    <a href="#constroyhttpsgithubcomconstroy-at-2021-07-15t010319" aria-label="constroy at 2021-07-15T01:03:19"><a href="https://github.com/constroy">constroy</a> at 2021-07-15T01:03:19</a></li>
+                <li>
+                    <a href="#laekov-at-2021-07-19t192824" aria-label="laekov at 2021-07-19T19:28:24">laekov at 2021-07-19T19:28:24</a></li>
+                <li>
+                    <a href="#laekov-at-2021-08-03t011942" aria-label="laekov at 2021-08-03T01:19:42">laekov at 2021-08-03T01:19:42</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p>这是一篇关于 laekov 在贵系本科四年的碎片式回忆.</p>
+<h2 id="关于学习">关于学习<a hidden class="anchor" aria-hidden="true" href="#关于学习">#</a></h2>
+<h3 id="没学好的基础课">没学好的基础课<a hidden class="anchor" aria-hidden="true" href="#没学好的基础课">#</a></h3>
+<p>laekov 高三的时候文化课成绩似乎还可以, 但是上大学之后从线性代数A的线性空间部分开始崩溃, 到微积分B半期挂科伏地膜, 再到大雾B险些挂科. 大一大二的时候一方面选了很多课, 另一方面除了课程之外还找了很多事情干, 所以并没有好好地学习这些基础的课程. 显而易见地, 成绩也非常惨淡.</p>
+<p>事实证明线性代数这样的课程还是非常必要的. 例如在写 Prague 的论文的时候就遇到了一个线性代数的证明, 然而不会证, 这种情况就十分惨惨. 再比如大雾里的量子物理, 热学之类的东西, 虽然凭当时的直觉觉得没啥用, 但是真的做科研的时候发现量子计算这条路想走也会更艰辛一些, 然后就会想要是当时花了更多的时间把量子搞得更懂一些该多好.</p>
+<h3 id="并不划算的抢先学">并不划算的抢先学<a hidden class="anchor" aria-hidden="true" href="#并不划算的抢先学">#</a></h3>
+<p>laekov 在年轻的时候天真地想空出一整学期没有课 (后来几乎就做到了), 所以一直在抢先选高年级的课, 并将这个战略一直贯彻到了大三. 然而事实证明这并不是一个非常合算的战略.</p>
+<p>laekov 在大一下的时候就先上了 OS 课, 原因是时间不冲突 + 对 os 比较感兴趣. 然而当时对 CPU 什么的完全没有正确的了解, 虽然在上完 OS 之后反倒对 CPU 的功能有了一定的认知. 然后大二上的时候就造了 CPU, 大二下才上数字电路设计. 这相当于把贵系的 &ldquo;数电 - CPU - OS&rdquo; 这个知识链完全反过来上了.</p>
+<p>虽然 laekov 没有挂科, 但是中间有很多不懂的知识, 会错过很多深入探究的机会. 例如在造 CPU 的时候由于缺乏数设知识, 所以对电路的延迟和流水线设计都没有太多概念. 整个 CPU 造出来也是以 &ldquo;造出来&rdquo; 为目标的, 而且为了这个目标也花费了很多的心血, 而进一步的性能调优和适配更多的功能就完全无能为力了, 所以最后得分相对来说比较低. 虽然这样做使得 laekov 在大三及之后课业压力没有那么大, 但是当看到厉害如 harry 的 dalao 们在各种联合大实验中搞出厉害的项目的时候, 会比较后悔自己早早地艰难地糊完了这门课.</p>
+<p>laekov 还有一学期选了四门贵系的限选课, 于是在期末的半个多月里获得了四份大作业并疯狂赶作业, 这也是一种不太好的选课策略.</p>
+<h3 id="失败的辅修和成功的任选课">失败的辅修和成功的任选课<a hidden class="anchor" aria-hidden="true" href="#失败的辅修和成功的任选课">#</a></h3>
+<p>laekov 年轻的时候选了五金的创辅, 原因是觉得有经济学原理管理学原理这种 &ldquo;听上去很有用&rdquo; 的课. 然而上了一节经济学原理之后发现经济学原理好无聊, 上了一节会计学原理之后发现会计学原理也挺无聊. 于是只上了一节也退了, 最后留下管理学原理上完了. 当然其中一个原因是那个学期要造机. 然后觉得这种不写代码不算算术的课好无聊, 第二学期更是一节课也不想上了, 最后就把整个辅修退掉了.</p>
+<p>laekov 一直有一个学俄语的梦想, 从大一开始几乎每学期选课的时候都会选俄语, 然后因为时间不合适而退掉. 大三某次补选上了一节课然后退了. 大三下的时候终于成功地上了何老师的俄语课, очень хороший класс. 算是我上过最开心的选修课了. 虽然背单词背得死去活来, 但是入门了一门新的自然语言, 而且能读出来了, 就很开心, 甚至还去 владивосток 旅游了一番.  (虽然是抱着某位上过专业俄语课的学姐的大腿去的)</p>
+<p>说到最后有一种感觉是自己在贵系待了四年就没上过什么正经课. 怎么回事. &gt;_&lt;</p>
+<h3 id="一份开源的大作业列表">一份开源的大作业列表<a hidden class="anchor" aria-hidden="true" href="#一份开源的大作业列表">#</a></h3>
+<p>laekov 不擅长集成, 所以大作业主要靠凭空写. 于是得分向来都不高.</p>
+<p>但是 laekov 乐于把大作业 push 到 github 上. 所以就有了这份列表.</p>
+<ul>
+<li><a href="https://github.com/laekov/rcube">RCube</a> 大一程序设计基础课的魔方. 按照 laekov 仅会的公式转的, 不是用的神奇的群论方法, 所以步数巨多.  (队友: jay gao, 子薇姐姐).</li>
+<li><a href="https://github.com/laekov/rbrrm">RBRRM</a> Rule-Based Regular Routing Method
+, 姚海龙老师的 OOP 课的组队大作业. 我使用了网络流/费用流算法 + 神奇的 rule 来生成 routing. 因为 rule 设计得过于奇怪所以 route 总长度并不优, 但是很好看 (艺术品??). 本打算发篇小文章, 但是在做文献调研的时候发现别人做得更简单效果更好??? 于是原地放弃了, 然而强如 n+e dalao 就把文章给发出去了. (队友: lr, 孙yf).</li>
+<li><a href="https://github.com/laekov/qtsudoku">QtSudoku</a> Qt 做的数独. 贵系编程小学期第一个作业. 主要是学习使用 Qt 做 GUI.</li>
+<li><a href="https://github.com/laekov/qtcheckers">QtCheckers</a> Qt 的跳旗, 可联网对战. 贵系编程小学期第二个作业. 主要学习 Qt 的网络模块.</li>
+<li><a href="https://github.com/laekov/celebrities">Celebrities</a> 贵系小学期第三个作业, wiki 名人条目搜索. 主要是学习爬虫+简单的web开发. laekov 使用了 js 异步爬取数据比 python 的同步模式快很多.</li>
+<li><a href="https://github.com/laekov/zhxpu">zhxpu</a> 造计算机. laekov &ldquo;创新&rdquo; 地设计了四段流水. (扔掉了 mem). 怎么想都觉得天真. (队友: zhx, bakser)</li>
+<li><a href="https://github.com/laekov/llim">llim</a> 人工智能导论第一个大作业, 拼音输入法.</li>
+<li><a href="https://github.com/laekov/kaggle-mnist">MNist</a> 人工智能导论第二个大作业, 训 lenet over mnist. 用的 pytorch. 然后我又加了个 googlenet?</li>
+<li><a href="https://github.com/laekov/canyon">Canyon</a> 图形学大作业, 只做了 openmp 并行的光线跟踪和球, 面, 贝塞尔旋转体.</li>
+<li><a href="https://github.com/laekov/capiano">CaPiano</a> 数设项目, 从 ov7670 摄像头捕捉图像, 然后识别手指, 然后用电脑播放对应的声音. (队友: bakser)</li>
+<li><a href="https://github.com/laekov/dgebc">DGEBC</a> 分布式遗传算法 box2d 小车. 康总分布式系统小学期大作业. (队友: saffah, yjp 的室友)</li>
+<li><a href="https://github.com/laekov/chitainews">ChitaiNews</a> 痴呆新闻. 安卓新闻客户端. 贵系 java 小学期作业.</li>
+<li><a href="https://github.com/laekov/internet_lab2">internet-lab</a> 网原路由器. 大力感谢 harry chen 告诉我 socket 的坑. (队友 bakser, hzy)</li>
+<li><a href="https://github.com/laekov/emnlp2017-relation-extraction">EMNLPxxx</a> 人工神经网络课大作业, 抱 84 大腿的炼丹. (队友 bakser, hzy)</li>
+<li><a href="https://github.com/laekov/polarkv">PolarKV</a> 存储课小作业, 键值存储系统.</li>
+<li><a href="https://github.com/laekov/bjfar">BJFar</a> 北京市建筑密度预测. 城市模型概论大作业. 使用了 GCN 和 GAT 图神经网络.</li>
+<li><a href="https://github.com/laekov/taxiiii">Taxiii</a> 出租车拼车匹配. 数据库专题训练大作业. 使用高德前端.</li>
+<li><a href="https://github.com/laekov/buildroot">Minimon</a> 最小监视器. 嵌入式系统大作业. 使用 build 自底身上构建最小系统, 并自行加入了 openVINO 支持, 从而可以使用 intel movidus 神经网络加速棒对 DNN 推理进行加速. 详见<a href="https://laekov.com.cn/view/1f8072">这篇博文</a></li>
+</ul>
+<h2 id="兼职和实习">兼职和实习<a hidden class="anchor" aria-hidden="true" href="#兼职和实习">#</a></h2>
+<h3 id="cloudbeaver-web-开发重新做人">CloudBeaver: Web 开发重新做人<a hidden class="anchor" aria-hidden="true" href="#cloudbeaver-web-开发重新做人">#</a></h3>
+<p>laekov 高中的时候自学 php 写了 oj, 跟 jcpwfloi 学了 expressjs, 然后抄构架用 php 写了这个博客并用 jquery + clone 写出了奇妙的前端.</p>
+<p>上大学第一个学期发现程设课好无聊, 于是在 zhonghaoxi 的安利下找到了人生第一份兼职, 在某创业公司干活. laekov 入职的时候的选择是在用 scala 写数据分析算法和用 javascript 做前端之间. 然后因为 laekov 说了一句 &ldquo;我会写 javascript&rdquo; 所以就去做前端了.</p>
+<p>然后发现原来世界上还有 GruntJS 和 Bower 这么先进的东西, 原来填个名字就可以获得自动更新的轮子, 原来还可以自动 watch file 并重启 node. 原来还可以自动合并前端的 js 代码生成 dist. 虽然之前自己瞎搞的时候知道可以这么干但是没有见过就不知道具体咋干, 于是学习了很多 web 开发的知识.</p>
+<p>然后在 cloudbeaver  还学会了使用高德前端的 api, 学会了去看不同的轮子的文档然后把轮子撸到自己的工程里. 这些确实都是挺有用的技能.</p>
+<p>在 cloudbeaver 的生活也很有趣. 比如每天中午大家会一起去公司负一层的食堂吃饭, 而晚上则会公费叫外卖, 然后在会议室吃. 并想起了小川学长在七中演讲的时候说 sogo 创业初期为了吸引实习生来办公室干活而免费给实习生订盒饭的故事. 然后还发现同在公司兼职的同事是二字班 (比 laekov 大四届) 正好本科的时候也睡在 laekov 宿舍的学长. 学长还教育 laekov 如果半夜买外卖又不想去四单元拿, 可以在窗户外面的台子上拿个晾衣杆把外卖钓上来. 虽然 laekov 的宿舍氛围良好从没有人干过在宿舍熬夜到半夜还点外卖这种不健康的事情. (关于 laekov 的宿舍, 引用 lr 同学的<a href="https://mp.weixin.qq.com/s?__biz=MzI0Njc2Mjk5OQ==&amp;mid=2247484919&amp;idx=1&amp;sn=2ef6553c28feab62070ba425a6f0ec0a&amp;chksm=e9bb196fdecc907915aa71d9c0c6daa22e11afe676c4ed0c65ae412aff172930262c1ec04531&amp;mpshare=1&amp;scene=1&amp;srcid=&amp;sharer_sharetime=1593242640237&amp;sharer_shareid=01d87c46c46ba68c03367f7f41bf9a29&amp;exportkey=A1p9IHqLpCHy%2B6P1vIEuWBk%3D&amp;pass_ticket=iLdP5ZhSwU11P6%2BYvX45crzl21qKMNXymQh6gKk%2FmEa5QvbEzn%2FrPLEq9ZhXGiSn#rd">这篇微信文章</a>) 还有第一次在异乡过生日, 碰巧公司组织团建, 然后同事们竟然记得我的生日并给我买了蛋糕过生日, 很温暖.</p>
+<p>还记得 zhonghaoxi 有时候会早上十一点左右叫 laekov 一起去办公室, 然后两人先骑车到东南门外吃一顿西少爷, 原因是 zhonghaoxi 觉得公司食堂太难吃了. 然后 zhonghaoxi 会给 laekov 讲当年的西少爷还是个程序员干不下去了摆的地摊, 而现在已经是家完整的店了. 然后 laekov 还会研究一下西少爷那个只能用徽信不能用支付宝的收银系统的前端做得好像还挺好. 然后两个人再骑着车从沿着学院路去上班.</p>
+<p>然而到了大一第一学期末, 因为期末考试的压力渐渐显现, 加上 laekov 觉得在公司暂时没有什么新的事情可做, 而 zhonghaoxi 做的那一坨东西 laekov 又不是很搞得明白, 所以就辞职跑路回去好好学习了. 总之这是 laekov 在业界打的第一份工, 并学到了一些东西. 但也在最初的一学期就牵扯了 laekov 不少的精力. 换言之 laekov 从第一学期开始就没有好好学习.</p>
+<h3 id="tuoj-at-thusaac-抓瞎的软件开发与运维实践">TUOJ at THUSAAC: 抓瞎的软件开发与运维实践<a hidden class="anchor" aria-hidden="true" href="#tuoj-at-thusaac-抓瞎的软件开发与运维实践">#</a></h3>
+<p>因为高中的时候写了 <a href="https://github.com/laekov/ojseven">OJSeven</a>, laekov 刚入学的时候就被 zhonghaoxi 安利去算协 THUSAAC 写一个新的 OJ 来代替之前的清橙和找不到维护的 UOJ 并认识了 yaoyao 等一帮人. 最初的 TUOJ 是为了应对 11 月份举行的第一届 CCSP 比赛而设计的. CCSP 比赛对 OJ 的要求与以往不同之处有二, 一是它要求支持不同的评测后端来评测不同的题目, 二是对于特定题目, 要使用标准分来给分, 然后再加部分, 即需要客制化的 Ranklist. 最初的版本由当时大二的几个学长主要操刀, 用了 jade 那一套跑在后端的前端渲染引擎, 比较混乱. 虽然 aoao 和 yaoyao 熬夜几天并 24+ 小时没有离开北京理工大学良乡校区图书馆五楼, 最终成功地撑下了一场比赛, 但是还是比较难以继续开发和维护. 学会了新的知识的 aoao 于是在大一寒假的时候花一周时间重构了当时的 TUOJ web 端的整个代码, 使用了更加现代化的框架 Angular + Bower + Grunt.</p>
+<p>然而当年的 laekov 对于软件测试并没有什么概念, 基本上是写一个功能之后手工测试一下就完事了, 所以其实 OJ 的撸棒性并不是太强. 压力测试也是就是拿考试当测试了. 现在想来真的挺灾难的. 比较好的是至少使用了 git 进行版本管理. 后来提前上学的小朋友加入 OJ 组之后也参与了开发, 还使用上了 branch. 大一下的时候 laekov 操着 TUOJ 承接了不少比赛, 比如算协办的 ACM 校赛, 贵系的保研机试上还因为分发 OS 失败而搞跪了大半个机房并被学长们大力吐槽了. 当时为了给不同的同学发密码条还掌握了一个无用(也许有用)的技能: word 邮件合并. 其实如果当时认识 harry 的话, 我就会发现, 直接做一个一键导出密码条的功能就好了啊.</p>
+<p>经过了又一个学期, 来到大二上, laekov 发现一场场地接比赛 + 写 bug 补功能变得越发无聊了起来, 而且那个学期第一次面临要请一个星期的假去国外的情况, 非常方张, 于是就并不顺畅地甩了锅, 退出了 oj 组, 专心准备造机和腾出时间去蓝桥杯了.</p>
+<h3 id="senseparrots-从零开始的新生活">SenseParrots: 从零开始的新生活<a hidden class="anchor" aria-hidden="true" href="#senseparrots-从零开始的新生活">#</a></h3>
+<p>经过了学习菜鸡, 进组科研划水并每周组会都觉得 huangkz 看了好多论文, xl 和 prof zhai 争论得好激烈, rd 做的事情好 solid 的大二上之后, laekov 在大二下的时候去参加一个奇妙的 Tencent ACM xxx 活动, 并表示有意向实习, 于是在一番面试, 并被面试官问了奇怪的算法没答对正解之后获得了一个实习的 offer, 做推荐算法???</p>
+<p>laekov 还记得那个下午正在照澜院忘了干嘛, 接到 tencent 的电话, 然后转手打给了 zhai 老师问这个事情咋样, 然后 zhai 老师表示别去 tencent 了, 去 sensetime 吧, 并在周末的时候暴风再递了一份简历并再次被面了一个试并被面试官觉得 &ldquo;既然你搞过 ACM 就不问你算法题了&rdquo; 之后获得了新的 offer 并在五月的时候入职了 SenseTime.</p>
+<p>不得不说作为一千多号实习生, SenseTime 的员工管理制度比创业公司完善很多. 例如刚入职的时候会有严肃的培训并可以在 mba, dell laptop 和台式机之间选择, 然后 laekov 当然选择了台式机并获得了一台装备了 i5 和 1060 的台式机, 这应该是 laekov 在那之前都没用过带有 nvidia 消费级显卡的台式机 (惨兮兮). laekov 拿自己当时正好在做的 MNIST 作业尝试了一下, 发现显卡炼丹果然快了很多很多, 哪怕它只是 1060. (在那之前 laekov 已经用过了超算队的 V100, 但当时对显卡还没有这么深刻的概念). 当然公司的 PC 是不能拿来打游戏的, 而且还装有奇怪的软件 (?). laekov 尝试让 Xorg 使用集显输出视频信号, 而仅使用独显跑一些实验性的 DL 任务, 然后就把 kernel 不知怎的搞跪了, 于是 IT 无奈地帮 laekov 换了一台同配置的主机.</p>
+<p>laekov 在 SenseTime 的工作内容涉及商业问题不太能多讲, 虽然 laekov 已经不记得离职的时候签的保密协议是要保多长时间了. 大概 laekov 被分配到了一些写 Python 和 C 的任务. 然而当时的 laekov 擅长的是 nodejs, 在 python 这方面完全是萌新, 只会写 hello world 那种水平. laekov 一边看文档和 tutorial 一边在在同事 xuchi 等人的带领下迅速地入门了 python 并学会了 python 里各种神奇的操作并觉得 python 某些时候比 js 更好用. 总之这种脚本语言在各自的应用场景里都是非常方便的, 在不同的应用场景下选择合适的语言, 而不是拘泥于个人对语言的好恶, 在 laekov 看来才是正道, 譬如 laekov 在后来跑各种科研的实验的时候就写了无数的 bash.</p>
+<p>laekov 在 SenseTime 兼职了大约一年时间, 中途有时候会因为期末考试或者准备某些别的事情而暂时翘班一段时间, 组长 xingcheng 非常通融地允许了 laekov 在这种时候跑路. 但是 laekov 在工作时间还是非常拼的, 可能因为 debug 效率比较高(?), 所以还获得了 &ldquo;实习生之星&rdquo; 和组里 PM 姐姐们的良好口碑.</p>
+<p>laekov 在 SenseTime 见证了一个项目从 prototype 到和用户 (也是自己公司的人) 对接试用的过程, 学习到了更多的项目管理, 敏捷开发这样的知识, 比如要使用 Confluence 来记录开发计划和内部文档, 使用 Jira 来明确每个人的任务并被项目经理在组会上对着它催锅.
+以及要使用 CI 和 Unit test 来尽可能地减少项目的 bug, 同时较好地解耦合不同的模块. 以及 laekov 对 lint 印象深刻, 以至于后来再写代码时, 对于行宽都有了条件反射.</p>
+<p>laekov 对 SenseTime 的记忆很多. 最初在 C8 一个的角落里干活, 十分惬意. 周末有时候还跑到办公室做作业, 比如 laekov 的 java 小学期 android 新闻客户端就用到了办公室台式机上装的 android studio, 原因是 laekov 自己的电脑实在是太菜, 跑 IDE 太卡了. 作为 vim 选手的 laekov 写写 python 和 C++ 倒是没有什么问题, 但是对于 java 这种强依赖于 IDE 的编程语言 (对, 就是在吐槽 java 变量名方法名类名太长了) 就很捉鸡了.</p>
+<p>laekov 还记得那个夏天翘了 xdf 的 GRE 课 (一把辛酸泪) 待在办公室干活, 和同事们去马路对面吃 hequan 家的川菜馆和大盘鸡并抹零, 有时候一个人就去楼下买三明治或者饭团或者沙拉. laekov 觉得工作餐其实确实吃个沙拉就够了. SenseTime 还有神奇的只要在办公室待到 8 点后就可以免费吃 25 块钱的签单晚餐, 于是大家总是要在楼下的几家餐厅之间作出选择. laekov 有时候还会和 xl 一起回学校吃饭, 第一次带 xl 去南园食堂的时候 xl 表示这是啥地方咋和学校里学生区的食堂差距那么大呢. 有时候还会走路回 EMB 的实验室开组会然后再走回来.</p>
+<p>总之在 SenseTime 干活的接近一年里虽然 laekov 确实花了不少时间待在公司, 也没有太认真学习, 但是还是学到了不少新的姿势, 并且对于领域里常用的基础的东西有了更深刻的理解. 所以 laekov 大学四年加起来在外面实习兼职的时间可能超过了 1/3 耶.</p>
+<h2 id="oiacm-和超算比赛的二三事">OI/ACM 和超算比赛的二三事<a hidden class="anchor" aria-hidden="true" href="#oiacm-和超算比赛的二三事">#</a></h2>
+<h3 id="oi-从选手到退役选手再到讲师-plus-我是如何拿到区域赛金牌的">OI: 从选手到退役选手再到讲师 plus 我是如何拿到区域赛金牌的<a hidden class="anchor" aria-hidden="true" href="#oi-从选手到退役选手再到讲师-plus-我是如何拿到区域赛金牌的">#</a></h3>
+<p>laekov 刚入学的时候就被 zhonghaoxi 拖去一起参加了 ACM, 从暑假和秋天的多校开始搞, 最后去了青岛的区域赛, 并留下了<a href="https://laekov.com.cn/view/3ed1b2">一篇博客</a>. 大概就是区域赛本来可能有希望拿 rank 1, 然而遇到(被安排)了和 DDF (即 wjmzmbr, 杜教, jcvb) 同场竞技, 于是被辗轧了两题变成了 rank 2. zhonghaoxi 表示 wf 没希望了, 于是 FFF 队就地解散.</p>
+<p>同样还被 zhonghaoxi 拉去某培训学校讲课. 因为 laekov 比较菜, 所以一般讲比较简单的 NOIP 难度的课, 基本上每个寒假假国庆五一什么的都会去讲. 最开始说话也不太利索, 课件也准备得逻辑不是很清楚, 到后来讲得比较熟练之后就可以比较好地控制讲课的节奏并且把要讲的东西讲清楚了. 虽然很多时候学生的接收程度还是不高的, 但总之能够感受到自己的进步. laekov 觉得讲课还是一个很能培养自己综合能力的事情. 至少站在台上讲话并不会紧张, 甚至会感到某种熟悉. 然而 laekov 可能最后也没有改掉在台上走来走去摇来摇去的习惯.</p>
+<h3 id="scc-的冠军之路与覆灭">SCC 的冠军之路与覆灭<a hidden class="anchor" aria-hidden="true" href="#scc-的冠军之路与覆灭">#</a></h3>
+<p>后来大二跟着 zhai 老师之后发现超算比赛似乎比较有意思, 于是就加入了超算队. 最初是 ASC'18 的时候跟着 xieleilei 和 rd 调 CNTK 上 MsMarco 问答数据集上的丹, laekov 搞了一个一般疑问句直接回答 Yes 然后精度 ++. 然后好像就没别的贡献了. 作为 backup 的 laekov 也没去江西现场, 后来听说江西特别有意思.</p>
+<p>然后 laekov 就作为炼丹题的酱油选手去了法兰克福的 ISC'18, 并目睹 <a href="https://laekov.com.cn/view/084a2c">beichen 带队夺冠</a> 兴奋得跳了起来. 可惜 ISC'19 只有第二, ISC'20 只有第三, harry 难过. 四字班毕业之后的 SC'18, laekov 终于摆脱了 AI 题, 成为了一个 interview 选手, 负责了各种 interview 和 engagement 和评委尬聊, 再加上和 cggg 一直搞复现题写复现 report. 虽然遇到了 rd 签证 gg, saffah 跑 HPL 差点没交上, laekov 半夜跑程序跑一半跑断网线暴风叫 blink 来修锅等等各种事情, 但是最后竟然还是<a href="https://laekov.com.cn/view/14111d">有惊无险地拿了冠军</a>并被 CCTV News 采访, 并上了新闻联播, 并在学校新年的时候获得了 &ldquo;年度人物&rdquo; 并去和 qiu  校长握了个手.</p>
+<p>2018 年的超算比赛大概是 laekov 熟悉各种比赛的过程, 主要觉得贵校每次都能拿到 Xeon Platium 8xxx 系列的 CPU  去比赛, 所以比较强大. 给 laekov 留下印象比较深刻的就是 frankfurt 街头内三速的共享单车和 Dallas 街头的电动共享滑板. laekov 在 Dallas 还拉上 yaoyao 在比赛之后一起去自行车店租了 Trek Madone 2.1 公路车并在一个神秘的湖边绕了一圈.</p>
+<p>2019 年的时候因为 saffah 要去 ACM WF, 所以 laekov 不幸直接越级成为了队长 (即负责订车票宾馆带东西的同学). ASC'19 laekov 负责跑 HPL/HPCG, 然而那场比赛有 CESM 这种搞死 harry 的东西, 还有 WTDBG2 这种完全没法看还只能单机的程序, 难度和赛点都十分鬼畜. 组委会在大连安排的学校边上的廉价奇怪宾馆也很诡异, 而且 laekov 还和 BUAA 的同学拼了一间房, 以至于 laekov 一脸茫然不敢说话. 虽然赛前在指导老师 saffah 的床上趴着拍脑袋拍出了 7 鸡 12 卡的奇怪配置, 但是贵队在现场最后疯狂翻车, 比如什么 CESM crash 之后 revert 到上一个 ckpt 接着跑什么的. 本来以为要胸牌而归了, 没想到搞了奇怪操作的 SJTU 和 SYSU 都翻车了, 于是在 NTHU 后面<a href="https://laekov.com.cn/view/34dd44">拿了第二</a>.</p>
+<p>于是还是拿到了 Inspur 的赞助去了法兰. laekov 又负责上了 AI, 那次是用奇怪的模型做一个台风识别, 类似于某种 CV. 然后 laekov 发现代码里有各种 bug, 比如什么 BN 的 eval 模式结果完全不对之类的, 然后最后虽然做了很多工作但还是跪了, 原因是组委会发下来的 test set 和事先发的 val set 是一个东西, 然后别的队好多都对着 val set 训过了. ggg. 然后 interview 什么的又被南非吊起来打, 于是最后<a href="https://laekov.com.cn/view/6a12b3">又拿了第二</a>. 于是 laekov 不开心地去租了一台公主车去爬了个坡, 差点断腿 gg.</p>
+<p>SC 的时候老师们表示压力很大, 要是一年一个冠军都不拿就很惨了. 然而 laekov 表示去年三个冠军啊, 一定得在某一个比赛里连续两年拿冠军, 这不太行吧. 总之 laekov 和 harry 一起负责了一个叫 SST 的很有趣的计算机体系结构模拟器. laekov 发现在小测例上这程序的可扩展性不咋的. 一发 vtune 下去发现有奇怪的算法问题, 然后改了改算法快了七倍. 最后这题目也很有意思, 是要用 SST 找出一个成本合适的性能最好的 PC. 然后作为 HPL 选手 laekov 还负责了机器和面试和一些锅, 比前一年熬夜熬得更多了. 但最后就比较稳当地<a href="https://laekov.com.cn/view/b1c6c4">拿了冠军</a>, 成功退役. 开心.</p>
+<p>再到疫情无限延期的 ASC'20, laekov 就真的在划水了. ISC'20 的时候 laekov 帮忙看了 Gromacs 并帮助 leenldk 学弟拿了单题第一. 可惜 AI 题大翻车了, 于是被 USTC 拿走第一, 还负于老对手南非, 遗憾地拿了第三.  Harry 表示退役得十分不开心. patpat.</p>
+<p>超算比赛, 英文名称是 Student Clustder Competition. 相比 ACM 这样正经的大赛, 谁去谁知道. 虽然被称为 &ldquo;计算机界的 F1&rdquo;, laekov 也十分认可这种说法, 但其实作为学界会议的附产物, SCC 更大的意义还是让 Students 对这个领域有初步的认识, 知道这些程序都在干什么, 做 HPC 的人拿到不同的程序会从什么角度思考它的性能和优化的空间. 也在于培养同学维护拆装硬件的能力, 团队合作的能力, presentation 和 engagement 的能力. 至于其竞技性, 比如在 3000W  功耗内跑出最高的 HPL 分数, 虽然也是十分有趣的, 但对于个人来说也不是那样重要了.</p>
+<p>总之在 SCC 里, laekov 既收获了不错的成绩, 也收获了不同的能力和见识, 是一段很棒的经历.</p>
+<h2 id="科研-phd-的决定与申请">科研, PhD 的决定与申请<a hidden class="anchor" aria-hidden="true" href="#科研-phd-的决定与申请">#</a></h2>
+<h3 id="科研的初步探索">科研的初步探索<a hidden class="anchor" aria-hidden="true" href="#科研的初步探索">#</a></h3>
+<p>laekov 大一结束的时候找到了 han 导并表示想进实验室跟着干活. 于是 han 导开心地带着 laekov 去学习类脑计算的一堆东西, 什么 V1, LGN, STDP Training 啥的. 然而 laekov 发现并读不懂类脑的代码, 也读不懂类脑的 paper. 于是一个暑假过去啥也没干. 然后因为学术新星计划加入了 zhai 老师的组会豪华午餐, 于是开始看 DNN Framework, 当时大家试图 read TensorFlow Code, 但是好像也没看明白, 或者说作为一个大二的没啥时间搞科研的苣蒻也没时间看. (很久之后 laekov 因为自己科研需要倒是看了一部分). 后来也探索了一些不同的 hybrid parallelism 的可能性, 但是也只是停留在探索和 yy 阶段. 后来和洞 pro 聊天的时候洞 pro 表示他计算过不同 parallelism configuration 的理论加速上限, 发现并没有太多可搞的. 事后来看 laekov 深以为然. 然而 laekov 现在还是跳进了 pipeline 的坑. 当然这都是后话了.</p>
+<p>后来 laekov 就加入了 Sensetime 并在那边开始真实地写框架, 而 huangkz 则去搞了 RDMA 并成为了 RDMA 大师. laekov 在 SC'18 的时候和 cggg 一起写了算是第一篇学术的文章并投给了次年的 PARCO 期刊. 人生第一篇 Publ.</p>
+<p>18 年末 19 年初, 大家还一起尝试写过一个叫 Garlic 的 DNN Training 框架. 但是这个项目在大家缺乏经验 + 联调失败等各种打击下最后并没有成功. 最好的结果是能在 GPU 上跑起 MLP. rd 试图在里面做一些 sub-graph transformation 之类的工作, 但是图处理的各种 pass 也并不是那么好写. 这个方向上到底有多少可做的空间, laekov 表示茫然.</p>
+<p>19 年的春天 laekov 在忙于比赛, 而整个组似乎在向 compiler 这个方向进行转变. 大家开始更多地讨论起 TVM. 再后来 laekov 因为在一个文素课上炼丹而接触到了 GNN, 又在和 zhai 老师开会的时候入了 GNN 的坑. laekov 当时觉得  GNN 和 sparse 也许是新的热点, 然后发现已经有一大堆 GNN 的文章了, 而 sparse 的运算在 GNN 里并不是那么新颖, 有很多传统的文章都在做 sparse. laekov 最终毕设选题也往人少的方向走了一步, 试图做 GPU 上的 Sparse 运算性能建模, 并试图进一步地整合进 TVM 一类的编译框架里. 但是因为疫情而低效地划了半年水, 工作被 xuewei 老师评价说工作没有意义. gg.</p>
+<p>关于未来做什么, laekov 暂时还十分迷茫. 但是总之还是会做一些有意思的事情吧.</p>
+<h3 id="暑研奇妙体验-at-usc">暑研奇妙体验 at USC<a hidden class="anchor" aria-hidden="true" href="#暑研奇妙体验-at-usc">#</a></h3>
+<p>对于暑研 laekov 早就知道有这事, 但是因为拖延所以一直没有自己去 individually 地套 offer. 报了学校的 stanford 项目然后被刷了, 报了系里的 CMU 项目, 久久不出结果, 最后问辅导员才发现是只通知了上了的人. 于是惨惨的 laekov 赶紧抱紧学院 USC 项目的大腿, 并在 zhai 老师的介绍下成为了 qian 老师的临时小弟. 又被二次分配给了 qinyi 师姐当小弟. 一查发现师姐竟然也是贵校的毕业生, 还是很优秀的那种.</p>
+<p>然后事先被告知要做 decentralized training, 并赶紧读了一些 paper. 获得了 alchem lab 的 server account, 然后发现竟然 16 个节点只插了 1 块 GPU? 这咋做? 师姐表示没事大实验我们可以去 bigger cluster 上做. 噫.</p>
+<p>于是在办完签证什么的之后来到了美丽(?)的 LA. 充满热带气息的树和低矮的城市房屋欢迎了 laekov, 然后和 kezhao 一起住进了 USC Village 的四层.</p>
+<p>这是 laekov 第一次在国外生活超过一个月, 感到新奇和贫穷, 因为去超市发现所有东西折算成 RMB 之后都好贵. (除了汽油, 不过那是后话) USC 的校园比较小, 红红的更像是 PKU.</p>
+<p>然后神奇的事情发生了: prof qian 不在 LA, 而在中国. 所以为什么要大老远来 LA 呢. 思考. 所以 project 主要是 qinyi 在做, 然后 prof qian 会时不时 zoom 同步一下并进行一下方向性的指导, 而 laekov 在去实验室发现并没有可用的工位而且 qinyi 也日常居家科研之后决定待在 usc 舒适的宿舍里, 对着 laekov 13寸的 macbook pro 屏幕和自带的键盘和 touchpad 写代码滴八哥. 于是 laekov 就这样在宿舍里宅了五周. 每天早上起来在客厅里写 bug, 对, usc 的本科生宿舍是两人一间卧室, 两间卧室共享了一个客厅, 当然这是有 scholarship 的人住的豪华房. 普通一点的房间会有微波炉, 但不会有这么大的活动空间. 然后 laekov 中午做饭的时候 kezhao 就醒了, 于是两人一起做黑暗料理午餐, 然后下午在卧室里写 bug, 然后傍晚再烤个简易晚餐, 然后继续写 bug, 然后  laekov 睡觉, huangkz 去客厅熬夜写 bug (或者去实验室和师兄一起熬夜写 bug). laekov 现在尤其想念每一袋都非常实在的乐事薯片 (laekov 尤其喜欢 bbq 味的), 以及大号的冰箱里大桶的只要 0.99 刀的可乐.</p>
+<p>后来学校资助的项目结束了, 但是 laekov 的文章还没投出去, 然而 USC 附近因为学生开学于是并没有合适的 airbnb 或者短租, 于是 laekov 在沿着 metro expo line 到 santa monica 半路的 westwood 附近租到了一间 studio, 然后好盆友马丁开车把 laekov 载到了新家. 失去了 kezhao 之后 laekov 变得更宅了一些, 除了出门骑车/买食物和炸鸡以外都不太会出门. 最近的超市是 1km 外的 99cent, 但是 99cent 的食物仿佛都不太新鲜, 比如买来的速食鸡腿有浓浓的奇怪的墨西哥辣椒味, 大概是为了掩盖不新鲜, 毕竟便宜. 而且 laekov 也缺乏合适的运载工具把东西从 99cent 运回家. 后来 laekov 才发现差不多距离处还有一家 trader joe&rsquo;s, 这才解决了食材的新鲜问题.</p>
+<p>于是 laekov 窝在那间小屋里完成了第一篇正经的学术 paper 的赶实验赶文章交稿过程, 并在交稿后开心地去庆祝了一下, 和马丁一起骑了个车. 然后骑到一半被老板的电话召回 gg.</p>
+<p>完成了 paper 之后接下来 laekov 的工作就是多认识一些在加州的人了. 于是 laekov 租了一辆汽车, 沿海自驾到了 santa barbara 并带着自行车爬了个山并去见了 ucsb 的一众老板.
+然后 laekov 还坐半夜大巴去了湾区, 然后又租了一辆车去找在 berkeley 做春研(暑研)的室友 lr 帮他搬家 + debug 并发现他的代码真的有 bug. 然后在 berkeley 没有带车所以开车出去溜了一圈骑行路线并见了很厉害的 yang you 师兄, 然后坐着 amtrak 的沿海小火车一路看风景 + 吃薯片在半夜九点回到了 LA. 行走在加州的地表感觉也很好玩, 风光很独特, 是中国所没有的西海岸呢.</p>
+<p>在 LA 最后的时光是和 Martin 还有 Xi 大爷一起去喝咖啡, 并被两个美国人用中文安利国籍优势和找工作很爽. 见到了从 CMU 来 LA 开会的 yaoyao 和 yaoyao 的老板 Andy, Andy 还请 laekov 吃了冰淇淋, 然而 laekov 半路被 prof qian 叫回去吃 farewell dinner 于是和师兄师姐还有 y00 一起在满是中文的 LA 的中国城吃了 LA 的正宗中餐作为告别, 然后从师兄那里借了几刀零钱坐地铁回家.</p>
+<p>以上大概就是 laekov 在 LA 待的两个月的经历. 总之除了物价比较高以外, 在 LA 生活确实比较自由自在, 城市里的 diversity 会比在中国大很多, 会见到更多不同的很有个性的人. 作为一个 cyclist, 在 LA 骑车是一项更普遍更被大众所接受的运动. 虽然老板不在, 但是如果要宅家做 research, 也是可以在家里方便地获得一方安宁的, 而且速食食品更方便 hhh. 总之 laekov 对 LA 的印象很不错, 所以最终将会回到 USC 去读 PhD. 虽然由于疫情影响不知道啥时候能人肉回到 LA, 但是暑研的这两个月确实是一段美好而自由的经历.</p>
+<h3 id="佛系的申请季">佛系的申请季<a hidden class="anchor" aria-hidden="true" href="#佛系的申请季">#</a></h3>
+<p>因为觉得 USC 还不错所以 laekov 申请季的时候就很佛系. 除了比较想去 UC Berkeley 以外没有别的特别想去的学校, 于是除了 Berkeley 的老师发邮件 + 开会的时候追着套了磁并失败了以外, 没有发什么套磁邮件, 只是在老板的推荐下去和一些老师 &ldquo;认识&rdquo; 了一下. laekov 比较坚定地想读 PhD, 所以也没有申什么保底的 master, 想着要是全聚德了不如去工作.</p>
+<p>所以 laekov 最后申了八所学校, 包括四大中的两所 (抽奖), 被老板推荐去认识过的老板们的学校, 还瞎投了 System/Arch 比较强的 UIUC 和 UT Austin.</p>
+<p>结果嘛, 就是只收到了 USC 的 offer.</p>
+<p>因为 GPA 比较低, GRE 也很低, 也并没有太亮眼的 paper 列表/人脉, 所以也并不是太意外获得这个结果.</p>
+<h2 id="业余生活-运动">业余生活, 运动<a hidden class="anchor" aria-hidden="true" href="#业余生活-运动">#</a></h2>
+<h3 id="从-ingress-到-bikegress-到-cycling">从 Ingress 到 Bikegress 到 Cycling<a hidden class="anchor" aria-hidden="true" href="#从-ingress-到-bikegress-到-cycling">#</a></h3>
+<p>laekov 大学刚入学的时候是一个疯狂的 ingress 爱好者, 绿6.</p>
+<p>在成都的时候周边没有太多 portal, 而贵校校园里竟然甚至可以有床 po, 非常开心.</p>
+<p>刚入学的时候甚至经常会出门走路刷一圈 ingress, 也是因为 ingress 所以最初走遍了贵校校园的很多地方 (尤其是紫荆雕塑园一带).</p>
+<p>最神奇的是遇到过一次蓝军的起八活动(?), 然后跟着一路炸, 然后就被物理地抓住了, 并且发现对方是北大的. 233333.</p>
+<p>后来觉得走路刷 portal 实在是有点慢, 而且又有了阿甘摇手机这个项目, 于是就开始探索骑自行车玩 ingress, 并买了一个可以把手机架在自行车车把上的支架. 依稀记得那年冬天一个寒冷的夜晚 laekov 骑着车在大礼堂一带摸 po, 然后手机被冻没电了 23333.</p>
+<p>laekov 的室友变态和智障也一度被 laekov 带入了 ingress, 可是他们俩实在太宅了, 不愿意出门跑, 然后就没有然后了.</p>
+<p>再后来春季学期就来了, laekov 看着被高中同学安利淘宝 600 块钱买来的死飞自行车, 又在算协的某 c 姓和某 z 姓学长聊天中知道了山地自行车和公路自行车, 于是就上网学习了一下公路自行车, 然后发现公路自行车似乎很好玩耶. 然后百团大战的时候发现竟然有 &ldquo;自行车协会&rdquo;, 而且入会只要 <code>5</code> 元钱! 于是在和一个人看摊的当时的会长 trx 聊了一会并被邀请掂了一下他的超轻的 trek emonda 并得知他的车竟然要几万块钱之后果断地花 <code>5</code> 块钱进了群, 然后找 zgg 借了头盔和他的公爵 600, 然后就踏上了车协的迎新骑.</p>
+<p>我可能经历了车协最有毒的迎新骑, 出发的时候咕咕咕到只有四个老人和三个萌新. 然后刚出门, 在北体门口, 全队最闪亮的一台黄色 sworks venge (当时还不认识) 就惨遭扎胎, 钉子甚至扎坏了碳圈, 心疼2333. 然后路上 mhc 把链条踩断了, 然后他竟然还神奇地带了截链器, 于是现场修链条. 全队唯一的一个萌新妹子借来的破山地车的后拨也不好使, 于是大家还修了一会后拨然而没有修好. 最后 35km 去凤凰岭的路愣是走到中午才到.</p>
+<p>再然后 laekov 经过一番研究和舍不得花钱, 跟车协去团购买了一台黄绿色 merida scultra 93. 虽然因为不太懂然后一起去的猫 pro 也没告诉我于是就买了最小码的车架不是太能骑然后  93 的螳螂须也有点丑但总之它是 laekov 的车了. laekov 还开心地骑到西门超越单车去装了个狗嘴. 然后跟着车协众人去了十三陵水库环, 东方红爬坡, 然后爬了香山, 然后就跟着晗队去了东大白 140km 骑得屁股疼并被教育要买骑行裤来穿不然屁股会gg.</p>
+<p>总之 laekov 就这么入坑了公路车, 然后就再没玩过 ingress, 还弃坑了网球. 因为对于 laekov, 骑车比起 ingress 好像有意思得多. 骑在公路车上, 动辄几十上百公里的长距离行动, 走得更远, 见得更多. 山林, 悬崖和河谷对于 laekov 更有吸引力.</p>
+<h3 id="爱上重力-骑车的初体验">爱上重力: 骑车的初体验<a hidden class="anchor" aria-hidden="true" href="#爱上重力-骑车的初体验">#</a></h3>
+<p>laekov 写到</p>
+<p>2017 年春天的时候 laekov 获得了小绿车.</p>
+<p>2017 年春天 laekov 很喜欢午后去爬太舟坞.</p>
+<p>2017 年五一节假期 laekov 在成都被 tu 哥带着跑了若干家店, 最终买到了合脚的 lake 锁鞋.</p>
+<p>2017 年春季学期结束的时候, laekov 在一个大雨天被闲鱼的卖家咕了, 在火器营地铁站一个人淋雨淋了一个多小时, 于是很生气的 1000 块贱卖掉了小绿车, 然后回成都装了大彩.</p>
+<p>2017 年暑假 laekov 和爹妈一起开车载着大彩去西昌环了邛海. 第一次 4+2.</p>
+<p>2017 年夏天 laekov 刚带着大彩回北京骑车就悲惨地在奥园把自己没上紧的脚踏给踩掉了并摔了车并把刚买了几个月的锁鞋给刮破了.</p>
+<p>2017 年十一假期 laekov 和晗队等一大帮人去单日红井路, 260km 里程, 爬升 2600m. 出发时有 12 人, 晚上十一点回到学校的仅剩三人, 而当时还很萌新的 laekov 有幸是其中之一. 于是 laekov 给车协的公众号投了<a href="https://mp.weixin.qq.com/s/JRE52WdzaqYxk8JKrAmWgQ">一篇稿</a>记录这次骑行.</p>
+<p>2017 年冬天 laekov 被北京的寒风冻得够呛, 但是还是坚强地和假pro和张阿姨众人去爬了妙, 然后坐闪电的免费摆渡车下了山. 要不是有闪电的免费摆渡车, laekov 觉得冬天放妙大概会冻成冰棍吧.</p>
+<p>2017 年 laekov 还发现北苑闪电车店里有神奇的骑行台活动, 于是去骑了个奥园比赛还得了个体恤作为奖品.</p>
+<p>2017 年 laekov 还去参加了北京高校零度骑行的活动. 出发前早晨的时候晗队把自己的后拨玩断了, 于是小假临时从贴身副将升级成了主将. 然而第二副将 laekov 因为太菜所以全程没有见到主将. 零度骑完之后大家在碎石地上围着火炉吃冰沙.</p>
+<p>2017 年秋季学期期末之后, laekov 决定犒劳一下自己, 于是二手淘来了一个 130bcd 的 quarq red 盘爪功率计, 并郁闷地发现只能装 39t 的小盘, 于是又淘来了付标准盘片, 然后去装车发现没有盘钉, 盘钉很贵, 于是多花了很多钱才把功率计给装上. 因为天冷, laekov 就想去离学校最近的西山爬个坡看看功率计的效果, 然后就在西山公园里迷路了, 并没有找到去鬼笑石的路. 于是 laekov 掉头原路返回, 然后在快要下到平地的时候辗上了一片冰并摔了个车. 不过因为穿得多所以并没有摔出大问题.</p>
+<p>2018 年春节比较晚, 因为要去毛概实践, 所以 laekov 在学校留了比较长的时间. 舍友都回家之后一个人就可以晚上在宿舍把台子摸出来骑, 看着功率边骑边看飙速宅男. laekov 去贵州实践的时候发现贵州的城市里到处都是爬坡, 表示这里骑车一定很爽, 但是没带车.</p>
+<p>2018 年春天 laekov 报了 sbt 环密云水库, 于是前一周本着恢复一下的想法和小假等人去骑戒潭, 然而在北四环一个转弯下坡的匝道上因为车速比较快地面洒水结了暗冰, 所以 laekov 就侧滑摔车了并骨折了, 一个人断着手骑了几公里回学校特别惨. 接下来一个月都打了固定没有骑车, 并成功错过 sbt.</p>
+<p>2018 年五一, 骨折刚拆了支具没多久的 laekov 买了一对 bora one 35 碳刀庆祝一下, 并发现一万块钱的碳刀果然比三千块钱的碳刀骑起来有质的飞跃, 并和小假等人一起去骑了永四, 在每个坡都被小假拉爆.</p>
+<p>2018 年的夏天 laekov 发现可以早晨四点过起来去爬妙峰山, 并且由于很久之前前前会长说过 laekov 应该爬妙好好练练能进 60, 于是 laekov 日常去爬妙, 有时候要 69 分钟, 有时候可以到 62 分钟, 成绩十分摇摆. 并因此翘了一些 GRE 课 (雾). 最终在车协 dalao 户 pro 的带风下进了 60, 并觉得自己及格了. 以及清晨去骑妙, 风景和心情都还是不错的.</p>
+<p>2018 年的秋天 laekov 因为参加了 shenyang 办的山地入门活动, 突然对山地车也产生了兴趣, 并买了一辆黄色 merida challenger 800, 入坑了山地, 偶尔在学校里飞飞台子, 下下坡什么的.</p>
+<h3 id="由一次起床失败引发的故事">由一次起床失败引发的故事<a hidden class="anchor" aria-hidden="true" href="#由一次起床失败引发的故事">#</a></h3>
+<p>夏天的时候北京天亮很早, 所以就有工作日早晨起来, 五六点钟在空旷的道路上骑个车再回去接着上班上学这种操作. 2018 年的夏天车协就有了一个早晨起来刷昆玉河的群.</p>
+<p>在 6 月 8 号这一天, laekov 早晨本来打算去参加一个五点的局, 但是当 laekov 没有听到闹钟终于自然醒来的时候已经四点五十了, 但是惊喜地发现群里有一个学姐也起晚了, 于是学姐来加了 laekov 的好友, 并表示要不一起去组个起晚局. 于是 laekov 快如风地化了个妆以比平时快几倍的速度出了门, 然后捡到了在丁香门口已经等了半天的学姐, 然后一起刷了个河. 然后 laekov 也没等学姐就自己回去了, 然后去荷清路绕了一圈, 然后又很巧地在清华路和学堂路的路口又遇到了学姐, 然后 laekov 为了刷学堂路的爬坡王 so 地就过去了.</p>
+<p>再后来 laekov 会在上班摸鱼的时候和学姐有一搓没一搓地聊天. 会和学姐约游泳然后骑着自行车带学姐去游泳池然后再去五道口约个饭. 再后来学姐被 laekov 刷完奥园带的一支玫瑰花给感动了于是成为了 laekov 的女朋友.</p>
+<p>所以骑车和吃饭是 laekov 和学姐的日常活动. 一起去铁三比赛也是学姐和 laekov 很 enjoy 的事情.</p>
+<h3 id="为会长十月">为会长十月<a hidden class="anchor" aria-hidden="true" href="#为会长十月">#</a></h3>
+<p>在各种因素下 laekov 在 2018 年的暑假成为了贵校车协的会长, 并一直干到了 2019 年暑假前.</p>
+<p>所以 laekov 拥有管理  300 人社团的经验, 虽然事实上活跃的人数并不多.</p>
+<p>贵校车协更像是一个纯粹的兴趣组织, 只是为校内骑车的同学提供一个约车的大群而已. 附加的一些功能包括迎新和组织一些日常活动, 社团部的年审, 冬季夏季做两次队服, 还有就是临时学校安排的一些奇怪的活动以及大家有兴趣干什么就干什么了.</p>
+<p>laekov 的原则是谁提议谁负责. 会长不是背锅侠. 然而做夏季衣服的时候学姐还是主动地承担了很多的职责.</p>
+<p>在 laekov 之前的几任会长都是光杆司令, 除了会长以外协会没有任何干部, 和隔壁层级分明的组织形成了鲜明对比. laekov 为了省事以各种原因任命了几位可爱的副会长, 大家有事的时候, 比如发衣服的时候, 会负载均衡一下.</p>
+<p>但是作为一个会长, 会接触到更多神奇的人. 协会内部的人有各种各样的需求, 而协会外部的人也会有各种各样对社团的想法.</p>
+<p>比如协会内部会有不同的 &ldquo;骑车&rdquo; 的需求. 有的人骑公路车, 为的是增加自己的功率, 锻炼强大的心肺能力, 其中一部分人更是希望在比赛中取得比较好的成绩. 有的人骑山地车, 为的是安全稳当地骑行, 又能够亲近大自然. 而另一部分人骑山地车则是为了追求在土路上飞跃的刺激. 有的人希望工作日早晚也能有和大家一起骑车的机会, 另一些人则希望在寒假暑假能有有组织的长途骑车. laekov 作为会长, 对骑车也有自己的理解和玩法. 例如让 laekov 去带一队山马寒假环海南, laekov 就是难以接受的. 所以 laekov 本自由约车的原则, 如果有人去就去, 如果只是有一个人提个想法没人响应, 那就算了. ovo</p>
+<p>社团外有自行车商希望车协能团购他们的自行车, 或者达成某种形式的赞助. 有专业的自行车教练, 希望车协能吸引更多的人骑车, 从而有更多的人参与比赛和科学训练. 有学校从事道路建设方面的老师, 希望车协能够为北京市自行车道路建设贡献力量. laekov 本着没有工资不干活的原则, 还是增长了很多社会阅历.</p>
+<h3 id="后骑车时代-思考与简化">后骑车时代: 思考与简化<a hidden class="anchor" aria-hidden="true" href="#后骑车时代-思考与简化">#</a></h3>
+<p>laekov 的大学四年, 有三年半都是以自行车运动为主要的业余活动度过的. laekov 常常不是在工作, 就是在骑车, 或者是在准备骑车.</p>
+<p>laekov 在 2019 年夏季去 LA 之前一个炎热的下午, 因为心情不好而低价卖掉了大彩. 后来又组装了 DIY 涂装的大紫. 相比大彩, 大紫不是竞技的碳架, 而是古老的钢架, 大紫没有功率计, 最开始甚至没有装码表. 大紫牙盘只有一个盘片, 最高可以踩踏的速度降低了不少. 虽然省去了很多的功能, 但是这是 laekov 骑车以来对自己骑车目的的思考与探索.</p>
+<p>竞赛的胜利固然快乐, 征服遥远的长途固然雄壮, 但是 laekov 更享受的, 只是骑行在路上, 在自由而快速地前进和上升这件事而已.</p>
+<h2 id="misc">Misc<a hidden class="anchor" aria-hidden="true" href="#misc">#</a></h2>
+<h3 id="一些统计数据">一些统计数据<a hidden class="anchor" aria-hidden="true" href="#一些统计数据">#</a></h3>
+<p>laekov 本科期间换了 <code>4</code> 个新手机, <code>0</code> 个新电脑.</p>
+<p>laekov 本科期间去过 <code>4</code> 次美国, <code>2</code> 次德国. 两次去德国都在 Frankfurt.</p>
+<p>laekov 一共参加了 <code>7</code> 场超算比赛, 其中 <code>5</code> 场是正式队员, <code>4</code> 场由 laekov 主要负责被面试.</p>
+<p>laekov 本科期间一共发表了 <code>2</code> 篇论文.</p>
+<p>(根据学校统计) laekov 一共吃过学校的 15 个不同食堂中的 <code>14</code> 个.</p>
+<p>laekov 本科期间拥有过 <code>13</code> 辆自行车, 其中包括 <code>6</code> 辆公路车 (小绿, 大彩, 小灰, 蓝车, 大紫, 大橙), <code>6</code> 辆通勤车 (黑色卧凤, 大绿, 成都死飞, 大蓝, 大白, 大粉), <code>1</code> 辆山地车 (大黄).</p>
+<p>laekov 在 <code>4</code> 个国外城市和 <code>7</code> 个国内城市骑过自行车 (不少于 40km).</p>
+<p>根据 laekov 的 strava 记录, 从 2017 年到 2020 年 6 月 24 日, laekov 一共骑行了 <code>12884.9</code> 千米, 海拔爬升 <code>133472</code> 米. (相当于从海平面爬了15 次珠峰?)</p>
+<p>laekov 本科期间完成了 <code>4</code> 场铁人三项比赛, <code>2</code> 场半程马拉松比赛, <code>1</code> 场越野跑比赛. 参加了 <code>3</code> 次自行车比赛, 其中有一次因为下雨太冷退赛了, 另有一次因为摔断了手而 DNS.</p>
+<h2 id="update-log">Update log<a hidden class="anchor" aria-hidden="true" href="#update-log">#</a></h2>
+<ul>
+<li>6.23: 发毕业照朋友圈的时候开了这个坑</li>
+<li>6.24: 按照现在写文章的习惯列了一个提纲, 然后慢慢填. 填了大作业列表和一些数据. 写了学习的部分, 然后觉得自己没上过什么课.</li>
+<li>6.25: 自行车 part 1.</li>
+<li>6.30: 实习经历. ACM 和超算比赛.</li>
+<li>7.11: 申请. 骑车的后半部分.</li>
+</ul>
+<hr/>
+<h3 id="historical-comments">Historical Comments<a hidden class="anchor" aria-hidden="true" href="#historical-comments">#</a></h3>
+<h5 id="laekov-at-2020-07-11t230444">laekov at 2020-07-11T23:04:44<a hidden class="anchor" aria-hidden="true" href="#laekov-at-2020-07-11t230444">#</a></h5>
+<p>终于码完了这篇文章. 撒花.
+本科四年, 再见.</p>
+<h5 id="constroyhttpsgithubcomconstroy-at-2021-07-15t010319"><a href="https://github.com/constroy">constroy</a> at 2021-07-15T01:03:19<a hidden class="anchor" aria-hidden="true" href="#constroyhttpsgithubcomconstroy-at-2021-07-15t010319">#</a></h5>
+<p>你居然也去了2016青岛？我们队那场第四，那是我最后一场区域赛。</p>
+<h5 id="laekov-at-2021-07-19t192824">laekov at 2021-07-19T19:28:24<a hidden class="anchor" aria-hidden="true" href="#laekov-at-2021-07-19t192824">#</a></h5>
+<p>是啊，那也是我的最后一场</p>
+<h5 id="laekov-at-2021-08-03t011942">laekov at 2021-08-03T01:19:42<a hidden class="anchor" aria-hidden="true" href="#laekov-at-2021-08-03t011942">#</a></h5>
+<p>突然想起当年acm区域赛我们的队名叫
+我喜欢我旁边的主持人
+啊真是青春啊</p>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/brainhole/">brainhole</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/technical/dc0e8e/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>使用 Shortcuts 让 linux desktop 与 iOS 间获得 airdrop 般的体验</span>
+  </a>
+  <a class="next" href="/technical/214397/">
+    <span class="title">Next »</span>
+    <br>
+    <span>远程部署一个通过 B 站直播分发的实验室集群监控系统</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

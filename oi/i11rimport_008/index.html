@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>BZOJ1814 Ural 1519 Formula 1 | The Site of laekov</title>
+<meta name="keywords" content="bzoj, dp, plugDP, oi">
+<meta name="description" content="&lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt; 插头dp的练手题么。虽然之前还没写过哈密顿回路的题。&lt;/p&gt; &nbsp;
+学习了一下广义括号法。发现状态数比之前记连通性的方法要少。仔细想想发现，两个连通的插头的顺序有关。不能存在1212这种东西。所以连通性的方法记了很多废状态。那把连通性方法改进一下会不会变得更快呢？可以研究一下。我觉得应该是等效了吧。
+&nbsp;
+今天的debug时间明显缩短了。虽然还是debug了老半天。然后怎么代码还是那么长。想起我每次都觉得把东西挤到一起看起来很不雅观，于是去写一堆找转移的函数。晕。
+&nbsp;
+#include &lt;cstdio&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+typedef long long dint; #ifdef WIN32 #define lld &ldquo;%I64d&rdquo; #else #define lld &ldquo;%lld&rdquo; #endif #define _l (long long int)
+const int maxn = 15; const int maxst = 50009;
+#define mbit(x,y) ((x)&lt;&lt;((y)&lt;&lt;1)) #define gbit(x,y) (((x)&gt;&gt;((y)&lt;&lt;1))&amp;3) #define cbit(x,y) ((x)&amp;(~(3&lt;&lt;((y)&lt;&lt;1))))
+int n, m, tots, slst[maxst]; bool mp[maxn][maxn]; dint f[2][maxst];
+void dfsState(int l, int c, int z) { if (l == m &#43; 1) { if (!">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/i11rimport_008/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="BZOJ1814 Ural 1519 Formula 1" />
+<meta property="og:description" content="&lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt; 插头dp的练手题么。虽然之前还没写过哈密顿回路的题。&lt;/p&gt; &nbsp;
+学习了一下广义括号法。发现状态数比之前记连通性的方法要少。仔细想想发现，两个连通的插头的顺序有关。不能存在1212这种东西。所以连通性的方法记了很多废状态。那把连通性方法改进一下会不会变得更快呢？可以研究一下。我觉得应该是等效了吧。
+&nbsp;
+今天的debug时间明显缩短了。虽然还是debug了老半天。然后怎么代码还是那么长。想起我每次都觉得把东西挤到一起看起来很不雅观，于是去写一堆找转移的函数。晕。
+&nbsp;
+#include &lt;cstdio&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+typedef long long dint; #ifdef WIN32 #define lld &ldquo;%I64d&rdquo; #else #define lld &ldquo;%lld&rdquo; #endif #define _l (long long int)
+const int maxn = 15; const int maxst = 50009;
+#define mbit(x,y) ((x)&lt;&lt;((y)&lt;&lt;1)) #define gbit(x,y) (((x)&gt;&gt;((y)&lt;&lt;1))&amp;3) #define cbit(x,y) ((x)&amp;(~(3&lt;&lt;((y)&lt;&lt;1))))
+int n, m, tots, slst[maxst]; bool mp[maxn][maxn]; dint f[2][maxst];
+void dfsState(int l, int c, int z) { if (l == m &#43; 1) { if (!" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/i11rimport_008/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2015-03-07T17:02:41+00:00" />
+<meta property="article:modified_time" content="2015-03-07T17:02:41+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BZOJ1814 Ural 1519 Formula 1"/>
+<meta name="twitter:description" content="&lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt; 插头dp的练手题么。虽然之前还没写过哈密顿回路的题。&lt;/p&gt; &nbsp;
+学习了一下广义括号法。发现状态数比之前记连通性的方法要少。仔细想想发现，两个连通的插头的顺序有关。不能存在1212这种东西。所以连通性的方法记了很多废状态。那把连通性方法改进一下会不会变得更快呢？可以研究一下。我觉得应该是等效了吧。
+&nbsp;
+今天的debug时间明显缩短了。虽然还是debug了老半天。然后怎么代码还是那么长。想起我每次都觉得把东西挤到一起看起来很不雅观，于是去写一堆找转移的函数。晕。
+&nbsp;
+#include &lt;cstdio&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+typedef long long dint; #ifdef WIN32 #define lld &ldquo;%I64d&rdquo; #else #define lld &ldquo;%lld&rdquo; #endif #define _l (long long int)
+const int maxn = 15; const int maxst = 50009;
+#define mbit(x,y) ((x)&lt;&lt;((y)&lt;&lt;1)) #define gbit(x,y) (((x)&gt;&gt;((y)&lt;&lt;1))&amp;3) #define cbit(x,y) ((x)&amp;(~(3&lt;&lt;((y)&lt;&lt;1))))
+int n, m, tots, slst[maxst]; bool mp[maxn][maxn]; dint f[2][maxst];
+void dfsState(int l, int c, int z) { if (l == m &#43; 1) { if (!"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "BZOJ1814 Ural 1519 Formula 1",
+      "item": "/oi/i11rimport_008/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BZOJ1814 Ural 1519 Formula 1",
+  "name": "BZOJ1814 Ural 1519 Formula 1",
+  "description": "\u0026lt;div class=\u0026quot;post_brief\u0026quot;\u0026gt;\u0026lt;p\u0026gt; 插头dp的练手题么。虽然之前还没写过哈密顿回路的题。\u0026lt;/p\u0026gt; \u0026nbsp;\n学习了一下广义括号法。发现状态数比之前记连通性的方法要少。仔细想想发现，两个连通的插头的顺序有关。不能存在1212这种东西。所以连通性的方法记了很多废状态。那把连通性方法改进一下会不会变得更快呢？可以研究一下。我觉得应该是等效了吧。\n\u0026nbsp;\n今天的debug时间明显缩短了。虽然还是debug了老半天。然后怎么代码还是那么长。想起我每次都觉得把东西挤到一起看起来很不雅观，于是去写一堆找转移的函数。晕。\n\u0026nbsp;\n#include \u0026lt;cstdio\u0026gt; #include \u0026lt;cstring\u0026gt; #include \u0026lt;algorithm\u0026gt; using namespace std;\ntypedef long long dint; #ifdef WIN32 #define lld \u0026ldquo;%I64d\u0026rdquo; #else #define lld \u0026ldquo;%lld\u0026rdquo; #endif #define _l (long long int)\nconst int maxn = 15; const int maxst = 50009;\n#define mbit(x,y) ((x)\u0026lt;\u0026lt;((y)\u0026lt;\u0026lt;1)) #define gbit(x,y) (((x)\u0026gt;\u0026gt;((y)\u0026lt;\u0026lt;1))\u0026amp;3) #define cbit(x,y) ((x)\u0026amp;(~(3\u0026lt;\u0026lt;((y)\u0026lt;\u0026lt;1))))\nint n, m, tots, slst[maxst]; bool mp[maxn][maxn]; dint f[2][maxst];\nvoid dfsState(int l, int c, int z) { if (l == m + 1) { if (!",
+  "keywords": [
+    "bzoj", "dp", "plugDP", "oi"
+  ],
+  "articleBody": "\t插头dp的练手题么。虽然之前还没写过哈密顿回路的题。\n学习了一下广义括号法。发现状态数比之前记连通性的方法要少。仔细想想发现，两个连通的插头的顺序有关。不能存在1212这种东西。所以连通性的方法记了很多废状态。那把连通性方法改进一下会不会变得更快呢？可以研究一下。我觉得应该是等效了吧。\n今天的debug时间明显缩短了。虽然还是debug了老半天。然后怎么代码还是那么长。想起我每次都觉得把东西挤到一起看起来很不雅观，于是去写一堆找转移的函数。晕。\n#include #include #include using namespace std;\ntypedef long long dint; #ifdef WIN32 #define lld “%I64d” #else #define lld “%lld” #endif #define _l (long long int)\nconst int maxn = 15; const int maxst = 50009;\n#define mbit(x,y) ((x)\u003c\u003c((y)\u003c\u003c1)) #define gbit(x,y) (((x)\u003e\u003e((y)\u003c\u003c1))\u00263) #define cbit(x,y) ((x)\u0026(~(3\u003c\u003c((y)\u003c\u003c1))))\nint n, m, tots, slst[maxst]; bool mp[maxn][maxn]; dint f[2][maxst];\nvoid dfsState(int l, int c, int z) { if (l == m + 1) { if (!c) slst[tots ++] = z; } else { dfsState(l + 1, c, z); dfsState(l + 1, c + 1, z | mbit(1, l)); if (c) dfsState(l + 1, c - 1, z | mbit(2, l)); } } void preState() { tots = 0; dfsState(0, 0, 0); sort(slst, slst + tots); } inline int fState(int s) { register int ret(lower_bound(slst, slst + tots, s) - slst); if (slst[ret] != s) puts(“naive”); return ret; }\n#define inc(a,b) (a+=b) inline int brv(int x) { if (!x) return 0; else return (x == 1) ? 1 : -1; }\nbool isEnd(int s, int y) { for (int i = 0; i \u003c y; ++ i) if (gbit(s, i)) return 0; for (int i = y + 2; i \u003c= m; ++ i) if (gbit(s, i)) return 0; return 1; } inline int mergePlug(int s, int y) { int p, c; if (gbit(s, y) != gbit(s, y + 1)) { s = cbit(s, y); s = cbit(s, y + 1); return fState(s); } else if (gbit(s, y) == 1) { for (c = 1, p = y + 1; c; ++ p, c += brv(gbit(s, p))); s = cbit(s, y); s = cbit(s, y + 1); s = cbit(s, p); return fState(s | mbit(1, p)); } else { for (c = -1, p = y; c; – p, c += brv(gbit(s, p))); s = cbit(s, y); s = cbit(s, y + 1); s = cbit(s, p); return fState(s | mbit(2, p)); } } inline int extPlugRight(int s, int y) { s |= mbit(gbit(s, y), y + 1); s = cbit(s, y); return fState(s); } inline int extPlugDown(int s, int y) { s |= mbit(gbit(s, y + 1), y); s = cbit(s, y + 1); return fState(s); } inline int forkPlug(int s, int y) { s |= mbit(1, y); s |= mbit(2, y + 1); return fState(s); } inline int nextRow(int s) { int r(0); for (int i = 0; i \u003c m; ++ i) r |= mbit(gbit(s, i), i + 1); return fState(r); }\ndint dp() { int cur(0), prv(1); dint ans; memset(f, 0, sizeof(f)); f[cur][0] = 1; for (int x = 0; x \u003c n; ++ x) { for (int y = 0; y \u003c m; ++ y) { if (mp[x][y]) ans = 0; swap(cur, prv); memset(f[cur], 0, sizeof(f[cur])); for (int i = 0; i \u003c tots; ++ i) if (f[prv][i]) { int s(slst[i]);; if (mp[x][y]) { if (gbit(s, y) \u0026\u0026 gbit(s, y + 1)) { if (gbit(s, y) == 1 \u0026\u0026 gbit(s, y + 1) == 2) { if (isEnd(s, y)) inc(ans, f[prv][i]); } else inc(f[cur][mergePlug(s, y)], f[prv][i]); } else if (gbit(s, y)) { inc(f[cur][i], f[prv][i]); inc(f[cur][extPlugRight(s, y)], f[prv][i]); } else if (gbit(s, y + 1)) { inc(f[cur][i], f[prv][i]); inc(f[cur][extPlugDown(s, y)], f[prv][i]); } else inc(f[cur][forkPlug(s, y)], f[prv][i]); } else { if (!gbit(s, y) \u0026\u0026 !gbit(s, y + 1)) inc(f[cur][i], f[prv][i]); } } } swap(cur, prv); memset(f[cur], 0, sizeof(f[cur])); for (int i = 0; i \u003c tots; ++ i) if (f[prv][i] \u0026\u0026 !gbit(slst[i], m)) inc(f[cur][nextRow(slst[i])], f[prv][i]); } return ans; }\nint main() { #ifndef ONLINE_JUDGE freopen(“in.txt”, “r”, stdin); #endif\nscanf(\"%d%d\", \u0026amp;n, \u0026amp;m); for (int i = 0; i \u0026lt; n; ++ i) { char g[maxn]; scanf(\"%s\", g); for (int j = 0; j \u0026lt; m; ++ j) mp[i][j] = (g[j] == '.'); } preState(); printf(lld \"\\n\", dp()); } ",
+  "wordCount" : "634",
+  "inLanguage": "en",
+  "datePublished": "2015-03-07T17:02:41Z",
+  "dateModified": "2015-03-07T17:02:41Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/i11rimport_008/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      BZOJ1814 Ural 1519 Formula 1
+    </h1>
+    <div class="post-meta"><span title='2015-03-07 17:02:41 +0000 UTC'>March 7, 2015</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><pre><code>			    &lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt;
+插头dp的练手题么。虽然之前还没写过哈密顿回路的题。&lt;/p&gt;
+</code></pre>
+<p>
+	&nbsp;</p>
+<p>
+	学习了一下广义括号法。发现状态数比之前记连通性的方法要少。仔细想想发现，两个连通的插头的顺序有关。不能存在1212这种东西。所以连通性的方法记了很多废状态。那把连通性方法改进一下会不会变得更快呢？可以研究一下。我觉得应该是等效了吧。</p>
+<p>
+	&nbsp;</p>
+<p>
+	今天的debug时间明显缩短了。虽然还是debug了老半天。然后怎么代码还是那么长。想起我每次都觉得把东西挤到一起看起来很不雅观，于是去写一堆找转移的函数。晕。</p>
+<p>
+	&nbsp;</p>
+<pre class="bcode">#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+<p>using namespace std;</p>
+<p>typedef long long dint;
+#ifdef WIN32
+#define lld &ldquo;%I64d&rdquo;
+#else
+#define lld &ldquo;%lld&rdquo;
+#endif
+#define _l (long long int)</p>
+<p>const int maxn = 15;
+const int maxst = 50009;</p>
+<p>#define mbit(<em>x</em>,<em>y</em>) ((<em>x</em>)&lt;&lt;((<em>y</em>)&lt;&lt;1))
+#define gbit(<em>x</em>,<em>y</em>) (((<em>x</em>)&gt;&gt;((<em>y</em>)&lt;&lt;1))&amp;3)
+#define cbit(<em>x</em>,<em>y</em>) ((<em>x</em>)&amp;(~(3&lt;&lt;((<em>y</em>)&lt;&lt;1))))</p>
+<p>int n, m, tots, slst[maxst];
+bool mp[maxn][maxn];
+dint f[2][maxst];</p>
+<p>void dfsState(int l, int c, int z) {
+if (l == m + 1) {
+if (!c)
+slst[tots ++] = z;
+}
+else {
+dfsState(l + 1, c, z);
+dfsState(l + 1, c + 1, z | mbit(1, l));
+if (c)
+dfsState(l + 1, c - 1, z | mbit(2, l));
+}
+}
+void preState() {
+tots = 0;
+dfsState(0, 0, 0);
+sort(slst, slst + tots);
+}
+inline int fState(int s) {
+register int ret(lower_bound(slst, slst + tots, s) - slst);
+if (slst[ret] != s)
+puts(&ldquo;naive&rdquo;);
+return ret;
+}</p>
+<p>#define inc(<em>a</em>,<em>b</em>) (<em>a</em>+=<em>b</em>)
+inline int brv(int x) {
+if (!x)
+return 0;
+else
+return (x == 1) ? 1 : -1;
+}</p>
+<p>bool isEnd(int s, int y) {
+for (int i = 0; i &lt; y; ++ i)
+if (gbit(s, i))
+return 0;
+for (int i = y + 2; i &lt;= m; ++ i)
+if (gbit(s, i))
+return 0;
+return 1;
+}
+inline int mergePlug(int s, int y) {
+int p, c;
+if (gbit(s, y) != gbit(s, y + 1)) {
+s = cbit(s, y);
+s = cbit(s, y + 1);
+return fState(s);
+}
+else if (gbit(s, y) == 1) {
+for (c = 1, p = y + 1; c; ++ p, c += brv(gbit(s, p)));
+s = cbit(s, y);
+s = cbit(s, y + 1);
+s = cbit(s, p);
+return fState(s | mbit(1, p));
+}
+else {
+for (c = -1, p = y; c; &ndash; p, c += brv(gbit(s, p)));
+s = cbit(s, y);
+s = cbit(s, y + 1);
+s = cbit(s, p);
+return fState(s | mbit(2, p));
+}
+}
+inline int extPlugRight(int s, int y) {
+s |= mbit(gbit(s, y), y + 1);
+s = cbit(s, y);
+return fState(s);
+}
+inline int extPlugDown(int s, int y) {
+s |= mbit(gbit(s, y + 1), y);
+s = cbit(s, y + 1);
+return fState(s);
+}
+inline int forkPlug(int s, int y) {
+s |= mbit(1, y);
+s |= mbit(2, y + 1);
+return fState(s);
+}
+inline int nextRow(int s) {
+int r(0);
+for (int i = 0; i &lt; m; ++ i)
+r |= mbit(gbit(s, i), i + 1);
+return fState(r);
+}</p>
+<p>dint dp() {
+int cur(0), prv(1);
+dint ans;
+memset(f, 0, sizeof(f));
+f[cur][0] = 1;
+for (int x = 0; x &lt; n; ++ x) {
+for (int y = 0; y &lt; m; ++ y) {
+if (mp[x][y])
+ans = 0;
+swap(cur, prv);
+memset(f[cur], 0, sizeof(f[cur]));
+for (int i = 0; i &lt; tots; ++ i)
+if (f[prv][i]) {
+int s(slst[i]);;
+if (mp[x][y]) {
+if (gbit(s, y) &amp;&amp; gbit(s, y + 1)) {
+if (gbit(s, y) == 1 &amp;&amp; gbit(s, y + 1) == 2) {
+if (isEnd(s, y))
+inc(ans, f[prv][i]);
+}
+else
+inc(f[cur][mergePlug(s, y)], f[prv][i]);
+}
+else if (gbit(s, y)) {
+inc(f[cur][i], f[prv][i]);
+inc(f[cur][extPlugRight(s, y)], f[prv][i]);
+}
+else if (gbit(s, y + 1)) {
+inc(f[cur][i], f[prv][i]);
+inc(f[cur][extPlugDown(s, y)], f[prv][i]);
+}
+else
+inc(f[cur][forkPlug(s, y)], f[prv][i]);
+}
+else {
+if (!gbit(s, y) &amp;&amp; !gbit(s, y + 1))
+inc(f[cur][i], f[prv][i]);
+}
+}
+}
+swap(cur, prv);
+memset(f[cur], 0, sizeof(f[cur]));
+for (int i = 0; i &lt; tots; ++ i)
+if (f[prv][i] &amp;&amp; !gbit(slst[i], m))
+inc(f[cur][nextRow(slst[i])], f[prv][i]);
+}
+return ans;
+}</p>
+<p>int main() {
+#ifndef ONLINE_JUDGE
+freopen(&ldquo;in.txt&rdquo;, &ldquo;r&rdquo;, stdin);
+#endif</p>
+<pre><code>scanf(&quot;%d%d&quot;, &amp;amp;n, &amp;amp;m);
+for (int i = 0; i &amp;lt; n; ++ i) {
+	char g[maxn];
+	scanf(&quot;%s&quot;, g);
+	for (int j = 0; j &amp;lt; m; ++ j)
+		mp[i][j] = (g[j] == '.');
+}
+preState();
+printf(lld &quot;\n&quot;, dp());
+</code></pre>
+<p>}
+</pre></p>
+</div>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/bzoj/">bzoj</a></li>
+      <li><a href="/tags/dp/">dp</a></li>
+      <li><a href="/tags/plugdp/">plugDP</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/i11rimport_003/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>BZOJ1604 [Usaco2008 Open]Cow Neighborhoods 奶牛的邻居</span>
+  </a>
+  <a class="next" href="/oi/i11rimport_009/">
+    <span class="title">Next »</span>
+    <br>
+    <span>BZOJ2402 陶陶的难题II</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

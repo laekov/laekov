@@ -1,0 +1,661 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>ds on The Site of laekov</title>
+    <link>/tags/ds/</link>
+    <description>Recent content in ds on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Mon, 21 Dec 2015 17:32:29 +0000</lastBuildDate><atom:link href="/tags/ds/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ovoo solution</title>
+      <link>/oi/dbimport_270/</link>
+      <pubDate>Mon, 21 Dec 2015 17:32:29 +0000</pubDate>
+      
+      <guid>/oi/dbimport_270/</guid>
+      <description>一点闲话 感觉这题好弱啊.应该有一堆神犇能秒吧.
+取模是为了避免输出long long的问题.不知道有没有人中间就取模了2333.
+这题的idea源于wc2015的k小割.考场上写了良久最后mle.
+于是我决定这题既不卡空间也不卡时间.
+是不是感觉我的题比ioi和zyf的题都良心啊hhh
+测试点1-6 这六个点的权值和非常小.于是可以树形dp.用fi,j表示以i为根的子树中权值和为j的方案总数.于是可以dp一下就得到答案.
+测试点7-8 接下来的点都是大数据了,然而还是有一些部分分.
+比如这个.
+没有题的一条链情况比这个题更简单了吧ovo
+测试点9-10 这是最简单的菊花图ovo似乎就是k小割的弱化版啊.做法比较多喽.
+介绍一个叫做学姐二分的方法.二分一个答案,然后强行dfs方案.如果总方案数大于k就直接结束.这样是可以保证复杂度的TAT
+测试点11-12 一条链变成两条链了.一样的二分答案然后枚举一边二分另一边嘛.
+剩下的测试点 这些点没办法用奇怪的方法了吧?有人用奇怪方法黑过去的和我说一声ovo
+考虑当前如果已选的某个点集S,我们也把它叫做一个状态.
+S可以向S中任意点的没有在S中的儿子扩展.设扩展后的状态叫S&amp;rsquo;.(它可能有很多个)
+不难想到,已知前k小的状态S1 .. Sk后,第k+1小的状态一定是S&amp;rsquo;1 .. S&amp;rsquo;k中权值和最小的一个.
+于是我们就是要维护当前所有状态的可扩展的状态.
+对于每一个状态,用一个可持久化堆来记录它能扩展到的所有点,然后取其中最小的一个加上它本身的权值和扔进外层的堆里.
+那么每次外层堆里的最小值就是第k+1小的状态.
+那么找到k+1小状态后,就要将这条边从原状态中删除.然后对于新扩展出来的状态,把新扩展出来的原树上的点的所有儿子也扔到这个状态的堆里就好了.注意有的点的度数会很大,所以每个点的儿子本身就要用可合并堆来存.
+然后直接找下去直到扩展出第k小的状态就行了.
+以上所有操作的时间复杂度都是O(log(n))的,所以总复杂度是O(k*log(n))的.
+另一种思路 上面提到过的&amp;quot;学姐二分&amp;quot;也可以应用到这里.因为我也没写过所以不作重点介绍了.大家可以自行思考一下.
+劼司机的思路 (苣蒻的出题人并不能理解这种做法,你可以去找劼司机本人讨论ovo)
+就是把树画到平面上。。
+然后建个对偶图
+对偶图里每条边的边权为他子树里边权和
+也就是。。
+在对偶图里走过一条边，等于把这条边下面的子树砍掉。。
+然后就没了。。。
+吉利就是这么虐人的！
+松爷好强!</description>
+    </item>
+    
+    <item>
+      <title>bzoj2850 巧克力王国</title>
+      <link>/oi/dbimport_165/</link>
+      <pubDate>Wed, 01 Jul 2015 20:50:29 +0000</pubDate>
+      
+      <guid>/oi/dbimport_165/</guid>
+      <description>rausen大爷太强辣!
+嗯看到这个东西,咦,直线某一边的点的权值和?kd-tree上上上.
+于是就开敲kd-tree.敲到一半弃emacs换vim.
+然后就wa了.然后发现double的精度太高了ovoovo
+于是rausen跑得好快啊.</description>
+    </item>
+    
+    <item>
+      <title>bzoj4134 ljw和lzr的hack比赛</title>
+      <link>/oi/dbimport_246/</link>
+      <pubDate>Sat, 27 Jun 2015 21:39:47 +0000</pubDate>
+      
+      <guid>/oi/dbimport_246/</guid>
+      <description>之前感觉是sg函数.不过不会.在wulala神犇的指点下找来题解看了一下.太神辣.自己肯定想不出来&amp;hellip;
+设以点u为根的子树的局面的sg值为sgu.设以u为根的子树中先手先hack掉v后的sg函数为gu,v.
+那么gu,v = f[v] xor ∑ fu到v路径上所有点的非主干儿子.
+然后fu = mex{gu,v}
+这个转移得转移是O(n2)的样子吧.
+然后发现某棵子树的g其实每次都是异或了一个相同的值.而且会合并.
+咦可以用trie来优化一下.打下标记啥的.然后根据主席的论文这个东西是O(log n)的?虽然感觉复杂度证明没有说清楚啊ovoovo
+然后就在trie树标记上卡了好久啊火冒三丈ing</description>
+    </item>
+    
+    <item>
+      <title>bzoj2589 Spoj 10707 Count on a tree II</title>
+      <link>/oi/dbimport_149/</link>
+      <pubDate>Fri, 12 Jun 2015 13:39:12 +0000</pubDate>
+      
+      <guid>/oi/dbimport_149/</guid>
+      <description>mhy写此题写了良久啊然后T啊T,T啊T.然后我去翻了一下seter的博客.结合他的东西yy出一种比较优越的做法.
+如果我是出数据的,我会出两种数据,菊花图和链.
+如果是菊花图,直接朴素ovoovo如果是链,可以以每个叶子节点为根建一次可持久化线段树.
+如果是链上长出了一团菊花&amp;hellip;
+how to 结合?
+不停地删叶子.如果删到某层时叶子足够少了,那就建可持久化线段树去.
+对于询问,有若干种情况.
+标记每个根里离得很近的点.
+如果两个中有一个被标记过,那么直接以这个根求另一个的答案,然后朴素查找近的这个点到根的答案.
+如果两个点都没有被删 ,那一定有至少一个根可以使得这条链的两个端点有祖先关系.这样的话直接用可持久化线段树求解.
+好像完了?然后wa了ovoovo
+还有一种情况是某个点被删了,但是删之后它是接在树枝上的!
+于是它离根很远,还不一定有能搞出祖先关系的解.
+于是先爬行到没被删的地方,看两个端点是否在同一棵被删的叶子树上.
+如果是就朴素了.
+如果不是的话,先求没被删的这一段,再朴素被删的一段.
+终于完辣.
+从来没写过这种代码.感觉自己萌萌哒.</description>
+    </item>
+    
+    <item>
+      <title>bzoj4127 Abs</title>
+      <link>/oi/dbimport_244/</link>
+      <pubDate>Wed, 10 Jun 2015 21:19:45 +0000</pubDate>
+      
+      <guid>/oi/dbimport_244/</guid>
+      <description>最近都在做梦的感觉啊.这道题倒是mhy的博客一语点醒梦中人.
+只会加正数,所以每个数只有至多一次会从负变非负.
+链剖是肯定的.然后记录一下当前最大的负数是谁.如果大于等于0就改掉.所以还是O(n*log2n).
+所以我还是太弱了.于是读入优化大法抢了一个rank1.</description>
+    </item>
+    
+    <item>
+      <title>hdu5267 pog loves szh IV</title>
+      <link>/oi/dbimport_254/</link>
+      <pubDate>Sun, 07 Jun 2015 21:24:11 +0000</pubDate>
+      
+      <guid>/oi/dbimport_254/</guid>
+      <description>bc fst爽翻.然后这题差二十分钟没调出来不然我就是rank1.还是应该直接敲而不是去和队友商量.
+静态做的话直接按位树分就好了.然后资瓷修改的时候也是一样.只是把之前求的信息在树分后的dfs序上用线段树记下来.也就是要随时知道某个分治层里的某个子树上有多少个0或者1.
+然后就是讨论某个修改对当前答案的贡献.要注意分治根的值,以及有贡献的是哪些位置.中间打错了外层的dfs序范围,导致调试了很久.明明想清楚了但是打错了,不应该的.
+只有完了之后交了然后怒虐标程好开心啊.</description>
+    </item>
+    
+    <item>
+      <title>bzoj2877 [Noi2012]魔幻棋盘</title>
+      <link>/oi/dbimport_167/</link>
+      <pubDate>Thu, 28 May 2015 19:39:13 +0000</pubDate>
+      
+      <guid>/oi/dbimport_167/</guid>
+      <description>其实是一道没多大意思思的码农题TT然而这是我的第800题所以要mark一下.
+gcd序列可以用插分序列+第一个数来支持区间加.二维那就二维差分喽.
+然后发现第一个数似乎没有办法维护啊.不能做了?!
+询问的方式比较奇怪,有一个中心.那就建4个方向吧.这样似乎可做了yeah.
+所以我还是太naive了啊.
+是时候屯一波题了.</description>
+    </item>
+    
+    <item>
+      <title>bzoj3542 DZY Loves March</title>
+      <link>/oi/dbimport_198/</link>
+      <pubDate>Thu, 21 May 2015 19:33:30 +0000</pubDate>
+      
+      <guid>/oi/dbimport_198/</guid>
+      <description>业界毒瘤ioi开的坑.然后被强行看了一下于教授的代码.然后觉得也不太难嘛.
+看了一下条件.只和同行或者同列有关?那就拿map套动态建树的线段树好了辣.
+然后距离是欧式距离?那就把完全平方式展开,发现只需要在线段树里记录一下个数,和,平方和,搞定了辣!
+然后alloc的时候&amp;ndash;写成了++,查错良久,囧.</description>
+    </item>
+    
+    <item>
+      <title>bzoj2962 序列操作</title>
+      <link>/oi/dbimport_173/</link>
+      <pubDate>Mon, 18 May 2015 21:09:13 +0000</pubDate>
+      
+      <guid>/oi/dbimport_173/</guid>
+      <description>最近整个人都被Sone1搞得头昏脑胀。不爽ing。
+这个题其实就是线段树+维护的题。考虑给一个区间里每个数加C的时候的式子会变成什么样就好了。
+然后要注意标记得随时下传，不能永久化。
+然后感觉时间有点慢不过跑起来还将就。
+然后我太弱了。</description>
+    </item>
+    
+    <item>
+      <title>bzoj4071 [Apio2015]巴邻旁之桥</title>
+      <link>/oi/dbimport_240/</link>
+      <pubDate>Wed, 13 May 2015 18:37:18 +0000</pubDate>
+      
+      <guid>/oi/dbimport_240/</guid>
+      <description>这是apio里我最自豪的一道题了.让三分党去&amp;hellip;吧.
+k=1直接在所有坐标的中位数处建桥就行了不要问我为什么.
+首先感受一下发现可以按(a+b)把序列分成两半,然后两半就是k=1的情况嘛.那直接处理一下每个前缀和后缀的答案就完了辣.</description>
+    </item>
+    
+    <item>
+      <title>bzoj3218 a &#43; b problem</title>
+      <link>/oi/dbimport_180/</link>
+      <pubDate>Sun, 05 Apr 2015 22:08:21 +0000</pubDate>
+      
+      <guid>/oi/dbimport_180/</guid>
+      <description>gui vfk.
+在hdsdfz听讲过的题.
+可持久化seg tree优化建边.好像一句话就能说清楚啊.
+然后证明了我的网络流的姿势严重不科学ovo
+然后bzoj上样例居然是图片ovo于是附上手打的样例ovo
+10 0 1 7 3 9 2 7 4 0 9 10 5 1 0 4 2 10 2 7 9 1 5 7 2 6 3 5 3 6 2 6 6 4 1 8 1 6 1 6 0 6 5 2 2 5 0 9 3 5 1 3 0 2 5 5 6 7 1 1 2 </description>
+    </item>
+    
+    <item>
+      <title>bzoj2896 桥</title>
+      <link>/oi/dbimport_169/</link>
+      <pubDate>Sun, 05 Apr 2015 14:16:04 +0000</pubDate>
+      
+      <guid>/oi/dbimport_169/</guid>
+      <description>有点像xyz在wc的时候讲的动态图连通性问题.不过这个看上去要水些啊.
+考虑建一棵生成树,那么所有剩余的边覆盖了的边就不是桥.如果没有被覆盖就是桥.
+于是这个题可以倒过来,支持加边和查询两点间没有被覆盖的边数.
+似乎挺水.
+完了.</description>
+    </item>
+    
+    <item>
+      <title>bzoj3772 精神污染</title>
+      <link>/oi/dbimport_206/</link>
+      <pubDate>Wed, 01 Apr 2015 21:50:09 +0000</pubDate>
+      
+      <guid>/oi/dbimport_206/</guid>
+      <description>idy又开坑辣,虽然是个无聊的无聊题.
+考虑每条路径会被哪些路径包含.那条路径的两个端点一定是在条路径的两个端点的子树上.(如果这两个点有祖先关系,那么需要重新makeroot一下)
+当然我不是说要用Lct.直接用可持久化线段树在dfs序上把路径存下来就完了.</description>
+    </item>
+    
+    <item>
+      <title>bzoj3922 Karin的弹幕</title>
+      <link>/oi/dbimport_214/</link>
+      <pubDate>Sun, 29 Mar 2015 20:31:45 +0000</pubDate>
+      
+      <guid>/oi/dbimport_214/</guid>
+      <description>迷之数据结构.我的想法比较简单,确定一个值b,对所有小于b的k建线段树维护,对大于b的k直接朴素找.
+于是时间复杂度算起来比较迷.
+试了一下发现b取20的时候能过.虽然还是跑得最慢的一个.无语喽.大概我不是正解.</description>
+    </item>
+    
+    <item>
+      <title>bzoj3784 树上的路径</title>
+      <link>/oi/dbimport_208/</link>
+      <pubDate>Fri, 27 Mar 2015 21:33:23 +0000</pubDate>
+      
+      <guid>/oi/dbimport_208/</guid>
+      <description>又是idy开的坑。感觉回去要被他吊打致残。
+树分治。最开始想用二分，然后直接去每个分治点上查询。这样的总复杂度是O(n*log3n)的。不过感觉常数比较小而且绝对省代码，只用二分不用数据结构。然后发现要输出所有的边。这个算法要用容斥一样的东西来减，根本搞不定。
+于是向mhy学习。使用类似noi那个超级钢琴的思路，每次把最大的一条路径找出来，然后找它的替代品。树分治后，对于每一个树上的团，算出它的dfs序。默认一个点与dfs序在它前面的区间中最深的连边。这样就可以保证不重，也比较好写。然后用堆来维护。堆中一个点需要记录的信息是这个点的答案，线段树的根，左右端点，这个点到分治团的根的距离。然后每次找出一个最大的之后把它的区间再折成两半扔回堆里就好啦。
+比较神的做法。感觉我自己是想不出来的。要是考场上遇到还真会出事呢。郁闷ing。</description>
+    </item>
+    
+    <item>
+      <title>bzoj1095 [ZJOI2007]Hide 捉迷藏</title>
+      <link>/oi/dbimport_114/</link>
+      <pubDate>Thu, 26 Mar 2015 23:36:27 +0000</pubDate>
+      
+      <guid>/oi/dbimport_114/</guid>
+      <description>迷一样的欧拉序列的题。然后似乎只有岛君的题解能看啊233。
+其实就是在欧拉序列上，两点u,v之间的距离=(dfb[u], dfe[v]]之间未匹配的括号数（左开右闭）。其中dfb表示左括号的位置，dfe表示右括号的位置。
+然后就是写一个线段树去维护了。写得比较丑，把所有数对都记下来了。其实只用记和跟差就行了。然后要强制如果一端是空的那么这个点就不能作为端点。完了。
+然后dfs这一步越写越短了，开心hhh。
+于是代码巨长还巨丑还巨慢。</description>
+    </item>
+    
+    <item>
+      <title>bzoj3221 Codechef FEB13 Obserbing the tree树上询问</title>
+      <link>/oi/dbimport_182/</link>
+      <pubDate>Mon, 23 Mar 2015 22:08:32 +0000</pubDate>
+      
+      <guid>/oi/dbimport_182/</guid>
+      <description>很早之前就看过的题。一直被数据范围吓到，然后感觉也比较难写所以都没写。后来发现还是挺好的。
+就重链dfs序维护一下每个位置的和，然后可持久化一下就完了。然后一个常数优化是如果这个点是在这次修改的时候建的，那么就直接覆盖而不是新建点。然后跑得就比较快了。</description>
+    </item>
+    
+    <item>
+      <title>bzoj2683 简单题</title>
+      <link>/oi/dbimport_153/</link>
+      <pubDate>Fri, 20 Mar 2015 20:26:17 +0000</pubDate>
+      
+      <guid>/oi/dbimport_153/</guid>
+      <description>水水的cdq。久了不写练一下手。然后发现犯了一堆逗错。幸好没过样例不然就do big die了。</description>
+    </item>
+    
+    <item>
+      <title>bzoj2482 Spoj1557 Can you answer these queries II</title>
+      <link>/oi/dbimport_146/</link>
+      <pubDate>Thu, 19 Mar 2015 22:58:43 +0000</pubDate>
+      
+      <guid>/oi/dbimport_146/</guid>
+      <description>原来备案还没过。那之前是怎么成功访问的囧。
+写了一晚上。教训还是之前那个，写之前要想清楚。写完再去改就很烦。自己yy了很久，虽然最初是听了mhy的一句提醒。好有危机感。
+首先这个东西可以离线。之前一直在想在线怎么做然后也觉得没法做。
+把询问按右端点排序之后问题就转化成了左端点在一个范围里的时候的最大子段。
+然后用一个线段树表示从i到current right的时候的和，这个玩意可以直接区间加。然后再去维护这个东西的历史最大值。于是就变成了每个位置上接了一个add序列，要找它的前缀最大值。那么只需要存两个东西：当前的和以及当前的最大前缀和，就可以合并了。
+然后线段树上维护两个add序列，分别是对整个线段的lazy tag of add和max value of son。就可写了。
+然后好像跑得很慢啊TT。</description>
+    </item>
+    
+    <item>
+      <title>hdu5189 zhx&#39;s tree</title>
+      <link>/oi/dbimport_252/</link>
+      <pubDate>Mon, 16 Mar 2015 22:35:14 +0000</pubDate>
+      
+      <guid>/oi/dbimport_252/</guid>
+      <description>自己出的题还要写题解。
+就是化成可以二分的形式，然后发现是找凸壳上x=x0的时候的最大值的和，看它是否大于0。
+于是就写呗。据说很难写。我觉得写起来还行啊。
+其实主要是为了测试系统用的。</description>
+    </item>
+    
+    <item>
+      <title>BZOJ1604 [Usaco2008 Open]Cow Neighborhoods 奶牛的邻居</title>
+      <link>/oi/i11rimport_003/</link>
+      <pubDate>Wed, 11 Mar 2015 14:47:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_003/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 在一道usaco的题上wa了三次。我也是厉害。&amp;lt;/p&amp;gt; &amp;nbsp;
+其实好像有简单做法的。不过我是要脑补一下曼哈顿最小生成树。
+&amp;nbsp;
+对于一个平面图上的点的曼哈顿最小生成树，一定存在一种方案，使得每个点的度数至多为8。也就是说以斜率为0,inf,1,-1的四条直线分出来的八个区域里各有一个点就行了。然后是可以保证的。
+&amp;nbsp;
+于是就是拿俩树状数组扫四遍就行了。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstdlib&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+const int inf = 0x3f3f3f3f;
+struct point { int x, y, i; point() { x = -inf, y = -1; } point(int xo, int yo) { x = xo, y = yo; } inline void init(int ix) { scanf(&amp;quot;%d%d&amp;quot;, &amp;amp;x, &amp;amp;y); i = ix; } };
+inline bool operator &amp;lt;(const point&amp;amp; a, const point&amp;amp; b) { return (a.</description>
+    </item>
+    
+    <item>
+      <title>BZOJ2402 陶陶的难题II</title>
+      <link>/oi/i11rimport_009/</link>
+      <pubDate>Sat, 07 Mar 2015 13:39:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_009/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; orz mhy。看mhy的刷题记录成为了我成天的刷题方向了。&amp;lt;/p&amp;gt; &amp;nbsp;
+其实最初也没有想清楚。然后看了一眼mhy写的题解写了凸壳，秒懂。
+&amp;nbsp;
+二分一个答案，设它是ans。如果ans≥realAns的话，那么就会存在yi-ans*xi+qj-ans*pj≥0。然后i和j就分开了。于是变成了求一条路径上yi-ans*xi的最大值。把xi看作k，把yi看作b，就变成半平面交了。于是开归并式线段树把凸壳给记录下来就好了。然后复杂度大约是单次询问O(lg3(n))的？链剖后每棵树单独建树，然后复杂度我就不会算了TT。
+&amp;nbsp;
+于是就硬着头皮写了，然后发现跑得还挺快。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cmath&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+const int maxn = 30009; const int maxl = 15; const int max_buf = maxn * maxl * 2; const double eps = 1e-6; const double finf = 1e10;
+int ibuf_arr[max_buf], *ibuf(ibuf_arr); double fbuf_arr[max_buf], *fbuf(fbuf_arr);
+struct edge { int t; edge *next; };
+struct line { double k, b; inline double xCross(const line&amp;amp; a) { return (a.</description>
+    </item>
+    
+    <item>
+      <title>BZOJ1513 [POI2006]Tet-Tetris 3D</title>
+      <link>/oi/i11rimport_010/</link>
+      <pubDate>Fri, 06 Mar 2015 22:25:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_010/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 这么水的题居然还要写题解。要不要说我写了半个下午+半个晚上。&amp;lt;/p&amp;gt; &amp;nbsp;
+丧心病狂想写一发zkw去抢速度rank。然后发现zkw怎么支持区间修改查询TT。课件根本没讲懂。而且max怎么区间加。
+&amp;nbsp;
+想了很久终于想出了来了。然后交上去发现常数巨大比普通线段树还要慢TT。到头来想想如果我直接写普通线段树说不定十多分钟就能过，而且代码量还会小一些。因为那个是可以直接通用的，但是这个比较麻烦。
+&amp;nbsp;
+其实写这个就题解就是想记录一下我yy出来的zkw区间修改区间查询的方法。
+&amp;nbsp;
+这道题是区间查询最大值+区间修改。如果是写一般的线段树，需要记录两个值a和v（至于为啥我用了这俩神奇的字母我也不知道），分别表示当前区间被完整覆盖的修改的最大值（又称lazy标记）和当前区间的最大值。然后所以zkw也要记这两个东西。
+&amp;nbsp;
+如果我们把zkw看作一棵树，那么每次修改和询问操作的时候都是对一些线段的a和v进行操作。（废话）
+&amp;nbsp;
+首先考虑修改。zkw经典的变为开区间取中间能处理a值的改变，但是不能处理v值的改变。因为v值改变的线段不一定会被当前区间包含。然后仔细考虑发现a值没有变但是v值变了的点只可能存在于两个端点到根的路径上。那就直接强行更新一发就好了啊。然后更新的区域就变成了一个有点像倒置漏斗的形状。
+&amp;nbsp;
+再考虑询问。a要覆盖当前区间，v要被当前区间覆盖。那不就是修改把a和v的做法反一下么。
+&amp;nbsp;
+然后好像也不是很麻烦的样子哈。
+&amp;nbsp;
+然后常数很大哈。
+&amp;nbsp;
+那还拿zkw做何用。
+&amp;nbsp;
+晕。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cctype&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+const int buf_len = 4567; char buf[buf_len], *bufb(buf), *bufe(buf + 1); #define readBuf() { if (++ bufb == bufe) bufe = (bufb = buf) + fread(buf, 1, sizeof(buf), stdin); } #define readInt(x) { register int s(0); do { readBuf(); } while (!</description>
+    </item>
+    
+    <item>
+      <title>BZOJ1023 [SHOI2008]cactus仙人掌图</title>
+      <link>/oi/i11rimport_015/</link>
+      <pubDate>Wed, 04 Mar 2015 15:40:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_015/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 第六百道题一定要不水！虽然离第一页还有几十道题的距离。&amp;lt;/p&amp;gt; &amp;nbsp;
+很早之前见过的题吧。然后一直觉得特别难写所以都没写。以前写点不重复的仙人掌都觉得挺痛苦，更不要说这个了。
+&amp;nbsp;
+现在想想还行，因为我yy出了化简的方法。先搞出dfs树。然后一个顶点如果是一个环里深度最浅的，那么称它为这个环的头。可以证明一个顶点最多在一个不以它为头的环上。把这个环记下来，其它的环都从这个顶点去找边来找就行了。这样的话可以比较节省代码量，写起来也比较明了。虽然还是比mhy长。
+&amp;nbsp;
+然后因为我在最后一步dp的时候写了一个static的f数组，所以光荣了。debug了好久。晕。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+struct edge { int t, av; edge *next, *rv; }; struct ball { int l, *a, h; };
+const int maxn = 50009; const int maxm = 200009; const int maxarr = 400009;
+int n, m, cb, fb[maxn], d[maxn]; int f[maxn], ans, fd[maxn], fe[maxn]; int stc[maxn], tst; int ibuf_arr[maxarr], *ibuf(ibuf_arr); bool vis[maxn]; edge elst[maxm], *ep(elst), *head[maxn]; ball b[maxm];</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3242 [Noi2013]快餐店</title>
+      <link>/oi/i11rimport_017/</link>
+      <pubDate>Tue, 03 Mar 2015 21:18:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_017/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 好吧我的本意是想学习一下dp的。然后发现了这道纠结了一年半还多的题。&amp;lt;/p&amp;gt; &amp;nbsp;
+首先把环找出来。然后环上会长一些树。先把树的答案求了，因为它很好求。
+&amp;nbsp;
+然后考虑环，那么答案应该是随便断一条边之后答案的最小值（而不是最大值）。于是乎记录一下每个点按某个方向到起点的距离，记为d[i]。算一下每个点的树的深度，记为l[i]。于是每次要最大化l[i]+l[j]+|d[i]-d[j]|。反正是最大化所以顺序是没有关系的，但是不能自交。这是个比较容易错的地方。于是就去写个线段树来维护吧。只查询不修改让我总有能线性搞的想法，虽然没想清楚具体怎么实现。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; #include &amp;lt;set&amp;gt; using namespace std;
+struct edge { int t, v; edge *next; };
+typedef long long dint; #ifdef WIN32 #define lld &amp;ldquo;%I64d&amp;rdquo; #else #define lld &amp;ldquo;%lld&amp;rdquo; #endif #define _l (long long int)
+const int maxn = 100009;
+edge elst[maxn &amp;lt;&amp;lt; 1], *ep(elst), *head[maxn]; int n, fa[maxn], df[maxn], ol[maxn], d[maxn]; int tlp, lp[maxn &amp;lt;&amp;lt; 1]; dint lv[maxn &amp;lt;&amp;lt; 1], le[maxn &amp;lt;&amp;lt; 1], md[maxn], ans;</description>
+    </item>
+    
+    <item>
+      <title>BZOJ2770 YY的Treap</title>
+      <link>/oi/i11rimport_021/</link>
+      <pubDate>Mon, 02 Mar 2015 16:13:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_021/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 今天考试题的弱化版。只用求LCA是谁，不用求它的深度。所以直接用线段树找下区间最值就搞定了。然后long的范围有负数坑了一发。&amp;lt;/p&amp;gt; &amp;nbsp;
+好像在不平衡的平衡树上的题也比较热啊。而且我还做得比较少。是要补一补。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+typedef pair &amp;lt;int, int&amp;gt; vpr; typedef pair &amp;lt;bool, vpr&amp;gt; dpr; struct seg { int l, r; dpr d; seg *ls, *rs; }; struct query { int t, a, b; };
+const int maxn = 400009;
+int n, m, vl[maxn], tv; vpr a[maxn]; query q[maxn]; seg slst[maxn * 3], *sp(slst), *rt;
+inline int gpos(int x) { return lower_bound(vl, vl + tv, x) - vl; }</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3888 [Usaco2015 Jan]Stampede</title>
+      <link>/oi/i11rimport_025/</link>
+      <pubDate>Sun, 01 Mar 2015 08:35:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_025/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; usaco的银组都开始考这种题了么。其实还是挺水的，不过题号比较好。&amp;lt;/p&amp;gt; &amp;nbsp;
+就按y排序，挨个把时间轴上的东西扔掉就完了。写离散可能还没有直接写smt快呢。
+&amp;nbsp;
+然后线段有一边要减1有点坑。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstdlib&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+typedef long long dint; #define _l (long long int)
+struct cow { int y; int ta, tb; };
+struct node { int l, r, w; node ls, rs; }; typedef pair &amp;lt;node, node &amp;gt; npr;
+const int maxn = 50009;
+inline bool operator &amp;lt;(const cow&amp;amp; a, const cow&amp;amp; b) { return a.</description>
+    </item>
+    
+    <item>
+      <title>BZOJ1455 罗马游戏</title>
+      <link>/oi/i11rimport_029/</link>
+      <pubDate>Thu, 26 Feb 2015 14:52:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_029/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 左偏树+并查集的一眼题嘛。然后合并的时候搞忘了如果两个人已经在同一个团里要跳过，于是左偏树自交去了。&amp;lt;/p&amp;gt; &amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+#define szof(p) ((p)?(p-&amp;gt;sz):0) struct node { int sz, vl, id; node *ls, rs; node() {} node(int v, int i) { vl = v; id = i; sz = 1; ls = rs = 0; } inline void update() { if (szof(ls) &amp;lt; szof(rs)) swap(ls, rs); } }; node merge(node p, node q) { if (!p) return q; else if (!</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3757 苹果树</title>
+      <link>/oi/i11rimport_031/</link>
+      <pubDate>Wed, 25 Feb 2015 21:10:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_031/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 今天晚上的效率比白天高啊。&amp;lt;/p&amp;gt; &amp;nbsp;
+树上莫队的另一道题。比糖果公园好写到哪里去了。
+&amp;nbsp;
+然后手写链表丑掉了导致调试半天+RE了一发。我还是太年轻了。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cmath&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+typedef struct node { int t; node *next; } edge; const int maxn = 50009; const int maxm = 100009; const int maxl = 17; node nlst[maxn], *np(nlst); struct chain { int sz; node *hd, *tl; chain() { hd = tl = 0; sz = 0; } inline void clear() { hd = tl = 0; sz = 0; } inline void push(int x) { np-&amp;gt; t = x; np-&amp;gt; next = 0; if (sz) { tl-&amp;gt; next = np; tl = np; } else { hd = np; tl = np; } ++ np; ++ sz; } inline void merge(chain a) { if (a.</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3052 [wc2013]糖果公园</title>
+      <link>/oi/i11rimport_033/</link>
+      <pubDate>Wed, 25 Feb 2015 18:49:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_033/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 盯idy发现的题，之前想学然后放弃了，于是今天几乎写了一天。有种紧迫感啊。然后发现好多认识的人都是最近过的。&amp;lt;/p&amp;gt; &amp;nbsp;
+思路比较简单，树上莫队。因为要修改，所以要把块的大小变成n2/3，然后用1086的方法分块。好像也可以直接按dfs序分块。两个端点和时间为三个关键字跑莫队。复杂度可以感受一下反正我也不会证。
+&amp;nbsp;
+要注意千万要控制LCA的用量，必需只能是O(n)级别的。在爬树的时候必需O(1)。我就是在移动时间的时候不小心手贱每次用一遍LCA，然后去检查在移动端点花了好久的时间。
+&amp;nbsp;
+比较不开心的是发现mac没法改栈空间？有两个点始终暴栈。而且拿另一台电脑的openSUSE跑，结果发现它的cpu没有mac好，跑得还比mac快！我猜是操作系统在捣鬼。mac还是比较坑啊不开心。然后在bzoj上跑的时间几乎是本地的5倍也是比较厉害啊。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cmath&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+const int maxn = 100009; const int maxl = 19;
+typedef struct node { int t; node *next; } edge; node nlst[maxn], *np(nlst); struct chain { int sz; node *hd, *tl; chain() { hd = tl = 0; sz = 0; } inline void clear() { hd = tl = 0; sz = 0; } inline void push(int x) { np-&amp;gt; t = x; np-&amp;gt; next = 0; if (sz) { tl-&amp;gt; next = np; tl = np; } else { hd = np; tl = np; } ++ np; ++ sz; } inline void merge(chain a) { sz += a.</description>
+    </item>
+    
+    <item>
+      <title>BZOJ1180 [CROATIAN2009]OTOCI &amp;amp; BZOJ2843 极地旅行社</title>
+      <link>/oi/i11rimport_035/</link>
+      <pubDate>Tue, 24 Feb 2015 20:58:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_035/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 难得的水水的双倍题。&amp;lt;/p&amp;gt; &amp;nbsp;
+看上去是想考lct然后忘强制在线了么？那就直接预处理出形态然后链剖呗。当然我还没有达到mhy这种认为lct比tcd好写的水平。
+&amp;nbsp;
+中间还把修改写挂了一次，然后1180的询问数是2843的3倍又re了一次。晕。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+struct edge { int t; edge *next; }; struct seg { int l, r, s[2]; seg *ls, *rs; }; struct query { char o; int a, b, s; };
+const int maxn = 30009; const int maxm = 300009;
+int n, m, r[maxn], d[maxn], v[maxn], u[maxn]; int fa[maxn], sz[maxn], tc, fc[maxn], ch[maxn], cl[maxn]; int qret[2]; seg slst[maxn &amp;lt;&amp;lt; 2], *sp(slst), *rt[maxn]; edge elst[maxn &amp;lt;&amp;lt; 1], *ep(elst), *head[maxn]; query q[maxm];</description>
+    </item>
+    
+    <item>
+      <title>BZOJ2157 旅游</title>
+      <link>/oi/i11rimport_037/</link>
+      <pubDate>Tue, 24 Feb 2015 10:10:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_037/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 去找水题于是找到这么一道恶心的代码题。其实应该可以用函数指针来优化一下代码量，不过懒得了。虽然复制粘贴导致调试了老半天。&amp;lt;/p&amp;gt; &amp;nbsp;
+水水的链剖+线段树。然后tag打一打就好了。
+&amp;nbsp;
+最近是装备了高超的开坑技巧啊。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+struct seg { int l, r, s, a, b, rv; seg *ls, *rs; inline void update() { if (l + 1 &amp;lt; r) { s = ls-&amp;gt; s + rs-&amp;gt; s; a = min(ls-&amp;gt; a, rs-&amp;gt; a); b = max(ls-&amp;gt; b, rs-&amp;gt; b); if (rv) { s = -s; swap(a, b); a = -a; b = -b; } } else a = b = s; } inline void chgTag() { s = -s; swap(a, b); a = -a; b = -b; rv ^= 1; } inline void downTag() { if (rv) { rv = 0; if (l + 1 &amp;lt; r) { ls-&amp;gt; chgTag(); rs-&amp;gt; chgTag(); } } } }; struct edge { int t, v; edge *next; };</description>
+    </item>
+    
+    <item>
+      <title>BZOJ1453 [Wc]Dface双面棋盘</title>
+      <link>/oi/i11rimport_052/</link>
+      <pubDate>Sat, 07 Feb 2015 15:07:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_052/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 有离线镜像还是能省不少流量。开心。不过流量还是用得飞快啊。&amp;lt;/p&amp;gt; &amp;nbsp;
+这就是个cdq重构的题。学习了前几天xyz大爷讲的扔线段树的做法，省了不少代码。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+struct node { int v, c; node *next; }; struct seg { int l, r; node *head; seg *ls, *rs; };
+const int maxa = 209; const int maxn = 40009; const int maxm = 10009; const int maxnd = maxn * 23; const int mov[4][2] = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};</description>
+    </item>
+    
+    <item>
+      <title>HDU5173 GTY&#39;s game II</title>
+      <link>/oi/i11rimport_054/</link>
+      <pubDate>Fri, 06 Feb 2015 23:10:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_054/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; bc的题。今天bc又挂了。这题没有写完，然后b题fst了。伤心啊。&amp;lt;/p&amp;gt; &amp;nbsp;
+其实思路比较简单。直接链剖dfs序上把所有区间找出来swap就好了。不过代码实现起来还是比较麻烦的，很容易绕晕。加上smt久了没写手生了，于是就调了一晚上。唉，我还是太年轻了。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstdlib&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+struct node { int v, s, sz, w, rv; node ls, rs; inline void update() { sz = 1; s = v; if (ls) { sz += ls-&amp;gt; sz; s += ls-&amp;gt; s; } if (rs) { sz += rs-&amp;gt; sz; s += rs-&amp;gt; s; } } inline void fix() { if (rv) { swap(ls, rs); if (ls) ls-&amp;gt; rv ^= 1; if (rs) rs-&amp;gt; rv ^= 1; rv = 0; } } }; typedef pair &amp;lt;node, node&amp;gt; npr;</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3435 [Wc2014]紫荆花之恋</title>
+      <link>/oi/i11rimport_062/</link>
+      <pubDate>Sun, 01 Feb 2015 20:07:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_062/</guid>
+      <description>想起去年在考场上完全没有思路不想写数据结构于是骗了30分。现在想想当初还是naive。
+&amp;nbsp;
+这题看上去就是点分治。因为要动态加点所以要动态。然后利用替罪羊树的方法重构树上的一团东西（不能叫团，否则命名重复了）。
+&amp;nbsp;
+本来以为要写很久，结果也没写多久。奇怪的是，把maintain展开到insert里面之后就跑得飞快了，否则过不到而且根本跑不下来9和10。又丑了郁闷。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cctype&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+const int buf_len = 4000; const size_t buf_size = buf_len * sizeof(char); char buf[buf_len], *bufb(buf), *bufe(buf + 1); #define readBuf() { if (++ bufb == bufe) bufe = (bufb = buf) + fread(buf, 1, buf_size, stdin); } #define readInt(x) { register int s(0); do { readBuf(); } while (!isdigit(*bufb)); do { s = s * 10 + *bufb - 48; readBuf(); } while (isdigit(*bufb)); x = s; }</description>
+    </item>
+    
+    <item>
+      <title>BZOJ2653 middle</title>
+      <link>/oi/i11rimport_067/</link>
+      <pubDate>Thu, 29 Jan 2015 20:50:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_067/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 老久之前就看到过的题，不过不会做。今天晚上也是花了差不多俩小时才调过，虽然大概一个半小时都在纠结二分怎么写的问题。我没救了。&amp;lt;/p&amp;gt; &amp;nbsp;
+考虑经典的中位数二分，是把≤x的数字取-1，&amp;gt;x的数取1，然后算最大子串看是否大于-1或1中的某一个，具体要看题目要求偶数是取上整还是下整什么的。
+&amp;nbsp;
+然后这题就把所有东西排序之后拿可持久化线段树把这个序列搞出来，然后照着之前的思路二分就好了。线段树用来维护最大和最小前缀和。
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+struct dat { int sm, s; }; struct seg { int l, r; dat v[2]; seg *ls, *rs; };
+#define _l (long long int)
+typedef pair &amp;lt;int, int&amp;gt; vpr; typedef dat(*dat_mf)(const dat&amp;amp;, const dat&amp;amp;);
+const int maxn = 20009; const int maxnd = maxn * 19; const dat null_str = {0, 0}; const dat neg_str0 = {-1, -1}; const dat neg_str1 = {-1, -1}; const dat pos_str0 = {1, 1}; const dat pos_str1 = {1, 1};</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3351 [ioi2009]Regions</title>
+      <link>/oi/i11rimport_068/</link>
+      <pubDate>Wed, 28 Jan 2015 18:44:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_068/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; ioi的数据结构题，果然还是比较BT的。&amp;lt;/p&amp;gt; &amp;nbsp;
+做法是对颜色分开，大的颜色预处理，小的颜色直接暴力。
+&amp;nbsp;
+然后一个小错又坑了好久。我真的没救了。
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstdlib&amp;gt; #include &amp;lt;cctype&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+const int buf_len = 4000; const size_t buf_size = buf_len * sizeof(char); char buf[buf_len], *bufb(buf), *bufe(buf + 1); #define readBuf() { if (++ bufb == bufe) bufe = (bufb = buf) + fread(buf, 1, buf_size, stdin); } #define readInt(x) { register int s(0); do { readBuf(); } while (!isdigit(*bufb)); do { s = s * 10 + *bufb - 48; readBuf(); } while (isdigit(*bufb)); x = s; }</description>
+    </item>
+    
+    <item>
+      <title>BZOJ2816 [ZJOI2012]网络</title>
+      <link>/oi/i11rimport_072/</link>
+      <pubDate>Tue, 27 Jan 2015 20:51:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_072/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 听说是水水的splay，果然是。&amp;lt;/p&amp;gt; &amp;nbsp;
+乍一看要用lct，然后因为度数只有2，所以肯定是一条链。然后就直接用splay来维护。然后因为少写了句splay(v)导致多调了至少一节课的时间。我没救了。
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; #include &amp;lt;map&amp;gt; using namespace std;
+#define upmax(a,b) { if (a &amp;lt; b) a = b; }
+struct splay_node { int vl, vm, rv; splay_node *pt, *ls, *rs; inline void update() { vm = vl; if (ls) upmax(vm, ls-&amp;gt; vm); if (rs) upmax(vm, rs-&amp;gt; vm); } inline void fix() { if (rv) { swap(ls, rs); if (ls) ls-&amp;gt; rv ^= 1; if (rs) rs-&amp;gt; rv ^= 1; rv = 0; } } };</description>
+    </item>
+    
+    <item>
+      <title>BZOJ2815 [ZJOI2012]灾难</title>
+      <link>/oi/i11rimport_074/</link>
+      <pubDate>Tue, 27 Jan 2015 20:45:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_074/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 灭绝树的模板题么。之前不知道这题，差点当原创题出出去了。&amp;lt;/p&amp;gt; &amp;nbsp;
+好像有不少人不知道这东西的样子？orz zhx。
+&amp;nbsp;
+灭绝树只有一句口诀：一个东西的父亲是所有入边的另一端的点的LCA。
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+struct edge { int t; edge *next; };
+const int maxn = 70009; const int maxl = 19; const int maxe = 2000009;
+int n, ind[maxn], oud[maxn], tpo[maxn], ath[maxn][maxl], sz[maxn], d[maxn]; edge *ha[maxn], *hr[maxn], *ht[maxn];
+inline void addEdge(edge** head, int u, int v) { edge* ep = new edge; ep-&amp;gt; t = v; ep-&amp;gt; next = head[u]; head[u] = ep; }</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3251 树上三角形</title>
+      <link>/oi/i11rimport_075/</link>
+      <pubDate>Mon, 26 Jan 2015 23:00:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_075/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 原来在win下也有敲回车的bug。开心。&amp;lt;/p&amp;gt; &amp;nbsp;
+这题坑啊。暴力还是很好想的，如果个数超过几十个的话就肯定有解了。比较坑的是两边之和大于第三边，边权231-1然后加起来就超过int的范围了。连WA若干次再见。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+struct edge { int t; edge *next; };
+const int maxn = 100009; const int maxc = 88;
+int n, m, v[maxn], d[maxn], fa[maxn], c[maxc]; edge *head[maxn], elst[maxn &amp;lt;&amp;lt; 1], *ep(elst);
+void bfs() { static int q[maxn]; int hd(0), tl(1); q[0] = 1; memset(d, 0, sizeof(d)); d[1] = 1; while (hd &amp;lt; tl) { int p(q[hd ++]); for (edge* e = head[p]; e; e = e-&amp;gt; next) if (!</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3314 [Usaco2013 Nov]Crowded Cows</title>
+      <link>/oi/i11rimport_082/</link>
+      <pubDate>Fri, 23 Jan 2015 10:51:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_082/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 又搬blog。发现这里可以自定义css之后就果断了。&amp;lt;/p&amp;gt; &amp;nbsp;
+写道水题试试。set的应用。然后还写丑WA了两次，我没救了。
+&amp;nbsp;
+代码高亮是坏了吗？不要吓我。
+&amp;nbsp;
+决定直接用oj7的代码版了，没有高亮就算了。
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;algorithm&amp;gt; #include &amp;lt;set&amp;gt; using namespace std;
+typedef multiset &amp;lt;int&amp;gt; rb_tree; typedef rb_tree :: iterator rb_node; typedef pair &amp;lt;int, int&amp;gt; cow;
+const int maxn = 50009;
+int n, d, x[maxn], a[maxn], r[maxn]; cow c[maxn]; rb_tree t;
+int main() { #ifndef ONLINE_JUDGE freopen(&amp;ldquo;in.txt&amp;rdquo;, &amp;ldquo;r&amp;rdquo;, stdin); #endif
+scanf(&amp;quot;%d%d&amp;quot;, &amp;amp;amp;n, &amp;amp;amp;d); for (int i = 1; i &amp;amp;lt;= n; ++ i) { scanf(&amp;quot;%d%d&amp;quot;, x + i, a + i); c[i] = cow(x[i], a[i]); r[i] = 0; } sort(c + 1, c + n + 1); for (int i = 1; i &amp;amp;lt;= n; ++ i) { x[i] = c[i].</description>
+    </item>
+    
+  </channel>
+</rss>

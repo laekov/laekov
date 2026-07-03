@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>bzoj2395.cc | The Site of laekov</title>
+<meta name="keywords" content="code">
+<meta name="description" content="#include #include #include using namespace std;
+typedef long long dint; #define _l (long long int)
+struct edge { int a, b, va, vb; inline void read() { scanf(&quot;%d%d%d%d&quot;, &amp;a, &amp;b, &amp;va, &amp;vb); } };
+struct sptree { int va, vb; sptree() {} sptree(int ao, int bo) { va = ao, vb = bo; } inline dint prd() const { return _l va * vb; } void disp(int x) { printf(&quot;(%d,%d)%c&quot;, va, vb, x); } }; inline bool operator &lt;(const sptree&amp; a, const sptree&amp; b) { return a.">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/code/dbimport_137/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="bzoj2395.cc" />
+<meta property="og:description" content="#include #include #include using namespace std;
+typedef long long dint; #define _l (long long int)
+struct edge { int a, b, va, vb; inline void read() { scanf(&quot;%d%d%d%d&quot;, &amp;a, &amp;b, &amp;va, &amp;vb); } };
+struct sptree { int va, vb; sptree() {} sptree(int ao, int bo) { va = ao, vb = bo; } inline dint prd() const { return _l va * vb; } void disp(int x) { printf(&quot;(%d,%d)%c&quot;, va, vb, x); } }; inline bool operator &lt;(const sptree&amp; a, const sptree&amp; b) { return a." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/code/dbimport_137/" /><meta property="article:section" content="code" />
+<meta property="article:published_time" content="2015-04-01T16:04:12+00:00" />
+<meta property="article:modified_time" content="2015-04-01T16:04:12+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="bzoj2395.cc"/>
+<meta name="twitter:description" content="#include #include #include using namespace std;
+typedef long long dint; #define _l (long long int)
+struct edge { int a, b, va, vb; inline void read() { scanf(&quot;%d%d%d%d&quot;, &amp;a, &amp;b, &amp;va, &amp;vb); } };
+struct sptree { int va, vb; sptree() {} sptree(int ao, int bo) { va = ao, vb = bo; } inline dint prd() const { return _l va * vb; } void disp(int x) { printf(&quot;(%d,%d)%c&quot;, va, vb, x); } }; inline bool operator &lt;(const sptree&amp; a, const sptree&amp; b) { return a."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Codes",
+      "item": "/code/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "bzoj2395.cc",
+      "item": "/code/dbimport_137/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "bzoj2395.cc",
+  "name": "bzoj2395.cc",
+  "description": "#include #include #include using namespace std;\ntypedef long long dint; #define _l (long long int)\nstruct edge { int a, b, va, vb; inline void read() { scanf(\u0026quot;%d%d%d%d\u0026quot;, \u0026amp;a, \u0026amp;b, \u0026amp;va, \u0026amp;vb); } };\nstruct sptree { int va, vb; sptree() {} sptree(int ao, int bo) { va = ao, vb = bo; } inline dint prd() const { return _l va * vb; } void disp(int x) { printf(\u0026quot;(%d,%d)%c\u0026quot;, va, vb, x); } }; inline bool operator \u0026lt;(const sptree\u0026amp; a, const sptree\u0026amp; b) { return a.",
+  "keywords": [
+    "code"
+  ],
+  "articleBody": "#include #include #include using namespace std;\ntypedef long long dint; #define _l (long long int)\nstruct edge { int a, b, va, vb; inline void read() { scanf(\"%d%d%d%d\", \u0026a, \u0026b, \u0026va, \u0026vb); } };\nstruct sptree { int va, vb; sptree() {} sptree(int ao, int bo) { va = ao, vb = bo; } inline dint prd() const { return _l va * vb; } void disp(int x) { printf(\"(%d,%d)%c\", va, vb, x); } }; inline bool operator \u003c(const sptree\u0026 a, const sptree\u0026 b) { return a. prd() \u003c b. prd() || (a. prd() == b. prd() \u0026\u0026 a. va \u003c b. va); }\nconst int maxn = 209; const int maxm = 10009; const int maxv = 60009;\nint n, m, ma, mb, r[maxn]; edge e[maxm]; sptree ans;\ninline bool cmpEdge(const edge\u0026 a, const edge\u0026 b) { return a. va * ma + a. vb * mb \u003c b. va * ma + b. vb * mb; }\nint getRoot(int x) { register int p, q; for (p = r[x]; p ^ r[p]; p = r[p]); for (; x ^ p; q = r[x], r[x] = p, x = q); return x; }\nsptree kruskal(int mav, int mbv) { ma = mav, mb = mbv; sort(e, e + m, cmpEdge); for (int i = 0; i \u003c n; ++ i) r[i] = i; sptree ret(0, 0); for (int i = 0, c = n; i \u003c m \u0026\u0026 c \u003e 1; ++ i) if (getRoot(e[i]. a) != getRoot(e[i]. b)) { ret. va += e[i]. va; ret. vb += e[i]. vb; r[getRoot(e[i]. a)] = getRoot(e[i]. b); } return ret; }\ninline dint mulx(const sptree\u0026 a, const sptree\u0026 b, const sptree\u0026 c) { int xa(b. va - a. va), ya(b. vb - a. vb); int xb(c. va - a. va), yb(c. vb - a. vb); return _l xa * yb - _l xb * ya; }\nvoid dfs(sptree l, sptree r) { sptree md(kruskal(l. vb - r. vb, r. va - l. va)); //l. disp(32), r. disp(10); ans = min(ans, md); if (mulx(l, md, r) != 0) { dfs(l, md); dfs(md, r); } }\nint main() { #ifndef ONLINE_JUDGE freopen(“in.txt”, “r”, stdin); #endif\nscanf(\"%d%d\", \u0026n, \u0026m); for (int i = 0; i \u003c m; ++ i) e[i]. read(); sptree l(kruskal(maxv, 1)), r(kruskal(1, maxv)); ans = min(l, r); dfs(l, r); printf(\"%d %d\\n\", ans. va, ans. vb); }\n",
+  "wordCount" : "395",
+  "inLanguage": "en",
+  "datePublished": "2015-04-01T16:04:12Z",
+  "dateModified": "2015-04-01T16:04:12Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/code/dbimport_137/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/code/">Codes</a></div>
+    <h1 class="post-title">
+      bzoj2395.cc
+    </h1>
+    <div class="post-meta"><span title='2015-04-01 16:04:12 +0000 UTC'>April 1, 2015</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>#include <cstdio>
+#include <cstring>
+#include <algorithm></p>
+<p>using namespace std;</p>
+<p>typedef long long dint;
+#define _l (long long int)</p>
+<p>struct edge {
+int a, b, va, vb;
+inline void read() {
+scanf(&quot;%d%d%d%d&quot;, &amp;a, &amp;b, &amp;va, &amp;vb);
+}
+};</p>
+<p>struct sptree {
+int va, vb;
+sptree() {}
+sptree(int ao, int bo) {
+va = ao, vb = bo;
+}
+inline dint prd() const {
+return _l va * vb;
+}
+void disp(int x) {
+printf(&quot;(%d,%d)%c&quot;, va, vb, x);
+}
+};
+inline bool operator &lt;(const sptree&amp; a, const sptree&amp; b) {
+return a. prd() &lt; b. prd() || (a. prd() == b. prd() &amp;&amp; a. va &lt; b. va);
+}</p>
+<p>const int maxn = 209;
+const int maxm = 10009;
+const int maxv = 60009;</p>
+<p>int n, m, ma, mb, r[maxn];
+edge e[maxm];
+sptree ans;</p>
+<p>inline bool cmpEdge(const edge&amp; a, const edge&amp; b) {
+return a. va * ma + a. vb * mb &lt; b. va * ma + b. vb * mb;
+}</p>
+<p>int getRoot(int x) {
+register int p, q;
+for (p = r[x]; p ^ r[p]; p = r[p]);
+for (; x ^ p; q = r[x], r[x] = p, x = q);
+return x;
+}</p>
+<p>sptree kruskal(int mav, int mbv) {
+ma = mav, mb = mbv;
+sort(e, e + m, cmpEdge);
+for (int i = 0; i &lt; n; ++ i)
+r[i] = i;
+sptree ret(0, 0);
+for (int i = 0, c = n; i &lt; m &amp;&amp; c &gt; 1; ++ i)
+if (getRoot(e[i]. a) != getRoot(e[i]. b)) {
+ret. va += e[i]. va;
+ret. vb += e[i]. vb;
+r[getRoot(e[i]. a)] = getRoot(e[i]. b);
+}
+return ret;
+}</p>
+<p>inline dint mulx(const sptree&amp; a, const sptree&amp; b, const sptree&amp; c) {
+int xa(b. va - a. va), ya(b. vb - a. vb);
+int xb(c. va - a. va), yb(c. vb - a. vb);
+return _l xa * yb - _l xb * ya;
+}</p>
+<p>void dfs(sptree l, sptree r) {
+sptree md(kruskal(l. vb - r. vb, r. va - l. va));
+//l. disp(32), r. disp(10);
+ans = min(ans, md);
+if (mulx(l, md, r) != 0) {
+dfs(l, md);
+dfs(md, r);
+}
+}</p>
+<p>int main() {
+#ifndef ONLINE_JUDGE
+freopen(&ldquo;in.txt&rdquo;, &ldquo;r&rdquo;, stdin);
+#endif</p>
+<pre><code>scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
+for (int i = 0; i &lt; m; ++ i)
+	e[i]. read();
+sptree l(kruskal(maxv, 1)), r(kruskal(1, maxv));
+ans = min(l, r);
+dfs(l, r);
+printf(&quot;%d %d\n&quot;, ans. va, ans. vb);
+</code></pre>
+<p>}</p>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/code/">code</a></li>
+    </ul>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

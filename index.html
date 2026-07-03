@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head>
+	<meta name="generator" content="Hugo 0.111.3"><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>The Site of laekov</title>
+
+<meta name="description" content="">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="/index.xml">
+<link rel="alternate" type="application/json" href="/index.json">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="The Site of laekov" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="The Site of laekov"/>
+<meta name="twitter:description" content=""/>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "The Site of laekov",
+  "url": "/",
+  "description": "",
+  "thumbnailUrl": "/favicon.ico",
+  "sameAs": [
+      "https://github.com/laekov", "/cv", "/not-easily-available", "/not-easily-available", "/not-easily-available", "/not-easily-available", "index.xml"
+  ]
+}
+</script>
+</head>
+
+<body class="list" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+<article class="first-entry home-info">
+    <header class="entry-header">
+        <h1>What to Expect Here?</h1>
+    </header>
+    <div class="entry-content">
+        <ol start="0">
+<li><strong>Technical Stuff</strong> that might be Interesting <em>(see the Github profile at the first link below)</em></li>
+<li>Work-related Posts <strong>as a PhD Candidate</strong> <em>(see his CV at the second link below)</em></li>
+<li>Everyday Life of a Trivial Human Being</li>
+</ol>
+
+    </div>
+    <footer class="entry-footer">
+        <div class="social-icons">
+    <a href="https://github.com/laekov" target="_blank" rel="noopener noreferrer me" title="Github">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+    stroke-linecap="round" stroke-linejoin="round">
+    <path
+        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+    </path>
+</svg>
+    </a>
+    <a href="/cv" target="_blank" rel="noopener noreferrer me" title="Cv">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+    stroke-linecap="round" stroke-linejoin="round">
+    <path
+        d="M4 4v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8.342a2 2 0 0 0-.602-1.43l-4.44-4.342A2 2 0 0 0 13.56 2H6a2 2 0 0 0-2 2z" />
+    <path d="M9 13h6" />
+    <path d="M9 17h3" />
+    <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+</svg>
+    </a>
+    <a href="/not-easily-available" target="_blank" rel="noopener noreferrer me" title="Telegram">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+    stroke-linecap="round" stroke-linejoin="round">
+    <path
+        d="M21.198 2.433a2.242 2.242 0 0 0-1.022.215l-8.609 3.33c-2.068.8-4.133 1.598-5.724 2.21a405.15 405.15 0 0 1-2.849 1.09c-.42.147-.99.332-1.473.901-.728.968.193 1.798.919 2.286 1.61.516 3.275 1.009 4.654 1.472.509 1.793.997 3.592 1.48 5.388.16.36.506.494.864.498l-.002.018s.281.028.555-.038a2.1 2.1 0 0 0 .933-.517c.345-.324 1.28-1.244 1.811-1.764l3.999 2.952.032.018s.442.311 1.09.355c.324.022.75-.04 1.116-.308.37-.27.613-.702.728-1.196.342-1.492 2.61-12.285 2.997-14.072l-.01.042c.27-1.006.17-1.928-.455-2.474a1.654 1.654 0 0 0-1.034-.407z" />
+</svg>
+    </a>
+    <a href="/not-easily-available" target="_blank" rel="noopener noreferrer me" title="Strava">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" stroke-width="2">
+    <path
+        d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/>
+</svg>
+</svg>
+    </a>
+    <a href="/not-easily-available" target="_blank" rel="noopener noreferrer me" title="Steam">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+    <path
+        d="M-24.6 20.8c-1.4-.8-2.7-1.5-4.1-2.3-2.4-1.5-3.6-3.6-3.3-6.5.3-3 2.8-5.2 5.8-5.3h11c2.6 0 4.6 2.2 4.7 4.7 0 2.6-2 4.8-4.6 4.9h-2.8v.2c.2.2.5.3.7.5 1.2.7 2.4 1.3 3.6 2 2.5 1.5 3.7 4.5 2.9 7.2-.8 2.7-3.1 4.3-6.1 4.4h-10.6c-2.4 0-4.3-1.9-4.6-4.3-.3-2.3 1.2-4.5 3.5-5.1.6-.1 1.2-.1 1.7-.2h2.1c.1 0 .1-.1.1-.2zm4.3-3.8c-.1.3-.2.3-.2.4v3.9c0 1.1-.1 1.2-1.2 1.2h-5.1c-.4 0-.9 0-1.3.1-1.6.4-2.5 1.9-2.4 3.6.2 1.6 1.6 2.9 3.3 2.9h10.5c2.1 0 3.8-1.2 4.5-3.1.7-1.8.2-4.1-1.5-5.3-2.1-1.3-4.3-2.4-6.6-3.7zm-1.7 3.4v-4c0-1.4.1-1.5 1.4-1.5h5.3c1.5 0 2.7-1 3.1-2.4.6-2.2-1-4.2-3.4-4.3h-10.1c-2.4 0-4.3 1.3-4.9 3.4-.6 2.1.4 4.4 2.5 5.5 1.7 1 3.5 1.9 5.2 2.9.4.2.6.3.9.4z" />
+    <path
+        d="M53.3 6.9c-.2-1-1-1.7-1.9-2-1.7-.4-8.6-.4-8.6-.4s-6.9 0-8.6.5c-1 .3-1.7 1-1.9 2-.3 1.7-.5 3.5-.5 5.3 0 1.8.1 3.6.5 5.3.3.9 1 1.7 1.9 1.9 1.7.5 8.6.5 8.6.5s6.9 0 8.6-.5c1-.3 1.7-1 1.9-2 .3-1.7.5-3.5.5-5.3 0-1.8-.1-3.6-.5-5.3z" />
+    <path
+        d="m40.6 15.5 5.7-3.3-5.7-3.3z" />
+    <path
+        d="M72.4-9.9c5.5 0 10 4 10 8.9 0 1.8-.8 3.8-2.1 5.4-.9 1-1.5 2.3-1.6 3.7 0-.1-.1-.1-.2-.2-.4-.4-1.1-.7-1.7-.7-.3 0-.5 0-.8.1-1.2.5-2.5.7-3.6.7-5.5 0-10-4-10-8.9s4.5-9 10-9m0-2c-6.6 0-12 4.9-12 10.9s5.4 11 12 11c1.4 0 2.8-.2 4.2-.7h.1c.1 0 .2 0 .3.1 1 1.3 2.5 2.3 4.2 2.7l.2-.1v-.3c-.7-.9-1-1.9-1-3s.4-2.1 1.2-2.9c1.5-1.8 2.6-4.2 2.6-6.7.1-6.1-5.3-11-11.8-11z" />
+    <path
+        d="M72.3-6.5c.1 0 .3.1.3.2l1.2 3.4 3.7.1c.1 0 .3.1.3.2s0 .3-.1.4l-3 2.2 1.1 3.5c0 .1 0 .3-.1.4h-.4l-3-2.1-3 2.1h-.4c-.1-.1-.2-.2-.1-.4L69.9 0l-3-2.2c-.1-.1-.2-.2-.1-.4 0-.1.2-.2.3-.2l3.7-.1L72-6.3c0-.1.2-.2.3-.2zM46.8-20.8c2 0 4 .6 5.6 1.6-.5-.1-1.1-.2-1.6-.2-3.2 0-5.8 2.5-6 5.6l-2.2 3.2c-.5.1-.9.2-1.4.4l-4.7-1.9c.8-5 5.2-8.7 10.3-8.7m9.9 7.2c.3 1 .5 2.1.5 3.3C57.2-4.5 52.5.2 46.7.2c-1.8 0-3.6-.5-5.1-1.3.5.2 1 .2 1.5.2 2.5 0 4.5-1.9 4.8-4.3L51-7.4c3.1-.2 5.6-2.8 5.6-6 .1-.1.1-.1.1-.2M38.3-4.2l.3.2c.1.2.2.5.3.7l-.6-.9m8.5-18.1c-6.3 0-11.5 4.9-12 11l6.4 2.7c.5-.4 1.2-.6 1.9-.6h.2l2.9-4.1v-.1c0-2.5 2-4.5 4.5-4.5s4.5 2 4.5 4.5-2 4.5-4.5 4.5h-.1L46.5-6v.2c0 1.9-1.5 3.4-3.4 3.4-1.6 0-3-1.2-3.3-2.7L35.2-7c1.4 5 6 8.7 11.5 8.7 6.6 0 12-5.4 12-12s-5.3-12-11.9-12z"/>
+    <path   
+        d="M42.6-4.6 41.5-5c.2.4.5.7 1 .9 1 .4 2.1-.1 2.5-1 .2-.5.2-1 0-1.4-.2-.5-.6-.8-1-1-.5-.2-1-.2-1.4 0l1.1.5c.7.3 1 1.1.7 1.8-.3.6-1.1.9-1.8.6zm8.1-11.5c-1.5 0-2.7 1.2-2.7 2.7 0 1.5 1.2 2.7 2.7 2.7 1.5 0 2.7-1.2 2.7-2.7 0-1.5-1.2-2.7-2.7-2.7zm0 4.7c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2c.1 1.1-.9 2-2 2zM12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0zm0 22c-4.3 0-8-2.7-9.4-6.5L6.2 17c.3 1.3 1.5 2.4 2.9 2.4 1.6 0 2.9-1.3 2.9-2.9v-.1l3.5-2.5h.1c2.1 0 3.9-1.8 3.9-3.9 0-2.1-1.8-3.9-3.9-3.9-2.2 0-3.9 1.8-3.9 3.9v.1l-2.5 3.6H9c-.6 0-1.2.2-1.7.5L2 11.7C2.2 6.3 6.6 2 12 2c5.5 0 10 4.5 10 10s-4.5 10-10 10zm-2.4-7.1-1.3-.5c.5-.2 1.1-.2 1.6 0s1 .7 1.2 1.2c.2.5.2 1.1 0 1.7-.5 1.1-1.8 1.7-2.9 1.2-.5-.2-.9-.6-1.1-1.1l1.3.5c.2 0 .4.1.6.1.6 0 1.2-.4 1.5-1 .4-.9 0-1.8-.9-2.1zM13 9.8c0-1.5 1.2-2.6 2.6-2.6 1.5 0 2.6 1.2 2.6 2.6 0 1.5-1.2 2.6-2.6 2.6-1.4 0-2.6-1.2-2.6-2.6z" />
+    <path
+        d="M13.7 9.8c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2c-1.1-.1-2-.9-2-2z" />
+</svg>
+    </a>
+    <a href="/not-easily-available" target="_blank" rel="noopener noreferrer me" title="Bilibili">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg">
+    <rect x="1.3333" y="6" width="21.333" height="15.333" rx="4" ry="4"/>
+    <path d="m8 12.4v1.2"/>
+    <path d="m16 12.4v1.2"/>
+    <path d="m5.8853 2.6667 2.6667 2.6667"/>
+    <path d="m18.115 2.6667-2.6667 2.6667"/>
+</svg>
+    </a>
+    <a href="index.xml" target="_blank" rel="noopener noreferrer me" title="Rss">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+    stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 11a9 9 0 0 1 9 9" />
+    <path d="M4 4a16 16 0 0 1 16 16" />
+    <circle cx="5" cy="19" r="1" />
+</svg>
+    </a>
+</div>
+
+    </footer>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>致尊敬的阿里云ICP备案审查员 - 希望园地
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>尊敬的 wc01146239@alibaba-inc.com 审查员先生 / 女士:
+您在2026年7月1号点开了我的网站, 认为我没有按照备案登记命名这个网站. 您发邮件告知我, 如果不进行整改, 将于七日之后关停我的公网端口. 罪加一等的时, 我竟然没有及时接听您打来的电话.
+这个 ICP 备案已经使用了 11 年之久, 这是我第一次收到此种要求. 在我进行 ICP 备案的那一时刻, 贵方的工作人员在电话中向我承诺, 登记名称无需显示在页面上. 我想知道这一承诺是否还有效? 还是有新的公文指出这一规定的具体实施细则?
+关于没接电话这一件事情, 很简单, 彼时我没有在看手机, 在睡觉. 我想使用邮件联系而不是电话是互联网的通用准则. 这个电话号码我还在使用, 我不认可没有接听一个电话就可以被判断为 “号码无效”.
+没有关系, 我理解您只需点击即可关停这个网站及其备案. 如果您依然决定这么做, 请告知我, 并协助我办理阿里云 ECS 和域名的所有费手续. 谢谢.</p>
+  </div>
+  <footer class="entry-footer"><span title='2026-07-03 13:00:00 +0000 UTC'>July 3, 2026</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;somebody</footer>
+  <a class="entry-link" aria-label="post link to 致尊敬的阿里云ICP备案审查员 - 希望园地" href="/random/to-ali-beian-review/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>湾区户外 Ledger
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>序 物理迁移到 SF Bay Area 之后, 是时候开一个升级版的北京爬坡列表了.
+这篇文章将会长期维护湾区想去的 &amp; 去过的自行车 / 越野跑路线.
+TODO List Road Bike Diablo Tamalpais Alba Big Basin Hwy &amp; South Hwy 9 Boulder Creek Rd Pescadero Creek Rd Skyline 从 La Honda 再往北 New La Honda 下到市区 Clayton Rd Quimby Rd Kings Mountain Road &amp; Tunitas Creek Road Grizzly Peak Gravel East Alpine Rd 土路下坡 Old Fremont Loop Trail Run Umunhum Trail Windy Hill Open Space Preserve Purisima Creek Redwoods Preserve Madera Creek Sanborn &amp; John Nicholas Trail Black Mtn 到 Rancho 的连接线 Alum Rock Park Casttle Rock Logs «湾区四大名山» Hamilton 西边爬过了, 东边还没, 或许下次开车到山顶 4&#43;2....</p>
+  </div>
+  <footer class="entry-footer"><span title='2026-06-14 13:00:00 +0000 UTC'>June 14, 2026</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;aoao</footer>
+  <a class="entry-link" aria-label="post link to 湾区户外 Ledger" href="/random/sfba-outdoor-logs/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>读博五年的流水账和胡思乱想
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Introduction 离毕业已经过去9个月了，终于得以端坐在大洋彼岸计划中的公寓的书桌前开始写这篇拖欠已久的文章。
+人生每过一个阶段，就写下些什么，是 laekov 形成已久的惯例。 而读博这一篇章在结束时曾经尤为令 laekov 感到激动而想要进行一番记录。
+在 laekov 并不长的一生中，在一个校园里度过四年之后，再选择继续待五年甚至可能是更长的时间，并不是一件容易的决定。 Dr 这短短两个字母的前缀，是曾经崇高的追求，也带来迷惘和痛苦。 它让 laekov 晚了一些年真正地进入社会，或许少了一些经历，也或许多了一些成长。 当这一切结束于一场并不那么隆重的毕业典礼时，当匆匆离去的脚步在不经意间拉开了更精彩世界的帷幕之后，曾经的平静、单纯显得多么珍贵。 而曾经的痛苦、愤怒、迷茫终将化为浅浅一笑。
+这一切建立了一个人类对于这个社会最初始的认知。 它改变或者说塑造了这个人的愿望、行为。 老师总是说，PhD 最重要的是培养一个人做研究的能力。 一个人自己的一段经历以及自身的脱变何尝不是一个重要的研究对象呢？
+Motivation: 这一切是怎么开始的 五年前 laekov 对读 phd 这个决定的产生进行了详细的描述。
+一言以蔽之，就是对科研产生了憧憬并决定花五年的时间来更进一步。
+曾经的 laekov 认为科研是一件崇高的事业，因为科研是在扩展人类的知识边界，这听起来是多么伟大而有意义的事呀！ 因为 laekov 认为人的生命是没有意义的，因为宇宙是没有意义的。宇宙从诞生到消失，无可改变，甚至一切也许就是写好的剧本。 在这样的背景下，努力奋斗或许本身就是一个伪命题。 而在这无聊的世界中，或许唯一有意义的事，不就是“扩展认知”这一件吗？ 来到这个大千世界，在人生有限的几万天内，去做一些无人做过的事，发现一些无人发现的角落，用一篇篇 paper 构筑一个属于自己的世界。 或许这些研究并没有作用，或许只是一个无聊的小 trick，但当说起它们的时候哪怕有一点点的令人兴奋也是一件好事情呀。
+laekov 选择了并行计算这个方向，原因或许也不那复杂，只是因为从 2017 年开始 laekov 就开始了，到 2019 年的时候已经是一个有一些些经验的“熟练工”了。 相比起彼时方兴未艾的热门方向“机器学习”，laekov 认为做出一个实际可用的 system 并且在成千上万的计算资源上高效运转起来是最能带来成就感的事情。 laekov 曾经的爽点就在于看着 scc 集群上每台机器的一百多个 cpu 核在 htop 里一片绿的场景，甚至是使用特殊的绑核策略绑出一些神奇的花纹。 相比起来，性能优化的工作是确定的，被完好定义的，有上限的。这件事激活了 laekov 从中学开始的竞赛基因。 另一方面，或许 laekov 对科研和工程这两件事的看法是两者是需要结合的。相比于纯粹的理论上的贡献，laekov 更想看到在有生之年科研成果能够被用于真实的世界，产生真正的价值。 因此，虽然哪怕 system 这个方向更强调 engineering 与 fancy idea 的结合，而并非一个那么有理论深度，那么数学公式满天飞的领域，但 laekov 依然选择了这个方向。...</p>
+  </div>
+  <footer class="entry-footer"><span title='2026-03-21 13:00:00 +0000 UTC'>March 21, 2026</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to 读博五年的流水账和胡思乱想" href="/random/phd-thesis/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>关于绝望的当下
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>人生总是充满了绝望。咀嚼绝望，享受绝望，踩着绝望前行。
+laekov 的最后一次 oi 比赛是 noip 2015. 十年之后，受蔺老邀请，为刚从 noip 2025 战场上结束了战斗的小朋友们写些什么。
+很难再去想象十年前的 laekov 以怎样的心情写下了这个玩意。 大抵亦是充满了绝望的，用失落的心情去面对着沉重的高三的文化课，面对着学不会的高考科目，不知道生活会走向哪里。
+事实上，绝望是贯穿了 laekov 的整个 oi 生涯，乃至退役后至今的人生。
+2011 年 laekov 的绝望是 noip 普及组没考好。愤然在机房摔键盘。// 后来在 2012 年拿了普及提高双一等。
+2013 年 laekov 的绝望是 noip 提高组没考好。在机房的电脑上愤怒地敲出 while true; do echo fxxk noip; done。// 后来把 wc, ctsc 的一等奖都领走了，甚至 ak 了一把 apio。
+2015 年 laekov 的绝望是 noi 考场上那一道哈夫曼树。望着考场倒计时却想不起那个正确的贪心策略。集训队仿佛未能赶上的火车，贴脸疾驰而去，留下 laekov 一人在原地。// 后来 acm 区域赛金牌、世界大学生xx竞赛冠军倒也没少拿。
+2019 年 laekov 的绝望是申请季只能用不忍直视 gre、gpa 收获几近全拒的结果。// 后来还是读上了 phd。
+2023 年 laekov 的绝望是一次次收到 we are sorry to inform you that your work does not qualify for our conference....</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-12-08 13:00:00 +0000 UTC'>December 8, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to 关于绝望的当下" href="/random/on-frustrated/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>HypeReca: 面向推荐模型训练的分布式嵌入向量数据库
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>闲话 - 前 这是一篇 ATC&#39;25 论文 的中文简要版本.
+然而这篇文章在学术创新上实在乏善可陈，正好多说一点闲话了。这也是为什么没有在文章发表前就把博客写出来，不然万一被撤稿了可就搞笑了。
+写这篇博客是 laekov 一直以来坚持要把自己发表的每篇文章都翻译成中文，因为曾经的 laekov 觉得凭什么论文都要用英文写呀，而且八股文读起来好麻烦呀，用中文简洁明了地把文章讲清楚不是更好吗。
+然后天真的 laekov 读博五年一共也就中了两篇文章。这是第二篇，中稿时间是毕业前三个月。
+HypeReca 这个名字是 Hybridly Partitioned Embeddings for Recommendation Model Training Acceleration 的各种胡乱拼凑里找了个听起来好听一点的。
+背景 基于深度学习的推荐模型是现在主流的推荐算法，它分为学习元素特征的稀疏部分和学习元素间关系的稠密部分。 稀疏部分主要是非常稀疏的嵌入表 embedding tables，它们可能会有 TB 级别甚至更大，所以得要很好地分布式地存下来，并且支持高吞吐地读取和更新。 稠密部分通常由传统的 DNN 构成，属于计算密集型任务（比如 CNN / MLP），所以得用 GPU 来加速。
+在做分布式训练的时候，这两部分由于特性不同所以采用了不同的并行方式：稀疏部分用模型并行（切分存储），稠密部分用数据并行（小模型，大 batch size）。 这两部分之间通过 all-to-all 集合通信来传输所需的数据和用于更新的梯度。 然后就会发现在 scale up 的时候两部分之间的通信是瓶颈，可能会占到迭代时间的 90% 以上。
+解决方案 这篇文章的核心想法其实很直白：embedding data 有冷有热。 把频繁访问的热数据找出来，也用数据并行的方法来存，重复地放到所有 GPU 上。
+接下来要解决两个问题：
+首先，挑多少热数据比较合适？ 热数据越多，可以省掉的 all-to-all 通信就越多，但同步热数据所需的 all-reduce 量就越大。 这里正好是一个在单峰函数上找最优的 trade-off。结合实际数据建模观察一下即可。...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-08-20 00:00:00 +0000 UTC'>August 20, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to HypeReca: 面向推荐模型训练的分布式嵌入向量数据库" href="/technical/hypereca/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>20250818那个夏天的十年之后
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>在最近第二次突然意识到，那场 noi 已经过去十年了
+laekov 曾经是一个 oier，也不止是一个 oier
+laekov 曾经是一个上进的，努力的人
+laekov 曾经或许有自己的梦想
+直到那一天，在那个体育馆里，在那台显示器前面，一切都改变了，结束了
+laekov 记得那个暑假的某一天，他在床上躺了一整天没有起
+或许之后的十年都只是那个夏日的白日梦而已
+得过且过成为了人生的主旨
+或许随时终结这一切都无球所谓
+或许兴致来了可以创造些美好的东西
+再或许随手一巴掌拍过去毁灭它
+又能怎么样呢
+有什么是不能失去的呢
+这个世界上也许冈崎朋也永远不会遇到古河渚
+即使遇见了，就获得了真正的美好吗
+十年之前，我不认识你，你不属于我
+十年之后，不再是朋友，不可以问候
+—- 来自十年之后的没有逻辑没有思想胡乱骂街的 laekov
+laekov 或许早已不是 laekov 了
+这只是一具掌管着 laekov 账号的空空的躯壳罢了
+没想到这是 2025 年第一次写博客
+laekov 还欠着两篇 blog
+HypeReca 的中文版 What does it take laekov to get the PhD degree 或许最近补完这两篇文章之后
+就该是 laekov.com.cn 永远停止更新的时候了</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-08-18 13:00:00 +0000 UTC'>August 18, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to 20250818那个夏天的十年之后" href="/random/20250818/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>LLM Serving 文章阅读笔记
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>经典老文 orca Continuous batching: 把 prefill 和 decode 里的每个 token 打散重新做 batching.
+vllm 用 page attention 来管理 kv cache 来应对碎片化, 以及利用 cpu memory 来 offload (这部分好像不是重点)。
+OSDI&#39;24 一个会有一个 session 一篇文章讲同一个事，可怕。
+Taming Throughput-Latency Tradeoff in LLM Inference with Sarathi-Serve 背景是现有 llm serving 系统（TRT-LLM, vLLM）要么等 decode 完了再 prefill, 要么有 prefill 就先做完整个 prefill, 导致 latency to first token 或者 decoding latency 不稳定。一个额外的坏处是这个事情影响 pp，因为 pp 里面有多个任务，每个任务时长不一样，就会有比较多的 bubble。
+这文章把 prefill 任务 chunk 掉，这样调度的时候可以更好地复合 prefill 和 decode，控制 pp 里每个任务的 latency，从而对 decode 的 latency 也有保障了 (stall-free batching）。...</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-07-12 00:00:00 +0000 UTC'>July 12, 2024</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to LLM Serving 文章阅读笔记" href="/technical/llm-serving-papers/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>FastMoE 系统指南
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>FastMoE 是世界上首个开源的在 PyTorch 上支持 MoE 模型分布式训练的框架. 经过持续不断的更新与优化, 其在性能上相比各类竞品持续保持了一定的优势. 从 2021 年 3 月开源至今, 已经历了若干个发行版本, 亦有一些相关学术工作发表在各大会议和平台上. 此处对官方提供的公开资料进行汇总整理.
+FastMoE 代码仓库 FastMoE 框架的开源版本开源在 GitHub 上. 链接 该开源版本支持 cuda 平台.
+开源版本中也包含来自社区贡献的对 rocm 平台的支持, 但对新版本 FastMoE 的支持可能并不完善.
+此外, 对于申威和一些其它国产加速平台, FastMoE 也有相应的私有版本. 如有兴趣, 请联系清程极智.
+FastMoE 使用方式 FastMoE 作为 PyTorch 的插件存在, 推荐的使用方式是和 Megatron-LM 框架一起使用. 开源版本代码仓库中提供了修改不同版本 Megatron-LM 并与 FastMoE 一起使用的教程和参考补丁.
+在FastMoE 官网(暂停维护)和代码仓库的中有更多文档可供参考.
+FastMoE 及系列学术文章 FastMoE 支持专家并行的工作原理在一篇 arxiv 文章中进行了讲解.
+arxiv原文 中文博客版本. FasterMoE 是一个发表在 PPoPP 学术会议上的工作. 其对于专家并行中负载均衡和通信计算重叠进行了研究. 该论文中所述的优化均已集成到 FastMoE v1.0.0 以后的版本中....</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-07-02 00:00:00 +0000 UTC'>July 2, 2024</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to FastMoE 系统指南" href="/technical/fastmoe/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>在 PyTorch Distributed 中混合使用 mpi 和其它 backend
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>laekov 遇到的问题是希望使用 mpi 进行一些 cpu 的通信, 以及用 nccl 来进行一些 gpu 间的通信. // 没错, 说的就是让 FastDecode 支持模型并行.
+众所周知, pytorch 和 mpi 的关系不太好的亚子. 然而 mpi 其实是最方便, 也是最适合大规模使用的. 虽然新版的 pytorch 试图引入 ucc backend 来支持 cpu 和 gpu 的混合通信, 但在较老的版本或一些特定环境里还无法顺畅地使用 ucc.
+事实上 pytorch 支持创建不同 backend 的不同 ProcessGroup. 然而如果写如下一段代码, 就会发现并跑不起来.
+dist.init_process_group(backend=&#39;mpi&#39;) ... g = dist.new_group(list(range(world_size)), backend=&#39;nccl&#39;) x = torch.ones(16, device=&#39;cuda&#39;) * (rank &#43; 1) xs = [torch.empty_like(x) for _ in range(world_size)] dist.all_gather(xs, x, group=g) 甚至会获得一些在 ucx 里的错误栈, 再往上找会发现报错在 c10d::PrefixStore::set 这个函数里....</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-06-20 00:00:00 +0000 UTC'>June 20, 2024</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to 在 PyTorch Distributed 中混合使用 mpi 和其它 backend" href="/technical/pytorch-distributed-hybrid-mpi-backend/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>FastDecode: 一种很大胆的分布式 LLM 推理系统架构
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>这是一篇 arxiv 文章 的中文简要版本.
+摘要 这篇文章主要介绍了一种大语言模型的推理系统. 在自回归生成过程中, 序列中的元素 (token) 被挨个生成, 因此模型推理的序列长度 (sequence length) 为 1. 因此, 增大 batch size 对于 GPU 利用率的提升十分重要. 然而 KV-Cache 体积很大, 且与 batch size 成正比. 其大小阻止了 batch size 和 GPU 利用率的提升.
+相比 vLLM 提出的 page attention 技术, FastDecode 对于 CPU 的利用进行了更加大胆的尝试. 其不仅利用了 CPU 的内存容量, 还利用了其计算能力和多机扩展能力, 从而达到了提升 batch size, 提升 GPU 利用率的目的, 并实现了端到端的推理吞吐量提升.
+背景 在自回归生成过程中做 attention 时, 一个 token i 的特征向量 (feature vector) 会线性映射拆成 Qi, Ki, Vi 三个特征向量....</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-03-21 00:00:00 +0000 UTC'>March 21, 2024</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to FastDecode: 一种很大胆的分布式 LLM 推理系统架构" href="/technical/fastdecode/"></a>
+</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="next" href="/page/2/">Next&nbsp;&nbsp;»
+    </a>
+  </nav>
+</footer>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

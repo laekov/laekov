@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>flow on The Site of laekov</title>
+    <link>/tags/flow/</link>
+    <description>Recent content in flow on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Wed, 29 Apr 2015 19:04:27 +0000</lastBuildDate><atom:link href="/tags/flow/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>bzoj3996 [TJOI2015]线性代数</title>
+      <link>/oi/dbimport_222/</link>
+      <pubDate>Wed, 29 Apr 2015 19:04:27 +0000</pubDate>
+      
+      <guid>/oi/dbimport_222/</guid>
+      <description>最开始看了一下这是什么gui啊.然后仔细一看发现有玄机.
+管aa[1][i]叫a[i]好了.那么b[i]j对答案产生贡献当且仅当a[i]=a[j]=1.b[i][i]对答案产生贡献当且仅当a[i]=1.c[i]对答案产生影响当且仅当a[i]=1.
+然后看上去好玄妙啊.其实就是要决定哪些a[i]要选.那不是最大权闭合子图嘛?
+数据范围有点大?实测一下飞快啊.</description>
+    </item>
+    
+    <item>
+      <title>bzoj3218 a &#43; b problem</title>
+      <link>/oi/dbimport_180/</link>
+      <pubDate>Sun, 05 Apr 2015 22:08:21 +0000</pubDate>
+      
+      <guid>/oi/dbimport_180/</guid>
+      <description>gui vfk.
+在hdsdfz听讲过的题.
+可持久化seg tree优化建边.好像一句话就能说清楚啊.
+然后证明了我的网络流的姿势严重不科学ovo
+然后bzoj上样例居然是图片ovo于是附上手打的样例ovo
+10 0 1 7 3 9 2 7 4 0 9 10 5 1 0 4 2 10 2 7 9 1 5 7 2 6 3 5 3 6 2 6 6 4 1 8 1 6 1 6 0 6 5 2 2 5 0 9 3 5 1 3 0 2 5 5 6 7 1 1 2 </description>
+    </item>
+    
+    <item>
+      <title>bzoj2400 Spoj839 Optimal Marks</title>
+      <link>/oi/dbimport_140/</link>
+      <pubDate>Thu, 19 Mar 2015 22:59:07 +0000</pubDate>
+      
+      <guid>/oi/dbimport_140/</guid>
+      <description>多年之前讲过的最小割。
+比较好想啦。
+把每一位拆开。然后单独跑一遍最小割。各种连边。然后以答案为高位，数字和为低位跑就行了。
+好像也没说清楚怎么建图啊。
+对于原图中已经确定的点，如果它是1，就从源连过来，否则连向汇。对于每一个未知的点，把所有边建出来。然后再向汇连个1的边来表示它如果选1的话就要产生贡献。然后就差不多了吧。脑补一下。</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3438 小M的作物</title>
+      <link>/oi/i11rimport_024/</link>
+      <pubDate>Sun, 01 Mar 2015 10:46:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_024/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 我以为是最大权闭合子图来着。然后好像就直接最小割就行了吧。突然觉得我的网络流好弱。&amp;lt;/p&amp;gt; &amp;nbsp;
+建源汇，分别连每个作物。对于每个组合建两个点分别边源汇，然后中间像源汇一样连它的成员。如果全在一边，那么会有一条边不用割。这也是一个集合都选对答案有贡献的建图方式。
+&amp;nbsp;
+然后就完了。建图和dinic都写得有些丑，所以调了半天。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+struct edge { int t, c; edge *next, *rv; };
+const int maxn = 3009; const int inf = 0x3f3f3f3f;
+int n, m, c, d[maxn], t, st, te; edge *head[maxn];
+inline edge* newEdge(int u, int v, int c) { edge* e(new edge); e-&amp;gt; t = v; e-&amp;gt; c = c; e-&amp;gt; next = head[u]; return head[u] = e; } inline void addEdge(int u, int v, int c) { edge *a(newEdge(u, v, c)), *b(newEdge(v, u, 0)); a-&amp;gt; rv = b; b-&amp;gt; rv = a; }</description>
+    </item>
+    
+    <item>
+      <title>BZOJ1822 [JSOI2010]Frozen Nova 冷冻波</title>
+      <link>/oi/i11rimport_036/</link>
+      <pubDate>Tue, 24 Feb 2015 16:08:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_036/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 简单的算几+网络流么。然后花了将近两天。最近总和算几过不去啊。&amp;lt;/p&amp;gt; &amp;nbsp;
+判断线段和圆是否有交还是比较简单的。反正不要让我用解析。先找下垂线，然后找下垂足，然后点乘一下搞定。然后错得不知道怎么死的。搞了很久。
+&amp;nbsp;
+然后二分网络流水水水水水水水水。
+&amp;nbsp;
+感觉mac好卡啊，gdb巨卡，bash也非常卡。难道我又没有搞对打开方式？
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cmath&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+inline long double sqr(long double x) { return x * x; }
+typedef struct geo_obj { double x, y; geo_obj() {} geo_obj(double x0, double y0) { x = x0, y = y0; } inline void read() { scanf(&amp;quot;%lf%lf&amp;quot;, &amp;amp;x, &amp;amp;y); } inline geo_obj rev() { return geo_obj(-y, x); } inline double len() { return sqrt(sqr(x) + sqr(y)); } inline double sqLen() { return sqr(x) + sqr(y); } } point, vect; inline geo_obj operator +(const geo_obj&amp;amp; a, const geo_obj&amp;amp; b) { return geo_obj(a.</description>
+    </item>
+    
+  </channel>
+</rss>

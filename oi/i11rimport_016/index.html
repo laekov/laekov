@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>BZOJ2734 [HNOI2012]集合选数 | The Site of laekov</title>
+<meta name="keywords" content="bzoj, dp, oi">
+<meta name="description" content="&lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt; 最初感觉好多状态怎么做。&lt;/p&gt; &nbsp;
+然后发现（其实是瞟了一下题解）如果把一个数分成2a*3b*c，那么c只影响上界。2a*3b中a最大是16，b最大是10，列一张17*11的表出来，然后发现右下方还有很多空东西。于是直接像插头一样状压一下轮廓线呗。反正对一个数有影响的只有它的上面和左边。最近写插头写得有点疯啊。其实它的很多思想都是可以推广出来用的。比如最小表示啥的。
+&nbsp;
+于是如果直接这样写的话大概要跑30000多次dp，还是比较悬。然后再想想发现只有表里能取的数的形状发生改变的时候才会改变dp的答案。表里面的数很少所以改变次数也应该很少。所以记一下上一次的形状是什么然后比较相不相同，相同就直接沿用。
+&nbsp;
+然后跑得飞快。
+&nbsp;
+#include &lt;cstdio&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+#define _l (long long int) #define pow2(x) (1&lt;&lt;(x))
+const int maxn = 19; const int maxm = 15; const int maxv = 100000; const int maxst = pow2(11) &#43; 9; const int mod = 1e9 &#43; 1;
+int f[2][maxst], vl[maxn][maxm], n, m, v; int dis[maxn], ldis[maxn], lans, ans;
+void pre() { for (int i = 0; i &lt; maxn; &#43;&#43; i) { vl[i][0] = (1 &lt;&lt; i); if (vl[i][0] &gt; maxv) vl[i][0] = -1; for (int j = 1; j &lt; maxm; &#43;&#43; j) if (vl[i][j - 1] &gt; -1) { vl[i][j] = vl[i][j - 1] * 3; if (vl[i][j] &gt; maxv) vl[i][j] = -1; } else vl[i][j] = -1; } }">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/i11rimport_016/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="BZOJ2734 [HNOI2012]集合选数" />
+<meta property="og:description" content="&lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt; 最初感觉好多状态怎么做。&lt;/p&gt; &nbsp;
+然后发现（其实是瞟了一下题解）如果把一个数分成2a*3b*c，那么c只影响上界。2a*3b中a最大是16，b最大是10，列一张17*11的表出来，然后发现右下方还有很多空东西。于是直接像插头一样状压一下轮廓线呗。反正对一个数有影响的只有它的上面和左边。最近写插头写得有点疯啊。其实它的很多思想都是可以推广出来用的。比如最小表示啥的。
+&nbsp;
+于是如果直接这样写的话大概要跑30000多次dp，还是比较悬。然后再想想发现只有表里能取的数的形状发生改变的时候才会改变dp的答案。表里面的数很少所以改变次数也应该很少。所以记一下上一次的形状是什么然后比较相不相同，相同就直接沿用。
+&nbsp;
+然后跑得飞快。
+&nbsp;
+#include &lt;cstdio&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+#define _l (long long int) #define pow2(x) (1&lt;&lt;(x))
+const int maxn = 19; const int maxm = 15; const int maxv = 100000; const int maxst = pow2(11) &#43; 9; const int mod = 1e9 &#43; 1;
+int f[2][maxst], vl[maxn][maxm], n, m, v; int dis[maxn], ldis[maxn], lans, ans;
+void pre() { for (int i = 0; i &lt; maxn; &#43;&#43; i) { vl[i][0] = (1 &lt;&lt; i); if (vl[i][0] &gt; maxv) vl[i][0] = -1; for (int j = 1; j &lt; maxm; &#43;&#43; j) if (vl[i][j - 1] &gt; -1) { vl[i][j] = vl[i][j - 1] * 3; if (vl[i][j] &gt; maxv) vl[i][j] = -1; } else vl[i][j] = -1; } }" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/i11rimport_016/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2015-03-04T09:00:41+00:00" />
+<meta property="article:modified_time" content="2015-03-04T09:00:41+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BZOJ2734 [HNOI2012]集合选数"/>
+<meta name="twitter:description" content="&lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt; 最初感觉好多状态怎么做。&lt;/p&gt; &nbsp;
+然后发现（其实是瞟了一下题解）如果把一个数分成2a*3b*c，那么c只影响上界。2a*3b中a最大是16，b最大是10，列一张17*11的表出来，然后发现右下方还有很多空东西。于是直接像插头一样状压一下轮廓线呗。反正对一个数有影响的只有它的上面和左边。最近写插头写得有点疯啊。其实它的很多思想都是可以推广出来用的。比如最小表示啥的。
+&nbsp;
+于是如果直接这样写的话大概要跑30000多次dp，还是比较悬。然后再想想发现只有表里能取的数的形状发生改变的时候才会改变dp的答案。表里面的数很少所以改变次数也应该很少。所以记一下上一次的形状是什么然后比较相不相同，相同就直接沿用。
+&nbsp;
+然后跑得飞快。
+&nbsp;
+#include &lt;cstdio&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+#define _l (long long int) #define pow2(x) (1&lt;&lt;(x))
+const int maxn = 19; const int maxm = 15; const int maxv = 100000; const int maxst = pow2(11) &#43; 9; const int mod = 1e9 &#43; 1;
+int f[2][maxst], vl[maxn][maxm], n, m, v; int dis[maxn], ldis[maxn], lans, ans;
+void pre() { for (int i = 0; i &lt; maxn; &#43;&#43; i) { vl[i][0] = (1 &lt;&lt; i); if (vl[i][0] &gt; maxv) vl[i][0] = -1; for (int j = 1; j &lt; maxm; &#43;&#43; j) if (vl[i][j - 1] &gt; -1) { vl[i][j] = vl[i][j - 1] * 3; if (vl[i][j] &gt; maxv) vl[i][j] = -1; } else vl[i][j] = -1; } }"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "BZOJ2734 [HNOI2012]集合选数",
+      "item": "/oi/i11rimport_016/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BZOJ2734 [HNOI2012]集合选数",
+  "name": "BZOJ2734 [HNOI2012]集合选数",
+  "description": "\u0026lt;div class=\u0026quot;post_brief\u0026quot;\u0026gt;\u0026lt;p\u0026gt; 最初感觉好多状态怎么做。\u0026lt;/p\u0026gt; \u0026nbsp;\n然后发现（其实是瞟了一下题解）如果把一个数分成2a*3b*c，那么c只影响上界。2a*3b中a最大是16，b最大是10，列一张17*11的表出来，然后发现右下方还有很多空东西。于是直接像插头一样状压一下轮廓线呗。反正对一个数有影响的只有它的上面和左边。最近写插头写得有点疯啊。其实它的很多思想都是可以推广出来用的。比如最小表示啥的。\n\u0026nbsp;\n于是如果直接这样写的话大概要跑30000多次dp，还是比较悬。然后再想想发现只有表里能取的数的形状发生改变的时候才会改变dp的答案。表里面的数很少所以改变次数也应该很少。所以记一下上一次的形状是什么然后比较相不相同，相同就直接沿用。\n\u0026nbsp;\n然后跑得飞快。\n\u0026nbsp;\n#include \u0026lt;cstdio\u0026gt; #include \u0026lt;cstring\u0026gt; #include \u0026lt;algorithm\u0026gt; using namespace std;\n#define _l (long long int) #define pow2(x) (1\u0026lt;\u0026lt;(x))\nconst int maxn = 19; const int maxm = 15; const int maxv = 100000; const int maxst = pow2(11) + 9; const int mod = 1e9 + 1;\nint f[2][maxst], vl[maxn][maxm], n, m, v; int dis[maxn], ldis[maxn], lans, ans;\nvoid pre() { for (int i = 0; i \u0026lt; maxn; ++ i) { vl[i][0] = (1 \u0026lt;\u0026lt; i); if (vl[i][0] \u0026gt; maxv) vl[i][0] = -1; for (int j = 1; j \u0026lt; maxm; ++ j) if (vl[i][j - 1] \u0026gt; -1) { vl[i][j] = vl[i][j - 1] * 3; if (vl[i][j] \u0026gt; maxv) vl[i][j] = -1; } else vl[i][j] = -1; } }",
+  "keywords": [
+    "bzoj", "dp", "oi"
+  ],
+  "articleBody": "\t最初感觉好多状态怎么做。\n然后发现（其实是瞟了一下题解）如果把一个数分成2a*3b*c，那么c只影响上界。2a*3b中a最大是16，b最大是10，列一张17*11的表出来，然后发现右下方还有很多空东西。于是直接像插头一样状压一下轮廓线呗。反正对一个数有影响的只有它的上面和左边。最近写插头写得有点疯啊。其实它的很多思想都是可以推广出来用的。比如最小表示啥的。\n于是如果直接这样写的话大概要跑30000多次dp，还是比较悬。然后再想想发现只有表里能取的数的形状发生改变的时候才会改变dp的答案。表里面的数很少所以改变次数也应该很少。所以记一下上一次的形状是什么然后比较相不相同，相同就直接沿用。\n然后跑得飞快。\n#include #include #include using namespace std;\n#define _l (long long int) #define pow2(x) (1\u003c\u003c(x))\nconst int maxn = 19; const int maxm = 15; const int maxv = 100000; const int maxst = pow2(11) + 9; const int mod = 1e9 + 1;\nint f[2][maxst], vl[maxn][maxm], n, m, v; int dis[maxn], ldis[maxn], lans, ans;\nvoid pre() { for (int i = 0; i \u003c maxn; ++ i) { vl[i][0] = (1 \u003c\u003c i); if (vl[i][0] \u003e maxv) vl[i][0] = -1; for (int j = 1; j \u003c maxm; ++ j) if (vl[i][j - 1] \u003e -1) { vl[i][j] = vl[i][j - 1] * 3; if (vl[i][j] \u003e maxv) vl[i][j] = -1; } else vl[i][j] = -1; } }\nbool getDis(int x) { memset(dis, 0, sizeof(dis)); for (int i = 0; i \u003c maxn; ++ i) while (vl[i][dis[i]] \u003e -1 \u0026\u0026 x \u003e= vl[i][dis[i]]) ++ dis[i]; bool eq(1); for (int i = 0; i \u003c maxn \u0026\u0026 eq; ++ i) if (dis[i] != ldis[i]) eq = 0; if (!eq) memcpy(ldis, dis, sizeof(dis)); return eq; }\ninline void incm(int\u0026 a, int b) { a += b; if (a \u003e= mod) a -= mod; }\nint dp() { int prv(1), cur(0), m(dis[0]), e(pow2(m)); memset(f, 0, sizeof(f)); f[cur][0] = 1; for (int i = 0; dis[i]; ++ i) for (int j = 0; j \u003c dis[i]; ++ j) { swap(cur, prv); memset(f[cur], 0, sizeof(f[cur])); for (int k = 0; k \u003c e; ++ k) if (f[prv][k]) { if (!(k \u0026 pow2(j)) \u0026\u0026 (!j || !(k \u0026 pow2(j - 1)))) incm(f[cur][k | pow2(j)], f[prv][k]); incm(f[cur][k \u0026 (~pow2(j))], f[prv][k]); } } int ans(0); for (int i = 0; i \u003c e; ++ i) incm(ans, f[cur][i]); return ans; }\nint main() { #ifndef ONLINE_JUDGE freopen(“in.txt”, “r”, stdin); #endif\npre(); scanf(\"%d\", \u0026amp;v); ans = 1; lans = 0; memset(ldis, -1, sizeof(ldis)); ans = 1; for (int i = 1; i \u0026lt;= v; ++ i) if (i % 2 \u0026amp;\u0026amp; i % 3) { if (getDis(v / i)) ans = _l ans * lans % mod; else ans = _l ans * (lans = dp()) % mod; } printf(\"%d\\n\", ans); } ",
+  "wordCount" : "365",
+  "inLanguage": "en",
+  "datePublished": "2015-03-04T09:00:41Z",
+  "dateModified": "2015-03-04T09:00:41Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/i11rimport_016/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      BZOJ2734 [HNOI2012]集合选数
+    </h1>
+    <div class="post-meta"><span title='2015-03-04 09:00:41 +0000 UTC'>March 4, 2015</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><pre><code>			    &lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt;
+最初感觉好多状态怎么做。&lt;/p&gt;
+</code></pre>
+<p>
+	&nbsp;</p>
+<p>
+	然后发现（其实是瞟了一下题解）如果把一个数分成2<sup>a</sup>*3<sup>b</sup>*c，那么c只影响上界。2<sup>a</sup>*3<sup>b</sup>中a最大是16，b最大是10，列一张17*11的表出来，然后发现右下方还有很多空东西。于是直接像插头一样状压一下轮廓线呗。反正对一个数有影响的只有它的上面和左边。最近写插头写得有点疯啊。其实它的很多思想都是可以推广出来用的。比如最小表示啥的。</p>
+<p>
+	&nbsp;</p>
+<p>
+	于是如果直接这样写的话大概要跑30000多次dp，还是比较悬。然后再想想发现只有表里能取的数的形状发生改变的时候才会改变dp的答案。表里面的数很少所以改变次数也应该很少。所以记一下上一次的形状是什么然后比较相不相同，相同就直接沿用。</p>
+<p>
+	&nbsp;</p>
+<p>
+	然后跑得飞快。</p>
+<p>
+	&nbsp;</p>
+<pre class="bcode">#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+<p>using namespace std;</p>
+<p>#define _l (long long int)
+#define pow2(<em>x</em>) (1&lt;&lt;(<em>x</em>))</p>
+<p>const int maxn = 19;
+const int maxm = 15;
+const int maxv = 100000;
+const int maxst = pow2(11) + 9;
+const int mod = 1e9 + 1;</p>
+<p>int f[2][maxst], vl[maxn][maxm], n, m, v;
+int dis[maxn], ldis[maxn], lans, ans;</p>
+<p>void pre() {
+for (int i = 0; i &lt; maxn; ++ i) {
+vl[i][0] = (1 &lt;&lt; i);
+if (vl[i][0] &gt; maxv)
+vl[i][0] = -1;
+for (int j = 1; j &lt; maxm; ++ j)
+if (vl[i][j - 1] &gt; -1) {
+vl[i][j] = vl[i][j - 1] * 3;
+if (vl[i][j] &gt; maxv)
+vl[i][j] = -1;
+}
+else
+vl[i][j] = -1;
+}
+}</p>
+<p>bool getDis(int x) {
+memset(dis, 0, sizeof(dis));
+for (int i = 0; i &lt; maxn; ++ i)
+while (vl[i][dis[i]] &gt; -1 &amp;&amp; x &gt;= vl[i][dis[i]])
+++ dis[i];
+bool eq(1);
+for (int i = 0; i &lt; maxn &amp;&amp; eq; ++ i)
+if (dis[i] != ldis[i])
+eq = 0;
+if (!eq)
+memcpy(ldis, dis, sizeof(dis));
+return eq;
+}</p>
+<p>inline void incm(int&amp; <em>a</em>, int <em>b</em>) {
+<em>a</em> += <em>b</em>;
+if (<em>a</em> &gt;= mod)
+<em>a</em> -= mod;
+}</p>
+<p>int dp() {
+int prv(1), cur(0), m(dis[0]), e(pow2(m));
+memset(f, 0, sizeof(f));
+f[cur][0] = 1;
+for (int i = 0; dis[i]; ++ i)
+for (int j = 0; j &lt; dis[i]; ++ j) {
+swap(cur, prv);
+memset(f[cur], 0, sizeof(f[cur]));
+for (int k = 0; k &lt; e; ++ k)
+if (f[prv][k]) {
+if (!(k &amp; pow2(j)) &amp;&amp; (!j || !(k &amp; pow2(j - 1))))
+incm(f[cur][k | pow2(j)], f[prv][k]);
+incm(f[cur][k &amp; (~pow2(j))], f[prv][k]);
+}
+}
+int ans(0);
+for (int i = 0; i &lt; e; ++ i)
+incm(ans, f[cur][i]);
+return ans;
+}</p>
+<p>int main() {
+#ifndef ONLINE_JUDGE
+freopen(&ldquo;in.txt&rdquo;, &ldquo;r&rdquo;, stdin);
+#endif</p>
+<pre><code>pre();
+scanf(&quot;%d&quot;, &amp;amp;v);
+ans = 1;
+lans = 0;
+memset(ldis, -1, sizeof(ldis));
+ans = 1;
+for (int i = 1; i &amp;lt;= v; ++ i)
+	if (i % 2 &amp;amp;&amp;amp; i % 3) {
+		if (getDis(v / i))
+			ans = _l ans * lans % mod;
+		else
+			ans = _l ans * (lans = dp()) % mod;
+	}
+printf(&quot;%d\n&quot;, ans);
+</code></pre>
+<p>}
+</pre></p>
+</div>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/bzoj/">bzoj</a></li>
+      <li><a href="/tags/dp/">dp</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/i11rimport_015/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>BZOJ1023 [SHOI2008]cactus仙人掌图</span>
+  </a>
+  <a class="next" href="/oi/i11rimport_017/">
+    <span class="title">Next »</span>
+    <br>
+    <span>BZOJ3242 [Noi2013]快餐店</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

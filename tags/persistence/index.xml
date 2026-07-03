@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>persistence on The Site of laekov</title>
+    <link>/tags/persistence/</link>
+    <description>Recent content in persistence on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Sun, 07 Aug 2016 09:46:02 +0000</lastBuildDate><atom:link href="/tags/persistence/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CF703E Mishka and Divisors</title>
+      <link>/oi/7a9bc3/</link>
+      <pubDate>Sun, 07 Aug 2016 09:46:02 +0000</pubDate>
+      
+      <guid>/oi/7a9bc3/</guid>
+      <description>题意:
+给你n个数和一个k. 求这n个数的一个最小子集, 使得元素乘积为k的倍数, 且元素之和最小.
+要输出方案.
+\( n \leq 10^3, k \leq 10^{12} \)
+结局:
+死在输出方案上了.
+思路:
+首先发现k的质因数不会很多, 最多有14个.
+然后k的因数也不会很多.
+所以就dp一下. \(f_i\)表示当前积与k的gcd为i的时候的元素个数.
+然后就像个背包一样嘛. 输出方案? 记录从哪里转移来的不就好了.
+然后.
+考虑这个例子.
+3 9 3 24 21 你会先拿24从3更新到9.
+然后21就会把3和9的转移都更新.
+然后就炸了.
+因为3应该是从原来的状态更新的. 但是现在被覆盖了.
+然后发现状态是棵树. 可以把状态可持久化记下来.
+更新一个状态的时候, 不是直接覆盖, 而是新建一个状态来保证从原来的状态转移出去的情况不会出错.
+这样空间复杂度应该和转移次数有关?
+然后怎么就糊过去了.
+另一个细节是k=1是答案不能是0. woc.
+依然感觉很鬼蓄.
+代码</description>
+    </item>
+    
+  </channel>
+</rss>

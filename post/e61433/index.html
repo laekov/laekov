@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Two key MST | The Site of laekov</title>
+<meta name="keywords" content="none">
+<meta name="description" content="laekov naiiiiiiiiive
+问题 一个无向图 (G), 每条边 (e) 有两个边权 (a_e, b_e).
+求一个生成树 (T) 使得 ( (\sum_{e \in T} a_e) * ( \sum_{e \in T} b_e) ) 最小.
+多项式算法就是胜利w.
+原题 搜 bzoj2395.
+这网站里搜可以找到代码.
+一个未成形的算法 正确性和时间复杂度都待证 qwq.
+感觉是对的. 但是严格证明 qaq. 已经脱离理论计算机科学界太久了.
+假设我们有一个生成树的序列 ( Q ) 和一个生成树池 ( P ).
+算法如下
+对 ( a ) 这一个权值跑出一个最小生成树 ( T_0 ). 把 ( T_0 ) 作为 ( Q ) 里的第一个元素. 取出 ( Q ) 里的最后一棵生成树 ( T ).">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/post/e61433/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="Two key MST" />
+<meta property="og:description" content="laekov naiiiiiiiiive
+问题 一个无向图 (G), 每条边 (e) 有两个边权 (a_e, b_e).
+求一个生成树 (T) 使得 ( (\sum_{e \in T} a_e) * ( \sum_{e \in T} b_e) ) 最小.
+多项式算法就是胜利w.
+原题 搜 bzoj2395.
+这网站里搜可以找到代码.
+一个未成形的算法 正确性和时间复杂度都待证 qwq.
+感觉是对的. 但是严格证明 qaq. 已经脱离理论计算机科学界太久了.
+假设我们有一个生成树的序列 ( Q ) 和一个生成树池 ( P ).
+算法如下
+对 ( a ) 这一个权值跑出一个最小生成树 ( T_0 ). 把 ( T_0 ) 作为 ( Q ) 里的第一个元素. 取出 ( Q ) 里的最后一棵生成树 ( T )." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/post/e61433/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2017-10-06T18:55:41+00:00" />
+<meta property="article:modified_time" content="2017-10-06T18:55:41+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Two key MST"/>
+<meta name="twitter:description" content="laekov naiiiiiiiiive
+问题 一个无向图 (G), 每条边 (e) 有两个边权 (a_e, b_e).
+求一个生成树 (T) 使得 ( (\sum_{e \in T} a_e) * ( \sum_{e \in T} b_e) ) 最小.
+多项式算法就是胜利w.
+原题 搜 bzoj2395.
+这网站里搜可以找到代码.
+一个未成形的算法 正确性和时间复杂度都待证 qwq.
+感觉是对的. 但是严格证明 qaq. 已经脱离理论计算机科学界太久了.
+假设我们有一个生成树的序列 ( Q ) 和一个生成树池 ( P ).
+算法如下
+对 ( a ) 这一个权值跑出一个最小生成树 ( T_0 ). 把 ( T_0 ) 作为 ( Q ) 里的第一个元素. 取出 ( Q ) 里的最后一棵生成树 ( T )."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "/post/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Two key MST",
+      "item": "/post/e61433/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Two key MST",
+  "name": "Two key MST",
+  "description": "laekov naiiiiiiiiive\n问题 一个无向图 (G), 每条边 (e) 有两个边权 (a_e, b_e).\n求一个生成树 (T) 使得 ( (\\sum_{e \\in T} a_e) * ( \\sum_{e \\in T} b_e) ) 最小.\n多项式算法就是胜利w.\n原题 搜 bzoj2395.\n这网站里搜可以找到代码.\n一个未成形的算法 正确性和时间复杂度都待证 qwq.\n感觉是对的. 但是严格证明 qaq. 已经脱离理论计算机科学界太久了.\n假设我们有一个生成树的序列 ( Q ) 和一个生成树池 ( P ).\n算法如下\n对 ( a ) 这一个权值跑出一个最小生成树 ( T_0 ). 把 ( T_0 ) 作为 ( Q ) 里的第一个元素. 取出 ( Q ) 里的最后一棵生成树 ( T ).",
+  "keywords": [
+    "none"
+  ],
+  "articleBody": "laekov naiiiiiiiiive\n问题 一个无向图 (G), 每条边 (e) 有两个边权 (a_e, b_e).\n求一个生成树 (T) 使得 ( (\\sum_{e \\in T} a_e) * ( \\sum_{e \\in T} b_e) ) 最小.\n多项式算法就是胜利w.\n原题 搜 bzoj2395.\n这网站里搜可以找到代码.\n一个未成形的算法 正确性和时间复杂度都待证 qwq.\n感觉是对的. 但是严格证明 qaq. 已经脱离理论计算机科学界太久了.\n假设我们有一个生成树的序列 ( Q ) 和一个生成树池 ( P ).\n算法如下\n对 ( a ) 这一个权值跑出一个最小生成树 ( T_0 ). 把 ( T_0 ) 作为 ( Q ) 里的第一个元素. 取出 ( Q ) 里的最后一棵生成树 ( T ). 枚举未在 ( T ) 里的每条边, 用这条边替换掉 ( T ) 里的若干条边, 都可以形成新的生成树. 把它们全部扔进 ( P ) 里. 挑选 ( P ) 里 ( \\sum_{e \\in T’} a_e \u003e \\sum_{e \\in T} a_e ) 且 ( \\sum_{e \\in T’} b_e \u003c \\sum_{e \\in T} b_e ) 的 ( \\sum_{e \\in T’} a_e ) 最小的 ( T’ ), 把它加到 ( Q ) 的末尾. 重复 3 到 5 直到找到关于 ( \\sum b ) 的最小生成树. 把 ( Q ) 枚举一遍就能找到答案. 对于正确性 会枚举整个 ( A ) 单增 ( B ) 单减的点列.\n对于时间复杂度 每条边被踢出去后不会再被加进来, 即使被加进来也可以由不重复加边的替换方案生成.\n所以 ( Q ) 的总大小有保障, 进而 ( P ) 的总大小有保障.\nHistorical Comments SherlynW at 2017-10-06T19:26:31 及时的题解\n",
+  "wordCount" : "176",
+  "inLanguage": "en",
+  "datePublished": "2017-10-06T18:55:41Z",
+  "dateModified": "2017-10-06T18:55:41Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/post/e61433/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/post/">Posts</a></div>
+    <h1 class="post-title">
+      Two key MST
+    </h1>
+    <div class="post-meta"><span title='2017-10-06 18:55:41 +0000 UTC'>October 6, 2017</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e9%97%ae%e9%a2%98" aria-label="问题">问题</a></li>
+                <li>
+                    <a href="#%e5%8e%9f%e9%a2%98" aria-label="原题">原题</a></li>
+                <li>
+                    <a href="#%e4%b8%80%e4%b8%aa%e6%9c%aa%e6%88%90%e5%bd%a2%e7%9a%84%e7%ae%97%e6%b3%95" aria-label="一个未成形的算法">一个未成形的算法</a><ul>
+                        
+                <li>
+                    <a href="#%e5%af%b9%e4%ba%8e%e6%ad%a3%e7%a1%ae%e6%80%a7" aria-label="对于正确性">对于正确性</a></li>
+                <li>
+                    <a href="#%e5%af%b9%e4%ba%8e%e6%97%b6%e9%97%b4%e5%a4%8d%e6%9d%82%e5%ba%a6" aria-label="对于时间复杂度">对于时间复杂度</a></li>
+                <li>
+                    <a href="#historical-comments" aria-label="Historical Comments">Historical Comments</a><ul>
+                        <ul>
+                        
+                <li>
+                    <a href="#sherlynwhttpsgithubcomsherlynw-at-2017-10-06t192631" aria-label="SherlynW at 2017-10-06T19:26:31"><a href="https://github.com/SherlynW">SherlynW</a> at 2017-10-06T19:26:31</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p>laekov naiiiiiiiiive</p>
+<h2 id="问题">问题<a hidden class="anchor" aria-hidden="true" href="#问题">#</a></h2>
+<p>一个无向图 (G), 每条边 (e) 有两个边权 (a_e, b_e).</p>
+<p>求一个生成树 (T) 使得 (  (\sum_{e \in T} a_e) * ( \sum_{e \in T} b_e) ) 最小.</p>
+<p>多项式算法就是胜利w.</p>
+<h2 id="原题">原题<a hidden class="anchor" aria-hidden="true" href="#原题">#</a></h2>
+<p>搜 bzoj2395.</p>
+<p>这网站里搜可以找到代码.</p>
+<h2 id="一个未成形的算法">一个未成形的算法<a hidden class="anchor" aria-hidden="true" href="#一个未成形的算法">#</a></h2>
+<p>正确性和时间复杂度都待证 qwq.</p>
+<p>感觉是对的. 但是严格证明 qaq. 已经脱离理论计算机科学界太久了.</p>
+<p>假设我们有一个生成树的序列 ( Q ) 和一个生成树池 ( P ).</p>
+<p>算法如下</p>
+<ol>
+<li>对 ( a ) 这一个权值跑出一个最小生成树 ( T_0 ).</li>
+<li>把 ( T_0 ) 作为 ( Q ) 里的第一个元素.</li>
+<li>取出 ( Q ) 里的最后一棵生成树 ( T ).</li>
+<li>枚举未在 ( T ) 里的每条边, 用这条边替换掉 ( T ) 里的若干条边, 都可以形成新的生成树. 把它们全部扔进 ( P ) 里.</li>
+<li>挑选 ( P ) 里 ( \sum_{e \in T&rsquo;} a_e &gt; \sum_{e \in T} a_e ) 且 ( \sum_{e \in T&rsquo;} b_e &lt; \sum_{e \in T} b_e ) 的  ( \sum_{e \in T&rsquo;} a_e ) 最小的 ( T&rsquo; ), 把它加到 ( Q ) 的末尾.</li>
+<li>重复 3 到 5 直到找到关于 ( \sum b ) 的最小生成树.</li>
+<li>把 ( Q ) 枚举一遍就能找到答案.</li>
+</ol>
+<h3 id="对于正确性">对于正确性<a hidden class="anchor" aria-hidden="true" href="#对于正确性">#</a></h3>
+<p>会枚举整个 ( A ) 单增 ( B ) 单减的点列.</p>
+<h3 id="对于时间复杂度">对于时间复杂度<a hidden class="anchor" aria-hidden="true" href="#对于时间复杂度">#</a></h3>
+<p>每条边被踢出去后不会再被加进来, 即使被加进来也可以由不重复加边的替换方案生成.</p>
+<p>所以 ( Q ) 的总大小有保障, 进而 ( P ) 的总大小有保障.</p>
+<hr/>
+<h3 id="historical-comments">Historical Comments<a hidden class="anchor" aria-hidden="true" href="#historical-comments">#</a></h3>
+<h5 id="sherlynwhttpsgithubcomsherlynw-at-2017-10-06t192631"><a href="https://github.com/SherlynW">SherlynW</a> at 2017-10-06T19:26:31<a hidden class="anchor" aria-hidden="true" href="#sherlynwhttpsgithubcomsherlynw-at-2017-10-06t192631">#</a></h5>
+<p>及时的题解</p>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/none/">none</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/technical/7422c7/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>Logs on setting up Jupyter</span>
+  </a>
+  <a class="next" href="/oi/440904/">
+    <span class="title">Next »</span>
+    <br>
+    <span>CST DS2017 PA1</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

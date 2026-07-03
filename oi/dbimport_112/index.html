@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Something for JXFLSers | The Site of laekov</title>
+<meta name="keywords" content="oi">
+<meta name="description" content="这东西是写给jxfls的学弟学妹们的.cdqz众好好听毛教授的话就行了不要管窝.
+写这个的目的是窝作为一个过来人对于泥萌进省队或者拿noi的Au给一点建议.(然而窝也没有noi的Au,所以泥也可以当窝是在口糊)
+首先要明确一下这有什么好处.如果进了省队且noi至少拿了Cu(70%诶,sc算是中强省所以会有不少人垫背的),那么会有学校和泥签约.比如考上一本就可以被某校录取.某校嘛好点的比如pku,thu,sjtu,fdu,再有uestc,zju之类的.然后如果拿了Au(即前50),就可以被点招,高考0分上thu(或者泥愿意去pku啥的也行).
+毕竟是jxfls出来的.在jxfls若干年也没有见过进省队的.窝想如果jxfls出现至少一个省队,那oi在学校里的地位也许就不一样了.说不定就能进入某种良性循环.如果能出noi的Au,规律是有一就有二,然后有三.毕竟Au爷可以不用高考,而是可以把精力放在冲国家队和提携后辈身上.如此往复.也许这要等很多届.也许永远也不能成功.不过这也算是窝曾经的心愿了吧.这篇文就算是窝尽一点绵薄之力了吧.
+其实这件事在jxfls这种难以停课的地方并不容易.cdqz众多半从高二开学就不上文化课了.经过若干个月全力以赴的oi学习,水平自然是不同的.所以泥萌更要抓紧时间.
+首先泥要意识到泥有多弱.noip在省选中占30%.泥可以把noip里高三的刨开之后看一看泥在能进省队的人里排在什么位置.也许很多人曾经以为noip一等就是终点.其实它是起点.所以说不要认为自己很厉害.省内,在cdqz,在南山,在绵中&hellip;在省外&hellip;有很多比泥萌厉害得多的人.他们中也有一部分很乐于与泥萌交流.要把握这样的机会,去和强者交流.
+另外泥萌也要明白一点,教练不考noi.所以自己的路还得自己走.仅仅跟着教练是得不到好成绩的.个人经验,oi就是靠题目堆出来的.在不停地想题写题中找到不会的算法和数据结构,然后不断完善.
+针对省选和noi做题推荐bzoj,又称lydsy.虽然分类什么的比较乱但是题目质量和数量都比较好.而且刷的人多.窝在高二省选时似乎有700道.窝认为如果泥能刷400&#43;道非水题的话省选就能比较有底气了.至于不会的题也不一定要去硬纠结.去网上搜一搜别人博客里的题解,提高一下知识水平,再去敲敲练练代码能力也是极好的.至于哪些题可做的话可以每页按通过人数排序,或者找个前辈的记录跟着做.有些题的确是没法做的.至于bestcoder啊codeforces啊这样的在线比赛如果有时间也可以多参加一下,很能培养参加比赛的感觉.反正自己要努力就好了.
+顺便提一下建议多使用linux.我指的是命令行.在bash里完成一切操作,用vim(或者emacs,nano啥的,反正我是vim党)写代码,用g&#43;&#43;编译.虽然看上去没啥不同也许最初还会很不适应,但是这对养成好的编程习惯和未来参加noi有好处.
+然后考试的时候也别太关注别人在干什么(比如窝在泥旁边打扫雷),干好自己的事就行了.
+以上.总之祝你们好运.
+再另外虽然窝是一只高三党,窝还是很乐于与泥萌交流的.">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/dbimport_112/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="Something for JXFLSers" />
+<meta property="og:description" content="这东西是写给jxfls的学弟学妹们的.cdqz众好好听毛教授的话就行了不要管窝.
+写这个的目的是窝作为一个过来人对于泥萌进省队或者拿noi的Au给一点建议.(然而窝也没有noi的Au,所以泥也可以当窝是在口糊)
+首先要明确一下这有什么好处.如果进了省队且noi至少拿了Cu(70%诶,sc算是中强省所以会有不少人垫背的),那么会有学校和泥签约.比如考上一本就可以被某校录取.某校嘛好点的比如pku,thu,sjtu,fdu,再有uestc,zju之类的.然后如果拿了Au(即前50),就可以被点招,高考0分上thu(或者泥愿意去pku啥的也行).
+毕竟是jxfls出来的.在jxfls若干年也没有见过进省队的.窝想如果jxfls出现至少一个省队,那oi在学校里的地位也许就不一样了.说不定就能进入某种良性循环.如果能出noi的Au,规律是有一就有二,然后有三.毕竟Au爷可以不用高考,而是可以把精力放在冲国家队和提携后辈身上.如此往复.也许这要等很多届.也许永远也不能成功.不过这也算是窝曾经的心愿了吧.这篇文就算是窝尽一点绵薄之力了吧.
+其实这件事在jxfls这种难以停课的地方并不容易.cdqz众多半从高二开学就不上文化课了.经过若干个月全力以赴的oi学习,水平自然是不同的.所以泥萌更要抓紧时间.
+首先泥要意识到泥有多弱.noip在省选中占30%.泥可以把noip里高三的刨开之后看一看泥在能进省队的人里排在什么位置.也许很多人曾经以为noip一等就是终点.其实它是起点.所以说不要认为自己很厉害.省内,在cdqz,在南山,在绵中&hellip;在省外&hellip;有很多比泥萌厉害得多的人.他们中也有一部分很乐于与泥萌交流.要把握这样的机会,去和强者交流.
+另外泥萌也要明白一点,教练不考noi.所以自己的路还得自己走.仅仅跟着教练是得不到好成绩的.个人经验,oi就是靠题目堆出来的.在不停地想题写题中找到不会的算法和数据结构,然后不断完善.
+针对省选和noi做题推荐bzoj,又称lydsy.虽然分类什么的比较乱但是题目质量和数量都比较好.而且刷的人多.窝在高二省选时似乎有700道.窝认为如果泥能刷400&#43;道非水题的话省选就能比较有底气了.至于不会的题也不一定要去硬纠结.去网上搜一搜别人博客里的题解,提高一下知识水平,再去敲敲练练代码能力也是极好的.至于哪些题可做的话可以每页按通过人数排序,或者找个前辈的记录跟着做.有些题的确是没法做的.至于bestcoder啊codeforces啊这样的在线比赛如果有时间也可以多参加一下,很能培养参加比赛的感觉.反正自己要努力就好了.
+顺便提一下建议多使用linux.我指的是命令行.在bash里完成一切操作,用vim(或者emacs,nano啥的,反正我是vim党)写代码,用g&#43;&#43;编译.虽然看上去没啥不同也许最初还会很不适应,但是这对养成好的编程习惯和未来参加noi有好处.
+然后考试的时候也别太关注别人在干什么(比如窝在泥旁边打扫雷),干好自己的事就行了.
+以上.总之祝你们好运.
+再另外虽然窝是一只高三党,窝还是很乐于与泥萌交流的." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/dbimport_112/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2015-11-10T22:56:29+00:00" />
+<meta property="article:modified_time" content="2015-11-10T22:56:29+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Something for JXFLSers"/>
+<meta name="twitter:description" content="这东西是写给jxfls的学弟学妹们的.cdqz众好好听毛教授的话就行了不要管窝.
+写这个的目的是窝作为一个过来人对于泥萌进省队或者拿noi的Au给一点建议.(然而窝也没有noi的Au,所以泥也可以当窝是在口糊)
+首先要明确一下这有什么好处.如果进了省队且noi至少拿了Cu(70%诶,sc算是中强省所以会有不少人垫背的),那么会有学校和泥签约.比如考上一本就可以被某校录取.某校嘛好点的比如pku,thu,sjtu,fdu,再有uestc,zju之类的.然后如果拿了Au(即前50),就可以被点招,高考0分上thu(或者泥愿意去pku啥的也行).
+毕竟是jxfls出来的.在jxfls若干年也没有见过进省队的.窝想如果jxfls出现至少一个省队,那oi在学校里的地位也许就不一样了.说不定就能进入某种良性循环.如果能出noi的Au,规律是有一就有二,然后有三.毕竟Au爷可以不用高考,而是可以把精力放在冲国家队和提携后辈身上.如此往复.也许这要等很多届.也许永远也不能成功.不过这也算是窝曾经的心愿了吧.这篇文就算是窝尽一点绵薄之力了吧.
+其实这件事在jxfls这种难以停课的地方并不容易.cdqz众多半从高二开学就不上文化课了.经过若干个月全力以赴的oi学习,水平自然是不同的.所以泥萌更要抓紧时间.
+首先泥要意识到泥有多弱.noip在省选中占30%.泥可以把noip里高三的刨开之后看一看泥在能进省队的人里排在什么位置.也许很多人曾经以为noip一等就是终点.其实它是起点.所以说不要认为自己很厉害.省内,在cdqz,在南山,在绵中&hellip;在省外&hellip;有很多比泥萌厉害得多的人.他们中也有一部分很乐于与泥萌交流.要把握这样的机会,去和强者交流.
+另外泥萌也要明白一点,教练不考noi.所以自己的路还得自己走.仅仅跟着教练是得不到好成绩的.个人经验,oi就是靠题目堆出来的.在不停地想题写题中找到不会的算法和数据结构,然后不断完善.
+针对省选和noi做题推荐bzoj,又称lydsy.虽然分类什么的比较乱但是题目质量和数量都比较好.而且刷的人多.窝在高二省选时似乎有700道.窝认为如果泥能刷400&#43;道非水题的话省选就能比较有底气了.至于不会的题也不一定要去硬纠结.去网上搜一搜别人博客里的题解,提高一下知识水平,再去敲敲练练代码能力也是极好的.至于哪些题可做的话可以每页按通过人数排序,或者找个前辈的记录跟着做.有些题的确是没法做的.至于bestcoder啊codeforces啊这样的在线比赛如果有时间也可以多参加一下,很能培养参加比赛的感觉.反正自己要努力就好了.
+顺便提一下建议多使用linux.我指的是命令行.在bash里完成一切操作,用vim(或者emacs,nano啥的,反正我是vim党)写代码,用g&#43;&#43;编译.虽然看上去没啥不同也许最初还会很不适应,但是这对养成好的编程习惯和未来参加noi有好处.
+然后考试的时候也别太关注别人在干什么(比如窝在泥旁边打扫雷),干好自己的事就行了.
+以上.总之祝你们好运.
+再另外虽然窝是一只高三党,窝还是很乐于与泥萌交流的."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Something for JXFLSers",
+      "item": "/oi/dbimport_112/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Something for JXFLSers",
+  "name": "Something for JXFLSers",
+  "description": "这东西是写给jxfls的学弟学妹们的.cdqz众好好听毛教授的话就行了不要管窝.\n写这个的目的是窝作为一个过来人对于泥萌进省队或者拿noi的Au给一点建议.(然而窝也没有noi的Au,所以泥也可以当窝是在口糊)\n首先要明确一下这有什么好处.如果进了省队且noi至少拿了Cu(70%诶,sc算是中强省所以会有不少人垫背的),那么会有学校和泥签约.比如考上一本就可以被某校录取.某校嘛好点的比如pku,thu,sjtu,fdu,再有uestc,zju之类的.然后如果拿了Au(即前50),就可以被点招,高考0分上thu(或者泥愿意去pku啥的也行).\n毕竟是jxfls出来的.在jxfls若干年也没有见过进省队的.窝想如果jxfls出现至少一个省队,那oi在学校里的地位也许就不一样了.说不定就能进入某种良性循环.如果能出noi的Au,规律是有一就有二,然后有三.毕竟Au爷可以不用高考,而是可以把精力放在冲国家队和提携后辈身上.如此往复.也许这要等很多届.也许永远也不能成功.不过这也算是窝曾经的心愿了吧.这篇文就算是窝尽一点绵薄之力了吧.\n其实这件事在jxfls这种难以停课的地方并不容易.cdqz众多半从高二开学就不上文化课了.经过若干个月全力以赴的oi学习,水平自然是不同的.所以泥萌更要抓紧时间.\n首先泥要意识到泥有多弱.noip在省选中占30%.泥可以把noip里高三的刨开之后看一看泥在能进省队的人里排在什么位置.也许很多人曾经以为noip一等就是终点.其实它是起点.所以说不要认为自己很厉害.省内,在cdqz,在南山,在绵中\u0026hellip;在省外\u0026hellip;有很多比泥萌厉害得多的人.他们中也有一部分很乐于与泥萌交流.要把握这样的机会,去和强者交流.\n另外泥萌也要明白一点,教练不考noi.所以自己的路还得自己走.仅仅跟着教练是得不到好成绩的.个人经验,oi就是靠题目堆出来的.在不停地想题写题中找到不会的算法和数据结构,然后不断完善.\n针对省选和noi做题推荐bzoj,又称lydsy.虽然分类什么的比较乱但是题目质量和数量都比较好.而且刷的人多.窝在高二省选时似乎有700道.窝认为如果泥能刷400+道非水题的话省选就能比较有底气了.至于不会的题也不一定要去硬纠结.去网上搜一搜别人博客里的题解,提高一下知识水平,再去敲敲练练代码能力也是极好的.至于哪些题可做的话可以每页按通过人数排序,或者找个前辈的记录跟着做.有些题的确是没法做的.至于bestcoder啊codeforces啊这样的在线比赛如果有时间也可以多参加一下,很能培养参加比赛的感觉.反正自己要努力就好了.\n顺便提一下建议多使用linux.我指的是命令行.在bash里完成一切操作,用vim(或者emacs,nano啥的,反正我是vim党)写代码,用g++编译.虽然看上去没啥不同也许最初还会很不适应,但是这对养成好的编程习惯和未来参加noi有好处.\n然后考试的时候也别太关注别人在干什么(比如窝在泥旁边打扫雷),干好自己的事就行了.\n以上.总之祝你们好运.\n再另外虽然窝是一只高三党,窝还是很乐于与泥萌交流的.",
+  "keywords": [
+    "oi"
+  ],
+  "articleBody": "这东西是写给jxfls的学弟学妹们的.cdqz众好好听毛教授的话就行了不要管窝.\n写这个的目的是窝作为一个过来人对于泥萌进省队或者拿noi的Au给一点建议.(然而窝也没有noi的Au,所以泥也可以当窝是在口糊)\n首先要明确一下这有什么好处.如果进了省队且noi至少拿了Cu(70%诶,sc算是中强省所以会有不少人垫背的),那么会有学校和泥签约.比如考上一本就可以被某校录取.某校嘛好点的比如pku,thu,sjtu,fdu,再有uestc,zju之类的.然后如果拿了Au(即前50),就可以被点招,高考0分上thu(或者泥愿意去pku啥的也行).\n毕竟是jxfls出来的.在jxfls若干年也没有见过进省队的.窝想如果jxfls出现至少一个省队,那oi在学校里的地位也许就不一样了.说不定就能进入某种良性循环.如果能出noi的Au,规律是有一就有二,然后有三.毕竟Au爷可以不用高考,而是可以把精力放在冲国家队和提携后辈身上.如此往复.也许这要等很多届.也许永远也不能成功.不过这也算是窝曾经的心愿了吧.这篇文就算是窝尽一点绵薄之力了吧.\n其实这件事在jxfls这种难以停课的地方并不容易.cdqz众多半从高二开学就不上文化课了.经过若干个月全力以赴的oi学习,水平自然是不同的.所以泥萌更要抓紧时间.\n首先泥要意识到泥有多弱.noip在省选中占30%.泥可以把noip里高三的刨开之后看一看泥在能进省队的人里排在什么位置.也许很多人曾经以为noip一等就是终点.其实它是起点.所以说不要认为自己很厉害.省内,在cdqz,在南山,在绵中…在省外…有很多比泥萌厉害得多的人.他们中也有一部分很乐于与泥萌交流.要把握这样的机会,去和强者交流.\n另外泥萌也要明白一点,教练不考noi.所以自己的路还得自己走.仅仅跟着教练是得不到好成绩的.个人经验,oi就是靠题目堆出来的.在不停地想题写题中找到不会的算法和数据结构,然后不断完善.\n针对省选和noi做题推荐bzoj,又称lydsy.虽然分类什么的比较乱但是题目质量和数量都比较好.而且刷的人多.窝在高二省选时似乎有700道.窝认为如果泥能刷400+道非水题的话省选就能比较有底气了.至于不会的题也不一定要去硬纠结.去网上搜一搜别人博客里的题解,提高一下知识水平,再去敲敲练练代码能力也是极好的.至于哪些题可做的话可以每页按通过人数排序,或者找个前辈的记录跟着做.有些题的确是没法做的.至于bestcoder啊codeforces啊这样的在线比赛如果有时间也可以多参加一下,很能培养参加比赛的感觉.反正自己要努力就好了.\n顺便提一下建议多使用linux.我指的是命令行.在bash里完成一切操作,用vim(或者emacs,nano啥的,反正我是vim党)写代码,用g++编译.虽然看上去没啥不同也许最初还会很不适应,但是这对养成好的编程习惯和未来参加noi有好处.\n然后考试的时候也别太关注别人在干什么(比如窝在泥旁边打扫雷),干好自己的事就行了.\n以上.总之祝你们好运.\n再另外虽然窝是一只高三党,窝还是很乐于与泥萌交流的.\n",
+  "wordCount" : "12",
+  "inLanguage": "en",
+  "datePublished": "2015-11-10T22:56:29Z",
+  "dateModified": "2015-11-10T22:56:29Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/dbimport_112/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      Something for JXFLSers
+    </h1>
+    <div class="post-meta"><span title='2015-11-10 22:56:29 +0000 UTC'>November 10, 2015</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>这东西是写给jxfls的学弟学妹们的.cdqz众好好听毛教授的话就行了不要管窝.</p>
+<p>写这个的目的是窝作为一个过来人对于泥萌进省队或者拿noi的Au给一点建议.(然而窝也没有noi的Au,所以泥也可以当窝是在口糊)</p>
+<p>首先要明确一下这有什么好处.如果进了省队且noi至少拿了Cu(70%诶,sc算是中强省所以会有不少人垫背的),那么会有学校和泥签约.比如考上一本就可以被某校录取.某校嘛好点的比如pku,thu,sjtu,fdu,再有uestc,zju之类的.然后如果拿了Au(即前50),就可以被点招,高考0分上thu(或者泥愿意去pku啥的也行).</p>
+<p>毕竟是jxfls出来的.在jxfls若干年也没有见过进省队的.窝想如果jxfls出现至少一个省队,那oi在学校里的地位也许就不一样了.说不定就能进入某种良性循环.如果能出noi的Au,规律是有一就有二,然后有三.毕竟Au爷可以不用高考,而是可以把精力放在冲国家队和提携后辈身上.如此往复.也许这要等很多届.也许永远也不能成功.不过这也算是窝曾经的心愿了吧.这篇文就算是窝尽一点绵薄之力了吧.</p>
+<p>其实这件事在jxfls这种难以停课的地方并不容易.cdqz众多半从高二开学就不上文化课了.经过若干个月全力以赴的oi学习,水平自然是不同的.所以泥萌更要抓紧时间.</p>
+<p>首先泥要意识到泥有多弱.noip在省选中占30%.泥可以把noip里高三的刨开之后看一看泥在能进省队的人里排在什么位置.也许很多人曾经以为noip一等就是终点.其实它是起点.所以说不要认为自己很厉害.省内,在cdqz,在南山,在绵中&hellip;在省外&hellip;有很多比泥萌厉害得多的人.他们中也有一部分很乐于与泥萌交流.要把握这样的机会,去和强者交流.</p>
+<p>另外泥萌也要明白一点,教练不考noi.所以自己的路还得自己走.仅仅跟着教练是得不到好成绩的.个人经验,oi就是靠题目堆出来的.在不停地想题写题中找到不会的算法和数据结构,然后不断完善.</p>
+<p>针对省选和noi做题推荐bzoj,又称lydsy.虽然分类什么的比较乱但是题目质量和数量都比较好.而且刷的人多.窝在高二省选时似乎有700道.窝认为如果泥能刷400+道非水题的话省选就能比较有底气了.至于不会的题也不一定要去硬纠结.去网上搜一搜别人博客里的题解,提高一下知识水平,再去敲敲练练代码能力也是极好的.至于哪些题可做的话可以每页按通过人数排序,或者找个前辈的记录跟着做.有些题的确是没法做的.至于bestcoder啊codeforces啊这样的在线比赛如果有时间也可以多参加一下,很能培养参加比赛的感觉.反正自己要努力就好了.</p>
+<p>顺便提一下建议多使用linux.我指的是命令行.在bash里完成一切操作,用vim(或者emacs,nano啥的,反正我是vim党)写代码,用g++编译.虽然看上去没啥不同也许最初还会很不适应,但是这对养成好的编程习惯和未来参加noi有好处.</p>
+<p>然后考试的时候也别太关注别人在干什么(比如窝在泥旁边打扫雷),干好自己的事就行了.</p>
+<p>以上.总之祝你们好运.</p>
+<p>再另外虽然窝是一只高三党,窝还是很乐于与泥萌交流的.</p>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/dbimport_263/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>noip2015 magic</span>
+  </a>
+  <a class="next" href="/random/dbimport_278/">
+    <span class="title">Next »</span>
+    <br>
+    <span>Story of laekov</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>BZOJ3829 [Poi2014]FarmCraft | The Site of laekov</title>
+<meta name="keywords" content="bzoj, oi">
+<meta name="description" content="树型贪心orz
+写丑了。调了半个晚上，然后发现是起点最耗时的时候的情况搞错了，只用走n-1条路而不是n条。晕。
+对于每个节点贪心按f[p]-2*sz[p]排序或者用原式也行。不过巨慢。
+#include &lt;cstdio&gt;
+#include &lt;cctype&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+int _d_;&nbsp;
+#define readInt(_x_)&nbsp;{&nbsp;\
+int&amp; _s_ =&nbsp;(_x_&nbsp;= 0);&nbsp;\
+while (!isdigit(_d_&nbsp;= getchar()));&nbsp;\
+while (_s_&nbsp;= _s_ * 10 &#43; _d_ - 48, isdigit(_d_ = getchar()));&nbsp;\
+}
+struct edge {
+int t;
+edge *next;
+};
+const int maxn = 500009;
+int n, v[maxn], t, f[maxn], sz[maxn], dfo[maxn], st[maxn];
+edge *ep,&nbsp;*head[maxn];
+inline void addEdge(int u, int v)&nbsp;{
+ep-&gt; t = v;">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/lofterimport_014/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="BZOJ3829 [Poi2014]FarmCraft" />
+<meta property="og:description" content="树型贪心orz
+写丑了。调了半个晚上，然后发现是起点最耗时的时候的情况搞错了，只用走n-1条路而不是n条。晕。
+对于每个节点贪心按f[p]-2*sz[p]排序或者用原式也行。不过巨慢。
+#include &lt;cstdio&gt;
+#include &lt;cctype&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+int _d_;&nbsp;
+#define readInt(_x_)&nbsp;{&nbsp;\
+int&amp; _s_ =&nbsp;(_x_&nbsp;= 0);&nbsp;\
+while (!isdigit(_d_&nbsp;= getchar()));&nbsp;\
+while (_s_&nbsp;= _s_ * 10 &#43; _d_ - 48, isdigit(_d_ = getchar()));&nbsp;\
+}
+struct edge {
+int t;
+edge *next;
+};
+const int maxn = 500009;
+int n, v[maxn], t, f[maxn], sz[maxn], dfo[maxn], st[maxn];
+edge *ep,&nbsp;*head[maxn];
+inline void addEdge(int u, int v)&nbsp;{
+ep-&gt; t = v;" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/lofterimport_014/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2015-01-04T23:05:42+00:00" />
+<meta property="article:modified_time" content="2015-01-04T23:05:42+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BZOJ3829 [Poi2014]FarmCraft"/>
+<meta name="twitter:description" content="树型贪心orz
+写丑了。调了半个晚上，然后发现是起点最耗时的时候的情况搞错了，只用走n-1条路而不是n条。晕。
+对于每个节点贪心按f[p]-2*sz[p]排序或者用原式也行。不过巨慢。
+#include &lt;cstdio&gt;
+#include &lt;cctype&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+int _d_;&nbsp;
+#define readInt(_x_)&nbsp;{&nbsp;\
+int&amp; _s_ =&nbsp;(_x_&nbsp;= 0);&nbsp;\
+while (!isdigit(_d_&nbsp;= getchar()));&nbsp;\
+while (_s_&nbsp;= _s_ * 10 &#43; _d_ - 48, isdigit(_d_ = getchar()));&nbsp;\
+}
+struct edge {
+int t;
+edge *next;
+};
+const int maxn = 500009;
+int n, v[maxn], t, f[maxn], sz[maxn], dfo[maxn], st[maxn];
+edge *ep,&nbsp;*head[maxn];
+inline void addEdge(int u, int v)&nbsp;{
+ep-&gt; t = v;"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "BZOJ3829 [Poi2014]FarmCraft",
+      "item": "/oi/lofterimport_014/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BZOJ3829 [Poi2014]FarmCraft",
+  "name": "BZOJ3829 [Poi2014]FarmCraft",
+  "description": "树型贪心orz\n写丑了。调了半个晚上，然后发现是起点最耗时的时候的情况搞错了，只用走n-1条路而不是n条。晕。\n对于每个节点贪心按f[p]-2*sz[p]排序或者用原式也行。不过巨慢。\n#include \u0026lt;cstdio\u0026gt;\n#include \u0026lt;cctype\u0026gt;\n#include \u0026lt;cstring\u0026gt;\n#include \u0026lt;algorithm\u0026gt;\nusing namespace std;\nint _d_;\u0026nbsp;\n#define readInt(_x_)\u0026nbsp;{\u0026nbsp;\\\nint\u0026amp; _s_ =\u0026nbsp;(_x_\u0026nbsp;= 0);\u0026nbsp;\\\nwhile (!isdigit(_d_\u0026nbsp;= getchar()));\u0026nbsp;\\\nwhile (_s_\u0026nbsp;= _s_ * 10 + _d_ - 48, isdigit(_d_ = getchar()));\u0026nbsp;\\\n}\nstruct edge {\nint t;\nedge *next;\n};\nconst int maxn = 500009;\nint n, v[maxn], t, f[maxn], sz[maxn], dfo[maxn], st[maxn];\nedge *ep,\u0026nbsp;*head[maxn];\ninline void addEdge(int u, int v)\u0026nbsp;{\nep-\u0026gt; t = v;",
+  "keywords": [
+    "bzoj", "oi"
+  ],
+  "articleBody": "树型贪心orz\n写丑了。调了半个晚上，然后发现是起点最耗时的时候的情况搞错了，只用走n-1条路而不是n条。晕。\n对于每个节点贪心按f[p]-2*sz[p]排序或者用原式也行。不过巨慢。\n#include #include #include #include using namespace std;\nint _d_; #define readInt(_x_) { \\\nint\u0026 _s_ = (_x_ = 0); \\\nwhile (!isdigit(_d_ = getchar())); \\\nwhile (_s_ = _s_ * 10 + _d_ - 48, isdigit(_d_ = getchar())); \\\n}\nstruct edge {\nint t;\nedge *next;\n};\nconst int maxn = 500009;\nint n, v[maxn], t, f[maxn], sz[maxn], dfo[maxn], st[maxn];\nedge *ep, *head[maxn];\ninline void addEdge(int u, int v) {\nep-\u003e t = v;\nep-\u003e next = head[u];\nhead[u] = ep ++;\n}\ninline bool cmpTo(const int\u0026 a, const int\u0026 b) {\nreturn max(f[a], f[b] + sz[a] * 2 + 1) \u003c max(f[b], f[a] + sz[b] * 2 + 1);\n//return f[a] - sz[a] * 2 \u003e f[b] - sz[b] * 2 || (f[a] - sz[a] * 2 == f[b] - sz[b] * 2 \u0026\u0026 f[a] \u003e f[b]);\n}\nvoid dfs() {\nstatic int stc[maxn];\nint tst = 1, dfn = 0;\nstc[1] = 1;\nmemset(f, -1, sizeof(f));\nmemset(sz, 0, sizeof(sz));\nf[1] = 0;\nwhile (tst) {\nint p = stc[tst --];\ndfo[++ dfn] = p;\nfor (edge* e = head[p]; e; e = e-\u003e next)\nif (f[e-\u003e t] == -1) {\nf[e-\u003e t] = 0;\nstc[++ tst] = e-\u003e t;\n}\n}\nfor (int ti = n; ti; -- ti) {\nint p = dfo[ti], wt = 0;\nt = 0;\nf[p] = v[p];\nsz[p] = 1;\nfor (edge* e = head[p]; e; e = e-\u003e next)\nif (sz[e-\u003e t]) {\nsz[p] += sz[e-\u003e t];\nst[t ++] = e-\u003e t;\n}\nsort(st, st + t, cmpTo);\nfor (int i = 0; i \u003c t; ++ i) {\nf[p] = max(f[p], wt + f[st[i]] + 1);\nwt += sz[st[i]] \u003c\u003c 1;\n}\n}\n}\nint main() {\n#ifndef ONLINE_JUDGE\n//freopen(\"in.txt\", \"r\", stdin);\n#endif\nreadInt(n);\nfor (int i = 1; i \u003c= n; ++ i)\nreadInt(v[i]);\nep = new edge[n \u003c\u003c 1];\nmemset(head, 0, sizeof(head));\nfor (int i = 1; i \u003c n; ++ i) {\nint u, v;\nreadInt(u);\nreadInt(v);\naddEdge(u, v);\naddEdge(v, u);\n}\nint v1 = v[1];\nv[1] = 0;\ndfs();\nprintf(\"%d\\n\", max(f[1], (n - 1) * 2 + v1));\n}\n",
+  "wordCount" : "302",
+  "inLanguage": "en",
+  "datePublished": "2015-01-04T23:05:42Z",
+  "dateModified": "2015-01-04T23:05:42Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/lofterimport_014/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      BZOJ3829 [Poi2014]FarmCraft
+    </h1>
+    <div class="post-meta"><span title='2015-01-04 23:05:42 +0000 UTC'>January 4, 2015</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>树型贪心orz</p> 
+<p><br /></p> 
+<p>写丑了。调了半个晚上，然后发现是起点最耗时的时候的情况搞错了，只用走n-1条路而不是n条。晕。</p> 
+<p><br /></p> 
+<p>对于每个节点贪心按f[p]-2*sz[p]排序或者用原式也行。不过巨慢。</p> 
+<p><br /></p> 
+<p>#include &lt;cstdio&gt;</p> 
+<p>#include &lt;cctype&gt;</p> 
+<p>#include &lt;cstring&gt;</p> 
+<p>#include &lt;algorithm&gt;</p> 
+<p><br /></p> 
+<p>using namespace std;</p> 
+<p><br /></p> 
+<p>int _d_;&nbsp;</p> 
+<p>#define readInt(_x_)&nbsp;{&nbsp;\</p> 
+<p>int&amp; _s_ =&nbsp;(_x_&nbsp;= 0);&nbsp;\</p> 
+<p>while (!isdigit(_d_&nbsp;= getchar()));&nbsp;\</p> 
+<p>while (_s_&nbsp;= _s_ * 10 + _d_ - 48, isdigit(_d_ = getchar()));&nbsp;\</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>struct edge {</p> 
+<p>int t;</p> 
+<p>edge *next;</p> 
+<p>};</p> 
+<p><br /></p> 
+<p>const int maxn = 500009;</p> 
+<p><br /></p> 
+<p>int n, v[maxn], t, f[maxn], sz[maxn], dfo[maxn], st[maxn];</p> 
+<p>edge *ep,&nbsp;*head[maxn];</p> 
+<p><br /></p> 
+<p>inline void addEdge(int u, int v)&nbsp;{</p> 
+<p>ep-&gt; t = v;</p> 
+<p>ep-&gt; next = head[u];</p> 
+<p>head[u]&nbsp;= ep ++;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>inline bool cmpTo(const int&amp; a, const int&amp; b)&nbsp;{</p> 
+<p>return max(f[a], f[b]&nbsp;+ sz[a]&nbsp;* 2 + 1)&nbsp;&lt; max(f[b], f[a]&nbsp;+ sz[b]&nbsp;* 2 + 1);</p> 
+<p>//return f[a]&nbsp;- sz[a]&nbsp;* 2 &gt; f[b]&nbsp;- sz[b]&nbsp;* 2 ||&nbsp;(f[a]&nbsp;- sz[a]&nbsp;* 2 == f[b]&nbsp;- sz[b]&nbsp;* 2 &amp;&amp; f[a]&nbsp;&gt; f[b]);</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>void dfs()&nbsp;{</p> 
+<p>static int stc[maxn];</p> 
+<p>int tst = 1, dfn = 0;</p> 
+<p>stc[1]&nbsp;= 1;</p> 
+<p>memset(f,&nbsp;-1, sizeof(f));</p> 
+<p>memset(sz, 0, sizeof(sz));</p> 
+<p>f[1]&nbsp;= 0;</p> 
+<p>while (tst)&nbsp;{</p> 
+<p>int p = stc[tst --];</p> 
+<p>dfo[++ dfn]&nbsp;= p;</p> 
+<p>for (edge* e = head[p]; e; e = e-&gt; next)</p> 
+<p>if (f[e-&gt; t]&nbsp;==&nbsp;-1)&nbsp;{</p> 
+<p>f[e-&gt; t]&nbsp;= 0;</p> 
+<p>stc[++ tst]&nbsp;= e-&gt; t;</p> 
+<p>}</p> 
+<p>}</p> 
+<p>for (int ti = n; ti;&nbsp;-- ti)&nbsp;{</p> 
+<p>int p = dfo[ti], wt = 0;</p> 
+<p>t = 0;</p> 
+<p>f[p]&nbsp;= v[p];</p> 
+<p>sz[p]&nbsp;= 1;</p> 
+<p>for (edge* e = head[p]; e; e = e-&gt; next)</p> 
+<p>if (sz[e-&gt; t])&nbsp;{</p> 
+<p>sz[p]&nbsp;+= sz[e-&gt; t];</p> 
+<p>st[t ++]&nbsp;= e-&gt; t;</p> 
+<p>}</p> 
+<p>sort(st, st + t, cmpTo);</p> 
+<p>for (int i = 0; i &lt; t;&nbsp;++ i)&nbsp;{</p> 
+<p>f[p]&nbsp;= max(f[p], wt + f[st[i]]&nbsp;+ 1);</p> 
+<p>wt += sz[st[i]]&nbsp;&lt;&lt; 1;</p> 
+<p>}</p> 
+<p>}</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int main()&nbsp;{</p> 
+<p>#ifndef ONLINE_JUDGE</p> 
+<p>//freopen(&quot;in.txt&quot;,&nbsp;&quot;r&quot;, stdin);</p> 
+<p>#endif</p> 
+<p><br /></p> 
+<p>readInt(n);</p> 
+<p>for (int i = 1; i &lt;= n;&nbsp;++ i)</p> 
+<p>readInt(v[i]);</p> 
+<p>ep = new edge[n &lt;&lt; 1];</p> 
+<p>memset(head, 0, sizeof(head));</p> 
+<p>for (int i = 1; i &lt; n;&nbsp;++ i)&nbsp;{</p> 
+<p>int u, v;</p> 
+<p>readInt(u);</p> 
+<p>readInt(v);</p> 
+<p>addEdge(u, v);</p> 
+<p>addEdge(v, u);</p> 
+<p>}</p> 
+<p>int v1 = v[1];</p> 
+<p>v[1]&nbsp;= 0;</p> 
+<p>dfs();</p> 
+<p>printf(&quot;%d\n&quot;, max(f[1],&nbsp;(n - 1)&nbsp;* 2 + v1));</p> 
+<p>}</p> 
+<p><br /></p>
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/bzoj/">bzoj</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/lofterimport_013/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>BZOJ3834 [Poi2014]Solar Panels</span>
+  </a>
+  <a class="next" href="/oi/lofterimport_015/">
+    <span class="title">Next »</span>
+    <br>
+    <span>BZOJ3831 [Poi2014]Little Bird</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

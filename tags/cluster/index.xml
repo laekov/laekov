@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>cluster on The Site of laekov</title>
+    <link>/tags/cluster/</link>
+    <description>Recent content in cluster on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Wed, 13 Dec 2023 00:00:00 +0000</lastBuildDate><atom:link href="/tags/cluster/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>实验室新机器安装步骤检查单</title>
+      <link>/technical/pacman-machine-setup/</link>
+      <pubDate>Wed, 13 Dec 2023 00:00:00 +0000</pubDate>
+      
+      <guid>/technical/pacman-machine-setup/</guid>
+      <description>本检查单适用于在 PACMAN 实验室 安装新的服务器. 对于其它使用场景, 可视情况进行参考.
+购买前 根据使用需求确定型号 PCIe 的连接方式是否符合预期 内存通道是否充足 在机房寻找一个合适的位置来放置机器, 需考虑如下因素 机柜的空位与承重能力 电源是否充足 网络 (如需使用 IB 网, 与需要的交换机是否足够近) 根据 CPU arch 确定是否接入某个 slurm 进行管理 现有的 slurm clusters: ja (AMD Epyc), nico (Intel Skylake) 注意: 除非这台机器永远只有一个人使用, 否则强烈建议接入 slurm 进行管理 起一个合适的 Hostname 向网络管理员申请一个合适的固定 ip 机器上架与硬件配置 (机房内) 检查机器完好 正确安装导轨 对机器的整体外观, 序列号进行拍照 插入系统盘和必要的存储, PCIE 设备 注意: 插入额外的 GPU 资产也需要事先对序列号和整体进行拍照 根据分配的固定 IP 配置 BMC 机器基础配置 (可远程) 在 NetBox 上更新相应信息, 包括但不限于序列号, 资产号, GPU 在 BIOS 中配置 CPU Sub-numa Clustering 以确保访存性能正确 Intel 简称 SNC, AMD 简称 NPS 可能在 ACPI 或 North Bridge 选项中 (视型号不同) PXE 引导安装 OS 机器软件配置 安装必要的基础软件 htop iotop iftop vim-common numactl rsync psutils ipmitool g++ 根据 Harry 的教程 配置 LDAP Client 安装 libnss-ldapd 和 libpam-ldapd 配置正确的服务器地址, base dn 和 LDAP 数据项 安装 nfs 客户端 安装 nfs-client nfs-common 挂载对应的 /home 配置 slurm 客户端 安装 libmunge-dev libmunge2 munge slurmd slurm-wlm libpam-slurm-adopt libpam-slurm libpmix-dev libpmi2-0 libpmi0-dev libpmi0 将主节点的 munge key 同步到新机器 /etc/munge/munge.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>行走的事故现场 -- ASC19 赛记 | The Site of laekov</title>
+<meta name="keywords" content="brainhole">
+<meta name="description" content="许久没写过博客了.
+看到 harry 写了赛记才想起我还有个博客.
+随便写一点东西吧.
+ASC19. 拿了 &ldquo;大满贯&rdquo; 之后第一场比赛, 拿了个亚军. @大连理工
+Sec 0 赛前给自己的定位大概就是, 学学配机器和benchmark这种看上去比较底层的东西. 应用上就划划水好好干别的事.
+于是初赛成为了写 proposal 选手 &#43; 装机器选手. 最初装机器闹了很多笑话 比如在R730上把 V100 的挡板拆了然后导致显卡悬空. 感谢戴尔和 NVIDIA 的 PCIe 槽足够结实没有直接坏掉让我赔20万的机器的卡.
+然后 proposal 也是写到崩溃 ovo.
+然后跑 HPL 发现各种玄学, 以及 32G 的 V100 性能和 16G 的不太一样. 单卡跑不上去, 多卡也有各种问题. 然后 P, Q, NB 有很多玄妙的组合. (后来知道 N 也有很多玄学). 以及连续跑和单独跑是不一样的. 这还是不考虑功耗在四台 R730 上插上 8 张卡裸跑的情况.
+HPCG 单卡不压功率也只有 125 的样子.
+另一个神奇的情况是直接跑HPL会报 MPI Error: Illegal address. 解决它的方法是, 跑一次HPCG.">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/random/34dd44/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="行走的事故现场 -- ASC19 赛记" />
+<meta property="og:description" content="许久没写过博客了.
+看到 harry 写了赛记才想起我还有个博客.
+随便写一点东西吧.
+ASC19. 拿了 &ldquo;大满贯&rdquo; 之后第一场比赛, 拿了个亚军. @大连理工
+Sec 0 赛前给自己的定位大概就是, 学学配机器和benchmark这种看上去比较底层的东西. 应用上就划划水好好干别的事.
+于是初赛成为了写 proposal 选手 &#43; 装机器选手. 最初装机器闹了很多笑话 比如在R730上把 V100 的挡板拆了然后导致显卡悬空. 感谢戴尔和 NVIDIA 的 PCIe 槽足够结实没有直接坏掉让我赔20万的机器的卡.
+然后 proposal 也是写到崩溃 ovo.
+然后跑 HPL 发现各种玄学, 以及 32G 的 V100 性能和 16G 的不太一样. 单卡跑不上去, 多卡也有各种问题. 然后 P, Q, NB 有很多玄妙的组合. (后来知道 N 也有很多玄学). 以及连续跑和单独跑是不一样的. 这还是不考虑功耗在四台 R730 上插上 8 张卡裸跑的情况.
+HPCG 单卡不压功率也只有 125 的样子.
+另一个神奇的情况是直接跑HPL会报 MPI Error: Illegal address. 解决它的方法是, 跑一次HPCG." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/random/34dd44/" /><meta property="article:section" content="random" />
+<meta property="article:published_time" content="2019-04-28T16:20:43+00:00" />
+<meta property="article:modified_time" content="2019-04-28T16:20:43+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="行走的事故现场 -- ASC19 赛记"/>
+<meta name="twitter:description" content="许久没写过博客了.
+看到 harry 写了赛记才想起我还有个博客.
+随便写一点东西吧.
+ASC19. 拿了 &ldquo;大满贯&rdquo; 之后第一场比赛, 拿了个亚军. @大连理工
+Sec 0 赛前给自己的定位大概就是, 学学配机器和benchmark这种看上去比较底层的东西. 应用上就划划水好好干别的事.
+于是初赛成为了写 proposal 选手 &#43; 装机器选手. 最初装机器闹了很多笑话 比如在R730上把 V100 的挡板拆了然后导致显卡悬空. 感谢戴尔和 NVIDIA 的 PCIe 槽足够结实没有直接坏掉让我赔20万的机器的卡.
+然后 proposal 也是写到崩溃 ovo.
+然后跑 HPL 发现各种玄学, 以及 32G 的 V100 性能和 16G 的不太一样. 单卡跑不上去, 多卡也有各种问题. 然后 P, Q, NB 有很多玄妙的组合. (后来知道 N 也有很多玄学). 以及连续跑和单独跑是不一样的. 这还是不考虑功耗在四台 R730 上插上 8 张卡裸跑的情况.
+HPCG 单卡不压功率也只有 125 的样子.
+另一个神奇的情况是直接跑HPL会报 MPI Error: Illegal address. 解决它的方法是, 跑一次HPCG."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Randoms",
+      "item": "/random/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "行走的事故现场 -- ASC19 赛记",
+      "item": "/random/34dd44/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "行走的事故现场 -- ASC19 赛记",
+  "name": "行走的事故现场 -- ASC19 赛记",
+  "description": "许久没写过博客了.\n看到 harry 写了赛记才想起我还有个博客.\n随便写一点东西吧.\nASC19. 拿了 \u0026ldquo;大满贯\u0026rdquo; 之后第一场比赛, 拿了个亚军. @大连理工\nSec 0 赛前给自己的定位大概就是, 学学配机器和benchmark这种看上去比较底层的东西. 应用上就划划水好好干别的事.\n于是初赛成为了写 proposal 选手 + 装机器选手. 最初装机器闹了很多笑话 比如在R730上把 V100 的挡板拆了然后导致显卡悬空. 感谢戴尔和 NVIDIA 的 PCIe 槽足够结实没有直接坏掉让我赔20万的机器的卡.\n然后 proposal 也是写到崩溃 ovo.\n然后跑 HPL 发现各种玄学, 以及 32G 的 V100 性能和 16G 的不太一样. 单卡跑不上去, 多卡也有各种问题. 然后 P, Q, NB 有很多玄妙的组合. (后来知道 N 也有很多玄学). 以及连续跑和单独跑是不一样的. 这还是不考虑功耗在四台 R730 上插上 8 张卡裸跑的情况.\nHPCG 单卡不压功率也只有 125 的样子.\n另一个神奇的情况是直接跑HPL会报 MPI Error: Illegal address. 解决它的方法是, 跑一次HPCG.",
+  "keywords": [
+    "brainhole"
+  ],
+  "articleBody": "许久没写过博客了.\n看到 harry 写了赛记才想起我还有个博客.\n随便写一点东西吧.\nASC19. 拿了 “大满贯” 之后第一场比赛, 拿了个亚军. @大连理工\nSec 0 赛前给自己的定位大概就是, 学学配机器和benchmark这种看上去比较底层的东西. 应用上就划划水好好干别的事.\n于是初赛成为了写 proposal 选手 + 装机器选手. 最初装机器闹了很多笑话 比如在R730上把 V100 的挡板拆了然后导致显卡悬空. 感谢戴尔和 NVIDIA 的 PCIe 槽足够结实没有直接坏掉让我赔20万的机器的卡.\n然后 proposal 也是写到崩溃 ovo.\n然后跑 HPL 发现各种玄学, 以及 32G 的 V100 性能和 16G 的不太一样. 单卡跑不上去, 多卡也有各种问题. 然后 P, Q, NB 有很多玄妙的组合. (后来知道 N 也有很多玄学). 以及连续跑和单独跑是不一样的. 这还是不考虑功耗在四台 R730 上插上 8 张卡裸跑的情况.\nHPCG 单卡不压功率也只有 125 的样子.\n另一个神奇的情况是直接跑HPL会报 MPI Error: Illegal address. 解决它的方法是, 跑一次HPCG.\nSec 1 后来水过初赛 (可能是没过然后保送的) 然后出了新的应用叫 wtdbg2. (问题的报告? 维他打不过?) 是一位叫阮珏(jue2)的农业科学家写的20000行的基因拼接程序. (科学家科学家 orz) rd 看了一眼表示他要搞. 我看了一眼表示可以抽空帮忙看一下 (划水).\n然后rd发现阮老师一个人写了八年, 居然用了 git. 然而只有十几个 .h 文件包罗了手写线程池和用宏实现的 vector, 以及几个 .c 是可以直接 gcc 一行编译的! 链接都不用! 唯一的依赖库是 zlib! 震惊了!\n果然, 算法我们都懂, 但代码一行没看懂. 在rd和翟老师的教导下学会了使用 VTune (虽然ssh -X即使用wifi也巨卡). 然后 rd 就去优化热点了而我则在瞎跑 + 继续划水.\nbtw这玩意虽然单机消耗内存巨大 (多达 1000+GB), 但是没法移到多机上的. 尝试了 ArgoDSM 然而失败了. 后来别的学校 (SJTU) 也想到这个 idea 并成功了然而翻车了.\nSec 2 然后就到了现场. (只挑印象深刻的事情写好了. 太懒了)\n刷爆信用卡垫钱给大家买了火车票. (真的是把信用卡刷到 “余额不足”. 人生第一次被支付宝教做人)\n出发前一晚拆东西打包四个人搞到两点并吃了鱼头泡饼当夜宵. (从大连回来之后发现胖了2kg)\n住的地方不是太好而且是和 BUAA 的HPL同学合住. 两人很尴尬地不敢说话怕透露情报. orz (所以 asc 为啥每队是五人而不是六人. 槽点满满)\n发现好像会装机的人没有超算比赛经验, 有经验的人不负责装机. (除了我自己这个两边都是半吊子的家伙)\n于是拿自己的行李箱装了 20 块美国金卡加一堆装备装了一个巨重的箱子打车去赛场 (1.4km) 并成功把腰拉伤了第二天一整天都在腰疼. (可钊: 不愧是铁三小哥哥orz, 就是铁. 我: 铁三是铁饼三项吗????)\n装机过程就是 bios 出了一会锅然后 legacy boot 又出了一会锅然后 eno1 bridge 又出了一会锅总之最后修了各种锅. 比较值得吐槽的是 inspur 的 pcie razer 没插紧导致我们懵了好久, 后来又发现 PCIe 槽是裂的. (满脸黑线.jpg)\n总之学会了配 bmc 感觉很有用.\n当然还有就是拔插内存的时候内存没插紧 ovoovoovov.\n总之出了各种锅并修掉之后还留了大半天来跑压功耗版本的 hpl. 这才意识到事情没有想象的那么简单.\nV100 250W * 16 + 待机功耗175W * 6 = ????? 这比赛要求功耗3000w?????\n于是学会了各种玄学控风扇以及通过控cpu的功率(频率? 功耗限?) 来控制GPU的运算速度以及其实可以直接手控GPU的功耗限制和频率.\nSec 3 重点来了!\nHPL的运算曲线是不平的! 要边算边放CPU功率! 每次比赛完之后都说要写一个帅气的功耗调音台然而都要等下次比赛开始的时候才想起还没写. 于是 saffah 从他的 home 里掏出了一个(可能不是祖传的) expect 脚本. 读 hpl 输出到 stderr 里的东西来决定功耗怎么压!\n于是接下来的事情就是首先调 N. 因为是 32G 的卡所以总运算量乘了 (2^1.5). 于是风扇全关的情况下会 GPU 撞温度墙. ovoovoovovo.\n纠结了一下发现 N 变小的情况下跑分会低.\n(插播两段)\n于是首先拍着脑门列了个表决定了一下机器配置. 这里面用到了 “城市模型概率” 课里面龙老师讲过的一个方法: 假设路人智商普通, 但你想知道一个问题的答案, 那你可以找 10000000 个路人让他们给一个答案, 然后所有答案求平均 (或者投票), 总能得到一个比较正确的答案.\n于是我们就集中全队的人, 趴在 saffah (教练? 雾) 的大床上投票投出了一个不同配置下的估计得分表, 然后选了一个 3G4C 的奇怪方案.\n于是就是拿 12块 V100 调. 发现其实风扇开到最低档并不消耗很多功率但可以成功压制GPU的温度. 于是就把风扇开起来解决了撞墙的问题.\n然后就是一次次地跑HPL, 盯着组委会大屏上的功率, 逐段做功耗整形ovoovoovo\n其实应该直接抓 PDU 的数据, matplotlib 画两条曲线出来, 做整形. 如果有机会以后做一个好了. (如果还不退役的话)\n配机器结束的时候也没整出很规整的形. 但比赛日上来暴了两次功率之后狂吹了一会, 然后跑了一发, 发现结果还可以, 就交了. 以及事实证明冰啤酒拜机器还是蛮管用的, 唯一的问题是我只买了3瓶, 导致剩下四台机那天不太 work.\n以及 HPCG 就比较无脑了, 写了个 python 的功率无脑三控脚本, 找了个能控稳的功率, 跑就完事了. 完全是拼机器配置的.\nSec 4 比较高能的部分来了.\n之前选 3G4C 方案是为了让 CESM 多拿点分. 果然有队伍拿 12xV100 跑了 50T 的 HPL(BUAA). 以及有队伍拿 16xV100 跑了2000+的 HPCG (NTHU). 完全吻合我赛前的估计.\n然而 CESM 第一个点, 不收敛. 第二三个点, SF. 于是就无能为力地看着harry和zly在那里疯狂折腾最后只能用三机跑 (见上文3瓶冰啤酒). 最后第一个点也没折腾出来. 2和3在没有什么性能分的情况下跑完了.\n最初以为不能用 checkpoint 续跑, 于是第二个点在SF之后就掐了重来, 结果又SF了, 于是才去问了组委会并得知可以续跑. 后来harry又发现用 checkpoint 也跑不起来, 于是我让他用前一个月的 checkpoint, 结果又跑起来了.\n(再插一段)\n想起了我在城市模型上训 A-CA-GCN 的时候疯狂地 checkout 到上一个存档点然后改 lr 接着训来获得更高的 (R^2) 的搞笑做法. (甚至有 neiatt2.pt neiatt3.pt … neiatt5.pt)\n总之 CESM 是第一天的事故现场. 以及那个 fluidity 直接弃疗了因为没机时了. ovooovo\n事后知道第一个点换个进程数就能跑了. 以及 cesm 在进程数是 2 的幂的时候有奇妙的加速.\nSec 5 Day2没我啥事了. 主要任务是盯功耗(其实有harry盯) + rd让我跑wtdbg(对我来负责跑, 因为有24个测试点) + 神秘应用(也没我啥事因为有harry和zly).\n然后发现 wtdbg 是一个数据跑不同的选项中间结果可以复用. 之前没试过那个复用中间结果的方式, 于是出了好一会的锅, 才发现 help 信息里少看了一行, 要先开另一个叫 kbmserver(类似) 的程序再跑主程序于是就跑起来了尴尬并行跑完了. 没有什么大的优化稳稳的. 唯一开心的是之前让harry给弄的每机额外480GB SSD (inspur机器里本来插的硬盘, 本来是想拔掉的然而我让留下了)有作用, 因为成功地把 IO 负载均衡了.\n然而你让我 80 core 的 daul socket gold 6230 单线程跑了好久, 然后再 power spike 一下, 这个程序的 pattern 我也是很无语了. 而且实际上 CPU 没打满, 80 core 并行的时候也只用到20-30. 再次认识到科学家是多么厉害的人 orz.\n再然后就是发现神秘应用 ShengBTE 会 OOM. 原因是每个进程都会占很多时间. 最后只剩2h的时候准备起最后一波. 当时的情报是: 有人说可扩展性还可以. SUST 说4分点跑完了. 于是我脑门一拍就让去抢4分点. 最后发现4分点有4个温度要迭代, 而3.5分点只有一个. ovoovovoooovo. 为啥跑之前不知道 ovovoovovo. 当然这也不怪谁. 就是缺乏经验吧.\nSec 6 于是比完听说 SYSU 跑完了 ShengBTE 并大幅优化了 WTDBG. SJTU 也很厉害, 于是觉得要没钱拿直接回家了.\n以及事故现场抽答辩抽到倒数第二个. 早晨七点半开始的答辩我要12点才讲. 这不凉了么评委都要睡着了 ovoovo. 考虑了一下要不要讲个段子博一下, 然后发现这比赛连段子都没得讲ovoovovoovov.\n于是回去盯着一群人暴风地做了个 PPT 然后合ppt熬夜改 ppt 改到三点过. 别人做PPT这事, 以及PPT都有很多槽点不过我想去吃饭了就不讲了. 细节细节. 总之不是所有人都像我一样擅长做PPT. ovoovovovo (其实我也不会做ppt… 作为一个 beamer 和 keynote 用户并不知道 ppt 为何物)\n然后早晨全队只有我一个人醒了念了几遍计时的 PPT, 然后大家就一起起床了, 然后就去那么讲了一下.\n(插) 最后拿到分数表就比最高的隔壁学校低了( \\epsilon=0.01) (10分满分), 也算是对得起我 23分的 TOEFL 口语了 ovo\n就这么结束了退役了. 最后演讲完深深躹了一躬.\n最后的超算比赛就这么结束了. (并不)\n第一年拿了一次大满贯, 上了电视若干次, 领了年度人物.\n第二年当上了队长, 第一次比赛啥奖都没有就退役回家了.\n也是很符合我事故现场的人设吧.\nSec -1 开开心心(并不)地出了大厦甚至想抽支烟 (然而没烟也没钱).\n不太开心地开车带着rd, harry, 年级第一(7), 和成钢小哥哥出去飚车. 骚操作了一下然而并不知道去哪, 去海边被吹成鸡之后就回来了.\nharry 说在大连开车体验不好, 大概是在吐槽我的车技吧ovo.\n然后领奖的时候发现别的学校(SYSU, SJTU)都跪了, 于是我们拿了第二.\n也算捡了个奖金, 也不是太高兴 ovoo.\n总结了一下, 和BUAA的HPL老哥喝了杯酒, 就收拾东西回北京了. 然后在回北京后第二天经历了另一场更有戏剧性的事故现场. (this page will be marked as private)\n一周没在北京感觉北京已经过去了一个月.\n生活还在继续, 新的超算比赛还要面对, 新的锅还在产生.\n不管事故还有多少, 都总得一个个去解决不是么.\nHistorical Comments mmmqaq at 2019-05-01T13:33:34 (this page will be marked as private) 是啥\n",
+  "wordCount" : "535",
+  "inLanguage": "en",
+  "datePublished": "2019-04-28T16:20:43Z",
+  "dateModified": "2019-04-28T16:20:43Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/random/34dd44/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/random/">Randoms</a></div>
+    <h1 class="post-title">
+      行走的事故现场 -- ASC19 赛记
+    </h1>
+    <div class="post-meta"><span title='2019-04-28 16:20:43 +0000 UTC'>April 28, 2019</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#sec-0" aria-label="Sec 0">Sec 0</a></li>
+                <li>
+                    <a href="#sec-1" aria-label="Sec 1">Sec 1</a></li>
+                <li>
+                    <a href="#sec-2" aria-label="Sec 2">Sec 2</a></li>
+                <li>
+                    <a href="#sec-3" aria-label="Sec 3">Sec 3</a></li>
+                <li>
+                    <a href="#sec-4" aria-label="Sec 4">Sec 4</a></li>
+                <li>
+                    <a href="#sec-5" aria-label="Sec 5">Sec 5</a></li>
+                <li>
+                    <a href="#sec-6" aria-label="Sec 6">Sec 6</a></li>
+                <li>
+                    <a href="#sec--1" aria-label="Sec -1">Sec -1</a></li>
+                <li>
+                    <a href="#historical-comments" aria-label="Historical Comments">Historical Comments</a><ul>
+                        <ul>
+                        
+                <li>
+                    <a href="#mmmqaq-at-2019-05-01t133334" aria-label="mmmqaq at 2019-05-01T13:33:34">mmmqaq at 2019-05-01T13:33:34</a>
+                </li>
+            </ul>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p>许久没写过博客了.</p>
+<p>看到 harry 写了赛记才想起我还有个博客.</p>
+<p>随便写一点东西吧.</p>
+<p>ASC19. 拿了 &ldquo;大满贯&rdquo; 之后第一场比赛, 拿了个亚军. @大连理工</p>
+<h3 id="sec-0">Sec 0<a hidden class="anchor" aria-hidden="true" href="#sec-0">#</a></h3>
+<p>赛前给自己的定位大概就是, 学学配机器和benchmark这种看上去比较底层的东西. 应用上就划划水好好干别的事.</p>
+<p>于是初赛成为了写 proposal 选手 + 装机器选手. 最初装机器闹了很多笑话 比如在R730上把 V100 的挡板拆了然后导致显卡悬空. 感谢戴尔和 NVIDIA 的 PCIe 槽足够结实没有直接坏掉让我赔20万的机器的卡.</p>
+<p>然后 proposal 也是写到崩溃 ovo.</p>
+<p>然后跑 HPL 发现各种玄学, 以及 32G 的 V100 性能和 16G 的不太一样. 单卡跑不上去, 多卡也有各种问题. 然后 P, Q, NB 有很多玄妙的组合. (后来知道 N 也有很多玄学). 以及连续跑和单独跑是不一样的. 这还是不考虑功耗在四台 R730 上插上 8 张卡裸跑的情况.</p>
+<p>HPCG 单卡不压功率也只有 125 的样子.</p>
+<p>另一个神奇的情况是直接跑HPL会报 MPI Error: Illegal address. 解决它的方法是, 跑一次HPCG.</p>
+<h3 id="sec-1">Sec 1<a hidden class="anchor" aria-hidden="true" href="#sec-1">#</a></h3>
+<p>后来水过初赛 (可能是没过然后保送的) 然后出了新的应用叫 wtdbg2. (问题的报告? 维他打不过?) 是一位叫阮珏(jue2)的农业科学家写的20000行的基因拼接程序. (科学家科学家 orz) rd 看了一眼表示他要搞. 我看了一眼表示可以抽空帮忙看一下 (划水).</p>
+<p>然后rd发现阮老师一个人写了八年, 居然用了 git. 然而只有十几个 .h 文件包罗了手写线程池和用宏实现的 vector, 以及几个 .c 是可以直接 gcc 一行编译的! 链接都不用! 唯一的依赖库是 zlib! 震惊了!</p>
+<p>果然, 算法我们都懂, 但代码一行没看懂. 在rd和翟老师的教导下学会了使用 VTune (虽然ssh -X即使用wifi也巨卡). 然后 rd 就去优化热点了而我则在瞎跑 + 继续划水.</p>
+<p>btw这玩意虽然单机消耗内存巨大 (多达 1000+GB), 但是没法移到多机上的. 尝试了 ArgoDSM 然而失败了. 后来别的学校 (SJTU) 也想到这个 idea 并成功了然而翻车了.</p>
+<h3 id="sec-2">Sec 2<a hidden class="anchor" aria-hidden="true" href="#sec-2">#</a></h3>
+<p>然后就到了现场. (只挑印象深刻的事情写好了. 太懒了)</p>
+<p>刷爆信用卡垫钱给大家买了火车票. (真的是把信用卡刷到 &ldquo;余额不足&rdquo;. 人生第一次被支付宝教做人)</p>
+<p>出发前一晚拆东西打包四个人搞到两点并吃了鱼头泡饼当夜宵. (从大连回来之后发现胖了2kg)</p>
+<p>住的地方不是太好而且是和 BUAA 的HPL同学合住. 两人很尴尬地不敢说话怕透露情报.  orz (所以 asc 为啥每队是五人而不是六人. 槽点满满)</p>
+<p>发现好像会装机的人没有超算比赛经验, 有经验的人不负责装机. (除了我自己这个两边都是半吊子的家伙)</p>
+<p>于是拿自己的行李箱装了 20 块美国金卡加一堆装备装了一个巨重的箱子打车去赛场 (1.4km) 并成功把腰拉伤了第二天一整天都在腰疼. (可钊: 不愧是铁三小哥哥orz, 就是铁. 我: 铁三是铁饼三项吗????)</p>
+<p>装机过程就是 bios 出了一会锅然后 legacy boot 又出了一会锅然后 eno1 bridge 又出了一会锅总之最后修了各种锅. 比较值得吐槽的是 inspur 的 pcie razer 没插紧导致我们懵了好久, 后来又发现 PCIe 槽是裂的. (满脸黑线.jpg)</p>
+<p>总之学会了配 bmc 感觉很有用.</p>
+<p>当然还有就是拔插内存的时候内存没插紧 ovoovoovov.</p>
+<p>总之出了各种锅并修掉之后还留了大半天来跑压功耗版本的 hpl. 这才意识到事情没有想象的那么简单.</p>
+<p>V100 250W * 16 + 待机功耗175W * 6 = ????? 这比赛要求功耗3000w?????</p>
+<p>于是学会了各种玄学控风扇以及通过控cpu的功率(频率? 功耗限?) 来控制GPU的运算速度以及其实可以直接手控GPU的功耗限制和频率.</p>
+<h3 id="sec-3">Sec 3<a hidden class="anchor" aria-hidden="true" href="#sec-3">#</a></h3>
+<p>重点来了!</p>
+<p>HPL的运算曲线是不平的! 要边算边放CPU功率! 每次比赛完之后都说要写一个帅气的功耗调音台然而都要等下次比赛开始的时候才想起还没写. 于是 saffah 从他的 home 里掏出了一个(可能不是祖传的) expect 脚本. 读 hpl 输出到 stderr 里的东西来决定功耗怎么压!</p>
+<p>于是接下来的事情就是首先调 N. 因为是 32G 的卡所以总运算量乘了 (2^1.5). 于是风扇全关的情况下会 GPU 撞温度墙. ovoovoovovo.</p>
+<p>纠结了一下发现 N 变小的情况下跑分会低.</p>
+<p>(插播两段)</p>
+<p>于是首先拍着脑门列了个表决定了一下机器配置. 这里面用到了 &ldquo;城市模型概率&rdquo; 课里面龙老师讲过的一个方法: 假设路人智商普通, 但你想知道一个问题的答案, 那你可以找 10000000 个路人让他们给一个答案, 然后所有答案求平均 (或者投票), 总能得到一个比较正确的答案.</p>
+<p>于是我们就集中全队的人, 趴在 saffah (教练? 雾) 的大床上投票投出了一个不同配置下的估计得分表, 然后选了一个 3G4C 的奇怪方案.</p>
+<p>于是就是拿 12块 V100 调. 发现其实风扇开到最低档并不消耗很多功率但可以成功压制GPU的温度. 于是就把风扇开起来解决了撞墙的问题.</p>
+<p>然后就是一次次地跑HPL, 盯着组委会大屏上的功率, 逐段做功耗整形ovoovoovo</p>
+<p>其实应该直接抓 PDU 的数据, matplotlib 画两条曲线出来, 做整形. 如果有机会以后做一个好了. (如果还不退役的话)</p>
+<p>配机器结束的时候也没整出很规整的形. 但比赛日上来暴了两次功率之后狂吹了一会, 然后跑了一发, 发现结果还可以, 就交了. 以及事实证明冰啤酒拜机器还是蛮管用的, 唯一的问题是我只买了3瓶, 导致剩下四台机那天不太 work.</p>
+<p>以及 HPCG 就比较无脑了, 写了个 python 的功率无脑三控脚本, 找了个能控稳的功率, 跑就完事了. 完全是拼机器配置的.</p>
+<h3 id="sec-4">Sec 4<a hidden class="anchor" aria-hidden="true" href="#sec-4">#</a></h3>
+<p>比较高能的部分来了.</p>
+<p>之前选 3G4C 方案是为了让 CESM 多拿点分. 果然有队伍拿 12xV100 跑了 50T 的 HPL(BUAA). 以及有队伍拿 16xV100 跑了2000+的 HPCG (NTHU). 完全吻合我赛前的估计.</p>
+<p>然而 CESM 第一个点, 不收敛. 第二三个点, SF. 于是就无能为力地看着harry和zly在那里疯狂折腾最后只能用三机跑 (见上文3瓶冰啤酒). 最后第一个点也没折腾出来. 2和3在没有什么性能分的情况下跑完了.</p>
+<p>最初以为不能用 checkpoint 续跑, 于是第二个点在SF之后就掐了重来, 结果又SF了, 于是才去问了组委会并得知可以续跑. 后来harry又发现用 checkpoint 也跑不起来, 于是我让他用前一个月的 checkpoint, 结果又跑起来了.</p>
+<p>(再插一段)</p>
+<p>想起了我在城市模型上训 A-CA-GCN 的时候疯狂地 checkout 到上一个存档点然后改 lr 接着训来获得更高的 (R^2) 的搞笑做法. (甚至有 neiatt2.pt neiatt3.pt &hellip; neiatt5.pt)</p>
+<p>总之 CESM 是第一天的事故现场. 以及那个 fluidity 直接弃疗了因为没机时了. ovooovo</p>
+<p>事后知道第一个点换个进程数就能跑了. 以及 cesm 在进程数是 2 的幂的时候有奇妙的加速.</p>
+<h3 id="sec-5">Sec 5<a hidden class="anchor" aria-hidden="true" href="#sec-5">#</a></h3>
+<p>Day2没我啥事了. 主要任务是盯功耗(其实有harry盯) + rd让我跑wtdbg(对我来负责跑, 因为有24个测试点) + 神秘应用(也没我啥事因为有harry和zly).</p>
+<p>然后发现 wtdbg 是一个数据跑不同的选项中间结果可以复用. 之前没试过那个复用中间结果的方式, 于是出了好一会的锅, 才发现 help 信息里少看了一行, 要先开另一个叫 kbmserver(类似) 的程序再跑主程序于是就跑起来了尴尬并行跑完了. 没有什么大的优化稳稳的. 唯一开心的是之前让harry给弄的每机额外480GB SSD (inspur机器里本来插的硬盘, 本来是想拔掉的然而我让留下了)有作用, 因为成功地把 IO 负载均衡了.</p>
+<p>然而你让我 80 core 的 daul socket gold 6230 单线程跑了好久, 然后再 power spike 一下, 这个程序的 pattern  我也是很无语了. 而且实际上 CPU 没打满, 80 core 并行的时候也只用到20-30. 再次认识到科学家是多么厉害的人 orz.</p>
+<p>再然后就是发现神秘应用 ShengBTE 会 OOM. 原因是每个进程都会占很多时间. 最后只剩2h的时候准备起最后一波. 当时的情报是: 有人说可扩展性还可以. SUST 说4分点跑完了. 于是我脑门一拍就让去抢4分点. 最后发现4分点有4个温度要迭代, 而3.5分点只有一个. ovoovovoooovo. 为啥跑之前不知道 ovovoovovo. 当然这也不怪谁. 就是缺乏经验吧.</p>
+<h3 id="sec-6">Sec 6<a hidden class="anchor" aria-hidden="true" href="#sec-6">#</a></h3>
+<p>于是比完听说 SYSU 跑完了 ShengBTE 并大幅优化了 WTDBG. SJTU 也很厉害, 于是觉得要没钱拿直接回家了.</p>
+<p>以及事故现场抽答辩抽到倒数第二个. 早晨七点半开始的答辩我要12点才讲. 这不凉了么评委都要睡着了 ovoovo. 考虑了一下要不要讲个段子博一下, 然后发现这比赛连段子都没得讲ovoovovoovov.</p>
+<p>于是回去盯着一群人暴风地做了个 PPT 然后合ppt熬夜改 ppt 改到三点过. 别人做PPT这事, 以及PPT都有很多槽点不过我想去吃饭了就不讲了. 细节细节. 总之不是所有人都像我一样擅长做PPT. ovoovovovo (其实我也不会做ppt&hellip; 作为一个 beamer 和 keynote 用户并不知道 ppt 为何物)</p>
+<p>然后早晨全队只有我一个人醒了念了几遍计时的 PPT, 然后大家就一起起床了, 然后就去那么讲了一下.</p>
+<p>(插) 最后拿到分数表就比最高的隔壁学校低了(  \epsilon=0.01) (10分满分), 也算是对得起我 23分的 TOEFL 口语了 ovo</p>
+<p>就这么结束了退役了. 最后演讲完深深躹了一躬.</p>
+<p>最后的超算比赛就这么结束了. (并不)</p>
+<p>第一年拿了一次大满贯, 上了电视若干次, 领了年度人物.</p>
+<p>第二年当上了队长, 第一次比赛啥奖都没有就退役回家了.</p>
+<p>也是很符合我事故现场的人设吧.</p>
+<h3 id="sec--1">Sec -1<a hidden class="anchor" aria-hidden="true" href="#sec--1">#</a></h3>
+<p>开开心心(并不)地出了大厦甚至想抽支烟 (然而没烟也没钱).</p>
+<p>不太开心地开车带着rd, harry, 年级第一(7), 和成钢小哥哥出去飚车. 骚操作了一下然而并不知道去哪, 去海边被吹成鸡之后就回来了.</p>
+<p>harry 说在大连开车体验不好, 大概是在吐槽我的车技吧ovo.</p>
+<p>然后领奖的时候发现别的学校(SYSU, SJTU)都跪了, 于是我们拿了第二.</p>
+<p>也算捡了个奖金, 也不是太高兴 ovoo.</p>
+<p>总结了一下, 和BUAA的HPL老哥喝了杯酒, 就收拾东西回北京了. 然后在回北京后第二天经历了另一场更有戏剧性的事故现场. (this page will be marked as private)</p>
+<p>一周没在北京感觉北京已经过去了一个月.</p>
+<p>生活还在继续, 新的超算比赛还要面对, 新的锅还在产生.</p>
+<p>不管事故还有多少, 都总得一个个去解决不是么.</p>
+<hr/>
+<h3 id="historical-comments">Historical Comments<a hidden class="anchor" aria-hidden="true" href="#historical-comments">#</a></h3>
+<h5 id="mmmqaq-at-2019-05-01t133334">mmmqaq at 2019-05-01T13:33:34<a hidden class="anchor" aria-hidden="true" href="#mmmqaq-at-2019-05-01t133334">#</a></h5>
+<p>(this page will be marked as private) 是啥</p>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/brainhole/">brainhole</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/technical/f93221/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>Mac微信Bug修复手记</span>
+  </a>
+  <a class="next" href="/random/a3a526/">
+    <span class="title">Next »</span>
+    <br>
+    <span>愿望</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

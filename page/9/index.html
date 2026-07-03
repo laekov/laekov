@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head>
+	<meta name="generator" content="Hugo 0.111.3"><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>The Site of laekov</title>
+
+<meta name="description" content="">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="/index.xml">
+<link rel="alternate" type="application/json" href="/index.json">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="The Site of laekov" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="The Site of laekov"/>
+<meta name="twitter:description" content=""/>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "The Site of laekov",
+  "url": "/",
+  "description": "",
+  "thumbnailUrl": "/favicon.ico",
+  "sameAs": [
+      "https://github.com/laekov", "/cv", "/not-easily-available", "/not-easily-available", "/not-easily-available", "/not-easily-available", "index.xml"
+  ]
+}
+</script>
+</head>
+
+<body class="list" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>Two key MST
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>laekov naiiiiiiiiive
+问题 一个无向图 (G), 每条边 (e) 有两个边权 (a_e, b_e).
+求一个生成树 (T) 使得 ( (\sum_{e \in T} a_e) * ( \sum_{e \in T} b_e) ) 最小.
+多项式算法就是胜利w.
+原题 搜 bzoj2395.
+这网站里搜可以找到代码.
+一个未成形的算法 正确性和时间复杂度都待证 qwq.
+感觉是对的. 但是严格证明 qaq. 已经脱离理论计算机科学界太久了.
+假设我们有一个生成树的序列 ( Q ) 和一个生成树池 ( P ).
+算法如下
+对 ( a ) 这一个权值跑出一个最小生成树 ( T_0 ). 把 ( T_0 ) 作为 ( Q ) 里的第一个元素. 取出 ( Q ) 里的最后一棵生成树 ( T )....</p>
+  </div>
+  <footer class="entry-footer"><span title='2017-10-06 18:55:41 +0000 UTC'>October 6, 2017</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to Two key MST" href="/post/e61433/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>CST DS2017 PA1
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>1 使用数论快速傅立叶变换进行多项式乘法.
+要压三位才能过.
+2 先把两维坐标分别快速排序
+然后每个问题二分
+然后建立两个向量, 看它们的夹角是劣的还是优的, 从而判断这个点在线段和坐标轴围成的三角形的内外
+3 维护一个栈
+如果右边所有数里的最大值都没有栈顶大, 就弹栈, 否则一直压栈到右边最大的数, 输出最大的数, 然后重复执行此操作.
+4 在普通的队列里再维护一个单调队列, 对价格单调. 每次从单调队列里选择当前持有的股票, 用普通队列维护添加 / 删除.
+5 替罪羊树维护序列.
+至今 90 的数据有一个点 wa 掉不知为何. 可能满跑速度有点悬.
+6 利用双向链表进行操作.
+链表并不记录前后, 而是只记录两个端.
+每个光标记录左右.
+然而还是被卡常了.</p>
+  </div>
+  <footer class="entry-footer"><span title='2017-09-19 19:59:11 +0000 UTC'>September 19, 2017</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to CST DS2017 PA1" href="/oi/440904/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>Web 爬虫二三事
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>最近 get 了一个技能叫爬虫. (可能早就 get 了只是没有实践过?)
+然而我是用 js 写的. 毕竟自带异步而且瓶颈是延迟.
+任务大概是说抓 wiki 的 list of people 上的人的 info.
+然后发现可能它是一个不规则的索引结构.
+每个二级索引都长得不太一样.
+没事我们直接当作它就是二级索引结构.
+然后发现有的企业也有 infobox. 这就很无语了?
+没事我们判断一下它是不是有 occupation, born 这样的关键字吧.
+然后大概就比较能看了? (才怪)
+另外在看资料的时候才发现一种把 html plain 化的方式. 直接把所有的标签去了.
+之前沉迷剥标签的我突然觉得自己真是蠢哭了.
+嗯就是这么愉快.</p>
+  </div>
+  <footer class="entry-footer"><span title='2017-09-15 16:13:51 +0000 UTC'>September 15, 2017</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to Web 爬虫二三事" href="/technical/e522cb/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>docker-compose DHCP and DNS
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>docker-compose 的网络
+会自动加一些解析
+把服务名和 ip 给绑起来
+所以根本不用去搞 static ip
+好像被这事坑了一万年了</p>
+  </div>
+  <footer class="entry-footer"><span title='2017-08-08 21:54:05 +0000 UTC'>August 8, 2017</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to docker-compose DHCP and DNS" href="/technical/f07783/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>World is Strange
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Life is strange.
+World is even more strange.
+推这游戏的时候对所谓平行宇宙有了更多的想法.
+游戏里每个分枝点你只能选一个, 但是另一个分枝点的剧本都写好了! 也就是说不管你怎么选择, 它都是存在的.
+那么世界是不是也是一样的呢? 任何选择都是同步进行的.
+或者说平行时间是存在的, 然而存在的形式并不是物质, 而是逻辑.
+那么新的问题是, 以逻辑的方式存在算不算存在呢?
+Historical Comments Bakser at 2017-07-14T15:05:44 建议了解一下free-will问题，会很有趣XD
+laekov at 2017-09-15T15:53:13 留言有问题?</p>
+  </div>
+  <footer class="entry-footer"><span title='2017-07-13 09:39:03 +0000 UTC'>July 13, 2017</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to World is Strange" href="/random/98b42d/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>Rule-based Regular Routing Method
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Upd: 代码来了 https://github.com/laekov/rbrrm
+来 mark 一下我的 oop 组队大作业中窝肝的部分.
+姚氏大作业果然有趣.
+大概问题是这样的.
+现在一个 pcb 上面有 (n*n) 的元件矩阵(忽略元件面积). 然后你要布线让每个元件都单独连着一条通往边界的电线, 我们管它叫这个点的 escape 路线. (最边上的就直接算作逃出去了)
+然后电线只能横竖沿着格线走. 显然直接走是走不出去的. 所以你要找一个最小的 ( w ), 把原来的每行每列的中间都插上(w)条格线, 然后找一个总长最小 (或者如果你有其它的 feature 的话可以是尽量小) 的方案.
+官方的的范围是 ( 80 ), 然后我算出来的 (80) 对应的 (w) 是 (23). 这个范围直接二分建图跑网络流已经非常吃力了. (或者直说要跑几天才跑得出来).
+一个比较小的例子如图.
+这个问题的标题叫作_rule based regular routing path_, 也就是说有某种直接用规则布线就可以了?
+然后窝的第一个想法是神贪心, 然而在和大树讨论了很久之后也没有找到一种能让我们两个觉得靠谱且简洁优美的贪心.
+然后窝就在想网络流是否有救. 在和 czr 讨论了一阵以及 czr 帮窝去 ieee 找了几篇 paper (btw, 校内网可以免费直接下 ieee 的论文不能更赞) 后发现了这么一个结论. 对于每个 ( w*w ) 的格子, 它的承载上限 (也就是说穿过这个格子的线的条数) 是 ( w )....</p>
+  </div>
+  <footer class="entry-footer"><span title='2017-06-11 20:35:19 +0000 UTC'>June 11, 2017</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to Rule-based Regular Routing Method" href="/technical/4dc587/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>关于戴森球和黑暗森林假设
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>有个科学发现说观测到一个疑似戴森球的东西. 于是寝室里引发了如下讨论.
+lr: 泥觉得外星文明存在么.
+众: 存在.
+lr: 有没有一种低级文明间交流的方式? 比如运气好的虫洞?
+可能有.
+lr: 高级文明间一定有_三体_里描述的_黑暗森林法则_吗?
+黑暗森林法则的原理在于文明之间无法充分交流来取得互相信任. 两方如果都具备 (或者可能具备) 直接摧毁对方的能力. 那么选择 “摧毁” 和 “不摧毁” 将是一个类似于纳什均衡的博弈问题.
+每个回合, 两者都可以选择摧毁或不摧毁. 如果两方都选择不摧毁, 都欢喜. 如果两方中的任何一方选择摧毁, 那么游戏结束.
+根据四年前 lyd 在 wc 上讲的课, 如果游戏在有限轮内结束, 那么两方都会选择在第一轮就摧毁. 如果游戏可以无限继续, 那么两方就会一直选择不摧毁.
+而宇宙的寿命相对来说可以认为是无限的. 所以法则错误了么?
+原作中有进一步假设: 摧毁所消耗的成本几乎可以忽略不记, 而不摧毁几乎不能带来任何好处. 与对方交流并获取收益的期望可以认为是极低的. 所以直接摧毁依然是最佳决定.
+然而这步假设与人类的现状显然不符合.
+所以说假设没错, 但是也不一定适用.
+Historical Comments Bakser at 2017-07-14T15:13:01 你们就没怀疑过“生存是文明的第一需要”吗// 晓智太强辣!!!!</p>
+  </div>
+  <footer class="entry-footer"><span title='2017-05-24 13:04:11 +0000 UTC'>May 24, 2017</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to 关于戴森球和黑暗森林假设" href="/random/ea4d1d/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>NOIP2016 DAY2 简要思路
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>组合数 求n和m都各在一个范围里的组合数里能被k整除的数的个数.
+用熟悉的组合数的公式.
+\( C_n^m = C_{n-1}^{m-1} &#43; C_{n-1}^m \)
+把组合数先处理出来.
+对于多组询问, 求出上面那个数组的二维前缀和即可.
+蚯蚓 你有n只蚯蚓. 每秒把最长的蚯蚓砍成同比例的两段, 且其它蚯蚓变长. 求m秒中每一秒被砍的蚯蚓和最后所有的蚯蚓.
+\( n \leq 10^5, m \leq 7*10^6 \)
+目测那个t只是为了输入输出不超时.
+正常的暴力是用堆来维护蚯蚓长度.
+发现一个性质, 下一次被砍的蚯蚓被砍之后两段肯定会分别短于本次被砍的蚯蚓的两段.
+仔细想想没有低于\( O(m) \) 的做法.
+所以我们把堆换成若干个队列, 每次只取队首的蚯蚓来比较, 砍, 然后塞回队尾. 保证队列中的元素单调.
+这样时间复杂度就变成线性了.
+小鸟 平面上有若干只猪. 你可以从原点发射一个抛物线并消灭抛物线上的所有猪. 求最小发射多少次.
+\( n \leq 18 \)
+我们知道两点确定一条过原点的抛物线. 所以枚举两只猪就能得到所有能消灭至少两只猪的消灭方式. 剩余的猪只能直接消灭.
+可以使用状态压缩型动态规划来解决这个问题. 只需要记录下当前已经消灭了哪些猪, 就可以进行转移了.
+ps 题目难度还是比去年高. 祝各位好运.
+laekov版权所有, 未经允许不得转载. 侵权必究. </p>
+  </div>
+  <footer class="entry-footer"><span title='2016-11-20 14:35:52 +0000 UTC'>November 20, 2016</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to NOIP2016 DAY2 简要思路" href="/oi/fc5d4b/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>NOIP2016 DAY1 简要思路
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>简单看了看NOIP2016的题. 口糊一下自己的想法吧.
+玩具 描述好乱. 反正就是一群人围成圈, 若干次左走右走问最后到哪.
+加加减减取模就好了.
+水水水水过.
+跑步 一棵n个点的树, m条路径, 问对于每个点, 经过本点且起点距离本点为本点点权的路径条数.
+\( n, m \leq 3*10^5 \)
+我感觉这个题有点难呀. 很有可能是我想复杂了.
+把每条路径从lca处拆成两段.
+考虑对于每个点的询问.
+对于起点到lca这段, 询问就是询问子树里lca深度小于等于当前深度的深度刚好为某个值的路径起点个数.
+对于lca到终点这段, 询问就是询问子树里lca深度小于等于当前深度的 (长度-深度) 刚好为某个值的路径终点个数.
+然后就成了一个比较简明的数据结构问题.
+一种思路是平衡树启发式合并, 但是时间可能会炸.
+另一种思路是用dfs序式树链剖分, 每条路径会被拆分为不超过lg个dfs序上的子段. 在路径的每个子段的起点和终点处分别打上标记. 然后对dfs序进行一次扫描即可得出答案. 复杂度比较优.
+换教室 n节课, v间教室. 每节课有两种教室位置选择, 其中一种是已定的. 你有m次机会申请换掉其中一节课的教室位置, 每个请求有独立的p的概率成功. 教室在一张图上, 求最小总奔波路期望.
+\( n, m \leq 10^3, v \leq 3*10^2 \)
+个人认为这题比上一题水.
+先用floyd处理出任意两间教室间的最短路.
+然后用dp.
+\( f_{i,j,k} \) 表示前i间教室, 用了j次交换机会, k表示上一次有没有换. 存答案.
+转移就是一个概率的算式, 较为简单. 略.
+ps 八年来第一次没有在赛场上考noip. 今年题目描述好长好长好长....</p>
+  </div>
+  <footer class="entry-footer"><span title='2016-11-19 13:51:22 +0000 UTC'>November 19, 2016</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to NOIP2016 DAY1 简要思路" href="/oi/5402cd/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>PD大作业
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>据说本学期程设的大作业是写个魔方.
+看到别人都开动了, laekov就有点方.
+所以laekov也开动了. 为了表现laekov很弱就随手记录一下好了.
+10.21 晚上9点左右开始写魔方类. 支持三轴整体转动和四种八向扭动. 其实是用两轴转动和一种扭动组合出来的. 然后发现写得不太对. debug到12点搞定.
+10.22 早上有运动会. 九点左右开始写层洗ai. 中午随便吃了点然后接着写. 全程没make. 大概一点左右写完开始debug. 两点惊闻有项目. 直到晚上六点半去听心理讲座接着debug. 晚上回寝室接着debug. 很多公式和判定都有小小的问题. 不过幸好函数都分开写了, 调试还算方便. 晚上九点左右能跑过随机了. core部分基本完结撒花. 顺手完善了一下document. 准备开始看qt.
+10.23 懒死了不想看qt. 晚上决定图形还是就用h5写吧.
+Historical Comments lyzy at 2016-10-26T20:22:21 膜Qt大神 至今不会release
+lyzy at 2016-10-26T20:27:43 我还是没有名字 I still have no name Todavia no tengo un nombre.
+lyzy at 2016-10-26T20:28:57 怎么办 What to do ¿Cómo？
+lyzy at 2016-10-26T20:29:21 太年轻 too young muy joven</p>
+  </div>
+  <footer class="entry-footer"><span title='2016-10-23 11:05:13 +0000 UTC'>October 23, 2016</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to PD大作业" href="/technical/bd3e8b/"></a>
+</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="prev" href="/page/8/">
+      «&nbsp;Prev&nbsp;
+    </a>
+    <a class="next" href="/page/10/">Next&nbsp;&nbsp;»
+    </a>
+  </nav>
+</footer>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

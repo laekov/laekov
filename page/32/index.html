@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head>
+	<meta name="generator" content="Hugo 0.111.3"><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>The Site of laekov</title>
+
+<meta name="description" content="">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="/index.xml">
+<link rel="alternate" type="application/json" href="/index.json">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="The Site of laekov" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="The Site of laekov"/>
+<meta name="twitter:description" content=""/>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "The Site of laekov",
+  "url": "/",
+  "description": "",
+  "thumbnailUrl": "/favicon.ico",
+  "sameAs": [
+      "https://github.com/laekov", "/cv", "/not-easily-available", "/not-easily-available", "/not-easily-available", "/not-easily-available", "index.xml"
+  ]
+}
+</script>
+</head>
+
+<body class="list" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>11月下旬计划
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>只有两个星期。
+第一个星期（也就是现在）先在bzoj上写些水题来找找感觉。
+根据卷子再看一遍半期之前的知识点。然后看一看历史书。
+第二个星期去学习kd-tree，然后写题。顺便可以研究一下高维树套树的问题。
+开始做文化课的作业。数理化生跟着进度，自己选择性多做一些作业。</p>
+  </div>
+  <footer class="entry-footer"><span title='2014-11-19 08:01:09 +0000 UTC'>November 19, 2014</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to 11月下旬计划" href="/oi/lofterimport_086/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>BZOJ2209 [Jsoi2011]括号序列
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>好恶心的数据结构题。
+考虑单个询问。把(视作1，把)视作-1，设minprefix为最小前缀和，设cp=(minprefix&#43;1)/2，那么答案为(sum/2&#43;cp*2)，使劲想想想得出来。
+所以就是用个splay或者smt来维护一下一段的最小前缀和以及总和。因为有两种操作所以写起来比较麻烦。要注意不要把操作看反了，还要注意标记的优先级和更新的问题。
+恶心了一下午。
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+struct dat {
+int sm, t[2][2];
+inline void operator =(const dat&amp; a) {
+sm = a. sm;
+t[0][0] = a. t[0][0];
+t[0][1] = a. t[0][1];
+t[1][0] = a. t[1][0];
+t[1][1] = a. t[1][1];
+}
+};
+const int maxn = 100009;
+int n, m, cr, a[maxn], sz[maxn], ls[maxn], rs[maxn], pt[maxn], vl[maxn];
+bool flip[maxn], rev[maxn];
+dat d[maxn];
+dat sgd(int v) {
+dat r;
+r. sm = v;...</p>
+  </div>
+  <footer class="entry-footer"><span title='2014-11-18 18:50:06 +0000 UTC'>November 18, 2014</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to BZOJ2209 [Jsoi2011]括号序列" href="/oi/lofterimport_087/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>BZOJ3236 作业
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>好厉害的数据结构题，时限太吓人了。
+最初想写莫队的，但是在数据范围下屈服了。
+用可持久化线段树套可持久化线段树来维护可过。虽然跑了97s。本机跑得快得多，虽然有两个点被卡到了18s。
+#include &lt;cstdio&gt;
+#include &lt;cctype&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+struct seg {
+int v, ls, rs;
+};
+#define readInt(_s_) {\
+_s_ = 0;\
+int _d_ = 0;\
+while (!isdigit(_d_ = getchar()));\
+while ((_s_ = _s_ * 10 &#43; _d_ - 48), isdigit(_d_ = getchar()));\
+}
+const int maxn = 100009;
+const int maxl = 20;
+const int maxnd = maxn * maxl * maxl;
+seg s[maxnd];
+int n, m, t, a[maxn], d[maxn], c[maxn], *r[maxn], sp, rt[maxn];...</p>
+  </div>
+  <footer class="entry-footer"><span title='2014-11-18 11:26:38 +0000 UTC'>November 18, 2014</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to BZOJ3236 作业" href="/oi/lofterimport_088/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>HDOJ5107 K-short Problem
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>前天晚上的best coder的题。
+数据太弱暴力都放过去了，而且还是错的。当然我也太naive了TT。
+我没管k&lt;=10，直接硬上树状数组套平衡树，用二分搞的。然后数组开小了不开心啊。
+#include &lt;cstdio&gt;
+#include &lt;cmath&gt;
+#include &lt;cctype&gt;
+#include &lt;algorithm&gt;
+#include &lt;set&gt;
+#include &lt;memory.h&gt;
+using namespace std;
+struct query {
+int x, y, k, n;
+};
+struct tower {
+int x, y, h;
+};
+inline bool cmpTower(const tower&amp; a, const tower&amp; b) {
+return a. x &lt; b. x;
+}
+inline bool cmpQuery(const query&amp; a, const query&amp; b) {
+return a. x &lt; b. x;
+}
+inline bool cmpP(int* a, int* b) {...</p>
+  </div>
+  <footer class="entry-footer"><span title='2014-11-17 11:20:21 +0000 UTC'>November 17, 2014</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to HDOJ5107 K-short Problem" href="/oi/lofterimport_090/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>省选前长期计划
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>做事总得有点计划性。
+省选是第二步。noip这步逗了，所以后面要加油。
+十一月和十二月重点搞数据结构。毕竟天冷不适合思考太复杂的数学问题TT比如kd-tree之类的东西拿来看一看，bzoj上以前wc的数据结构也不少。争取多刷些题。
+一月份大概会有会考，就乱刷些题当休闲了。
+二月有wc。然后到时候大神应该也比较多，可以多学习一下数学题和dp。还要把计算几何认真学习一下。
+三月大概会开始集训了。图论题比较重要。很多题就是看你记不记得那些结论。当然也有不少的烧脑题。需要多刷题来弥补智商的不足。
+四月么，加油！</p>
+  </div>
+  <footer class="entry-footer"><span title='2014-11-17 09:52:54 +0000 UTC'>November 17, 2014</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to 省选前长期计划" href="/oi/lofterimport_091/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>高二上半期总结
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>想起有这么一个总结，但是忘了带本子了，只好这样写了。
+半个学期在学习文化课的时间也不超过20天。大概是没有多少好总结的。
+半期的时候考懞了。虽然也花了三天的时间预习，不过那也只是简单地补补知识点，完全不能挽回任何东西。毕竟在高中的文化课里，书本和考试的差距还是有那么一些大的。感觉数学英语的差距要稍微小一些，另外四科就比较惨淡了。下半学期没有noip那么要紧的事情了，虽然还要停课，但是每天晚上也还是要做下作业，补一补知识点。数学物理和英语争取能跟上进度，这样压力应该会小一些。然后前半期的知识，每天做完作业之后也按顺序去前面把相应的作业做一做。班上有不少人批判刷题，但是现在血淋淋的事实就是，不刷题根本没有办法应付考试。
+另外就是竞赛吧。其实这半期也没有写多少议论文，题解和总结倒写了不少。noip考得应该还将就，明天出正式成绩。反正第一步是迈出去了，后面的路会更艰险，不过我有信心和决心去实现自己的愿望。选择了便认定这一条路走下去，剩者为王！
+好像虽然在停课，也参与了一些活动。比如运动会啥的，然后成绩也不错以至于被rp攻击了好几天。长跑教会了我不只是长跑。也许有许多人会和你在路上相遇，但是只有你自己坚持下来去冲击终点的红线。也许有人会跑得很快，但是你也不要怕，也许他们过会就会体力不支。也许有人会跑得很慢，但是也不要骄傲，他们也许是在保存实力。至于总有些人会战胜你，要保持一颗平和的心，因为有很多人也在以同样的视角看你。总之，你要做的就是不断地努力。即使是在你累得不能呼吸的时候，只要终点还在前方，你就得跑下去。长跑如是，竞赛如是，人生亦如是。当然长跑这个项目也不能停。好的身体在后面的学习中还是很重要的。
+另外在停课搞竞赛的时候也还是学到了很多其它的东西。比如如何去协助老师管理同学，如何组织大家做事，以及如何应对各种突发情况等等。这些也是人生宝贵的财富吧。管理人是比管理程序更麻烦也更有挑战性的一件事情，也是必需要学会的一件事情。
+下半学期的任务更加复杂。没有像noip一样的重大事件了，但是这半个学期将会深远地影响到高中结业以及省选，所以也要抓紧时间，提高效率。
+最后希望明天&#43;&#43; rp，也希望我不会再写一篇同样题目的总结。
+Historical Comments Unknown friend at 2014-11-16T22:56:11 OTL OTL OTL OTL OTL Unknown friend at 2014-11-16T22:57:13 现在还在赶……</p>
+  </div>
+  <footer class="entry-footer"><span title='2014-11-16 22:52:16 +0000 UTC'>November 16, 2014</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to 高二上半期总结" href="/oi/lofterimport_092/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>BZOJ3744 Gty的妹子序列
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>这题就是考你怎么把能优化常数的地方都优化一下。
+做法比较清晰，分块加持久化值域线段树。大块预处理，小块暴力算。虽然最初不想写持久化数据结构就试图用平衡树去做，结果发现做法是错的，单次复杂度是O(n*lgn)的。看来我太年轻了。后来改了但是常数巨大也没法跑。
+本来是一次询问里有若干次在持久化线段树上查询的。然后首先发现可以预处理出从开头到一块末尾这一段里有多少个比后面任意一个位置大的数的个数。还有一个数前面比它大的数的个数。这俩加起来常数差不多就小到能过了。
+丧心病狂！
+#include &lt;cstdio&gt;
+#include &lt;cctype&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+const int maxn = 50009;
+const int maxb = 259;
+const int maxnd = maxn * 30;
+struct seg {
+int v;
+seg *ls, *rs;
+};
+inline bool cmpP(const int* a, const int* b) {
+return *a &lt; *b;
+}
+#define readInt(_s_) {\
+int _d_;\
+_s_ = 0;\
+while (!isdigit(_d_ = getchar()));\
+while ((_s_ = _s_ * 10 &#43; _d_ - 48), isdigit(_d_ = getchar()));\...</p>
+  </div>
+  <footer class="entry-footer"><span title='2014-11-14 21:14:19 +0000 UTC'>November 14, 2014</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to BZOJ3744 Gty的妹子序列" href="/oi/lofterimport_095/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>BZOJ3333 排队计划
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>暑假的时候就听zhx讲过这题，不过好像当时讲复杂了。
+很容易知道答案就是每次减去被出列的人里面没有出过列的人在原序列里右边的比她矮的人的个数。
+所以每个人只会被算一次，均摊下来是O(n)的。然后就是怎么很快地找到这些人。我觉得用线段树比较方便，时间可以做到log。不知道是不是能用并查集。
+好写好调。
+#include &lt;cstdio&gt;
+#include &lt;cstdlib&gt;
+#include &lt;cctype&gt;
+#include &lt;memory.h&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+#define readInt(_s_) {\
+int _d_;\
+while (!isdigit(_d_ = getchar()));\
+_s_ = 0;\
+while ((_s_ = _s_ * 10 &#43; _d_ - 48), isdigit(_d_ = getchar()));\
+}
+typedef long long qw;
+#ifdef WIN32
+#define lld &#34;%I64d&#34;
+#else
+#define lld &#34;%lld&#34;
+#endif
+struct seg {
+int l, r, v, p;
+seg *ls, *rs;
+};
+const int maxn = 500009;...</p>
+  </div>
+  <footer class="entry-footer"><span title='2014-11-13 22:01:17 +0000 UTC'>November 13, 2014</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to BZOJ3333 排队计划" href="/oi/lofterimport_096/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>BZOJ2141 排队
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>连yjq都会做，简直是水暴了。
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+ 
+usingnamespacestd;
+ 
+constintmaxn = 20009;
+ 
+intn, m, a[maxn], t[maxn], *r[maxn], s;
+ 
+intbtQry(int* t, intp) {
+    ints = 0;
+    while(p)
+        s &#43;= t[p], p -= (p &amp; -p);
+    returns;
+}
+ 
+voidbtChg(int* t, intp, intv) {
+    while(p &lt; maxn)
+        t[p] &#43;= v, p &#43;= (p &amp; -p);
+}
+ 
+inlineboolcmpP(constint* a, constint* b) {
+    return*a &lt; *b;
+}
+ 
+intmain() {
+#ifndef ONLINE_JUDGE
+    freopen(&#34;in.txt&#34;, &#34;r&#34;, stdin);
+#endif...</p>
+  </div>
+  <footer class="entry-footer"><span title='2014-11-13 13:34:28 +0000 UTC'>November 13, 2014</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to BZOJ2141 排队" href="/oi/lofterimport_097/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>NOIP2014 DIARY2
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>居然感冒了，嗓子痛死了。
+8:00 进考场了，不准动机器，那还怎么配vim啊TT
+8:30 这密码。看了下题好像也不是特别麻烦啊，除了最后一题有个10^10000。
+8:35 第一题敲完了？
+8:45 第二题敲完了？
+8:50 第三题想不出其它的做法啊。哈希吧。
+9:10 花了四十分钟就做完了？点开扫雷的时候看到了身旁某兄怨念的眼神。
+10:00 第三题极限数据居然会tle。想打数据分治但是觉得不好的。发现可以先用自然溢出，如果没有暴再用模质数检查。这样好像0.5s能跑完。希望评测机不要比这个机子慢太多。
+11:00 第一题居然把&#43;&#43; x写scanf上面了，作死。
+12:00 终于交卷了。又老了一岁的感觉。
+12:15 照相，讨论。jason_yu好像第三题写得不太一样，其他人基本都想得一样。看谁长得帅了。
+然后某人的第六次noip就结束了。</p>
+  </div>
+  <footer class="entry-footer"><span title='2014-11-09 13:08:09 +0000 UTC'>November 9, 2014</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to NOIP2014 DIARY2" href="/oi/lofterimport_099/"></a>
+</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="prev" href="/page/31/">
+      «&nbsp;Prev&nbsp;
+    </a>
+    <a class="next" href="/page/33/">Next&nbsp;&nbsp;»
+    </a>
+  </nav>
+</footer>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

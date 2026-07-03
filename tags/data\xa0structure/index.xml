@@ -1,0 +1,1254 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>data\xa0structure on The Site of laekov</title>
+    <link>/tags/data%5Cxa0structure/</link>
+    <description>Recent content in data\xa0structure on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Thu, 08 Jan 2015 11:46:07 +0000</lastBuildDate><atom:link href="/tags/data%5Cxa0structure/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>BZOJ2527 [Poi2011]Meteors</title>
+      <link>/oi/lofterimport_008/</link>
+      <pubDate>Thu, 08 Jan 2015 11:46:07 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_008/</guid>
+      <description>全局二分+树状数组，其实还是比较水。
+比较坑的一点是直接求和会暴long long。如果≥Pi了要直接break掉。好坑啊。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cctype&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;&amp;nbsp;
+int _d_;
+#define readInt(_x_)&amp;nbsp;{&amp;nbsp;\
+int&amp;amp; _s_ =&amp;nbsp;(_x_&amp;nbsp;= 0);&amp;nbsp;\
+while (!isdigit(_d_&amp;nbsp;= getchar()));&amp;nbsp;\
+while (_s_&amp;nbsp;=&amp;nbsp;(_s_&amp;nbsp;&amp;lt;&amp;lt; 3)&amp;nbsp;+&amp;nbsp;(_s_ &amp;lt;&amp;lt; 1)&amp;nbsp;+ _d_ - 48, isdigit(_d_ = getchar()));&amp;nbsp;\
+}
+typedef long long dint;
+const int maxn = 300009;
+struct node {
+int v;
+node *next;
+};
+struct rain {
+int l, r, a;
+};
+struct bintree {
+dint t[maxn];
+int n;
+bintree()&amp;nbsp;{</description>
+    </item>
+    
+    <item>
+      <title>BZOJ1112 [POI2008]砖块</title>
+      <link>/oi/lofterimport_009/</link>
+      <pubDate>Wed, 07 Jan 2015 22:26:51 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_009/</guid>
+      <description>水一发。
+本来可以直接拿主席树找中位数的，但是因为main上只有32MB，所以只好写了个splay。感觉现在是爱上指针了。然后kth的时候少打个等号又wa又re好爽。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+typedef long long dint;
+#ifdef WIN32
+#define lld &amp;quot;%I64d&amp;quot;
+#else
+#define lld &amp;quot;%lld&amp;quot;
+#endif
+#define _l (long long int)
+const int maxn = 100009;
+#define nsz(p)&amp;nbsp;((p)?(p-&amp;gt;sz):0)
+#define sof(p)&amp;nbsp;((p)?(p-&amp;gt;s):0)
+struct splay_node {
+&amp;nbsp;&amp;nbsp; int v, sz;
+&amp;nbsp;&amp;nbsp; dint s;
+&amp;nbsp;&amp;nbsp; splay_node *ls,&amp;nbsp;*rs,&amp;nbsp;*pt;
+&amp;nbsp;&amp;nbsp; inline void init(int v0)&amp;nbsp;{
+&amp;nbsp;&amp;nbsp; v = v0;
+&amp;nbsp;&amp;nbsp; sz = 1;
+&amp;nbsp;&amp;nbsp; s = v0;
+&amp;nbsp;&amp;nbsp; pt = ls = rs = 0;</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3825 [Usaco2014 Nov]Marathon</title>
+      <link>/oi/lofterimport_017/</link>
+      <pubDate>Thu, 01 Jan 2015 16:08:54 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_017/</guid>
+      <description>英语阅读题。做完去翻译题面然后写英语作业了。
+就维护一下区间里的距离和and忽略一个点的收益的最大值。完了。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+struct seg {
+int l, r;
+int s, v;
+seg *ls,&amp;nbsp;*rs;
+};
+const int maxn = 100009;
+int n, m, x[maxn], y[maxn], d[maxn], v[maxn];
+seg *rt,&amp;nbsp;*sp;
+inline void upDis(int i)&amp;nbsp;{
+if (i&amp;nbsp;&amp;lt; n)
+d[i]&amp;nbsp;= abs(x[i + 1]&amp;nbsp;- x[i])&amp;nbsp;+ abs(y[i + 1]&amp;nbsp;- y[i]);
+else
+d[i]&amp;nbsp;= 0;
+}
+inline void upVal(int i)&amp;nbsp;{
+if (i&amp;nbsp;&amp;gt; 1 &amp;amp;&amp;amp; i &amp;lt; n)
+v[i]&amp;nbsp;= d[i - 1]&amp;nbsp;+ d[i]&amp;nbsp;- abs(x[i + 1]&amp;nbsp;- x[i - 1])&amp;nbsp;- abs(y[i + 1]&amp;nbsp;- y[i - 1]);</description>
+    </item>
+    
+    <item>
+      <title>BZOJ1367 [Baltic2004]sequence</title>
+      <link>/oi/lofterimport_022/</link>
+      <pubDate>Sat, 27 Dec 2014 21:01:20 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_022/</guid>
+      <description>退役了之后智商下降严重啊。今天bc死惨了。这比较水的题也是去看了题解才反应过来的。
+先把序列改成不降。
+然后把原来的序列分成一些段，每段的中位数递增。
+&amp;nbsp;&amp;nbsp;考虑新加入一个ai，如果它比前一段的中位数小，那么就把它和前一段合并，再拿合并之后的段去和再前一段比较一下。其实我也不能证明为啥是这样，只是感觉比较有道理。我肯定是没救了。
+中位数的话用可合并的堆来维护比较方便。orz各种神级堆，然后我还是用的左偏树。
+以后树要拿指针写所以代码巨长。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cctype&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+int _d_;
+#define readInt(_x_)&amp;nbsp;{&amp;nbsp;\
+int&amp;amp; _s_ = _x_;&amp;nbsp;\
+while (!isdigit(_d_&amp;nbsp;= getchar()));&amp;nbsp;\
+_s_ = 0;&amp;nbsp;\
+while ((_s_&amp;nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));&amp;nbsp;\
+}
+#define sof(p)&amp;nbsp;((p)?(p-&amp;gt;s):0)
+struct node {
+int v, s;
+node *ls,&amp;nbsp;*rs;
+inline void init(int x)&amp;nbsp;{
+v = x;
+s = 1;
+ls = 0;
+rs = 0;</description>
+    </item>
+    
+    <item>
+      <title>BZOJ1171 大sz的游戏</title>
+      <link>/oi/lofterimport_023/</link>
+      <pubDate>Sat, 27 Dec 2014 10:00:25 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_023/</guid>
+      <description>大概是今天不宜刷题来着。应该好好做作业。
+用线段树套单调队列可以把复杂度降到O(nlogn)。然后deque严重不靠谱，得用list才行。
+然后还是跑得巨慢。前面的人是排序搞定的么？表示不明觉厉。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cctype&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;deque&amp;gt;
+#include &amp;lt;list&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+int _d_;
+#define readInt(_x_)&amp;nbsp;{&amp;nbsp;\
+int&amp;amp; _s_ = _x_;&amp;nbsp;\
+while (!isdigit(_d_&amp;nbsp;= getchar()));&amp;nbsp;\
+_s_ = 0;&amp;nbsp;\
+while ((_s_&amp;nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));&amp;nbsp;\
+}
+//typedef deque &amp;lt;int&amp;gt; dque_i;
+typedef list &amp;lt;int&amp;gt; dque_i;
+struct seg {
+int l, r;
+dque_i u, d;
+seg *ls,&amp;nbsp;*rs;
+};
+const int maxn = 250009;</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3821 玄学</title>
+      <link>/oi/lofterimport_024/</link>
+      <pubDate>Fri, 26 Dec 2014 21:32:24 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_024/</guid>
+      <description>zhx+主席出的题，恐怖至极。
+写此题需要极高的常数优化技巧+耐心。
+本地跑到50s才在bzoj上压80s跑过。
+其实思路就是拿线段树套AVL把询问的时间复杂度优化到O(logn)。
+然后首先用treap会t爽+mle爽。
+然后avl需要各种常数优化。
+然后要在xxxxx地方优化。
+加上zhx牌读入优化+块状内存+抄std的AVL+.....终于在81s过了。
+orz比我快一倍的wangyisong神犇。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cstdlib&amp;gt;
+#include &amp;lt;cctype&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+const int BUF_SIZE = 300;
+char buf[BUF_SIZE],&amp;nbsp;*buf_s = buf,&amp;nbsp;*buf_t = buf + 1;
+#define PTR_NEXT()&amp;nbsp;\
+{&amp;nbsp;\
+buf_s ++;&amp;nbsp;\
+if (buf_s&amp;nbsp;== buf_t)&amp;nbsp;\
+{&amp;nbsp;\
+buf_s = buf;&amp;nbsp;\
+buf_t = buf + fread(buf, 1, BUF_SIZE, stdin);&amp;nbsp;\
+}&amp;nbsp;\
+}
+#define readInt(_n_)&amp;nbsp;\
+{&amp;nbsp;\
+while (*buf_s&amp;nbsp;!=&amp;nbsp;&#39;-&#39;&amp;nbsp;&amp;amp;&amp;amp;&amp;nbsp;!isdigit(*buf_s))&amp;nbsp;\
+PTR_NEXT();&amp;nbsp;\
+bool register _nega_ = false;&amp;nbsp;\
+if (*buf_s&amp;nbsp;==&amp;nbsp;&#39;-&#39;)&amp;nbsp;\</description>
+    </item>
+    
+    <item>
+      <title>BZOJ2738 矩阵乘法</title>
+      <link>/oi/lofterimport_025/</link>
+      <pubDate>Fri, 26 Dec 2014 17:45:06 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_025/</guid>
+      <description>全局二分的经典题。
+最初试图用持久化线段树和分块，然后欢快地tle+mle了。看到jason_yu和mhy过了，只能说自己的常数优化还不过关啊。
+第一次写这种二分。就是把所有东西扔进来快速排序，顺便考虑每个询问应该被扔到哪边。然后加树状数组来统计就好了。
+代码巨丑。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cctype&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+struct query {
+int x1, y1, x2, y2, k, n;
+};
+int _d_;
+#define readInt(_x_)&amp;nbsp;{&amp;nbsp;\
+int&amp;amp; _s_ = _x_;&amp;nbsp;\
+while (!isdigit(_d_&amp;nbsp;= getchar()));&amp;nbsp;\
+_s_ = 0;&amp;nbsp;\
+while ((_s_&amp;nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));&amp;nbsp;\
+}
+const int maxn = 509;
+const int maxq = 310009;
+int n, m, t, maxa, a[maxn][maxn], b[maxn][maxn], ttm;</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3809 Gty的二逼妹子序列</title>
+      <link>/oi/lofterimport_029/</link>
+      <pubDate>Mon, 22 Dec 2014 19:38:16 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_029/</guid>
+      <description>好一道卡常数。不仅卡时间，还卡空间。堪称丧心病狂的极致。
+首先因为空间小所以得用莫队。然后不知为何树状数组没有直接分块跑得快。
+没有救啦。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cctype&amp;gt;
+#include &amp;lt;cmath&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+&amp;nbsp;
+usingnamespacestd;
+&amp;nbsp;
+structqry {
+&amp;nbsp;&amp;nbsp;&amp;nbsp; intl, r, a, b, n;
+};
+&amp;nbsp;
+int_d_;
+#define readInt(_x_)&amp;nbsp;{&amp;nbsp;\
+&amp;nbsp;&amp;nbsp;&amp;nbsp; int&amp;amp; _s_ = _x_;&amp;nbsp;\
+&amp;nbsp;&amp;nbsp;&amp;nbsp; while(!isdigit(_d_ = getchar()));&amp;nbsp;\
+&amp;nbsp;&amp;nbsp;&amp;nbsp; _s_ = 0;&amp;nbsp;\
+&amp;nbsp;&amp;nbsp;&amp;nbsp; while((_s_ = _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));&amp;nbsp;\
+}
+&amp;nbsp;
+constintmaxn = 100009;
+constintmaxm = 1000009;
+&amp;nbsp;
+intn, m, bsz, a[maxn], c[maxn], w[maxn], b[maxn], ans[maxm];</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3728 PA2014Final Zarowki</title>
+      <link>/oi/lofterimport_032/</link>
+      <pubDate>Sun, 21 Dec 2014 14:21:28 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_032/</guid>
+      <description>贪心。从小到大每个灯泡找个小于等于它的最接近的房间去照。
+剩下的照不亮的房间直接换。
+剩下的背包空间把已经匹配的差最大的换掉。
+第一步要拿堆维护一下。剩下的直接排序。
+然后把nie写成-1了，no save。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cctype&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+typedef long long di;
+#ifdef WIN32
+#define difmt &amp;quot;%I64d&amp;quot;
+#else
+#define difmt &amp;quot;%lld&amp;quot;
+#endif
+const int maxn = 500009;
+int _d_;
+#define readInt(_x_)&amp;nbsp;{&amp;nbsp;\
+int&amp;amp; _s_ = _x_;&amp;nbsp;\
+while (!isdigit(_d_&amp;nbsp;= getchar()));&amp;nbsp;\
+_s_ = 0;&amp;nbsp;\
+while ((_s_&amp;nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));&amp;nbsp;\
+}
+int n, k, p[maxn], w[maxn], x[maxn], t;</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3786 星系探索</title>
+      <link>/oi/lofterimport_053/</link>
+      <pubDate>Tue, 02 Dec 2014 17:16:23 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_053/</guid>
+      <description>前两天还在YY动态DFS序呢，这就冒了一个出来。
+动态DFS序的郁闷之处在于不好维护dfs序上的end。而把反括号建出来正好能解决这个问题。
+然后就splay写得飞慢不知道怎么回事。
+用两个栈就可以迭代做出括号序列，自己YY出来的给自己赞一个。
+然后是目前最长的代码和倒数第二慢的时间。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cctype&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+int _d_;
+#define readInt(_x_)&amp;nbsp;{&amp;nbsp;\
+int &amp;amp;_s_&amp;nbsp;= _x_;&amp;nbsp;\
+while (!isdigit(_d_&amp;nbsp;= getchar()));&amp;nbsp;\
+_s_ = 0;&amp;nbsp;\
+while ((_s_&amp;nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));&amp;nbsp;\
+}
+#define readOpt(_x_)&amp;nbsp;{&amp;nbsp;\
+while (!isupper(_d_&amp;nbsp;= getchar()));&amp;nbsp;\
+_x_ = _d_;&amp;nbsp;\
+}
+typedef long long qw;
+#ifdef WIN32
+#define lld &amp;quot;%I64d&amp;quot;
+#else
+#define lld &amp;quot;%lld&amp;quot;
+#endif
+struct edge {
+int t;</description>
+    </item>
+    
+    <item>
+      <title>Scoi2013多项式的运算</title>
+      <link>/oi/lofterimport_065/</link>
+      <pubDate>Wed, 26 Nov 2014 16:04:09 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_065/</guid>
+      <description>平衡树维护序列的老题。之前用SMT写过，不过在bzoj上就tle了。splay大法好。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cctype&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+int _d_;
+#define readInt(_x_)&amp;nbsp;{&amp;nbsp;\
+int&amp;amp; _s_ = _x_;&amp;nbsp;\
+while (!isdigit(_d_&amp;nbsp;= getchar()));&amp;nbsp;\
+_s_ = 0;&amp;nbsp;\
+while ((_s_&amp;nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));&amp;nbsp;\
+}
+#define readStr(_s_)&amp;nbsp;{&amp;nbsp;\
+char* _i_ = _s_;&amp;nbsp;\
+while (!islower(_d_&amp;nbsp;= getchar()));&amp;nbsp;\
+while ((*(_i_&amp;nbsp;++)&amp;nbsp;= _d_), islower(_d_ = getchar()));&amp;nbsp;\
+*(_i_)&amp;nbsp;= 0;&amp;nbsp;\
+}
+#define _l (long long int)
+const int maxn = 300009;
+const int mod = 20130426;</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3289 Mato的文件管理</title>
+      <link>/oi/lofterimport_067/</link>
+      <pubDate>Mon, 24 Nov 2014 20:52:44 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_067/</guid>
+      <description>离散，然后树状数组+莫队。
+最初用的是直接粘过来的1488的sbt，然后极限随机数据要跑14s。好郁闷。
+然后改用数状数组就变1s了。是我再次把sbt写丑了还是它常数够厉害TT
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+struct query {
+int i, l, r, pl, pr;
+};
+typedef unsigned int uint;
+const int maxn = 50009;
+#define update(_p_)&amp;nbsp;(sz[_p_]=sz[ls[_p_]]+sz[rs[_p_]]+1)
+inline bool cmpQry(const query&amp;amp; a, const query&amp;amp; b)&amp;nbsp;{
+return a. pl &amp;lt; b. pl ||&amp;nbsp;(a. pl == b. pl &amp;amp;&amp;amp; a. pr &amp;gt; b. pr);
+}
+inline bool cmpP(int* a, int* b)&amp;nbsp;{
+return *a&amp;nbsp;&amp;lt;&amp;nbsp;*b;
+}
+int n, m, bsz, a[maxn],&amp;nbsp;*r[maxn], maxa, t[maxn];</description>
+    </item>
+    
+    <item>
+      <title>BZOJ1488 || POJ1741 Tree</title>
+      <link>/oi/lofterimport_068/</link>
+      <pubDate>Mon, 24 Nov 2014 19:53:03 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_068/</guid>
+      <description>据说是男人八题。
+状态太差调了一节宝贵的晚自习，严重不开心。
+异常裸的点分治。然后里面还是套的sbt。
+卡空间比较丧病，不能开nlogn，要想办法开到n。其实就是找重心分治完再bfs一遍。最初没有写，所以mle爽，在poj上还显示的是re。
+然后各种逗的错误调啊调。把代码调得怪丑。我还是naive啊。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+struct edge {
+int t, v;
+edge *next;
+};
+const int maxn = 40009;
+int n, k, ans;
+int d[maxn], tvis, vis[maxn], vd[maxn], sz[maxn], qu[maxn];
+edge *ep,&amp;nbsp;*head[maxn], elst[maxn * 2];
+#define update(_p_)&amp;nbsp;(sz[_p_]=sz[ls[_p_]]+sz[rs[_p_]]+1)
+namespace sbt {
+const int maxnd = maxn * 2;
+const int balc = 5;
+int nst[maxnd], tn;
+int ls[maxnd], rs[maxnd], vl[maxnd], sz[maxnd];
+inline void lRot(int&amp;amp; p)&amp;nbsp;{</description>
+    </item>
+    
+    <item>
+      <title>BZOJ2626 JZPFAR</title>
+      <link>/oi/lofterimport_069/</link>
+      <pubDate>Mon, 24 Nov 2014 16:04:27 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_069/</guid>
+      <description>jason_yu表示是kd-tree的裸题。
+拿个堆维护一下答案，然后剪剪枝啥的，写起来轻松愉快还比lct短。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cctype&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+typedef long long qw;
+typedef pair &amp;lt;qw, int&amp;gt; hele;
+#define _l (qw)
+int _d_;
+bool _nag_;
+#define readInt(_x_)&amp;nbsp;{&amp;nbsp;\
+int &amp;amp;_s_&amp;nbsp;= _x_;&amp;nbsp;\
+_s_ = 0;&amp;nbsp;\
+_nag_ = 0;&amp;nbsp;\
+while (!isdigit(_d_&amp;nbsp;= getchar()))&amp;nbsp;\
+if (_d_&amp;nbsp;==&amp;nbsp;&#39;-&#39;)&amp;nbsp;\
+_nag_ = 1;&amp;nbsp;\
+while ((_s_&amp;nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));&amp;nbsp;\
+if (_nag_)&amp;nbsp;\
+_s_ =&amp;nbsp;- _s_;\
+}
+const int maxn = 100009;</description>
+    </item>
+    
+    <item>
+      <title>BZOJ1227 [SDOI2009]虔诚的墓主人</title>
+      <link>/oi/lofterimport_070/</link>
+      <pubDate>Mon, 24 Nov 2014 10:59:07 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_070/</guid>
+      <description>写完Kdtree感觉整个人都要离散了。
+这题比较神，之前连题都没看懂。每个位置的方案数就是上下左右的数量的组合数的乘积。把x离散之后维护区间中左&amp;times;右的和，上下y相同的扫一遍搞定。（感觉说了像没说）
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+struct point {
+int x, y;
+};
+const int maxn = 100009;
+const int maxk = 13;
+inline bool cmpP(int* a, int* b)&amp;nbsp;{
+return *a&amp;nbsp;&amp;lt;&amp;nbsp;*b;
+}
+inline bool cmpy(const point&amp;amp; a, const point&amp;amp; b)&amp;nbsp;{
+return (a. y &amp;lt; b. y)&amp;nbsp;||&amp;nbsp;(a. y == b. y &amp;amp;&amp;amp; a. x &amp;lt; b. x);
+}
+point a[maxn];
+int n, m, c[maxn][maxk], cx[maxn], tx[maxn], t[maxn], maxx, ans;</description>
+    </item>
+    
+    <item>
+      <title>BZOJ2648 SJY摆棋子</title>
+      <link>/oi/lofterimport_071/</link>
+      <pubDate>Mon, 24 Nov 2014 10:23:51 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_071/</guid>
+      <description>Log^2的cdq分治怎么也跑不过。优化常数优化到底了也不行。所以kd大法好。
+怎么都觉得kd树就一暴力+剪枝=log。
+思想就是先按x二分，然后再按y二分，然后再按x二分。然后这玩意比较像平衡树，中间那个点是要代表一个真实的结点的而不是一个值。然后insert的时候感觉复杂度完全没有保证啊。如果要保证可能要替罪羊一类的东西吧。虽然这题好像不用保证。
+询问的时候就更迷了，就是估计一个离哪边近，然后先搜。然后另一边如果估计值还小于答案就再搜一遍。好诡异，时间复杂度是怎么来的。
+然后代码略丑，加了zhx式读入优化后长度xxxxx。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cctype&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+#define READ_OPTIMIZE
+#ifdef READ_OPTIMIZE
+/*int _d_;
+#define readInt(_s_)&amp;nbsp;{\
+_s_ = 0;\
+while (!isdigit(_d_&amp;nbsp;= getchar()));\
+while ((_s_&amp;nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\
+}*/
+const int BUF_SIZE = 30;
+char buf[BUF_SIZE],&amp;nbsp;*buf_s = buf,&amp;nbsp;*buf_t = buf + 1;
+&amp;nbsp;&amp;nbsp;
+#define PTR_NEXT()&amp;nbsp;\
+{&amp;nbsp;\
+buf_s ++;&amp;nbsp;\
+if (buf_s&amp;nbsp;== buf_t)&amp;nbsp;\
+{&amp;nbsp;\
+buf_s = buf;&amp;nbsp;\
+buf_t = buf + fread(buf, 1, BUF_SIZE, stdin);&amp;nbsp;\</description>
+    </item>
+    
+    <item>
+      <title>BZOJ2716 [Violet 3]天使玩偶</title>
+      <link>/oi/lofterimport_073/</link>
+      <pubDate>Mon, 24 Nov 2014 08:43:28 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_073/</guid>
+      <description>看时间比较宽么，写一个log^2的cdq+树状数组么。
+然后被2648卡了。学kd-tree吧。
+naive。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cctype&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+int _d_;
+#define readInt(_s_)&amp;nbsp;{\
+_s_ = 0;\
+while (!isdigit(_d_&amp;nbsp;= getchar()));\
+while ((_s_&amp;nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\
+}
+struct point {
+int x, y, t, i;
+};
+const int maxn = 500009;
+const int maxz = 1000009;
+const int inf = 0x3f3f3f3f;
+inline bool cmpPoint(const point&amp;amp; a, const point&amp;amp; b)&amp;nbsp;{
+return a.</description>
+    </item>
+    
+    <item>
+      <title>BZOJ2506 calc</title>
+      <link>/oi/lofterimport_074/</link>
+      <pubDate>Sun, 23 Nov 2014 17:32:59 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_074/</guid>
+      <description>看到取模瞬间想到了昨天的bc。
+应该这是取模然后求啥玩意的时候的比较通用的解法吧。p&amp;lt;=sqrt(maxv)的预处理，剩下的直接暴力。结果预处理又写丑了一回。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+const int maxn = 100009;
+const int maxv = 10000;
+const int bsz = 100;
+const int maxb = 103;
+int n, m;
+int a[maxn], vb[maxb][maxb], ve[maxb][maxb];
+int xb[maxn], xe[maxn];
+int i_buf[maxn * maxb * 2], tib;
+void pre()&amp;nbsp;{
+memset(ve, 0, sizeof(ve));
+memset(xe, 0, sizeof(xe));
+for (int i = 1; i &amp;lt;= n;&amp;nbsp;++ i)
+++ xe[a[i]];
+for (int i = 0; i &amp;lt;= maxv;&amp;nbsp;++ i)&amp;nbsp;{</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3489 A simple rmq problem</title>
+      <link>/oi/lofterimport_076/</link>
+      <pubDate>Sun, 23 Nov 2014 16:15:05 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_076/</guid>
+      <description>乍一看不会。
+想了想，求出每一个数的前一个相同的数的位置和后一个相同的数的位置，然后询问就是L&amp;lt;=i&amp;lt;=R &amp;amp;&amp;amp; next[i]&amp;gt;=R &amp;amp;&amp;amp; last[i]&amp;nbsp;&amp;lt;= L的最大的a[i]。这三层树套树啊！？
+好像不带修改，那可以把一个Log的树优化成1的前缀和。
+然后最值不满足减法，所以就把L&amp;lt;=i&amp;lt;=R拿动态建的线段树套里面好了。
+卡空间400+MB过了，我对拍的大数据把网上的某人的程序干掉了哈哈。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+struct seg {
+int v, ls, rs;
+};
+const int maxn = 100009;
+const int maxnd = maxn * 409;
+int n, m, a[maxn], v[maxn], ls[maxn], nx[maxn], o[maxn];
+int t[maxn], sp;
+seg sl[maxnd];
+inline bool cmpO(const int&amp;amp; a, const int&amp;amp; b)&amp;nbsp;{
+return ls[a]&amp;nbsp;&amp;lt; ls[b];
+}
+int getLa(int l0)&amp;nbsp;{
+int l = 1, r = n;</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3282 Tree</title>
+      <link>/oi/lofterimport_077/</link>
+      <pubDate>Sun, 23 Nov 2014 14:40:47 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_077/</guid>
+      <description>LCT的简单题。好久不写都手生了，还把rotate写错了一点点，导致找了半天错。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cctype&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+int _d_;
+#define readInt(_s_)&amp;nbsp;{\
+_s_ = 0;\
+while (!isdigit(_d_&amp;nbsp;= getchar()));\
+while ((_s_&amp;nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\
+}
+const int maxn = 300009;
+int n, m;
+int ls[maxn], rs[maxn], pt[maxn], rv[maxn], vl[maxn], vs[maxn];
+inline void update(const int&amp;amp; p)&amp;nbsp;{
+vs[p]&amp;nbsp;= vs[ls[p]]&amp;nbsp;^ vl[p]&amp;nbsp;^ vs[rs[p]];
+}
+inline void fix(int p)&amp;nbsp;{
+if (rv[p])&amp;nbsp;{
+swap(ls[p], rs[p]);
+if (ls[p])</description>
+    </item>
+    
+    <item>
+      <title>BZOJ1492 [NOI2007]货币兑换Cash</title>
+      <link>/oi/lofterimport_078/</link>
+      <pubDate>Sun, 23 Nov 2014 13:51:36 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_078/</guid>
+      <description>cdq分治第二题。
+最初没看清题所以一直不会做。晕。
+cdq教程里的模板题。
+显然所有卖都是卖完，买都是把钱买光。
+f[i]表示第i天结束后最多持有b卷的数量，ans表示当前最多能赚到的rmb。
+方程是：
+f[i]&amp;nbsp;= max(ans, f[j]&amp;nbsp;* r[j]&amp;nbsp;* a[i]&amp;nbsp;+ f[j]&amp;nbsp;* b[i])&amp;nbsp;/&amp;nbsp;(a[i]&amp;nbsp;* r[i]&amp;nbsp;+ b[i])。
+移项得：
+f[j]&amp;nbsp;=&amp;nbsp;-(a[i]/b[i])&amp;nbsp;*&amp;nbsp;(r[j]&amp;nbsp;* f[j])&amp;nbsp;+&amp;nbsp;(r[i]&amp;nbsp;* a[i]&amp;nbsp;+ b[i])&amp;nbsp;/ b[i]&amp;nbsp;* f[j]。
+把r[j]*f[j]看作x，把f[j]看作y，好像可以斜率优化了。
+&amp;nbsp;不急，f[j]好像没有单调性吧？不对，好像a[i]/b[i]也没有单调性！？
+平衡树维护凸壳？想起了上回那道hnoi的作业，调了一晚上，怎么能这样。
+然后，其实可以cdq。
+每次对右边有影响的是左边的凸壳，所以先跑左边，计算左边对右边的影响，再跑右边。这回是中序遍历，而不是Mokia那题的后序。
+原来cdq可以这么神奇。
+然后又把凸壳写丑了TT。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+const int maxn = 100009;
+double ans, s, f[maxn], a[maxn], b[maxn], r[maxn];
+int n, h[maxn], tmp[maxn], t;
+inline double getx(const int&amp;amp; i)&amp;nbsp;{
+return f[i]&amp;nbsp;* r[i];
+}
+inline double gety(const int&amp;amp; i)&amp;nbsp;{
+return f[i];</description>
+    </item>
+    
+    <item>
+      <title>BZOJ1176 [Balkan2007]Mokia</title>
+      <link>/oi/lofterimport_081/</link>
+      <pubDate>Fri, 21 Nov 2014 21:42:33 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_081/</guid>
+      <description>cdq分治第一题。
+最近的主题是数据结构，这玩意应该也算一种和莫队一样厉害的黑暗大法吧。有些需要你把在线写得足够厉害的题可以用这玩意来水。
+写起来很像归并排序，按时间分治，然后再按某个坐标之类的玩意归并一下，归并的时候像求逆序对一样做，计算一边对另一边的贡献，顺便用点啥数据结构维护一下之类的。
+这题有点像上帝造题七分钟。不过w的范围显然不是让你写二维树状数组。感觉那题可以用cdq水过，不过cdq好像不能用简单的二维树状数组，至少要动态一下啥的，然后空间就bye了。
+这题就是按x排序查询y。课件上的原题。
+另外依然不会迗代，还是写的递归。（找到了fft的感觉）
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cctype&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+typedef long long qw;
+#ifdef WIN32
+#define lld &amp;quot;%I64d&amp;quot;
+#else
+#define lld &amp;quot;%lld&amp;quot;
+#endif
+struct query {
+int t, x, y, v;
+inline query(int t0 = 0, int x0 = 0, int y0 = 0, int v0 = 0)&amp;nbsp;{
+t = t0, x = x0, y = y0, v = v0;
+}
+};</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3262 陌上花开</title>
+      <link>/oi/lofterimport_082/</link>
+      <pubDate>Fri, 21 Nov 2014 14:50:45 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_082/</guid>
+      <description>出题人应该才是真正的机房语文竞赛冠军。
+好厉害的数据结构。cdq的不会。
+树状数组套平衡树跑得飞快。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+struct flower {
+int a, b, c;
+};
+const int maxn = 100009;
+const int maxv = 200009;
+const int maxl = 17;
+#define update(p)&amp;nbsp;(sz[p]=sz[ls[p]]+sz[rs[p]]+1)
+namespace sbt {
+const int maxnd = maxn * maxl;
+const int balc = 10;
+int tn, ls[maxnd], rs[maxnd], sz[maxnd], vl[maxnd];
+void init()&amp;nbsp;{
+tn = 0;
+sz[0]&amp;nbsp;= 0;
+}
+inline void lRot(int&amp;amp; p)&amp;nbsp;{</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3123 [Sdoi2013]森林</title>
+      <link>/oi/lofterimport_085/</link>
+      <pubDate>Thu, 20 Nov 2014 15:49:34 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_085/</guid>
+      <description>数据结构题神马的最开心了。
+乍一看动态树，其实不然。复杂度可以再乘一个log的。
+启发式合并。然后合并的时候直接暴力重构整棵子树，建主席树只和父亲节点有关，所以还是能搞定。
+写了一个机智的垃圾回收把log^2的空间变成了log。然后发现空间有512MB。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cctype&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+struct edge {
+int t;
+edge* next;
+};
+struct seg {
+int v, c;
+seg *ls,&amp;nbsp;*rs;
+};
+#define readInt(_s_)&amp;nbsp;{\
+int _d_;\
+_s_ = 0;\
+while (!isdigit(_d_&amp;nbsp;= getchar()));\
+while ((_s_&amp;nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\
+}
+const int maxn = 80009;
+const int maxl = 33;
+const int maxnd = maxn * maxl;</description>
+    </item>
+    
+    <item>
+      <title>BZOJ2209 [Jsoi2011]括号序列</title>
+      <link>/oi/lofterimport_087/</link>
+      <pubDate>Tue, 18 Nov 2014 18:50:06 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_087/</guid>
+      <description>好恶心的数据结构题。
+考虑单个询问。把(视作1，把)视作-1，设minprefix为最小前缀和，设cp=(minprefix+1)/2，那么答案为(sum/2+cp*2)，使劲想想想得出来。
+所以就是用个splay或者smt来维护一下一段的最小前缀和以及总和。因为有两种操作所以写起来比较麻烦。要注意不要把操作看反了，还要注意标记的优先级和更新的问题。
+恶心了一下午。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+struct dat {
+int sm, t[2][2];
+inline void operator =(const dat&amp;amp; a)&amp;nbsp;{
+sm = a. sm;
+t[0][0]&amp;nbsp;= a. t[0][0];
+t[0][1]&amp;nbsp;= a. t[0][1];
+t[1][0]&amp;nbsp;= a. t[1][0];
+t[1][1]&amp;nbsp;= a. t[1][1];
+}
+};
+const int maxn = 100009;
+int n, m, cr, a[maxn], sz[maxn], ls[maxn], rs[maxn], pt[maxn], vl[maxn];
+bool flip[maxn], rev[maxn];
+dat d[maxn];
+dat sgd(int v)&amp;nbsp;{
+dat r;
+r. sm = v;</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3236 作业</title>
+      <link>/oi/lofterimport_088/</link>
+      <pubDate>Tue, 18 Nov 2014 11:26:38 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_088/</guid>
+      <description>好厉害的数据结构题，时限太吓人了。
+最初想写莫队的，但是在数据范围下屈服了。
+用可持久化线段树套可持久化线段树来维护可过。虽然跑了97s。本机跑得快得多，虽然有两个点被卡到了18s。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cctype&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+struct seg {
+int v, ls, rs;
+};
+#define readInt(_s_)&amp;nbsp;{\
+_s_ = 0;\
+int _d_ = 0;\
+while (!isdigit(_d_&amp;nbsp;= getchar()));\
+while ((_s_&amp;nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\
+}
+const int maxn = 100009;
+const int maxl = 20;
+const int maxnd = maxn * maxl * maxl;
+seg s[maxnd];
+int n, m, t, a[maxn], d[maxn], c[maxn],&amp;nbsp;*r[maxn], sp, rt[maxn];</description>
+    </item>
+    
+    <item>
+      <title>HDOJ5107 K-short Problem</title>
+      <link>/oi/lofterimport_090/</link>
+      <pubDate>Mon, 17 Nov 2014 11:20:21 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_090/</guid>
+      <description>前天晚上的best coder的题。
+数据太弱暴力都放过去了，而且还是错的。当然我也太naive了TT。
+我没管k&amp;lt;=10，直接硬上树状数组套平衡树，用二分搞的。然后数组开小了不开心啊。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cmath&amp;gt;
+#include &amp;lt;cctype&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+#include &amp;lt;set&amp;gt;
+#include &amp;lt;memory.h&amp;gt;
+using namespace std;
+struct query {
+int x, y, k, n;
+};
+struct tower {
+int x, y, h;
+};
+inline bool cmpTower(const tower&amp;amp; a, const tower&amp;amp; b)&amp;nbsp;{
+return a. x &amp;lt; b. x;
+}
+inline bool cmpQuery(const query&amp;amp; a, const query&amp;amp; b)&amp;nbsp;{
+return a. x &amp;lt; b. x;
+}
+inline bool cmpP(int* a, int* b)&amp;nbsp;{</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3744 Gty的妹子序列</title>
+      <link>/oi/lofterimport_095/</link>
+      <pubDate>Fri, 14 Nov 2014 21:14:19 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_095/</guid>
+      <description>这题就是考你怎么把能优化常数的地方都优化一下。
+做法比较清晰，分块加持久化值域线段树。大块预处理，小块暴力算。虽然最初不想写持久化数据结构就试图用平衡树去做，结果发现做法是错的，单次复杂度是O(n*lgn)的。看来我太年轻了。后来改了但是常数巨大也没法跑。
+本来是一次询问里有若干次在持久化线段树上查询的。然后首先发现可以预处理出从开头到一块末尾这一段里有多少个比后面任意一个位置大的数的个数。还有一个数前面比它大的数的个数。这俩加起来常数差不多就小到能过了。
+丧心病狂！
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cctype&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+const int maxn = 50009;
+const int maxb = 259;
+const int maxnd = maxn * 30;
+struct seg {
+int v;
+seg *ls,&amp;nbsp;*rs;
+};
+inline bool cmpP(const int* a, const int* b)&amp;nbsp;{
+return *a&amp;nbsp;&amp;lt;&amp;nbsp;*b;
+}
+#define readInt(_s_)&amp;nbsp;{\
+int _d_;\
+_s_ = 0;\
+while (!isdigit(_d_&amp;nbsp;= getchar()));\
+while ((_s_&amp;nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3333 排队计划</title>
+      <link>/oi/lofterimport_096/</link>
+      <pubDate>Thu, 13 Nov 2014 22:01:17 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_096/</guid>
+      <description>暑假的时候就听zhx讲过这题，不过好像当时讲复杂了。
+很容易知道答案就是每次减去被出列的人里面没有出过列的人在原序列里右边的比她矮的人的个数。
+所以每个人只会被算一次，均摊下来是O(n)的。然后就是怎么很快地找到这些人。我觉得用线段树比较方便，时间可以做到log。不知道是不是能用并查集。
+好写好调。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cstdlib&amp;gt;
+#include &amp;lt;cctype&amp;gt;
+#include &amp;lt;memory.h&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+#define readInt(_s_)&amp;nbsp;{\
+int _d_;\
+while (!isdigit(_d_&amp;nbsp;= getchar()));\
+_s_ = 0;\
+while ((_s_&amp;nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\
+}
+typedef long long qw;
+#ifdef WIN32
+#define lld &amp;quot;%I64d&amp;quot;
+#else
+#define lld &amp;quot;%lld&amp;quot;
+#endif
+struct seg {
+int l, r, v, p;
+seg *ls,&amp;nbsp;*rs;
+};
+const int maxn = 500009;</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3585 mex</title>
+      <link>/oi/lofterimport_112/</link>
+      <pubDate>Thu, 30 Oct 2014 15:58:58 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_112/</guid>
+      <description>很久之前就看过的题。不过一直没有勇气去做。爱真的需要勇气。
+mex这个函数的性质比较奇妙。一端确定的话一定是单增的。两段和起来也一定是增加的。
+可以很方便地求出从1到任何一个位置的mex。考虑把询问离线。按左端点排序。如果去掉一个数，那么对于右端点在（从这个数到下一个等于这个数的位置）这一段里的询问，它的值至多是这个数。
+所以用线段树维护区修单查维护一下区间最小值就好了。注意如果没有下一个数了那么右端点是n。
+据说要离散不过被我用map给水过去了。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cctype&amp;gt;
+#include &amp;lt;memory.h&amp;gt;
+#include &amp;lt;map&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+#define readInt(_s_)&amp;nbsp;{\
+int _d_;\
+_s_ = 0;\
+while (!isdigit(_d_&amp;nbsp;= getchar()));\
+while ((_s_&amp;nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\
+}
+struct seg {
+int l, r, z;
+seg *ls,&amp;nbsp;*rs;
+};
+struct query {
+int l, r, n;
+};
+inline bool cmpQuery(const query&amp;amp; a, const query&amp;amp; b)&amp;nbsp;{
+return a. l &amp;lt; b.</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3626 LCA</title>
+      <link>/oi/lofterimport_116/</link>
+      <pubDate>Mon, 27 Oct 2014 20:52:07 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_116/</guid>
+      <description>比较神奇的一道树的题。
+做法是离线。想了好久的在线啊。
+把询问拆成0~l-1和0~r。挨个从0开始加点。加点就是把从根到这个点的所有点权+1，询问就是询问这个点到根的点权和。好机智的做法。
+代码还比较舒服。dfs+树链剖分+树状数组。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;memory.h&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+struct edge {
+int t;
+edge *next;
+};
+struct query {
+int p, v, n, c;
+inline query(int p0 = 0, int v0 = 0, int n0 = 0, int c0 = 0)&amp;nbsp;{
+p = p0, v = v0, n = n0, c = c0;
+}
+};
+const int maxn = 50009;
+const int mod = 201314;</description>
+    </item>
+    
+    <item>
+      <title>BZOJ1858 序列操作</title>
+      <link>/oi/lofterimport_120/</link>
+      <pubDate>Thu, 23 Oct 2014 16:18:13 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_120/</guid>
+      <description>一堆标记的线段树。
+翻过的，没翻过的，都分开记下来。然后还要注意flip标记与set标记的优先级关系和互相之间的影响。然后就完了。
+虽说在这个颓废的下午还是花了好一会才调通。&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+struct dat {
+int l, r, s, t, m;
+};
+struct seg {
+int l, r, f, z;
+dat d[2];
+seg *ls,&amp;nbsp;*rs;
+};
+const int maxn = 100009;
+seg *rt,&amp;nbsp;*sp;
+int n, m, a[maxn];
+inline dat sgd(int v, int s = 1)&amp;nbsp;{
+dat r;
+r. l = s * v;
+r. r = s * v;
+r. s = s * v;</description>
+    </item>
+    
+    <item>
+      <title>BZOJ1146 [CTSC2008]网络管理Network</title>
+      <link>/oi/lofterimport_121/</link>
+      <pubDate>Thu, 23 Oct 2014 12:09:56 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_121/</guid>
+      <description>数据结构题总是很令人开心的。
+这题据说可以主席树？好麻烦的说。
+树链剖分+线段树+treap就好了吧。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cstdlib&amp;gt;
+#include &amp;lt;cctype&amp;gt;
+#include &amp;lt;memory.h&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+struct edge {
+int t;
+edge *next;
+};
+struct seg {
+int l, r, v;
+seg *ls,&amp;nbsp;*rs;
+};
+#define readInt(_s_)&amp;nbsp;{\
+int _d_;\
+_s_ = 0;\
+while (!isdigit(_d_&amp;nbsp;= getchar()));\
+while ((_s_&amp;nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\
+}
+const int maxn = 80009;
+const int maxv = 1e8;
+namespace treap {</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3589 动态树</title>
+      <link>/oi/lofterimport_122/</link>
+      <pubDate>Thu, 23 Oct 2014 10:50:38 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_122/</guid>
+      <description>啊啊看到动态树被吓尿了。
+然后发现动的不是树的形态是点权。
+树链剖分+dfs序么。
+重点是我TLE了。
+最初的写法是直接查询然后把访问过的点打个标记。一个询问做完再标记回去。然后，tle。
+参考jason_yu的做法，找出所有dfs序上要询问的区间，合并之后询问，应该不会tle了吧？还是tle。
+最后发现是线段树lazy标记的地方写成n^2了。开心啊。
+事实证明第一种写法12秒左右，第二种写法3秒多。当然也要考虑我巨丑的常数。
+所以我还是太naive了。
+代码当然要粘快的。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cctype&amp;gt;
+#include &amp;lt;memory.h&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+struct edge {
+int t;
+edge *next;
+};
+struct seg {
+int l, r, a, v;
+seg *ls,&amp;nbsp;*rs;
+};
+struct rect {
+int l, r;
+inline rect(int l0 = 0, int r0 = 0)&amp;nbsp;{
+l = l0, r = r0;
+}
+inline rect operator +(const rect&amp;amp; a) const {</description>
+    </item>
+    
+    <item>
+      <title>BZOJ1597 [Usaco2008 Mar]土地购买</title>
+      <link>/oi/lofterimport_133/</link>
+      <pubDate>Mon, 20 Oct 2014 21:01:01 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_133/</guid>
+      <description>大概也不是很难。毕竟只有做水题的份。
+就把原来的土地按x排个序，把能合并的合并，变成一个x单增y单减的序列。
+然后就是dp。f[i]&amp;nbsp;= min(f[j]&amp;nbsp;+ y[j+1]*x[i])，可以单调的斜率优化。
+符号比较郁闷还搞错了好几次。
+所以说我太弱了啊怎么办啊。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+typedef long long qw;
+typedef long double exf;
+#ifdef WIN32
+#define lld &amp;quot;%I64d&amp;quot;
+#else
+#define lld &amp;quot;%lld&amp;quot;
+#endif
+#define _l (qw)
+#define _f (exf)
+struct field {
+int x, y;
+};
+inline bool cmpField(const field&amp;amp; a, const field&amp;amp; b)&amp;nbsp;{
+return (a. x &amp;lt; b. x)&amp;nbsp;||&amp;nbsp;(a. x == b. x &amp;amp;&amp;amp; a. y &amp;lt; b. y);
+}</description>
+    </item>
+    
+    <item>
+      <title>BZOJ1977 次小生成树</title>
+      <link>/oi/lofterimport_136/</link>
+      <pubDate>Sun, 19 Oct 2014 11:51:51 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_136/</guid>
+      <description>题意是严格次小生成树。
+想了一下发现应该是一条不在最小生成树上的边构成的环上替换一条边就行了。感觉好想noi那道lct，哈。其实不用那么复杂的。
+就用倍增就可以了。不过我还是比较倾向于用链剖。感觉链剖空间小而且写起来倍爽。不像倍增写挂了不只一次了。
+要注意的是不仅要找最大值还要找严格次大值，因为要找严格次小。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cctype&amp;gt;
+#include &amp;lt;memory.h&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+typedef long long qw;
+#ifdef WIN32
+#define lld &amp;quot;%I64d&amp;quot;
+#else
+#define lld &amp;quot;%lld&amp;quot;
+#endif
+struct edge_g {
+int a, b, v, mk;
+};
+struct edge_t {
+int t, v;
+edge_t *next;
+};
+struct dat {
+int a, b;
+dat(int v0 =&amp;nbsp;-1)&amp;nbsp;{
+a = v0, b =&amp;nbsp;-1;
+}
+dat(int a0, int b0)&amp;nbsp;{
+a = a0, b = b0;</description>
+    </item>
+    
+    <item>
+      <title>SPOJ4487 GSS6</title>
+      <link>/oi/lofterimport_141/</link>
+      <pubDate>Fri, 17 Oct 2014 19:48:32 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_141/</guid>
+      <description>看上去挺水水水水水水水水的一道平衡树维护序列的数据结构题啊。
+先用split-merge tree写，tle。
+然后改用splay，tle。
+最后据说把splay的裸数组改到struct node里就能过。于是再写了一个程序来改代码。
+不&amp;nbsp;带&amp;nbsp;这&amp;nbsp;么&amp;nbsp;坑&amp;nbsp;的&amp;nbsp;！
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cstdlib&amp;gt;
+#include &amp;lt;cctype&amp;gt;
+#include &amp;lt;memory.h&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+/*#define readInt(_s_)&amp;nbsp;{\
+int _d_;\
+bool _nag_ = 0;\
+_s_ = 0;\
+while (!isdigit(_d_&amp;nbsp;= getchar()))\
+if (_d_&amp;nbsp;==&amp;nbsp;&#39;-&#39;)\
+_nag_ = 1;\
+while ((_s_&amp;nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\
+if (_nag_)\
+_s_ =&amp;nbsp;- _s_;\
+}*/
+#define readInt(_s_) scanf(&amp;quot;%d&amp;quot;,&amp;amp;_s_);
+#define readOpt(_s_)&amp;nbsp;{\
+do\
+_s_ = getchar();\
+while (_s_&amp;nbsp;!=&amp;nbsp;&#39;I&#39;&amp;nbsp;&amp;amp;&amp;amp; _s_ !=&amp;nbsp;&#39;D&#39;&amp;nbsp;&amp;amp;&amp;amp; _s_ !</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3672 [NOI2014]购票</title>
+      <link>/oi/lofterimport_150/</link>
+      <pubDate>Tue, 14 Oct 2014 18:01:23 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_150/</guid>
+      <description>考场上只想到暴力。
+如果只是一条链的话怎么乱搞一搞？
+如果没有深度限制的话简单的斜率优化+链剖就行了。
+有深度限制就把hull扔到线段树里用可持久化栈来维护一下。DFS的时候塞进线段树里，然后完了再扔出来。总的复杂度O(n*log^2(n))，
+代码也不怎么复杂。
+#include &amp;lt;cstdio&amp;gt;
+#include&amp;nbsp;&amp;lt;cctype&amp;gt;
+#include&amp;nbsp;&amp;lt;memory.h&amp;gt;
+#include&amp;nbsp;&amp;lt;vector&amp;gt;
+#include&amp;nbsp;&amp;lt;algorithm&amp;gt;
+using namespace std;
+struct edge {
+int t;
+edge* next;
+};
+typedef long long qw;
+typedef long double exf;
+#ifdef WIN32
+#define lld &amp;quot;%I64d&amp;quot;
+#else
+#define lld &amp;quot;%lld&amp;quot;
+#endif
+#define _l (qw)
+#define readInt(_s_)&amp;nbsp;{\
+int _d_;\
+_s_ = 0;\
+while (!isdigit(_d_&amp;nbsp;= getchar()));\
+while ((_s_&amp;nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\
+}
+struct oper {
+int p, v, t;</description>
+    </item>
+    
+  </channel>
+</rss>

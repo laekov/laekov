@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>20150419 scoi diary and summary | The Site of laekov</title>
+<meta name="keywords" content="summary, diary">
+<meta name="description" content="居然这么快.然后就完了.感觉好像是做了一场梦 或者玩了一场游戏ovo
+既然是diary那就先diary一下吧.
+day1早上起来在拥挤的餐厅里吃了面包加面包然后走去考试.
+然后就开考了.第一题好神不会.第二题好水选敲.第三题想了想就是半平面交啊敲敲敲.然后发现第一题似乎取值是连续的?那就随便打个dinic乱二分一下吧.然后就完了估分200应该过2和3.
+然后下午看分居然220.居然过了1和2然后3tle.居然被高一的虐.然后进去申诉居然连数据都不给那玩ball.于是要数据顺便被某负责人怒斥.然后下午果断去看电影.速7还不错.
+晚上开会感觉就是flag大会.
+然后就day2了昨天晚上好像被毒蚊子咬了,惨.看题发现第一题好神.第二题好神.第三题好水敲30分钟.然后发现第二题似乎可做然后去敲.然后发现第一题还是不会于是乱骗.考试结束前15分钟发现第二题题意看错试图改朴素未果.心痛ing
+下午看分果然只有100虽然还是进队了不过被虐惨于是心痛回家.
+diary得好水.那么再重新说一下题的做法吧ovo
+day1a把≥某个数的东西当作1来跑二分图最大匹配就可以得到最多有多少个≥这个数的选择方案然后直接二分.
+day1b是个水水的倍增.每个战士肯定传给最远的一个然后没有覆盖于是倍增一下看要多远才能盖一圈.然后这题数据好难造.
+day1c是个半平面交.可以证明任意一边和01边都会划分成一个半平面.扔一起跑半平面交就好了.然后求那个的时候可以用数据公式不过我二分所以被卡常了不开心.
+day2a似乎是树形dp反正我还没想出来.大概反正先走左先走右dp一下.因为是完全二叉树所以很多看上去不靠谱的复杂度在这里都是靠谱的.
+day2b听说是线段树.其实直接维护每个0区间的左右端点扔进set里就好了.然后黑白转换的时候分情况讨论一下.每次询问的时候先把某个点的值更新一下.然后查询左右能控制到的最远的端点.如果是连在一起的话还要再找第二近的因为有可能另一边会造成答案变小.
+day2c水水的链剖&#43;持久化线段树.其实询问就是在某个时刻前就被感染的人在某条链上有多少.我比较懒就直接链剖了其实直接dfs序区间修改也能做还少一个log.不过反正链剖比较快嘛.
+虽然这样但是我也只过了3题而已看来我还是太弱啊.
+似乎还有总结的部分.
+最后一次省选了吧.也是唯一的一次机会.以为自己会很厉害,其实还是不厉害.也算是一种成长吧.发现自己还有很长的路要走.
+这回没有倒在ds怎么写上,而倒在了ds的题面上.也算是倒在自己最得意的地方了吧.成长总是痛苦的ovo
+dp啥的的确比较弱.不能偏科啊.
+世事无常吧.有人翻盘也有人第二天倒下了.4个a类居然没有一个人两天都发挥正常.然后女a也暴冷了.yjq差点就进队了可惜了.然后就有一些熟悉的面孔退役了.
+反正就是各种奇怪的事情.其实也早就知道有这一天吧.其实也早就准备好了这一天吧.至少i survived.
+于是今年省队好像更整齐了.
+所以我还是太弱了啊.">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/diary/dbimport_023/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="20150419 scoi diary and summary" />
+<meta property="og:description" content="居然这么快.然后就完了.感觉好像是做了一场梦 或者玩了一场游戏ovo
+既然是diary那就先diary一下吧.
+day1早上起来在拥挤的餐厅里吃了面包加面包然后走去考试.
+然后就开考了.第一题好神不会.第二题好水选敲.第三题想了想就是半平面交啊敲敲敲.然后发现第一题似乎取值是连续的?那就随便打个dinic乱二分一下吧.然后就完了估分200应该过2和3.
+然后下午看分居然220.居然过了1和2然后3tle.居然被高一的虐.然后进去申诉居然连数据都不给那玩ball.于是要数据顺便被某负责人怒斥.然后下午果断去看电影.速7还不错.
+晚上开会感觉就是flag大会.
+然后就day2了昨天晚上好像被毒蚊子咬了,惨.看题发现第一题好神.第二题好神.第三题好水敲30分钟.然后发现第二题似乎可做然后去敲.然后发现第一题还是不会于是乱骗.考试结束前15分钟发现第二题题意看错试图改朴素未果.心痛ing
+下午看分果然只有100虽然还是进队了不过被虐惨于是心痛回家.
+diary得好水.那么再重新说一下题的做法吧ovo
+day1a把≥某个数的东西当作1来跑二分图最大匹配就可以得到最多有多少个≥这个数的选择方案然后直接二分.
+day1b是个水水的倍增.每个战士肯定传给最远的一个然后没有覆盖于是倍增一下看要多远才能盖一圈.然后这题数据好难造.
+day1c是个半平面交.可以证明任意一边和01边都会划分成一个半平面.扔一起跑半平面交就好了.然后求那个的时候可以用数据公式不过我二分所以被卡常了不开心.
+day2a似乎是树形dp反正我还没想出来.大概反正先走左先走右dp一下.因为是完全二叉树所以很多看上去不靠谱的复杂度在这里都是靠谱的.
+day2b听说是线段树.其实直接维护每个0区间的左右端点扔进set里就好了.然后黑白转换的时候分情况讨论一下.每次询问的时候先把某个点的值更新一下.然后查询左右能控制到的最远的端点.如果是连在一起的话还要再找第二近的因为有可能另一边会造成答案变小.
+day2c水水的链剖&#43;持久化线段树.其实询问就是在某个时刻前就被感染的人在某条链上有多少.我比较懒就直接链剖了其实直接dfs序区间修改也能做还少一个log.不过反正链剖比较快嘛.
+虽然这样但是我也只过了3题而已看来我还是太弱啊.
+似乎还有总结的部分.
+最后一次省选了吧.也是唯一的一次机会.以为自己会很厉害,其实还是不厉害.也算是一种成长吧.发现自己还有很长的路要走.
+这回没有倒在ds怎么写上,而倒在了ds的题面上.也算是倒在自己最得意的地方了吧.成长总是痛苦的ovo
+dp啥的的确比较弱.不能偏科啊.
+世事无常吧.有人翻盘也有人第二天倒下了.4个a类居然没有一个人两天都发挥正常.然后女a也暴冷了.yjq差点就进队了可惜了.然后就有一些熟悉的面孔退役了.
+反正就是各种奇怪的事情.其实也早就知道有这一天吧.其实也早就准备好了这一天吧.至少i survived.
+于是今年省队好像更整齐了.
+所以我还是太弱了啊." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/diary/dbimport_023/" /><meta property="article:section" content="diary" />
+<meta property="article:published_time" content="2015-04-19T21:43:07+00:00" />
+<meta property="article:modified_time" content="2015-04-19T21:43:07+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="20150419 scoi diary and summary"/>
+<meta name="twitter:description" content="居然这么快.然后就完了.感觉好像是做了一场梦 或者玩了一场游戏ovo
+既然是diary那就先diary一下吧.
+day1早上起来在拥挤的餐厅里吃了面包加面包然后走去考试.
+然后就开考了.第一题好神不会.第二题好水选敲.第三题想了想就是半平面交啊敲敲敲.然后发现第一题似乎取值是连续的?那就随便打个dinic乱二分一下吧.然后就完了估分200应该过2和3.
+然后下午看分居然220.居然过了1和2然后3tle.居然被高一的虐.然后进去申诉居然连数据都不给那玩ball.于是要数据顺便被某负责人怒斥.然后下午果断去看电影.速7还不错.
+晚上开会感觉就是flag大会.
+然后就day2了昨天晚上好像被毒蚊子咬了,惨.看题发现第一题好神.第二题好神.第三题好水敲30分钟.然后发现第二题似乎可做然后去敲.然后发现第一题还是不会于是乱骗.考试结束前15分钟发现第二题题意看错试图改朴素未果.心痛ing
+下午看分果然只有100虽然还是进队了不过被虐惨于是心痛回家.
+diary得好水.那么再重新说一下题的做法吧ovo
+day1a把≥某个数的东西当作1来跑二分图最大匹配就可以得到最多有多少个≥这个数的选择方案然后直接二分.
+day1b是个水水的倍增.每个战士肯定传给最远的一个然后没有覆盖于是倍增一下看要多远才能盖一圈.然后这题数据好难造.
+day1c是个半平面交.可以证明任意一边和01边都会划分成一个半平面.扔一起跑半平面交就好了.然后求那个的时候可以用数据公式不过我二分所以被卡常了不开心.
+day2a似乎是树形dp反正我还没想出来.大概反正先走左先走右dp一下.因为是完全二叉树所以很多看上去不靠谱的复杂度在这里都是靠谱的.
+day2b听说是线段树.其实直接维护每个0区间的左右端点扔进set里就好了.然后黑白转换的时候分情况讨论一下.每次询问的时候先把某个点的值更新一下.然后查询左右能控制到的最远的端点.如果是连在一起的话还要再找第二近的因为有可能另一边会造成答案变小.
+day2c水水的链剖&#43;持久化线段树.其实询问就是在某个时刻前就被感染的人在某条链上有多少.我比较懒就直接链剖了其实直接dfs序区间修改也能做还少一个log.不过反正链剖比较快嘛.
+虽然这样但是我也只过了3题而已看来我还是太弱啊.
+似乎还有总结的部分.
+最后一次省选了吧.也是唯一的一次机会.以为自己会很厉害,其实还是不厉害.也算是一种成长吧.发现自己还有很长的路要走.
+这回没有倒在ds怎么写上,而倒在了ds的题面上.也算是倒在自己最得意的地方了吧.成长总是痛苦的ovo
+dp啥的的确比较弱.不能偏科啊.
+世事无常吧.有人翻盘也有人第二天倒下了.4个a类居然没有一个人两天都发挥正常.然后女a也暴冷了.yjq差点就进队了可惜了.然后就有一些熟悉的面孔退役了.
+反正就是各种奇怪的事情.其实也早就知道有这一天吧.其实也早就准备好了这一天吧.至少i survived.
+于是今年省队好像更整齐了.
+所以我还是太弱了啊."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Diaries",
+      "item": "/diary/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "20150419 scoi diary and summary",
+      "item": "/diary/dbimport_023/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "20150419 scoi diary and summary",
+  "name": "20150419 scoi diary and summary",
+  "description": "居然这么快.然后就完了.感觉好像是做了一场梦 或者玩了一场游戏ovo\n既然是diary那就先diary一下吧.\nday1早上起来在拥挤的餐厅里吃了面包加面包然后走去考试.\n然后就开考了.第一题好神不会.第二题好水选敲.第三题想了想就是半平面交啊敲敲敲.然后发现第一题似乎取值是连续的?那就随便打个dinic乱二分一下吧.然后就完了估分200应该过2和3.\n然后下午看分居然220.居然过了1和2然后3tle.居然被高一的虐.然后进去申诉居然连数据都不给那玩ball.于是要数据顺便被某负责人怒斥.然后下午果断去看电影.速7还不错.\n晚上开会感觉就是flag大会.\n然后就day2了昨天晚上好像被毒蚊子咬了,惨.看题发现第一题好神.第二题好神.第三题好水敲30分钟.然后发现第二题似乎可做然后去敲.然后发现第一题还是不会于是乱骗.考试结束前15分钟发现第二题题意看错试图改朴素未果.心痛ing\n下午看分果然只有100虽然还是进队了不过被虐惨于是心痛回家.\ndiary得好水.那么再重新说一下题的做法吧ovo\nday1a把≥某个数的东西当作1来跑二分图最大匹配就可以得到最多有多少个≥这个数的选择方案然后直接二分.\nday1b是个水水的倍增.每个战士肯定传给最远的一个然后没有覆盖于是倍增一下看要多远才能盖一圈.然后这题数据好难造.\nday1c是个半平面交.可以证明任意一边和01边都会划分成一个半平面.扔一起跑半平面交就好了.然后求那个的时候可以用数据公式不过我二分所以被卡常了不开心.\nday2a似乎是树形dp反正我还没想出来.大概反正先走左先走右dp一下.因为是完全二叉树所以很多看上去不靠谱的复杂度在这里都是靠谱的.\nday2b听说是线段树.其实直接维护每个0区间的左右端点扔进set里就好了.然后黑白转换的时候分情况讨论一下.每次询问的时候先把某个点的值更新一下.然后查询左右能控制到的最远的端点.如果是连在一起的话还要再找第二近的因为有可能另一边会造成答案变小.\nday2c水水的链剖+持久化线段树.其实询问就是在某个时刻前就被感染的人在某条链上有多少.我比较懒就直接链剖了其实直接dfs序区间修改也能做还少一个log.不过反正链剖比较快嘛.\n虽然这样但是我也只过了3题而已看来我还是太弱啊.\n似乎还有总结的部分.\n最后一次省选了吧.也是唯一的一次机会.以为自己会很厉害,其实还是不厉害.也算是一种成长吧.发现自己还有很长的路要走.\n这回没有倒在ds怎么写上,而倒在了ds的题面上.也算是倒在自己最得意的地方了吧.成长总是痛苦的ovo\ndp啥的的确比较弱.不能偏科啊.\n世事无常吧.有人翻盘也有人第二天倒下了.4个a类居然没有一个人两天都发挥正常.然后女a也暴冷了.yjq差点就进队了可惜了.然后就有一些熟悉的面孔退役了.\n反正就是各种奇怪的事情.其实也早就知道有这一天吧.其实也早就准备好了这一天吧.至少i survived.\n于是今年省队好像更整齐了.\n所以我还是太弱了啊.",
+  "keywords": [
+    "summary", "diary"
+  ],
+  "articleBody": "居然这么快.然后就完了.感觉好像是做了一场梦 或者玩了一场游戏ovo\n既然是diary那就先diary一下吧.\nday1早上起来在拥挤的餐厅里吃了面包加面包然后走去考试.\n然后就开考了.第一题好神不会.第二题好水选敲.第三题想了想就是半平面交啊敲敲敲.然后发现第一题似乎取值是连续的?那就随便打个dinic乱二分一下吧.然后就完了估分200应该过2和3.\n然后下午看分居然220.居然过了1和2然后3tle.居然被高一的虐.然后进去申诉居然连数据都不给那玩ball.于是要数据顺便被某负责人怒斥.然后下午果断去看电影.速7还不错.\n晚上开会感觉就是flag大会.\n然后就day2了昨天晚上好像被毒蚊子咬了,惨.看题发现第一题好神.第二题好神.第三题好水敲30分钟.然后发现第二题似乎可做然后去敲.然后发现第一题还是不会于是乱骗.考试结束前15分钟发现第二题题意看错试图改朴素未果.心痛ing\n下午看分果然只有100虽然还是进队了不过被虐惨于是心痛回家.\ndiary得好水.那么再重新说一下题的做法吧ovo\nday1a把≥某个数的东西当作1来跑二分图最大匹配就可以得到最多有多少个≥这个数的选择方案然后直接二分.\nday1b是个水水的倍增.每个战士肯定传给最远的一个然后没有覆盖于是倍增一下看要多远才能盖一圈.然后这题数据好难造.\nday1c是个半平面交.可以证明任意一边和01边都会划分成一个半平面.扔一起跑半平面交就好了.然后求那个的时候可以用数据公式不过我二分所以被卡常了不开心.\nday2a似乎是树形dp反正我还没想出来.大概反正先走左先走右dp一下.因为是完全二叉树所以很多看上去不靠谱的复杂度在这里都是靠谱的.\nday2b听说是线段树.其实直接维护每个0区间的左右端点扔进set里就好了.然后黑白转换的时候分情况讨论一下.每次询问的时候先把某个点的值更新一下.然后查询左右能控制到的最远的端点.如果是连在一起的话还要再找第二近的因为有可能另一边会造成答案变小.\nday2c水水的链剖+持久化线段树.其实询问就是在某个时刻前就被感染的人在某条链上有多少.我比较懒就直接链剖了其实直接dfs序区间修改也能做还少一个log.不过反正链剖比较快嘛.\n虽然这样但是我也只过了3题而已看来我还是太弱啊.\n似乎还有总结的部分.\n最后一次省选了吧.也是唯一的一次机会.以为自己会很厉害,其实还是不厉害.也算是一种成长吧.发现自己还有很长的路要走.\n这回没有倒在ds怎么写上,而倒在了ds的题面上.也算是倒在自己最得意的地方了吧.成长总是痛苦的ovo\ndp啥的的确比较弱.不能偏科啊.\n世事无常吧.有人翻盘也有人第二天倒下了.4个a类居然没有一个人两天都发挥正常.然后女a也暴冷了.yjq差点就进队了可惜了.然后就有一些熟悉的面孔退役了.\n反正就是各种奇怪的事情.其实也早就知道有这一天吧.其实也早就准备好了这一天吧.至少i survived.\n于是今年省队好像更整齐了.\n所以我还是太弱了啊.\n",
+  "wordCount" : "26",
+  "inLanguage": "en",
+  "datePublished": "2015-04-19T21:43:07Z",
+  "dateModified": "2015-04-19T21:43:07Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/diary/dbimport_023/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/diary/">Diaries</a></div>
+    <h1 class="post-title">
+      20150419 scoi diary and summary
+    </h1>
+    <div class="post-meta"><span title='2015-04-19 21:43:07 +0000 UTC'>April 19, 2015</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>居然这么快.然后就完了.感觉好像是做了一场梦 或者玩了一场游戏ovo</p>
+<p>既然是diary那就先diary一下吧.</p>
+<p>day1早上起来在拥挤的餐厅里吃了面包加面包然后走去考试.</p>
+<p>然后就开考了.第一题好神不会.第二题好水选敲.第三题想了想就是半平面交啊敲敲敲.然后发现第一题似乎取值是连续的?那就随便打个dinic乱二分一下吧.然后就完了估分200应该过2和3.</p>
+<p>然后下午看分居然220.居然过了1和2然后3tle.居然被高一的虐.然后进去申诉居然连数据都不给那玩ball.于是要数据顺便被某负责人怒斥.然后下午果断去看电影.速7还不错.</p>
+<p>晚上开会感觉就是flag大会.</p>
+<p>然后就day2了昨天晚上好像被毒蚊子咬了,惨.看题发现第一题好神.第二题好神.第三题好水敲30分钟.然后发现第二题似乎可做然后去敲.然后发现第一题还是不会于是乱骗.考试结束前15分钟发现第二题题意看错试图改朴素未果.心痛ing</p>
+<p>下午看分果然只有100虽然还是进队了不过被虐惨于是心痛回家.</p>
+<p>diary得好水.那么再重新说一下题的做法吧ovo</p>
+<p>day1a把≥某个数的东西当作1来跑二分图最大匹配就可以得到最多有多少个≥这个数的选择方案然后直接二分.</p>
+<p>day1b是个水水的倍增.每个战士肯定传给最远的一个然后没有覆盖于是倍增一下看要多远才能盖一圈.然后这题数据好难造.</p>
+<p>day1c是个半平面交.可以证明任意一边和01边都会划分成一个半平面.扔一起跑半平面交就好了.然后求那个的时候可以用数据公式不过我二分所以被卡常了不开心.</p>
+<p>day2a似乎是树形dp反正我还没想出来.大概反正先走左先走右dp一下.因为是完全二叉树所以很多看上去不靠谱的复杂度在这里都是靠谱的.</p>
+<p>day2b听说是线段树.其实直接维护每个0区间的左右端点扔进set里就好了.然后黑白转换的时候分情况讨论一下.每次询问的时候先把某个点的值更新一下.然后查询左右能控制到的最远的端点.如果是连在一起的话还要再找第二近的因为有可能另一边会造成答案变小.</p>
+<p>day2c水水的链剖+持久化线段树.其实询问就是在某个时刻前就被感染的人在某条链上有多少.我比较懒就直接链剖了其实直接dfs序区间修改也能做还少一个log.不过反正链剖比较快嘛.</p>
+<p>虽然这样但是我也只过了3题而已看来我还是太弱啊.</p>
+<p>似乎还有总结的部分.</p>
+<p>最后一次省选了吧.也是唯一的一次机会.以为自己会很厉害,其实还是不厉害.也算是一种成长吧.发现自己还有很长的路要走.</p>
+<p>这回没有倒在ds怎么写上,而倒在了ds的题面上.也算是倒在自己最得意的地方了吧.成长总是痛苦的ovo</p>
+<p>dp啥的的确比较弱.不能偏科啊.</p>
+<p>世事无常吧.有人翻盘也有人第二天倒下了.4个a类居然没有一个人两天都发挥正常.然后女a也暴冷了.yjq差点就进队了可惜了.然后就有一些熟悉的面孔退役了.</p>
+<p>反正就是各种奇怪的事情.其实也早就知道有这一天吧.其实也早就准备好了这一天吧.至少i survived.</p>
+<p>于是今年省队好像更整齐了.</p>
+<p>所以我还是太弱了啊.</p>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/summary/">summary</a></li>
+      <li><a href="/tags/diary/">diary</a></li>
+    </ul>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

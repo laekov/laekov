@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>BZOJ3757 苹果树 | The Site of laekov</title>
+<meta name="keywords" content="bzoj, ds, tpd, oi">
+<meta name="description" content="&lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt; 今天晚上的效率比白天高啊。&lt;/p&gt; &nbsp;
+树上莫队的另一道题。比糖果公园好写到哪里去了。
+&nbsp;
+然后手写链表丑掉了导致调试半天&#43;RE了一发。我还是太年轻了。
+&nbsp;
+#include &lt;cstdio&gt; #include &lt;cmath&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+typedef struct node { int t; node *next; } edge; const int maxn = 50009; const int maxm = 100009; const int maxl = 17; node nlst[maxn], *np(nlst); struct chain { int sz; node *hd, *tl; chain() { hd = tl = 0; sz = 0; } inline void clear() { hd = tl = 0; sz = 0; } inline void push(int x) { np-&gt; t = x; np-&gt; next = 0; if (sz) { tl-&gt; next = np; tl = np; } else { hd = np; tl = np; } &#43;&#43; np; &#43;&#43; sz; } inline void merge(chain a) { if (a.">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/i11rimport_031/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="BZOJ3757 苹果树" />
+<meta property="og:description" content="&lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt; 今天晚上的效率比白天高啊。&lt;/p&gt; &nbsp;
+树上莫队的另一道题。比糖果公园好写到哪里去了。
+&nbsp;
+然后手写链表丑掉了导致调试半天&#43;RE了一发。我还是太年轻了。
+&nbsp;
+#include &lt;cstdio&gt; #include &lt;cmath&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+typedef struct node { int t; node *next; } edge; const int maxn = 50009; const int maxm = 100009; const int maxl = 17; node nlst[maxn], *np(nlst); struct chain { int sz; node *hd, *tl; chain() { hd = tl = 0; sz = 0; } inline void clear() { hd = tl = 0; sz = 0; } inline void push(int x) { np-&gt; t = x; np-&gt; next = 0; if (sz) { tl-&gt; next = np; tl = np; } else { hd = np; tl = np; } &#43;&#43; np; &#43;&#43; sz; } inline void merge(chain a) { if (a." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/i11rimport_031/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2015-02-25T21:10:41+00:00" />
+<meta property="article:modified_time" content="2015-02-25T21:10:41+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BZOJ3757 苹果树"/>
+<meta name="twitter:description" content="&lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt; 今天晚上的效率比白天高啊。&lt;/p&gt; &nbsp;
+树上莫队的另一道题。比糖果公园好写到哪里去了。
+&nbsp;
+然后手写链表丑掉了导致调试半天&#43;RE了一发。我还是太年轻了。
+&nbsp;
+#include &lt;cstdio&gt; #include &lt;cmath&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+typedef struct node { int t; node *next; } edge; const int maxn = 50009; const int maxm = 100009; const int maxl = 17; node nlst[maxn], *np(nlst); struct chain { int sz; node *hd, *tl; chain() { hd = tl = 0; sz = 0; } inline void clear() { hd = tl = 0; sz = 0; } inline void push(int x) { np-&gt; t = x; np-&gt; next = 0; if (sz) { tl-&gt; next = np; tl = np; } else { hd = np; tl = np; } &#43;&#43; np; &#43;&#43; sz; } inline void merge(chain a) { if (a."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "BZOJ3757 苹果树",
+      "item": "/oi/i11rimport_031/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BZOJ3757 苹果树",
+  "name": "BZOJ3757 苹果树",
+  "description": "\u0026lt;div class=\u0026quot;post_brief\u0026quot;\u0026gt;\u0026lt;p\u0026gt; 今天晚上的效率比白天高啊。\u0026lt;/p\u0026gt; \u0026nbsp;\n树上莫队的另一道题。比糖果公园好写到哪里去了。\n\u0026nbsp;\n然后手写链表丑掉了导致调试半天+RE了一发。我还是太年轻了。\n\u0026nbsp;\n#include \u0026lt;cstdio\u0026gt; #include \u0026lt;cmath\u0026gt; #include \u0026lt;cstring\u0026gt; #include \u0026lt;algorithm\u0026gt; using namespace std;\ntypedef struct node { int t; node *next; } edge; const int maxn = 50009; const int maxm = 100009; const int maxl = 17; node nlst[maxn], *np(nlst); struct chain { int sz; node *hd, *tl; chain() { hd = tl = 0; sz = 0; } inline void clear() { hd = tl = 0; sz = 0; } inline void push(int x) { np-\u0026gt; t = x; np-\u0026gt; next = 0; if (sz) { tl-\u0026gt; next = np; tl = np; } else { hd = np; tl = np; } ++ np; ++ sz; } inline void merge(chain a) { if (a.",
+  "keywords": [
+    "bzoj", "ds", "tpd", "oi"
+  ],
+  "articleBody": "\t今天晚上的效率比白天高啊。\n树上莫队的另一道题。比糖果公园好写到哪里去了。\n然后手写链表丑掉了导致调试半天+RE了一发。我还是太年轻了。\n#include #include #include #include using namespace std;\ntypedef struct node { int t; node *next; } edge; const int maxn = 50009; const int maxm = 100009; const int maxl = 17; node nlst[maxn], *np(nlst); struct chain { int sz; node *hd, *tl; chain() { hd = tl = 0; sz = 0; } inline void clear() { hd = tl = 0; sz = 0; } inline void push(int x) { np-\u003e t = x; np-\u003e next = 0; if (sz) { tl-\u003e next = np; tl = np; } else { hd = np; tl = np; } ++ np; ++ sz; } inline void merge(chain a) { if (a. sz) { if (sz) { tl-\u003e next = a. hd; tl = a. tl; } else { hd = a. hd; tl = a. tl; } sz += a. sz; } } }; struct query { int a, b, x, y, i; };\nint n, m, bsz, ans[maxm], cnt[maxn], fb[maxn], col[maxn], tb; int d[maxn], ath[maxn][maxl]; edge elst[maxn \u003c\u003c 1], *ep(elst), *head[maxn]; query q[maxm];\ninline bool operator \u003c(const query\u0026 a, const query\u0026 b) { return (fb[a. a] \u003c fb[b. a]) || (fb[a. a] == fb[b. a] \u0026\u0026 fb[a. b] \u003c fb[b. b]); }\ninline void addEdge(int u, int v) { ep-\u003e t = v; ep-\u003e next = head[u]; head[u] = ep ++; }\nchain dfs(int p) { for (int i = 1; i \u003c maxl; ++ i) ath[p][i] = ath[ath[p][i - 1]][i - 1]; chain w; for (edge* e = head[p]; e; e = e-\u003e next) if (e-\u003e t != ath[p][0]) { ath[e-\u003e t][0] = p; d[e-\u003e t] = d[p] + 1; chain g(dfs(e-\u003e t)); w. merge(g); if (w. sz \u003e= bsz) { ++ tb; for (node* it = w. hd; it; it = it-\u003e next) fb[it-\u003e t] = tb; w. clear(); } } w. push(p); return w; } void divide() { d[0] = 1; tb = 0; chain g(dfs(0)); for (node* it = g. hd; it; it = it-\u003e next) fb[it-\u003e t] = tb; }\nint LCA(int u, int v) { if (d[u] \u003c d[v]) swap(u, v); for (int i = maxl - 1; i \u003e= 0; – i) if (d[ath[u][i]] \u003e= d[v]) u = ath[u][i]; if (u == v) return u; for (int i = maxl - 1; i \u003e= 0; – i) if (ath[u][i] ^ ath[v][i]) { u = ath[u][i]; v = ath[v][i]; } return ath[u][0]; } inline void rmVertex(int p, int\u0026 ans) { if (p \u0026\u0026 ! – cnt[col[p]]) – ans; } inline void insVertex(int p, int\u0026 ans) { if (p \u0026\u0026 !(cnt[col[p]] ++)) ++ ans; } void moveVertex(int\u0026 u, int v, int g, int\u0026 ans) { int a(LCA(u, v)), t(LCA(a, g)); if (a == t) { int x(LCA(u, g)), y(LCA(v, g)); if (d[x] \u003e d[y]) t = x; else t = y; if (LCA(t, u) == t) { for (int p = g; p ^ t; p = ath[p][0]) insVertex(p, ans); for (int p = u; p ^ t; p = ath[p][0]) rmVertex(p, ans); } else { for (int p = g; p ^ t; p = ath[p][0]) insVertex(p, ans); for (int p = u; p ^ a; p = ath[p][0]) rmVertex(p, ans); for (int p = ath[t][0]; p ^ a; p = ath[p][0]) rmVertex(p, ans); rmVertex(a, ans); } } else { for (int p = u; p ^ a; p = ath[p][0]) rmVertex(p, ans); for (int p = g; p ^ t; p = ath[p][0]) insVertex(p, ans); insVertex(t, ans); for (int p = ath[a][0]; p ^ t; p = ath[p][0]) insVertex(p, ans); } u = g; } void cptMo() { int u(1), v(1), cans(1); memset(cnt, 0, sizeof(cnt)); cnt[col[1]] = 1; sort(q, q + m); for (int i = 0; i \u003c m; ++ i) { moveVertex(u, v, q[i]. a, cans); moveVertex(v, u, q[i]. b, cans); ans[q[i]. i] = cans; if ((q[i]. x || q[i]. y) \u0026\u0026 q[i]. x != q[i]. y) ans[q[i]. i] -= (cnt[q[i]. x] \u0026\u0026 cnt[q[i]. y]); } }\nint main() { #ifndef ONLINE_JUDGE freopen(“in.txt”, “r”, stdin); #endif\nscanf(\"%d%d\", \u0026amp;n, \u0026amp;m); bsz = (int)pow(n, 0.5) + 1; for (int i = 1; i \u0026lt;= n; ++ i) scanf(\"%d\", col + i); memset(head, 0, sizeof(head)); for (int i = 0; i \u0026lt; n; ++ i) { int u, v; scanf(\"%d%d\", \u0026amp;u, \u0026amp;v); addEdge(u, v); addEdge(v, u); } for (int i = 0; i \u0026lt; m; ++ i) { scanf(\"%d%d%d%d\", \u0026amp;q[i]. a, \u0026amp;q[i]. b, \u0026amp;q[i]. x, \u0026amp;q[i]. y); q[i]. i = i; } divide(); for (int i = 0; i \u0026lt; m; ++ i) if (fb[q[i]. a] \u0026gt; fb[q[i]. b]) swap(q[i]. a, q[i]. b); cptMo(); for (int i = 0; i \u0026lt; m; ++ i) printf(\"%d\\n\", ans[i]); } ",
+  "wordCount" : "787",
+  "inLanguage": "en",
+  "datePublished": "2015-02-25T21:10:41Z",
+  "dateModified": "2015-02-25T21:10:41Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/i11rimport_031/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      BZOJ3757 苹果树
+    </h1>
+    <div class="post-meta"><span title='2015-02-25 21:10:41 +0000 UTC'>February 25, 2015</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><pre><code>			    &lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt;
+今天晚上的效率比白天高啊。&lt;/p&gt;
+</code></pre>
+<p>
+	&nbsp;</p>
+<p>
+	树上莫队的另一道题。比糖果公园好写到哪里去了。</p>
+<p>
+	&nbsp;</p>
+<p>
+	然后手写链表丑掉了导致调试半天+RE了一发。我还是太年轻了。</p>
+<p>
+	&nbsp;</p>
+<pre class="brush: actionscript3">#include &lt;cstdio&gt;
+#include &lt;cmath&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+<p>using namespace std;</p>
+<p>typedef struct node {
+int t;
+node *next;
+} edge;
+const int maxn = 50009;
+const int maxm = 100009;
+const int maxl = 17;
+node nlst[maxn], *np(nlst);
+struct chain {
+int sz;
+node *hd, *tl;
+chain() {
+hd = tl = 0;
+sz = 0;
+}
+inline void clear() {
+hd = tl = 0;
+sz = 0;
+}
+inline void push(int x) {
+np-&gt; t = x;
+np-&gt; next = 0;
+if (sz) {
+tl-&gt; next = np;
+tl = np;
+}
+else {
+hd = np;
+tl = np;
+}
+++ np;
+++ sz;
+}
+inline void merge(chain a) {
+if (a. sz) {
+if (sz) {
+tl-&gt; next = a. hd;
+tl = a. tl;
+}
+else {
+hd = a. hd;
+tl = a. tl;
+}
+sz += a. sz;
+}
+}
+};
+struct query {
+int a, b, x, y, i;
+};</p>
+<p>int n, m, bsz, ans[maxm], cnt[maxn], fb[maxn], col[maxn], tb;
+int d[maxn], ath[maxn][maxl];
+edge elst[maxn &lt;&lt; 1], *ep(elst), *head[maxn];
+query q[maxm];</p>
+<p>inline bool operator &lt;(const query&amp; a, const query&amp; b) {
+return (fb[a. a] &lt; fb[b. a]) || (fb[a. a] == fb[b. a] &amp;&amp; fb[a. b] &lt; fb[b. b]);
+}</p>
+<p>inline void addEdge(int u, int v) {
+ep-&gt; t = v;
+ep-&gt; next = head[u];
+head[u] = ep ++;
+}</p>
+<p>chain dfs(int p) {
+for (int i = 1; i &lt; maxl; ++ i)
+ath[p][i] = ath[ath[p][i - 1]][i - 1];
+chain w;
+for (edge* e = head[p]; e; e = e-&gt; next)
+if (e-&gt; t != ath[p][0]) {
+ath[e-&gt; t][0] = p;
+d[e-&gt; t] = d[p] + 1;
+chain g(dfs(e-&gt; t));
+w. merge(g);
+if (w. sz &gt;= bsz) {
+++ tb;
+for (node* it = w. hd; it; it = it-&gt; next)
+fb[it-&gt; t] = tb;
+w. clear();
+}
+}
+w. push(p);
+return w;
+}
+void divide() {
+d[0] = 1;
+tb = 0;
+chain g(dfs(0));
+for (node* it = g. hd; it; it = it-&gt; next)
+fb[it-&gt; t] = tb;
+}</p>
+<p>int LCA(int u, int v) {
+if (d[u] &lt; d[v])
+swap(u, v);
+for (int i = maxl - 1; i &gt;= 0; &ndash; i)
+if (d[ath[u][i]] &gt;= d[v])
+u = ath[u][i];
+if (u == v)
+return u;
+for (int i = maxl - 1; i &gt;= 0; &ndash; i)
+if (ath[u][i] ^ ath[v][i]) {
+u = ath[u][i];
+v = ath[v][i];
+}
+return ath[u][0];
+}
+inline void rmVertex(int p, int&amp; ans) {
+if (p &amp;&amp; ! &ndash; cnt[col[p]])
+&ndash; ans;
+}
+inline void insVertex(int p, int&amp; ans) {
+if (p &amp;&amp; !(cnt[col[p]] ++))
+++ ans;
+}
+void moveVertex(int&amp; u, int v, int g, int&amp; ans) {
+int a(LCA(u, v)), t(LCA(a, g));
+if (a == t) {
+int x(LCA(u, g)), y(LCA(v, g));
+if (d[x] &gt; d[y])
+t = x;
+else
+t = y;
+if (LCA(t, u) == t) {
+for (int p = g; p ^ t; p = ath[p][0])
+insVertex(p, ans);
+for (int p = u; p ^ t; p = ath[p][0])
+rmVertex(p, ans);
+}
+else {
+for (int p = g; p ^ t; p = ath[p][0])
+insVertex(p, ans);
+for (int p = u; p ^ a; p = ath[p][0])
+rmVertex(p, ans);
+for (int p = ath[t][0]; p ^ a; p = ath[p][0])
+rmVertex(p, ans);
+rmVertex(a, ans);
+}
+}
+else {
+for (int p = u; p ^ a; p = ath[p][0])
+rmVertex(p, ans);
+for (int p = g; p ^ t; p = ath[p][0])
+insVertex(p, ans);
+insVertex(t, ans);
+for (int p = ath[a][0]; p ^ t; p = ath[p][0])
+insVertex(p, ans);
+}
+u = g;
+}
+void cptMo() {
+int u(1), v(1), cans(1);
+memset(cnt, 0, sizeof(cnt));
+cnt[col[1]] = 1;
+sort(q, q + m);
+for (int i = 0; i &lt; m; ++ i) {
+moveVertex(u, v, q[i]. a, cans);
+moveVertex(v, u, q[i]. b, cans);
+ans[q[i]. i] = cans;
+if ((q[i]. x || q[i]. y) &amp;&amp; q[i]. x != q[i]. y)
+ans[q[i]. i] -= (cnt[q[i]. x] &amp;&amp; cnt[q[i]. y]);
+}
+}</p>
+<p>int main() {
+#ifndef ONLINE_JUDGE
+freopen(&ldquo;in.txt&rdquo;, &ldquo;r&rdquo;, stdin);
+#endif</p>
+<pre><code>scanf(&quot;%d%d&quot;, &amp;amp;n, &amp;amp;m);
+bsz = (int)pow(n, 0.5) + 1;
+for (int i = 1; i &amp;lt;= n; ++ i)
+	scanf(&quot;%d&quot;, col + i);
+memset(head, 0, sizeof(head));
+for (int i = 0; i &amp;lt; n; ++ i) {
+	int u, v;
+	scanf(&quot;%d%d&quot;, &amp;amp;u, &amp;amp;v);
+	addEdge(u, v);
+	addEdge(v, u);
+}
+for (int i = 0; i &amp;lt; m; ++ i) {
+	scanf(&quot;%d%d%d%d&quot;, &amp;amp;q[i]. a, &amp;amp;q[i]. b, &amp;amp;q[i]. x, &amp;amp;q[i]. y);
+	q[i]. i = i;
+}
+divide();
+for (int i = 0; i &amp;lt; m; ++ i)
+	if (fb[q[i]. a] &amp;gt; fb[q[i]. b])
+		swap(q[i]. a, q[i]. b);
+cptMo();
+for (int i = 0; i &amp;lt; m; ++ i)
+	printf(&quot;%d\n&quot;, ans[i]);
+</code></pre>
+<p>}
+</pre></p>
+</div>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/bzoj/">bzoj</a></li>
+      <li><a href="/tags/ds/">ds</a></li>
+      <li><a href="/tags/tpd/">tpd</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/i11rimport_030/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>BZOJ1295 [SCOI2009]最长距离</span>
+  </a>
+  <a class="next" href="/oi/i11rimport_032/">
+    <span class="title">Next »</span>
+    <br>
+    <span>BZOJ1415 [Noi2005]聪聪和可可</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>bzoj2589.cc | The Site of laekov</title>
+<meta name="keywords" content="code">
+<meta name="description" content="#include #include #include using namespace std;
+struct seg { int v; seg *ch[2]; }; struct edge { int t; edge *ne; };
+const int maxn = 40003; const int leafc = 20; const int maxk = leafc &#43; 1;; const int maxl = 17; const int albsz = 1000003;
+int n, m, t, w[maxn], dl[maxn], df[maxn], fk[maxn], deg[maxn]; int tlf, lf[maxk], la[maxk][maxn], d[maxk][maxn], fr[maxk][maxn]; int dfb[maxk][maxn], dfe[maxk][maxn], dfn; int tvis, vis[maxn], vo[maxn], tv; seg *rt[maxk][maxn], *rl[maxk][maxn]; edge ebuf_arr[maxn &laquo; 1], *ebuf(ebuf_arr), *head[maxn];">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/code/dbimport_148/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="bzoj2589.cc" />
+<meta property="og:description" content="#include #include #include using namespace std;
+struct seg { int v; seg *ch[2]; }; struct edge { int t; edge *ne; };
+const int maxn = 40003; const int leafc = 20; const int maxk = leafc &#43; 1;; const int maxl = 17; const int albsz = 1000003;
+int n, m, t, w[maxn], dl[maxn], df[maxn], fk[maxn], deg[maxn]; int tlf, lf[maxk], la[maxk][maxn], d[maxk][maxn], fr[maxk][maxn]; int dfb[maxk][maxn], dfe[maxk][maxn], dfn; int tvis, vis[maxn], vo[maxn], tv; seg *rt[maxk][maxn], *rl[maxk][maxn]; edge ebuf_arr[maxn &laquo; 1], *ebuf(ebuf_arr), *head[maxn];" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/code/dbimport_148/" /><meta property="article:section" content="code" />
+<meta property="article:published_time" content="2015-06-12T13:38:57+00:00" />
+<meta property="article:modified_time" content="2015-06-12T13:38:57+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="bzoj2589.cc"/>
+<meta name="twitter:description" content="#include #include #include using namespace std;
+struct seg { int v; seg *ch[2]; }; struct edge { int t; edge *ne; };
+const int maxn = 40003; const int leafc = 20; const int maxk = leafc &#43; 1;; const int maxl = 17; const int albsz = 1000003;
+int n, m, t, w[maxn], dl[maxn], df[maxn], fk[maxn], deg[maxn]; int tlf, lf[maxk], la[maxk][maxn], d[maxk][maxn], fr[maxk][maxn]; int dfb[maxk][maxn], dfe[maxk][maxn], dfn; int tvis, vis[maxn], vo[maxn], tv; seg *rt[maxk][maxn], *rl[maxk][maxn]; edge ebuf_arr[maxn &laquo; 1], *ebuf(ebuf_arr), *head[maxn];"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Codes",
+      "item": "/code/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "bzoj2589.cc",
+      "item": "/code/dbimport_148/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "bzoj2589.cc",
+  "name": "bzoj2589.cc",
+  "description": "#include #include #include using namespace std;\nstruct seg { int v; seg *ch[2]; }; struct edge { int t; edge *ne; };\nconst int maxn = 40003; const int leafc = 20; const int maxk = leafc + 1;; const int maxl = 17; const int albsz = 1000003;\nint n, m, t, w[maxn], dl[maxn], df[maxn], fk[maxn], deg[maxn]; int tlf, lf[maxk], la[maxk][maxn], d[maxk][maxn], fr[maxk][maxn]; int dfb[maxk][maxn], dfe[maxk][maxn], dfn; int tvis, vis[maxn], vo[maxn], tv; seg *rt[maxk][maxn], *rl[maxk][maxn]; edge ebuf_arr[maxn \u0026laquo; 1], *ebuf(ebuf_arr), *head[maxn];",
+  "keywords": [
+    "code"
+  ],
+  "articleBody": "#include #include #include using namespace std;\nstruct seg { int v; seg *ch[2]; }; struct edge { int t; edge *ne; };\nconst int maxn = 40003; const int leafc = 20; const int maxk = leafc + 1;; const int maxl = 17; const int albsz = 1000003;\nint n, m, t, w[maxn], dl[maxn], df[maxn], fk[maxn], deg[maxn]; int tlf, lf[maxk], la[maxk][maxn], d[maxk][maxn], fr[maxk][maxn]; int dfb[maxk][maxn], dfe[maxk][maxn], dfn; int tvis, vis[maxn], vo[maxn], tv; seg *rt[maxk][maxn], *rl[maxk][maxn]; edge ebuf_arr[maxn « 1], *ebuf(ebuf_arr), *head[maxn];\ninline seg* allocSeg() { static seg* sbuf; static int cnt(0); if (!cnt) cnt = albsz - 1, sbuf = new seg[albsz]; return – cnt, sbuf ++; }\n#define vof(p) ((p)?(p-\u003ev):0) #define chof(p,d) ((p)?(p-\u003ech[d]):0) seg* sgtIns(seg* q, int po) { seg s(allocSeg()), p(s); int l(0), r(n + 1); while (l \u003c r) { p-\u003e v = vof(q) + 1; int md((l + r) » 1); int d(po \u003e md); p-\u003e ch[d ^ 1] = chof(q, d ^ 1); q = chof(q, d); p-\u003e ch[d] = allocSeg(); p = p-\u003e ch[d]; if (d) l = md + 1; else r = md; } p-\u003e v = vof(q) + 1; return s; } int sgtSQry(seg p, int po) { int l(0), r(n + 1); while (l \u003c r \u0026\u0026 p) { int md((l + r) » 1); int d(po \u003e md); p = p-\u003e ch[d]; if (d) l = md + 1; else r = md; } return vof(p); } int sgtQry(seg p, int po) { int l(0), r(n + 1), s(0); while (l \u003c r \u0026\u0026 p) { int md((l + r) » 1); if (po \u003c= md) { p = p-\u003e ch[0]; r = md; } else { s += vof(p-\u003e ch[0]); p = p-\u003e ch[1]; l = md + 1; } } return s + vof(p); }\nvoid dispVal() { sort(vo, vo + tv); tv = unique(vo, vo + tv) - vo; for (int i = 1; i \u003c= n; ++ i) w[i] = lower_bound(vo, vo + tv, w[i]) - vo; }\ninline void addEdge(int u, int v) { ebuf-\u003e t = v; ebuf-\u003e ne = head[u]; head[u] = ebuf ++; }\nvoid setDFS(int p, int po) { fk[p] = po; for (edge* e = head[p]; e; e = e-\u003e ne) if (!dl[e-\u003e t]) { dl[e-\u003e t] = dl[p] + 1; setDFS(e-\u003e t, po); } } void buildDFS(int p, int fr, int po) { int vo(vis[w[p]]); vis[w[p]] = d[po][p]; dfb[po][p] = ++ dfn; :: fr[po][p] = fr; if (fr) { rt[po][p] = sgtIns(rt[po][fr], w[p]); rl[po][p] = sgtIns(rl[po][fr], vo); la[po][p] = la[po][fr] + (!vo); } else { rt[po][p] = sgtIns(0, w[p]); rl[po][p] = sgtIns(0, 0); la[po][p] = 1; } for (edge* e = head[p]; e; e = e-\u003e ne) if (e-\u003e t != fr) { d[po][e-\u003e t] = d[po][p] + 1; buildDFS(e-\u003e t, p, po); } vis[w[p]] = vo; dfe[po][p] = dfn; } void cutLeaf() { static int q[2][maxn]; int c[2], cur(0), prv(1); c[cur] = 0; memset(dl, -1, sizeof(dl)); for (int i = 1; i \u003c= n; ++ i) if (deg[i] == 1) q[cur][c[cur] ++] = i; memset(fk, 0, sizeof(fk)); while (c[cur] \u003e leafc) { swap(cur, prv); c[cur] = 0; for (int i = 0; i \u003c c[prv]; ++ i) { int p(q[prv][i]); dl[p] = 0; for (edge* e = head[p]; e; e = e-\u003e ne) if (dl[e-\u003e t]) { df[p] = e-\u003e t; – deg[e-\u003e t]; if (deg[e-\u003e t] == 1) q[cur][c[cur] ++] = e-\u003e t; } } } tlf = c[cur]; for (int i = 1; i \u003c= tlf; ++ i) { lf[i] = q[cur][i - 1]; d[i][lf[i]] = 1; memset(vis, 0, sizeof(vis)); dl[lf[i]] = 1; fr[i][lf[i]] = 0; dfn = 0; setDFS(lf[i], i); buildDFS(lf[i], 0, i); } }\nint findRoot(int\u0026 u, int\u0026 v) { int f; for (f = 1; 1; ++ f) { if (dfb[f][u] \u003e= dfb[f][v] \u0026\u0026 dfb[f][u] \u003c= dfe[f][v]) break; swap(u, v); if (dfb[f][u] \u003e= dfb[f][v] \u0026\u0026 dfb[f][u] \u003c= dfe[f][v]) break; } return f; }\nint inRoot(int u, int v) { int ans, f(findRoot(u, v)); ans = sgtQry(rl[f][u], d[f][v] - 1); if (fr[f][v]) ans -= sgtQry(rl[f][fr[f][v]], d[f][v] - 1); return ans; }\nint forceEnu(int u, int v) { static int sa[maxn], sb[maxn]; int ta(1), tb(1); for (sa[1] = u; dl[sa[ta]] != -1; ++ ta) sa[ta + 1] = df[sa[ta]]; for (sb[1] = v; dl[sb[tb]] != -1; ++ tb) sb[tb + 1] = df[sb[tb]]; while (ta \u0026\u0026 tb \u0026\u0026 sa[ta] == sb[tb]) – ta, – tb; int ans(1), a(sa[ta + 1]); vis[w[a]] = ++ tvis; for (; u != a; u = df[u]) if (vis[w[u]] \u003c tvis) { ++ ans; vis[w[u]] = tvis; } for (; v != a; v = df[v]) if (vis[w[v]] \u003c tvis) { ++ ans; vis[w[v]] = tvis; } return ans; }\nbool findVal(int w, int u, int v, int f) { if (d[f][u] \u003c d[f][v]) swap(u, v); int s(sgtSQry(rt[f][u], w)); if (fr[f][v]) s -= sgtSQry(rt[f][fr[f][v]], w); return s; }\nint calcOO(int u, int v, int p, int q) { int po(p), qo(q); int f(findRoot(po, qo)); int ans(inRoot(po, qo)); ++ tvis; for (; u != p; u = df[u]) if (vis[w[u]] \u003c tvis \u0026\u0026 !findVal(w[u], p, q, f)) { ++ ans; vis[w[u]] = tvis; } for (; v != q; v = df[v]) if (vis[w[v]] \u003c tvis \u0026\u0026 !findVal(w[v], p, q, f)) { ++ ans; vis[w[v]] = tvis; } return ans; }\nint calc(int u, int v) { int ans(0); if (fk[u] \u0026\u0026 fk[u] == fk[v]) { int f(fk[u]); ++ tvis; while (u != v) { if (d[f][u] \u003c d[f][v]) swap(u, v); if (vis[w[u]] \u003c tvis) { ++ ans; vis[w[u]] = tvis; } u = df[u]; } if (vis[w[u]] \u003c tvis) { ++ ans; vis[w[u]] = tvis; } } else if (fk[u] || fk[v]) { if (!fk[u]) swap(u, v); int f(fk[u]); ans = la[f][v]; ++ tvis; for (; u != lf[f]; u = df[u]) if (!sgtSQry(rt[f][v], w[u]) \u0026\u0026 vis[w[u]] \u003c tvis) { ++ ans; vis[w[u]] = tvis; } } else if (u == v) { ans = 1; } else if (dl[u] == -1 \u0026\u0026 dl[v] == -1) { ans = inRoot(u, v); } else { int p(u), q(v); for (; dl[p] != -1; p = df[p]); for (; dl[q] != -1; q = df[q]); if (p == q) ans = forceEnu(u, v); else ans = calcOO(u, v, p, q); } return ans; }\nint main() { #ifdef LAEKOV_LOCAL freopen(\".in\", “r”, stdin); #endif\nscanf(\"%d%d\", \u0026n, \u0026m); tv = 0; for (int i = 1; i \u003c= n; ++ i) scanf(\"%d\", w + i), vo[tv ++] = w[i]; dispVal(); memset(deg, 0, sizeof(deg)); for (int i = 1; i \u003c n; ++ i) { int u, v; scanf(\"%d%d\", \u0026u, \u0026v); addEdge(u, v); addEdge(v, u); ++ deg[u], ++ deg[v]; } cutLeaf(); int lans(0); memset(vis, 0, sizeof(vis)); while (m --) { int u, v; scanf(\"%d%d\", \u0026u, \u0026v); u ^= lans; printf(\"%d\", (lans = calc(u, v))); if (m) putchar(10); } }\n",
+  "wordCount" : "1136",
+  "inLanguage": "en",
+  "datePublished": "2015-06-12T13:38:57Z",
+  "dateModified": "2015-06-12T13:38:57Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/code/dbimport_148/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/code/">Codes</a></div>
+    <h1 class="post-title">
+      bzoj2589.cc
+    </h1>
+    <div class="post-meta"><span title='2015-06-12 13:38:57 +0000 UTC'>June 12, 2015</span>&nbsp;·&nbsp;6 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>#include <cstdio>
+#include <cstring>
+#include <algorithm></p>
+<p>using namespace std;</p>
+<p>struct seg {
+int v;
+seg *ch[2];
+};
+struct edge {
+int t;
+edge *ne;
+};</p>
+<p>const int maxn = 40003;
+const int leafc = 20;
+const int maxk = leafc + 1;;
+const int maxl = 17;
+const int albsz = 1000003;</p>
+<p>int n, m, t, w[maxn], dl[maxn], df[maxn], fk[maxn], deg[maxn];
+int tlf, lf[maxk], la[maxk][maxn], d[maxk][maxn], fr[maxk][maxn];
+int dfb[maxk][maxn], dfe[maxk][maxn], dfn;
+int tvis, vis[maxn], vo[maxn], tv;
+seg *rt[maxk][maxn], *rl[maxk][maxn];
+edge ebuf_arr[maxn &laquo; 1], *ebuf(ebuf_arr), *head[maxn];</p>
+<p>inline seg* allocSeg() {
+static seg* sbuf;
+static int cnt(0);
+if (!cnt)
+cnt = albsz - 1, sbuf = new seg[albsz];
+return &ndash; cnt, sbuf ++;
+}</p>
+<p>#define vof(<em>p</em>) ((<em>p</em>)?(<em>p</em>-&gt;v):0)
+#define chof(<em>p</em>,<em>d</em>) ((<em>p</em>)?(<em>p</em>-&gt;ch[<em>d</em>]):0)
+seg* sgtIns(seg* q, int po) {
+seg <em>s(allocSeg()), <em>p(s);
+int l(0), r(n + 1);
+while (l &lt; r) {
+p-&gt; v = vof(q) + 1;
+int md((l + r) &raquo; 1);
+int d(po &gt; md);
+p-&gt; ch[d ^ 1] = chof(q, d ^ 1);
+q = chof(q, d);
+p-&gt; ch[d] = allocSeg();
+p = p-&gt; ch[d];
+if (d)
+l = md + 1;
+else
+r = md;
+}
+p-&gt; v = vof(q) + 1;
+return s;
+}
+int sgtSQry(seg</em> p, int po) {
+int l(0), r(n + 1);
+while (l &lt; r &amp;&amp; p) {
+int md((l + r) &raquo; 1);
+int d(po &gt; md);
+p = p-&gt; ch[d];
+if (d)
+l = md + 1;
+else
+r = md;
+}
+return vof(p);
+}
+int sgtQry(seg</em> p, int po) {
+int l(0), r(n + 1), s(0);
+while (l &lt; r &amp;&amp; p) {
+int md((l + r) &raquo; 1);
+if (po &lt;= md) {
+p = p-&gt; ch[0];
+r = md;
+}
+else {
+s += vof(p-&gt; ch[0]);
+p = p-&gt; ch[1];
+l = md + 1;
+}
+}
+return s + vof(p);
+}</p>
+<p>void dispVal() {
+sort(vo, vo + tv);
+tv = unique(vo, vo + tv) - vo;
+for (int i = 1; i &lt;= n; ++ i)
+w[i] = lower_bound(vo, vo + tv, w[i]) - vo;
+}</p>
+<p>inline void addEdge(int u, int v) {
+ebuf-&gt; t = v;
+ebuf-&gt; ne = head[u];
+head[u] = ebuf ++;
+}</p>
+<p>void setDFS(int p, int po) {
+fk[p] = po;
+for (edge* e = head[p]; e; e = e-&gt; ne)
+if (!dl[e-&gt; t]) {
+dl[e-&gt; t] = dl[p] + 1;
+setDFS(e-&gt; t, po);
+}
+}
+void buildDFS(int p, int fr, int po) {
+int vo(vis[w[p]]);
+vis[w[p]] = d[po][p];
+dfb[po][p] = ++ dfn;
+:: fr[po][p] = fr;
+if (fr) {
+rt[po][p] = sgtIns(rt[po][fr], w[p]);
+rl[po][p] = sgtIns(rl[po][fr], vo);
+la[po][p] = la[po][fr] + (!vo);
+}
+else {
+rt[po][p] = sgtIns(0, w[p]);
+rl[po][p] = sgtIns(0, 0);
+la[po][p] = 1;
+}
+for (edge* e = head[p]; e; e = e-&gt; ne)
+if (e-&gt; t != fr) {
+d[po][e-&gt; t] = d[po][p] + 1;
+buildDFS(e-&gt; t, p, po);
+}
+vis[w[p]] = vo;
+dfe[po][p] = dfn;
+}
+void cutLeaf() {
+static int q[2][maxn];
+int c[2], cur(0), prv(1);
+c[cur] = 0;
+memset(dl, -1, sizeof(dl));
+for (int i = 1; i &lt;= n; ++ i)
+if (deg[i] == 1)
+q[cur][c[cur] ++] = i;
+memset(fk, 0, sizeof(fk));
+while (c[cur] &gt; leafc) {
+swap(cur, prv);
+c[cur] = 0;
+for (int i = 0; i &lt; c[prv]; ++ i) {
+int p(q[prv][i]);
+dl[p] = 0;
+for (edge* e = head[p]; e; e = e-&gt; ne)
+if (dl[e-&gt; t]) {
+df[p] = e-&gt; t;
+&ndash; deg[e-&gt; t];
+if (deg[e-&gt; t] == 1)
+q[cur][c[cur] ++] = e-&gt; t;
+}
+}
+}
+tlf = c[cur];
+for (int i = 1; i &lt;= tlf; ++ i) {
+lf[i] = q[cur][i - 1];
+d[i][lf[i]] = 1;
+memset(vis, 0, sizeof(vis));
+dl[lf[i]] = 1;
+fr[i][lf[i]] = 0;
+dfn = 0;
+setDFS(lf[i], i);
+buildDFS(lf[i], 0, i);
+}
+}</p>
+<p>int findRoot(int&amp; u, int&amp; v) {
+int f;
+for (f = 1; 1; ++ f) {
+if (dfb[f][u] &gt;= dfb[f][v] &amp;&amp; dfb[f][u] &lt;= dfe[f][v])
+break;
+swap(u, v);
+if (dfb[f][u] &gt;= dfb[f][v] &amp;&amp; dfb[f][u] &lt;= dfe[f][v])
+break;
+}
+return f;
+}</p>
+<p>int inRoot(int u, int v) {
+int ans, f(findRoot(u, v));
+ans = sgtQry(rl[f][u], d[f][v] - 1);
+if (fr[f][v])
+ans -= sgtQry(rl[f][fr[f][v]], d[f][v] - 1);
+return ans;
+}</p>
+<p>int forceEnu(int u, int v) {
+static int sa[maxn], sb[maxn];
+int ta(1), tb(1);
+for (sa[1] = u; dl[sa[ta]] != -1; ++ ta)
+sa[ta + 1] = df[sa[ta]];
+for (sb[1] = v; dl[sb[tb]] != -1; ++ tb)
+sb[tb + 1] = df[sb[tb]];
+while (ta &amp;&amp; tb &amp;&amp; sa[ta] == sb[tb])
+&ndash; ta, &ndash; tb;
+int ans(1), a(sa[ta + 1]);
+vis[w[a]] = ++ tvis;
+for (; u != a; u = df[u])
+if (vis[w[u]] &lt; tvis) {
+++ ans;
+vis[w[u]] = tvis;
+}
+for (; v != a; v = df[v])
+if (vis[w[v]] &lt; tvis) {
+++ ans;
+vis[w[v]] = tvis;
+}
+return ans;
+}</p>
+<p>bool findVal(int w, int u, int v, int f) {
+if (d[f][u] &lt; d[f][v])
+swap(u, v);
+int s(sgtSQry(rt[f][u], w));
+if (fr[f][v])
+s -= sgtSQry(rt[f][fr[f][v]], w);
+return s;
+}</p>
+<p>int calcOO(int u, int v, int p, int q) {
+int po(p), qo(q);
+int f(findRoot(po, qo));
+int ans(inRoot(po, qo));
+++ tvis;
+for (; u != p; u = df[u])
+if (vis[w[u]] &lt; tvis &amp;&amp; !findVal(w[u], p, q, f)) {
+++ ans;
+vis[w[u]] = tvis;
+}
+for (; v != q; v = df[v])
+if (vis[w[v]] &lt; tvis &amp;&amp; !findVal(w[v], p, q, f)) {
+++ ans;
+vis[w[v]] = tvis;
+}
+return ans;
+}</p>
+<p>int calc(int u, int v) {
+int ans(0);
+if (fk[u] &amp;&amp; fk[u] == fk[v]) {
+int f(fk[u]);
+++ tvis;
+while (u != v) {
+if (d[f][u] &lt; d[f][v])
+swap(u, v);
+if (vis[w[u]] &lt; tvis) {
+++ ans;
+vis[w[u]] = tvis;
+}
+u = df[u];
+}
+if (vis[w[u]] &lt; tvis) {
+++ ans;
+vis[w[u]] = tvis;
+}
+}
+else if (fk[u] || fk[v]) {
+if (!fk[u])
+swap(u, v);
+int f(fk[u]);
+ans = la[f][v];
+++ tvis;
+for (; u != lf[f]; u = df[u])
+if (!sgtSQry(rt[f][v], w[u]) &amp;&amp; vis[w[u]] &lt; tvis) {
+++ ans;
+vis[w[u]] = tvis;
+}
+}
+else if (u == v) {
+ans = 1;
+}
+else if (dl[u] == -1 &amp;&amp; dl[v] == -1) {
+ans = inRoot(u, v);
+}
+else {
+int p(u), q(v);
+for (; dl[p] != -1; p = df[p]);
+for (; dl[q] != -1; q = df[q]);
+if (p == q)
+ans = forceEnu(u, v);
+else
+ans = calcOO(u, v, p, q);
+}
+return ans;
+}</p>
+<p>int main() {
+#ifdef LAEKOV_LOCAL
+freopen(&quot;.in&quot;, &ldquo;r&rdquo;, stdin);
+#endif</p>
+<pre><code>scanf(&quot;%d%d&quot;, &amp;n, &amp;m);
+tv = 0;
+for (int i = 1; i &lt;= n; ++ i)
+	scanf(&quot;%d&quot;, w + i), vo[tv ++] = w[i];
+dispVal();
+memset(deg, 0, sizeof(deg));
+for (int i = 1; i &lt; n; ++ i) {
+	int u, v;
+	scanf(&quot;%d%d&quot;, &amp;u, &amp;v);
+	addEdge(u, v);
+	addEdge(v, u);
+	++ deg[u], ++ deg[v];
+}
+cutLeaf();
+int lans(0);
+memset(vis, 0, sizeof(vis));
+while (m --) {
+	int u, v;
+	scanf(&quot;%d%d&quot;, &amp;u, &amp;v);
+	u ^= lans;
+	printf(&quot;%d&quot;, (lans = calc(u, v)));
+	if (m)
+		putchar(10);
+}
+</code></pre>
+<p>}</p>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/code/">code</a></li>
+    </ul>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

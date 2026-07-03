@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Pandoc 的 short author 字段缺失 fix | The Site of laekov</title>
+<meta name="keywords" content="latex, pandoc, developing">
+<meta name="description" content="laekov 搞了一个在 overleaf 里写 pandoc 的东西叫 panleaf, 并用它做一些愉快的 beamer slides.
+但是 laekov 在做一个作者有七个人的 slides 的时候发现如果把七个人塞在正文的每页的底下, 就会巨长无比, overflow. latex 提供了 short author 功能, 在 beamer 里面正文的页脚只显示 short, 而 titlepage 显示全文. 但左右看了一圈发现 pandoc 的 author 字段并没有这样的支持. 而且即使不填 author 字段, 生成的 tex 文件里面还是会蹦出一个 \author{}, 且在自定义 latex template 的后面, 所以无法在 template 里面插 author 来解决.
+laekov 于是找来了 pandoc 的 beamer writer (default.beamer, 也可能是 default.latex), 在里面找 author, 果然找到这么一段.
+\author{$for(author)$ $author$ $sep$ \and $endfor$} 这么暴力怎么行, 于是加上一个 if 变成酱紫.">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/technical/f86b57/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="Pandoc 的 short author 字段缺失 fix" />
+<meta property="og:description" content="laekov 搞了一个在 overleaf 里写 pandoc 的东西叫 panleaf, 并用它做一些愉快的 beamer slides.
+但是 laekov 在做一个作者有七个人的 slides 的时候发现如果把七个人塞在正文的每页的底下, 就会巨长无比, overflow. latex 提供了 short author 功能, 在 beamer 里面正文的页脚只显示 short, 而 titlepage 显示全文. 但左右看了一圈发现 pandoc 的 author 字段并没有这样的支持. 而且即使不填 author 字段, 生成的 tex 文件里面还是会蹦出一个 \author{}, 且在自定义 latex template 的后面, 所以无法在 template 里面插 author 来解决.
+laekov 于是找来了 pandoc 的 beamer writer (default.beamer, 也可能是 default.latex), 在里面找 author, 果然找到这么一段.
+\author{$for(author)$ $author$ $sep$ \and $endfor$} 这么暴力怎么行, 于是加上一个 if 变成酱紫." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/technical/f86b57/" /><meta property="article:section" content="technical" />
+<meta property="article:published_time" content="2022-03-15T15:37:07+00:00" />
+<meta property="article:modified_time" content="2022-03-15T15:37:07+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Pandoc 的 short author 字段缺失 fix"/>
+<meta name="twitter:description" content="laekov 搞了一个在 overleaf 里写 pandoc 的东西叫 panleaf, 并用它做一些愉快的 beamer slides.
+但是 laekov 在做一个作者有七个人的 slides 的时候发现如果把七个人塞在正文的每页的底下, 就会巨长无比, overflow. latex 提供了 short author 功能, 在 beamer 里面正文的页脚只显示 short, 而 titlepage 显示全文. 但左右看了一圈发现 pandoc 的 author 字段并没有这样的支持. 而且即使不填 author 字段, 生成的 tex 文件里面还是会蹦出一个 \author{}, 且在自定义 latex template 的后面, 所以无法在 template 里面插 author 来解决.
+laekov 于是找来了 pandoc 的 beamer writer (default.beamer, 也可能是 default.latex), 在里面找 author, 果然找到这么一段.
+\author{$for(author)$ $author$ $sep$ \and $endfor$} 这么暴力怎么行, 于是加上一个 if 变成酱紫."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Technicals",
+      "item": "/technical/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Pandoc 的 short author 字段缺失 fix",
+      "item": "/technical/f86b57/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Pandoc 的 short author 字段缺失 fix",
+  "name": "Pandoc 的 short author 字段缺失 fix",
+  "description": "laekov 搞了一个在 overleaf 里写 pandoc 的东西叫 panleaf, 并用它做一些愉快的 beamer slides.\n但是 laekov 在做一个作者有七个人的 slides 的时候发现如果把七个人塞在正文的每页的底下, 就会巨长无比, overflow. latex 提供了 short author 功能, 在 beamer 里面正文的页脚只显示 short, 而 titlepage 显示全文. 但左右看了一圈发现 pandoc 的 author 字段并没有这样的支持. 而且即使不填 author 字段, 生成的 tex 文件里面还是会蹦出一个 \\author{}, 且在自定义 latex template 的后面, 所以无法在 template 里面插 author 来解决.\nlaekov 于是找来了 pandoc 的 beamer writer (default.beamer, 也可能是 default.latex), 在里面找 author, 果然找到这么一段.\n\\author{$for(author)$ $author$ $sep$ \\and $endfor$} 这么暴力怎么行, 于是加上一个 if 变成酱紫.",
+  "keywords": [
+    "latex", "pandoc", "developing"
+  ],
+  "articleBody": "laekov 搞了一个在 overleaf 里写 pandoc 的东西叫 panleaf, 并用它做一些愉快的 beamer slides.\n但是 laekov 在做一个作者有七个人的 slides 的时候发现如果把七个人塞在正文的每页的底下, 就会巨长无比, overflow. latex 提供了 short author 功能, 在 beamer 里面正文的页脚只显示 short, 而 titlepage 显示全文. 但左右看了一圈发现 pandoc 的 author 字段并没有这样的支持. 而且即使不填 author 字段, 生成的 tex 文件里面还是会蹦出一个 \\author{}, 且在自定义 latex template 的后面, 所以无法在 template 里面插 author 来解决.\nlaekov 于是找来了 pandoc 的 beamer writer (default.beamer, 也可能是 default.latex), 在里面找 author, 果然找到这么一段.\n\\author{$for(author)$ $author$ $sep$ \\and $endfor$} 这么暴力怎么行, 于是加上一个 if 变成酱紫.\n$if(shortauthor)$ \\author[$shortauthor$]{\\small $for(author)$ $author$ $sep$ \\and $endfor$} $else$ \\author{$for(author)$ $author$ $sep$ \\and $endfor$} $endif$ 然后发现把它回存到 /usr/share/pandoc/default 并不管用. 还是原样. 一番胡猜认为是 default template 其实是被塞进了 pandoc 的 binary, 但是又看了看文档可以自定义 template file. 于是把改过的 default.beamer 改成了 laekov.beamer, 然后在配置 yaml 里面加一个 template: laekov.beamer, 终于解决了问题. 现在在 meta data 里面只要写 shortauthor 字段就可以拥有漂亮的页脚了.\n",
+  "wordCount" : "115",
+  "inLanguage": "en",
+  "datePublished": "2022-03-15T15:37:07Z",
+  "dateModified": "2022-03-15T15:37:07Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/technical/f86b57/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/technical/">Technicals</a></div>
+    <h1 class="post-title">
+      Pandoc 的 short author 字段缺失 fix
+    </h1>
+    <div class="post-meta"><span title='2022-03-15 15:37:07 +0000 UTC'>March 15, 2022</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>laekov 搞了一个在 overleaf 里写 pandoc 的东西叫 <a href="https://github.com/laekov/panleaf">panleaf</a>, 并用它做一些愉快的 beamer slides.</p>
+<p>但是 laekov 在做一个作者有七个人的 slides 的时候发现如果把七个人塞在正文的每页的底下, 就会巨长无比, overflow. latex 提供了 short author 功能, 在 beamer 里面正文的页脚只显示 short, 而 titlepage 显示全文. 但左右看了一圈发现 pandoc 的 author 字段并没有这样的支持. 而且即使不填 author 字段, 生成的 tex 文件里面还是会蹦出一个 <code>\author{}</code>, 且在自定义 latex template 的后面, 所以无法在 template 里面插 author 来解决.</p>
+<p>laekov 于是找来了 pandoc 的 beamer writer (<code>default.beamer</code>, 也可能是 <code>default.latex</code>), 在里面找 <code>author</code>, 果然找到这么一段.</p>
+<pre tabindex="0"><code>\author{$for(author)$ $author$ $sep$ \and $endfor$}
+</code></pre><p>这么暴力怎么行, 于是加上一个 <code>if</code> 变成酱紫.</p>
+<pre tabindex="0"><code>$if(shortauthor)$
+\author[$shortauthor$]{\small $for(author)$ $author$ $sep$ \and $endfor$}
+$else$
+\author{$for(author)$ $author$ $sep$ \and $endfor$}
+$endif$
+</code></pre><p>然后发现把它回存到 <code>/usr/share/pandoc/default</code> 并不管用. 还是原样. 一番胡猜认为是 default template 其实是被塞进了 pandoc 的 binary, 但是又看了看文档可以自定义 template file. 于是把改过的 <code>default.beamer</code> 改成了 <code>laekov.beamer</code>, 然后在配置 yaml 里面加一个 <code>template: laekov.beamer</code>, 终于解决了问题. 现在在 meta data 里面只要写 <code>shortauthor</code> 字段就可以拥有漂亮的页脚了.</p>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/latex/">latex</a></li>
+      <li><a href="/tags/pandoc/">pandoc</a></li>
+      <li><a href="/tags/developing/">developing</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/technical/a78ed7/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>Recent Papers of Recommendation Systems</span>
+  </a>
+  <a class="next" href="/random/caf0b0/">
+    <span class="title">Next »</span>
+    <br>
+    <span>北京骑行路线及爬坡大赏</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

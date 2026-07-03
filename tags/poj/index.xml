@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>POJ on The Site of laekov</title>
+    <link>/tags/poj/</link>
+    <description>Recent content in POJ on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Wed, 04 Feb 2015 21:28:41 +0000</lastBuildDate><atom:link href="/tags/poj/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>BZOJ2642 Pku3968 Jungle Outpost</title>
+      <link>/oi/i11rimport_056/</link>
+      <pubDate>Wed, 04 Feb 2015 21:28:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_056/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 看mhy写了好几天了啊。然后研究了一下，居然过得比他早。&amp;lt;/p&amp;gt; &amp;nbsp;
+首先敌人一定可以炸连续的一段。然后就是要看炸掉任意连续一段之后还有没有剩下的公共部分，既半平面交。
+&amp;nbsp;
+然后我yy出了一个半平面交的做法。找出一条基准直线，按方向顺时针方向排序。然后按照正常半平面交的方法根据栈顶两个元素和当前直线的位置关系判断是否需要退栈。然后当找到一条与基准直线的角度大于等于π的直线（直线是有向的，也可以说是成负角）且它把栈里退到只剩基准直线一条的时候，这些半平面没有交。否则这些半平面有交。
+&amp;nbsp;
+至于证明嘛，我也不会（挠头），毕竟是感受出来的。然后感觉这次代码写得比较漂亮，开心。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cmath&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+inline double sqr(double x) { return x * x; }
+struct point { double x, y; inline point() {} inline point(double x0, double y0) { x = x0, y = y0; } inline void read() { scanf(&amp;quot;%lf%lf&amp;quot;, &amp;amp;x, &amp;amp;y); } }; struct vect { double x, y; inline vect() {} inline vect(double x0, double y0) { x = x0, y = y0; } inline vect(point a, point b) { x = b.</description>
+    </item>
+    
+    <item>
+      <title>POJ2154 Color</title>
+      <link>/oi/i11rimport_064/</link>
+      <pubDate>Sat, 31 Jan 2015 23:18:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_064/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 首先是burnside，对于旋转x下都要当作一个置换，所以总共有n个。然后第i个的不动点数量等于n&amp;lt;sup&amp;gt;gcd(n,i)&amp;lt;/sup&amp;gt;，然后统计一下个数是phi(gcd(n,i))个。&amp;lt;/p&amp;gt; &amp;nbsp;
+然后发现要用奇奇怪怪的东西来求phi。我用的方法是分解质因数然后DFS，跑得飞快。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+#define _l (long long int)
+const int maxn = 50009;
+int n, mod; int tp, pn[maxn], phi[maxn]; bool pr[maxn];
+void pre() { memset(pr, 0, sizeof(pr)); tp = 0; phi[1] = 1; for (int i = 2; i &amp;lt; maxn; ++ i) { if (!pr[i]) { pn[tp ++] = i; phi[i] = i - 1; } for (int j = 0; j &amp;lt; tp &amp;amp;&amp;amp; i * pn[j] &amp;lt; maxn; ++ j) { pr[i * pn[j]] = 1; if (i % pn[j] == 0) { phi[i * pn[j]] = phi[i] * pn[j]; break; } else phi[i * pn[j]] = phi[i] * phi[pn[j]]; } } }</description>
+    </item>
+    
+    <item>
+      <title>BZOJ1488 || POJ1741 Tree</title>
+      <link>/oi/lofterimport_068/</link>
+      <pubDate>Mon, 24 Nov 2014 19:53:03 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_068/</guid>
+      <description>据说是男人八题。
+状态太差调了一节宝贵的晚自习，严重不开心。
+异常裸的点分治。然后里面还是套的sbt。
+卡空间比较丧病，不能开nlogn，要想办法开到n。其实就是找重心分治完再bfs一遍。最初没有写，所以mle爽，在poj上还显示的是re。
+然后各种逗的错误调啊调。把代码调得怪丑。我还是naive啊。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+struct edge {
+int t, v;
+edge *next;
+};
+const int maxn = 40009;
+int n, k, ans;
+int d[maxn], tvis, vis[maxn], vd[maxn], sz[maxn], qu[maxn];
+edge *ep,&amp;nbsp;*head[maxn], elst[maxn * 2];
+#define update(_p_)&amp;nbsp;(sz[_p_]=sz[ls[_p_]]+sz[rs[_p_]]+1)
+namespace sbt {
+const int maxnd = maxn * 2;
+const int balc = 5;
+int nst[maxnd], tn;
+int ls[maxnd], rs[maxnd], vl[maxnd], sz[maxnd];
+inline void lRot(int&amp;amp; p)&amp;nbsp;{</description>
+    </item>
+    
+  </channel>
+</rss>

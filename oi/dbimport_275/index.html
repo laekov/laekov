@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>弱省互测Round5 Count | The Site of laekov</title>
+<meta name="keywords" content="弱省互测, math, oi">
+<meta name="description" content="这题我的做法不太一样.所以mark一下.首先我把题里的n和m看反了,所以下面的m和n都与原题里的m和n相反.
+首先考虑一行的方案.在不考虑顺序(即只考虑题中要求􏰍􏱫􏴈􏴉􏰕􏱫􏰍􏱫􏴈􏴉􏰕􏱫􏲙每个颜色个数这个条件一定时)的方案数.
+n是50,刚好可以正整数拆分,把n拆成不超过k个正整数时,可行的方案数为n! / c1! / c2! / &hellip; / s1! / s2! / &hellip;这个样子.其中cx表示正整数拆分中的第x个数(后面补0可以不管),s1表示第一种相同的cx的个数.
+其实就是说怎么把k个颜色分配到我拆分出的这些整数里.
+然后对于一种这样的方案的排列数也比较好求.
+然后就是求m行的情况.我的思考方法是先按上面固定顺序,再乘m!.其实这样有问题虽然我没出事.也有可以补救的方法.
+上面拆出来的一种拆分,设它有t个不同的颜色分配方案,一种方案有c种排列.这里用一个类似于背包的转移,f[i] = f[j] &#43; 一坨东西.
+这坨东西就是把(i - j)个方案按顺序排列的答案.(都叫方案啊好晕ovo)当然这里排列的话会用到判断t是否大于等于(i - j),但是t被模过ovoovo.我偷了个懒假设t如果被模过不会正好小到影响统计.果然也没有.
+其实也可以不去除,而是乘组合数吧.不过写起来好麻烦.
+咦写了这么多了.然而感觉还是没说清楚啊.ovoovo结合代码理解吧.">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/dbimport_275/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="弱省互测Round5 Count" />
+<meta property="og:description" content="这题我的做法不太一样.所以mark一下.首先我把题里的n和m看反了,所以下面的m和n都与原题里的m和n相反.
+首先考虑一行的方案.在不考虑顺序(即只考虑题中要求􏰍􏱫􏴈􏴉􏰕􏱫􏰍􏱫􏴈􏴉􏰕􏱫􏲙每个颜色个数这个条件一定时)的方案数.
+n是50,刚好可以正整数拆分,把n拆成不超过k个正整数时,可行的方案数为n! / c1! / c2! / &hellip; / s1! / s2! / &hellip;这个样子.其中cx表示正整数拆分中的第x个数(后面补0可以不管),s1表示第一种相同的cx的个数.
+其实就是说怎么把k个颜色分配到我拆分出的这些整数里.
+然后对于一种这样的方案的排列数也比较好求.
+然后就是求m行的情况.我的思考方法是先按上面固定顺序,再乘m!.其实这样有问题虽然我没出事.也有可以补救的方法.
+上面拆出来的一种拆分,设它有t个不同的颜色分配方案,一种方案有c种排列.这里用一个类似于背包的转移,f[i] = f[j] &#43; 一坨东西.
+这坨东西就是把(i - j)个方案按顺序排列的答案.(都叫方案啊好晕ovo)当然这里排列的话会用到判断t是否大于等于(i - j),但是t被模过ovoovo.我偷了个懒假设t如果被模过不会正好小到影响统计.果然也没有.
+其实也可以不去除,而是乘组合数吧.不过写起来好麻烦.
+咦写了这么多了.然而感觉还是没说清楚啊.ovoovo结合代码理解吧." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/dbimport_275/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2015-06-11T20:03:25+00:00" />
+<meta property="article:modified_time" content="2015-06-11T20:03:25+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="弱省互测Round5 Count"/>
+<meta name="twitter:description" content="这题我的做法不太一样.所以mark一下.首先我把题里的n和m看反了,所以下面的m和n都与原题里的m和n相反.
+首先考虑一行的方案.在不考虑顺序(即只考虑题中要求􏰍􏱫􏴈􏴉􏰕􏱫􏰍􏱫􏴈􏴉􏰕􏱫􏲙每个颜色个数这个条件一定时)的方案数.
+n是50,刚好可以正整数拆分,把n拆成不超过k个正整数时,可行的方案数为n! / c1! / c2! / &hellip; / s1! / s2! / &hellip;这个样子.其中cx表示正整数拆分中的第x个数(后面补0可以不管),s1表示第一种相同的cx的个数.
+其实就是说怎么把k个颜色分配到我拆分出的这些整数里.
+然后对于一种这样的方案的排列数也比较好求.
+然后就是求m行的情况.我的思考方法是先按上面固定顺序,再乘m!.其实这样有问题虽然我没出事.也有可以补救的方法.
+上面拆出来的一种拆分,设它有t个不同的颜色分配方案,一种方案有c种排列.这里用一个类似于背包的转移,f[i] = f[j] &#43; 一坨东西.
+这坨东西就是把(i - j)个方案按顺序排列的答案.(都叫方案啊好晕ovo)当然这里排列的话会用到判断t是否大于等于(i - j),但是t被模过ovoovo.我偷了个懒假设t如果被模过不会正好小到影响统计.果然也没有.
+其实也可以不去除,而是乘组合数吧.不过写起来好麻烦.
+咦写了这么多了.然而感觉还是没说清楚啊.ovoovo结合代码理解吧."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "弱省互测Round5 Count",
+      "item": "/oi/dbimport_275/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "弱省互测Round5 Count",
+  "name": "弱省互测Round5 Count",
+  "description": "这题我的做法不太一样.所以mark一下.首先我把题里的n和m看反了,所以下面的m和n都与原题里的m和n相反.\n首先考虑一行的方案.在不考虑顺序(即只考虑题中要求􏰍􏱫􏴈􏴉􏰕􏱫􏰍􏱫􏴈􏴉􏰕􏱫􏲙每个颜色个数这个条件一定时)的方案数.\nn是50,刚好可以正整数拆分,把n拆成不超过k个正整数时,可行的方案数为n! / c1! / c2! / \u0026hellip; / s1! / s2! / \u0026hellip;这个样子.其中cx表示正整数拆分中的第x个数(后面补0可以不管),s1表示第一种相同的cx的个数.\n其实就是说怎么把k个颜色分配到我拆分出的这些整数里.\n然后对于一种这样的方案的排列数也比较好求.\n然后就是求m行的情况.我的思考方法是先按上面固定顺序,再乘m!.其实这样有问题虽然我没出事.也有可以补救的方法.\n上面拆出来的一种拆分,设它有t个不同的颜色分配方案,一种方案有c种排列.这里用一个类似于背包的转移,f[i] = f[j] + 一坨东西.\n这坨东西就是把(i - j)个方案按顺序排列的答案.(都叫方案啊好晕ovo)当然这里排列的话会用到判断t是否大于等于(i - j),但是t被模过ovoovo.我偷了个懒假设t如果被模过不会正好小到影响统计.果然也没有.\n其实也可以不去除,而是乘组合数吧.不过写起来好麻烦.\n咦写了这么多了.然而感觉还是没说清楚啊.ovoovo结合代码理解吧.",
+  "keywords": [
+    "弱省互测", "math", "oi"
+  ],
+  "articleBody": "这题我的做法不太一样.所以mark一下.首先我把题里的n和m看反了,所以下面的m和n都与原题里的m和n相反.\n首先考虑一行的方案.在不考虑顺序(即只考虑题中要求􏰍􏱫􏴈􏴉􏰕􏱫􏰍􏱫􏴈􏴉􏰕􏱫􏲙每个颜色个数这个条件一定时)的方案数.\nn是50,刚好可以正整数拆分,把n拆成不超过k个正整数时,可行的方案数为n! / c1! / c2! / … / s1! / s2! / …这个样子.其中cx表示正整数拆分中的第x个数(后面补0可以不管),s1表示第一种相同的cx的个数.\n其实就是说怎么把k个颜色分配到我拆分出的这些整数里.\n然后对于一种这样的方案的排列数也比较好求.\n然后就是求m行的情况.我的思考方法是先按上面固定顺序,再乘m!.其实这样有问题虽然我没出事.也有可以补救的方法.\n上面拆出来的一种拆分,设它有t个不同的颜色分配方案,一种方案有c种排列.这里用一个类似于背包的转移,f[i] = f[j] + 一坨东西.\n这坨东西就是把(i - j)个方案按顺序排列的答案.(都叫方案啊好晕ovo)当然这里排列的话会用到判断t是否大于等于(i - j),但是t被模过ovoovo.我偷了个懒假设t如果被模过不会正好小到影响统计.果然也没有.\n其实也可以不去除,而是乘组合数吧.不过写起来好麻烦.\n咦写了这么多了.然而感觉还是没说清楚啊.ovoovo结合代码理解吧.\n",
+  "wordCount" : "30",
+  "inLanguage": "en",
+  "datePublished": "2015-06-11T20:03:25Z",
+  "dateModified": "2015-06-11T20:03:25Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/dbimport_275/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      弱省互测Round5 Count
+    </h1>
+    <div class="post-meta"><span title='2015-06-11 20:03:25 +0000 UTC'>June 11, 2015</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>这题我的做法不太一样.所以mark一下.首先我把题里的n和m看反了,所以下面的m和n都与原题里的m和n相反.</p>
+<p>首先考虑一行的方案.在不考虑顺序(即只考虑题中要求􏰍􏱫􏴈􏴉􏰕􏱫􏰍􏱫􏴈􏴉􏰕􏱫􏲙每个颜色个数这个条件一定时)的方案数.</p>
+<p>n是50,刚好可以正整数拆分,把n拆成不超过k个正整数时,可行的方案数为n! / c1! / c2! / &hellip; / s1! / s2! / &hellip;这个样子.其中cx表示正整数拆分中的第x个数(后面补0可以不管),s1表示第一种相同的cx的个数.</p>
+<p>其实就是说怎么把k个颜色分配到我拆分出的这些整数里.</p>
+<p>然后对于一种这样的方案的排列数也比较好求.</p>
+<p>然后就是求m行的情况.我的思考方法是先按上面固定顺序,再乘m!.其实这样有问题虽然我没出事.也有可以补救的方法.</p>
+<p>上面拆出来的一种拆分,设它有t个不同的颜色分配方案,一种方案有c种排列.这里用一个类似于背包的转移,f[i] = f[j] + 一坨东西.</p>
+<p>这坨东西就是把(i - j)个方案按顺序排列的答案.(都叫方案啊好晕ovo)当然这里排列的话会用到判断t是否大于等于(i - j),但是t被模过ovoovo.我偷了个懒假设t如果被模过不会正好小到影响统计.果然也没有.</p>
+<p>其实也可以不去除,而是乘组合数吧.不过写起来好麻烦.</p>
+<p>咦写了这么多了.然而感觉还是没说清楚啊.ovoovo结合代码理解吧.</p>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/%E5%BC%B1%E7%9C%81%E4%BA%92%E6%B5%8B/">弱省互测</a></li>
+      <li><a href="/tags/math/">math</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/dbimport_149/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>bzoj2589 Spoj 10707 Count on a tree II</span>
+  </a>
+  <a class="next" href="/oi/dbimport_124/">
+    <span class="title">Next »</span>
+    <br>
+    <span>bzoj1228 [SDOI2009]E&amp;D</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

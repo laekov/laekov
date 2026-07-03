@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>graph on The Site of laekov</title>
+    <link>/tags/graph/</link>
+    <description>Recent content in graph on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Tue, 22 Dec 2015 23:14:56 +0000</lastBuildDate><atom:link href="/tags/graph/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>无向图定向计数最值脑洞</title>
+      <link>/random/dbimport_280/</link>
+      <pubDate>Tue, 22 Dec 2015 23:14:56 +0000</pubDate>
+      
+      <guid>/random/dbimport_280/</guid>
+      <description>题:给一张无向连通图.给每条边定向.要求有且仅有1号点入度为0.没有环.求极长链条数的max,min.
+做法:随便开个脑洞.已经不会想算法的我也不知道怎么解.
+ps,有人知道杂做麻烦和窝说一声qwq</description>
+    </item>
+    
+    <item>
+      <title>bzoj4152 [AMPPZ2014]The Captain</title>
+      <link>/oi/dbimport_250/</link>
+      <pubDate>Sun, 21 Jun 2015 11:13:29 +0000</pubDate>
+      
+      <guid>/oi/dbimport_250/</guid>
+      <description>naive之laekov系列.这么水的题还想了几天ovoovo
+这个距离,咦,不是传统的距离啊.等距线是十字形的.
+思考一下.发现,分别按x和y排序,把相邻的两点之间连边,dijkstra,完了.
+为啥啊?因为这样建图可以保证任意两点的最短路一定能在图上跑出来.
+毕竟我太弱,ovoovo</description>
+    </item>
+    
+    <item>
+      <title>bzoj4070 [Apio2015]雅加达的摩天楼</title>
+      <link>/oi/dbimport_238/</link>
+      <pubDate>Wed, 13 May 2015 18:34:41 +0000</pubDate>
+      
+      <guid>/oi/dbimport_238/</guid>
+      <description>apio的第二题.其实是我做题顺序里的最后一道.
+我的方法比较奇怪.对于p分开讨论.如果p&amp;gt;c那么直接建边,否则在图的旁边再建若干条链,把这个点连到链上去.然后再跑一下最短路.
+卡一卡常数就过去啦.</description>
+    </item>
+    
+    <item>
+      <title>bzoj4011 [HNOI2015]落忆枫音</title>
+      <link>/oi/dbimport_230/</link>
+      <pubDate>Wed, 29 Apr 2015 09:24:11 +0000</pubDate>
+      
+      <guid>/oi/dbimport_230/</guid>
+      <description>题目好长啊,像个阅读题一样.还是比较有意思的一道题.有点像gorgeous和我说的那个原创题的感觉啊.
+首先如果没有加边的话那么答案就是∏indegreeu.
+如果加了边之后还是dag那么无影响.
+如果加了边之后存在一个scc,那么答案就要减去∑(环*∏其它点的indegree).这个东西可以用随随便便的dp来解决.</description>
+    </item>
+    
+    <item>
+      <title>bzoj2438 [中山市选2011]杀人游戏</title>
+      <link>/oi/dbimport_142/</link>
+      <pubDate>Tue, 21 Apr 2015 20:59:49 +0000</pubDate>
+      
+      <guid>/oi/dbimport_142/</guid>
+      <description>之前在哪里听过的题啊.于是卡了一晚上.
+就是缩个点然后看看哪些点必需自己去点第一把火就好了.
+然后有一种情况是把剩下的都查完之后只剩下一个了.那么看存不存在这种情况.那就是某个第一把火的地方的scc大小为1,且它连出去的都不必需用它查.
+然后我就卡在ans&amp;gt;1上了.我傻了ovo
+然后非递归tarjan还是写得不熟啊.还要再加深一下对自己想出来的算法的印象.</description>
+    </item>
+    
+    <item>
+      <title>bzoj4010 [HNOI2015]菜肴制作</title>
+      <link>/oi/dbimport_228/</link>
+      <pubDate>Tue, 21 Apr 2015 11:52:05 +0000</pubDate>
+      
+      <guid>/oi/dbimport_228/</guid>
+      <description>bzoj都3k道题了ovo
+hnoi的题好强.
+这个题就建反图然后跑topsort就行了.每次选能选的里最大的扔进去.最后倒过来输出.
+我也是猜的然后交上去居然是对的.
+为什么呢?好神奇?</description>
+    </item>
+    
+    <item>
+      <title>bzoj3887 [Usaco2015 Jan]Grass Cownoisseur</title>
+      <link>/oi/dbimport_212/</link>
+      <pubDate>Wed, 08 Apr 2015 20:03:05 +0000</pubDate>
+      
+      <guid>/oi/dbimport_212/</guid>
+      <description>明明就是usaco的水题嘛有啥好写的ovo只是想mark一下刚自己想出来的非递归的正常版的tarjan.
+这题思路灰常简单.就tarjan缩scc然后在dag上找一下最长路就完了.
+然后就是非递归的tarjan.考虑平时用栈建树的dfs序的方法,既把一个点的所有儿子扔进栈再递归.然而这个方法不能直接套进tarjan的dfs.因为它的一个儿子可能会对另一个儿子造成影响,有可能甚至直接改变dfs的顺序.
+所以如果更新的时候一个点连出去的点还没有被访问,那么不管它是否已经在栈里,都再把它扔进去一次.这样就保证了访问的顺序.而在再次访问的时候只要判断一下是否已经访问就行了.
+然后对于两个更新,首先如果直接low[p]=dfn[p]的话是不需要专门去用dfn来取min的.然后考虑倒着更新.每个点被退visit栈的时候去更新它的父亲就好.因为它的父亲一定还没有出栈.然后如果是只更新不递归那就直接访问.
+这样的话空间复杂度会变成O(n+m),不过妈妈再也不用担心我暴栈了.而这个方法也比强行模拟系统栈要方便一些.
+开心ovo</description>
+    </item>
+    
+    <item>
+      <title>bzoj3597 [Scoi2014]方伯伯运椰子</title>
+      <link>/oi/dbimport_202/</link>
+      <pubDate>Sun, 29 Mar 2015 21:19:17 +0000</pubDate>
+      
+      <guid>/oi/dbimport_202/</guid>
+      <description>去年的省选题.之前知道了是找负环.不过一直感觉好迷是个坑.最近又想了想发现也不是很麻烦.
+当年省选的时候完全对比例题无感啊.经过一年之后终于觉悟了一点东西.
+考虑一个网络流,每条边的流量上限是inf,只有从源出来的边不是.然后如果进行一次正向增广会使代价增加b+d,如果进行一次逆向增广的话代价会增加a-d,前提是有流量.于是只要二分一个答案,看下存不存在一个负环来增广就好了.
+然后一个spfa就迷之拿了bzoj的rank1.好开心.</description>
+    </item>
+    
+    <item>
+      <title>BZOJ1295 [SCOI2009]最长距离</title>
+      <link>/oi/i11rimport_030/</link>
+      <pubDate>Wed, 25 Feb 2015 21:26:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_030/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 多老的省选题了。&amp;lt;/p&amp;gt; &amp;nbsp;
+就处理一下任意两个格子之间最少要经过几个1，如果小于等于t就更新答案。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cmath&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+#define mkword(x,y) (((x)&amp;lt;&amp;lt;16)|(y)) #define hiword(x) ((x)&amp;gt;&amp;gt;16) #define loword(x) ((x)&amp;amp;0x0000ffff)
+const int maxn = 33; const int maxnd = 909; const int movx[4] = {0, 0, 1, -1}; const int movy[4] = {1, -1, 0, 0};
+typedef pair &amp;lt;int, int&amp;gt; dpr;
+inline int sqr(int x) { return x * x; }
+int n, m, t, d[maxn][maxn], ans; int mp[maxn][maxn]; dpr hp[maxnd &amp;lt;&amp;lt; 2];</description>
+    </item>
+    
+    <item>
+      <title>BZOJ2709 [Violet 1]迷宫花园</title>
+      <link>/oi/lofterimport_001/</link>
+      <pubDate>Sat, 17 Jan 2015 12:17:59 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_001/</guid>
+      <description>水水的二分+最短路么？
+然后读入坑死了检查了好久的最短路。
+没救了。
+然后发现我好像进前100了，小小地开心一下。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+typedef pair &amp;lt;double, int&amp;gt; dpr;
+struct edge {
+int v, t;
+edge *next;
+};
+#define nid(_x_,_y_)&amp;nbsp;((_x_-1)*m+(_y_))
+const int maxn = 10009;
+const int maxa = 109;
+const int maxe = 80009;
+const int mov[4][2]&amp;nbsp;=&amp;nbsp;{{1, 0},&amp;nbsp;{-1, 0},&amp;nbsp;{0, 1},&amp;nbsp;{0,&amp;nbsp;-1}};
+const double eps = 1e-8;
+int n, m, st, te, c[maxn];
+char mp[maxa][maxa];
+double d[maxn], tg;
+edge *head[maxn],&amp;nbsp;*ep, elst[maxe];
+dpr hp[maxe];</description>
+    </item>
+    
+    <item>
+      <title>BZOJ1097 [POI2007]旅游景点</title>
+      <link>/oi/lofterimport_010/</link>
+      <pubDate>Wed, 07 Jan 2015 21:30:50 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_010/</guid>
+      <description>比较简单易懂的状压。
+最初想懒一下把起点和终点也压进来然后发现刚好会超一点空间。然后不压进来的话就是100MB左右，很好奇MAIN上面64MB的内存应该怎么做。拿MAP么？
+代码各种难看啊郁闷。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+struct edge {
+int t, v;
+edge *next;
+};
+#define pow2(x)&amp;nbsp;(1&amp;lt;&amp;lt;(x))
+typedef pair &amp;lt;int, int&amp;gt; dspr;
+const int maxn = 20009;
+const int maxe = 400009;
+const int maxk = 20;
+const int maxz = pow2(20)&amp;nbsp;+ 3;
+int n, m, k, d[maxn];
+int f[maxz][maxk], ds[maxk], dt[maxk], dk[maxk][maxk], ans;
+int g, pr[maxk];
+edge *ep,&amp;nbsp;*head[maxn];
+dspr hp[maxe];
+inline void addEdge(int u, int v, int w)&amp;nbsp;{</description>
+    </item>
+    
+    <item>
+      <title>BZOJ3237 [Ahoi2013]连通图</title>
+      <link>/oi/lofterimport_066/</link>
+      <pubDate>Wed, 26 Nov 2014 11:32:53 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_066/</guid>
+      <description>CDQ重构图。听上去比CDQ还高档的样子。
+就是每层重新标号，把没有询问到的边拿来跑并查集。
+最初是分开考虑然后可修复的并查集就T傻了。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;cctype&amp;gt;
+#include &amp;lt;set&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+int _d_;
+#define readInt(_x_)&amp;nbsp;{&amp;nbsp;\
+int&amp;amp; _s_ = _x_;&amp;nbsp;\
+while (!isdigit(_d_&amp;nbsp;= getchar()));&amp;nbsp;\
+_s_ = 0;&amp;nbsp;\
+while ((_s_&amp;nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));&amp;nbsp;\
+}
+const int maxn = 100009;
+const int maxm = 200009;
+const int maxl = 19;
+struct edge {
+int a, b, i;
+};
+struct dset {
+int r[maxn], hp[maxn * 5], hv[maxn * 5], cnt;</description>
+    </item>
+    
+    <item>
+      <title>BZOJ1486 [HNOI2009]最小圈</title>
+      <link>/oi/lofterimport_084/</link>
+      <pubDate>Thu, 20 Nov 2014 17:14:47 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_084/</guid>
+      <description>做过。但是不对。
+迷之找负环。
+初值直接赋为0，这样可以节省找没用的最短路的时间。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+using namespace std;
+struct edge {
+int t;
+double v;
+edge *next;
+};
+const int maxn = 3009;
+const int maxm = 10009;
+const double eps = 1e-9;
+const double finf = 1e20;&amp;nbsp;
+int n, m;
+bool iq[maxn];
+double d[maxn], ave;
+edge *ep,&amp;nbsp;*head[maxn], elst[maxm];
+bool dfs(int p)&amp;nbsp;{
+iq[p]&amp;nbsp;= 1;
+for (edge* e = head[p]; e; e = e-&amp;gt; next)
+if (d[e-&amp;gt; t]&amp;nbsp;-&amp;nbsp;(d[p]&amp;nbsp;+ e-&amp;gt; v)&amp;nbsp;&amp;gt; eps)&amp;nbsp;{</description>
+    </item>
+    
+  </channel>
+</rss>

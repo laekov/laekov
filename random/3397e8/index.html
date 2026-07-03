@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>W 楼宿舍优化手记 | The Site of laekov</title>
+<meta name="keywords" content="brainhole">
+<meta name="description" content="博士生涯在硕士宿舍住满两年后, 搬宿舍来到了 w 楼老破并不小的双人间. 该楼由于年久失修, 室内状况较差. 墙面, 门, 和卫生间都有一些十分恶心的情况. 本着既来之则安之的思路, 自强不息的精神, 进行一些尽力而为的改造和优化, 并记录在这里以供他人 (大概不会有了吧) 参考.
+室内布局 下图是一个并不等比例的示意图.
+w 楼类似于本科生紫荆公寓的布局, 相邻两间宿舍共用一个中厅, 但每个宿舍有独卫. 卫生间有马桶, 水池和淋浴. 但是空间较小, 干湿并不分离.
+家具方面, 相比本科和硕士宿舍, 床从上铺变成了地面上的床, 虽然宽度没有变化. 桌子也更宽一些. 中间是标准的键盘抽屉, 左右两边各有一个较窄的抽屉. 但是桌上层有两层置物架, 其中下层的高度较低, 导致比较大的显示器无法推到最前. 此外, 中厅也有一个比较大的公用桌子, 并另配了四把椅子. (故平均每人竟然拥有两把椅子)
+绿色床位可以获得一个比较深的窗台. 窗台上可以置物或作他用. 中厅和窗台都有可以晾衣服的铁杆. 中厅的窗台也很深.
+强弱电方面, 每个床位配有百兆有线网. 桌子附近有一个电线插头. 红字床头另有一个插头.
+Layout transformation for bike placement 红色桌子被旋转了 90 度, 然后在和中厅的窗户之间 (红桌的右手边是一个通向中厅的窗户) 空出了约 80 公分的间隙, 把大紫立在了间隙里, 正好可以卡在窗户边沿. 还可以另放下一个气筒和停车架. 大大紫则被插到了中厅窗台 v 字形的尖上, 前轮在窗台上, 而后轮在地上. 正好可以用脚踏抵住暖气片, 从而稳稳立住.">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/random/3397e8/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="W 楼宿舍优化手记" />
+<meta property="og:description" content="博士生涯在硕士宿舍住满两年后, 搬宿舍来到了 w 楼老破并不小的双人间. 该楼由于年久失修, 室内状况较差. 墙面, 门, 和卫生间都有一些十分恶心的情况. 本着既来之则安之的思路, 自强不息的精神, 进行一些尽力而为的改造和优化, 并记录在这里以供他人 (大概不会有了吧) 参考.
+室内布局 下图是一个并不等比例的示意图.
+w 楼类似于本科生紫荆公寓的布局, 相邻两间宿舍共用一个中厅, 但每个宿舍有独卫. 卫生间有马桶, 水池和淋浴. 但是空间较小, 干湿并不分离.
+家具方面, 相比本科和硕士宿舍, 床从上铺变成了地面上的床, 虽然宽度没有变化. 桌子也更宽一些. 中间是标准的键盘抽屉, 左右两边各有一个较窄的抽屉. 但是桌上层有两层置物架, 其中下层的高度较低, 导致比较大的显示器无法推到最前. 此外, 中厅也有一个比较大的公用桌子, 并另配了四把椅子. (故平均每人竟然拥有两把椅子)
+绿色床位可以获得一个比较深的窗台. 窗台上可以置物或作他用. 中厅和窗台都有可以晾衣服的铁杆. 中厅的窗台也很深.
+强弱电方面, 每个床位配有百兆有线网. 桌子附近有一个电线插头. 红字床头另有一个插头.
+Layout transformation for bike placement 红色桌子被旋转了 90 度, 然后在和中厅的窗户之间 (红桌的右手边是一个通向中厅的窗户) 空出了约 80 公分的间隙, 把大紫立在了间隙里, 正好可以卡在窗户边沿. 还可以另放下一个气筒和停车架. 大大紫则被插到了中厅窗台 v 字形的尖上, 前轮在窗台上, 而后轮在地上. 正好可以用脚踏抵住暖气片, 从而稳稳立住." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/random/3397e8/" /><meta property="article:section" content="random" />
+<meta property="article:published_time" content="2022-07-11T10:33:56+00:00" />
+<meta property="article:modified_time" content="2022-07-11T10:33:56+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="W 楼宿舍优化手记"/>
+<meta name="twitter:description" content="博士生涯在硕士宿舍住满两年后, 搬宿舍来到了 w 楼老破并不小的双人间. 该楼由于年久失修, 室内状况较差. 墙面, 门, 和卫生间都有一些十分恶心的情况. 本着既来之则安之的思路, 自强不息的精神, 进行一些尽力而为的改造和优化, 并记录在这里以供他人 (大概不会有了吧) 参考.
+室内布局 下图是一个并不等比例的示意图.
+w 楼类似于本科生紫荆公寓的布局, 相邻两间宿舍共用一个中厅, 但每个宿舍有独卫. 卫生间有马桶, 水池和淋浴. 但是空间较小, 干湿并不分离.
+家具方面, 相比本科和硕士宿舍, 床从上铺变成了地面上的床, 虽然宽度没有变化. 桌子也更宽一些. 中间是标准的键盘抽屉, 左右两边各有一个较窄的抽屉. 但是桌上层有两层置物架, 其中下层的高度较低, 导致比较大的显示器无法推到最前. 此外, 中厅也有一个比较大的公用桌子, 并另配了四把椅子. (故平均每人竟然拥有两把椅子)
+绿色床位可以获得一个比较深的窗台. 窗台上可以置物或作他用. 中厅和窗台都有可以晾衣服的铁杆. 中厅的窗台也很深.
+强弱电方面, 每个床位配有百兆有线网. 桌子附近有一个电线插头. 红字床头另有一个插头.
+Layout transformation for bike placement 红色桌子被旋转了 90 度, 然后在和中厅的窗户之间 (红桌的右手边是一个通向中厅的窗户) 空出了约 80 公分的间隙, 把大紫立在了间隙里, 正好可以卡在窗户边沿. 还可以另放下一个气筒和停车架. 大大紫则被插到了中厅窗台 v 字形的尖上, 前轮在窗台上, 而后轮在地上. 正好可以用脚踏抵住暖气片, 从而稳稳立住."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Randoms",
+      "item": "/random/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "W 楼宿舍优化手记",
+      "item": "/random/3397e8/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "W 楼宿舍优化手记",
+  "name": "W 楼宿舍优化手记",
+  "description": "博士生涯在硕士宿舍住满两年后, 搬宿舍来到了 w 楼老破并不小的双人间. 该楼由于年久失修, 室内状况较差. 墙面, 门, 和卫生间都有一些十分恶心的情况. 本着既来之则安之的思路, 自强不息的精神, 进行一些尽力而为的改造和优化, 并记录在这里以供他人 (大概不会有了吧) 参考.\n室内布局 下图是一个并不等比例的示意图.\nw 楼类似于本科生紫荆公寓的布局, 相邻两间宿舍共用一个中厅, 但每个宿舍有独卫. 卫生间有马桶, 水池和淋浴. 但是空间较小, 干湿并不分离.\n家具方面, 相比本科和硕士宿舍, 床从上铺变成了地面上的床, 虽然宽度没有变化. 桌子也更宽一些. 中间是标准的键盘抽屉, 左右两边各有一个较窄的抽屉. 但是桌上层有两层置物架, 其中下层的高度较低, 导致比较大的显示器无法推到最前. 此外, 中厅也有一个比较大的公用桌子, 并另配了四把椅子. (故平均每人竟然拥有两把椅子)\n绿色床位可以获得一个比较深的窗台. 窗台上可以置物或作他用. 中厅和窗台都有可以晾衣服的铁杆. 中厅的窗台也很深.\n强弱电方面, 每个床位配有百兆有线网. 桌子附近有一个电线插头. 红字床头另有一个插头.\nLayout transformation for bike placement 红色桌子被旋转了 90 度, 然后在和中厅的窗户之间 (红桌的右手边是一个通向中厅的窗户) 空出了约 80 公分的间隙, 把大紫立在了间隙里, 正好可以卡在窗户边沿. 还可以另放下一个气筒和停车架. 大大紫则被插到了中厅窗台 v 字形的尖上, 前轮在窗台上, 而后轮在地上. 正好可以用脚踏抵住暖气片, 从而稳稳立住.",
+  "keywords": [
+    "brainhole"
+  ],
+  "articleBody": " 博士生涯在硕士宿舍住满两年后, 搬宿舍来到了 w 楼老破并不小的双人间. 该楼由于年久失修, 室内状况较差. 墙面, 门, 和卫生间都有一些十分恶心的情况. 本着既来之则安之的思路, 自强不息的精神, 进行一些尽力而为的改造和优化, 并记录在这里以供他人 (大概不会有了吧) 参考.\n室内布局 下图是一个并不等比例的示意图.\nw 楼类似于本科生紫荆公寓的布局, 相邻两间宿舍共用一个中厅, 但每个宿舍有独卫. 卫生间有马桶, 水池和淋浴. 但是空间较小, 干湿并不分离.\n家具方面, 相比本科和硕士宿舍, 床从上铺变成了地面上的床, 虽然宽度没有变化. 桌子也更宽一些. 中间是标准的键盘抽屉, 左右两边各有一个较窄的抽屉. 但是桌上层有两层置物架, 其中下层的高度较低, 导致比较大的显示器无法推到最前. 此外, 中厅也有一个比较大的公用桌子, 并另配了四把椅子. (故平均每人竟然拥有两把椅子)\n绿色床位可以获得一个比较深的窗台. 窗台上可以置物或作他用. 中厅和窗台都有可以晾衣服的铁杆. 中厅的窗台也很深.\n强弱电方面, 每个床位配有百兆有线网. 桌子附近有一个电线插头. 红字床头另有一个插头.\nLayout transformation for bike placement 红色桌子被旋转了 90 度, 然后在和中厅的窗户之间 (红桌的右手边是一个通向中厅的窗户) 空出了约 80 公分的间隙, 把大紫立在了间隙里, 正好可以卡在窗户边沿. 还可以另放下一个气筒和停车架. 大大紫则被插到了中厅窗台 v 字形的尖上, 前轮在窗台上, 而后轮在地上. 正好可以用脚踏抵住暖气片, 从而稳稳立住.\n此外, 在竖过来的红桌子外侧立了一根顶天立地柱来提供额外的晾衣和挂东西的空间.\n与墙面 / 墙皮的斗争 由于年久失修, w 楼室内墙面状况十分糟糕. 很多地方存在墙皮脱落, 如下图所示.\n每天都可以在地上看到新鲜的脱落的墙皮. 此问题暂时还没有解决. 目前的计划是使用一些墙纸和墙胶来把它们糊住.\n此外, 发现床的周围墙面都已经明显发黄, 应该是潮湿 + 之前睡在这里的学长们的汗水所致. 好在事前定制了一些自粘的海报, 正好绕墙一周贴住, 这样至少可以没有心理障碍地在睡觉的时候接触墙面了.\n在家园网进行了一个报修. 第二天早上正准备出门遇到一个师傅正要进来修. 师傅对此宿舍的墙面情况表示震惊. 一番沟通之后师傅让把东西全部遮起来, 然后进行了大量的粉刷. 因为要刷三层, 所以可能两三天不太能住. 而且把刚展开的东西再收回去也非常痛苦. 如果能够在还没展开行李的时候就想到报修, 先修再展开, 可能会好一些.\n朽烂的厕所门 还没解决. 报修了. 希望可以换一个新的.\n后来听说全 w 楼有一百七十多张换厕所门的工单，感到大事不妙，于是决定自己动手，把门拆掉，姑且先挂个帘子。\n拆门的合页的时候遇到了很大的问题，螺丝都锈得不行，而且上面的合页竟然用的是反人类的一字螺丝，还上过漆，很难拆。先用螺丝刀旋出来一些之后，就无法继续往外拧了，此时需要用钳子继续把螺丝边拧边拔出来。即使用上了这样的方法，最后一个螺丝还是完全旋不动。于是直接大力拧了门，把螺丝给破拆了下来。拆下来之后，满脑子都是那句 他带上门，出去了 (其实是把门姑且扔到中厅了）\n正好室友购买的窗帘多了一个撑杆，于是购买了一个帘子作为厕所门。虽然门框还是很恶心，但是至少坐在马桶上的时候不至于想吐了。\n卫生间金属除锈 正好多了一管自行车用的除锈剂，于是在一些看起来比较恶心的表面（比如水龙头、马桶冲水按钮）进行了除锈操作。\n卫生间墙面 使用了一种墙面清洁剂, 而后卫生间墙面发黄的情况有了较大改观.\n(暂时完结)\n",
+  "wordCount" : "119",
+  "inLanguage": "en",
+  "datePublished": "2022-07-11T10:33:56Z",
+  "dateModified": "2022-07-11T10:33:56Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/random/3397e8/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/random/">Randoms</a></div>
+    <h1 class="post-title">
+      W 楼宿舍优化手记
+    </h1>
+    <div class="post-meta"><span title='2022-07-11 10:33:56 +0000 UTC'>July 11, 2022</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e5%ae%a4%e5%86%85%e5%b8%83%e5%b1%80" aria-label="室内布局">室内布局</a></li>
+                <li>
+                    <a href="#layout-transformation-for-bike-placement" aria-label="Layout transformation for bike placement">Layout transformation for bike placement</a></li>
+                <li>
+                    <a href="#%e4%b8%8e%e5%a2%99%e9%9d%a2--%e5%a2%99%e7%9a%ae%e7%9a%84%e6%96%97%e4%ba%89" aria-label="与墙面 / 墙皮的斗争">与墙面 / 墙皮的斗争</a></li>
+                <li>
+                    <a href="#%e6%9c%bd%e7%83%82%e7%9a%84%e5%8e%95%e6%89%80%e9%97%a8" aria-label="朽烂的厕所门">朽烂的厕所门</a></li>
+                <li>
+                    <a href="#%e5%8d%ab%e7%94%9f%e9%97%b4%e9%87%91%e5%b1%9e%e9%99%a4%e9%94%88" aria-label="卫生间金属除锈">卫生间金属除锈</a></li>
+                <li>
+                    <a href="#%e5%8d%ab%e7%94%9f%e9%97%b4%e5%a2%99%e9%9d%a2" aria-label="卫生间墙面">卫生间墙面</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><style>img {width: 100%}</style>
+<p>博士生涯在硕士宿舍住满两年后, 搬宿舍来到了 w 楼老破并不小的双人间. 该楼由于年久失修, 室内状况较差. 墙面, 门, 和卫生间都有一些十分恶心的情况. 本着既来之则安之的思路, 自强不息的精神, 进行一些尽力而为的改造和优化, 并记录在这里以供他人 (大概不会有了吧) 参考.</p>
+<h2 id="室内布局">室内布局<a hidden class="anchor" aria-hidden="true" href="#室内布局">#</a></h2>
+<p>下图是一个并不等比例的示意图.</p>
+<p><img loading="lazy" src="/l/figures/wlayout.png" alt=""  />
+</p>
+<p>w 楼类似于本科生紫荆公寓的布局, 相邻两间宿舍共用一个中厅, 但每个宿舍有独卫. 卫生间有马桶, 水池和淋浴. 但是空间较小, 干湿并不分离.</p>
+<p>家具方面, 相比本科和硕士宿舍, 床从上铺变成了地面上的床, 虽然宽度没有变化. 桌子也更宽一些. 中间是标准的键盘抽屉, 左右两边各有一个较窄的抽屉. 但是桌上层有两层置物架, 其中下层的高度较低, 导致比较大的显示器无法推到最前. 此外, 中厅也有一个比较大的公用桌子, 并另配了四把椅子. (故平均每人竟然拥有两把椅子)</p>
+<p>绿色床位可以获得一个比较深的窗台. 窗台上可以置物或作他用. 中厅和窗台都有可以晾衣服的铁杆. 中厅的窗台也很深.</p>
+<p>强弱电方面, 每个床位配有百兆有线网. 桌子附近有一个电线插头. 红字床头另有一个插头.</p>
+<h2 id="layout-transformation-for-bike-placement">Layout transformation for bike placement<a hidden class="anchor" aria-hidden="true" href="#layout-transformation-for-bike-placement">#</a></h2>
+<p>红色桌子被旋转了 90 度, 然后在和中厅的窗户之间  (红桌的右手边是一个通向中厅的窗户) 空出了约 80 公分的间隙, 把大紫立在了间隙里, 正好可以卡在窗户边沿. 还可以另放下一个气筒和停车架. 大大紫则被插到了中厅窗台 v 字形的尖上, 前轮在窗台上, 而后轮在地上. 正好可以用脚踏抵住暖气片, 从而稳稳立住.</p>
+<p>此外, 在竖过来的红桌子外侧立了一根顶天立地柱来提供额外的晾衣和挂东西的空间.</p>
+<h2 id="与墙面--墙皮的斗争">与墙面 / 墙皮的斗争<a hidden class="anchor" aria-hidden="true" href="#与墙面--墙皮的斗争">#</a></h2>
+<p>由于年久失修, w 楼室内墙面状况十分糟糕. 很多地方存在墙皮脱落, 如下图所示.</p>
+<p><img loading="lazy" src="/l/figures/wwall.jpg" alt=""  />
+</p>
+<p>每天都可以在地上看到新鲜的脱落的墙皮. 此问题暂时还没有解决. 目前的计划是使用一些墙纸和墙胶来把它们糊住.</p>
+<p>此外, 发现床的周围墙面都已经明显发黄, 应该是潮湿 + 之前睡在这里的学长们的汗水所致. 好在事前定制了一些自粘的海报, 正好绕墙一周贴住, 这样至少可以没有心理障碍地在睡觉的时候接触墙面了.</p>
+<p>在家园网进行了一个报修. 第二天早上正准备出门遇到一个师傅正要进来修. 师傅对此宿舍的墙面情况表示震惊. 一番沟通之后师傅让把东西全部遮起来, 然后进行了大量的粉刷. 因为要刷三层, 所以可能两三天不太能住. 而且把刚展开的东西再收回去也非常痛苦. 如果能够在还没展开行李的时候就想到报修, 先修再展开, 可能会好一些.</p>
+<h2 id="朽烂的厕所门">朽烂的厕所门<a hidden class="anchor" aria-hidden="true" href="#朽烂的厕所门">#</a></h2>
+<p>还没解决. 报修了. 希望可以换一个新的.</p>
+<p><img loading="lazy" src="/l/figures/wtoiletdoor.jpg" alt=""  />
+</p>
+<p>后来听说全 w 楼有一百七十多张换厕所门的工单，感到大事不妙，于是决定自己动手，把门拆掉，姑且先挂个帘子。</p>
+<p>拆门的合页的时候遇到了很大的问题，螺丝都锈得不行，而且上面的合页竟然用的是反人类的一字螺丝，还上过漆，很难拆。先用螺丝刀旋出来一些之后，就无法继续往外拧了，此时需要用钳子继续把螺丝边拧边拔出来。即使用上了这样的方法，最后一个螺丝还是完全旋不动。于是直接大力拧了门，把螺丝给破拆了下来。拆下来之后，满脑子都是那句 <em>他带上门，出去了</em> (其实是把门姑且扔到中厅了）</p>
+<p><img loading="lazy" src="/l/figures/wdoorremoved.jpg" alt=""  />
+</p>
+<p>正好室友购买的窗帘多了一个撑杆，于是购买了一个帘子作为厕所门。虽然门框还是很恶心，但是至少坐在马桶上的时候不至于想吐了。</p>
+<p><img loading="lazy" src="/l/figures/wcurtain.jpg" alt=""  />
+</p>
+<h2 id="卫生间金属除锈">卫生间金属除锈<a hidden class="anchor" aria-hidden="true" href="#卫生间金属除锈">#</a></h2>
+<p>正好多了一管自行车用的除锈剂，于是在一些看起来比较恶心的表面（比如水龙头、马桶冲水按钮）进行了除锈操作。</p>
+<h2 id="卫生间墙面">卫生间墙面<a hidden class="anchor" aria-hidden="true" href="#卫生间墙面">#</a></h2>
+<p>使用了一种墙面清洁剂, 而后卫生间墙面发黄的情况有了较大改观.</p>
+<p>(暂时完结)</p>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/brainhole/">brainhole</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/technical/e59478/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>如何使用 windows 笔记本的指纹解锁 linux</span>
+  </a>
+  <a class="next" href="/random/680f7d/">
+    <span class="title">Next »</span>
+    <br>
+    <span>搞明白自行车五通中轴牙盘规格</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

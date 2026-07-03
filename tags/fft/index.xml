@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>fft on The Site of laekov</title>
+    <link>/tags/fft/</link>
+    <description>Recent content in fft on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Wed, 17 Jun 2015 20:55:30 +0000</lastBuildDate><atom:link href="/tags/fft/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>bzoj3451 tyvj1953 Normal</title>
+      <link>/oi/dbimport_194/</link>
+      <pubDate>Wed, 17 Jun 2015 20:55:30 +0000</pubDate>
+      
+      <guid>/oi/dbimport_194/</guid>
+      <description>mhy大爷多久之前开的坑啊ovo
+这题的思路比较神.点分+fft.两个点会产生的贡献是1/(dist + 1).于是要知道长度为多少的链有多少条.
+利用树分可以将∑深度降到O(n*log n)的级别.原因很明显啊.
+然后就用fft来求就好喽.反正是double也懒得用数论了.然后找了wyf的程序随便就拍出一组末位不等,也没用long double.居然能过太神奇了.
+总复杂度O(n*log2n).然后莫名其妙就拿了rank1好开心啊.</description>
+    </item>
+    
+    <item>
+      <title>bzoj3992 [Sdoi2015]序列统计</title>
+      <link>/oi/dbimport_220/</link>
+      <pubDate>Thu, 16 Apr 2015 17:25:12 +0000</pubDate>
+      
+      <guid>/oi/dbimport_220/</guid>
+      <description>好玩的数论题。想想发现可以像快速幂一样跑。然后就是思考如何转移优化。
+发现模数比较奇怪。居然是fnt的模数ovo那就要用fft喽？可是这里是乘啊。木有关系喽，因为m是素数，所以它一定有原根。于是可以取原根的幂次，就变成加辣。
+这种东西我自己当然想不出来ovo
+同余系下的东西真有趣ovo</description>
+    </item>
+    
+    <item>
+      <title>spoj235 Very Fast Multiplication</title>
+      <link>/oi/dbimport_277/</link>
+      <pubDate>Mon, 13 Apr 2015 20:46:02 +0000</pubDate>
+      
+      <guid>/oi/dbimport_277/</guid>
+      <description>水水的fft啦.主要是来mark一下数论版fft.
+有一个奇妙的东西叫原根.这个玩意要乘(p-1)次才能乘回自己.然后如果(p-1)含有很多很多个2的话,就可以拿来做fft辣.其实就是解决了fft的单位根,不用complex.剩下的照搬好辣.
+水ovo.在这个前不着村后不着店的四星酒店里好无语ovo</description>
+    </item>
+    
+    <item>
+      <title>bzoj3509 [CodeChef] COUNTARI</title>
+      <link>/oi/dbimport_196/</link>
+      <pubDate>Wed, 01 Apr 2015 20:01:08 +0000</pubDate>
+      
+      <guid>/oi/dbimport_196/</guid>
+      <description>好难得自己去开坑hhhhh
+其实之前看过做法,觉得有点麻烦.于是拖到现在.然后荣登最慢yeah.不知道那些又短又快的东西是怎么来的.肯定和我不是一个写法的啦.
+我的做法是把序列每b个分成一块.对于同一块,直接b2求内部有三个点或者两个点的等差三元组的数量.
+对于分别在3块的,对每块把两边的所有东西卷积一次来统计.
+其实也没啥技术含量ovo</description>
+    </item>
+    
+  </channel>
+</rss>

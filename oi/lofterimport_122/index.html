@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>BZOJ3589 动态树 | The Site of laekov</title>
+<meta name="keywords" content="bzoj, data\xa0structure, oi">
+<meta name="description" content="啊啊看到动态树被吓尿了。
+然后发现动的不是树的形态是点权。
+树链剖分&#43;dfs序么。
+重点是我TLE了。
+最初的写法是直接查询然后把访问过的点打个标记。一个询问做完再标记回去。然后，tle。
+参考jason_yu的做法，找出所有dfs序上要询问的区间，合并之后询问，应该不会tle了吧？还是tle。
+最后发现是线段树lazy标记的地方写成n^2了。开心啊。
+事实证明第一种写法12秒左右，第二种写法3秒多。当然也要考虑我巨丑的常数。
+所以我还是太naive了。
+代码当然要粘快的。
+#include &lt;cstdio&gt;
+#include &lt;cctype&gt;
+#include &lt;memory.h&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+struct edge {
+int t;
+edge *next;
+};
+struct seg {
+int l, r, a, v;
+seg *ls,&nbsp;*rs;
+};
+struct rect {
+int l, r;
+inline rect(int l0 = 0, int r0 = 0)&nbsp;{
+l = l0, r = r0;
+}
+inline rect operator &#43;(const rect&amp; a) const {">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/lofterimport_122/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="BZOJ3589 动态树" />
+<meta property="og:description" content="啊啊看到动态树被吓尿了。
+然后发现动的不是树的形态是点权。
+树链剖分&#43;dfs序么。
+重点是我TLE了。
+最初的写法是直接查询然后把访问过的点打个标记。一个询问做完再标记回去。然后，tle。
+参考jason_yu的做法，找出所有dfs序上要询问的区间，合并之后询问，应该不会tle了吧？还是tle。
+最后发现是线段树lazy标记的地方写成n^2了。开心啊。
+事实证明第一种写法12秒左右，第二种写法3秒多。当然也要考虑我巨丑的常数。
+所以我还是太naive了。
+代码当然要粘快的。
+#include &lt;cstdio&gt;
+#include &lt;cctype&gt;
+#include &lt;memory.h&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+struct edge {
+int t;
+edge *next;
+};
+struct seg {
+int l, r, a, v;
+seg *ls,&nbsp;*rs;
+};
+struct rect {
+int l, r;
+inline rect(int l0 = 0, int r0 = 0)&nbsp;{
+l = l0, r = r0;
+}
+inline rect operator &#43;(const rect&amp; a) const {" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/lofterimport_122/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2014-10-23T10:50:38+00:00" />
+<meta property="article:modified_time" content="2014-10-23T10:50:38+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BZOJ3589 动态树"/>
+<meta name="twitter:description" content="啊啊看到动态树被吓尿了。
+然后发现动的不是树的形态是点权。
+树链剖分&#43;dfs序么。
+重点是我TLE了。
+最初的写法是直接查询然后把访问过的点打个标记。一个询问做完再标记回去。然后，tle。
+参考jason_yu的做法，找出所有dfs序上要询问的区间，合并之后询问，应该不会tle了吧？还是tle。
+最后发现是线段树lazy标记的地方写成n^2了。开心啊。
+事实证明第一种写法12秒左右，第二种写法3秒多。当然也要考虑我巨丑的常数。
+所以我还是太naive了。
+代码当然要粘快的。
+#include &lt;cstdio&gt;
+#include &lt;cctype&gt;
+#include &lt;memory.h&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+struct edge {
+int t;
+edge *next;
+};
+struct seg {
+int l, r, a, v;
+seg *ls,&nbsp;*rs;
+};
+struct rect {
+int l, r;
+inline rect(int l0 = 0, int r0 = 0)&nbsp;{
+l = l0, r = r0;
+}
+inline rect operator &#43;(const rect&amp; a) const {"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "BZOJ3589 动态树",
+      "item": "/oi/lofterimport_122/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BZOJ3589 动态树",
+  "name": "BZOJ3589 动态树",
+  "description": "啊啊看到动态树被吓尿了。\n然后发现动的不是树的形态是点权。\n树链剖分+dfs序么。\n重点是我TLE了。\n最初的写法是直接查询然后把访问过的点打个标记。一个询问做完再标记回去。然后，tle。\n参考jason_yu的做法，找出所有dfs序上要询问的区间，合并之后询问，应该不会tle了吧？还是tle。\n最后发现是线段树lazy标记的地方写成n^2了。开心啊。\n事实证明第一种写法12秒左右，第二种写法3秒多。当然也要考虑我巨丑的常数。\n所以我还是太naive了。\n代码当然要粘快的。\n#include \u0026lt;cstdio\u0026gt;\n#include \u0026lt;cctype\u0026gt;\n#include \u0026lt;memory.h\u0026gt;\n#include \u0026lt;algorithm\u0026gt;\nusing namespace std;\nstruct edge {\nint t;\nedge *next;\n};\nstruct seg {\nint l, r, a, v;\nseg *ls,\u0026nbsp;*rs;\n};\nstruct rect {\nint l, r;\ninline rect(int l0 = 0, int r0 = 0)\u0026nbsp;{\nl = l0, r = r0;\n}\ninline rect operator +(const rect\u0026amp; a) const {",
+  "keywords": [
+    "bzoj", "data\\xa0structure", "oi"
+  ],
+  "articleBody": "啊啊看到动态树被吓尿了。\n然后发现动的不是树的形态是点权。\n树链剖分+dfs序么。\n重点是我TLE了。\n最初的写法是直接查询然后把访问过的点打个标记。一个询问做完再标记回去。然后，tle。\n参考jason_yu的做法，找出所有dfs序上要询问的区间，合并之后询问，应该不会tle了吧？还是tle。\n最后发现是线段树lazy标记的地方写成n^2了。开心啊。\n事实证明第一种写法12秒左右，第二种写法3秒多。当然也要考虑我巨丑的常数。\n所以我还是太naive了。\n代码当然要粘快的。\n#include #include #include #include using namespace std;\nstruct edge {\nint t;\nedge *next;\n};\nstruct seg {\nint l, r, a, v;\nseg *ls, *rs;\n};\nstruct rect {\nint l, r;\ninline rect(int l0 = 0, int r0 = 0) {\nl = l0, r = r0;\n}\ninline rect operator +(const rect\u0026 a) const {\nreturn rect(min(l, a. l), max(r, a. r));\n}\ninline rect operator =(const rect\u0026 a) {\nl = a. l, r = a. r;\nreturn *this;\n}\n};\ninline bool cmpRect(const rect\u0026 a, const rect\u0026 b) {\nreturn a. l \u003c b. l;\n}\n#define readInt(_s_) {\\\nint _d_;\\\n_s_ = 0;\\\nwhile (!isdigit(_d_ = getchar()));\\\nwhile ((_s_ = _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\\\n}\nconst int maxn = 200009;\nint n, q, dfo[maxn], dfb[maxn], dfe[maxn];\nint fs[maxn], fa[maxn], d[maxn], fc[maxn], ch[maxn], sz[maxn], tc;\nint tre;\nrect cre[maxn];\nedge *head[maxn], *ep;\nseg *rt, *sp;\ninline void addEdge(int u, int v) {\nep-\u003e t = v;\nep-\u003e next = head[u];\nhead[u] = ep ++;\n}\n#define mid(p) ((p-\u003el+p-\u003er)\u003e\u003e1)\ninline seg *sgtBuild(int l, int r) {\nseg* p = sp ++;\np-\u003e l = l;\np-\u003e r = r;\np-\u003e a = 0;\np-\u003e v = 0;\nif (l + 1 \u003c r) {\np-\u003e ls = sgtBuild(l, mid(p));\np-\u003e rs = sgtBuild(mid(p), r);\n}\nreturn p;\n}\ninline void sgtAdd(seg* p, int l, int r, int v) {\nif (p-\u003e l == l \u0026\u0026 p-\u003e r == r)\np-\u003e a += v;\nelse if (r \u003c= mid(p))\nsgtAdd(p-\u003e ls, l, r, v);\nelse if (l \u003e= mid(p))\nsgtAdd(p-\u003e rs, l, r, v);\nelse {\nsgtAdd(p-\u003e ls, l, mid(p), v);\nsgtAdd(p-\u003e rs, mid(p), r, v);\n}\np-\u003e v += v * (r - l);\n}\ninline int sgtQry(seg* p, int l, int r) {\nif (p-\u003e l == l \u0026\u0026 p-\u003e r == r)\nreturn p-\u003e v;\nelse {\nint a = (r - l) * p-\u003e a;\nif (r \u003c= mid(p))\nreturn sgtQry(p-\u003e ls, l, r) + a;\nelse if (l \u003e= mid(p))\nreturn sgtQry(p-\u003e rs, l, r) + a;\nelse\nreturn sgtQry(p-\u003e ls, l, mid(p)) + sgtQry(p-\u003e rs, mid(p), r) + a;\n}\n}\nvoid divide() {\nstatic int stc[maxn];\nint tstc = 1, dfn = 0;\nmemset(d, 0, sizeof(d));\nstc[1] = 1;\nd[1] = 1;\nwhile (tstc) {\nint p = stc[tstc --];\ndfb[p] = ++ dfn;\ndfo[dfn] = p;\nfor (edge* e = head[p]; e; e = e-\u003e next)\nif (!d[e-\u003e t]) {\nd[e-\u003e t] = d[p] + 1;\nfa[e-\u003e t] = p;\nstc[++ tstc] = e-\u003e t;\n}\n}\ntc = 0;\nfor (int i = n; i; -- i) {\nint p = dfo[i], x = -1;\nsz[p] = 1;\nfor (edge* e = head[p]; e; e = e-\u003e next)\nif (fa[e-\u003e t] == p) {\nsz[p] += sz[e-\u003e t];\nif (x == -1 || sz[e-\u003e t] \u003e sz[x])\nx = e-\u003e t;\n}\nfs[p] = x;\nif (x \u003e -1) {\nfc[p] = fc[x];\nch[fc[p]] = p;\n}\nelse {\nfc[p] = ++ tc;\nch[fc[p]] = p;\n}\n}\ntstc = 1;\nstc[1] = 1;\ndfn = 0;\nwhile (tstc) {\nint p = stc[tstc --];\ndfb[p] = ++ dfn;\ndfe[p] = dfb[p];\ndfo[dfn] = p;\nfor (edge* e = head[p]; e; e = e-\u003e next)\nif (fa[e-\u003e t] == p \u0026\u0026 e-\u003e t != fs[p])\nstc[++ tstc] = e-\u003e t;\nif (fs[p] \u003e -1)\nstc[++ tstc] = fs[p];\n}\nfor (int i = n; i \u003e 1; -- i)\ndfe[fa[dfo[i]]] = max(dfe[fa[dfo[i]]], dfe[dfo[i]]);\nrt = sgtBuild(1, n + 1);\n}\nint main() {\n#ifndef ONLINE_JUDGE\nfreopen(\"in.txt\", \"r\", stdin);\n#endif\nmemset(head, 0, sizeof(head));\nep = new edge[maxn * 2];\nsp = new seg[maxn * 3];\nreadInt(n);\nfor (int i = 0; i \u003c n - 1; ++ i) {\nint u, v;\nreadInt(u);\nreadInt(v);\naddEdge(u, v);\naddEdge(v, u);\n}\ndivide();\nreadInt(q);\nwhile (q --) {\nint k, u, v;\nreadInt(k);\nif (!k) {\nreadInt(u);\nreadInt(v);\nsgtAdd(rt, dfb[u], dfe[u] + 1, v);\n}\nelse {\nreadInt(k);\nint ans = 0;\ntre = 0;\nfor (int i = 0; i \u003c k; ++ i) {\nreadInt(u);\nreadInt(v);\nif (d[u] \u003c d[v])\nswap(u, v);\nwhile (fc[u] ^ fc[v]) {\ncre[tre ++] = rect(dfb[ch[fc[u]]], dfb[u] + 1);\nu = fa[ch[fc[u]]];\n}\ncre[tre ++] = rect(dfb[v], dfb[u] + 1);\n}\nsort(cre, cre + tre, cmpRect);\nfor (int i = 0; i \u003c tre; ++ i)\nif (i \u003c tre - 1 \u0026\u0026 cre[i]. r \u003e= cre[i + 1]. l)\ncre[i + 1] = cre[i] + cre[i + 1];\nelse\nans += sgtQry(rt, cre[i]. l, cre[i]. r);\nprintf(\"%d\\n\", ans \u0026 2147483647);\n}\n}\n}\n",
+  "wordCount" : "693",
+  "inLanguage": "en",
+  "datePublished": "2014-10-23T10:50:38Z",
+  "dateModified": "2014-10-23T10:50:38Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/lofterimport_122/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      BZOJ3589 动态树
+    </h1>
+    <div class="post-meta"><span title='2014-10-23 10:50:38 +0000 UTC'>October 23, 2014</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>啊啊看到动态树被吓尿了。</p> 
+<p><br /></p> 
+<p>然后发现动的不是树的形态是点权。</p> 
+<p><br /></p> 
+<p>树链剖分+dfs序么。</p> 
+<p><br /></p> 
+<p>重点是我TLE了。</p> 
+<p><br /></p> 
+<p>最初的写法是直接查询然后把访问过的点打个标记。一个询问做完再标记回去。然后，tle。</p> 
+<p><br /></p> 
+<p>参考jason_yu的做法，找出所有dfs序上要询问的区间，合并之后询问，应该不会tle了吧？还是tle。</p> 
+<p><br /></p> 
+<p>最后发现是线段树lazy标记的地方写成n^2了。开心啊。</p> 
+<p><br /></p> 
+<p>事实证明第一种写法12秒左右，第二种写法3秒多。当然也要考虑我巨丑的常数。</p> 
+<p><br /></p> 
+<p>所以我还是太naive了。</p> 
+<p><br /></p> 
+<p>代码当然要粘快的。</p> 
+<p>#include &lt;cstdio&gt;</p> 
+<p>#include &lt;cctype&gt;</p> 
+<p>#include &lt;memory.h&gt;</p> 
+<p>#include &lt;algorithm&gt;</p> 
+<p><br /></p> 
+<p>using namespace std;</p> 
+<p><br /></p> 
+<p>struct edge {</p> 
+<p>int t;</p> 
+<p>edge *next;</p> 
+<p>};</p> 
+<p>struct seg {</p> 
+<p>int l, r, a, v;</p> 
+<p>seg *ls,&nbsp;*rs;</p> 
+<p>};</p> 
+<p>struct rect {</p> 
+<p>int l, r;</p> 
+<p>inline rect(int l0 = 0, int r0 = 0)&nbsp;{</p> 
+<p>l = l0, r = r0;</p> 
+<p>}</p> 
+<p>inline rect operator +(const rect&amp; a) const {</p> 
+<p>return rect(min(l, a. l), max(r, a. r));</p> 
+<p>}</p> 
+<p>inline rect operator =(const rect&amp; a)&nbsp;{</p> 
+<p>l = a. l, r = a. r;</p> 
+<p>return *this;</p> 
+<p>}</p> 
+<p>};</p> 
+<p><br /></p> 
+<p>inline bool cmpRect(const rect&amp; a, const rect&amp; b)&nbsp;{</p> 
+<p>return a. l &lt; b. l;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>#define readInt(_s_)&nbsp;{\</p> 
+<p>int _d_;\</p> 
+<p>_s_ = 0;\</p> 
+<p>while (!isdigit(_d_&nbsp;= getchar()));\</p> 
+<p>while ((_s_&nbsp;= _s_ * 10 + _d_ - 48), isdigit(_d_ = getchar()));\</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>const int maxn = 200009;</p> 
+<p><br /></p> 
+<p>int n, q, dfo[maxn], dfb[maxn], dfe[maxn];</p> 
+<p>int fs[maxn], fa[maxn], d[maxn], fc[maxn], ch[maxn], sz[maxn], tc;</p> 
+<p>int tre;</p> 
+<p>rect cre[maxn];</p> 
+<p>edge *head[maxn],&nbsp;*ep;</p> 
+<p>seg *rt,&nbsp;*sp;</p> 
+<p><br /></p> 
+<p>inline void addEdge(int u, int v)&nbsp;{</p> 
+<p>ep-&gt; t = v;</p> 
+<p>ep-&gt; next = head[u];</p> 
+<p>head[u]&nbsp;= ep ++;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>#define mid(p)&nbsp;((p-&gt;l+p-&gt;r)&gt;&gt;1)</p> 
+<p><br /></p> 
+<p>inline seg *sgtBuild(int l, int r)&nbsp;{</p> 
+<p>seg* p = sp ++;</p> 
+<p>p-&gt; l = l;</p> 
+<p>p-&gt; r = r;</p> 
+<p>p-&gt; a = 0;</p> 
+<p>p-&gt; v = 0;</p> 
+<p>if (l&nbsp;+ 1 &lt; r)&nbsp;{</p> 
+<p>p-&gt; ls = sgtBuild(l, mid(p));</p> 
+<p>p-&gt; rs = sgtBuild(mid(p), r);</p> 
+<p>}</p> 
+<p>return p;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>inline void sgtAdd(seg* p, int l, int r, int v)&nbsp;{</p> 
+<p>if (p-&gt; l == l &amp;&amp; p-&gt; r == r)</p> 
+<p>p-&gt; a += v;</p> 
+<p>else if (r&nbsp;&lt;= mid(p))</p> 
+<p>sgtAdd(p-&gt; ls, l, r, v);</p> 
+<p>else if (l&nbsp;&gt;= mid(p))</p> 
+<p>sgtAdd(p-&gt; rs, l, r, v);</p> 
+<p>else {</p> 
+<p>sgtAdd(p-&gt; ls, l, mid(p), v);</p> 
+<p>sgtAdd(p-&gt; rs, mid(p), r, v);</p> 
+<p>}</p> 
+<p>p-&gt; v += v *&nbsp;(r&nbsp;- l);</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>inline int sgtQry(seg* p, int l, int r)&nbsp;{</p> 
+<p>if (p-&gt; l == l &amp;&amp; p-&gt; r == r)</p> 
+<p>return p-&gt; v;</p> 
+<p>else {</p> 
+<p>int a =&nbsp;(r&nbsp;- l)&nbsp;* p-&gt; a;</p> 
+<p>if (r&nbsp;&lt;= mid(p))</p> 
+<p>return sgtQry(p-&gt; ls, l, r)&nbsp;+ a;</p> 
+<p>else if (l&nbsp;&gt;= mid(p))</p> 
+<p>return sgtQry(p-&gt; rs, l, r)&nbsp;+ a;</p> 
+<p>else</p> 
+<p>return sgtQry(p-&gt; ls, l, mid(p))&nbsp;+ sgtQry(p-&gt; rs, mid(p), r)&nbsp;+ a;</p> 
+<p>}</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>void divide()&nbsp;{</p> 
+<p>static int stc[maxn];</p> 
+<p>int tstc = 1, dfn = 0;</p> 
+<p>memset(d, 0, sizeof(d));</p> 
+<p>stc[1]&nbsp;= 1;</p> 
+<p>d[1]&nbsp;= 1;</p> 
+<p>while (tstc)&nbsp;{</p> 
+<p>int p = stc[tstc --];</p> 
+<p>dfb[p]&nbsp;=&nbsp;++ dfn;</p> 
+<p>dfo[dfn]&nbsp;= p;</p> 
+<p>for (edge* e = head[p]; e; e = e-&gt; next)</p> 
+<p>if (!d[e-&gt; t])&nbsp;{</p> 
+<p>d[e-&gt; t]&nbsp;= d[p]&nbsp;+ 1;</p> 
+<p>fa[e-&gt; t]&nbsp;= p;</p> 
+<p>stc[++ tstc]&nbsp;= e-&gt; t;</p> 
+<p>}</p> 
+<p>}</p> 
+<p>tc = 0;</p> 
+<p>for (int i = n; i;&nbsp;-- i)&nbsp;{</p> 
+<p>int p = dfo[i], x =&nbsp;-1;</p> 
+<p>sz[p]&nbsp;= 1;</p> 
+<p>for (edge* e = head[p]; e; e = e-&gt; next)</p> 
+<p>if (fa[e-&gt; t]&nbsp;== p)&nbsp;{</p> 
+<p>sz[p]&nbsp;+= sz[e-&gt; t];</p> 
+<p>if (x&nbsp;==&nbsp;-1&nbsp;|| sz[e-&gt; t]&nbsp;&gt; sz[x])</p> 
+<p>x = e-&gt; t;</p> 
+<p>}</p> 
+<p>fs[p]&nbsp;= x;</p> 
+<p>if (x&nbsp;&gt;&nbsp;-1)&nbsp;{</p> 
+<p>fc[p]&nbsp;= fc[x];</p> 
+<p>ch[fc[p]]&nbsp;= p;</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>fc[p]&nbsp;=&nbsp;++ tc;</p> 
+<p>ch[fc[p]]&nbsp;= p;</p> 
+<p>}</p> 
+<p>}</p> 
+<p>tstc = 1;</p> 
+<p>stc[1]&nbsp;= 1;</p> 
+<p>dfn = 0;</p> 
+<p>while (tstc)&nbsp;{</p> 
+<p>int p = stc[tstc --];</p> 
+<p>dfb[p]&nbsp;=&nbsp;++ dfn;</p> 
+<p>dfe[p]&nbsp;= dfb[p];</p> 
+<p>dfo[dfn]&nbsp;= p;</p> 
+<p>for (edge* e = head[p]; e; e = e-&gt; next)</p> 
+<p>if (fa[e-&gt; t]&nbsp;== p &amp;&amp; e-&gt; t != fs[p])</p> 
+<p>stc[++ tstc]&nbsp;= e-&gt; t;</p> 
+<p>if (fs[p]&nbsp;&gt;&nbsp;-1)</p> 
+<p>stc[++ tstc]&nbsp;= fs[p];</p> 
+<p>}</p> 
+<p>for (int i = n; i &gt; 1;&nbsp;-- i)</p> 
+<p>dfe[fa[dfo[i]]]&nbsp;= max(dfe[fa[dfo[i]]], dfe[dfo[i]]);</p> 
+<p>rt = sgtBuild(1, n + 1);</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int main()&nbsp;{</p> 
+<p>#ifndef ONLINE_JUDGE</p> 
+<p>freopen(&quot;in.txt&quot;,&nbsp;&quot;r&quot;, stdin);</p> 
+<p>#endif</p> 
+<p><br /></p> 
+<p>memset(head, 0, sizeof(head));</p> 
+<p>ep = new edge[maxn * 2];</p> 
+<p>sp = new seg[maxn * 3];</p> 
+<p>readInt(n);</p> 
+<p>for (int i = 0; i &lt; n - 1;&nbsp;++ i)&nbsp;{</p> 
+<p>int u, v;</p> 
+<p>readInt(u);</p> 
+<p>readInt(v);</p> 
+<p>addEdge(u, v);</p> 
+<p>addEdge(v, u);</p> 
+<p>}</p> 
+<p>divide();</p> 
+<p>readInt(q);</p> 
+<p>while (q&nbsp;--)&nbsp;{</p> 
+<p>int k, u, v;</p> 
+<p>readInt(k);</p> 
+<p>if (!k)&nbsp;{</p> 
+<p>readInt(u);</p> 
+<p>readInt(v);</p> 
+<p>sgtAdd(rt, dfb[u], dfe[u]&nbsp;+ 1, v);</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>readInt(k);</p> 
+<p>int ans = 0;</p> 
+<p>tre = 0;</p> 
+<p>for (int i = 0; i &lt; k;&nbsp;++ i)&nbsp;{</p> 
+<p>readInt(u);</p> 
+<p>readInt(v);</p> 
+<p>if (d[u]&nbsp;&lt; d[v])</p> 
+<p>swap(u, v);</p> 
+<p>while (fc[u]&nbsp;^ fc[v])&nbsp;{</p> 
+<p>cre[tre ++]&nbsp;= rect(dfb[ch[fc[u]]], dfb[u]&nbsp;+ 1);</p> 
+<p>u = fa[ch[fc[u]]];</p> 
+<p>}</p> 
+<p>cre[tre ++]&nbsp;= rect(dfb[v], dfb[u]&nbsp;+ 1);</p> 
+<p>}</p> 
+<p>sort(cre, cre + tre, cmpRect);</p> 
+<p>for (int i = 0; i &lt; tre;&nbsp;++ i)</p> 
+<p>if (i&nbsp;&lt; tre - 1 &amp;&amp; cre[i]. r &gt;= cre[i + 1]. l)</p> 
+<p>cre[i + 1]&nbsp;= cre[i]&nbsp;+ cre[i + 1];</p> 
+<p>else</p> 
+<p>ans += sgtQry(rt, cre[i]. l, cre[i]. r);</p> 
+<p>printf(&quot;%d\n&quot;, ans &amp; 2147483647);</p> 
+<p>}</p> 
+<p>}</p> 
+<p>}</p> 
+<p><br /></p>
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/bzoj/">bzoj</a></li>
+      <li><a href="/tags/data%5Cxa0structure/">data\xa0structure</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/lofterimport_121/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>BZOJ1146 [CTSC2008]网络管理Network</span>
+  </a>
+  <a class="next" href="/oi/lofterimport_123/">
+    <span class="title">Next »</span>
+    <br>
+    <span>20141023 计划</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

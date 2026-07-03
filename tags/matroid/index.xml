@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>matroid on The Site of laekov</title>
+    <link>/tags/matroid/</link>
+    <description>Recent content in matroid on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Mon, 09 Feb 2015 21:57:41 +0000</lastBuildDate><atom:link href="/tags/matroid/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>BZOJ3105 [cqoi2013]新Nim游戏</title>
+      <link>/oi/i11rimport_050/</link>
+      <pubDate>Mon, 09 Feb 2015 21:57:41 +0000</pubDate>
+      
+      <guid>/oi/i11rimport_050/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 今天wc讲的题。主要其实是用拟阵来证明贪心的正确性。就构造一下就好了。不选的集合构成一个拟阵的基，如果基不能异或出0就是线性无关的。然后按照拟阵的贪心方法挨个加。&amp;lt;/p&amp;gt; &amp;nbsp;
+策略是从大到小排个序能不选就不选，用异或消元来判断一下就好了。许久没有写了，还好没有搞忘。
+&amp;nbsp;
+代码还是比较短的，开心ing。
+&amp;nbsp;
+#include &amp;lt;cstdio&amp;gt; #include &amp;lt;cstring&amp;gt; #include &amp;lt;algorithm&amp;gt; using namespace std;
+typedef long long dint; #ifdef WIN32 #define lld &amp;ldquo;%I64d&amp;rdquo; #else #define lld &amp;ldquo;%lld&amp;rdquo; #endif #define _l (long long int)
+const int maxn = 109;
+int n, a[maxn], b[maxn], c[maxn], t; dint s;
+bool hasZero() { for (int i = 0; i &amp;lt; t; ++ i) b[i] = c[i]; for (int i = 31, j = 0; i &amp;gt;= 0 &amp;amp;&amp;amp; j &amp;lt; t; &amp;ndash; i) { for (int k = j; k &amp;lt; n; ++ k) if ((b[k] &amp;gt;&amp;gt; i) &amp;amp; 1) { swap(b[k], b[j]); break; } if ((b[j] &amp;gt;&amp;gt; i) &amp;amp; 1) { for (int k = j + 1; k &amp;lt; n; ++ k) if ((b[k] &amp;gt;&amp;gt; i) &amp;amp; 1) { b[k] ^= b[j]; if (!</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>exp on The Site of laekov</title>
+    <link>/tags/exp/</link>
+    <description>Recent content in exp on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Fri, 27 Mar 2015 10:26:10 +0000</lastBuildDate><atom:link href="/tags/exp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>bzoj2698 染色</title>
+      <link>/oi/dbimport_155/</link>
+      <pubDate>Fri, 27 Mar 2015 10:26:10 +0000</pubDate>
+      
+      <guid>/oi/dbimport_155/</guid>
+      <description>没有五笔好烦。
+无语的期望题。AC第一页最长。
+首先用像借教室一样的做法去求每个位置被覆盖了多少次。然后一个下降的序列需要求导再积回来。然后发现要加回来，这个东西是不能积的。于是坑了我好久。
+最后期望就是∑1-Pim。其中Pi表示第i个点被任意一个区间覆盖的概率。
+水过去啦。</description>
+    </item>
+    
+  </channel>
+</rss>

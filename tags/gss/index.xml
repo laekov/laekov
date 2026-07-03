@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>gss on The Site of laekov</title>
+    <link>/tags/gss/</link>
+    <description>Recent content in gss on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Thu, 19 Mar 2015 22:58:43 +0000</lastBuildDate><atom:link href="/tags/gss/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>bzoj2482 Spoj1557 Can you answer these queries II</title>
+      <link>/oi/dbimport_146/</link>
+      <pubDate>Thu, 19 Mar 2015 22:58:43 +0000</pubDate>
+      
+      <guid>/oi/dbimport_146/</guid>
+      <description>原来备案还没过。那之前是怎么成功访问的囧。
+写了一晚上。教训还是之前那个，写之前要想清楚。写完再去改就很烦。自己yy了很久，虽然最初是听了mhy的一句提醒。好有危机感。
+首先这个东西可以离线。之前一直在想在线怎么做然后也觉得没法做。
+把询问按右端点排序之后问题就转化成了左端点在一个范围里的时候的最大子段。
+然后用一个线段树表示从i到current right的时候的和，这个玩意可以直接区间加。然后再去维护这个东西的历史最大值。于是就变成了每个位置上接了一个add序列，要找它的前缀最大值。那么只需要存两个东西：当前的和以及当前的最大前缀和，就可以合并了。
+然后线段树上维护两个add序列，分别是对整个线段的lazy tag of add和max value of son。就可写了。
+然后好像跑得很慢啊TT。</description>
+    </item>
+    
+  </channel>
+</rss>

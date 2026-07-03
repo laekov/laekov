@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>20150705 | The Site of laekov</title>
+<meta name="keywords" content="summary, diary">
+<meta name="description" content="在黄花机场写最后一篇总结.
+最近两天考得都很逗.虽然昨天晚上强行解烧,不过今天早上显然没好全于是2小时写完代码开始颓.感觉好对不起人民啊.
+第一题不是和昨天晚上bc的b题很像么.三元环的数目是O(m1.5)的.于是随便思考了一个感觉不太会错的算法就交了.然后居然能过.然后居然把1和2看反了扔掉60分.我没救了.
+第二题错误的三分居然能拿80.然而,O2直接全输出0是什么情况啊.不知道喽.
+第三题正好复习一下manacher.正解肯定当时想不出来ovo我太弱了.
+身体各种不资瓷啊.据说是流感?好吓人.
+于是再总结一下这回在外面待的10天吧.
+考试来讲看上去还不错,不过问题其实比较大.常常把朴素算法或者正解写错.然后很多题也想不到正解.然而正解其实不难.noi的时候需要注意的是把该写好的东西写好,检查对.要不就亏了.
+然后听讲的效率还是蛮低啊.感觉上高中之后这一直是个很困扰我的问题.当然做笔记是个好办法不过有时候如果听不下去了也要及时止损.
+还有这回和czr还有rause两位大爷交流得比较多.感觉人家上海人就是会玩!在数学和思维这两方面的确和别人有差距.然后别人家的学校和cdqz,唉.可能也是因为人家经济发达所以教育资源比较充足吧.我们这个西部贫困小山村的井底之蛙学校,没救没救.
+还有yyy.感谢妳能在我最感觉坚持不下去的时候及时给我希望和动力.我不会辜负妳的.
+嗯,我还是太弱了.noi要加油.">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/diary/dbimport_050/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="20150705" />
+<meta property="og:description" content="在黄花机场写最后一篇总结.
+最近两天考得都很逗.虽然昨天晚上强行解烧,不过今天早上显然没好全于是2小时写完代码开始颓.感觉好对不起人民啊.
+第一题不是和昨天晚上bc的b题很像么.三元环的数目是O(m1.5)的.于是随便思考了一个感觉不太会错的算法就交了.然后居然能过.然后居然把1和2看反了扔掉60分.我没救了.
+第二题错误的三分居然能拿80.然而,O2直接全输出0是什么情况啊.不知道喽.
+第三题正好复习一下manacher.正解肯定当时想不出来ovo我太弱了.
+身体各种不资瓷啊.据说是流感?好吓人.
+于是再总结一下这回在外面待的10天吧.
+考试来讲看上去还不错,不过问题其实比较大.常常把朴素算法或者正解写错.然后很多题也想不到正解.然而正解其实不难.noi的时候需要注意的是把该写好的东西写好,检查对.要不就亏了.
+然后听讲的效率还是蛮低啊.感觉上高中之后这一直是个很困扰我的问题.当然做笔记是个好办法不过有时候如果听不下去了也要及时止损.
+还有这回和czr还有rause两位大爷交流得比较多.感觉人家上海人就是会玩!在数学和思维这两方面的确和别人有差距.然后别人家的学校和cdqz,唉.可能也是因为人家经济发达所以教育资源比较充足吧.我们这个西部贫困小山村的井底之蛙学校,没救没救.
+还有yyy.感谢妳能在我最感觉坚持不下去的时候及时给我希望和动力.我不会辜负妳的.
+嗯,我还是太弱了.noi要加油." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/diary/dbimport_050/" /><meta property="article:section" content="diary" />
+<meta property="article:published_time" content="2015-07-05T18:42:04+00:00" />
+<meta property="article:modified_time" content="2015-07-05T18:42:04+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="20150705"/>
+<meta name="twitter:description" content="在黄花机场写最后一篇总结.
+最近两天考得都很逗.虽然昨天晚上强行解烧,不过今天早上显然没好全于是2小时写完代码开始颓.感觉好对不起人民啊.
+第一题不是和昨天晚上bc的b题很像么.三元环的数目是O(m1.5)的.于是随便思考了一个感觉不太会错的算法就交了.然后居然能过.然后居然把1和2看反了扔掉60分.我没救了.
+第二题错误的三分居然能拿80.然而,O2直接全输出0是什么情况啊.不知道喽.
+第三题正好复习一下manacher.正解肯定当时想不出来ovo我太弱了.
+身体各种不资瓷啊.据说是流感?好吓人.
+于是再总结一下这回在外面待的10天吧.
+考试来讲看上去还不错,不过问题其实比较大.常常把朴素算法或者正解写错.然后很多题也想不到正解.然而正解其实不难.noi的时候需要注意的是把该写好的东西写好,检查对.要不就亏了.
+然后听讲的效率还是蛮低啊.感觉上高中之后这一直是个很困扰我的问题.当然做笔记是个好办法不过有时候如果听不下去了也要及时止损.
+还有这回和czr还有rause两位大爷交流得比较多.感觉人家上海人就是会玩!在数学和思维这两方面的确和别人有差距.然后别人家的学校和cdqz,唉.可能也是因为人家经济发达所以教育资源比较充足吧.我们这个西部贫困小山村的井底之蛙学校,没救没救.
+还有yyy.感谢妳能在我最感觉坚持不下去的时候及时给我希望和动力.我不会辜负妳的.
+嗯,我还是太弱了.noi要加油."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Diaries",
+      "item": "/diary/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "20150705",
+      "item": "/diary/dbimport_050/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "20150705",
+  "name": "20150705",
+  "description": "在黄花机场写最后一篇总结.\n最近两天考得都很逗.虽然昨天晚上强行解烧,不过今天早上显然没好全于是2小时写完代码开始颓.感觉好对不起人民啊.\n第一题不是和昨天晚上bc的b题很像么.三元环的数目是O(m1.5)的.于是随便思考了一个感觉不太会错的算法就交了.然后居然能过.然后居然把1和2看反了扔掉60分.我没救了.\n第二题错误的三分居然能拿80.然而,O2直接全输出0是什么情况啊.不知道喽.\n第三题正好复习一下manacher.正解肯定当时想不出来ovo我太弱了.\n身体各种不资瓷啊.据说是流感?好吓人.\n于是再总结一下这回在外面待的10天吧.\n考试来讲看上去还不错,不过问题其实比较大.常常把朴素算法或者正解写错.然后很多题也想不到正解.然而正解其实不难.noi的时候需要注意的是把该写好的东西写好,检查对.要不就亏了.\n然后听讲的效率还是蛮低啊.感觉上高中之后这一直是个很困扰我的问题.当然做笔记是个好办法不过有时候如果听不下去了也要及时止损.\n还有这回和czr还有rause两位大爷交流得比较多.感觉人家上海人就是会玩!在数学和思维这两方面的确和别人有差距.然后别人家的学校和cdqz,唉.可能也是因为人家经济发达所以教育资源比较充足吧.我们这个西部贫困小山村的井底之蛙学校,没救没救.\n还有yyy.感谢妳能在我最感觉坚持不下去的时候及时给我希望和动力.我不会辜负妳的.\n嗯,我还是太弱了.noi要加油.",
+  "keywords": [
+    "summary", "diary"
+  ],
+  "articleBody": "在黄花机场写最后一篇总结.\n最近两天考得都很逗.虽然昨天晚上强行解烧,不过今天早上显然没好全于是2小时写完代码开始颓.感觉好对不起人民啊.\n第一题不是和昨天晚上bc的b题很像么.三元环的数目是O(m1.5)的.于是随便思考了一个感觉不太会错的算法就交了.然后居然能过.然后居然把1和2看反了扔掉60分.我没救了.\n第二题错误的三分居然能拿80.然而,O2直接全输出0是什么情况啊.不知道喽.\n第三题正好复习一下manacher.正解肯定当时想不出来ovo我太弱了.\n身体各种不资瓷啊.据说是流感?好吓人.\n于是再总结一下这回在外面待的10天吧.\n考试来讲看上去还不错,不过问题其实比较大.常常把朴素算法或者正解写错.然后很多题也想不到正解.然而正解其实不难.noi的时候需要注意的是把该写好的东西写好,检查对.要不就亏了.\n然后听讲的效率还是蛮低啊.感觉上高中之后这一直是个很困扰我的问题.当然做笔记是个好办法不过有时候如果听不下去了也要及时止损.\n还有这回和czr还有rause两位大爷交流得比较多.感觉人家上海人就是会玩!在数学和思维这两方面的确和别人有差距.然后别人家的学校和cdqz,唉.可能也是因为人家经济发达所以教育资源比较充足吧.我们这个西部贫困小山村的井底之蛙学校,没救没救.\n还有yyy.感谢妳能在我最感觉坚持不下去的时候及时给我希望和动力.我不会辜负妳的.\n嗯,我还是太弱了.noi要加油.\n",
+  "wordCount" : "12",
+  "inLanguage": "en",
+  "datePublished": "2015-07-05T18:42:04Z",
+  "dateModified": "2015-07-05T18:42:04Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/diary/dbimport_050/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/diary/">Diaries</a></div>
+    <h1 class="post-title">
+      20150705
+    </h1>
+    <div class="post-meta"><span title='2015-07-05 18:42:04 +0000 UTC'>July 5, 2015</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>在黄花机场写最后一篇总结.</p>
+<p>最近两天考得都很逗.虽然昨天晚上强行解烧,不过今天早上显然没好全于是2小时写完代码开始颓.感觉好对不起人民啊.</p>
+<p>第一题不是和昨天晚上bc的b题很像么.三元环的数目是O(m<sup>1.5</sup>)的.于是随便思考了一个感觉不太会错的算法就交了.然后居然能过.然后居然把1和2看反了扔掉60分.我没救了.</p>
+<p>第二题错误的三分居然能拿80.然而,O2直接全输出0是什么情况啊.不知道喽.</p>
+<p>第三题正好复习一下manacher.正解肯定当时想不出来ovo我太弱了.</p>
+<p>身体各种不资瓷啊.据说是流感?好吓人.</p>
+<p>于是再总结一下这回在外面待的10天吧.</p>
+<p>考试来讲看上去还不错,不过问题其实比较大.常常把朴素算法或者正解写错.然后很多题也想不到正解.然而正解其实不难.noi的时候需要注意的是把该写好的东西写好,检查对.要不就亏了.</p>
+<p>然后听讲的效率还是蛮低啊.感觉上高中之后这一直是个很困扰我的问题.当然做笔记是个好办法不过有时候如果听不下去了也要及时止损.</p>
+<p>还有这回和czr还有rause两位大爷交流得比较多.感觉人家上海人就是会玩!在数学和思维这两方面的确和别人有差距.然后别人家的学校和cdqz,唉.可能也是因为人家经济发达所以教育资源比较充足吧.我们这个西部贫困小山村的井底之蛙学校,没救没救.</p>
+<p>还有yyy.感谢妳能在我最感觉坚持不下去的时候及时给我希望和动力.我不会辜负妳的.</p>
+<p>嗯,我还是太弱了.noi要加油.</p>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/summary/">summary</a></li>
+      <li><a href="/tags/diary/">diary</a></li>
+    </ul>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Tools on The Site of laekov</title>
+    <link>/tool/</link>
+    <description>Recent content in Tools on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Sun, 19 Sep 1999 09:09:09 +0000</lastBuildDate><atom:link href="/tool/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title></title>
+      <link>/tool/wechat-redirected/</link>
+      <pubDate>Sun, 19 Sep 1999 09:09:09 +0000</pubDate>
+      
+      <guid>/tool/wechat-redirected/</guid>
+      <description>Hi, there.
+你为什么会看到这个页面？ 其实是 laekov 整了个不太成功的小活。 很久之前立过一个 flag 说某件事不达成不换头像，终于达成了。 想在 wechat 头像里放一个二维码导流到自己的网站上，然后发现 wechat 竟然拒绝头像里放二维码！ 所以大概需要亿些努力才能找到这个页面了。 你是如何做到的呢？方便的话在底下评论区留个言吧。
+你和 jiaao 聊过天吗？ 是 &amp;ndash;&amp;gt; 好久不见，我还活着，请问找我有啥事吗？ 不是 &amp;ndash;&amp;gt; 往下看 如果你只是想看看这是个啥人儿 请在这个网站随便逛
+关于如何和 jiaao 说话 这个微信号没有好友认证，有事请直接说，但是请记得报上您的名号。 朋友圈空空不是屏蔽，是不爱发。 关于如何提升 jiaao 回复微信消息的及时程度 写个邮件，抄送我老板 拉个微信群，把我老板也拉上 使用别的有已读功能的 im 软件找我（私聊获取联系方式） </description>
+    </item>
+    
+    <item>
+      <title>What to eat</title>
+      <link>/tool/whattoeat/</link>
+      <pubDate>Thu, 01 Jan 1970 08:00:00 +0000</pubDate>
+      
+      <guid>/tool/whattoeat/</guid>
+      <description>今天是 吃什么? </description>
+    </item>
+    
+  </channel>
+</rss>

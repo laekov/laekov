@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>hdoj on The Site of laekov</title>
+    <link>/tags/hdoj/</link>
+    <description>Recent content in hdoj on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Mon, 17 Nov 2014 11:20:21 +0000</lastBuildDate><atom:link href="/tags/hdoj/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>HDOJ5107 K-short Problem</title>
+      <link>/oi/lofterimport_090/</link>
+      <pubDate>Mon, 17 Nov 2014 11:20:21 +0000</pubDate>
+      
+      <guid>/oi/lofterimport_090/</guid>
+      <description>前天晚上的best coder的题。
+数据太弱暴力都放过去了，而且还是错的。当然我也太naive了TT。
+我没管k&amp;lt;=10，直接硬上树状数组套平衡树，用二分搞的。然后数组开小了不开心啊。
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cmath&amp;gt;
+#include &amp;lt;cctype&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+#include &amp;lt;set&amp;gt;
+#include &amp;lt;memory.h&amp;gt;
+using namespace std;
+struct query {
+int x, y, k, n;
+};
+struct tower {
+int x, y, h;
+};
+inline bool cmpTower(const tower&amp;amp; a, const tower&amp;amp; b)&amp;nbsp;{
+return a. x &amp;lt; b. x;
+}
+inline bool cmpQuery(const query&amp;amp; a, const query&amp;amp; b)&amp;nbsp;{
+return a. x &amp;lt; b. x;
+}
+inline bool cmpP(int* a, int* b)&amp;nbsp;{</description>
+    </item>
+    
+  </channel>
+</rss>

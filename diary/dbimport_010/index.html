@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>20150331 HDSDFZ2015集训总结 | The Site of laekov</title>
+<meta name="keywords" content="summary, diary">
+<meta name="description" content="在飞机上写总结ovo
+不知不觉中三月就过去了呢.这是三月最后一天的晚上了诶ovo.来的时候感觉十天会很漫长,然后不知不觉就结束了.这次出来感觉收获比较大.难度比较适中,有时候能看到原题体验一下切题的快感.也有很多时候要耗尽脑细胞去想题,然后还常常听了讲之后才aha过来.当然也有听着听着就开始刮大雾了ovo.
+考了六场试吧.有时候考得比较好,有时候也会被虐得很惨.说明我还是不够稳定的.遇到写得比较熟的东西还能写一写得一些分,有时候心情好能过两道题.但是多数时候还得靠骗分和暴力.可是已经有很长一段时间我都一直在试图追求正解,结果导致有时候骗分的技巧也比较拙劣,看上去发挥得并不好.省选的时候题是怎样的谁也说不清楚.所以最近不仅要复习和巩固各种算法,也要思考一下骗分暴力之类的东西该怎么写.
+考试的时候纪律比较不好.有时候也会受到身旁同学的影响.有时候还会因此而受到提醒,有意无意见想到更好的idea.我觉得这样不是一种好的情况.所以还是要找一个比较安静的环境.自己在考试的时候也要严格遵守纪律.不管是正式还是非正式,有人监考还是放任自流,都要安静,独立思考.
+这回讲课的同学讲得实用性也非常强.因为省选比较近,所以很多都是直接讲题,而没有再去纠结某个专题.他们也带来了一些最近比较流行的新的思路.比如cdq分治扔进线段树,再比如dp的有序与无序.还有dyf讲的积分.虽然比较实用向,但是也提醒了我有些东西是需要不停地用才能一起掌握的.一年半没碰过微积分,所以以前的基础等于白废了.不开心.
+这些天也认识了一些sdfz和山东以及其它省份的神犇.发现自己如果放到全国,也并不能算一个厉害的角色.大家学习,刷题都很拼,也很有理想有追求.所以说自己也要坚定道路,并为之不懈努力.
+不在的将近两个星期里sc省也发生了不少事,学校也发生了不少事.scoi发生了一些改变.不知道这是怎样一种信号.不过我觉得很适合今天在出租车上广播里的一句话,如果你站在浪尖上,那你就要把握好机会冲上巅峰.这是一个改变的时代.要善于把握变革.
+然后家里也考了不少题,有些题还是比较有意思的.还有一些题我感觉我还不会做.所以说我还是有路要走的.另外常在bzoj上看到idy在开坑.还有很多我都没做过的题,填坑也填得比较狼狈.所以说身边就有很多人在默默努力.如果你不前进得更快,你就会被超越.而被超越的结果就是淘汰.世界是残酷的,但是是公平的.
+怎么又扯远了.Whatever, scoi在即,退役or继续?It depends on nobody but myself. Fighting.">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/diary/dbimport_010/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="20150331 HDSDFZ2015集训总结" />
+<meta property="og:description" content="在飞机上写总结ovo
+不知不觉中三月就过去了呢.这是三月最后一天的晚上了诶ovo.来的时候感觉十天会很漫长,然后不知不觉就结束了.这次出来感觉收获比较大.难度比较适中,有时候能看到原题体验一下切题的快感.也有很多时候要耗尽脑细胞去想题,然后还常常听了讲之后才aha过来.当然也有听着听着就开始刮大雾了ovo.
+考了六场试吧.有时候考得比较好,有时候也会被虐得很惨.说明我还是不够稳定的.遇到写得比较熟的东西还能写一写得一些分,有时候心情好能过两道题.但是多数时候还得靠骗分和暴力.可是已经有很长一段时间我都一直在试图追求正解,结果导致有时候骗分的技巧也比较拙劣,看上去发挥得并不好.省选的时候题是怎样的谁也说不清楚.所以最近不仅要复习和巩固各种算法,也要思考一下骗分暴力之类的东西该怎么写.
+考试的时候纪律比较不好.有时候也会受到身旁同学的影响.有时候还会因此而受到提醒,有意无意见想到更好的idea.我觉得这样不是一种好的情况.所以还是要找一个比较安静的环境.自己在考试的时候也要严格遵守纪律.不管是正式还是非正式,有人监考还是放任自流,都要安静,独立思考.
+这回讲课的同学讲得实用性也非常强.因为省选比较近,所以很多都是直接讲题,而没有再去纠结某个专题.他们也带来了一些最近比较流行的新的思路.比如cdq分治扔进线段树,再比如dp的有序与无序.还有dyf讲的积分.虽然比较实用向,但是也提醒了我有些东西是需要不停地用才能一起掌握的.一年半没碰过微积分,所以以前的基础等于白废了.不开心.
+这些天也认识了一些sdfz和山东以及其它省份的神犇.发现自己如果放到全国,也并不能算一个厉害的角色.大家学习,刷题都很拼,也很有理想有追求.所以说自己也要坚定道路,并为之不懈努力.
+不在的将近两个星期里sc省也发生了不少事,学校也发生了不少事.scoi发生了一些改变.不知道这是怎样一种信号.不过我觉得很适合今天在出租车上广播里的一句话,如果你站在浪尖上,那你就要把握好机会冲上巅峰.这是一个改变的时代.要善于把握变革.
+然后家里也考了不少题,有些题还是比较有意思的.还有一些题我感觉我还不会做.所以说我还是有路要走的.另外常在bzoj上看到idy在开坑.还有很多我都没做过的题,填坑也填得比较狼狈.所以说身边就有很多人在默默努力.如果你不前进得更快,你就会被超越.而被超越的结果就是淘汰.世界是残酷的,但是是公平的.
+怎么又扯远了.Whatever, scoi在即,退役or继续?It depends on nobody but myself. Fighting." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/diary/dbimport_010/" /><meta property="article:section" content="diary" />
+<meta property="article:published_time" content="2015-04-01T00:24:38+00:00" />
+<meta property="article:modified_time" content="2015-04-01T00:24:38+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="20150331 HDSDFZ2015集训总结"/>
+<meta name="twitter:description" content="在飞机上写总结ovo
+不知不觉中三月就过去了呢.这是三月最后一天的晚上了诶ovo.来的时候感觉十天会很漫长,然后不知不觉就结束了.这次出来感觉收获比较大.难度比较适中,有时候能看到原题体验一下切题的快感.也有很多时候要耗尽脑细胞去想题,然后还常常听了讲之后才aha过来.当然也有听着听着就开始刮大雾了ovo.
+考了六场试吧.有时候考得比较好,有时候也会被虐得很惨.说明我还是不够稳定的.遇到写得比较熟的东西还能写一写得一些分,有时候心情好能过两道题.但是多数时候还得靠骗分和暴力.可是已经有很长一段时间我都一直在试图追求正解,结果导致有时候骗分的技巧也比较拙劣,看上去发挥得并不好.省选的时候题是怎样的谁也说不清楚.所以最近不仅要复习和巩固各种算法,也要思考一下骗分暴力之类的东西该怎么写.
+考试的时候纪律比较不好.有时候也会受到身旁同学的影响.有时候还会因此而受到提醒,有意无意见想到更好的idea.我觉得这样不是一种好的情况.所以还是要找一个比较安静的环境.自己在考试的时候也要严格遵守纪律.不管是正式还是非正式,有人监考还是放任自流,都要安静,独立思考.
+这回讲课的同学讲得实用性也非常强.因为省选比较近,所以很多都是直接讲题,而没有再去纠结某个专题.他们也带来了一些最近比较流行的新的思路.比如cdq分治扔进线段树,再比如dp的有序与无序.还有dyf讲的积分.虽然比较实用向,但是也提醒了我有些东西是需要不停地用才能一起掌握的.一年半没碰过微积分,所以以前的基础等于白废了.不开心.
+这些天也认识了一些sdfz和山东以及其它省份的神犇.发现自己如果放到全国,也并不能算一个厉害的角色.大家学习,刷题都很拼,也很有理想有追求.所以说自己也要坚定道路,并为之不懈努力.
+不在的将近两个星期里sc省也发生了不少事,学校也发生了不少事.scoi发生了一些改变.不知道这是怎样一种信号.不过我觉得很适合今天在出租车上广播里的一句话,如果你站在浪尖上,那你就要把握好机会冲上巅峰.这是一个改变的时代.要善于把握变革.
+然后家里也考了不少题,有些题还是比较有意思的.还有一些题我感觉我还不会做.所以说我还是有路要走的.另外常在bzoj上看到idy在开坑.还有很多我都没做过的题,填坑也填得比较狼狈.所以说身边就有很多人在默默努力.如果你不前进得更快,你就会被超越.而被超越的结果就是淘汰.世界是残酷的,但是是公平的.
+怎么又扯远了.Whatever, scoi在即,退役or继续?It depends on nobody but myself. Fighting."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Diaries",
+      "item": "/diary/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "20150331 HDSDFZ2015集训总结",
+      "item": "/diary/dbimport_010/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "20150331 HDSDFZ2015集训总结",
+  "name": "20150331 HDSDFZ2015集训总结",
+  "description": "在飞机上写总结ovo\n不知不觉中三月就过去了呢.这是三月最后一天的晚上了诶ovo.来的时候感觉十天会很漫长,然后不知不觉就结束了.这次出来感觉收获比较大.难度比较适中,有时候能看到原题体验一下切题的快感.也有很多时候要耗尽脑细胞去想题,然后还常常听了讲之后才aha过来.当然也有听着听着就开始刮大雾了ovo.\n考了六场试吧.有时候考得比较好,有时候也会被虐得很惨.说明我还是不够稳定的.遇到写得比较熟的东西还能写一写得一些分,有时候心情好能过两道题.但是多数时候还得靠骗分和暴力.可是已经有很长一段时间我都一直在试图追求正解,结果导致有时候骗分的技巧也比较拙劣,看上去发挥得并不好.省选的时候题是怎样的谁也说不清楚.所以最近不仅要复习和巩固各种算法,也要思考一下骗分暴力之类的东西该怎么写.\n考试的时候纪律比较不好.有时候也会受到身旁同学的影响.有时候还会因此而受到提醒,有意无意见想到更好的idea.我觉得这样不是一种好的情况.所以还是要找一个比较安静的环境.自己在考试的时候也要严格遵守纪律.不管是正式还是非正式,有人监考还是放任自流,都要安静,独立思考.\n这回讲课的同学讲得实用性也非常强.因为省选比较近,所以很多都是直接讲题,而没有再去纠结某个专题.他们也带来了一些最近比较流行的新的思路.比如cdq分治扔进线段树,再比如dp的有序与无序.还有dyf讲的积分.虽然比较实用向,但是也提醒了我有些东西是需要不停地用才能一起掌握的.一年半没碰过微积分,所以以前的基础等于白废了.不开心.\n这些天也认识了一些sdfz和山东以及其它省份的神犇.发现自己如果放到全国,也并不能算一个厉害的角色.大家学习,刷题都很拼,也很有理想有追求.所以说自己也要坚定道路,并为之不懈努力.\n不在的将近两个星期里sc省也发生了不少事,学校也发生了不少事.scoi发生了一些改变.不知道这是怎样一种信号.不过我觉得很适合今天在出租车上广播里的一句话,如果你站在浪尖上,那你就要把握好机会冲上巅峰.这是一个改变的时代.要善于把握变革.\n然后家里也考了不少题,有些题还是比较有意思的.还有一些题我感觉我还不会做.所以说我还是有路要走的.另外常在bzoj上看到idy在开坑.还有很多我都没做过的题,填坑也填得比较狼狈.所以说身边就有很多人在默默努力.如果你不前进得更快,你就会被超越.而被超越的结果就是淘汰.世界是残酷的,但是是公平的.\n怎么又扯远了.Whatever, scoi在即,退役or继续?It depends on nobody but myself. Fighting.",
+  "keywords": [
+    "summary", "diary"
+  ],
+  "articleBody": "在飞机上写总结ovo\n不知不觉中三月就过去了呢.这是三月最后一天的晚上了诶ovo.来的时候感觉十天会很漫长,然后不知不觉就结束了.这次出来感觉收获比较大.难度比较适中,有时候能看到原题体验一下切题的快感.也有很多时候要耗尽脑细胞去想题,然后还常常听了讲之后才aha过来.当然也有听着听着就开始刮大雾了ovo.\n考了六场试吧.有时候考得比较好,有时候也会被虐得很惨.说明我还是不够稳定的.遇到写得比较熟的东西还能写一写得一些分,有时候心情好能过两道题.但是多数时候还得靠骗分和暴力.可是已经有很长一段时间我都一直在试图追求正解,结果导致有时候骗分的技巧也比较拙劣,看上去发挥得并不好.省选的时候题是怎样的谁也说不清楚.所以最近不仅要复习和巩固各种算法,也要思考一下骗分暴力之类的东西该怎么写.\n考试的时候纪律比较不好.有时候也会受到身旁同学的影响.有时候还会因此而受到提醒,有意无意见想到更好的idea.我觉得这样不是一种好的情况.所以还是要找一个比较安静的环境.自己在考试的时候也要严格遵守纪律.不管是正式还是非正式,有人监考还是放任自流,都要安静,独立思考.\n这回讲课的同学讲得实用性也非常强.因为省选比较近,所以很多都是直接讲题,而没有再去纠结某个专题.他们也带来了一些最近比较流行的新的思路.比如cdq分治扔进线段树,再比如dp的有序与无序.还有dyf讲的积分.虽然比较实用向,但是也提醒了我有些东西是需要不停地用才能一起掌握的.一年半没碰过微积分,所以以前的基础等于白废了.不开心.\n这些天也认识了一些sdfz和山东以及其它省份的神犇.发现自己如果放到全国,也并不能算一个厉害的角色.大家学习,刷题都很拼,也很有理想有追求.所以说自己也要坚定道路,并为之不懈努力.\n不在的将近两个星期里sc省也发生了不少事,学校也发生了不少事.scoi发生了一些改变.不知道这是怎样一种信号.不过我觉得很适合今天在出租车上广播里的一句话,如果你站在浪尖上,那你就要把握好机会冲上巅峰.这是一个改变的时代.要善于把握变革.\n然后家里也考了不少题,有些题还是比较有意思的.还有一些题我感觉我还不会做.所以说我还是有路要走的.另外常在bzoj上看到idy在开坑.还有很多我都没做过的题,填坑也填得比较狼狈.所以说身边就有很多人在默默努力.如果你不前进得更快,你就会被超越.而被超越的结果就是淘汰.世界是残酷的,但是是公平的.\n怎么又扯远了.Whatever, scoi在即,退役or继续?It depends on nobody but myself. Fighting.\n",
+  "wordCount" : "16",
+  "inLanguage": "en",
+  "datePublished": "2015-04-01T00:24:38Z",
+  "dateModified": "2015-04-01T00:24:38Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/diary/dbimport_010/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/diary/">Diaries</a></div>
+    <h1 class="post-title">
+      20150331 HDSDFZ2015集训总结
+    </h1>
+    <div class="post-meta"><span title='2015-04-01 00:24:38 +0000 UTC'>April 1, 2015</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>在飞机上写总结ovo</p>
+<p>不知不觉中三月就过去了呢.这是三月最后一天的晚上了诶ovo.来的时候感觉十天会很漫长,然后不知不觉就结束了.这次出来感觉收获比较大.难度比较适中,有时候能看到原题体验一下切题的快感.也有很多时候要耗尽脑细胞去想题,然后还常常听了讲之后才aha过来.当然也有听着听着就开始刮大雾了ovo.</p>
+<p>考了六场试吧.有时候考得比较好,有时候也会被虐得很惨.说明我还是不够稳定的.遇到写得比较熟的东西还能写一写得一些分,有时候心情好能过两道题.但是多数时候还得靠骗分和暴力.可是已经有很长一段时间我都一直在试图追求正解,结果导致有时候骗分的技巧也比较拙劣,看上去发挥得并不好.省选的时候题是怎样的谁也说不清楚.所以最近不仅要复习和巩固各种算法,也要思考一下骗分暴力之类的东西该怎么写.</p>
+<p>考试的时候纪律比较不好.有时候也会受到身旁同学的影响.有时候还会因此而受到提醒,有意无意见想到更好的idea.我觉得这样不是一种好的情况.所以还是要找一个比较安静的环境.自己在考试的时候也要严格遵守纪律.不管是正式还是非正式,有人监考还是放任自流,都要安静,独立思考.</p>
+<p>这回讲课的同学讲得实用性也非常强.因为省选比较近,所以很多都是直接讲题,而没有再去纠结某个专题.他们也带来了一些最近比较流行的新的思路.比如cdq分治扔进线段树,再比如dp的有序与无序.还有dyf讲的积分.虽然比较实用向,但是也提醒了我有些东西是需要不停地用才能一起掌握的.一年半没碰过微积分,所以以前的基础等于白废了.不开心.</p>
+<p>这些天也认识了一些sdfz和山东以及其它省份的神犇.发现自己如果放到全国,也并不能算一个厉害的角色.大家学习,刷题都很拼,也很有理想有追求.所以说自己也要坚定道路,并为之不懈努力.</p>
+<p>不在的将近两个星期里sc省也发生了不少事,学校也发生了不少事.scoi发生了一些改变.不知道这是怎样一种信号.不过我觉得很适合今天在出租车上广播里的一句话,如果你站在浪尖上,那你就要把握好机会冲上巅峰.这是一个改变的时代.要善于把握变革.</p>
+<p>然后家里也考了不少题,有些题还是比较有意思的.还有一些题我感觉我还不会做.所以说我还是有路要走的.另外常在bzoj上看到idy在开坑.还有很多我都没做过的题,填坑也填得比较狼狈.所以说身边就有很多人在默默努力.如果你不前进得更快,你就会被超越.而被超越的结果就是淘汰.世界是残酷的,但是是公平的.</p>
+<p>怎么又扯远了.Whatever, scoi在即,退役or继续?It depends on nobody but myself. Fighting.</p>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/summary/">summary</a></li>
+      <li><a href="/tags/diary/">diary</a></li>
+    </ul>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

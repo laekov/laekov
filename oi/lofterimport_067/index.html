@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>BZOJ3289 Mato的文件管理 | The Site of laekov</title>
+<meta name="keywords" content="bzoj, data\xa0structure, oi">
+<meta name="description" content="离散，然后树状数组&#43;莫队。
+最初用的是直接粘过来的1488的sbt，然后极限随机数据要跑14s。好郁闷。
+然后改用数状数组就变1s了。是我再次把sbt写丑了还是它常数够厉害TT
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+struct query {
+int i, l, r, pl, pr;
+};
+typedef unsigned int uint;
+const int maxn = 50009;
+#define update(_p_)&nbsp;(sz[_p_]=sz[ls[_p_]]&#43;sz[rs[_p_]]&#43;1)
+inline bool cmpQry(const query&amp; a, const query&amp; b)&nbsp;{
+return a. pl &lt; b. pl ||&nbsp;(a. pl == b. pl &amp;&amp; a. pr &gt; b. pr);
+}
+inline bool cmpP(int* a, int* b)&nbsp;{
+return *a&nbsp;&lt;&nbsp;*b;
+}
+int n, m, bsz, a[maxn],&nbsp;*r[maxn], maxa, t[maxn];">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/lofterimport_067/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="BZOJ3289 Mato的文件管理" />
+<meta property="og:description" content="离散，然后树状数组&#43;莫队。
+最初用的是直接粘过来的1488的sbt，然后极限随机数据要跑14s。好郁闷。
+然后改用数状数组就变1s了。是我再次把sbt写丑了还是它常数够厉害TT
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+struct query {
+int i, l, r, pl, pr;
+};
+typedef unsigned int uint;
+const int maxn = 50009;
+#define update(_p_)&nbsp;(sz[_p_]=sz[ls[_p_]]&#43;sz[rs[_p_]]&#43;1)
+inline bool cmpQry(const query&amp; a, const query&amp; b)&nbsp;{
+return a. pl &lt; b. pl ||&nbsp;(a. pl == b. pl &amp;&amp; a. pr &gt; b. pr);
+}
+inline bool cmpP(int* a, int* b)&nbsp;{
+return *a&nbsp;&lt;&nbsp;*b;
+}
+int n, m, bsz, a[maxn],&nbsp;*r[maxn], maxa, t[maxn];" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/lofterimport_067/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2014-11-24T20:52:44+00:00" />
+<meta property="article:modified_time" content="2014-11-24T20:52:44+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BZOJ3289 Mato的文件管理"/>
+<meta name="twitter:description" content="离散，然后树状数组&#43;莫队。
+最初用的是直接粘过来的1488的sbt，然后极限随机数据要跑14s。好郁闷。
+然后改用数状数组就变1s了。是我再次把sbt写丑了还是它常数够厉害TT
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+struct query {
+int i, l, r, pl, pr;
+};
+typedef unsigned int uint;
+const int maxn = 50009;
+#define update(_p_)&nbsp;(sz[_p_]=sz[ls[_p_]]&#43;sz[rs[_p_]]&#43;1)
+inline bool cmpQry(const query&amp; a, const query&amp; b)&nbsp;{
+return a. pl &lt; b. pl ||&nbsp;(a. pl == b. pl &amp;&amp; a. pr &gt; b. pr);
+}
+inline bool cmpP(int* a, int* b)&nbsp;{
+return *a&nbsp;&lt;&nbsp;*b;
+}
+int n, m, bsz, a[maxn],&nbsp;*r[maxn], maxa, t[maxn];"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "BZOJ3289 Mato的文件管理",
+      "item": "/oi/lofterimport_067/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BZOJ3289 Mato的文件管理",
+  "name": "BZOJ3289 Mato的文件管理",
+  "description": "离散，然后树状数组+莫队。\n最初用的是直接粘过来的1488的sbt，然后极限随机数据要跑14s。好郁闷。\n然后改用数状数组就变1s了。是我再次把sbt写丑了还是它常数够厉害TT\n#include \u0026lt;cstdio\u0026gt;\n#include \u0026lt;cstring\u0026gt;\n#include \u0026lt;algorithm\u0026gt;\nusing namespace std;\nstruct query {\nint i, l, r, pl, pr;\n};\ntypedef unsigned int uint;\nconst int maxn = 50009;\n#define update(_p_)\u0026nbsp;(sz[_p_]=sz[ls[_p_]]+sz[rs[_p_]]+1)\ninline bool cmpQry(const query\u0026amp; a, const query\u0026amp; b)\u0026nbsp;{\nreturn a. pl \u0026lt; b. pl ||\u0026nbsp;(a. pl == b. pl \u0026amp;\u0026amp; a. pr \u0026gt; b. pr);\n}\ninline bool cmpP(int* a, int* b)\u0026nbsp;{\nreturn *a\u0026nbsp;\u0026lt;\u0026nbsp;*b;\n}\nint n, m, bsz, a[maxn],\u0026nbsp;*r[maxn], maxa, t[maxn];",
+  "keywords": [
+    "bzoj", "data\\xa0structure", "oi"
+  ],
+  "articleBody": "离散，然后树状数组+莫队。\n最初用的是直接粘过来的1488的sbt，然后极限随机数据要跑14s。好郁闷。\n然后改用数状数组就变1s了。是我再次把sbt写丑了还是它常数够厉害TT\n#include #include #include using namespace std;\nstruct query {\nint i, l, r, pl, pr;\n};\ntypedef unsigned int uint;\nconst int maxn = 50009;\n#define update(_p_) (sz[_p_]=sz[ls[_p_]]+sz[rs[_p_]]+1)\ninline bool cmpQry(const query\u0026 a, const query\u0026 b) {\nreturn a. pl \u003c b. pl || (a. pl == b. pl \u0026\u0026 a. pr \u003e b. pr);\n}\ninline bool cmpP(int* a, int* b) {\nreturn *a \u003c *b;\n}\nint n, m, bsz, a[maxn], *r[maxn], maxa, t[maxn];\nuint ans[maxn];;\nquery q[maxn];\nvoid btChg(int* t, int p, int v) {\nfor (; p \u003c= maxa; p += (p \u0026 -p))\nt[p] += v;\n}\nint btQry(int* t, int p) {\nint s = 0;\nfor (; p; p -= (p \u0026 -p))\ns += t[p];\nreturn s;\n}\nint main() {\n#ifndef ONLINE_JUDGE\nfreopen(\"in.txt\", \"r\", stdin);\n#endif\nscanf(\"%d\", \u0026n);\nfor (int i = 1; i \u003c= n; ++ i)\nscanf(\"%d\", a + i), r[i - 1] = a + i;\nsort(r, r + n, cmpP);\nmaxa = 0;\nfor (int i = 0, l = *r[0] - 1; i \u003c n; ++ i)\nif (*r[i] == l)\n*r[i] = maxa;\nelse\nl = *r[i], *r[i] = ++ maxa;\nfor (bsz = 1; bsz * bsz \u003c n; ++ bsz);\nscanf(\"%d\", \u0026m);\nfor (int i = 0; i \u003c m; ++ i) {\nscanf(\"%d%d\", \u0026q[i]. l, \u0026q[i]. r);\nq[i]. i = i;\nq[i]. pl = q[i]. l / bsz;\nq[i]. pr = q[i]. r / bsz;\n}\nsort(q, q + m, cmpQry);\nint l = 1, r = 1;\nmemset(t, 0, sizeof(t));\nbtChg(t, a[1], 1);\nuint tot = 0;\nfor (int i = 0; i \u003c m; ++ i) {\nwhile (r \u003c q[i]. r) {\n++ r;\ntot += r - l - btQry(t, a[r]);\nbtChg(t, a[r], 1);\n}\nwhile (l \u003e q[i]. l) {\n-- l;\ntot += btQry(t, a[l] - 1);\nbtChg(t, a[l], 1);\n}\nwhile (r \u003e q[i]. r) {\nbtChg(t, a[r], -1);\ntot -= r - l - btQry(t, a[r]);\n-- r;\n}\nwhile (l \u003c q[i]. l) {\nbtChg(t, a[l], -1);\ntot -= btQry(t, a[l] - 1);\n++ l;\n}\nans[q[i]. i] = tot;\n}\nfor (int i = 0; i \u003c m; ++ i)\nprintf(\"%u\\n\", ans[i]);\n}\n",
+  "wordCount" : "324",
+  "inLanguage": "en",
+  "datePublished": "2014-11-24T20:52:44Z",
+  "dateModified": "2014-11-24T20:52:44Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/lofterimport_067/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      BZOJ3289 Mato的文件管理
+    </h1>
+    <div class="post-meta"><span title='2014-11-24 20:52:44 +0000 UTC'>November 24, 2014</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>离散，然后树状数组+莫队。</p> 
+<p><br /></p> 
+<p>最初用的是直接粘过来的1488的sbt，然后极限随机数据要跑14s。好郁闷。</p> 
+<p><br /></p> 
+<p>然后改用数状数组就变1s了。是我再次把sbt写丑了还是它常数够厉害TT</p> 
+<p><br /></p> 
+<p>#include &lt;cstdio&gt;</p> 
+<p>#include &lt;cstring&gt;</p> 
+<p>#include &lt;algorithm&gt;</p> 
+<p><br /></p> 
+<p>using namespace std;</p> 
+<p><br /></p> 
+<p>struct query {</p> 
+<p>int i, l, r, pl, pr;</p> 
+<p>};</p> 
+<p><br /></p> 
+<p>typedef unsigned int uint;</p> 
+<p><br /></p> 
+<p>const int maxn = 50009;</p> 
+<p><br /></p> 
+<p>#define update(_p_)&nbsp;(sz[_p_]=sz[ls[_p_]]+sz[rs[_p_]]+1)</p> 
+<p><br /></p> 
+<p>inline bool cmpQry(const query&amp; a, const query&amp; b)&nbsp;{</p> 
+<p>return a. pl &lt; b. pl ||&nbsp;(a. pl == b. pl &amp;&amp; a. pr &gt; b. pr);</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>inline bool cmpP(int* a, int* b)&nbsp;{</p> 
+<p>return *a&nbsp;&lt;&nbsp;*b;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int n, m, bsz, a[maxn],&nbsp;*r[maxn], maxa, t[maxn];</p> 
+<p>uint ans[maxn];;</p> 
+<p>query q[maxn];</p> 
+<p><br /></p> 
+<p>void btChg(int* t, int p, int v)&nbsp;{</p> 
+<p>for (; p &lt;= maxa; p +=&nbsp;(p&nbsp;&amp;&nbsp;-p))</p> 
+<p>t[p]&nbsp;+= v;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int btQry(int* t, int p)&nbsp;{</p> 
+<p>int s = 0;</p> 
+<p>for (; p; p -=&nbsp;(p&nbsp;&amp;&nbsp;-p))</p> 
+<p>s += t[p];</p> 
+<p>return s;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int main()&nbsp;{</p> 
+<p>#ifndef ONLINE_JUDGE</p> 
+<p>freopen(&quot;in.txt&quot;,&nbsp;&quot;r&quot;, stdin);</p> 
+<p>#endif</p> 
+<p><br /></p> 
+<p>scanf(&quot;%d&quot;,&nbsp;&amp;n);</p> 
+<p>for (int i = 1; i &lt;= n;&nbsp;++ i)</p> 
+<p>scanf(&quot;%d&quot;, a + i), r[i - 1]&nbsp;= a + i;</p> 
+<p>sort(r, r + n, cmpP);</p> 
+<p>maxa = 0;</p> 
+<p>for (int i = 0, l =&nbsp;*r[0]&nbsp;- 1; i &lt; n;&nbsp;++ i)</p> 
+<p>if (*r[i]&nbsp;== l)</p> 
+<p>*r[i]&nbsp;= maxa;</p> 
+<p>else</p> 
+<p>l =&nbsp;*r[i],&nbsp;*r[i]&nbsp;=&nbsp;++ maxa;</p> 
+<p>for (bsz&nbsp;= 1; bsz * bsz &lt; n;&nbsp;++ bsz);</p> 
+<p>scanf(&quot;%d&quot;,&nbsp;&amp;m);</p> 
+<p>for (int i = 0; i &lt; m;&nbsp;++ i)&nbsp;{</p> 
+<p>scanf(&quot;%d%d&quot;,&nbsp;&amp;q[i]. l,&nbsp;&amp;q[i]. r);</p> 
+<p>q[i]. i = i;</p> 
+<p>q[i]. pl = q[i]. l / bsz;</p> 
+<p>q[i]. pr = q[i]. r / bsz;</p> 
+<p>}</p> 
+<p>sort(q, q + m, cmpQry);</p> 
+<p>int l = 1, r = 1;</p> 
+<p>memset(t, 0, sizeof(t));</p> 
+<p>btChg(t, a[1], 1);</p> 
+<p>uint tot = 0;</p> 
+<p>for (int i = 0; i &lt; m;&nbsp;++ i)&nbsp;{</p> 
+<p>while (r&nbsp;&lt; q[i]. r)&nbsp;{</p> 
+<p>++ r;</p> 
+<p>tot += r - l - btQry(t, a[r]);</p> 
+<p>btChg(t, a[r], 1);</p> 
+<p>}</p> 
+<p>while (l&nbsp;&gt; q[i]. l)&nbsp;{</p> 
+<p>-- l;</p> 
+<p>tot += btQry(t, a[l]&nbsp;- 1);</p> 
+<p>btChg(t, a[l], 1);</p> 
+<p>}</p> 
+<p>while (r&nbsp;&gt; q[i]. r)&nbsp;{</p> 
+<p>btChg(t, a[r],&nbsp;-1);</p> 
+<p>tot -= r - l - btQry(t, a[r]);</p> 
+<p>-- r;</p> 
+<p>}</p> 
+<p>while (l&nbsp;&lt; q[i]. l)&nbsp;{</p> 
+<p>btChg(t, a[l],&nbsp;-1);</p> 
+<p>tot -= btQry(t, a[l]&nbsp;- 1);</p> 
+<p>++ l;</p> 
+<p>}</p> 
+<p>ans[q[i]. i]&nbsp;= tot;</p> 
+<p>}</p> 
+<p>for (int i = 0; i &lt; m;&nbsp;++ i)</p> 
+<p>printf(&quot;%u\n&quot;, ans[i]);</p> 
+<p>}</p> 
+<p><br /></p>
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/bzoj/">bzoj</a></li>
+      <li><a href="/tags/data%5Cxa0structure/">data\xa0structure</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/lofterimport_066/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>BZOJ3237 [Ahoi2013]连通图</span>
+  </a>
+  <a class="next" href="/oi/lofterimport_068/">
+    <span class="title">Next »</span>
+    <br>
+    <span>BZOJ1488 || POJ1741 Tree</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

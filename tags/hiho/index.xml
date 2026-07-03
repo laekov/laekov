@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>hiho on The Site of laekov</title>
+    <link>/tags/hiho/</link>
+    <description>Recent content in hiho on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Sat, 28 Feb 2015 21:21:41 +0000</lastBuildDate><atom:link href="/tags/hiho/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>20150301 hihoc9</title>
+      <link>/diary/i11rimport_026/</link>
+      <pubDate>Sat, 28 Feb 2015 21:21:41 +0000</pubDate>
+      
+      <guid>/diary/i11rimport_026/</guid>
+      <description>&amp;lt;div class=&amp;quot;post_brief&amp;quot;&amp;gt;&amp;lt;p&amp;gt; 连续两天都是一天两场。&amp;lt;/p&amp;gt; &amp;nbsp;
+上午考试比较naive。
+&amp;nbsp;
+第一题反正也不会，就随便写了个乱枚举的东西，还骗到80分。正解比较神奇，不过今天是没有时间写了。
+&amp;nbsp;
+第二题想到了正确的解法，但是没有优化好，加上高精写挂了，于是只有85分。
+&amp;nbsp;
+第三题数据结构那一部分想的是对的，但是前面对期望不熟没有想清楚，于是直接想简单了。也就是把我的链剖再改得更麻烦一些。
+&amp;nbsp;
+所以说在学长们出的比较难的题面前我还是很无力的。
+&amp;nbsp;
+下午讨论，改第二题。状态不好啊，改东西改了好久。
+&amp;nbsp;
+晚上hihoc9去拿github玩偶。
+&amp;nbsp;
+第一题小学生题么。然后排序的时候把m写成n于是挂了一次。所以虽然一血但是分也不高。
+&amp;nbsp;
+第二题有点像中国象棋棋盘上放炮的那个题。唯一的区别是这题两个炮可以放在一起。用dp，f[i][j][k]表示做了i列，有j行和为2，有k行和为1的方案数。对于每一个高度可以O(n3)预处理出答案。中间有一个转移写错了调了好久。幸好样例比较良心。于是总时间复杂度是四方的。n=100感觉很悬。本机不开O2的话会TLE一点。想到mac比较慢于是交了然后过了。
+&amp;nbsp;
+第三题神题。
+&amp;nbsp;
+第四题感觉可做，于是交了16次最后没有过。首先要判合法。最初没有判。然后建出树之后归并，用组合数。然后求阶乘的逆元的时候千万不要再像今天这样naive去线性筛了。我觉得我的思路是对的啊。不开心。（upd：看了题解之后觉得我的想法好像也不是太对）
+&amp;nbsp;
+于是今天被一堆人虐了。-16真心不好看。
+&amp;nbsp;
+我还是太年轻了啊。
+&amp;nbsp;
+明天下午有cf，比较开心。</description>
+    </item>
+    
+  </channel>
+</rss>

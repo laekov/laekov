@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>systemdef on The Site of laekov</title>
+    <link>/tags/systemdef/</link>
+    <description>Recent content in systemdef on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Sat, 20 Feb 2016 12:40:22 +0000</lastBuildDate><atom:link href="/tags/systemdef/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>About me</title>
+      <link>/about/</link>
+      <pubDate>Sat, 20 Feb 2016 12:40:22 +0000</pubDate>
+      
+      <guid>/about/</guid>
+      <description>这是 laekov 的博客, 曾经 proudly (并不) using laekov 高中的时候自己造的 shiruku 博客框架.
+laekov 的身份包括但不限于:
+前 OIer @CDQZ. 前计算机系本科生 @Tsinghua 现高性能所博士生 @Tsinghua 一个对轮子和有轮子的东西感兴趣的人 </description>
+    </item>
+    
+    <item>
+      <title>Bug report</title>
+      <link>/post/bugreport/</link>
+      <pubDate>Thu, 01 Jan 1970 08:00:00 +0000</pubDate>
+      
+      <guid>/post/bugreport/</guid>
+      <description>Visitors may log down bugs they found here
+Historical Comments zms_ at 2016-03-19T14:05:51 为什么手机上不了ovo
+laekov at 2017-03-02T23:54:54 Github 登录功能已修复
+ydc258ttbaby at 2022-10-11T19:39:34 再来试试能不能评论</description>
+    </item>
+    
+    <item>
+      <title>Download</title>
+      <link>/post/download/</link>
+      <pubDate>Thu, 01 Jan 1970 08:00:00 +0000</pubDate>
+      
+      <guid>/post/download/</guid>
+      <description>这是laekov提供的资源页. laekov提供了一些常用的文件和一些奇怪的文件.
+出门讲课常用:
+my vimrc
+gvim74
+devcpp
+ppt 资源:
+一个紫紫的 keynote 的模板 </description>
+    </item>
+    
+    <item>
+      <title>Webboard</title>
+      <link>/post/webboard/</link>
+      <pubDate>Thu, 01 Jan 1970 08:00:00 +0000</pubDate>
+      
+      <guid>/post/webboard/</guid>
+      <description>Visitors can say anything to the owner here
+Historical Comments Unknown friend at 2015-04-01T00:08:45 写出了一个留言版一样的东西.不想再去写每个文章的评论列表了.那就将就用这个喽.我觉得还挺好的ovo &amp;mdash;- laekov
+Unknown friend at 2015-04-02T09:08:32 yjq naive &amp;mdash;- zhonghaoxi
+Unknown friend at 2015-04-02T09:09:45 yjq naive &amp;mdash;- hope1
+Unknown friend at 2015-04-02T09:09:45 yjq naive &amp;mdash;- hope1
+Unknown friend at 2015-04-02T13:03:20 yjq naive &amp;mdash;- mhy12345
+Unknown friend at 2015-04-02T13:05:14 hope1 naive &amp;mdash;- hope1
+Unknown friend at 2015-04-02T22:39:00 不要再刷naive了ovo &amp;mdash;- laekov
+Unknown friend at 2015-04-03T13:12:13 yjq要ak了 &amp;mdash;- tyh</description>
+    </item>
+    
+  </channel>
+</rss>

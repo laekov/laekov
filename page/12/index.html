@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head>
+	<meta name="generator" content="Hugo 0.111.3"><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>The Site of laekov</title>
+
+<meta name="description" content="">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="/index.xml">
+<link rel="alternate" type="application/json" href="/index.json">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="The Site of laekov" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="The Site of laekov"/>
+<meta name="twitter:description" content=""/>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "The Site of laekov",
+  "url": "/",
+  "description": "",
+  "thumbnailUrl": "/favicon.ico",
+  "sameAs": [
+      "https://github.com/laekov", "/cv", "/not-easily-available", "/not-easily-available", "/not-easily-available", "/not-easily-available", "index.xml"
+  ]
+}
+</script>
+</head>
+
+<body class="list" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>风住尘香
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>0
+知乎上看到的脑洞.感觉不错玩一玩.
+1
+“我不在江湖,江湖也没有我的传说.”
+雷已隐居在贫困山边缘这片叫做教室的森林里,大概有一百年了.这里到处长满了叫做卷子的东西.也许在另一个世界里它们叫做树吧.
+雷是一个修真者.修真者是不会老的.然而这些年里,雷却没有动用过丝毫真气,也没有用过修真者的武器,键盘.雷只是日复一日地用笔把一种叫做题的物质从那一棵棵的卷子上砍下来,吃掉,或者拿出去make a deal.
+这一天,雷又砍倒了一棵长满了圆锥曲线的树,他脏得已经看不出人样的脸上露出了一个比哭还难看的笑.
+突然,他破旧的衣服口袋里的什么东西震动了起来.那…雷低下头,眼神中有些许光彩,又包含了痛苦,忧愁,悲伤.
+那是七帮的卷轴.一百年前,雷被踢出七帮的时候,七帮的舵主给了他这个玩意.雷也不知道有什么用.他很想把它扔进教室外的墨池里.
+然而感到里面似乎有金属.“也许吃不起饭的时候还能把它拆了卖钱吧.“雷最后还是带它一起去了教室.
+雷用有些生硬的动作摸出了那个已经被灰尘包裹的卷轴.此刻它竟然在发光.光芒中隐隐有几个汉字,“风云突变,狼烟四起.吾七危急,速来支援.”
+雷有些奇怪,摇了摇头.回到自己用砍废的卷子搭的小屋里去了.
+2
+七天后.
+雷背上一个到处都是线头的背包,用墨池里黑得发蓝的水,尽力地把脸洗得有了点人样,然后朝七帮的方向走去.
+“毕竟还是不能忘啊.”
+如果不是遇到了七帮的长老,那个没有亲人的小男孩,恐怕在一千年前那个风雪交加,tcp包乱飞的寒夜,就变成一具尸骨了.
+雷也不知道七帮为什么叫七帮.为什么他没有听说过一帮二帮三帮四帮五帮六帮八帮.
+雷在边远贫困山区深处的七帮长大,成为了修真者,学会了功法,为七帮南征北战,然后被七帮一脚踢出了大门.
+3
+七帮正殿.
+“舵主,我预感这次炼试异常凶险.是否让各分舵修习fft神力,以应不测?”
+“舵主,昨日二堂的兄弟在与野兽战斗时又遇到了toptree.”
+“舵主,西方的北海门送来战书,扬言这次炼试要占领这个大陆的所有一等修炼者名额.”
+“舵主…”
+炼试,是修真届每三百年一次的比拼.各门各帮的修炼者均要出动,一起和一个叫恩偶爱.皮的强大势力战斗.按照修炼者在战斗中的贡献来决定等次.这也成为了各门派间比拼实力和招引新人的重要资本.
+七帮向来开放.雷没有受到丝毫阻拦,来往的门徒的面孔,对于雷来说都是陌生的.而他们个个行色匆匆,雷觉得自己像是空气.
+“舵主,我们向雷师兄发去的卷轴始终没有回复,是否…”
+雷看到七帮弟子正在按照所属的堂列队.
+一堂那些年轻的修炼者脸上浮现出愉快的神色,似乎正在激烈地讨论最短路神功的不同出招方法.
+二堂的修炼者稍年长些,显然都进入了思考人生的阶段.有几个人还在读功法卷轴.雷隐隐看到&#34;数据结构&#34;的大字.雷隐约记得有几个人叫小y,小z来着.雷离开的时候他们还是小孩子的模样,现在已经俨然成为七帮的中流砥柱了.
+三堂.只有一个孤独的身影,显露出苍老的形态来,他的背囊中的卷轴几乎要掉出来了,上面还写着&#34;集训队作业”.那就是三堂主,挠.几百年前,就是他和雷一起,去外大陆闯荡,去和恩偶爱战斗.雷也想起自己离开七帮,他目送自己离开时,那种复杂的神情.
+“你来了.“挠示意雷站到自己身边.似乎有很多话要说.
+突然人群安静下来.一个比雷和挠都苍老几十倍的身影出现在上空.“舵主!“众人齐声道.
+舵主微微点头示意.扫了一眼人群,在雷的脸上多停了几秒钟.
+“此番与恩偶爱.皮的战斗将会格外惨烈.希望你们都准备好了.”
+雷知道,近几次,恩偶爱.皮的战斗力确实在不断提高.但是随着修炼者实力的提升,更多的功法被创造出来.恩偶爱.皮表面上看是越来越经不起攻击了.然而这样,对那些刚进入修真届的新人来说,并不是什么好事.
+“战斗吧.”
+七帮的修真者们一起释放出强大的真气威压,附近荒野里的电路板似乎都跟着振动起来.
+4
+本大陆上,参加炼试的修真者都要集中到贫困山脚下的科大园.
+雷一行人因为离得近,所以到得晚.
+雷看到下战书的北海派的弟子.在雷的印象中,那是个独裁的封闭的门派.
+雷曾经觉得北海派是很强大的敌人,如果他们统一这个大陆,必将带来无尽的黑暗.
+后来雷认识了北海派的一些人.雷发现他们也是有血有肉的人.加之当时来自其他大陆的威胁,雷也就不再那样想了.
+这些都是前话.雷觉得自己一定程度上讲已经不是修真者了.
+一位老者认出了雷,向雷招了招手.雷也点头回应.
+那是高七帮的老者.高七帮的创始人就来自七帮.后来虽然他们去了贫困山的另一边发展,但依然和七帮保持了不错的关系.他们掌握了强大的点分功法,雷一直十分敬佩那位创造点分功法的老者,也就是面前这位.
+突然雷眼前一亮.虽然早已麻木,不过十分稀缺的女修还是能引起雷的注意的.同在贫困山中的泥屋门就是女修稀缺现象的反例.不仅女修多,而且大半都十分漂亮.泥屋门是个从远古传承下来的门派,传说创始人修了一间泥屋,在屋中招收学徒,因此得名.虽然泥屋门近来因为有强者叛逃去了北海派,而显得有些颓势,然而他们拥有很多不为人知的秘法,总是很神秘莫测.
+这些势力,在与恩偶爱.皮战斗时,应该可以看作是朋友,然而争那几个一等名额的时候,却又成了不共戴天的敌人.修真界,没有永恒的朋友,也没有永恒的敌人,只有永恒的排名.
+5
+“都准备好了吗?战斗吧.”
+周围的空气都被搅动起来.黑色的烟尘挡住了众人的视线.不参加试炼的舵主等老者都赶紧退到安全的地方.一串字符流中,恩偶爱.皮,又一次露出了一张表格状的狰狞的面孔.
+“又送炮灰来了,真好啊哈哈哈哈哈哈.”
+恩偶爱.皮发出诡异的笑声,空气都跟着波动,显示出它强大的能量来.
+虽然挠这等强者拥有强大的真气,但也无法以一人之力与对手抗衡.然而修真界就是这么残酷.
+“幻方,大模拟,给我爆!“恩偶爱.皮显然是饥渴难耐了,上来就使出了有些迷惑性的一招.
+一些明显是新人的家伙,很快就被迷倒了.不过多数修真者还是识破了敌人的诡计,掏出键盘,开始与之对抗.
+此刻雷的眼睛里却充满了鄙夷.也不掏出键盘,只是随手一行printf,就化解了打向自己的能量.
+雷身边的几个修真者应该也是身经百战了,纷纷化解了这道攻击.
+这时不远处有人发出一声呻吟,然后无力地倒在了自己的键盘上.雷疑惑地看去,发现那人使用了scanf,但是在打向能量前,却忘记了freopen.最终攻击能量没有打向敌人,却打趴了自己.
+双方都是使用了试探性的能量.但是在一些等级较低的修炼者眼中,这样的能量差距已经是不可逾越的了.有些修炼者选择了投降.这倒也简单,只要走出那到黑色的烟瘴,出于规则的限制,恩偶爱.皮也会就此罢手.
+“嘿嘿,小伙子们还不错嘛.等着.”
+恩偶爱.皮显然对这道攻击的效果还算满意,嘿嘿笑着,显露出一丝杀气.
+6
+雷摸了摸下巴.这是他多年前向一位老前辈学来的习惯.
+“就知道欺负弱者.“雷心里嘀咕.
+空气中的PM2.5似乎被对手聚集起来了,恩偶爱.皮略一酝酿,再次一声大呵,“图论,找圈.出.”...</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-12-09 22:52:55 +0000 UTC'>December 9, 2015</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to 风住尘香" href="/random/dbimport_268/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>乐学七中的二项式定理证明题
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>乐学七中的二项式证明题ovo没救了.
+求证64|32n&#43;2-8n-9(n∈N*).
+这么无语的题居然想了半个小时.
+证明.
+n=1时显然成立.
+n&gt;1时
+原式=(8&#43;1)n&#43;1-8n-9 原式≡1&#43;8(n&#43;1)-8n-9≡0(mod 64) 证毕.
+Historical Comments Unknown friend at 2016-01-18T23:27:56 @20151128_binomial: Orz —- ommy
+Unknown friend at 2016-01-18T23:27:56 @20151128_binomial: Orz —- ommy</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-11-28 13:33:25 +0000 UTC'>November 28, 2015</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to 乐学七中的二项式定理证明题" href="/random/dbimport_094/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>Proof for flag theory
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>手机写东西好蛋痛。补充一些flag学说的证据。
+Yzy的物理考试 YZY:我半期物理连40分都考不到了。
+结局:Yzy得到了足够高的分数于是年级排名20&#43;。
+星期三 卤素： niuzyi中午去打球!
+结局：中午gorge过生日。niuzyi孤独地和学弟玩耍。
+星期五 卤素：中午去打球！
+laekov:今天没人过生日吧。
+结局：中午，下，雨，了。
+（未完待续）</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-11-27 19:45:07 +0000 UTC'>November 27, 2015</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to Proof for flag theory" href="/random/dbimport_272/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>Introduction to Flag by LYZY
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Flag学简介 flag，是如今的新型学说，最初起源于二次元，现在已普遍运用于游戏，编程，到学生们的日常生活中。 flag最初是某种游戏中的专有词汇。这里就不说了。 什么是flag呢？我们举出几个日常生活中的实例。 案例一：今天第五节课没有拖堂，我激动地大喊：”今天一定能抢到饭！“到了食堂时，目测平均队列长度&gt;10m； 案例二：HJA说：”我这次一定要AC！“五分钟后，通过率降低10%； 案例三： HJA说：”这个题特别难写。“五分钟后，一次AC0ms; 通过这些例子，我们可以得出一些结论。 一个完整的”flag事件“，是由发生背景、flag以及结果3个部分构成的。在第一个事件中，”第五节课没有拖堂“是发生背景；”今天一定能抢到饭“是flag的内容；”没抢到饭“是结果；”我“是立flag的人（stander，或译为do-dier)。为了让大家熟悉这几个定义，我们把案例二，三的分析留作习题。 在案例一，二中，我们可以看出，flag大多表达的是立flag的人的美好希望，而这样的希望是建立在”发生背景“给出的暗示上的。然而，结果使得这样的美好希望破灭了。因此，这样的flag叫正flag。 而在案例三中，”发生背景“给stander的暗示是“这题很难”。而结果却出人意料，HJA秒过了。这类结局美好的flag叫反flag。 可见，flag的结果是与flag内容相反的。这也是flag的定义。 下面给出flag基本原理（墨菲定律）：事情如果有变坏的可能，不管这种可能性有多小，它总会发生。 以及基本原理的另一种阐述形式，分为4个定理：
+1、任何事都没有表面看起来那么简单； 2、所有的事都会比你预计的时间长； 3、会出错的事总会出错； 4、如果你担心某种情况发生，那么它就更有可能发生。 所以，结果往往与flag内容往往相反。 那么，我们要如何避免这样的flag呢？笔者在这里给出一些建议。 首先，刷题时一定要闭嘴，不要提到任何有可能成为flag的内容，最好想都不要想。根据不可靠的情报，flag的根本原因是因为当你告诉自己“我一定不会失败”时，你会想象自己失败的场景，因而将事情的发展导向失败。其次，当你已经无意间立下flag的时候，要马上放弃不切实际的想法，可以调节情绪，做一些其他事情，等待flag失效。另外，RP学说与Flag学说有密切联系。在平常应多做攒RP的事情，比如请本文作者吃饭（当然，这对本人来说是掉RP的，不过我为了大家着想不在意这点RP）。 最后，介绍一种高超的方法：反立flag。 既然flag内容往往与结果相反，那么我们可以通过立下内容不好的flag，让结果向好的一方面发生。如案例三，HJA运用反立flag技巧AC了。 但这个方法的使用有几点注意事项：1、反flag成功之后RP必定大减。这个时候更容易陷入一个正flag中。所以当你反flag成功时，务必不要得意忘形，因为会有更大的flag等着你去立；2、反flag的成功率一般远低于正flag的成功率，不要有太大希望；3、最重要的一点，不要抱着“立flag”的心态立反flag。心理因素是影响flag成功率的关键。要做到“自己都不知道自己在立flag&#34;，这样的反flag成功率才能增高。正所谓“天人合一“”物我两忘“，达到这样的境界，便能将反flag运用到极致。这样带来的惊喜也更大，且RP不易减少。 给大家几个反flag： 1、我tyvj永远刷不过100道题；
+2、我学不会最小费用最大流和KM；
+3、我下次要出年级前50；
+4、没有下一篇flag介绍了。
+就是这样。大家可以在日常生活中适量的尝试反flag的使用并注意提高RP（见上文）。
+最后注意，本方法对于某些特定人群并不适用，如ADAM让你写的总结最好还是认真写。
+_A0A0的粉丝（一种高效的转移手法，使RP降低的效果转移到_A0A0身上） 作于2014.9.5 附录：对于一些术语的解释：（好的态度&#43;RP）
+AC：accepted，通过了一道题目（就是满分了）
+通过率：在一些网站上的AC题目数/总提交次数
+tyvj：某一刷题网站
+HJA：某牛牪犇
+KM：二分图带权匹配的算法
+_A0A0： A0A0是黑暗世界的核心，暴力的保护神，强剪枝的朋友，随机数据的敌人，所有的光明算法出题者视A0A0为眼中钉
+ADAM：超过_A0A0的存在，无视一切flag的效果，附带精神压力（所以要认真写他要求的东西）
+Flag的作用机制 在这一节，我们将重点放在flag的作用机制上。因为flag学方兴未艾，目前对它的作用机制只有一些猜想。 flag的实质是一个事件，而对这个事件产生影响的主要是flag的内容。但我们知道，只有“有质量的物体”才能做功，一句话，或一个想法中的信息是不可能直接对现实世界产生影响的（除非你是_A0A0)。这样看来，flag极有可能是通过信息对立flag者本人产生某种影响，进而导致flag的结局。（这么看来，flag似乎不是一种反射，这学期大家做生物选择题是要注意） 我们再次通过实例来说明。 今天笔者对HJA打比赛提供了一些精神援助。对于他想要打表的意愿，我表示支持。然而发送信息后我突然发现这是一个flag。事实证明，HJA没有写起那道题（TLE）。这么看来，flag似乎也能对别人起作用效果。 如果你还不清楚上一篇中的几个定义，请分析这个实例，笔者又把它留作习题（虽然没有习题答案，不过反正你们不会认真做） 另外，机房某人很久以前说过：“期望的题千千万，但都是逗比题。”这句话对全机房人都产生了深远的影响。当然，不是influence,是affect. 这么说来，我们可以定义一个flag场：在flag的周围会产生这样一种物质，对处在其中的人产生“作用”。这里的作用不只是力。“周围”的定义也很广泛，不仅仅是能通过空间传播，也能直接作用于被flag描述的人，甚至通过网络无限制的传播。这么看来，flag场真是大大的可怕。 对于具体的一个人是怎样起作用的呢？作者还需要构思一个奇葩的答案。不过有一点是肯定的：相信这是一个flag的人，比不太相信flag与不知情的人受到的影响要大。 公式如下：F (flag作用强度) ∝ b (相信程度） F∝1/(s^2)（传播距离） 因此笔者给出一个猜测：F=f*b/(s^2)，f为“flag常数”，实验值为2.333.但具体的量度方法笔者还需保密。 不过flag也有失效的时候。据观察，主要有以下几种情况。 1、在flag场内的人与描述内容无关。比如，楼主不会受到机房众人的flag影响，因为他不写程序。（说不定是下一种情况） 2、在flag场内的人拥有碾压立flag者的实力。如钟神、HJA几乎不受机房众人影响。（楼主说不定是世外高手） 3、在flag场内的人拥有极其强大的心理素质，心如止水，屏蔽外界干扰。 对于这一类特例的解释，笔者认为，是否受到flag影响的根本原因是是否相信flag。如果相信，正如上一节所说的，你很容易想象到失败的场景并把它导向现实；如果不相信，便能否定它的效果。以上三种情况均是由于强大的心理素质才能反抗flag场的强大作用。根据公式也能推出这个结论。 因此，对于正flag，不要悲伤，不要心急。锻炼心理素质，为善去恶，格物致知，回归本心，自然不受flag场影响。对于反flag，要善加利用，给自己正确的心理暗示，造福人类。 在下一节中，笔者会试图证明flag与平方反比定律的相似性，以及楞次定律，勒夏特列原理等与flag学说的共同之处。（笔者要试图反抗flag场，果断正立flag) P.S.如果你对自己的心理素质不抱信心，可以请笔者吃饭增加RP。（毕竟充足的体力才能继续写作） 附注： TLE：超时 机房某人：就是那个笑起来特别有喜感整个曦园都听得见的那位胖子 钟神：HJA都要orz的存在，与_A0A0斗争的领导人 楼主：隐居在科技楼二楼的老者，仙风道骨，窥破天机。 HJA：他不是_A0A0....</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-11-24 22:44:48 +0000 UTC'>November 24, 2015</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to Introduction to Flag by LYZY" href="/random/dbimport_255/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>noip2015 transport
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>唯一一道有点麻烦的题.似乎是Picks出的?orz.于是窝就90辣.
+据说可以链剖然而退役的laekov已经搞忘了那是啥.
+laekov思考了五分钟.
+把所有链按长度排序.答案必定是这个路径序列的某个前缀的并集上的最长边.
+然后并集只会减小不会增大.于是暴力判断当前并集端点是否在下一条路径上就可以了.
+于是会被卡常数ovo窝也不知道怎么破.在uoj上加了个读入优化炸糊过去了.
+然后窝程序在最长路径长度为0的时候会因为数据结构写丑而死循环ovo
+反正还是挺水的啊.noip的压轴题怎么能这么水.</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-11-17 22:34:39 +0000 UTC'>November 17, 2015</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to noip2015 transport" href="/oi/dbimport_267/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>noip2015 substring
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>水水的dp.压一维状态表示上一个字母到底有没有被用就可以算出子串数了.
+然后会mle就滚一维呗.有高一小朋友不知道2333.
+似乎会卡常数23333.</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-11-17 22:30:52 +0000 UTC'>November 17, 2015</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to noip2015 substring" href="/oi/dbimport_266/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>noip2015 stone
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>水水的二分答案.
+想四年前classroom还属于思考题.现在就已经沦落到开场题的地步了.oi界发展迅速啊.
+然而真的不是3分钟搞定?</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-11-17 22:29:14 +0000 UTC'>November 17, 2015</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to noip2015 stone" href="/oi/dbimport_265/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>noip2015 landlords
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>day1考的农业题.据说可以状压然而退役的laekov已经不会写状压了(雾.
+于是直接dfs就好了啊23333
+每次搜索的时候强制把当前点数最小的牌出掉至少一张.这样时间复杂度/=答案!.然后就完辣.</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-11-17 22:27:41 +0000 UTC'>November 17, 2015</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to noip2015 landlords" href="/oi/dbimport_262/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>noip2015 message
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>依然是水水的题.
+基环内向树.从任意点开走要么是o型环要么是ρ型环.
+那些写bfs的是啥心态.非要展示代码能力么.
+以及谁说没考数论的?这题不就是&#34;泼辣的肉&#34;的推广(雾.</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-11-17 22:25:20 +0000 UTC'>November 17, 2015</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to noip2015 message" href="/oi/dbimport_264/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>noip2015 magic
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>noip成绩终于出来辣可以水水地写个题解辣.假装窝还是在更新窝的网站嘛.
+“这么水的题还要写题解?”
+“对不起嘛,laekov是noi才ag弱渣嘛.”
+3分钟题ovo.</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-11-17 22:21:43 +0000 UTC'>November 17, 2015</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to noip2015 magic" href="/oi/dbimport_263/"></a>
+</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="prev" href="/page/11/">
+      «&nbsp;Prev&nbsp;
+    </a>
+    <a class="next" href="/page/13/">Next&nbsp;&nbsp;»
+    </a>
+  </nav>
+</footer>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

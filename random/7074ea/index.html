@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>laekov 的桌面环境配置 | The Site of laekov</title>
+<meta name="keywords" content="brainhole">
+<meta name="description" content="laekov 终于闲下来了并开了这么一篇一直都想写的文章. 之前摸鱼的时候在某乎, 某小破站上都有各种晒桌面的就蠢蠢欲动. 最近终于闲下来了可以用新买的 niz 打打不是正事的字了.
+实验室(办公室) laekov 很追求简洁的所以桌上除了俩显示器俩键盘以外没有什么大块的东西. 从左到右说. (laekov 在实验室有四台电脑.)
+最左边是夏天赖以生存的小风扇 (虽然从隔壁机房吹空调速冻效果其实更好).
+左边是 27 寸显示器, 连了一台从实验室各处捡垃圾凑出来的 windows 台式机在桌子底下. 机箱上面还堆了 gyc 赞助的 24 口千兆交换机给所有设备供网. 上面还有俩键盘盒子, 一个装了之前北大校赛赚来的黑轴键盘暂时没用了. 还有一个是空的.
+台式机的配置是奇怪的 i5-6500 &#43; gtx 1080 ti.插了高二的时候 laekov 爹送 laekov 的生日礼物 ducky 混光青轴键盘. 虽然键盘挺老了甚至有些轴都开始咯吱响了但还是岗岗的好用. 因为这台电脑的主要用途是:
+挂微信 使用 M$ office 套件处理不得不用它们处理的东西 摸鱼(打游戏) 显示器后面有一个 hp 的 chromebook g1, 八百块从闲鱼收的, 介绍见这篇文章, 主要用途是组会的时候放 slides 和移动干活. 偶尔也用作掌托. 13.5mm 的厚度和 3k x 2k 的屏幕还是很香的.
+插线板后面有一个树莓派, 是某年的生日礼物. 上面放了一些神奇的东西, 可以用来调一些神奇的硬件, 比如折腾一下网络什么的, 不过最近用得不多.">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/random/7074ea/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="laekov 的桌面环境配置" />
+<meta property="og:description" content="laekov 终于闲下来了并开了这么一篇一直都想写的文章. 之前摸鱼的时候在某乎, 某小破站上都有各种晒桌面的就蠢蠢欲动. 最近终于闲下来了可以用新买的 niz 打打不是正事的字了.
+实验室(办公室) laekov 很追求简洁的所以桌上除了俩显示器俩键盘以外没有什么大块的东西. 从左到右说. (laekov 在实验室有四台电脑.)
+最左边是夏天赖以生存的小风扇 (虽然从隔壁机房吹空调速冻效果其实更好).
+左边是 27 寸显示器, 连了一台从实验室各处捡垃圾凑出来的 windows 台式机在桌子底下. 机箱上面还堆了 gyc 赞助的 24 口千兆交换机给所有设备供网. 上面还有俩键盘盒子, 一个装了之前北大校赛赚来的黑轴键盘暂时没用了. 还有一个是空的.
+台式机的配置是奇怪的 i5-6500 &#43; gtx 1080 ti.插了高二的时候 laekov 爹送 laekov 的生日礼物 ducky 混光青轴键盘. 虽然键盘挺老了甚至有些轴都开始咯吱响了但还是岗岗的好用. 因为这台电脑的主要用途是:
+挂微信 使用 M$ office 套件处理不得不用它们处理的东西 摸鱼(打游戏) 显示器后面有一个 hp 的 chromebook g1, 八百块从闲鱼收的, 介绍见这篇文章, 主要用途是组会的时候放 slides 和移动干活. 偶尔也用作掌托. 13.5mm 的厚度和 3k x 2k 的屏幕还是很香的.
+插线板后面有一个树莓派, 是某年的生日礼物. 上面放了一些神奇的东西, 可以用来调一些神奇的硬件, 比如折腾一下网络什么的, 不过最近用得不多." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/random/7074ea/" /><meta property="article:section" content="random" />
+<meta property="article:published_time" content="2021-08-16T16:02:13+00:00" />
+<meta property="article:modified_time" content="2021-08-16T16:02:13+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="laekov 的桌面环境配置"/>
+<meta name="twitter:description" content="laekov 终于闲下来了并开了这么一篇一直都想写的文章. 之前摸鱼的时候在某乎, 某小破站上都有各种晒桌面的就蠢蠢欲动. 最近终于闲下来了可以用新买的 niz 打打不是正事的字了.
+实验室(办公室) laekov 很追求简洁的所以桌上除了俩显示器俩键盘以外没有什么大块的东西. 从左到右说. (laekov 在实验室有四台电脑.)
+最左边是夏天赖以生存的小风扇 (虽然从隔壁机房吹空调速冻效果其实更好).
+左边是 27 寸显示器, 连了一台从实验室各处捡垃圾凑出来的 windows 台式机在桌子底下. 机箱上面还堆了 gyc 赞助的 24 口千兆交换机给所有设备供网. 上面还有俩键盘盒子, 一个装了之前北大校赛赚来的黑轴键盘暂时没用了. 还有一个是空的.
+台式机的配置是奇怪的 i5-6500 &#43; gtx 1080 ti.插了高二的时候 laekov 爹送 laekov 的生日礼物 ducky 混光青轴键盘. 虽然键盘挺老了甚至有些轴都开始咯吱响了但还是岗岗的好用. 因为这台电脑的主要用途是:
+挂微信 使用 M$ office 套件处理不得不用它们处理的东西 摸鱼(打游戏) 显示器后面有一个 hp 的 chromebook g1, 八百块从闲鱼收的, 介绍见这篇文章, 主要用途是组会的时候放 slides 和移动干活. 偶尔也用作掌托. 13.5mm 的厚度和 3k x 2k 的屏幕还是很香的.
+插线板后面有一个树莓派, 是某年的生日礼物. 上面放了一些神奇的东西, 可以用来调一些神奇的硬件, 比如折腾一下网络什么的, 不过最近用得不多."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Randoms",
+      "item": "/random/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "laekov 的桌面环境配置",
+      "item": "/random/7074ea/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "laekov 的桌面环境配置",
+  "name": "laekov 的桌面环境配置",
+  "description": "laekov 终于闲下来了并开了这么一篇一直都想写的文章. 之前摸鱼的时候在某乎, 某小破站上都有各种晒桌面的就蠢蠢欲动. 最近终于闲下来了可以用新买的 niz 打打不是正事的字了.\n实验室(办公室) laekov 很追求简洁的所以桌上除了俩显示器俩键盘以外没有什么大块的东西. 从左到右说. (laekov 在实验室有四台电脑.)\n最左边是夏天赖以生存的小风扇 (虽然从隔壁机房吹空调速冻效果其实更好).\n左边是 27 寸显示器, 连了一台从实验室各处捡垃圾凑出来的 windows 台式机在桌子底下. 机箱上面还堆了 gyc 赞助的 24 口千兆交换机给所有设备供网. 上面还有俩键盘盒子, 一个装了之前北大校赛赚来的黑轴键盘暂时没用了. 还有一个是空的.\n台式机的配置是奇怪的 i5-6500 + gtx 1080 ti.插了高二的时候 laekov 爹送 laekov 的生日礼物 ducky 混光青轴键盘. 虽然键盘挺老了甚至有些轴都开始咯吱响了但还是岗岗的好用. 因为这台电脑的主要用途是:\n挂微信 使用 M$ office 套件处理不得不用它们处理的东西 摸鱼(打游戏) 显示器后面有一个 hp 的 chromebook g1, 八百块从闲鱼收的, 介绍见这篇文章, 主要用途是组会的时候放 slides 和移动干活. 偶尔也用作掌托. 13.5mm 的厚度和 3k x 2k 的屏幕还是很香的.\n插线板后面有一个树莓派, 是某年的生日礼物. 上面放了一些神奇的东西, 可以用来调一些神奇的硬件, 比如折腾一下网络什么的, 不过最近用得不多.",
+  "keywords": [
+    "brainhole"
+  ],
+  "articleBody": " laekov 终于闲下来了并开了这么一篇一直都想写的文章. 之前摸鱼的时候在某乎, 某小破站上都有各种晒桌面的就蠢蠢欲动. 最近终于闲下来了可以用新买的 niz 打打不是正事的字了.\n实验室(办公室) laekov 很追求简洁的所以桌上除了俩显示器俩键盘以外没有什么大块的东西. 从左到右说. (laekov 在实验室有四台电脑.)\n最左边是夏天赖以生存的小风扇 (虽然从隔壁机房吹空调速冻效果其实更好).\n左边是 27 寸显示器, 连了一台从实验室各处捡垃圾凑出来的 windows 台式机在桌子底下. 机箱上面还堆了 gyc 赞助的 24 口千兆交换机给所有设备供网. 上面还有俩键盘盒子, 一个装了之前北大校赛赚来的黑轴键盘暂时没用了. 还有一个是空的.\n台式机的配置是奇怪的 i5-6500 + gtx 1080 ti.插了高二的时候 laekov 爹送 laekov 的生日礼物 ducky 混光青轴键盘. 虽然键盘挺老了甚至有些轴都开始咯吱响了但还是岗岗的好用. 因为这台电脑的主要用途是:\n挂微信 使用 M$ office 套件处理不得不用它们处理的东西 摸鱼(打游戏) 显示器后面有一个 hp 的 chromebook g1, 八百块从闲鱼收的, 介绍见这篇文章, 主要用途是组会的时候放 slides 和移动干活. 偶尔也用作掌托. 13.5mm 的厚度和 3k x 2k 的屏幕还是很香的.\n插线板后面有一个树莓派, 是某年的生日礼物. 上面放了一些神奇的东西, 可以用来调一些神奇的硬件, 比如折腾一下网络什么的, 不过最近用得不多.\n右边是个 11 代 nuc 连着一个 21:9 的 34 寸大屏. nuc 就在键盘左前方手机无线充电座下面. nuc 很小但是接口还插丰富的. nuc 上装了 debian 11 + kde 作为主要的工作环境. 比如写代码写论文写博客, 用 slack 处理工作消息用 tg 私人聊天. 总结一下 laekov 觉得 kde 才是真爱. 键盘是今年七夕礼物 niz 的 35 克静电容 . 因为前一阵用青轴打字太多手指疼所以从女朋友处敲诈了一把键盘哈哈. 这把白色键盘有巨丰富的 rgb 背光, 非常好看.\n鼠标就是随便买的便宜鼠标, 反正用得不多.\n34 寸显示器底下还能放一个 ipad 并用蓝牙键盘架起来了. ipad 的主要作用是听歌和写字板. 是 2019 年春节前买的初代支持 apple pencil 而且大碗便宜的 the ipad. 而且 air pods 还是和 apple 的设备配合起来更舒服.\n右边用 harry 的 tuna 贴纸贴了各种神奇的东西. 底下是 laekov 喜欢的一大片空白, 可以用来写写字上上螺丝啥的.\n最后一台电脑是作为某 a 公司实习生发的笔记本电脑, 塞在桌子底下了, 不过除了赶文章 ddl 的时候用来给组里公用放倒计时以外 laekov 平时并不会拿出来用 hhh.\n宿舍 宿舍比较小, 但因为有独占的公网 ip (动态) 所以还是放了一堆东西.\n左边中层是各种工具. bosch 的电动螺丝刀套装真香.\n底下是 laekov 高一的旧联想笔记本, 因为视频输出只支持到 1080p 所以被嫌弃了, 目前用作个人服务器, 跑着一些个人网络业务, 比如从外面连回学校的其中一个跳板, 目前 uptime 已高达 272 days.\n后面的一大坨线实在是没眼看, 但线太长了不会理 \u003e_\u003c\n屏幕是 aoc 的 27 寸 2k 屏, 接着 laekov 的 windows 游戏本.\nlaekov 用了十分猎奇的方法把笔记本放到了屏幕和屏幕支架之间的缝隙里面, 这样很省空间, 插 usb 设备也挺方便, 散热感觉也很好, 开外放的时候也不会一边耳朵爆炸. 唯一不方便的是要拿走的时候, 不过这种情况一年也发生不超过 10 次, 所以也还 ok. 键盘是随便买的 hp 茶轴, 它的背光是按键的时候才会亮的, 所以晚上睡觉的时候不用拔掉也不会影响大家睡觉, 非常科学. 但是声音还是挺响亮的.\n宿舍里用了一个小米的路由器来给两台电脑提供有线网. laekov 本来很开心千兆网口, 然后发现服务器和上行口都是百兆的. 千了个寂寞. 而且可能是校园网里有奇怪的东西, 这个路由器非常不稳定, 时不时会挂, 而且挂了之后需要手工重启.\n右边是喜闻乐见的小风扇和一大片空地. 以上.\n",
+  "wordCount" : "225",
+  "inLanguage": "en",
+  "datePublished": "2021-08-16T16:02:13Z",
+  "dateModified": "2021-08-16T16:02:13Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/random/7074ea/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/random/">Randoms</a></div>
+    <h1 class="post-title">
+      laekov 的桌面环境配置
+    </h1>
+    <div class="post-meta"><span title='2021-08-16 16:02:13 +0000 UTC'>August 16, 2021</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e5%ae%9e%e9%aa%8c%e5%ae%a4%e5%8a%9e%e5%85%ac%e5%ae%a4" aria-label="实验室(办公室)">实验室(办公室)</a></li>
+                <li>
+                    <a href="#%e5%ae%bf%e8%88%8d" aria-label="宿舍">宿舍</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><style>
+img { width: 100%; }
+</style>
+<p>laekov 终于闲下来了并开了这么一篇一直都想写的文章. 之前摸鱼的时候在某乎, 某小破站上都有各种晒桌面的就蠢蠢欲动. 最近终于闲下来了可以用新买的 niz 打打不是正事的字了.</p>
+<h2 id="实验室办公室">实验室(办公室)<a hidden class="anchor" aria-hidden="true" href="#实验室办公室">#</a></h2>
+<p><img loading="lazy" src="/l/figures/lab.jpg" alt=""  />
+</p>
+<p>laekov 很追求简洁的所以桌上除了俩显示器俩键盘以外没有什么大块的东西. 从左到右说. (laekov 在实验室有四台电脑.)</p>
+<p>最左边是夏天赖以生存的小风扇 (虽然从隔壁机房吹空调速冻效果其实更好).</p>
+<p>左边是 27 寸显示器, 连了一台从实验室各处捡垃圾凑出来的 windows 台式机在桌子底下. 机箱上面还堆了 gyc 赞助的 24 口千兆交换机给所有设备供网. 上面还有俩键盘盒子, 一个装了之前北大校赛赚来的黑轴键盘暂时没用了. 还有一个是空的.</p>
+<p>台式机的配置是奇怪的 i5-6500 + gtx 1080 ti.插了高二的时候 laekov 爹送 laekov 的生日礼物 ducky 混光青轴键盘. 虽然键盘挺老了甚至有些轴都开始咯吱响了但还是岗岗的好用. 因为这台电脑的主要用途是:</p>
+<ul>
+<li>挂微信</li>
+<li>使用 M$ office 套件处理不得不用它们处理的东西</li>
+<li>摸鱼(打游戏)</li>
+</ul>
+<p>显示器后面有一个 hp 的 chromebook g1, 八百块从闲鱼收的, 介绍见<a href="https://laekov.com.cn/view/90c0d3">这篇文章</a>, 主要用途是组会的时候放 slides 和移动干活. 偶尔也用作掌托. 13.5mm 的厚度和 <code>3k x 2k</code> 的屏幕还是很香的.</p>
+<p>插线板后面有一个树莓派, 是某年的生日礼物. 上面放了一些神奇的东西, 可以用来调一些神奇的硬件, 比如折腾一下网络什么的, 不过最近用得不多.</p>
+<p>右边是个 11 代 nuc 连着一个 21:9 的 34 寸大屏. nuc 就在键盘左前方手机无线充电座下面. nuc 很小但是接口还插丰富的. nuc 上装了 debian 11 + kde 作为主要的工作环境. 比如写代码写论文写博客, 用 slack 处理工作消息用 tg 私人聊天. 总结一下 laekov 觉得 kde 才是真爱. 键盘是今年七夕礼物 niz 的 35 克静电容 . 因为前一阵用青轴打字太多手指疼所以从女朋友处敲诈了一把键盘哈哈. 这把白色键盘有巨丰富的 rgb 背光, 非常好看.</p>
+<p>鼠标就是随便买的便宜鼠标, 反正用得不多.</p>
+<p>34 寸显示器底下还能放一个 ipad 并用蓝牙键盘架起来了. ipad 的主要作用是听歌和写字板. 是 2019 年春节前买的初代支持 apple pencil 而且大碗便宜的 the ipad. 而且 air pods 还是和 apple 的设备配合起来更舒服.</p>
+<p>右边用 harry 的 tuna 贴纸贴了各种神奇的东西. 底下是 laekov 喜欢的一大片空白, 可以用来写写字上上螺丝啥的.</p>
+<p>最后一台电脑是作为某 a 公司实习生发的笔记本电脑, 塞在桌子底下了, 不过除了赶文章 ddl 的时候用来给组里公用放倒计时以外 laekov 平时并不会拿出来用 hhh.</p>
+<h2 id="宿舍">宿舍<a hidden class="anchor" aria-hidden="true" href="#宿舍">#</a></h2>
+<p><img loading="lazy" src="/l/figures/dorm.jpg" alt=""  />
+</p>
+<p>宿舍比较小, 但因为有独占的公网 ip (动态) 所以还是放了一堆东西.</p>
+<p>左边中层是各种工具. bosch 的电动螺丝刀套装真香.</p>
+<p>底下是 laekov 高一的旧联想笔记本, 因为视频输出只支持到 1080p 所以被嫌弃了, 目前用作个人服务器, 跑着一些个人网络业务, 比如从外面连回学校的其中一个跳板, 目前 uptime 已高达 272 days.</p>
+<p>后面的一大坨线实在是没眼看, 但线太长了不会理 &gt;_&lt;</p>
+<p>屏幕是 aoc 的 27 寸 2k 屏, 接着 laekov 的 windows 游戏本.</p>
+<p>laekov 用了十分猎奇的方法把笔记本放到了屏幕和屏幕支架之间的缝隙里面, 这样很省空间, 插 usb 设备也挺方便, 散热感觉也很好, 开外放的时候也不会一边耳朵爆炸. 唯一不方便的是要拿走的时候, 不过这种情况一年也发生不超过 10 次, 所以也还 ok. 键盘是随便买的 hp 茶轴, 它的背光是按键的时候才会亮的, 所以晚上睡觉的时候不用拔掉也不会影响大家睡觉, 非常科学. 但是声音还是挺响亮的.</p>
+<p>宿舍里用了一个小米的路由器来给两台电脑提供有线网. laekov 本来很开心千兆网口, 然后发现服务器和上行口都是百兆的. 千了个寂寞. 而且可能是校园网里有奇怪的东西, 这个路由器非常不稳定, 时不时会挂, 而且挂了之后需要手工重启.</p>
+<p>右边是喜闻乐见的小风扇和一大片空地. 以上.</p>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/brainhole/">brainhole</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/random/7af673/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>吐槽一下 windows 11</span>
+  </a>
+  <a class="next" href="/technical/6b400a/">
+    <span class="title">Next »</span>
+    <br>
+    <span>FastMoE: 一个高效 MoE 模型训练系统 - 初版之路</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

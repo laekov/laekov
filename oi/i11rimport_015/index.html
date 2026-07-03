@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>BZOJ1023 [SHOI2008]cactus仙人掌图 | The Site of laekov</title>
+<meta name="keywords" content="bzoj, ds, dp, oi">
+<meta name="description" content="&lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt; 第六百道题一定要不水！虽然离第一页还有几十道题的距离。&lt;/p&gt; &nbsp;
+很早之前见过的题吧。然后一直觉得特别难写所以都没写。以前写点不重复的仙人掌都觉得挺痛苦，更不要说这个了。
+&nbsp;
+现在想想还行，因为我yy出了化简的方法。先搞出dfs树。然后一个顶点如果是一个环里深度最浅的，那么称它为这个环的头。可以证明一个顶点最多在一个不以它为头的环上。把这个环记下来，其它的环都从这个顶点去找边来找就行了。这样的话可以比较节省代码量，写起来也比较明了。虽然还是比mhy长。
+&nbsp;
+然后因为我在最后一步dp的时候写了一个static的f数组，所以光荣了。debug了好久。晕。
+&nbsp;
+#include &lt;cstdio&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+struct edge { int t, av; edge *next, *rv; }; struct ball { int l, *a, h; };
+const int maxn = 50009; const int maxm = 200009; const int maxarr = 400009;
+int n, m, cb, fb[maxn], d[maxn]; int f[maxn], ans, fd[maxn], fe[maxn]; int stc[maxn], tst; int ibuf_arr[maxarr], *ibuf(ibuf_arr); bool vis[maxn]; edge elst[maxm], *ep(elst), *head[maxn]; ball b[maxm];">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/i11rimport_015/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="BZOJ1023 [SHOI2008]cactus仙人掌图" />
+<meta property="og:description" content="&lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt; 第六百道题一定要不水！虽然离第一页还有几十道题的距离。&lt;/p&gt; &nbsp;
+很早之前见过的题吧。然后一直觉得特别难写所以都没写。以前写点不重复的仙人掌都觉得挺痛苦，更不要说这个了。
+&nbsp;
+现在想想还行，因为我yy出了化简的方法。先搞出dfs树。然后一个顶点如果是一个环里深度最浅的，那么称它为这个环的头。可以证明一个顶点最多在一个不以它为头的环上。把这个环记下来，其它的环都从这个顶点去找边来找就行了。这样的话可以比较节省代码量，写起来也比较明了。虽然还是比mhy长。
+&nbsp;
+然后因为我在最后一步dp的时候写了一个static的f数组，所以光荣了。debug了好久。晕。
+&nbsp;
+#include &lt;cstdio&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+struct edge { int t, av; edge *next, *rv; }; struct ball { int l, *a, h; };
+const int maxn = 50009; const int maxm = 200009; const int maxarr = 400009;
+int n, m, cb, fb[maxn], d[maxn]; int f[maxn], ans, fd[maxn], fe[maxn]; int stc[maxn], tst; int ibuf_arr[maxarr], *ibuf(ibuf_arr); bool vis[maxn]; edge elst[maxm], *ep(elst), *head[maxn]; ball b[maxm];" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/i11rimport_015/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2015-03-04T15:40:41+00:00" />
+<meta property="article:modified_time" content="2015-03-04T15:40:41+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BZOJ1023 [SHOI2008]cactus仙人掌图"/>
+<meta name="twitter:description" content="&lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt; 第六百道题一定要不水！虽然离第一页还有几十道题的距离。&lt;/p&gt; &nbsp;
+很早之前见过的题吧。然后一直觉得特别难写所以都没写。以前写点不重复的仙人掌都觉得挺痛苦，更不要说这个了。
+&nbsp;
+现在想想还行，因为我yy出了化简的方法。先搞出dfs树。然后一个顶点如果是一个环里深度最浅的，那么称它为这个环的头。可以证明一个顶点最多在一个不以它为头的环上。把这个环记下来，其它的环都从这个顶点去找边来找就行了。这样的话可以比较节省代码量，写起来也比较明了。虽然还是比mhy长。
+&nbsp;
+然后因为我在最后一步dp的时候写了一个static的f数组，所以光荣了。debug了好久。晕。
+&nbsp;
+#include &lt;cstdio&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+struct edge { int t, av; edge *next, *rv; }; struct ball { int l, *a, h; };
+const int maxn = 50009; const int maxm = 200009; const int maxarr = 400009;
+int n, m, cb, fb[maxn], d[maxn]; int f[maxn], ans, fd[maxn], fe[maxn]; int stc[maxn], tst; int ibuf_arr[maxarr], *ibuf(ibuf_arr); bool vis[maxn]; edge elst[maxm], *ep(elst), *head[maxn]; ball b[maxm];"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "BZOJ1023 [SHOI2008]cactus仙人掌图",
+      "item": "/oi/i11rimport_015/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BZOJ1023 [SHOI2008]cactus仙人掌图",
+  "name": "BZOJ1023 [SHOI2008]cactus仙人掌图",
+  "description": "\u0026lt;div class=\u0026quot;post_brief\u0026quot;\u0026gt;\u0026lt;p\u0026gt; 第六百道题一定要不水！虽然离第一页还有几十道题的距离。\u0026lt;/p\u0026gt; \u0026nbsp;\n很早之前见过的题吧。然后一直觉得特别难写所以都没写。以前写点不重复的仙人掌都觉得挺痛苦，更不要说这个了。\n\u0026nbsp;\n现在想想还行，因为我yy出了化简的方法。先搞出dfs树。然后一个顶点如果是一个环里深度最浅的，那么称它为这个环的头。可以证明一个顶点最多在一个不以它为头的环上。把这个环记下来，其它的环都从这个顶点去找边来找就行了。这样的话可以比较节省代码量，写起来也比较明了。虽然还是比mhy长。\n\u0026nbsp;\n然后因为我在最后一步dp的时候写了一个static的f数组，所以光荣了。debug了好久。晕。\n\u0026nbsp;\n#include \u0026lt;cstdio\u0026gt; #include \u0026lt;cstring\u0026gt; #include \u0026lt;algorithm\u0026gt; using namespace std;\nstruct edge { int t, av; edge *next, *rv; }; struct ball { int l, *a, h; };\nconst int maxn = 50009; const int maxm = 200009; const int maxarr = 400009;\nint n, m, cb, fb[maxn], d[maxn]; int f[maxn], ans, fd[maxn], fe[maxn]; int stc[maxn], tst; int ibuf_arr[maxarr], *ibuf(ibuf_arr); bool vis[maxn]; edge elst[maxm], *ep(elst), *head[maxn]; ball b[maxm];",
+  "keywords": [
+    "bzoj", "ds", "dp", "oi"
+  ],
+  "articleBody": "\t第六百道题一定要不水！虽然离第一页还有几十道题的距离。\n很早之前见过的题吧。然后一直觉得特别难写所以都没写。以前写点不重复的仙人掌都觉得挺痛苦，更不要说这个了。\n现在想想还行，因为我yy出了化简的方法。先搞出dfs树。然后一个顶点如果是一个环里深度最浅的，那么称它为这个环的头。可以证明一个顶点最多在一个不以它为头的环上。把这个环记下来，其它的环都从这个顶点去找边来找就行了。这样的话可以比较节省代码量，写起来也比较明了。虽然还是比mhy长。\n然后因为我在最后一步dp的时候写了一个static的f数组，所以光荣了。debug了好久。晕。\n#include #include #include using namespace std;\nstruct edge { int t, av; edge *next, *rv; }; struct ball { int l, *a, h; };\nconst int maxn = 50009; const int maxm = 200009; const int maxarr = 400009;\nint n, m, cb, fb[maxn], d[maxn]; int f[maxn], ans, fd[maxn], fe[maxn]; int stc[maxn], tst; int ibuf_arr[maxarr], *ibuf(ibuf_arr); bool vis[maxn]; edge elst[maxm], *ep(elst), *head[maxn]; ball b[maxm];\ninline edge* addEdge(int u, int v) { ep-\u003e t = v; ep-\u003e av = 1; ep-\u003e next = head[u]; return head[u] = ep ++; }\ninline void upMax(int\u0026 a, int b) { if (a \u003c b) a = b; }\nvoid dfsBall(int p) { vis[p] = 1; stc[++ tst] = p; for (edge *e = head[p]; e; e = e-\u003e next) if (e-\u003e av) { e-\u003e rv-\u003e av = 0; if (vis[e-\u003e t] \u0026\u0026 (!fb[p])) { e-\u003e av = 0; b[++ cb]. l = 0; b[cb]. a = ibuf; for (int i = tst; 1; – i) { b[cb]. a[b[cb]. l ++] = stc[i]; if (stc[i] != e-\u003e t) fb[stc[i]] = cb; else break; } b[cb]. h = e-\u003e t; ibuf += b[cb]. l; } else { d[e-\u003e t] = d[p] + 1; dfsBall(e-\u003e t); } } – tst; }\nvoid downDP(int p) { fd[p] = fe[p] = 0; for (edge* e = head[p]; e; e = e-\u003e next) if (e-\u003e av) { if (fb[e-\u003e t] \u0026\u0026 p == b[fb[e-\u003e t]]. h) { int bi(fb[e-\u003e t]), fl(0); for (int i = 0; i \u003c b[bi]. l; ++ i) if (b[bi]. a[i] != b[bi]. h) { int q(b[bi]. a[i]); downDP(q); upMax(fl, fd[q] + min(d[q] - d[p], b[bi]. l - d[q] + d[p])); } if (fl \u003e fd[p]) { fe[p] = fd[p]; fd[p] = fl; } else if (fl \u003e fe[p]) fe[p] = fl; } else if (!fb[p] || fb[p] != fb[e-\u003e t]) { downDP(e-\u003e t); int v(fd[e-\u003e t] + 1); if (v \u003e fd[p]) { fe[p] = fd[p]; fd[p] = v; } else if (v \u003e fe[p]) fe[p] = v; } } upMax(ans, fd[p] + fe[p]); }\n#define modi(i) (((i)\u003e=b[bi].l)?((i)-b[bi].l):(i)) void upDP(int p, int u) { static int q[maxn \u003c\u003c 1], fu[maxn \u003c\u003c 1]; for (edge* e = head[p]; e; e = e-\u003e next) if (e-\u003e av) { if (fb[e-\u003e t] \u0026\u0026 p == b[fb[e-\u003e t]]. h) { int bi(fb[e-\u003e t]), fl(0); int *f(ibuf); ibuf += b[bi]. l; for (int i = 0; i \u003c b[bi]. l; ++ i) { int q(b[bi]. a[i]); f[i] = 0; if (q == p) break; fu[i] = fd[q]; upMax(fl, fd[q] + min(d[q] - d[p], b[bi]. l - d[q] + d[p])); } if (fl == fd[p]) fu[b[bi]. l - 1] = max(u, fe[p]); else fu[b[bi]. l - 1] = max(u, fd[p]); int hd(0), tl(1), hl(b[bi]. l \u003e\u003e 1); q[0] = 0; for (int i = 1; i \u003c (b[bi]. l \u003c\u003c 1); ++ i) { int fi(modi(i)); while (hd \u003c tl \u0026\u0026 i - q[hd] \u003e hl) ++ hd; if (hd \u003c tl) upMax(f[fi], fu[modi(q[hd])] + i - q[hd]); while (hd \u003c tl \u0026\u0026 fu[modi(q[tl - 1])] - q[tl - 1] \u003c= fu[fi] - i) – tl; q[tl ++] = i; } hd = 0; tl = 1; q[0] = (b[bi]. l \u003c\u003c 1) - 1; for (int i = (b[bi]. l \u003c\u003c 1) - 2; i \u003e= 0; – i) { int fi(modi(i)); while (hd \u003c tl \u0026\u0026 q[hd] - i \u003e hl) ++ hd; if (hd \u003c tl) upMax(f[fi], fu[modi(q[hd])] + q[hd] - i); while (hd \u003c tl \u0026\u0026 fu[modi(q[tl - 1])] + q[tl - 1] \u003c= fu[fi] + i) – tl; q[tl ++] = i; } for (int i = 0; i \u003c b[bi]. l - 1; ++ i) { upMax(ans, f[i] + fd[b[bi]. a[i]]); upDP(b[bi]. a[i], f[i]); } ibuf -= b[bi]. l; } else if (!fb[p] || fb[e-\u003e t] != fb[p]) { int v((fd[e-\u003e t] + 1 == fd[p]) ? fe[p] : fd[p]); upDP(e-\u003e t, max(u, v) + 1); } } }\nint main() { #ifndef ONLINE_JUDGE freopen(“in.txt”, “r”, stdin); #endif\nscanf(\"%d%d\", \u0026amp;n, \u0026amp;m); memset(head, 0, sizeof(head)); for (int i = 0; i \u0026lt; m; ++ i) { int c, u, v; scanf(\"%d%d\", \u0026amp;c, \u0026amp;u); while (-- c) { scanf(\"%d\", \u0026amp;v); edge *a(addEdge(u, v)), *b(addEdge(v, u)); a-\u0026gt; rv = b; b-\u0026gt; rv = a; u = v; } } memset(vis, 0, sizeof(vis)); memset(fb, 0, sizeof(fb)); cb = 0; tst = 0; d[1] = 1; dfsBall(1); ans = 0; downDP(1); upDP(1, 0); printf(\"%d\\n\", ans); } ",
+  "wordCount" : "749",
+  "inLanguage": "en",
+  "datePublished": "2015-03-04T15:40:41Z",
+  "dateModified": "2015-03-04T15:40:41Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/i11rimport_015/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      BZOJ1023 [SHOI2008]cactus仙人掌图
+    </h1>
+    <div class="post-meta"><span title='2015-03-04 15:40:41 +0000 UTC'>March 4, 2015</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><pre><code>			    &lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt;
+第六百道题一定要不水！虽然离第一页还有几十道题的距离。&lt;/p&gt;
+</code></pre>
+<p>
+	&nbsp;</p>
+<p>
+	很早之前见过的题吧。然后一直觉得特别难写所以都没写。以前写点不重复的仙人掌都觉得挺痛苦，更不要说这个了。</p>
+<p>
+	&nbsp;</p>
+<p>
+	现在想想还行，因为我yy出了化简的方法。先搞出dfs树。然后一个顶点如果是一个环里深度最浅的，那么称它为这个环的头。可以证明一个顶点最多在一个不以它为头的环上。把这个环记下来，其它的环都从这个顶点去找边来找就行了。这样的话可以比较节省代码量，写起来也比较明了。虽然还是比mhy长。</p>
+<p>
+	&nbsp;</p>
+<p>
+	然后因为我在最后一步dp的时候写了一个static的f数组，所以光荣了。debug了好久。晕。</p>
+<p>
+	&nbsp;</p>
+<pre class="bcode">#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+<p>using namespace std;</p>
+<p>struct edge {
+int t, av;
+edge *next, *rv;
+};
+struct ball {
+int l, *a, h;
+};</p>
+<p>const int maxn = 50009;
+const int maxm = 200009;
+const int maxarr = 400009;</p>
+<p>int n, m, cb, fb[maxn], d[maxn];
+int f[maxn], ans, fd[maxn], fe[maxn];
+int stc[maxn], tst;
+int ibuf_arr[maxarr], *ibuf(ibuf_arr);
+bool vis[maxn];
+edge elst[maxm], *ep(elst), *head[maxn];
+ball b[maxm];</p>
+<p>inline edge* addEdge(int u, int v) {
+ep-&gt; t = v;
+ep-&gt; av = 1;
+ep-&gt; next = head[u];
+return head[u] = ep ++;
+}</p>
+<p>inline void upMax(int&amp; a, int b) {
+if (a &lt; b)
+a = b;
+}</p>
+<p>void dfsBall(int p) {
+vis[p] = 1;
+stc[++ tst] = p;
+for (edge *e = head[p]; e; e = e-&gt; next)
+if (e-&gt; av) {
+e-&gt; rv-&gt; av = 0;
+if (vis[e-&gt; t] &amp;&amp; (!fb[p])) {
+e-&gt; av = 0;
+b[++ cb]. l = 0;
+b[cb]. a = ibuf;
+for (int i = tst; 1; &ndash; i) {
+b[cb]. a[b[cb]. l ++] = stc[i];
+if (stc[i] != e-&gt; t)
+fb[stc[i]] = cb;
+else
+break;
+}
+b[cb]. h = e-&gt; t;
+ibuf += b[cb]. l;
+}
+else {
+d[e-&gt; t] = d[p] + 1;
+dfsBall(e-&gt; t);
+}
+}
+&ndash; tst;
+}</p>
+<p>void downDP(int p) {
+fd[p] = fe[p] = 0;
+for (edge* e = head[p]; e; e = e-&gt; next)
+if (e-&gt; av) {
+if (fb[e-&gt; t] &amp;&amp; p == b[fb[e-&gt; t]]. h) {
+int bi(fb[e-&gt; t]), fl(0);
+for (int i = 0; i &lt; b[bi]. l; ++ i)
+if (b[bi]. a[i] != b[bi]. h) {
+int q(b[bi]. a[i]);
+downDP(q);
+upMax(fl, fd[q] + min(d[q] - d[p], b[bi]. l - d[q] + d[p]));
+}
+if (fl &gt; fd[p]) {
+fe[p] = fd[p];
+fd[p] = fl;
+}
+else if (fl &gt; fe[p])
+fe[p] = fl;
+}
+else if (!fb[p] || fb[p] != fb[e-&gt; t]) {
+downDP(e-&gt; t);
+int v(fd[e-&gt; t] + 1);
+if (v &gt; fd[p]) {
+fe[p] = fd[p];
+fd[p] = v;
+}
+else if (v &gt; fe[p])
+fe[p] = v;
+}
+}
+upMax(ans, fd[p] + fe[p]);
+}</p>
+<p>#define modi(<em>i</em>) (((<em>i</em>)&gt;=b[bi].l)?((<em>i</em>)-b[bi].l):(<em>i</em>))
+void upDP(int p, int u) {
+static int q[maxn &lt;&lt; 1], fu[maxn &lt;&lt; 1];
+for (edge* e = head[p]; e; e = e-&gt; next)
+if (e-&gt; av) {
+if (fb[e-&gt; t] &amp;&amp; p == b[fb[e-&gt; t]]. h) {
+int bi(fb[e-&gt; t]), fl(0);
+int *f(ibuf);
+ibuf += b[bi]. l;
+for (int i = 0; i &lt; b[bi]. l; ++ i) {
+int q(b[bi]. a[i]);
+f[i] = 0;
+if (q == p)
+break;
+fu[i] = fd[q];
+upMax(fl, fd[q] + min(d[q] - d[p], b[bi]. l - d[q] + d[p]));
+}
+if (fl == fd[p])
+fu[b[bi]. l - 1] = max(u, fe[p]);
+else
+fu[b[bi]. l - 1] = max(u, fd[p]);
+int hd(0), tl(1), hl(b[bi]. l &gt;&gt; 1);
+q[0] = 0;
+for (int i = 1; i &lt; (b[bi]. l &lt;&lt; 1); ++ i) {
+int fi(modi(i));
+while (hd &lt; tl &amp;&amp; i - q[hd] &gt; hl)
+++ hd;
+if (hd &lt; tl)
+upMax(f[fi], fu[modi(q[hd])] + i - q[hd]);
+while (hd &lt; tl &amp;&amp; fu[modi(q[tl - 1])] - q[tl - 1] &lt;= fu[fi] - i)
+&ndash; tl;
+q[tl ++] = i;
+}
+hd = 0;
+tl = 1;
+q[0] = (b[bi]. l &lt;&lt; 1) - 1;
+for (int i = (b[bi]. l &lt;&lt; 1) - 2; i &gt;= 0; &ndash; i) {
+int fi(modi(i));
+while (hd &lt; tl &amp;&amp; q[hd] - i &gt; hl)
+++ hd;
+if (hd &lt; tl)
+upMax(f[fi], fu[modi(q[hd])] + q[hd] - i);
+while (hd &lt; tl &amp;&amp; fu[modi(q[tl - 1])] + q[tl - 1] &lt;= fu[fi] + i)
+&ndash; tl;
+q[tl ++] = i;
+}
+for (int i = 0; i &lt; b[bi]. l - 1; ++ i) {
+upMax(ans, f[i] + fd[b[bi]. a[i]]);
+upDP(b[bi]. a[i], f[i]);
+}
+ibuf -= b[bi]. l;
+}
+else if (!fb[p] || fb[e-&gt; t] != fb[p]) {
+int v((fd[e-&gt; t] + 1 == fd[p]) ? fe[p] : fd[p]);
+upDP(e-&gt; t, max(u, v) + 1);
+}
+}
+}</p>
+<p>int main() {
+#ifndef ONLINE_JUDGE
+freopen(&ldquo;in.txt&rdquo;, &ldquo;r&rdquo;, stdin);
+#endif</p>
+<pre><code>scanf(&quot;%d%d&quot;, &amp;amp;n, &amp;amp;m);
+memset(head, 0, sizeof(head));
+for (int i = 0; i &amp;lt; m; ++ i) {
+	int c, u, v;
+	scanf(&quot;%d%d&quot;, &amp;amp;c, &amp;amp;u);
+	while (-- c) {
+		scanf(&quot;%d&quot;, &amp;amp;v);
+		edge *a(addEdge(u, v)), *b(addEdge(v, u));
+		a-&amp;gt; rv = b;
+		b-&amp;gt; rv = a;
+		u = v;
+	}
+}
+memset(vis, 0, sizeof(vis));
+memset(fb, 0, sizeof(fb));
+cb = 0;
+tst = 0;
+d[1] = 1;
+dfsBall(1);
+ans = 0;
+downDP(1);
+upDP(1, 0);
+printf(&quot;%d\n&quot;, ans);
+</code></pre>
+<p>}
+</pre></p>
+</div>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/bzoj/">bzoj</a></li>
+      <li><a href="/tags/ds/">ds</a></li>
+      <li><a href="/tags/dp/">dp</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/i11rimport_014/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>BZOJ1223 [HNOI2002]Kathy函数</span>
+  </a>
+  <a class="next" href="/oi/i11rimport_016/">
+    <span class="title">Next »</span>
+    <br>
+    <span>BZOJ2734 [HNOI2012]集合选数</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

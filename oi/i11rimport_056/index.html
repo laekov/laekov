@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>BZOJ2642 Pku3968 Jungle Outpost | The Site of laekov</title>
+<meta name="keywords" content="geometry, POJ, bzoj, oi">
+<meta name="description" content="&lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt; 看mhy写了好几天了啊。然后研究了一下，居然过得比他早。&lt;/p&gt; &nbsp;
+首先敌人一定可以炸连续的一段。然后就是要看炸掉任意连续一段之后还有没有剩下的公共部分，既半平面交。
+&nbsp;
+然后我yy出了一个半平面交的做法。找出一条基准直线，按方向顺时针方向排序。然后按照正常半平面交的方法根据栈顶两个元素和当前直线的位置关系判断是否需要退栈。然后当找到一条与基准直线的角度大于等于π的直线（直线是有向的，也可以说是成负角）且它把栈里退到只剩基准直线一条的时候，这些半平面没有交。否则这些半平面有交。
+&nbsp;
+至于证明嘛，我也不会（挠头），毕竟是感受出来的。然后感觉这次代码写得比较漂亮，开心。
+&nbsp;
+#include &lt;cstdio&gt; #include &lt;cmath&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+inline double sqr(double x) { return x * x; }
+struct point { double x, y; inline point() {} inline point(double x0, double y0) { x = x0, y = y0; } inline void read() { scanf(&quot;%lf%lf&quot;, &amp;x, &amp;y); } }; struct vect { double x, y; inline vect() {} inline vect(double x0, double y0) { x = x0, y = y0; } inline vect(point a, point b) { x = b.">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/i11rimport_056/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="BZOJ2642 Pku3968 Jungle Outpost" />
+<meta property="og:description" content="&lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt; 看mhy写了好几天了啊。然后研究了一下，居然过得比他早。&lt;/p&gt; &nbsp;
+首先敌人一定可以炸连续的一段。然后就是要看炸掉任意连续一段之后还有没有剩下的公共部分，既半平面交。
+&nbsp;
+然后我yy出了一个半平面交的做法。找出一条基准直线，按方向顺时针方向排序。然后按照正常半平面交的方法根据栈顶两个元素和当前直线的位置关系判断是否需要退栈。然后当找到一条与基准直线的角度大于等于π的直线（直线是有向的，也可以说是成负角）且它把栈里退到只剩基准直线一条的时候，这些半平面没有交。否则这些半平面有交。
+&nbsp;
+至于证明嘛，我也不会（挠头），毕竟是感受出来的。然后感觉这次代码写得比较漂亮，开心。
+&nbsp;
+#include &lt;cstdio&gt; #include &lt;cmath&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+inline double sqr(double x) { return x * x; }
+struct point { double x, y; inline point() {} inline point(double x0, double y0) { x = x0, y = y0; } inline void read() { scanf(&quot;%lf%lf&quot;, &amp;x, &amp;y); } }; struct vect { double x, y; inline vect() {} inline vect(double x0, double y0) { x = x0, y = y0; } inline vect(point a, point b) { x = b." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/i11rimport_056/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2015-02-04T21:28:41+00:00" />
+<meta property="article:modified_time" content="2015-02-04T21:28:41+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BZOJ2642 Pku3968 Jungle Outpost"/>
+<meta name="twitter:description" content="&lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt; 看mhy写了好几天了啊。然后研究了一下，居然过得比他早。&lt;/p&gt; &nbsp;
+首先敌人一定可以炸连续的一段。然后就是要看炸掉任意连续一段之后还有没有剩下的公共部分，既半平面交。
+&nbsp;
+然后我yy出了一个半平面交的做法。找出一条基准直线，按方向顺时针方向排序。然后按照正常半平面交的方法根据栈顶两个元素和当前直线的位置关系判断是否需要退栈。然后当找到一条与基准直线的角度大于等于π的直线（直线是有向的，也可以说是成负角）且它把栈里退到只剩基准直线一条的时候，这些半平面没有交。否则这些半平面有交。
+&nbsp;
+至于证明嘛，我也不会（挠头），毕竟是感受出来的。然后感觉这次代码写得比较漂亮，开心。
+&nbsp;
+#include &lt;cstdio&gt; #include &lt;cmath&gt; #include &lt;cstring&gt; #include &lt;algorithm&gt; using namespace std;
+inline double sqr(double x) { return x * x; }
+struct point { double x, y; inline point() {} inline point(double x0, double y0) { x = x0, y = y0; } inline void read() { scanf(&quot;%lf%lf&quot;, &amp;x, &amp;y); } }; struct vect { double x, y; inline vect() {} inline vect(double x0, double y0) { x = x0, y = y0; } inline vect(point a, point b) { x = b."/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "BZOJ2642 Pku3968 Jungle Outpost",
+      "item": "/oi/i11rimport_056/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BZOJ2642 Pku3968 Jungle Outpost",
+  "name": "BZOJ2642 Pku3968 Jungle Outpost",
+  "description": "\u0026lt;div class=\u0026quot;post_brief\u0026quot;\u0026gt;\u0026lt;p\u0026gt; 看mhy写了好几天了啊。然后研究了一下，居然过得比他早。\u0026lt;/p\u0026gt; \u0026nbsp;\n首先敌人一定可以炸连续的一段。然后就是要看炸掉任意连续一段之后还有没有剩下的公共部分，既半平面交。\n\u0026nbsp;\n然后我yy出了一个半平面交的做法。找出一条基准直线，按方向顺时针方向排序。然后按照正常半平面交的方法根据栈顶两个元素和当前直线的位置关系判断是否需要退栈。然后当找到一条与基准直线的角度大于等于π的直线（直线是有向的，也可以说是成负角）且它把栈里退到只剩基准直线一条的时候，这些半平面没有交。否则这些半平面有交。\n\u0026nbsp;\n至于证明嘛，我也不会（挠头），毕竟是感受出来的。然后感觉这次代码写得比较漂亮，开心。\n\u0026nbsp;\n#include \u0026lt;cstdio\u0026gt; #include \u0026lt;cmath\u0026gt; #include \u0026lt;cstring\u0026gt; #include \u0026lt;algorithm\u0026gt; using namespace std;\ninline double sqr(double x) { return x * x; }\nstruct point { double x, y; inline point() {} inline point(double x0, double y0) { x = x0, y = y0; } inline void read() { scanf(\u0026quot;%lf%lf\u0026quot;, \u0026amp;x, \u0026amp;y); } }; struct vect { double x, y; inline vect() {} inline vect(double x0, double y0) { x = x0, y = y0; } inline vect(point a, point b) { x = b.",
+  "keywords": [
+    "geometry", "POJ", "bzoj", "oi"
+  ],
+  "articleBody": "\t看mhy写了好几天了啊。然后研究了一下，居然过得比他早。\n首先敌人一定可以炸连续的一段。然后就是要看炸掉任意连续一段之后还有没有剩下的公共部分，既半平面交。\n然后我yy出了一个半平面交的做法。找出一条基准直线，按方向顺时针方向排序。然后按照正常半平面交的方法根据栈顶两个元素和当前直线的位置关系判断是否需要退栈。然后当找到一条与基准直线的角度大于等于π的直线（直线是有向的，也可以说是成负角）且它把栈里退到只剩基准直线一条的时候，这些半平面没有交。否则这些半平面有交。\n至于证明嘛，我也不会（挠头），毕竟是感受出来的。然后感觉这次代码写得比较漂亮，开心。\n#include #include #include #include using namespace std;\ninline double sqr(double x) { return x * x; }\nstruct point { double x, y; inline point() {} inline point(double x0, double y0) { x = x0, y = y0; } inline void read() { scanf(\"%lf%lf\", \u0026x, \u0026y); } }; struct vect { double x, y; inline vect() {} inline vect(double x0, double y0) { x = x0, y = y0; } inline vect(point a, point b) { x = b. x - a. x, y = b. y - a. y; } inline vect vertical() { return vect(y, - x); } inline double length() { return sqrt(sqr(x) + sqr(y)); } }; struct line { point a; vect d; inline line() {} inline line(point u, point v) { a = u; d = vect(u, v); } };\nconst double eps = 1e-8;\ninline point operator +(const point\u0026 a, const vect\u0026 b) { return point(a. x + b. x, a. y + b. y); } inline double operator *(const vect\u0026 a, const vect\u0026 b) { return a. x * b. y - a. y * b. x; } inline vect operator *(const vect\u0026 a, double r) { return vect(a. x * r, a. y * r); } inline int sgn(double x) { return (fabs(x) \u003c eps) ? 0 : ((x \u003e 0) ? 1 : -1); }\nconst int maxn = 50009;\nint n, t, li[maxn], tst; point a[maxn], b[maxn]; line l[maxn];\ninline bool outSide(line l, point p) { return sgn(vect(l. a, p) * l. d) \u003c= 0; }\npoint getCross(line l1, line l2) { point a(l1. a), b(l1. a + l1. d); point c(l2. a), d(l2. a + l2. d); if (!sgn(vect(d, c) * vect(d, b))) { d = l2. a + l2. d * 2.0; b = l1. a + l1. d * 2.0; } if (!sgn(vect(d, a) * vect(d, c))) a = l1. a + l1. d * 3.0; double sa(vect(d, a) * vect(d, c)); double sb(vect(d, c) * vect(d, b)); double rat(sa / (sa + sb)); return point(a + vect(a, b) * rat); }\nbool check(int t) { for (int i = 0; i \u003c n; ++ i) l[i] = line(a[i], a[(i + t + 1) % n]); tst = 2; li[1] = 0; b[2] = getCross(l[0], l[1]); li[2] = 1; for (int i = 2; i \u003c n; ++ i) { while (tst \u003e 1 \u0026\u0026 outSide(l[i], b[tst])) – tst; if (tst == 1 \u0026\u0026 sgn(l[i]. d * l[0]. d) \u003c= 0) return 0; li[++ tst] = i; b[tst] = getCross(l[li[tst - 1]], l[i]); } return tst \u003e 2; }\nint main() { #ifndef ONLINE_JUDGE freopen(“in.txt”, “r”, stdin); #endif\nscanf(\"%d\", \u0026amp;n); for (int i = 0; i \u0026lt;\tn; ++ i) a[i]. read(); int l(1), r(n - 2); while (l \u0026lt; r) { int mid((l + r) \u0026gt;\u0026gt; 1); if (check(mid)) l = mid + 1; else r = mid; } printf(\"%d\\n\", l); } 顺便把写的画图的js粘上来好了。以后说不定还有用。\nJS not supported 5 0 0 0 10 10 20 20 10 25 0 ",
+  "wordCount" : "515",
+  "inLanguage": "en",
+  "datePublished": "2015-02-04T21:28:41Z",
+  "dateModified": "2015-02-04T21:28:41Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/i11rimport_056/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      BZOJ2642 Pku3968 Jungle Outpost
+    </h1>
+    <div class="post-meta"><span title='2015-02-04 21:28:41 +0000 UTC'>February 4, 2015</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><pre><code>			    &lt;div class=&quot;post_brief&quot;&gt;&lt;p&gt;
+看mhy写了好几天了啊。然后研究了一下，居然过得比他早。&lt;/p&gt;
+</code></pre>
+<p>
+	&nbsp;</p>
+<p>
+	首先敌人一定可以炸连续的一段。然后就是要看炸掉任意连续一段之后还有没有剩下的公共部分，既半平面交。</p>
+<p>
+	&nbsp;</p>
+<p>
+	然后我yy出了一个半平面交的做法。找出一条基准直线，按方向顺时针方向排序。然后按照正常半平面交的方法根据栈顶两个元素和当前直线的位置关系判断是否需要退栈。然后当找到一条与基准直线的角度大于等于π的直线（直线是有向的，也可以说是成负角）且它把栈里退到只剩基准直线一条的时候，这些半平面没有交。否则这些半平面有交。</p>
+<p>
+	&nbsp;</p>
+<p>
+	至于证明嘛，我也不会（挠头），毕竟是感受出来的。然后感觉这次代码写得比较漂亮，开心。</p>
+<p>
+	&nbsp;</p>
+<pre class="bcode">#include &lt;cstdio&gt;
+#include &lt;cmath&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+<p>using namespace std;</p>
+<p>inline double sqr(double x) {
+return x * x;
+}</p>
+<p>struct point {
+double x, y;
+inline point() {}
+inline point(double x0, double y0) {
+x = x0, y = y0;
+}
+inline void read() {
+scanf(&quot;%lf%lf&quot;, &amp;x, &amp;y);
+}
+};
+struct vect {
+double x, y;
+inline vect() {}
+inline vect(double x0, double y0) {
+x = x0, y = y0;
+}
+inline vect(point a, point b) {
+x = b. x - a. x, y = b. y - a. y;
+}
+inline vect vertical() {
+return vect(y, - x);
+}
+inline double length() {
+return sqrt(sqr(x) + sqr(y));
+}
+};
+struct line {
+point a;
+vect d;
+inline line() {}
+inline line(point u, point v) {
+a = u;
+d = vect(u, v);
+}
+};</p>
+<p>const double eps = 1e-8;</p>
+<p>inline point operator +(const point&amp; a, const vect&amp; b) {
+return point(a. x + b. x, a. y + b. y);
+}
+inline double operator *(const vect&amp; a, const vect&amp; b) {
+return a. x * b. y - a. y * b. x;
+}
+inline vect operator *(const vect&amp; a, double r) {
+return vect(a. x * r, a. y * r);
+}
+inline int sgn(double x) {
+return (fabs(x) &lt; eps) ? 0 : ((x &gt; 0) ? 1 : -1);
+}</p>
+<p>const int maxn = 50009;</p>
+<p>int n, t, li[maxn], tst;
+point a[maxn], b[maxn];
+line l[maxn];</p>
+<p>inline bool outSide(line l, point p) {
+return sgn(vect(l. a, p) * l. d) &lt;= 0;
+}</p>
+<p>point getCross(line l1, line l2) {
+point a(l1. a), b(l1. a + l1. d);
+point c(l2. a), d(l2. a + l2. d);
+if (!sgn(vect(d, c) * vect(d, b))) {
+d = l2. a + l2. d * 2.0;
+b = l1. a + l1. d * 2.0;
+}
+if (!sgn(vect(d, a) * vect(d, c)))
+a = l1. a + l1. d * 3.0;
+double sa(vect(d, a) * vect(d, c));
+double sb(vect(d, c) * vect(d, b));
+double rat(sa / (sa + sb));
+return point(a + vect(a, b) * rat);
+}</p>
+<p>bool check(int t) {
+for (int i = 0; i &lt; n; ++ i)
+l[i] = line(a[i], a[(i + t + 1) % n]);
+tst = 2;
+li[1] = 0;
+b[2] = getCross(l[0], l[1]);
+li[2] = 1;
+for (int i = 2; i &lt; n; ++ i) {
+while (tst &gt; 1 &amp;&amp; outSide(l[i], b[tst]))
+&ndash; tst;
+if (tst == 1 &amp;&amp; sgn(l[i]. d * l[0]. d) &lt;= 0)
+return 0;
+li[++ tst] = i;
+b[tst] = getCross(l[li[tst - 1]], l[i]);
+}
+return tst &gt; 2;
+}</p>
+<p>int main() {
+#ifndef ONLINE_JUDGE
+freopen(&ldquo;in.txt&rdquo;, &ldquo;r&rdquo;, stdin);
+#endif</p>
+<pre><code>scanf(&quot;%d&quot;, &amp;amp;n);
+for (int i = 0; i &amp;lt;	n; ++ i)
+	a[i]. read();
+int l(1), r(n - 2);
+while (l &amp;lt; r) {
+	int mid((l + r) &amp;gt;&amp;gt; 1);
+	if (check(mid))
+		l = mid + 1;
+	else
+		r = mid;
+}
+printf(&quot;%d\n&quot;, l);
+</code></pre>
+<p>}
+</pre></p>
+<p>
+	顺便把写的画图的js粘上来好了。以后说不定还有用。</p>
+<div>
+	<div style="float: left">
+		<canvas height="400px" id="drawplat" width="480px"> JS not supported </canvas></div>
+	<div style="float: right">
+		<textarea cols="30" id="inputData" rows="20">5
+0 0
+0 10
+10 20
+20 10
+25 0
+</textarea><script>
+var gcolors = Array("#00ff00", "#ff0000", "#0000ff");
+<p>function draw() {
+var stra = document.getElementById(&ldquo;inputData&rdquo;).value.split(&rsquo;\n&rsquo;);
+var n = parseInt(stra[0]);
+var cvs = document.getElementById(&ldquo;drawplat&rdquo;);
+var x0 = cvs.width;
+var y0 = cvs.height;
+var trat = 15;
+var ctx = cvs.getContext(&lsquo;2d&rsquo;);
+var x = new Array();
+var y = new Array();
+var xg = new Array();
+var yg = new Array();
+ctx.fillStyle=&rsquo;#ffffcc&rsquo;;
+ctx.fillRect(0, 0, x0 - 1, y0 - 1);
+var j = 1;
+for (var i = 0; i &lt; n; ++ i) {
+while (stra[j].match(&rsquo; &lsquo;) == null) {
+++ j;
+}
+var stb = stra[j].split(&rsquo; &lsquo;);
+++ j;
+x[i] = parseInt(stb[0]);
+y[i] = parseInt(stb[1]);
+var x1 = x[i] * trat + 10;
+var y1 = y0 - trat * y[i] - 10;
+xg[i] = x1;
+yg[i] = y1;
+ctx.fillStyle = &lsquo;#000000&rsquo;;
+ctx.fillRect(x1 - 1, y1 - 1, 2, 2);
+ctx.fillText(&ldquo;P&rdquo; + i + &ldquo;(&rdquo; + x[i] + &ldquo;,&rdquo; + y[i] + &ldquo;)&rdquo;, x1 + 2, y1 - 2);
+}
+if (stra[j] == undefined) {
+return;
+}
+var m = parseInt(stra[j]);
+for (var i = 0; i &lt; m; ++ i) {
+while (stra[j].match(&rsquo; &lsquo;) == null) {
+++ j;
+}
+var stb = stra[j].split(&rsquo; &lsquo;);
+++ j;
+var a = parseInt(stb[0]);
+var b = parseInt(stb[1]);
+ctx.strokeStyle = &ldquo;#0000ff&rdquo;;
+ctx.moveTo(xg[a], yg[a]);
+ctx.lineTo(xg[b], yg[b]);
+ctx.stroke();
+}
+}</p>
+<p></script><br>
+<input onclick="draw()" type="button" value="draw"></div></p>
+</div>
+<p></p>
+</div>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/geometry/">geometry</a></li>
+      <li><a href="/tags/poj/">POJ</a></li>
+      <li><a href="/tags/bzoj/">bzoj</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/i11rimport_054/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>HDU5173 GTY&#39;s game II</span>
+  </a>
+  <a class="next" href="/oi/i11rimport_057/">
+    <span class="title">Next »</span>
+    <br>
+    <span>BZOJ1815 [Shoi2006]color 有色图</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

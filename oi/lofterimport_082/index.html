@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>BZOJ3262 陌上花开 | The Site of laekov</title>
+<meta name="keywords" content="bzoj, data\xa0structure, oi">
+<meta name="description" content="出题人应该才是真正的机房语文竞赛冠军。
+好厉害的数据结构。cdq的不会。
+树状数组套平衡树跑得飞快。
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+struct flower {
+int a, b, c;
+};
+const int maxn = 100009;
+const int maxv = 200009;
+const int maxl = 17;
+#define update(p)&nbsp;(sz[p]=sz[ls[p]]&#43;sz[rs[p]]&#43;1)
+namespace sbt {
+const int maxnd = maxn * maxl;
+const int balc = 10;
+int tn, ls[maxnd], rs[maxnd], sz[maxnd], vl[maxnd];
+void init()&nbsp;{
+tn = 0;
+sz[0]&nbsp;= 0;
+}
+inline void lRot(int&amp; p)&nbsp;{">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/lofterimport_082/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="BZOJ3262 陌上花开" />
+<meta property="og:description" content="出题人应该才是真正的机房语文竞赛冠军。
+好厉害的数据结构。cdq的不会。
+树状数组套平衡树跑得飞快。
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+struct flower {
+int a, b, c;
+};
+const int maxn = 100009;
+const int maxv = 200009;
+const int maxl = 17;
+#define update(p)&nbsp;(sz[p]=sz[ls[p]]&#43;sz[rs[p]]&#43;1)
+namespace sbt {
+const int maxnd = maxn * maxl;
+const int balc = 10;
+int tn, ls[maxnd], rs[maxnd], sz[maxnd], vl[maxnd];
+void init()&nbsp;{
+tn = 0;
+sz[0]&nbsp;= 0;
+}
+inline void lRot(int&amp; p)&nbsp;{" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/lofterimport_082/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2014-11-21T14:50:45+00:00" />
+<meta property="article:modified_time" content="2014-11-21T14:50:45+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BZOJ3262 陌上花开"/>
+<meta name="twitter:description" content="出题人应该才是真正的机房语文竞赛冠军。
+好厉害的数据结构。cdq的不会。
+树状数组套平衡树跑得飞快。
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+struct flower {
+int a, b, c;
+};
+const int maxn = 100009;
+const int maxv = 200009;
+const int maxl = 17;
+#define update(p)&nbsp;(sz[p]=sz[ls[p]]&#43;sz[rs[p]]&#43;1)
+namespace sbt {
+const int maxnd = maxn * maxl;
+const int balc = 10;
+int tn, ls[maxnd], rs[maxnd], sz[maxnd], vl[maxnd];
+void init()&nbsp;{
+tn = 0;
+sz[0]&nbsp;= 0;
+}
+inline void lRot(int&amp; p)&nbsp;{"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "BZOJ3262 陌上花开",
+      "item": "/oi/lofterimport_082/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BZOJ3262 陌上花开",
+  "name": "BZOJ3262 陌上花开",
+  "description": "出题人应该才是真正的机房语文竞赛冠军。\n好厉害的数据结构。cdq的不会。\n树状数组套平衡树跑得飞快。\n#include \u0026lt;cstdio\u0026gt;\n#include \u0026lt;cstring\u0026gt;\n#include \u0026lt;algorithm\u0026gt;\nusing namespace std;\nstruct flower {\nint a, b, c;\n};\nconst int maxn = 100009;\nconst int maxv = 200009;\nconst int maxl = 17;\n#define update(p)\u0026nbsp;(sz[p]=sz[ls[p]]+sz[rs[p]]+1)\nnamespace sbt {\nconst int maxnd = maxn * maxl;\nconst int balc = 10;\nint tn, ls[maxnd], rs[maxnd], sz[maxnd], vl[maxnd];\nvoid init()\u0026nbsp;{\ntn = 0;\nsz[0]\u0026nbsp;= 0;\n}\ninline void lRot(int\u0026amp; p)\u0026nbsp;{",
+  "keywords": [
+    "bzoj", "data\\xa0structure", "oi"
+  ],
+  "articleBody": "出题人应该才是真正的机房语文竞赛冠军。\n好厉害的数据结构。cdq的不会。\n树状数组套平衡树跑得飞快。\n#include #include #include using namespace std;\nstruct flower {\nint a, b, c;\n};\nconst int maxn = 100009;\nconst int maxv = 200009;\nconst int maxl = 17;\n#define update(p) (sz[p]=sz[ls[p]]+sz[rs[p]]+1)\nnamespace sbt {\nconst int maxnd = maxn * maxl;\nconst int balc = 10;\nint tn, ls[maxnd], rs[maxnd], sz[maxnd], vl[maxnd];\nvoid init() {\ntn = 0;\nsz[0] = 0;\n}\ninline void lRot(int\u0026 p) {\nint q = rs[p];\nrs[p] = ls[q];\nls[q] = p;\nupdate(p);\nupdate(q);\np = q;\n}\ninline void rRot(int\u0026 p) {\nint q = ls[p];\nls[p] = rs[q];\nrs[q] = p;\nupdate(p);\nupdate(q);\np = q;\n}\ninline void ins(int\u0026 p, int v) {\nif (!p) {\np = ++ tn;\nls[p] = 0;\nrs[p] = 0;\nsz[p] = 1;\nvl[p] = v;\n}\nelse {\n++ sz[p];\nif (v \u003c vl[p]) {\nins(ls[p], v);\nif (sz[ls[p]] \u003e sz[rs[p]] + balc)\nrRot(p);\n}\nelse {\nins(rs[p], v);\nif (sz[ls[p]] + balc \u003c sz[rs[p]])\nlRot(p);\n}\n}\n}\nint cntLower(int p, int v) {\nif (!p)\nreturn 0;\nelse if (v \u003e= vl[p])\nreturn sz[ls[p]] + 1 + cntLower(rs[p], v);\nelse\nreturn cntLower(ls[p], v);\n}\n};\ninline bool cmpFlower(const flower\u0026 a, const flower\u0026 b) {\nreturn (a. a \u003c b. a) || (a. a == b. a \u0026\u0026 a. b \u003c b. b) || (a. a == b. a \u0026\u0026 a. b == b. b \u0026\u0026 a. c \u003c b. c);\n}\ninline bool equFlower(const flower\u0026 a, const flower\u0026 b) {\nreturn a. a == b. a \u0026\u0026 a. b == b. b \u0026\u0026 a. c == b. c;\n}\nint n, m, t[maxv], ans[maxn];\nflower a[maxn];\nint main() {\n#ifndef ONLINE_JUDGE\nfreopen(\"in.txt\", \"r\", stdin);\n#endif\nsbt :: init();\nmemset(ans, 0, sizeof(ans));\nmemset(t, 0, sizeof(t));\nscanf(\"%d%d\", \u0026n, \u0026m);\nfor (int i = 0; i \u003c n; ++ i)\nscanf(\"%d%d%d\", \u0026a[i]. a, \u0026a[i]. b, \u0026a[i]. c);\nsort(a, a + n, cmpFlower);\nfor (int i = 0, j; i \u003c n; i = j + 1) {\nint s = 0;\nfor (int p = a[i]. b; p; p -= (p \u0026 -p))\ns += sbt :: cntLower(t[p], a[i]. c);\nfor (j = i; equFlower(a[i], a[j + 1]) \u0026\u0026 j \u003c n; ++ j);\nfor (int k = i; k \u003c= j; ++ k) {\n++ ans[s + j - i];\nfor (int p = a[k]. b; p \u003c= m; p += (p \u0026 -p))\nsbt :: ins(t[p], a[k]. c);\n}\n}\nfor (int i = 0; i \u003c n; ++ i)\nprintf(\"%d\\n\", ans[i]);\n}\n",
+  "wordCount" : "375",
+  "inLanguage": "en",
+  "datePublished": "2014-11-21T14:50:45Z",
+  "dateModified": "2014-11-21T14:50:45Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/lofterimport_082/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      BZOJ3262 陌上花开
+    </h1>
+    <div class="post-meta"><span title='2014-11-21 14:50:45 +0000 UTC'>November 21, 2014</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>出题人应该才是真正的机房语文竞赛冠军。</p> 
+<p><br /></p> 
+<p>好厉害的数据结构。cdq的不会。</p> 
+<p><br /></p> 
+<p>树状数组套平衡树跑得飞快。</p> 
+<p><br /></p> 
+<p>#include &lt;cstdio&gt;</p> 
+<p>#include &lt;cstring&gt;</p> 
+<p>#include &lt;algorithm&gt;</p> 
+<p><br /></p> 
+<p>using namespace std;</p> 
+<p><br /></p> 
+<p>struct flower {</p> 
+<p>int a, b, c;</p> 
+<p>};</p> 
+<p><br /></p> 
+<p>const int maxn = 100009;</p> 
+<p>const int maxv = 200009;</p> 
+<p>const int maxl = 17;</p> 
+<p><br /></p> 
+<p>#define update(p)&nbsp;(sz[p]=sz[ls[p]]+sz[rs[p]]+1)</p> 
+<p><br /></p> 
+<p>namespace sbt {</p> 
+<p>const int maxnd = maxn * maxl;</p> 
+<p>const int balc = 10;</p> 
+<p>int tn, ls[maxnd], rs[maxnd], sz[maxnd], vl[maxnd];</p> 
+<p>void init()&nbsp;{</p> 
+<p>tn = 0;</p> 
+<p>sz[0]&nbsp;= 0;</p> 
+<p>}</p> 
+<p>inline void lRot(int&amp; p)&nbsp;{</p> 
+<p>int q = rs[p];</p> 
+<p>rs[p]&nbsp;= ls[q];</p> 
+<p>ls[q]&nbsp;= p;</p> 
+<p>update(p);</p> 
+<p>update(q);</p> 
+<p>p = q;</p> 
+<p>}</p> 
+<p>inline void rRot(int&amp; p)&nbsp;{</p> 
+<p>int q = ls[p];</p> 
+<p>ls[p]&nbsp;= rs[q];</p> 
+<p>rs[q]&nbsp;= p;</p> 
+<p>update(p);</p> 
+<p>update(q);</p> 
+<p>p = q;</p> 
+<p>}</p> 
+<p>inline void ins(int&amp; p, int v)&nbsp;{</p> 
+<p>if (!p)&nbsp;{</p> 
+<p>p =&nbsp;++ tn;</p> 
+<p>ls[p]&nbsp;= 0;</p> 
+<p>rs[p]&nbsp;= 0;</p> 
+<p>sz[p]&nbsp;= 1;</p> 
+<p>vl[p]&nbsp;= v;</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>++ sz[p];</p> 
+<p>if (v&nbsp;&lt; vl[p])&nbsp;{</p> 
+<p>ins(ls[p], v);</p> 
+<p>if (sz[ls[p]]&nbsp;&gt; sz[rs[p]]&nbsp;+ balc)</p> 
+<p>rRot(p);</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>ins(rs[p], v);</p> 
+<p>if (sz[ls[p]]&nbsp;+ balc &lt; sz[rs[p]])</p> 
+<p>lRot(p);</p> 
+<p>}</p> 
+<p>}</p> 
+<p>}</p> 
+<p>int cntLower(int p, int v)&nbsp;{</p> 
+<p>if (!p)</p> 
+<p>return 0;</p> 
+<p>else if (v&nbsp;&gt;= vl[p])</p> 
+<p>return sz[ls[p]]&nbsp;+ 1 + cntLower(rs[p], v);</p> 
+<p>else</p> 
+<p>return cntLower(ls[p], v);</p> 
+<p>}</p> 
+<p>};</p> 
+<p><br /></p> 
+<p>inline bool cmpFlower(const flower&amp; a, const flower&amp; b)&nbsp;{</p> 
+<p>return (a. a &lt; b. a)&nbsp;||&nbsp;(a. a == b. a &amp;&amp; a. b &lt; b. b)&nbsp;||&nbsp;(a. a == b. a &amp;&amp; a. b == b. b &amp;&amp; a. c &lt; b. c);</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>inline bool equFlower(const flower&amp; a, const flower&amp; b)&nbsp;{</p> 
+<p>return a. a == b. a &amp;&amp; a. b == b. b &amp;&amp; a. c == b. c;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int n, m, t[maxv], ans[maxn];</p> 
+<p>flower a[maxn];</p> 
+<p><br /></p> 
+<p>int main()&nbsp;{</p> 
+<p>#ifndef ONLINE_JUDGE</p> 
+<p>freopen(&quot;in.txt&quot;,&nbsp;&quot;r&quot;, stdin);</p> 
+<p>#endif</p> 
+<p><br /></p> 
+<p>sbt :: init();</p> 
+<p>memset(ans, 0, sizeof(ans));</p> 
+<p>memset(t, 0, sizeof(t));</p> 
+<p>scanf(&quot;%d%d&quot;,&nbsp;&amp;n,&nbsp;&amp;m);</p> 
+<p>for (int i = 0; i &lt; n;&nbsp;++ i)</p> 
+<p>scanf(&quot;%d%d%d&quot;,&nbsp;&amp;a[i]. a,&nbsp;&amp;a[i]. b,&nbsp;&amp;a[i]. c);</p> 
+<p>sort(a, a + n, cmpFlower);</p> 
+<p>for (int i = 0, j; i &lt; n; i = j + 1)&nbsp;{</p> 
+<p>int s = 0;</p> 
+<p>for (int p = a[i]. b; p; p -=&nbsp;(p&nbsp;&amp;&nbsp;-p))</p> 
+<p>s += sbt :: cntLower(t[p], a[i]. c);</p> 
+<p>for (j&nbsp;= i; equFlower(a[i], a[j + 1])&nbsp;&amp;&amp; j &lt; n;&nbsp;++ j);</p> 
+<p>for (int k = i; k &lt;= j;&nbsp;++ k)&nbsp;{</p> 
+<p>++ ans[s + j - i];</p> 
+<p>for (int p = a[k]. b; p &lt;= m; p +=&nbsp;(p&nbsp;&amp;&nbsp;-p))</p> 
+<p>sbt :: ins(t[p], a[k]. c);</p> 
+<p>}</p> 
+<p>}</p> 
+<p>for (int i = 0; i &lt; n;&nbsp;++ i)</p> 
+<p>printf(&quot;%d\n&quot;, ans[i]);</p> 
+<p>}</p> 
+<p><br /></p>
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/bzoj/">bzoj</a></li>
+      <li><a href="/tags/data%5Cxa0structure/">data\xa0structure</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/lofterimport_081/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>BZOJ1176 [Balkan2007]Mokia</span>
+  </a>
+  <a class="next" href="/oi/lofterimport_083/">
+    <span class="title">Next »</span>
+    <br>
+    <span>BZOJ3751 [NOIP2014]解方程</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>BZOJ1488 || POJ1741 Tree | The Site of laekov</title>
+<meta name="keywords" content="bzoj, poj, geometry, data\xa0structure, oi">
+<meta name="description" content="据说是男人八题。
+状态太差调了一节宝贵的晚自习，严重不开心。
+异常裸的点分治。然后里面还是套的sbt。
+卡空间比较丧病，不能开nlogn，要想办法开到n。其实就是找重心分治完再bfs一遍。最初没有写，所以mle爽，在poj上还显示的是re。
+然后各种逗的错误调啊调。把代码调得怪丑。我还是naive啊。
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+struct edge {
+int t, v;
+edge *next;
+};
+const int maxn = 40009;
+int n, k, ans;
+int d[maxn], tvis, vis[maxn], vd[maxn], sz[maxn], qu[maxn];
+edge *ep,&nbsp;*head[maxn], elst[maxn * 2];
+#define update(_p_)&nbsp;(sz[_p_]=sz[ls[_p_]]&#43;sz[rs[_p_]]&#43;1)
+namespace sbt {
+const int maxnd = maxn * 2;
+const int balc = 5;
+int nst[maxnd], tn;
+int ls[maxnd], rs[maxnd], vl[maxnd], sz[maxnd];
+inline void lRot(int&amp; p)&nbsp;{">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/lofterimport_068/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="BZOJ1488 || POJ1741 Tree" />
+<meta property="og:description" content="据说是男人八题。
+状态太差调了一节宝贵的晚自习，严重不开心。
+异常裸的点分治。然后里面还是套的sbt。
+卡空间比较丧病，不能开nlogn，要想办法开到n。其实就是找重心分治完再bfs一遍。最初没有写，所以mle爽，在poj上还显示的是re。
+然后各种逗的错误调啊调。把代码调得怪丑。我还是naive啊。
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+struct edge {
+int t, v;
+edge *next;
+};
+const int maxn = 40009;
+int n, k, ans;
+int d[maxn], tvis, vis[maxn], vd[maxn], sz[maxn], qu[maxn];
+edge *ep,&nbsp;*head[maxn], elst[maxn * 2];
+#define update(_p_)&nbsp;(sz[_p_]=sz[ls[_p_]]&#43;sz[rs[_p_]]&#43;1)
+namespace sbt {
+const int maxnd = maxn * 2;
+const int balc = 5;
+int nst[maxnd], tn;
+int ls[maxnd], rs[maxnd], vl[maxnd], sz[maxnd];
+inline void lRot(int&amp; p)&nbsp;{" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/lofterimport_068/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2014-11-24T19:53:03+00:00" />
+<meta property="article:modified_time" content="2014-11-24T19:53:03+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BZOJ1488 || POJ1741 Tree"/>
+<meta name="twitter:description" content="据说是男人八题。
+状态太差调了一节宝贵的晚自习，严重不开心。
+异常裸的点分治。然后里面还是套的sbt。
+卡空间比较丧病，不能开nlogn，要想办法开到n。其实就是找重心分治完再bfs一遍。最初没有写，所以mle爽，在poj上还显示的是re。
+然后各种逗的错误调啊调。把代码调得怪丑。我还是naive啊。
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+struct edge {
+int t, v;
+edge *next;
+};
+const int maxn = 40009;
+int n, k, ans;
+int d[maxn], tvis, vis[maxn], vd[maxn], sz[maxn], qu[maxn];
+edge *ep,&nbsp;*head[maxn], elst[maxn * 2];
+#define update(_p_)&nbsp;(sz[_p_]=sz[ls[_p_]]&#43;sz[rs[_p_]]&#43;1)
+namespace sbt {
+const int maxnd = maxn * 2;
+const int balc = 5;
+int nst[maxnd], tn;
+int ls[maxnd], rs[maxnd], vl[maxnd], sz[maxnd];
+inline void lRot(int&amp; p)&nbsp;{"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "BZOJ1488 || POJ1741 Tree",
+      "item": "/oi/lofterimport_068/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BZOJ1488 || POJ1741 Tree",
+  "name": "BZOJ1488 || POJ1741 Tree",
+  "description": "据说是男人八题。\n状态太差调了一节宝贵的晚自习，严重不开心。\n异常裸的点分治。然后里面还是套的sbt。\n卡空间比较丧病，不能开nlogn，要想办法开到n。其实就是找重心分治完再bfs一遍。最初没有写，所以mle爽，在poj上还显示的是re。\n然后各种逗的错误调啊调。把代码调得怪丑。我还是naive啊。\n#include \u0026lt;cstdio\u0026gt;\n#include \u0026lt;cstring\u0026gt;\n#include \u0026lt;algorithm\u0026gt;\nusing namespace std;\nstruct edge {\nint t, v;\nedge *next;\n};\nconst int maxn = 40009;\nint n, k, ans;\nint d[maxn], tvis, vis[maxn], vd[maxn], sz[maxn], qu[maxn];\nedge *ep,\u0026nbsp;*head[maxn], elst[maxn * 2];\n#define update(_p_)\u0026nbsp;(sz[_p_]=sz[ls[_p_]]+sz[rs[_p_]]+1)\nnamespace sbt {\nconst int maxnd = maxn * 2;\nconst int balc = 5;\nint nst[maxnd], tn;\nint ls[maxnd], rs[maxnd], vl[maxnd], sz[maxnd];\ninline void lRot(int\u0026amp; p)\u0026nbsp;{",
+  "keywords": [
+    "bzoj", "poj", "geometry", "data\\xa0structure", "oi"
+  ],
+  "articleBody": "据说是男人八题。\n状态太差调了一节宝贵的晚自习，严重不开心。\n异常裸的点分治。然后里面还是套的sbt。\n卡空间比较丧病，不能开nlogn，要想办法开到n。其实就是找重心分治完再bfs一遍。最初没有写，所以mle爽，在poj上还显示的是re。\n然后各种逗的错误调啊调。把代码调得怪丑。我还是naive啊。\n#include #include #include using namespace std;\nstruct edge {\nint t, v;\nedge *next;\n};\nconst int maxn = 40009;\nint n, k, ans;\nint d[maxn], tvis, vis[maxn], vd[maxn], sz[maxn], qu[maxn];\nedge *ep, *head[maxn], elst[maxn * 2];\n#define update(_p_) (sz[_p_]=sz[ls[_p_]]+sz[rs[_p_]]+1)\nnamespace sbt {\nconst int maxnd = maxn * 2;\nconst int balc = 5;\nint nst[maxnd], tn;\nint ls[maxnd], rs[maxnd], vl[maxnd], sz[maxnd];\ninline void lRot(int\u0026 p) {\nint q = rs[p];\nrs[p] = ls[q];\nls[q] = p;\nupdate(p);\nupdate(q);\np = q;\n}\ninline void rRot(int\u0026 p) {\nint q = ls[p];\nls[p] = rs[q];\nrs[q] = p;\nupdate(p);\nupdate(q);\np = q;\n}\nvoid init() {\ntn = 0;\nsz[0] = 0;\nfor (int i = 1; i \u003c maxnd; ++ i)\nnst[tn ++] = i;\n}\ninline void ins(int\u0026 p, int v) {\nif (!p) {\np = nst[-- tn];\nls[p] = 0;\nrs[p] = 0;\nsz[p] = 1;\nvl[p] = v;\n}\nelse {\n++ sz[p];\nif (v \u003c vl[p]) {\nins(ls[p], v);\nif (sz[ls[p]] \u003e sz[rs[p]] + balc)\nrRot(p);\n}\nelse {\nins(rs[p], v);\nif (sz[ls[p]] + balc \u003c sz[rs[p]])\nlRot(p);\n}\n}\n}\ninline int cntLower(int p, int v) {\nif (!p)\nreturn 0;\nelse if (v \u003c vl[p])\nreturn cntLower(ls[p], v);\nelse\nreturn sz[ls[p]] + 1 + cntLower(rs[p], v);\n}\nvoid cntEach(int p, int q, int v) {\nif (!p)\nreturn;\nans += cntLower(q, v - vl[p]);\ncntEach(ls[p], q, v);\ncntEach(rs[p], q, v);\n}\nvoid insEach(int p, int\u0026 q, int a) {\nif (!p)\nreturn;\nins(q, vl[p] + a);\ninsEach(ls[p], q, a);\ninsEach(rs[p], q, a);\nnst[tn ++] = p;\n}\nvoid rmv(int p) {\nif (!p)\nreturn;\nnst[tn ++] = p;\nrmv(ls[p]);\nrmv(rs[p]);\n}\n};\ninline void addEdge(int u, int v, int w) {\nep-\u003e t = v;\nep-\u003e v = w;\nep-\u003e next = head[u];\nhead[u] = ep ++;\n}\nvoid getCore(int p0, int\u0026 ht) {\nint hd = 0, tl = 1, mv;\n++ tvis;\nqu[hd] = p0;\nvis[p0] = tvis;\nd[p0] = 1;\nwhile (hd \u003c tl) {\nint p = qu[hd ++];\nfor (edge* e = head[p]; e; e = e-\u003e next)\nif (!vd[e-\u003e t] \u0026\u0026 vis[e-\u003e t] \u003c tvis) {\nd[e-\u003e t] = d[p] + 1;\nvis[e-\u003e t] = tvis;\nqu[tl ++] = e-\u003e t;\n}\n}\nht = qu[tl - 1];\nmv = tl;\nfor (int i = tl - 1; i \u003e= 0; -- i) {\nint p = qu[i], ms = 0;\nsz[p] = 1;\nfor (edge* e = head[p]; e; e = e-\u003e next)\nif (vis[e-\u003e t] == tvis \u0026\u0026 d[e-\u003e t] \u003e d[p]) {\nsz[p] += sz[e-\u003e t];\nif (ms \u003c sz[e-\u003e t])\nms = sz[e-\u003e t];\n}\nif (max(ms, tl - sz[p]) \u003c mv) {\nmv = max(ms, tl - sz[p]);\nht = p;\n}\n}\n}\nvoid recoverTree(int p0, int dd, int\u0026 hr) {\nint hd = 0, tl = 1;\nqu[hd] = p0;\nd[p0] = 0;\nhr = 0;\nwhile (hd \u003c tl) {\nint p = qu[hd ++];\n-- vd[p];\nsbt :: ins(hr, d[p]);\nfor (edge* e = head[p]; e; e = e-\u003e next)\nif (vd[e-\u003e t] == dd) {\nqu[tl ++] = e-\u003e t;\nd[e-\u003e t] = d[p] + e-\u003e v;\n}\n}\n}\nint calcTree(int p0, int d = 1) {\nint ht, hr, rt = 0;\ngetCore(p0, ht);\nrt = 0;\nsbt :: ins(rt, 0);\nvd[ht] = d;\nfor (edge* e = head[ht]; e; e = e-\u003e next)\nif (!vd[e-\u003e t]) {\nint r = calcTree(e-\u003e t, d + 1);\nsbt :: cntEach(r, rt, k - e-\u003e v);\nsbt :: insEach(r, rt, e-\u003e v);\n}\nsbt :: rmv(rt);\nrecoverTree(p0, d, hr);\nreturn hr;\n}\nint sov() {\nep = elst;\nmemset(head, 0, sizeof(head));\nmemset(vis, 0, sizeof(vis));\nmemset(vd, 0, sizeof(vd));\nscanf(\"%d\", \u0026n);\nfor (int i = 0; i \u003c n - 1; ++ i) {\nint u, v, w;\nscanf(\"%d%d%d\", \u0026u, \u0026v, \u0026w);\naddEdge(u, v, w);\naddEdge(v, u, w);\n}\nscanf(\"%d\", \u0026k);\ntvis = 0;\nans = 0;\nint x = calcTree(1);\nsbt :: rmv(x);\nreturn ans;\n}\nint main() {\n#ifndef ONLINE_JUDGE\nfreopen(\"in.txt\", \"r\", stdin);\n#endif\nsbt :: init();\nep = elst;\nprintf(\"%d\\n\", sov());\n}\n",
+  "wordCount" : "618",
+  "inLanguage": "en",
+  "datePublished": "2014-11-24T19:53:03Z",
+  "dateModified": "2014-11-24T19:53:03Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/lofterimport_068/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      BZOJ1488 || POJ1741 Tree
+    </h1>
+    <div class="post-meta"><span title='2014-11-24 19:53:03 +0000 UTC'>November 24, 2014</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>据说是男人八题。</p> 
+<p><br /></p> 
+<p>状态太差调了一节宝贵的晚自习，严重不开心。</p> 
+<p><br /></p> 
+<p>异常裸的点分治。然后里面还是套的sbt。</p> 
+<p><br /></p> 
+<p>卡空间比较丧病，不能开nlogn，要想办法开到n。其实就是找重心分治完再bfs一遍。最初没有写，所以mle爽，在poj上还显示的是re。</p> 
+<p><br /></p> 
+<p>然后各种逗的错误调啊调。把代码调得怪丑。我还是naive啊。</p> 
+<p><br /></p> 
+<p>#include &lt;cstdio&gt;</p> 
+<p>#include &lt;cstring&gt;</p> 
+<p>#include &lt;algorithm&gt;</p> 
+<p><br /></p> 
+<p>using namespace std;</p> 
+<p><br /></p> 
+<p>struct edge {</p> 
+<p>int t, v;</p> 
+<p>edge *next;</p> 
+<p>};</p> 
+<p><br /></p> 
+<p>const int maxn = 40009;</p> 
+<p><br /></p> 
+<p>int n, k, ans;</p> 
+<p>int d[maxn], tvis, vis[maxn], vd[maxn], sz[maxn], qu[maxn];</p> 
+<p>edge *ep,&nbsp;*head[maxn], elst[maxn * 2];</p> 
+<p><br /></p> 
+<p>#define update(_p_)&nbsp;(sz[_p_]=sz[ls[_p_]]+sz[rs[_p_]]+1)</p> 
+<p><br /></p> 
+<p>namespace sbt {</p> 
+<p>const int maxnd = maxn * 2;</p> 
+<p>const int balc = 5;</p> 
+<p>int nst[maxnd], tn;</p> 
+<p>int ls[maxnd], rs[maxnd], vl[maxnd], sz[maxnd];</p> 
+<p>inline void lRot(int&amp; p)&nbsp;{</p> 
+<p>int q = rs[p];</p> 
+<p>rs[p]&nbsp;= ls[q];</p> 
+<p>ls[q]&nbsp;= p;</p> 
+<p>update(p);</p> 
+<p>update(q);</p> 
+<p>p = q;</p> 
+<p>}</p> 
+<p>inline void rRot(int&amp; p)&nbsp;{</p> 
+<p>int q = ls[p];</p> 
+<p>ls[p]&nbsp;= rs[q];</p> 
+<p>rs[q]&nbsp;= p;</p> 
+<p>update(p);</p> 
+<p>update(q);</p> 
+<p>p = q;</p> 
+<p>}</p> 
+<p>void init()&nbsp;{</p> 
+<p>tn = 0;</p> 
+<p>sz[0]&nbsp;= 0;</p> 
+<p>for (int i = 1; i &lt; maxnd;&nbsp;++ i)</p> 
+<p>nst[tn ++]&nbsp;= i;</p> 
+<p>}</p> 
+<p>inline void ins(int&amp; p, int v)&nbsp;{</p> 
+<p>if (!p)&nbsp;{</p> 
+<p>p = nst[-- tn];</p> 
+<p>ls[p]&nbsp;= 0;</p> 
+<p>rs[p]&nbsp;= 0;</p> 
+<p>sz[p]&nbsp;= 1;</p> 
+<p>vl[p]&nbsp;= v;</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>++ sz[p];</p> 
+<p>if (v&nbsp;&lt; vl[p])&nbsp;{</p> 
+<p>ins(ls[p], v);</p> 
+<p>if (sz[ls[p]]&nbsp;&gt; sz[rs[p]]&nbsp;+ balc)</p> 
+<p>rRot(p);</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>ins(rs[p], v);</p> 
+<p>if (sz[ls[p]]&nbsp;+ balc &lt; sz[rs[p]])</p> 
+<p>lRot(p);</p> 
+<p>}</p> 
+<p>}</p> 
+<p>}</p> 
+<p>inline int cntLower(int p, int v)&nbsp;{</p> 
+<p>if (!p)</p> 
+<p>return 0;</p> 
+<p>else if (v&nbsp;&lt; vl[p])</p> 
+<p>return cntLower(ls[p], v);</p> 
+<p>else</p> 
+<p>return sz[ls[p]]&nbsp;+ 1 + cntLower(rs[p], v);</p> 
+<p>}</p> 
+<p>void cntEach(int p, int q, int v)&nbsp;{</p> 
+<p>if (!p)</p> 
+<p>return;</p> 
+<p>ans += cntLower(q, v - vl[p]);</p> 
+<p>cntEach(ls[p], q, v);</p> 
+<p>cntEach(rs[p], q, v);</p> 
+<p>}</p> 
+<p>void insEach(int p, int&amp; q, int a)&nbsp;{</p> 
+<p>if (!p)</p> 
+<p>return;</p> 
+<p>ins(q, vl[p]&nbsp;+ a);</p> 
+<p>insEach(ls[p], q, a);</p> 
+<p>insEach(rs[p], q, a);</p> 
+<p>nst[tn ++]&nbsp;= p;</p> 
+<p>}</p> 
+<p>void rmv(int p)&nbsp;{</p> 
+<p>if (!p)</p> 
+<p>return;</p> 
+<p>nst[tn ++]&nbsp;= p;</p> 
+<p>rmv(ls[p]);</p> 
+<p>rmv(rs[p]);</p> 
+<p>}</p> 
+<p>};</p> 
+<p><br /></p> 
+<p>inline void addEdge(int u, int v, int w)&nbsp;{</p> 
+<p>ep-&gt; t = v;</p> 
+<p>ep-&gt; v = w;</p> 
+<p>ep-&gt; next = head[u];</p> 
+<p>head[u]&nbsp;= ep ++;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>void getCore(int p0, int&amp; ht)&nbsp;{</p> 
+<p>int hd = 0, tl = 1, mv;</p> 
+<p>++ tvis;</p> 
+<p>qu[hd]&nbsp;= p0;</p> 
+<p>vis[p0]&nbsp;= tvis;</p> 
+<p>d[p0]&nbsp;= 1;</p> 
+<p>while (hd&nbsp;&lt; tl)&nbsp;{</p> 
+<p>int p = qu[hd ++];</p> 
+<p>for (edge* e = head[p]; e; e = e-&gt; next)</p> 
+<p>if (!vd[e-&gt; t]&nbsp;&amp;&amp; vis[e-&gt; t]&nbsp;&lt; tvis)&nbsp;{</p> 
+<p>d[e-&gt; t]&nbsp;= d[p]&nbsp;+ 1;</p> 
+<p>vis[e-&gt; t]&nbsp;= tvis;</p> 
+<p>qu[tl ++]&nbsp;= e-&gt; t;</p> 
+<p>}</p> 
+<p>}</p> 
+<p>ht = qu[tl - 1];</p> 
+<p>mv = tl;</p> 
+<p>for (int i = tl - 1; i &gt;= 0;&nbsp;-- i)&nbsp;{</p> 
+<p>int p = qu[i], ms = 0;</p> 
+<p>sz[p]&nbsp;= 1;</p> 
+<p>for (edge* e = head[p]; e; e = e-&gt; next)</p> 
+<p>if (vis[e-&gt; t]&nbsp;== tvis &amp;&amp; d[e-&gt; t]&nbsp;&gt; d[p])&nbsp;{</p> 
+<p>sz[p]&nbsp;+= sz[e-&gt; t];</p> 
+<p>if (ms&nbsp;&lt; sz[e-&gt; t])</p> 
+<p>ms = sz[e-&gt; t];</p> 
+<p>}</p> 
+<p>if (max(ms, tl - sz[p])&nbsp;&lt; mv)&nbsp;{</p> 
+<p>mv = max(ms, tl - sz[p]);</p> 
+<p>ht = p;</p> 
+<p>}</p> 
+<p>}</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>void recoverTree(int p0, int dd, int&amp; hr)&nbsp;{</p> 
+<p>int hd = 0, tl = 1;</p> 
+<p>qu[hd]&nbsp;= p0;</p> 
+<p>d[p0]&nbsp;= 0;</p> 
+<p>hr = 0;</p> 
+<p>while (hd&nbsp;&lt; tl)&nbsp;{</p> 
+<p>int p = qu[hd ++];</p> 
+<p>-- vd[p];</p> 
+<p>sbt :: ins(hr, d[p]);</p> 
+<p>for (edge* e = head[p]; e; e = e-&gt; next)</p> 
+<p>if (vd[e-&gt; t]&nbsp;== dd)&nbsp;{</p> 
+<p>qu[tl ++]&nbsp;= e-&gt; t;</p> 
+<p>d[e-&gt; t]&nbsp;= d[p]&nbsp;+ e-&gt; v;</p> 
+<p>}</p> 
+<p>}</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int calcTree(int p0, int d = 1)&nbsp;{</p> 
+<p>int ht, hr, rt = 0;</p> 
+<p>getCore(p0, ht);</p> 
+<p>&nbsp;&nbsp; rt = 0;</p> 
+<p>sbt :: ins(rt, 0);</p> 
+<p>vd[ht]&nbsp;= d;</p> 
+<p>for (edge* e = head[ht]; e; e = e-&gt; next)</p> 
+<p>if (!vd[e-&gt; t])&nbsp;{</p> 
+<p>int r = calcTree(e-&gt; t, d + 1);</p> 
+<p>sbt :: cntEach(r, rt, k - e-&gt; v);</p> 
+<p>sbt :: insEach(r, rt, e-&gt; v);</p> 
+<p>}</p> 
+<p>sbt :: rmv(rt);</p> 
+<p>recoverTree(p0, d, hr);</p> 
+<p>return hr;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int sov()&nbsp;{</p> 
+<p>ep = elst;</p> 
+<p>memset(head, 0, sizeof(head));</p> 
+<p>memset(vis, 0, sizeof(vis));</p> 
+<p>memset(vd, 0, sizeof(vd));</p> 
+<p>scanf(&quot;%d&quot;,&nbsp;&amp;n);</p> 
+<p>for (int i = 0; i &lt; n - 1;&nbsp;++ i)&nbsp;{</p> 
+<p>int u, v, w;</p> 
+<p>scanf(&quot;%d%d%d&quot;,&nbsp;&amp;u,&nbsp;&amp;v,&nbsp;&amp;w);</p> 
+<p>addEdge(u, v, w);</p> 
+<p>addEdge(v, u, w);</p> 
+<p>}</p> 
+<p>scanf(&quot;%d&quot;,&nbsp;&amp;k);</p> 
+<p>tvis = 0;</p> 
+<p>ans = 0;</p> 
+<p>int x = calcTree(1);</p> 
+<p>sbt :: rmv(x);</p> 
+<p>return ans;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int main()&nbsp;{</p> 
+<p>#ifndef ONLINE_JUDGE</p> 
+<p>freopen(&quot;in.txt&quot;,&nbsp;&quot;r&quot;, stdin);</p> 
+<p>#endif</p> 
+<p><br /></p> 
+<p>sbt :: init();</p> 
+<p>ep = elst;</p> 
+<p>printf(&quot;%d\n&quot;, sov());</p> 
+<p>}</p> 
+<p><br /></p> 
+<p><br /></p>
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/bzoj/">bzoj</a></li>
+      <li><a href="/tags/poj/">POJ</a></li>
+      <li><a href="/tags/geometry/">geometry</a></li>
+      <li><a href="/tags/data%5Cxa0structure/">data\xa0structure</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/lofterimport_067/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>BZOJ3289 Mato的文件管理</span>
+  </a>
+  <a class="next" href="/oi/lofterimport_069/">
+    <span class="title">Next »</span>
+    <br>
+    <span>BZOJ2626 JZPFAR</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

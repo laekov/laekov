@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>simplex on The Site of laekov</title>
+    <link>/tags/simplex/</link>
+    <description>Recent content in simplex on The Site of laekov</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <lastBuildDate>Tue, 16 Jun 2015 20:58:17 +0000</lastBuildDate><atom:link href="/tags/simplex/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>bzoj3265 志愿者招募加强版</title>
+      <link>/oi/dbimport_186/</link>
+      <pubDate>Tue, 16 Jun 2015 20:58:17 +0000</pubDate>
+      
+      <guid>/oi/dbimport_186/</guid>
+      <description>simplex第一题.这玩意是不是拖得太久了啊ovo记得初中买算导的时候就想学它&amp;hellip;
+simplex的思路其实比较简单.先找标号最小的目标函数中系数为正的变量.选择约束最紧的限制条件.通过这个条件来换元.直到消光.
+感觉好神奇啊然而为啥啊ovoovo
+然而线性规划的条件是≤而求的是目标函数的max.和这题的式子刚好相反啊.
+然后神奇的东西是,对偶.强行把矩阵转制,然后把大小于符号取反,求出来的目标式max就是原问题的min.为啥啊Ovo算导上的证明也能看?
+然后就是一个类似于高消的东西.据说跑得比较快.
+另一个神奇的事情是在这道题里面因为奇怪的系数所以所有变量的系数都是+-1或者0.于是可以不用double强行写.开心.
+然后网上的某份代码似乎会把无解的情况搞错hah
+然而第一遍自己也有地方写丑&amp;hellip;
+这种东西还要再练练.</description>
+    </item>
+    
+  </channel>
+</rss>

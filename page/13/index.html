@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head>
+	<meta name="generator" content="Hugo 0.111.3"><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>The Site of laekov</title>
+
+<meta name="description" content="">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="/index.xml">
+<link rel="alternate" type="application/json" href="/index.json">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="The Site of laekov" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="/" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="The Site of laekov"/>
+<meta name="twitter:description" content=""/>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "The Site of laekov",
+  "url": "/",
+  "description": "",
+  "thumbnailUrl": "/favicon.ico",
+  "sameAs": [
+      "https://github.com/laekov", "/cv", "/not-easily-available", "/not-easily-available", "/not-easily-available", "/not-easily-available", "index.xml"
+  ]
+}
+</script>
+</head>
+
+<body class="list" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>Something for JXFLSers
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>这东西是写给jxfls的学弟学妹们的.cdqz众好好听毛教授的话就行了不要管窝.
+写这个的目的是窝作为一个过来人对于泥萌进省队或者拿noi的Au给一点建议.(然而窝也没有noi的Au,所以泥也可以当窝是在口糊)
+首先要明确一下这有什么好处.如果进了省队且noi至少拿了Cu(70%诶,sc算是中强省所以会有不少人垫背的),那么会有学校和泥签约.比如考上一本就可以被某校录取.某校嘛好点的比如pku,thu,sjtu,fdu,再有uestc,zju之类的.然后如果拿了Au(即前50),就可以被点招,高考0分上thu(或者泥愿意去pku啥的也行).
+毕竟是jxfls出来的.在jxfls若干年也没有见过进省队的.窝想如果jxfls出现至少一个省队,那oi在学校里的地位也许就不一样了.说不定就能进入某种良性循环.如果能出noi的Au,规律是有一就有二,然后有三.毕竟Au爷可以不用高考,而是可以把精力放在冲国家队和提携后辈身上.如此往复.也许这要等很多届.也许永远也不能成功.不过这也算是窝曾经的心愿了吧.这篇文就算是窝尽一点绵薄之力了吧.
+其实这件事在jxfls这种难以停课的地方并不容易.cdqz众多半从高二开学就不上文化课了.经过若干个月全力以赴的oi学习,水平自然是不同的.所以泥萌更要抓紧时间.
+首先泥要意识到泥有多弱.noip在省选中占30%.泥可以把noip里高三的刨开之后看一看泥在能进省队的人里排在什么位置.也许很多人曾经以为noip一等就是终点.其实它是起点.所以说不要认为自己很厉害.省内,在cdqz,在南山,在绵中…在省外…有很多比泥萌厉害得多的人.他们中也有一部分很乐于与泥萌交流.要把握这样的机会,去和强者交流.
+另外泥萌也要明白一点,教练不考noi.所以自己的路还得自己走.仅仅跟着教练是得不到好成绩的.个人经验,oi就是靠题目堆出来的.在不停地想题写题中找到不会的算法和数据结构,然后不断完善.
+针对省选和noi做题推荐bzoj,又称lydsy.虽然分类什么的比较乱但是题目质量和数量都比较好.而且刷的人多.窝在高二省选时似乎有700道.窝认为如果泥能刷400&#43;道非水题的话省选就能比较有底气了.至于不会的题也不一定要去硬纠结.去网上搜一搜别人博客里的题解,提高一下知识水平,再去敲敲练练代码能力也是极好的.至于哪些题可做的话可以每页按通过人数排序,或者找个前辈的记录跟着做.有些题的确是没法做的.至于bestcoder啊codeforces啊这样的在线比赛如果有时间也可以多参加一下,很能培养参加比赛的感觉.反正自己要努力就好了.
+顺便提一下建议多使用linux.我指的是命令行.在bash里完成一切操作,用vim(或者emacs,nano啥的,反正我是vim党)写代码,用g&#43;&#43;编译.虽然看上去没啥不同也许最初还会很不适应,但是这对养成好的编程习惯和未来参加noi有好处.
+然后考试的时候也别太关注别人在干什么(比如窝在泥旁边打扫雷),干好自己的事就行了.
+以上.总之祝你们好运.
+再另外虽然窝是一只高三党,窝还是很乐于与泥萌交流的.</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-11-10 22:56:29 +0000 UTC'>November 10, 2015</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to Something for JXFLSers" href="/oi/dbimport_112/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>Story of laekov
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>laekov曾经是一个oier.
+laekov认为自己的失败经验可以作为一个成功的反面教材.
+laekov似乎是小学五年级下半学期开始接触oi的,然而因为年代太久远所以记不清什么事情了.
+laekov是被小学的计算机老师拉入坑的.她告诉laekov有一个叫noip普及组的编程比赛,比当时laekov从事的电子制作更有前途.于是laekov找妈妈代购了一本pascal语法书开始搞oi.
+laekov最初是有一个小伙伴的.laekov比较喜欢叫他f.laekov清楚地记得看完pascal书第二章后f告诉laekov他还没看完第一章.于是laekov决定停下来等f.过了几天laekov发现f已经看完第三章了.悲恸之下laekov学到了oi路上的第一课,你永远不能等谁.
+差不多看完了语法然后觉得自己很厉害的laekov又去买了一本c&#43;&#43;的语法书来看.然而laekov并没有很成功地看懂c&#43;&#43;.不过至少能看网上各种c&#43;&#43;的程序了laekov感到十分高兴.
+然后老师告诉laekov和f有一个叫做vijos的网站.你可以在上面刷题.如果你刷得多还可以向初中的教练炫耀.laekov很开心地拥有了第一和第二个id分别叫jiaao430和ais35.
+至于它们是为什么?法拉利430是曾经喜欢汽车的laekov最喜欢的一款车.至于ais35,这是人脑随机.
+一句后话是laekov直到小学毕业在oj上的刷题量也不超过20道.
+然后大概就到了noip2009.感觉自己萌萌哒laekov和小伙伴f一起去川大江安校区考试.当年的noip还可以使用自己的草稿纸,当年的noip还是当天就可以知道成绩的.然后不知机器密码的laekov进考场就重启机器3次,于是监考老师亲切地抚摸着laekov的头说,小朋友,你怎么又重启呢?此句后流为佳话.
+记得当时的签到题是给出多项式的系数,输出多项式.然而萌萌哒laekov根本不知道多项式是什么,遂弃疗.第二题似乎是水水哒模拟.laekov于是敲之,过之.当然这里指的是样例因为laekov根本不知道什么是对拍.第三题似乎需要高精?然而laekov当时连gcd都不会不知道写了些啥.然后第四题随便写了个贪心感觉是对的啊呵呵哒.
+于是估分,f认为自己能拿300.laekov说少估点200.结局是f暴0,laekov倒是拿了30.
+然后又是一段无聊的时光然后又有一个啥cd市小学生编程比赛?听说全市设两个一等奖?好啊好啊搞啊搞啊.考试似乎是在科协一个老得掉牙的机房里.然后身边的f考试中间一脚踢断了laekov机子的电源呵呵哒.还记得有个题是求fib数列的第k项当然是在int范围里ovo然后还记得一直在调一个日期的题没搞出来.当时还有一个人居然用的是c&#43;&#43;感觉那人屌暴了.然后想起当时的机子上似乎只有turble c?似乎连dev都没有?呵呵哒.
+另外laekov毕业前似乎被低一届的数学老师拉去搞了一个选题的软件.也就是从一堆题目里随机选k道题出来.然后用pascal写了个没有ui的程序自我感觉良好.还获了一个奇怪的奖ovo
+然后laekov就去上初中啦.laekov选择初中的方式很简单,翻出noip2009普及组获奖名单,去rank1同学的学校.于是laekov去了jxfls.然后令laekov印象深刻的是考数学的时候以为自己做完了于是玩了良久,最后几分钟才发现还有一面漏做了.然后因此没有奖学金还被老妈怒d至今.
+初中是寄宿的于是发生了很多有趣的故事.比如别人中午都得回寝室午休而laekov则可以在机房浪.因为小学有基础所以laekov强行和初二一起玩.laekov至今唯一能记得的就是上过一次排列组合课.当时觉得好神奇啊.
+然后noip之前停了一个星期的晚自习去做套题.当年的套题其实就是前几年的noip原题啦.然而当年的laekov并不会去oj上刷题所以感觉萌萌哒.
+然后就是初一的noip喽.地点改到uestc.机房变挤了啊差评.然后还拿走了别人的打印版试题ovo然后考试的时候并没有什么大新闻.还记得把第二题写丑了.然后第三题直接错误的贪心40第四题直接dfs居然有50.当年可是根本不会时间复杂度分析的啊.
+然后那年laekov以210分刚好比分数线高10分的成绩拿了普及一等.当年唯一一个初一的哦.还因此被写在了展板上.
+于是接下来的一年都在各种浪啊浪啊浪.似乎oj上的总刷题量也不超过10道题?
+然后就到了noip2011?然后laekov发现咦怎么停课集训题去年就见过啊呵呵哒随手ak几发好了.
+于是laekov决定noip2011同时挑战普及和提高.那年提高正好改成了两试六题而且挪到了cdqz高新校区.day1的时候laekov一直在写那个奇怪的mayan游戏最后还是直接输出-1走人.然后因为上午吃巧克力过多所以下午状态特别不好.最后回家的车上差点吐出来.第二天也受了一些影响于是gg.
+那次似乎当天没有出结果.laekov是星期一才知道的.提高组180&#43;0了.如果day2正常一点说不定都能一等oov.然后普及只有100分光荣了.原因似乎是第二题行末判成了chr(13),第三题只会冒泡排序全部tle完.第四题根本不知道在写什么ovooovo
+于是初一就拿了一等的laekov感觉十分不开心.当天晚上为了能睡好吞了整整一盒感冒药.也许这也是为什么现在的laekov智商严重不足的原因之一.
+于是laekov决定不要再浪下去了.于是laekov也许刷了更多的题吧.然后laekov似乎被年级组长抓去用excel统计分数段分布?原来年级组长之前都是靠眼睛看的?laekov表示不服.于是laekov一怒之下写了一个pascal的程序来搞这种事情.然后使用过程中发现了一堆bug让laekov十分汗颜.
+laekov在初二寒假的时候决心转cpp.因为之前有看过cpp的语法基础所以并没有多大的困难.只是后来才知道iostream.h早就被淘汰了十分的ovo.
+然后就是一个天天打游戏的暑假和noip2012.
+这年似乎做了一些模拟题.也记得高三的某学长在电阅用笔记本做出了去年的mayan.当时感觉他好厉害啊.这年的模拟题终于不是noip陈题而改成了noi导刊.感觉很赞啊.于是laekov的成绩炸掉了ovo
+然后也是在这个时候laekov终于明白了dp是什么东西.当时还天真地认为dp和动态规划是两个东西ovoovo当时还养成了一个laekov到退役还没有改掉的习惯,用f作为dp数组而不是dp.
+然后就到了noip时节.似乎laekov吸取了去年的教训坚决不吃巧克力.似乎noip刚好是laekov的生日于是laekov考完day2回家过生日.btw当年的laekov依然不会复杂度分析.
+然后laekov就上考场了.似乎noip2012提高组并没有dp.然而普及组第三题居然是dp?于是laekov十分愉快地打了第三题.然而当年的laekov仍然不会对拍于是愉快地把输出最后一个格子变成了输出最后一列的和然后再见0分.另外普及第二题因为没有考虑第一层楼要走所以也0分了.于是laekov凭借第一题和忘剪枝的60分的第四题拿了普及一等.
+然后提高似乎因为奇怪的得分加上奇怪的一等线政策laekov也是一等.然后就被拉去年级运动会当旗手了这是smg.
+于是初三了laekov与oi暂别一段然而还是天天中午去机房,不过项目变成了cs.
+laekov因为noip考得还不错于是去了scoi2013.然后发现cdqz的人好多啊而且还偷拍结果不小心偷拍下了l老师,这张照片在一年后被l老师看见了大家都觉得十分神奇.
+然而当年依然不会复杂度分析也不会线段树,而且只会用邻接矩阵存图只会用floyd跑最短路的laekov当然只能拿40分走人了.居然有40分啊好感人啊.嗯当年的laekov似乎还和老妈闹翻了也是神奇.
+那段时间感觉自己特别叛逆.晚上在寝室偷偷drink.于是直到现在也习惯在不开心的时候喝几瓶比如写这段文字的时候laekov的手边就有若干瓶纯生.
+btw直到初中毕业laekov在tyvj上的刷题量也不过60&#43;.在bzoj上恰好过掉了1000(这是题号不是题数啊).
+然后laekov就去中考了.
+中考似乎并不是重点.那年似乎数学比较难于是laekov比正常成绩少了10多分.不过还是上了cdqz的招生线.于是成为了cdqz的学生.
+然后就放暑假了.cdqz的教头z老让laekov去跟着正要去noi的14届的学长训练.当时laekov正要坐火车去西安,z老给laekov介绍了一个叫mhy的小伙伴.他大概也和laekov一样对oi感兴趣得比较早然后也进了cdqz.于是和mhy联系了一下之后laekov感觉不错.
+从西安坐火车回来之后laekov有了自己的第二台笔记本.之前那台vista时代的又厚又慢的富士通笔记本早就被弃置了ovo
+这个是一台lenovo的s400.laekov选电脑的第一要意是要轻,要薄.第二是要便宜ovo
+那台电脑的确足够便宜于是预装的似乎是linux?直接把linux删掉装win7是laekov至今后悔的事.
+然后就去了cdqz训练.当年的laekov还不太会用noilinux.同为新手的mhy也差不多.第一次考试的时候似乎机智的laekov骗到了80分感觉还不错,那次mhy拿了40呵呵哒.后来又有一天似乎过掉了一道水水的bfs题然后被z老师狠狠地表扬了一下,laekov感觉自己都要飞起来了.
+laekov听说14届有一个很厉害的人叫钟神?
+虽然没有报同步赛更没有进省队,不过因为noi刚好在uestc于是laekov就去围观noi2013了.围观的具体方法是等教练在教练会议上拿到题给laekov和mhy,然后laekov和mhy去教练的宾馆在笔记本上写题然后下午等别人看成绩的时候把数据拷出来在cena上测.没错当年的laekov还不会用linux.
+laekov可是连线段树都不会写的,noi题当然也只有写暴力和写暴力和弃疗.其实树的计数那题laekov似乎已经想到了一个关键点不过因为太弱所以直到退役也没有做出那个题.
+因为和cdqzsc的时间冲了所以laekov就在城南的cdqz高新和城北的uestc之间不停的做简谐运动?雾.laekov清楚地记得从茶店子坐地铁到世纪城的痛苦感觉.
+cdqzsc倒也的确是个好东西.认识了不少很厉害的人.然后还知道了有codeforces这么个神奇的网站.
+于是这个暑假laekov开始认真地学oi.(意思是laekov从前的寒暑假即使想学oi也变成了打游戏)laekov当年还不知道vim当年还在用dev,还把背景调成了看上去很厉害的黑色.
+laekov还从mhy那里学来了一种好像很厉害的数据结构叫做线段树.初中时laekov根本不敢碰关于树和二叉树的东西.于是laekov感觉自己现在变得好厉害啊.咦不对,应该是mhy好厉害啊.
+laekov也是从那个暑假开始打cf的.当年的laekov的id还不叫laekov而叫aoao.这里面是有故事的,然而到底为啥呢你猜啊.
+laekov打的第一场cf是一场正常的11:30场.laekov当时决定晚上8点先去睡到11点再起来打.然后laekov发现醒来之后脑子就像坏掉了一样啊.第一题是smg不会打啊.第二题咦似乎可做?敲敲敲交交交挖挖挖.于是整整一场比赛laekov都在试图做div2的b题,终不过.第二天早上起来发现一个十分愚蠢的错误laekov表示十分ovo
+laekov打的第二场cf是和网球俱乐部一起去峨眉山的时候打的.住在宾馆里晚上11点半起来high.然后室友根本没回来但是laekov居然没注意到.于是laekov灯都没开坐在床上码题,现在想想也是醉啊.s400可没有键盘背光,而且laekov似乎还借着屏幕的光打了草稿?那场好歹有题能过于是第一次涨了rating非常的开心啊.
+暑假结束去军训之前laekov和小伙伴zt和louis去昆明玩.然后居然又有cf然而laekov没有带电脑.幸好小伙伴们都有带电脑于是laekov十分开心.
+呃然后就是公布分班去军训.laekov被分到了12班听说是高考实验班?逗呢?laekov高考成绩那么烂也能扔这?然而并没有什么跳的办法.
+军训的时候好热啊7天洗了2次澡.而且洗完澡走回来又出一身汗.洁癖的laekov感觉根本受不了于是后来洁癖更重了.当时认识了一个叫hbw的同学也要搞oi觉得很开心.
+回来之后发现mhy没有进实验班.于是在ovo的人的ovo的努力下laekov和mhy集体跳班.laekov去了15而mhy去了隔壁14.感觉很开心.
+btw因为跳班所以laekov是15班唯一一个同桌是女生的男生,这是一件十分有趣的事.然而因为这与主题无关所以就折叠掉了.laekov还认识了15班的另一些oier分别是lyzy,cyl,jh.laekov初中一起学oi的ymw也在15然而他后来转行去了物理.
+在cdqz的生活比在jxfls自由许多.有很多自己安排的时间.然后中午和晚上也没有硬性的什么要求.于是laekov去了一个叫做305的oi自习教室.当时在这里的有14届唯一一个noi au选手zhx也就是暑假时候听说的钟神.还有若干noisy的高三物理众.
+305有两种桌子.一种是课桌,另一种是有点像美术教室用的那种比较大的比较像办公桌的桌子.laekov发现所以大桌子都被占了,于是只好可怜地在角落里找了一张课桌ovo
+laekov提着电脑去305开始写代码之后zhx就来围观.然后怒斥laekov这种dev选手.于是laekov从那时起开始学习使用vim.
+那段时间laekov似乎特别naive.什么都不会还感觉自己特别厉害.暑假快结束的时候在mhy的怂恿下laekov去出了一套给本年级的入学考试题.后来再回想,那就是一个笑话23333
+laekov到那时终于发现s400的笔记本键盘一点也不舒服.然而手边也没有其它的键盘.于是laekov去买了一条ps2转usb的线,拿一把305的不知道哪里来的键盘接上.从此开始了外接键盘的不归路.
+laekov对接下来的两个月干了啥已经没有印象了.似乎noip前停了一周的课.那几天laekov窝在机房上午考试下午乱玩.laekov发现可以用hdmi转vga线把笔记本的屏幕转到学校破机子的比较大的显示器上,于是十分开心.因为学校机房的机子,实在太差了.
+laekov那时候还在使用一种奇怪的方式存图.既把所有边按起点排序然后xxxx.每次遇到图的题,laekov的代码都又臭又长还常常错.laekov倒是学会了使用stl的sort和priority_queue,于是也学会了dijkstra&#43;heap.
+当时laekov的小学低一届的学弟yjq也来cdqz参加noip的训练.多年不见yjq也变厉害了.
+然后就是noip2013了.考场还是在cdqz的高新校区.day1的时候laekov感觉不错?当年的laekov似乎没有写过总结那就补一个好了....</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-07-31 23:04:38 +0000 UTC'>July 31, 2015</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to Story of laekov" href="/random/dbimport_278/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>bzoj2850 巧克力王国
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>rausen大爷太强辣!
+嗯看到这个东西,咦,直线某一边的点的权值和?kd-tree上上上.
+于是就开敲kd-tree.敲到一半弃emacs换vim.
+然后就wa了.然后发现double的精度太高了ovoovo
+于是rausen跑得好快啊.</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-07-01 20:50:29 +0000 UTC'>July 1, 2015</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to bzoj2850 巧克力王国" href="/oi/dbimport_165/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>bzoj4134 ljw和lzr的hack比赛
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>之前感觉是sg函数.不过不会.在wulala神犇的指点下找来题解看了一下.太神辣.自己肯定想不出来…
+设以点u为根的子树的局面的sg值为sgu.设以u为根的子树中先手先hack掉v后的sg函数为gu,v.
+那么gu,v = f[v] xor ∑ fu到v路径上所有点的非主干儿子.
+然后fu = mex{gu,v}
+这个转移得转移是O(n2)的样子吧.
+然后发现某棵子树的g其实每次都是异或了一个相同的值.而且会合并.
+咦可以用trie来优化一下.打下标记啥的.然后根据主席的论文这个东西是O(log n)的?虽然感觉复杂度证明没有说清楚啊ovoovo
+然后就在trie树标记上卡了好久啊火冒三丈ing</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-06-27 21:39:47 +0000 UTC'>June 27, 2015</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to bzoj4134 ljw和lzr的hack比赛" href="/oi/dbimport_246/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>bzoj2781 机器人走步
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>上课题.之前只有5个人过5个人交.我成功地拉低了这题的通过率yeah.
+其实就是考虑Si序列走完之后对x和y的贡献以及对方向的改变就好了.
+比较烦的是中间那一个东西是哪个方向.然后发现如果在上一层的左边就是1否则是0.和更上层没有关系不能直接异或往下传.
+代码越写越丑了TAT</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-06-26 21:44:36 +0000 UTC'>June 26, 2015</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to bzoj2781 机器人走步" href="/oi/dbimport_159/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>bzoj3329 Xorequ
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>还不错的题ovoovo
+发现其实要求x的二进制表示中没有相邻的1就行了.
+第一问水水的数位dp.从未写得如此愉快.
+第二问就是前面的g.然后发现是fib数列.矩阵快速幂搞定.</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-06-23 15:52:12 +0000 UTC'>June 23, 2015</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to bzoj3329 Xorequ" href="/oi/dbimport_192/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>bzoj4145 [AMPPZ2014]The Prices
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>最近总是被一些水题虐智商啊…怎么回事Ovo
+无脑地状压dp一下就好了.
+每个物品分开dp,这样可以降到O(2m * n * m)级别.
+我还是太弱了.</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-06-22 10:55:59 +0000 UTC'>June 22, 2015</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to bzoj4145 [AMPPZ2014]The Prices" href="/oi/dbimport_248/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>bzoj4152 [AMPPZ2014]The Captain
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>naive之laekov系列.这么水的题还想了几天ovoovo
+这个距离,咦,不是传统的距离啊.等距线是十字形的.
+思考一下.发现,分别按x和y排序,把相邻的两点之间连边,dijkstra,完了.
+为啥啊?因为这样建图可以保证任意两点的最短路一定能在图上跑出来.
+毕竟我太弱,ovoovo</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-06-21 11:13:29 +0000 UTC'>June 21, 2015</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to bzoj4152 [AMPPZ2014]The Captain" href="/oi/dbimport_250/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>test
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>haha</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-06-17 21:05:25 +0000 UTC'>June 17, 2015</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to test" href="/post/dbimport_279/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>bzoj3451 tyvj1953 Normal
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>mhy大爷多久之前开的坑啊ovo
+这题的思路比较神.点分&#43;fft.两个点会产生的贡献是1/(dist &#43; 1).于是要知道长度为多少的链有多少条.
+利用树分可以将∑深度降到O(n*log n)的级别.原因很明显啊.
+然后就用fft来求就好喽.反正是double也懒得用数论了.然后找了wyf的程序随便就拍出一组末位不等,也没用long double.居然能过太神奇了.
+总复杂度O(n*log2n).然后莫名其妙就拿了rank1好开心啊.</p>
+  </div>
+  <footer class="entry-footer"><span title='2015-06-17 20:55:30 +0000 UTC'>June 17, 2015</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;laekov</footer>
+  <a class="entry-link" aria-label="post link to bzoj3451 tyvj1953 Normal" href="/oi/dbimport_194/"></a>
+</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="prev" href="/page/12/">
+      «&nbsp;Prev&nbsp;
+    </a>
+    <a class="next" href="/page/14/">Next&nbsp;&nbsp;»
+    </a>
+  </nav>
+</footer>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

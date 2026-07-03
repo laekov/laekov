@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>bzoj3218.cc | The Site of laekov</title>
+<meta name="keywords" content="code">
+<meta name="description" content="#include #include #include using namespace std;
+struct seg { int id; seg *ls, *rs; }; struct block { int b, w, p, l, r, a; int lid, rid, mid; inline void read() { scanf(&quot;%d%d%d%d%d%d&quot;, &amp;a, &amp;b, &amp;w, &amp;l, &amp;r, &amp;p); } }; struct edge { int t, c; edge *next, *rv; };
+const int maxn = 5009; const int maxnd = 90009; const int maxe = 400009; const int inf = 0x3f3f3f3f;">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/code/dbimport_179/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="bzoj3218.cc" />
+<meta property="og:description" content="#include #include #include using namespace std;
+struct seg { int id; seg *ls, *rs; }; struct block { int b, w, p, l, r, a; int lid, rid, mid; inline void read() { scanf(&quot;%d%d%d%d%d%d&quot;, &amp;a, &amp;b, &amp;w, &amp;l, &amp;r, &amp;p); } }; struct edge { int t, c; edge *next, *rv; };
+const int maxn = 5009; const int maxnd = 90009; const int maxe = 400009; const int inf = 0x3f3f3f3f;" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/code/dbimport_179/" /><meta property="article:section" content="code" />
+<meta property="article:published_time" content="2015-04-05T21:06:28+00:00" />
+<meta property="article:modified_time" content="2015-04-05T21:06:28+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="bzoj3218.cc"/>
+<meta name="twitter:description" content="#include #include #include using namespace std;
+struct seg { int id; seg *ls, *rs; }; struct block { int b, w, p, l, r, a; int lid, rid, mid; inline void read() { scanf(&quot;%d%d%d%d%d%d&quot;, &amp;a, &amp;b, &amp;w, &amp;l, &amp;r, &amp;p); } }; struct edge { int t, c; edge *next, *rv; };
+const int maxn = 5009; const int maxnd = 90009; const int maxe = 400009; const int inf = 0x3f3f3f3f;"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Codes",
+      "item": "/code/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "bzoj3218.cc",
+      "item": "/code/dbimport_179/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "bzoj3218.cc",
+  "name": "bzoj3218.cc",
+  "description": "#include #include #include using namespace std;\nstruct seg { int id; seg *ls, *rs; }; struct block { int b, w, p, l, r, a; int lid, rid, mid; inline void read() { scanf(\u0026quot;%d%d%d%d%d%d\u0026quot;, \u0026amp;a, \u0026amp;b, \u0026amp;w, \u0026amp;l, \u0026amp;r, \u0026amp;p); } }; struct edge { int t, c; edge *next, *rv; };\nconst int maxn = 5009; const int maxnd = 90009; const int maxe = 400009; const int inf = 0x3f3f3f3f;",
+  "keywords": [
+    "code"
+  ],
+  "articleBody": "#include #include #include using namespace std;\nstruct seg { int id; seg *ls, *rs; }; struct block { int b, w, p, l, r, a; int lid, rid, mid; inline void read() { scanf(\"%d%d%d%d%d%d\", \u0026a, \u0026b, \u0026w, \u0026l, \u0026r, \u0026p); } }; struct edge { int t, c; edge *next, *rv; };\nconst int maxn = 5009; const int maxnd = 90009; const int maxe = 400009; const int inf = 0x3f3f3f3f;\nint n, tnid, st, te; int va[maxn * 3], tv, ans; block a[maxn]; seg sbuf_arr[maxn * 41], *sbuf(sbuf_arr), *rt; edge ebuf_arr[maxe], *ebuf(ebuf_arr), *head[maxnd];\ninline edge* allocEdge(int u, int v, int c) { ebuf-\u003e t = v; ebuf-\u003e c = c; ebuf-\u003e next = head[u]; return head[u] = ebuf ++; } inline void addEdge(int u, int v, int c) { edge *a(allocEdge(u, v, c)); edge *b(allocEdge(v, u, 0)); a-\u003e rv = b; b-\u003e rv = a; }\n#define midp ((pl+pr)»1) #define lson(p) ((p)?(p-\u003els):0) #define rson(p) ((p)?(p-\u003ers):0) inline void sgtQry(seg* p, int oid, int l, int r, int pl, int pr) { if (!p) return; else if (pl == l \u0026\u0026 pr == r) addEdge(oid, p-\u003e id, inf); else if (r \u003c= midp) sgtQry(p-\u003e ls, oid, l, r, pl, midp); else if (l \u003e= midp) sgtQry(p-\u003e rs, oid, l, r, midp, pr); else sgtQry(p-\u003e ls, oid, l, midp, pl, midp), sgtQry(p-\u003e rs, oid, midp, r, midp, pr); } inline seg* sgtChg(seg* q, int po, int pi, int pl, int pr) { seg *p(sbuf ++); p-\u003e id = ++ tnid; if (pl + 1 == pr) { addEdge(p-\u003e id, a[pi]. rid, inf); if (q) addEdge(p-\u003e id, q-\u003e id, inf); } else { p-\u003e ls = lson(q), p-\u003e rs = rson(q); if (po \u003c midp) p-\u003e ls = sgtChg(lson(q), po, pi, pl, midp); else p-\u003e rs = sgtChg(rson(q), po, pi, midp, pr); if (p-\u003e ls) addEdge(p-\u003e id, p-\u003e ls-\u003e id, inf); if (p-\u003e rs) addEdge(p-\u003e id, p-\u003e rs-\u003e id, inf); } return p; }\nint d[maxnd]; bool bfsBuild() { static int q[maxnd]; int hd(0), tl(1); memset(d, 0, sizeof(d)); d[q[0] = st] = 1; while (hd \u003c tl \u0026\u0026 !d[te]) { int p(q[hd ++]); for (edge* e = head[p]; e; e = e-\u003e next) if (e-\u003e c \u0026\u0026 !d[e-\u003e t]) { d[e-\u003e t] = d[p] + 1; q[tl ++] = e-\u003e t; } } return d[te]; } int dfsFind(int p, int c) { if (p == te) return c; int s(0); edge *e; for (e = head[p]; e \u0026\u0026 c; e = e-\u003e next) if (e-\u003e c \u0026\u0026 d[e-\u003e t] == d[p] + 1) { int x(dfsFind(e-\u003e t, min(c, e-\u003e c))); c -= x; s += x; e-\u003e c -= x; e-\u003e rv-\u003e c += x; } if (!e) d[p] = 0; return s; }\nint main() { #ifndef ONLINE_JUDGE freopen(\".in\", “r”, stdin); #endif\nscanf(\"%d\", \u0026n); rt = 0; tnid = tv = 0; ans = 0; st = ++ tnid, te = ++ tnid; for (int i = 0; i \u003c n; ++ i) { a[i]. read(); va[tv ++] = a[i]. l; va[tv ++] = a[i]. r; va[tv ++] = a[i]. a; a[i]. lid = a[i]. rid = ++ tnid; a[i]. mid = ++ tnid; //a[i]. rid = ++ tnid; ans += a[i]. b + a[i]. w; } sort(va, va + tv); tv = unique(va, va + tv) - va; for (int i = 0; i \u003c n; ++ i) { a[i]. l = lower_bound(va, va + tv, a[i]. l) - va; a[i]. r = lower_bound(va, va + tv, a[i]. r) - va; a[i]. a = lower_bound(va, va + tv, a[i]. a) - va; } for (int i = 0; i \u003c n; ++ i) { addEdge(st, a[i]. lid, a[i]. b); //addEdge(a[i]. lid, a[i]. rid, inf); addEdge(a[i]. rid, te, a[i]. w); addEdge(a[i]. lid, a[i]. mid, a[i]. p); sgtQry(rt, a[i]. mid, a[i]. l, a[i]. r + 1, 0, tv); rt = sgtChg(rt, a[i]. a, i, 0, tv); } while (bfsBuild()) ans -= dfsFind(st, inf); printf(\"%d\\n\", ans); }\n",
+  "wordCount" : "654",
+  "inLanguage": "en",
+  "datePublished": "2015-04-05T21:06:28Z",
+  "dateModified": "2015-04-05T21:06:28Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/code/dbimport_179/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/code/">Codes</a></div>
+    <h1 class="post-title">
+      bzoj3218.cc
+    </h1>
+    <div class="post-meta"><span title='2015-04-05 21:06:28 +0000 UTC'>April 5, 2015</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>#include <cstdio>
+#include <cstring>
+#include <algorithm></p>
+<p>using namespace std;</p>
+<p>struct seg {
+int id;
+seg *ls, *rs;
+};
+struct block {
+int b, w, p, l, r, a;
+int lid, rid, mid;
+inline void read() {
+scanf(&quot;%d%d%d%d%d%d&quot;, &amp;a, &amp;b, &amp;w, &amp;l, &amp;r, &amp;p);
+}
+};
+struct edge {
+int t, c;
+edge *next, *rv;
+};</p>
+<p>const int maxn = 5009;
+const int maxnd = 90009;
+const int maxe = 400009;
+const int inf = 0x3f3f3f3f;</p>
+<p>int n, tnid, st, te;
+int va[maxn * 3], tv, ans;
+block a[maxn];
+seg sbuf_arr[maxn * 41], *sbuf(sbuf_arr), *rt;
+edge ebuf_arr[maxe], *ebuf(ebuf_arr), *head[maxnd];</p>
+<p>inline edge* allocEdge(int u, int v, int c) {
+ebuf-&gt; t = v;
+ebuf-&gt; c = c;
+ebuf-&gt; next = head[u];
+return head[u] = ebuf ++;
+}
+inline void addEdge(int u, int v, int c) {
+edge *a(allocEdge(u, v, c));
+edge *b(allocEdge(v, u, 0));
+a-&gt; rv = b;
+b-&gt; rv = a;
+}</p>
+<p>#define midp ((pl+pr)&raquo;1)
+#define lson(<em>p</em>) ((<em>p</em>)?(<em>p</em>-&gt;ls):0)
+#define rson(<em>p</em>) ((<em>p</em>)?(<em>p</em>-&gt;rs):0)
+inline void sgtQry(seg* p, int oid, int l, int r, int pl, int pr) {
+if (!p)
+return;
+else if (pl == l &amp;&amp; pr == r)
+addEdge(oid, p-&gt; id, inf);
+else if (r &lt;= midp)
+sgtQry(p-&gt; ls, oid, l, r, pl, midp);
+else if (l &gt;= midp)
+sgtQry(p-&gt; rs, oid, l, r, midp, pr);
+else
+sgtQry(p-&gt; ls, oid, l, midp, pl, midp), sgtQry(p-&gt; rs, oid, midp, r, midp, pr);
+}
+inline seg* sgtChg(seg* q, int po, int pi, int pl, int pr) {
+seg *p(sbuf ++);
+p-&gt; id = ++ tnid;
+if (pl + 1 == pr) {
+addEdge(p-&gt; id, a[pi]. rid, inf);
+if (q)
+addEdge(p-&gt; id, q-&gt; id, inf);
+}
+else {
+p-&gt; ls = lson(q), p-&gt; rs = rson(q);
+if (po &lt; midp)
+p-&gt; ls = sgtChg(lson(q), po, pi, pl, midp);
+else
+p-&gt; rs = sgtChg(rson(q), po, pi, midp, pr);
+if (p-&gt; ls)
+addEdge(p-&gt; id, p-&gt; ls-&gt; id, inf);
+if (p-&gt; rs)
+addEdge(p-&gt; id, p-&gt; rs-&gt; id, inf);
+}
+return p;
+}</p>
+<p>int d[maxnd];
+bool bfsBuild() {
+static int q[maxnd];
+int hd(0), tl(1);
+memset(d, 0, sizeof(d));
+d[q[0] = st] = 1;
+while (hd &lt; tl &amp;&amp; !d[te]) {
+int p(q[hd ++]);
+for (edge* e = head[p]; e; e = e-&gt; next)
+if (e-&gt; c &amp;&amp; !d[e-&gt; t]) {
+d[e-&gt; t] = d[p] + 1;
+q[tl ++] = e-&gt; t;
+}
+}
+return d[te];
+}
+int dfsFind(int p, int c) {
+if (p == te)
+return c;
+int s(0);
+edge *e;
+for (e = head[p]; e &amp;&amp; c; e = e-&gt; next)
+if (e-&gt; c &amp;&amp; d[e-&gt; t] == d[p] + 1) {
+int x(dfsFind(e-&gt; t, min(c, e-&gt; c)));
+c -= x;
+s += x;
+e-&gt; c -= x;
+e-&gt; rv-&gt; c += x;
+}
+if (!e)
+d[p] = 0;
+return s;
+}</p>
+<p>int main() {
+#ifndef ONLINE_JUDGE
+freopen(&quot;.in&quot;, &ldquo;r&rdquo;, stdin);
+#endif</p>
+<pre><code>scanf(&quot;%d&quot;, &amp;n);
+rt = 0;
+tnid = tv = 0;
+ans = 0;
+st = ++ tnid, te = ++ tnid;
+for (int i = 0; i &lt; n; ++ i) {
+	a[i]. read();
+	va[tv ++] = a[i]. l;
+	va[tv ++] = a[i]. r;
+	va[tv ++] = a[i]. a;
+	a[i]. lid = a[i]. rid = ++ tnid;
+	a[i]. mid = ++ tnid;
+	//a[i]. rid = ++ tnid;
+	ans += a[i]. b + a[i]. w;
+}
+sort(va, va + tv);
+tv = unique(va, va + tv) - va;
+for (int i = 0; i &lt; n; ++ i) {
+	a[i]. l = lower_bound(va, va + tv, a[i]. l) - va;
+	a[i]. r = lower_bound(va, va + tv, a[i]. r) - va;
+	a[i]. a = lower_bound(va, va + tv, a[i]. a) - va;
+}
+for (int i = 0; i &lt; n; ++ i) {
+	addEdge(st, a[i]. lid, a[i]. b);
+	//addEdge(a[i]. lid, a[i]. rid, inf);
+	addEdge(a[i]. rid, te, a[i]. w);
+	addEdge(a[i]. lid, a[i]. mid, a[i]. p);
+	sgtQry(rt, a[i]. mid, a[i]. l, a[i]. r + 1, 0, tv);
+	rt = sgtChg(rt, a[i]. a, i, 0, tv);
+}
+while (bfsBuild())
+	ans -= dfsFind(st, inf);
+printf(&quot;%d\n&quot;, ans);
+</code></pre>
+<p>}</p>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/code/">code</a></li>
+    </ul>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

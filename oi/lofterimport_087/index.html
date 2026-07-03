@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>BZOJ2209 [Jsoi2011]括号序列 | The Site of laekov</title>
+<meta name="keywords" content="bzoj, data\xa0structure, oi">
+<meta name="description" content="好恶心的数据结构题。
+考虑单个询问。把(视作1，把)视作-1，设minprefix为最小前缀和，设cp=(minprefix&#43;1)/2，那么答案为(sum/2&#43;cp*2)，使劲想想想得出来。
+所以就是用个splay或者smt来维护一下一段的最小前缀和以及总和。因为有两种操作所以写起来比较麻烦。要注意不要把操作看反了，还要注意标记的优先级和更新的问题。
+恶心了一下午。
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+struct dat {
+int sm, t[2][2];
+inline void operator =(const dat&amp; a)&nbsp;{
+sm = a. sm;
+t[0][0]&nbsp;= a. t[0][0];
+t[0][1]&nbsp;= a. t[0][1];
+t[1][0]&nbsp;= a. t[1][0];
+t[1][1]&nbsp;= a. t[1][1];
+}
+};
+const int maxn = 100009;
+int n, m, cr, a[maxn], sz[maxn], ls[maxn], rs[maxn], pt[maxn], vl[maxn];
+bool flip[maxn], rev[maxn];
+dat d[maxn];
+dat sgd(int v)&nbsp;{
+dat r;
+r. sm = v;">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/oi/lofterimport_087/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="BZOJ2209 [Jsoi2011]括号序列" />
+<meta property="og:description" content="好恶心的数据结构题。
+考虑单个询问。把(视作1，把)视作-1，设minprefix为最小前缀和，设cp=(minprefix&#43;1)/2，那么答案为(sum/2&#43;cp*2)，使劲想想想得出来。
+所以就是用个splay或者smt来维护一下一段的最小前缀和以及总和。因为有两种操作所以写起来比较麻烦。要注意不要把操作看反了，还要注意标记的优先级和更新的问题。
+恶心了一下午。
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+struct dat {
+int sm, t[2][2];
+inline void operator =(const dat&amp; a)&nbsp;{
+sm = a. sm;
+t[0][0]&nbsp;= a. t[0][0];
+t[0][1]&nbsp;= a. t[0][1];
+t[1][0]&nbsp;= a. t[1][0];
+t[1][1]&nbsp;= a. t[1][1];
+}
+};
+const int maxn = 100009;
+int n, m, cr, a[maxn], sz[maxn], ls[maxn], rs[maxn], pt[maxn], vl[maxn];
+bool flip[maxn], rev[maxn];
+dat d[maxn];
+dat sgd(int v)&nbsp;{
+dat r;
+r. sm = v;" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/oi/lofterimport_087/" /><meta property="article:section" content="oi" />
+<meta property="article:published_time" content="2014-11-18T18:50:06+00:00" />
+<meta property="article:modified_time" content="2014-11-18T18:50:06+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BZOJ2209 [Jsoi2011]括号序列"/>
+<meta name="twitter:description" content="好恶心的数据结构题。
+考虑单个询问。把(视作1，把)视作-1，设minprefix为最小前缀和，设cp=(minprefix&#43;1)/2，那么答案为(sum/2&#43;cp*2)，使劲想想想得出来。
+所以就是用个splay或者smt来维护一下一段的最小前缀和以及总和。因为有两种操作所以写起来比较麻烦。要注意不要把操作看反了，还要注意标记的优先级和更新的问题。
+恶心了一下午。
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+struct dat {
+int sm, t[2][2];
+inline void operator =(const dat&amp; a)&nbsp;{
+sm = a. sm;
+t[0][0]&nbsp;= a. t[0][0];
+t[0][1]&nbsp;= a. t[0][1];
+t[1][0]&nbsp;= a. t[1][0];
+t[1][1]&nbsp;= a. t[1][1];
+}
+};
+const int maxn = 100009;
+int n, m, cr, a[maxn], sz[maxn], ls[maxn], rs[maxn], pt[maxn], vl[maxn];
+bool flip[maxn], rev[maxn];
+dat d[maxn];
+dat sgd(int v)&nbsp;{
+dat r;
+r. sm = v;"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Ois",
+      "item": "/oi/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "BZOJ2209 [Jsoi2011]括号序列",
+      "item": "/oi/lofterimport_087/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "BZOJ2209 [Jsoi2011]括号序列",
+  "name": "BZOJ2209 [Jsoi2011]括号序列",
+  "description": "好恶心的数据结构题。\n考虑单个询问。把(视作1，把)视作-1，设minprefix为最小前缀和，设cp=(minprefix+1)/2，那么答案为(sum/2+cp*2)，使劲想想想得出来。\n所以就是用个splay或者smt来维护一下一段的最小前缀和以及总和。因为有两种操作所以写起来比较麻烦。要注意不要把操作看反了，还要注意标记的优先级和更新的问题。\n恶心了一下午。\n#include \u0026lt;cstdio\u0026gt;\n#include \u0026lt;cstring\u0026gt;\n#include \u0026lt;algorithm\u0026gt;\nusing namespace std;\nstruct dat {\nint sm, t[2][2];\ninline void operator =(const dat\u0026amp; a)\u0026nbsp;{\nsm = a. sm;\nt[0][0]\u0026nbsp;= a. t[0][0];\nt[0][1]\u0026nbsp;= a. t[0][1];\nt[1][0]\u0026nbsp;= a. t[1][0];\nt[1][1]\u0026nbsp;= a. t[1][1];\n}\n};\nconst int maxn = 100009;\nint n, m, cr, a[maxn], sz[maxn], ls[maxn], rs[maxn], pt[maxn], vl[maxn];\nbool flip[maxn], rev[maxn];\ndat d[maxn];\ndat sgd(int v)\u0026nbsp;{\ndat r;\nr. sm = v;",
+  "keywords": [
+    "bzoj", "data\\xa0structure", "oi"
+  ],
+  "articleBody": "好恶心的数据结构题。\n考虑单个询问。把(视作1，把)视作-1，设minprefix为最小前缀和，设cp=(minprefix+1)/2，那么答案为(sum/2+cp*2)，使劲想想想得出来。\n所以就是用个splay或者smt来维护一下一段的最小前缀和以及总和。因为有两种操作所以写起来比较麻烦。要注意不要把操作看反了，还要注意标记的优先级和更新的问题。\n恶心了一下午。\n#include #include #include using namespace std;\nstruct dat {\nint sm, t[2][2];\ninline void operator =(const dat\u0026 a) {\nsm = a. sm;\nt[0][0] = a. t[0][0];\nt[0][1] = a. t[0][1];\nt[1][0] = a. t[1][0];\nt[1][1] = a. t[1][1];\n}\n};\nconst int maxn = 100009;\nint n, m, cr, a[maxn], sz[maxn], ls[maxn], rs[maxn], pt[maxn], vl[maxn];\nbool flip[maxn], rev[maxn];\ndat d[maxn];\ndat sgd(int v) {\ndat r;\nr. sm = v;\nr. t[0][0] = min(v, 0);\nr. t[1][0] = r. t[0][0];\nr. t[0][1] = min(-v, 0);\nr. t[1][1] = r. t[0][1];\nreturn r;\n}\ndat mgd(const dat\u0026 a, const dat\u0026 b) {\ndat r;\nr. sm = a. sm + b. sm;\nr. t[0][0] = min(a. t[0][0], a. sm + b. t[0][0]);\nr. t[1][0] = min(b. t[1][0], b. sm + a. t[1][0]);\nr. t[0][1] = min(a. t[0][1], -a. sm + b. t[0][1]);\nr. t[1][1] = min(b. t[1][1], -b. sm + a. t[1][1]);\nreturn r;\n}\ninline void fix(int p) {\nif (flip[p]) {\nswap(ls[p], rs[p]);\nswap(d[p]. t[0][0], d[p]. t[1][0]);\nswap(d[p]. t[0][1], d[p]. t[1][1]);\nif (ls[p])\nflip[ls[p]] ^= 1;\nif (rs[p])\nflip[rs[p]] ^= 1;\nflip[p] = 0;\n}\n}\ninline void reverse(dat\u0026 r) {\nswap(r. t[0][0], r. t[0][1]);\nswap(r. t[1][0], r. t[1][1]);\nr. sm = -r. sm;\n}\ninline void pushDown(int p) {\nif (rev[p]) {\nif (ls[p]) {\nrev[ls[p]] ^= 1;\nreverse(d[ls[p]]);\n}\nif (rs[p]) {\nrev[rs[p]] ^= 1;\nreverse(d[rs[p]]);\n}\nvl[p] = -vl[p];\nrev[p] = 0;\n}\n}\ninline void update(int p) {\nsz[p] = sz[ls[p]] + sz[rs[p]] + 1;\nd[p] = sgd(rev[p] ? -vl[p] : vl[p]);\nif (ls[p]) {\nfix(ls[p]);\nd[p] = mgd(d[ls[p]], d[p]);\n}\nif (rs[p]) {\nfix(rs[p]);\nd[p] = mgd(d[p], d[rs[p]]);\n}\nif (rev[p])\nreverse(d[p]);\n}\ninline void lRot(int q) {\nint p = pt[q], a = pt[p];\nif (rs[q])\npt[rs[q]] = p;\nls[p] = rs[q];\nrs[q] = p;\npt[q] = a;\npt[p] = q;\nif (a) {\nif (p == ls[a])\nls[a] = q;\nelse\nrs[a] = q;\n}\nupdate(p);\nupdate(q);\n}\ninline void rRot(int q) {\nint p = pt[q], a = pt[p];\nif (ls[q])\npt[ls[q]] = p;\nrs[p] = ls[q];\nls[q] = p;\npt[q] = a;\npt[p] = q;\nif (a) {\nif (p == ls[a])\nls[a] = q;\nelse\nrs[a] = q;\n}\nupdate(p);\nupdate(q);\n}\nvoid splay(int q) {\nstatic int stc[maxn];\nint tst = 1;\nstc[tst] = q;\nwhile (pt[stc[tst]]) {\nstc[tst + 1] = pt[stc[tst]];\n++ tst;\n}\nwhile (tst) {\nfix(stc[tst]);\npushDown(stc[tst]);\n-- tst;\n}\nwhile (pt[q]) {\nint p = pt[q], a = pt[p];\nif (!a || !pt[a]) {\nif (q == ls[p])\nlRot(q);\nelse\nrRot(q);\n}\nelse {\nif (p == ls[a]) {\nif (q == ls[p])\nlRot(p), lRot(q);\nelse\nrRot(q), lRot(q);\n}\nelse {\nif (q == ls[p])\nlRot(q), rRot(q);\nelse\nrRot(p), rRot(q);\n}\n}\n}\ncr = q;\n}\nint buildTree(int l, int r) {\nif (l \u003e r)\nreturn 0;\nint p = (l + r) \u003e\u003e 1;\nls[p] = buildTree(l, p - 1);\nif (ls[p])\npt[ls[p]] = p;\nrs[p] = buildTree(p + 1, r);\nif (rs[p])\npt[rs[p]] = p;\nsz[p] = sz[ls[p]] + sz[rs[p]] + 1;\nrev[p] = 0;\nflip[p] = 0;\nvl[p] = a[p];\nupdate(p);\nreturn p;\n}\nint kth(int p, int k) {\nwhile (p) {\nfix(p);\nif (sz[ls[p]] + 1 == k)\nbreak;\nelse if (sz[ls[p]] + 1 \u003e k)\np = ls[p];\nelse\nk -= sz[ls[p]] + 1, p = rs[p];\n}\nreturn p;\n}\nint getRange(int l, int r) {\nif (l == 1 \u0026\u0026 r == n)\nreturn cr;\nelse if (l == 1) {\nint p = kth(cr, r + 1);\nsplay(p);\nreturn ls[p];\n}\nelse if (r == n) {\nint p = kth(cr, l - 1);\nsplay(p);\nreturn rs[p];\n}\nelse {\nint p = kth(cr, l - 1), q = kth(cr, r + 1);\nsplay(p);\nsplay(q);\nreturn rs[p];\n}\n}\nint main() {\n#ifndef ONLINE_JUDGE\nfreopen(\"in.txt\", \"r\", stdin);\n#endif\nmemset(flip, 0, sizeof(flip));\nmemset(rev, 0, sizeof(rev));\nscanf(\"%d%d\", \u0026n, \u0026m);\nfor (int i = 1; i \u003c= n; ++ i) {\nint g;\ndo\ng = getchar();\nwhile (g != '(' \u0026\u0026 g != ')');\na[i] = (g == '(') ? 1 : -1;\n}\ncr = buildTree(1, n);\nwhile (m --) {\nint opt, l, r;\nscanf(\"%d%d%d\", \u0026opt, \u0026l, \u0026r);\nif (opt == 0) {\nint x = getRange(l, r);\nfix(x);\npushDown(x);\nupdate(x);\nprintf(\"%d\\n\", (d[x]. sm \u003e\u003e 1) + ((-d[x]. t[0][0] + 1) \u0026 ~1));\n}\nelse if (opt == 2) {\nint x = getRange(l, r);\nflip[x] ^= 1;\nsplay(x);\n}\nelse if (opt == 1) {\nint x = getRange(l, r);\nrev[x] ^= 1;\nreverse(d[x]);\nsplay(x);\n}\n}\n}\n",
+  "wordCount" : "636",
+  "inLanguage": "en",
+  "datePublished": "2014-11-18T18:50:06Z",
+  "dateModified": "2014-11-18T18:50:06Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/oi/lofterimport_087/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/oi/">Ois</a></div>
+    <h1 class="post-title">
+      BZOJ2209 [Jsoi2011]括号序列
+    </h1>
+    <div class="post-meta"><span title='2014-11-18 18:50:06 +0000 UTC'>November 18, 2014</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>好恶心的数据结构题。</p> 
+<p><br /></p> 
+<p>考虑单个询问。把(视作1，把)视作-1，设minprefix为最小前缀和，设cp=(minprefix+1)/2，那么答案为(sum/2+cp*2)，使劲想想想得出来。</p> 
+<p><br /></p> 
+<p>所以就是用个splay或者smt来维护一下一段的最小前缀和以及总和。因为有两种操作所以写起来比较麻烦。要注意不要把操作看反了，还要注意标记的优先级和更新的问题。</p> 
+<p><br /></p> 
+<p>恶心了一下午。</p> 
+<p><br /></p> 
+<p>#include &lt;cstdio&gt;</p> 
+<p>#include &lt;cstring&gt;</p> 
+<p>#include &lt;algorithm&gt;</p> 
+<p><br /></p> 
+<p>using namespace std;</p> 
+<p><br /></p> 
+<p>struct dat {</p> 
+<p>int sm, t[2][2];</p> 
+<p>inline void operator =(const dat&amp; a)&nbsp;{</p> 
+<p>sm = a. sm;</p> 
+<p>t[0][0]&nbsp;= a. t[0][0];</p> 
+<p>t[0][1]&nbsp;= a. t[0][1];</p> 
+<p>t[1][0]&nbsp;= a. t[1][0];</p> 
+<p>t[1][1]&nbsp;= a. t[1][1];</p> 
+<p>}</p> 
+<p>};</p> 
+<p><br /></p> 
+<p>const int maxn = 100009;</p> 
+<p><br /></p> 
+<p>int n, m, cr, a[maxn], sz[maxn], ls[maxn], rs[maxn], pt[maxn], vl[maxn];</p> 
+<p>bool flip[maxn], rev[maxn];</p> 
+<p>dat d[maxn];</p> 
+<p><br /></p> 
+<p>dat sgd(int v)&nbsp;{</p> 
+<p>dat r;</p> 
+<p>r. sm = v;</p> 
+<p>r. t[0][0]&nbsp;= min(v, 0);</p> 
+<p>r. t[1][0]&nbsp;= r. t[0][0];</p> 
+<p>r. t[0][1]&nbsp;= min(-v, 0);</p> 
+<p>r. t[1][1]&nbsp;= r. t[0][1];</p> 
+<p>return r;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>dat mgd(const dat&amp; a, const dat&amp; b)&nbsp;{</p> 
+<p>dat r;</p> 
+<p>r. sm = a. sm + b. sm;</p> 
+<p>r. t[0][0]&nbsp;= min(a. t[0][0], a. sm + b. t[0][0]);</p> 
+<p>r. t[1][0]&nbsp;= min(b. t[1][0], b. sm + a. t[1][0]);</p> 
+<p>r. t[0][1]&nbsp;= min(a. t[0][1],&nbsp;-a. sm + b. t[0][1]);</p> 
+<p>r. t[1][1]&nbsp;= min(b. t[1][1],&nbsp;-b. sm + a. t[1][1]);</p> 
+<p>return r;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>inline void fix(int p)&nbsp;{</p> 
+<p>if (flip[p])&nbsp;{</p> 
+<p>swap(ls[p], rs[p]);</p> 
+<p>swap(d[p]. t[0][0], d[p]. t[1][0]);</p> 
+<p>swap(d[p]. t[0][1], d[p]. t[1][1]);</p> 
+<p>if (ls[p])</p> 
+<p>flip[ls[p]]&nbsp;^= 1;</p> 
+<p>if (rs[p])</p> 
+<p>flip[rs[p]]&nbsp;^= 1;</p> 
+<p>flip[p]&nbsp;= 0;</p> 
+<p>}</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>inline void reverse(dat&amp; r)&nbsp;{</p> 
+<p>swap(r. t[0][0], r. t[0][1]);</p> 
+<p>swap(r. t[1][0], r. t[1][1]);</p> 
+<p>r. sm =&nbsp;-r. sm;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>inline void pushDown(int p)&nbsp;{</p> 
+<p>if (rev[p])&nbsp;{</p> 
+<p>if (ls[p])&nbsp;{</p> 
+<p>rev[ls[p]]&nbsp;^= 1;</p> 
+<p>reverse(d[ls[p]]);</p> 
+<p>}</p> 
+<p>if (rs[p])&nbsp;{</p> 
+<p>rev[rs[p]]&nbsp;^= 1;</p> 
+<p>reverse(d[rs[p]]);</p> 
+<p>}</p> 
+<p>vl[p]&nbsp;=&nbsp;-vl[p];</p> 
+<p>rev[p]&nbsp;= 0;</p> 
+<p>}</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>inline void update(int p)&nbsp;{</p> 
+<p>sz[p]&nbsp;= sz[ls[p]]&nbsp;+ sz[rs[p]]&nbsp;+ 1;</p> 
+<p>d[p]&nbsp;= sgd(rev[p]&nbsp;?&nbsp;-vl[p]&nbsp;: vl[p]);</p> 
+<p>if (ls[p])&nbsp;{</p> 
+<p>fix(ls[p]);</p> 
+<p>d[p]&nbsp;= mgd(d[ls[p]], d[p]);</p> 
+<p>}</p> 
+<p>if (rs[p])&nbsp;{</p> 
+<p>fix(rs[p]);</p> 
+<p>d[p]&nbsp;= mgd(d[p], d[rs[p]]);</p> 
+<p>}</p> 
+<p>if (rev[p])</p> 
+<p>reverse(d[p]);</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>inline void lRot(int q)&nbsp;{</p> 
+<p>int p = pt[q], a = pt[p];</p> 
+<p>if (rs[q])</p> 
+<p>pt[rs[q]]&nbsp;= p;</p> 
+<p>ls[p]&nbsp;= rs[q];</p> 
+<p>rs[q]&nbsp;= p;</p> 
+<p>pt[q]&nbsp;= a;</p> 
+<p>pt[p]&nbsp;= q;</p> 
+<p>if (a)&nbsp;{</p> 
+<p>if (p&nbsp;== ls[a])</p> 
+<p>ls[a]&nbsp;= q;</p> 
+<p>else</p> 
+<p>rs[a]&nbsp;= q;</p> 
+<p>}</p> 
+<p>update(p);</p> 
+<p>update(q);</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>inline void rRot(int q)&nbsp;{</p> 
+<p>int p = pt[q], a = pt[p];</p> 
+<p>if (ls[q])</p> 
+<p>pt[ls[q]]&nbsp;= p;</p> 
+<p>rs[p]&nbsp;= ls[q];</p> 
+<p>ls[q]&nbsp;= p;</p> 
+<p>pt[q]&nbsp;= a;</p> 
+<p>pt[p]&nbsp;= q;</p> 
+<p>if (a)&nbsp;{</p> 
+<p>if (p&nbsp;== ls[a])</p> 
+<p>ls[a]&nbsp;= q;</p> 
+<p>else</p> 
+<p>rs[a]&nbsp;= q;</p> 
+<p>}</p> 
+<p>update(p);</p> 
+<p>update(q);</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>void splay(int q)&nbsp;{</p> 
+<p>static int stc[maxn];</p> 
+<p>int tst = 1;</p> 
+<p>stc[tst]&nbsp;= q;</p> 
+<p>while (pt[stc[tst]])&nbsp;{</p> 
+<p>stc[tst + 1]&nbsp;= pt[stc[tst]];</p> 
+<p>++ tst;</p> 
+<p>}</p> 
+<p>while (tst)&nbsp;{</p> 
+<p>fix(stc[tst]);</p> 
+<p>pushDown(stc[tst]);</p> 
+<p>-- tst;</p> 
+<p>}</p> 
+<p>while (pt[q])&nbsp;{</p> 
+<p>int p = pt[q], a = pt[p];</p> 
+<p>if (!a&nbsp;||&nbsp;!pt[a])&nbsp;{</p> 
+<p>if (q&nbsp;== ls[p])</p> 
+<p>lRot(q);</p> 
+<p>else</p> 
+<p>rRot(q);</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>if (p&nbsp;== ls[a])&nbsp;{</p> 
+<p>if (q&nbsp;== ls[p])</p> 
+<p>lRot(p), lRot(q);</p> 
+<p>else</p> 
+<p>rRot(q), lRot(q);</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>if (q&nbsp;== ls[p])</p> 
+<p>lRot(q), rRot(q);</p> 
+<p>else</p> 
+<p>rRot(p), rRot(q);</p> 
+<p>}</p> 
+<p>}</p> 
+<p>}</p> 
+<p>cr = q;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int buildTree(int l, int r)&nbsp;{</p> 
+<p>if (l&nbsp;&gt; r)</p> 
+<p>return 0;</p> 
+<p>int p =&nbsp;(l&nbsp;+ r)&nbsp;&gt;&gt; 1;</p> 
+<p>ls[p]&nbsp;= buildTree(l, p - 1);</p> 
+<p>if (ls[p])</p> 
+<p>pt[ls[p]]&nbsp;= p;</p> 
+<p>rs[p]&nbsp;= buildTree(p + 1, r);</p> 
+<p>if (rs[p])</p> 
+<p>pt[rs[p]]&nbsp;= p;</p> 
+<p>sz[p]&nbsp;= sz[ls[p]]&nbsp;+ sz[rs[p]]&nbsp;+ 1;</p> 
+<p>rev[p]&nbsp;= 0;</p> 
+<p>flip[p]&nbsp;= 0;</p> 
+<p>vl[p]&nbsp;= a[p];</p> 
+<p>update(p);</p> 
+<p>return p;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int kth(int p, int k)&nbsp;{</p> 
+<p>while (p)&nbsp;{</p> 
+<p>fix(p);</p> 
+<p>if (sz[ls[p]]&nbsp;+ 1 == k)</p> 
+<p>break;</p> 
+<p>else if (sz[ls[p]]&nbsp;+ 1 &gt; k)</p> 
+<p>p = ls[p];</p> 
+<p>else</p> 
+<p>k -= sz[ls[p]]&nbsp;+ 1, p = rs[p];</p> 
+<p>}</p> 
+<p>return p;</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int getRange(int l, int r)&nbsp;{</p> 
+<p>if (l&nbsp;== 1 &amp;&amp; r == n)</p> 
+<p>return cr;</p> 
+<p>else if (l&nbsp;== 1)&nbsp;{</p> 
+<p>int p = kth(cr, r + 1);</p> 
+<p>splay(p);</p> 
+<p>return ls[p];</p> 
+<p>}</p> 
+<p>else if (r&nbsp;== n)&nbsp;{</p> 
+<p>int p = kth(cr, l - 1);</p> 
+<p>splay(p);</p> 
+<p>return rs[p];</p> 
+<p>}</p> 
+<p>else {</p> 
+<p>int p = kth(cr, l - 1), q = kth(cr, r + 1);</p> 
+<p>splay(p);</p> 
+<p>splay(q);</p> 
+<p>return rs[p];</p> 
+<p>}</p> 
+<p>}</p> 
+<p><br /></p> 
+<p>int main()&nbsp;{</p> 
+<p>#ifndef ONLINE_JUDGE</p> 
+<p>freopen(&quot;in.txt&quot;,&nbsp;&quot;r&quot;, stdin);</p> 
+<p>#endif</p> 
+<p><br /></p> 
+<p>memset(flip, 0, sizeof(flip));</p> 
+<p>memset(rev, 0, sizeof(rev));</p> 
+<p>scanf(&quot;%d%d&quot;,&nbsp;&amp;n,&nbsp;&amp;m);</p> 
+<p>for (int i = 1; i &lt;= n;&nbsp;++ i)&nbsp;{</p> 
+<p>int g;</p> 
+<p>do</p> 
+<p>g = getchar();</p> 
+<p>while (g&nbsp;!=&nbsp;'('&nbsp;&amp;&amp; g !=&nbsp;')');</p> 
+<p>a[i]&nbsp;=&nbsp;(g ==&nbsp;'(')&nbsp;? 1 :&nbsp;-1;</p> 
+<p>}</p> 
+<p>cr = buildTree(1, n);</p> 
+<p>while (m&nbsp;--)&nbsp;{</p> 
+<p>int opt, l, r;</p> 
+<p>scanf(&quot;%d%d%d&quot;,&nbsp;&amp;opt,&nbsp;&amp;l,&nbsp;&amp;r);</p> 
+<p>if (opt&nbsp;== 0)&nbsp;{</p> 
+<p>int x = getRange(l, r);</p> 
+<p>fix(x);</p> 
+<p>pushDown(x);</p> 
+<p>update(x);</p> 
+<p>printf(&quot;%d\n&quot;,&nbsp;(d[x]. sm &gt;&gt; 1)&nbsp;+&nbsp;((-d[x]. t[0][0]&nbsp;+ 1)&nbsp;&amp;&nbsp;~1));</p> 
+<p>}</p> 
+<p>else if (opt&nbsp;== 2)&nbsp;{</p> 
+<p>int x = getRange(l, r);</p> 
+<p>flip[x]&nbsp;^= 1;</p> 
+<p>splay(x);</p> 
+<p>}</p> 
+<p>else if (opt&nbsp;== 1)&nbsp;{</p> 
+<p>int x = getRange(l, r);</p> 
+<p>rev[x]&nbsp;^= 1;</p> 
+<p>reverse(d[x]);</p> 
+<p>splay(x);</p> 
+<p>}</p> 
+<p>}</p> 
+<p>}</p> 
+<p><br /></p>
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/bzoj/">bzoj</a></li>
+      <li><a href="/tags/data%5Cxa0structure/">data\xa0structure</a></li>
+      <li><a href="/tags/oi/">oi</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="/oi/lofterimport_086/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>11月下旬计划</span>
+  </a>
+  <a class="next" href="/oi/lofterimport_088/">
+    <span class="title">Next »</span>
+    <br>
+    <span>BZOJ3236 作业</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

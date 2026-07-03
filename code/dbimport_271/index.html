@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>pineapple.vim | The Site of laekov</title>
+<meta name="keywords" content="code">
+<meta name="description" content="&quot; local syntax file - set colors on a per-machine basis: &quot; vim: tw=0 ts=4 sw=4 &quot; Vim color file &quot; Maintainer:	laekov laekov@163.com &quot; Last Change:	2015 Feb &quot; hi clear set background=dark syntax reset let g:colors_name=&lsquo;pineapple&rsquo; if has(&lsquo;gui&rsquo;) hi Normal guibg=#000000 guifg=white hi SpecialKey term=bold ctermfg=4 guifg=Blue hi Directory term=bold ctermfg=4 guifg=Blue hi ErrorMsg term=standout cterm=bold ctermfg=7 ctermbg=1 gui=bold guifg=White guibg=Red hi IncSearch term=reverse cterm=reverse gui=reverse hi Search term=reverse guibg=Blue guifg=White hi MoreMsg term=bold ctermfg=2 gui=bold guifg=White hi ModeMsg term=bold cterm=bold gui=bold hi LineNr term=underline ctermfg=3 guifg=Pink hi Question term=standout ctermfg=2 gui=bold guifg=White hi StatusLine term=bold,reverse cterm=bold,reverse gui=bold guifg=White guibg=Grey35 hi StatusLineNC term=reverse cterm=reverse gui=bold guifg=Grey10 guibg=Gray85 hi VertSplit guibg=Pink guifg=Black hi Title term=bold ctermfg=5 gui=bold guifg=DeepPink3 hi Visual term=reverse cterm=reverse gui=reverse guifg=Grey80 guibg=fg hi VisualNOS term=bold,underline cterm=bold,underline gui=bold,underline hi WarningMsg term=standout ctermfg=1 gui=bold guifg=Red hi WildMenu term=standout ctermfg=0 ctermbg=3 guifg=Black guibg=Yellow hi Folded term=standout ctermfg=4 ctermbg=7 guifg=Black guibg=#e3c1a5 hi FoldColumn term=standout ctermfg=4 ctermbg=7 guifg=DarkBlue guibg=Gray80 hi DiffAdd term=bold ctermbg=4 guibg=White hi DiffChange term=bold ctermbg=5 guibg=#edb5cd hi DiffDelete term=bold cterm=bold ctermfg=4 ctermbg=6 gui=bold guifg=LightBlue guibg=#f6e8d0 hi DiffText term=reverse cterm=bold ctermbg=1 gui=bold guibg=#ff8060 hi Cursor guifg=black guibg=white hi lCursor guifg=bg guibg=fg hi NonText guifg=green guibg=#1a1a1a &quot; Colors for syntax highlighting hi Comment term=bold ctermfg=4 guifg=Cyan hi Constant term=underline ctermfg=1 guifg=Yellow hi Special term=bold ctermfg=5 guifg=#ff9c3a hi Identifier term=underline ctermfg=6 guifg=#9999ff hi Statement term=bold ctermfg=3 gui=bold guifg=#09f93f hi PreProc term=underline ctermfg=5 guifg=#888888 hi Type term=underline ctermfg=2 gui=bold guifg=#598ff9 hi Ignore cterm=bold ctermfg=7 guifg=bg hi Error term=reverse cterm=bold ctermfg=7 ctermbg=1 gui=bold guifg=White guibg=Red hi Todo term=standout ctermfg=0 ctermbg=3 guifg=Blue guibg=Yellow else hi Normal ctermfg=white ctermbg=0 hi ErrorMsg cterm=standout cterm=bold ctermfg=7 ctermbg=1 hi IncSearch cterm=reverse ctermbg=1 ctermfg=7 hi Search cterm=reverse ctermbg=7 ctermfg=blue hi Visual cterm=reverse if $TERM == &lsquo;xterm-256color&rsquo; &quot;	hi NonText cterm=bold ctermbg=232 ctermfg=2 &quot;	hi Type cterm=bold ctermfg=4 &quot;	hi Special cterm=bold ctermfg=172 hi NonText cterm=bold ctermbg=234 ctermfg=2 hi Type cterm=bold ctermfg=4 hi Special cterm=bold ctermfg=1 else hi NonText cterm=bold ctermbg=8 ctermfg=2 hi Type cterm=bold ctermfg=32 hi Special cterm=bold ctermfg=1 endif hi LineNr cterm=bold ctermfg=5 hi ModeMsg cterm=bold hi StatusLine cterm=bold ctermfg=7 ctermbg=8 hi StatusLineNC ctermfg=7 ctermbg=8 hi VertSplit ctermfg=0 ctermbg=5 hi Folded cterm=standout ctermfg=3 ctermbg=4 hi FoldedColumn cterm=standout ctermfg=3 ctermbg=4 &ldquo;For syntax hilighter hi Comment cterm=bold ctermfg=6 hi Constant ctermfg=yellow hi Indentifier cterm=bold ctermfg=2 hi Statement cterm=bold ctermfg=2 hi PreProc cterm=bold ctermfg=darkgrey hi Ignore ctermfg=7 hi Error term=reverse cterm=bold ctermfg=7 ctermbg=1 hi Todo term=standout ctermbg=6 ctermfg=0 endif">
+<meta name="author" content="laekov">
+<link rel="canonical" href="/code/dbimport_271/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css" integrity="sha256-DE/TclFxNm8zUVWs3m&#43;zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as="style">
+<link rel="icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="pineapple.vim" />
+<meta property="og:description" content="&quot; local syntax file - set colors on a per-machine basis: &quot; vim: tw=0 ts=4 sw=4 &quot; Vim color file &quot; Maintainer:	laekov laekov@163.com &quot; Last Change:	2015 Feb &quot; hi clear set background=dark syntax reset let g:colors_name=&lsquo;pineapple&rsquo; if has(&lsquo;gui&rsquo;) hi Normal guibg=#000000 guifg=white hi SpecialKey term=bold ctermfg=4 guifg=Blue hi Directory term=bold ctermfg=4 guifg=Blue hi ErrorMsg term=standout cterm=bold ctermfg=7 ctermbg=1 gui=bold guifg=White guibg=Red hi IncSearch term=reverse cterm=reverse gui=reverse hi Search term=reverse guibg=Blue guifg=White hi MoreMsg term=bold ctermfg=2 gui=bold guifg=White hi ModeMsg term=bold cterm=bold gui=bold hi LineNr term=underline ctermfg=3 guifg=Pink hi Question term=standout ctermfg=2 gui=bold guifg=White hi StatusLine term=bold,reverse cterm=bold,reverse gui=bold guifg=White guibg=Grey35 hi StatusLineNC term=reverse cterm=reverse gui=bold guifg=Grey10 guibg=Gray85 hi VertSplit guibg=Pink guifg=Black hi Title term=bold ctermfg=5 gui=bold guifg=DeepPink3 hi Visual term=reverse cterm=reverse gui=reverse guifg=Grey80 guibg=fg hi VisualNOS term=bold,underline cterm=bold,underline gui=bold,underline hi WarningMsg term=standout ctermfg=1 gui=bold guifg=Red hi WildMenu term=standout ctermfg=0 ctermbg=3 guifg=Black guibg=Yellow hi Folded term=standout ctermfg=4 ctermbg=7 guifg=Black guibg=#e3c1a5 hi FoldColumn term=standout ctermfg=4 ctermbg=7 guifg=DarkBlue guibg=Gray80 hi DiffAdd term=bold ctermbg=4 guibg=White hi DiffChange term=bold ctermbg=5 guibg=#edb5cd hi DiffDelete term=bold cterm=bold ctermfg=4 ctermbg=6 gui=bold guifg=LightBlue guibg=#f6e8d0 hi DiffText term=reverse cterm=bold ctermbg=1 gui=bold guibg=#ff8060 hi Cursor guifg=black guibg=white hi lCursor guifg=bg guibg=fg hi NonText guifg=green guibg=#1a1a1a &quot; Colors for syntax highlighting hi Comment term=bold ctermfg=4 guifg=Cyan hi Constant term=underline ctermfg=1 guifg=Yellow hi Special term=bold ctermfg=5 guifg=#ff9c3a hi Identifier term=underline ctermfg=6 guifg=#9999ff hi Statement term=bold ctermfg=3 gui=bold guifg=#09f93f hi PreProc term=underline ctermfg=5 guifg=#888888 hi Type term=underline ctermfg=2 gui=bold guifg=#598ff9 hi Ignore cterm=bold ctermfg=7 guifg=bg hi Error term=reverse cterm=bold ctermfg=7 ctermbg=1 gui=bold guifg=White guibg=Red hi Todo term=standout ctermfg=0 ctermbg=3 guifg=Blue guibg=Yellow else hi Normal ctermfg=white ctermbg=0 hi ErrorMsg cterm=standout cterm=bold ctermfg=7 ctermbg=1 hi IncSearch cterm=reverse ctermbg=1 ctermfg=7 hi Search cterm=reverse ctermbg=7 ctermfg=blue hi Visual cterm=reverse if $TERM == &lsquo;xterm-256color&rsquo; &quot;	hi NonText cterm=bold ctermbg=232 ctermfg=2 &quot;	hi Type cterm=bold ctermfg=4 &quot;	hi Special cterm=bold ctermfg=172 hi NonText cterm=bold ctermbg=234 ctermfg=2 hi Type cterm=bold ctermfg=4 hi Special cterm=bold ctermfg=1 else hi NonText cterm=bold ctermbg=8 ctermfg=2 hi Type cterm=bold ctermfg=32 hi Special cterm=bold ctermfg=1 endif hi LineNr cterm=bold ctermfg=5 hi ModeMsg cterm=bold hi StatusLine cterm=bold ctermfg=7 ctermbg=8 hi StatusLineNC ctermfg=7 ctermbg=8 hi VertSplit ctermfg=0 ctermbg=5 hi Folded cterm=standout ctermfg=3 ctermbg=4 hi FoldedColumn cterm=standout ctermfg=3 ctermbg=4 &ldquo;For syntax hilighter hi Comment cterm=bold ctermfg=6 hi Constant ctermfg=yellow hi Indentifier cterm=bold ctermfg=2 hi Statement cterm=bold ctermfg=2 hi PreProc cterm=bold ctermfg=darkgrey hi Ignore ctermfg=7 hi Error term=reverse cterm=bold ctermfg=7 ctermbg=1 hi Todo term=standout ctermbg=6 ctermfg=0 endif" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/code/dbimport_271/" /><meta property="article:section" content="code" />
+<meta property="article:published_time" content="2015-03-17T07:49:05+00:00" />
+<meta property="article:modified_time" content="2015-03-17T07:49:05+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="pineapple.vim"/>
+<meta name="twitter:description" content="&quot; local syntax file - set colors on a per-machine basis: &quot; vim: tw=0 ts=4 sw=4 &quot; Vim color file &quot; Maintainer:	laekov laekov@163.com &quot; Last Change:	2015 Feb &quot; hi clear set background=dark syntax reset let g:colors_name=&lsquo;pineapple&rsquo; if has(&lsquo;gui&rsquo;) hi Normal guibg=#000000 guifg=white hi SpecialKey term=bold ctermfg=4 guifg=Blue hi Directory term=bold ctermfg=4 guifg=Blue hi ErrorMsg term=standout cterm=bold ctermfg=7 ctermbg=1 gui=bold guifg=White guibg=Red hi IncSearch term=reverse cterm=reverse gui=reverse hi Search term=reverse guibg=Blue guifg=White hi MoreMsg term=bold ctermfg=2 gui=bold guifg=White hi ModeMsg term=bold cterm=bold gui=bold hi LineNr term=underline ctermfg=3 guifg=Pink hi Question term=standout ctermfg=2 gui=bold guifg=White hi StatusLine term=bold,reverse cterm=bold,reverse gui=bold guifg=White guibg=Grey35 hi StatusLineNC term=reverse cterm=reverse gui=bold guifg=Grey10 guibg=Gray85 hi VertSplit guibg=Pink guifg=Black hi Title term=bold ctermfg=5 gui=bold guifg=DeepPink3 hi Visual term=reverse cterm=reverse gui=reverse guifg=Grey80 guibg=fg hi VisualNOS term=bold,underline cterm=bold,underline gui=bold,underline hi WarningMsg term=standout ctermfg=1 gui=bold guifg=Red hi WildMenu term=standout ctermfg=0 ctermbg=3 guifg=Black guibg=Yellow hi Folded term=standout ctermfg=4 ctermbg=7 guifg=Black guibg=#e3c1a5 hi FoldColumn term=standout ctermfg=4 ctermbg=7 guifg=DarkBlue guibg=Gray80 hi DiffAdd term=bold ctermbg=4 guibg=White hi DiffChange term=bold ctermbg=5 guibg=#edb5cd hi DiffDelete term=bold cterm=bold ctermfg=4 ctermbg=6 gui=bold guifg=LightBlue guibg=#f6e8d0 hi DiffText term=reverse cterm=bold ctermbg=1 gui=bold guibg=#ff8060 hi Cursor guifg=black guibg=white hi lCursor guifg=bg guibg=fg hi NonText guifg=green guibg=#1a1a1a &quot; Colors for syntax highlighting hi Comment term=bold ctermfg=4 guifg=Cyan hi Constant term=underline ctermfg=1 guifg=Yellow hi Special term=bold ctermfg=5 guifg=#ff9c3a hi Identifier term=underline ctermfg=6 guifg=#9999ff hi Statement term=bold ctermfg=3 gui=bold guifg=#09f93f hi PreProc term=underline ctermfg=5 guifg=#888888 hi Type term=underline ctermfg=2 gui=bold guifg=#598ff9 hi Ignore cterm=bold ctermfg=7 guifg=bg hi Error term=reverse cterm=bold ctermfg=7 ctermbg=1 gui=bold guifg=White guibg=Red hi Todo term=standout ctermfg=0 ctermbg=3 guifg=Blue guibg=Yellow else hi Normal ctermfg=white ctermbg=0 hi ErrorMsg cterm=standout cterm=bold ctermfg=7 ctermbg=1 hi IncSearch cterm=reverse ctermbg=1 ctermfg=7 hi Search cterm=reverse ctermbg=7 ctermfg=blue hi Visual cterm=reverse if $TERM == &lsquo;xterm-256color&rsquo; &quot;	hi NonText cterm=bold ctermbg=232 ctermfg=2 &quot;	hi Type cterm=bold ctermfg=4 &quot;	hi Special cterm=bold ctermfg=172 hi NonText cterm=bold ctermbg=234 ctermfg=2 hi Type cterm=bold ctermfg=4 hi Special cterm=bold ctermfg=1 else hi NonText cterm=bold ctermbg=8 ctermfg=2 hi Type cterm=bold ctermfg=32 hi Special cterm=bold ctermfg=1 endif hi LineNr cterm=bold ctermfg=5 hi ModeMsg cterm=bold hi StatusLine cterm=bold ctermfg=7 ctermbg=8 hi StatusLineNC ctermfg=7 ctermbg=8 hi VertSplit ctermfg=0 ctermbg=5 hi Folded cterm=standout ctermfg=3 ctermbg=4 hi FoldedColumn cterm=standout ctermfg=3 ctermbg=4 &ldquo;For syntax hilighter hi Comment cterm=bold ctermfg=6 hi Constant ctermfg=yellow hi Indentifier cterm=bold ctermfg=2 hi Statement cterm=bold ctermfg=2 hi PreProc cterm=bold ctermfg=darkgrey hi Ignore ctermfg=7 hi Error term=reverse cterm=bold ctermfg=7 ctermbg=1 hi Todo term=standout ctermbg=6 ctermfg=0 endif"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Codes",
+      "item": "/code/"
+    }
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "pineapple.vim",
+      "item": "/code/dbimport_271/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "pineapple.vim",
+  "name": "pineapple.vim",
+  "description": "\u0026quot; local syntax file - set colors on a per-machine basis: \u0026quot; vim: tw=0 ts=4 sw=4 \u0026quot; Vim color file \u0026quot; Maintainer:\tlaekov laekov@163.com \u0026quot; Last Change:\t2015 Feb \u0026quot; hi clear set background=dark syntax reset let g:colors_name=\u0026lsquo;pineapple\u0026rsquo; if has(\u0026lsquo;gui\u0026rsquo;) hi Normal guibg=#000000 guifg=white hi SpecialKey term=bold ctermfg=4 guifg=Blue hi Directory term=bold ctermfg=4 guifg=Blue hi ErrorMsg term=standout cterm=bold ctermfg=7 ctermbg=1 gui=bold guifg=White guibg=Red hi IncSearch term=reverse cterm=reverse gui=reverse hi Search term=reverse guibg=Blue guifg=White hi MoreMsg term=bold ctermfg=2 gui=bold guifg=White hi ModeMsg term=bold cterm=bold gui=bold hi LineNr term=underline ctermfg=3 guifg=Pink hi Question term=standout ctermfg=2 gui=bold guifg=White hi StatusLine term=bold,reverse cterm=bold,reverse gui=bold guifg=White guibg=Grey35 hi StatusLineNC term=reverse cterm=reverse gui=bold guifg=Grey10 guibg=Gray85 hi VertSplit guibg=Pink guifg=Black hi Title term=bold ctermfg=5 gui=bold guifg=DeepPink3 hi Visual term=reverse cterm=reverse gui=reverse guifg=Grey80 guibg=fg hi VisualNOS term=bold,underline cterm=bold,underline gui=bold,underline hi WarningMsg term=standout ctermfg=1 gui=bold guifg=Red hi WildMenu term=standout ctermfg=0 ctermbg=3 guifg=Black guibg=Yellow hi Folded term=standout ctermfg=4 ctermbg=7 guifg=Black guibg=#e3c1a5 hi FoldColumn term=standout ctermfg=4 ctermbg=7 guifg=DarkBlue guibg=Gray80 hi DiffAdd term=bold ctermbg=4 guibg=White hi DiffChange term=bold ctermbg=5 guibg=#edb5cd hi DiffDelete term=bold cterm=bold ctermfg=4 ctermbg=6 gui=bold guifg=LightBlue guibg=#f6e8d0 hi DiffText term=reverse cterm=bold ctermbg=1 gui=bold guibg=#ff8060 hi Cursor guifg=black guibg=white hi lCursor guifg=bg guibg=fg hi NonText guifg=green guibg=#1a1a1a \u0026quot; Colors for syntax highlighting hi Comment term=bold ctermfg=4 guifg=Cyan hi Constant term=underline ctermfg=1 guifg=Yellow hi Special term=bold ctermfg=5 guifg=#ff9c3a hi Identifier term=underline ctermfg=6 guifg=#9999ff hi Statement term=bold ctermfg=3 gui=bold guifg=#09f93f hi PreProc term=underline ctermfg=5 guifg=#888888 hi Type term=underline ctermfg=2 gui=bold guifg=#598ff9 hi Ignore cterm=bold ctermfg=7 guifg=bg hi Error term=reverse cterm=bold ctermfg=7 ctermbg=1 gui=bold guifg=White guibg=Red hi Todo term=standout ctermfg=0 ctermbg=3 guifg=Blue guibg=Yellow else hi Normal ctermfg=white ctermbg=0 hi ErrorMsg cterm=standout cterm=bold ctermfg=7 ctermbg=1 hi IncSearch cterm=reverse ctermbg=1 ctermfg=7 hi Search cterm=reverse ctermbg=7 ctermfg=blue hi Visual cterm=reverse if $TERM == \u0026lsquo;xterm-256color\u0026rsquo; \u0026quot;\thi NonText cterm=bold ctermbg=232 ctermfg=2 \u0026quot;\thi Type cterm=bold ctermfg=4 \u0026quot;\thi Special cterm=bold ctermfg=172 hi NonText cterm=bold ctermbg=234 ctermfg=2 hi Type cterm=bold ctermfg=4 hi Special cterm=bold ctermfg=1 else hi NonText cterm=bold ctermbg=8 ctermfg=2 hi Type cterm=bold ctermfg=32 hi Special cterm=bold ctermfg=1 endif hi LineNr cterm=bold ctermfg=5 hi ModeMsg cterm=bold hi StatusLine cterm=bold ctermfg=7 ctermbg=8 hi StatusLineNC ctermfg=7 ctermbg=8 hi VertSplit ctermfg=0 ctermbg=5 hi Folded cterm=standout ctermfg=3 ctermbg=4 hi FoldedColumn cterm=standout ctermfg=3 ctermbg=4 \u0026ldquo;For syntax hilighter hi Comment cterm=bold ctermfg=6 hi Constant ctermfg=yellow hi Indentifier cterm=bold ctermfg=2 hi Statement cterm=bold ctermfg=2 hi PreProc cterm=bold ctermfg=darkgrey hi Ignore ctermfg=7 hi Error term=reverse cterm=bold ctermfg=7 ctermbg=1 hi Todo term=standout ctermbg=6 ctermfg=0 endif",
+  "keywords": [
+    "code"
+  ],
+  "articleBody": "\" local syntax file - set colors on a per-machine basis: \" vim: tw=0 ts=4 sw=4 \" Vim color file \" Maintainer:\tlaekov laekov@163.com \" Last Change:\t2015 Feb \" hi clear set background=dark syntax reset let g:colors_name=‘pineapple’ if has(‘gui’) hi Normal guibg=#000000 guifg=white hi SpecialKey term=bold ctermfg=4 guifg=Blue hi Directory term=bold ctermfg=4 guifg=Blue hi ErrorMsg term=standout cterm=bold ctermfg=7 ctermbg=1 gui=bold guifg=White guibg=Red hi IncSearch term=reverse cterm=reverse gui=reverse hi Search term=reverse guibg=Blue guifg=White hi MoreMsg term=bold ctermfg=2 gui=bold guifg=White hi ModeMsg term=bold cterm=bold gui=bold hi LineNr term=underline ctermfg=3 guifg=Pink hi Question term=standout ctermfg=2 gui=bold guifg=White hi StatusLine term=bold,reverse cterm=bold,reverse gui=bold guifg=White guibg=Grey35 hi StatusLineNC term=reverse cterm=reverse gui=bold guifg=Grey10 guibg=Gray85 hi VertSplit guibg=Pink guifg=Black hi Title term=bold ctermfg=5 gui=bold guifg=DeepPink3 hi Visual term=reverse cterm=reverse gui=reverse guifg=Grey80 guibg=fg hi VisualNOS term=bold,underline cterm=bold,underline gui=bold,underline hi WarningMsg term=standout ctermfg=1 gui=bold guifg=Red hi WildMenu term=standout ctermfg=0 ctermbg=3 guifg=Black guibg=Yellow hi Folded term=standout ctermfg=4 ctermbg=7 guifg=Black guibg=#e3c1a5 hi FoldColumn term=standout ctermfg=4 ctermbg=7 guifg=DarkBlue guibg=Gray80 hi DiffAdd term=bold ctermbg=4 guibg=White hi DiffChange term=bold ctermbg=5 guibg=#edb5cd hi DiffDelete term=bold cterm=bold ctermfg=4 ctermbg=6 gui=bold guifg=LightBlue guibg=#f6e8d0 hi DiffText term=reverse cterm=bold ctermbg=1 gui=bold guibg=#ff8060 hi Cursor guifg=black guibg=white hi lCursor guifg=bg guibg=fg hi NonText guifg=green guibg=#1a1a1a \" Colors for syntax highlighting hi Comment term=bold ctermfg=4 guifg=Cyan hi Constant term=underline ctermfg=1 guifg=Yellow hi Special term=bold ctermfg=5 guifg=#ff9c3a hi Identifier term=underline ctermfg=6 guifg=#9999ff hi Statement term=bold ctermfg=3 gui=bold guifg=#09f93f hi PreProc term=underline ctermfg=5 guifg=#888888 hi Type term=underline ctermfg=2 gui=bold guifg=#598ff9 hi Ignore cterm=bold ctermfg=7 guifg=bg hi Error term=reverse cterm=bold ctermfg=7 ctermbg=1 gui=bold guifg=White guibg=Red hi Todo term=standout ctermfg=0 ctermbg=3 guifg=Blue guibg=Yellow else hi Normal ctermfg=white ctermbg=0 hi ErrorMsg cterm=standout cterm=bold ctermfg=7 ctermbg=1 hi IncSearch cterm=reverse ctermbg=1 ctermfg=7 hi Search cterm=reverse ctermbg=7 ctermfg=blue hi Visual cterm=reverse if $TERM == ‘xterm-256color’ \"\thi NonText cterm=bold ctermbg=232 ctermfg=2 \"\thi Type cterm=bold ctermfg=4 \"\thi Special cterm=bold ctermfg=172 hi NonText cterm=bold ctermbg=234 ctermfg=2 hi Type cterm=bold ctermfg=4 hi Special cterm=bold ctermfg=1 else hi NonText cterm=bold ctermbg=8 ctermfg=2 hi Type cterm=bold ctermfg=32 hi Special cterm=bold ctermfg=1 endif hi LineNr cterm=bold ctermfg=5 hi ModeMsg cterm=bold hi StatusLine cterm=bold ctermfg=7 ctermbg=8 hi StatusLineNC ctermfg=7 ctermbg=8 hi VertSplit ctermfg=0 ctermbg=5 hi Folded cterm=standout ctermfg=3 ctermbg=4 hi FoldedColumn cterm=standout ctermfg=3 ctermbg=4 “For syntax hilighter hi Comment cterm=bold ctermfg=6 hi Constant ctermfg=yellow hi Indentifier cterm=bold ctermfg=2 hi Statement cterm=bold ctermfg=2 hi PreProc cterm=bold ctermfg=darkgrey hi Ignore ctermfg=7 hi Error term=reverse cterm=bold ctermfg=7 ctermbg=1 hi Todo term=standout ctermbg=6 ctermfg=0 endif\n",
+  "wordCount" : "398",
+  "inLanguage": "en",
+  "datePublished": "2015-03-17T07:49:05Z",
+  "dateModified": "2015-03-17T07:49:05Z",
+  "author":{
+    "@type": "Person",
+    "name": "laekov"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/code/dbimport_271/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "The Site of laekov",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="/" accesskey="h" title="The Site of laekov (Alt + H)">The Site of laekov</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="/">Home</a>&nbsp;»&nbsp;<a href="/code/">Codes</a></div>
+    <h1 class="post-title">
+      pineapple.vim
+    </h1>
+    <div class="post-meta"><span title='2015-03-17 07:49:05 +0000 UTC'>March 17, 2015</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;laekov
+
+</div>
+  </header> 
+
+  <div class="post-content"><p>&quot; local syntax file - set colors on a per-machine basis:
+&quot; vim: tw=0 ts=4 sw=4
+&quot; Vim color file
+&quot; Maintainer:	laekov <a href="mailto:laekov@163.com">laekov@163.com</a>
+&quot; Last Change:	2015 Feb
+&quot;
+hi clear
+set background=dark
+syntax reset
+let g:colors_name=&lsquo;pineapple&rsquo;
+if has(&lsquo;gui&rsquo;)
+hi Normal guibg=#000000 guifg=white
+hi SpecialKey term=bold ctermfg=4 guifg=Blue
+hi Directory term=bold ctermfg=4 guifg=Blue
+hi ErrorMsg term=standout cterm=bold ctermfg=7 ctermbg=1 gui=bold guifg=White guibg=Red
+hi IncSearch term=reverse cterm=reverse gui=reverse
+hi Search term=reverse guibg=Blue guifg=White
+hi MoreMsg term=bold ctermfg=2 gui=bold guifg=White
+hi ModeMsg term=bold cterm=bold gui=bold
+hi LineNr term=underline ctermfg=3 guifg=Pink
+hi Question term=standout ctermfg=2 gui=bold guifg=White
+hi StatusLine term=bold,reverse cterm=bold,reverse gui=bold guifg=White guibg=Grey35
+hi StatusLineNC term=reverse cterm=reverse gui=bold guifg=Grey10 guibg=Gray85
+hi VertSplit guibg=Pink guifg=Black
+hi Title term=bold ctermfg=5 gui=bold guifg=DeepPink3
+hi Visual term=reverse cterm=reverse gui=reverse guifg=Grey80 guibg=fg
+hi VisualNOS term=bold,underline cterm=bold,underline gui=bold,underline
+hi WarningMsg term=standout ctermfg=1 gui=bold guifg=Red
+hi WildMenu term=standout ctermfg=0 ctermbg=3 guifg=Black guibg=Yellow
+hi Folded term=standout ctermfg=4 ctermbg=7 guifg=Black guibg=#e3c1a5
+hi FoldColumn term=standout ctermfg=4 ctermbg=7 guifg=DarkBlue guibg=Gray80
+hi DiffAdd term=bold ctermbg=4 guibg=White
+hi DiffChange term=bold ctermbg=5 guibg=#edb5cd
+hi DiffDelete term=bold cterm=bold ctermfg=4 ctermbg=6 gui=bold guifg=LightBlue guibg=#f6e8d0
+hi DiffText term=reverse cterm=bold ctermbg=1 gui=bold guibg=#ff8060
+hi Cursor guifg=black guibg=white
+hi lCursor guifg=bg guibg=fg
+hi NonText guifg=green guibg=#1a1a1a
+&quot; Colors for syntax highlighting
+hi Comment term=bold ctermfg=4 guifg=Cyan
+hi Constant term=underline ctermfg=1 guifg=Yellow
+hi Special term=bold ctermfg=5 guifg=#ff9c3a
+hi Identifier term=underline ctermfg=6 guifg=#9999ff
+hi Statement term=bold ctermfg=3 gui=bold guifg=#09f93f
+hi PreProc term=underline ctermfg=5 guifg=#888888
+hi Type term=underline ctermfg=2 gui=bold guifg=#598ff9
+hi Ignore cterm=bold ctermfg=7 guifg=bg
+hi Error term=reverse cterm=bold ctermfg=7 ctermbg=1 gui=bold guifg=White guibg=Red
+hi Todo term=standout ctermfg=0 ctermbg=3 guifg=Blue guibg=Yellow
+else
+hi Normal ctermfg=white ctermbg=0
+hi ErrorMsg cterm=standout cterm=bold ctermfg=7 ctermbg=1
+hi IncSearch cterm=reverse ctermbg=1 ctermfg=7
+hi Search cterm=reverse ctermbg=7 ctermfg=blue
+hi Visual cterm=reverse
+if $TERM == &lsquo;xterm-256color&rsquo;
+&quot;	hi NonText cterm=bold ctermbg=232 ctermfg=2
+&quot;	hi Type cterm=bold ctermfg=4
+&quot;	hi Special cterm=bold ctermfg=172
+hi NonText cterm=bold ctermbg=234 ctermfg=2
+hi Type cterm=bold ctermfg=4
+hi Special cterm=bold ctermfg=1
+else
+hi NonText cterm=bold ctermbg=8 ctermfg=2
+hi Type cterm=bold ctermfg=32
+hi Special cterm=bold ctermfg=1
+endif
+hi LineNr cterm=bold ctermfg=5
+hi ModeMsg cterm=bold
+hi StatusLine cterm=bold ctermfg=7 ctermbg=8
+hi StatusLineNC ctermfg=7 ctermbg=8
+hi VertSplit ctermfg=0 ctermbg=5
+hi Folded cterm=standout ctermfg=3 ctermbg=4
+hi FoldedColumn cterm=standout ctermfg=3 ctermbg=4
+&ldquo;For syntax hilighter
+hi Comment cterm=bold ctermfg=6
+hi Constant ctermfg=yellow
+hi Indentifier cterm=bold ctermfg=2
+hi Statement cterm=bold ctermfg=2
+hi PreProc cterm=bold ctermfg=darkgrey
+hi Ignore ctermfg=7
+hi Error term=reverse cterm=bold ctermfg=7 ctermbg=1
+hi Todo term=standout ctermbg=6 ctermfg=0
+endif</p>
+
+
+  </div>
+
+  <hr />
+  <h2>Comments</h2>
+  <div class="giscus"></div>
+  
+
+  
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="laekov/blog-comments"
+    data-repo-id="R_kgDOLie5Iw"
+    data-category="General"
+    data-category-id="DIC_kwDOLie5I84CeE65"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-input-position="top"
+    data-theme="preferred_color_scheme"
+    data-lang="en"
+    data-loading="lazy"
+    data-strict="1"
+    crossorigin="anonymous"
+    onload="document.body.dispatchEvent(new Event('giscus-load'))"
+    async
+  ></script>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="/tags/code/">code</a></li>
+    </ul>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>© laekov<br/><a href="http://beian.miit.gov.cn/">蜀ICP备15008072号</a><br/></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
