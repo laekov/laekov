@@ -6,7 +6,7 @@
     <description>Recent content in latex on The Site of laekov</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <copyright>&amp;copy; laekov&lt;br/&gt;[蜀ICP备15008072号](http://beian.miit.gov.cn/)&lt;br/&gt;</copyright>
+    <copyright>&amp;copy; laekov</copyright>
     <lastBuildDate>Tue, 15 Mar 2022 15:37:07 +0000</lastBuildDate><atom:link href="/tags/latex/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Pandoc 的 short author 字段缺失 fix</title>
